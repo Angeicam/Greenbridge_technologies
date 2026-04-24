@@ -1,0 +1,1637 @@
+<!DOCTYPE html> 
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenBridge Énergie</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --topbar-h:48px;
+      --header-h:72px;
+      --green-dark:#061f14;
+      --green-mid:#073217;
+      --green-mid-2:#0b4d26;
+      --accent:#7cb342;
+      --accent-2:#a8e6a1;
+      --bg:#0a4d2e;
+      --gold-base:#d4af37;
+      --gold-hover:#e6c95a;
+      --muted-text-color:#e6f7ea;
+      --muted-text-size:15px;
+      --electric-yellow:#ffd600;
+      --release-orange:#ff7a18;
+      --release-orange-2:#ffb347;
+    }
+
+    *{box-sizing:border-box}
+    html, body{
+      margin:0;
+      padding:0;
+      font-family:'Poppins',Arial,sans-serif;
+      background:var(--bg);
+      color:#fff;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+
+    .topbar{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height:var(--topbar-h);
+      background:var(--green-dark);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:0 5vw;
+      z-index:1500;
+      font-size:14px;
+    }
+    .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
+    .topbar a{color:#fff;transition:color .18s}
+    .topbar a:hover{color:var(--accent-2)}
+
+    header{
+      position:fixed;
+      top:var(--topbar-h);
+      left:0;
+      right:0;
+      height:var(--header-h);
+      background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 5vw;
+      z-index:1490;
+      box-shadow:0 4px 12px rgba(0,0,0,.25);
+    }
+
+    .logo-text{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .logo-text img{
+      height:56px;
+      display:block;
+      flex:0 0 auto;
+    }
+    .brand-stack{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:flex-start;
+      line-height:1;
+      text-align:left;
+      min-width:0;
+      margin:0;
+      padding:0;
+    }
+
+    .company-name{
+      font-size:34px;
+      font-weight:800;
+      letter-spacing:1px;
+      padding:0;
+      margin:0;
+      border-radius:8px;
+      color:#04462e;
+      -webkit-text-stroke:0.95px var(--gold-base);
+      text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      position:relative;
+      top:2px;
+      white-space:nowrap;
+      line-height:1;
+      text-align:left;
+      width:max-content;
+      display:block;
+    }
+    .company-tagline{
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:5px;
+      text-transform:uppercase;
+      color:#dfffe6;
+      padding:0;
+      margin:2px 0 0 0;
+      text-shadow:0 2px 6px rgba(0,0,0,0.45);
+      -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
+      white-space:nowrap;
+      line-height:1;
+      text-align:left;
+      width:max-content;
+      display:block;
+    }
+
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{
+      color:#fff;
+      font-size:15px;
+      font-weight:600;
+      padding:8px 10px;
+      border-radius:8px;
+      transition:all .18s;
+    }
+    nav a:hover{color:var(--accent-2)}
+    nav a.active{
+      color:var(--accent-2);
+      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+      border:1px solid rgba(212,175,55,0.12);
+      padding:10px 14px;
+      font-weight:800;
+      border-radius:10px;
+    }
+
+    .burger{
+      display:none;
+      width:44px;
+      height:44px;
+      border-radius:8px;
+      border:none;
+      background:transparent;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer
+    }
+    .burger .icon{display:block;position:relative;width:26px;height:18px}
+    .burger .icon span{
+      position:absolute;
+      left:0;
+      right:0;
+      height:3px;
+      background:#fff;
+      border-radius:2px;
+      transition:all .25s
+    }
+    .burger .icon span:nth-child(1){top:0}
+    .burger .icon span:nth-child(2){top:7.5px}
+    .burger .icon span:nth-child(3){top:15px}
+    .burger.open .icon span:nth-child(1){transform: translateY(7.5px) rotate(45deg)}
+    .burger.open .icon span:nth-child(2){opacity:0}
+    .burger.open .icon span:nth-child(3){transform: translateY(-7.5px) rotate(-45deg)}
+
+    .mobile-nav{
+      display:none;
+      position:fixed;
+      top:calc(var(--topbar-h)+var(--header-h));
+      left:0;
+      right:0;
+      background:var(--bg);
+      z-index:1480;
+      overflow:auto;
+      transition:max-height .28s ease;
+      box-shadow:0 12px 40px rgba(0,0,0,.45);
+      max-height:0;
+    }
+    .mobile-nav.open{display:block;max-height:70vh}
+    .mobile-nav .inner{
+      padding:12px 5vw;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      align-items:stretch;
+    }
+    .mobile-nav .contact{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      padding:8px 12px;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+      margin-bottom:6px;
+      color:var(--muted-text-color);
+    }
+    .mobile-nav a{
+      padding:12px;
+      color:#fff;
+      width:100%;
+      text-align:left;
+      border-radius:8px;
+      font-weight:700;
+      display:flex;
+      justify-content:space-between;
+      align-items:center
+    }
+    .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
+    .mobile-nav a.active{background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2)}
+
+    .hero{
+      margin-top:calc(var(--topbar-h) + var(--header-h));
+      height: calc(100vh - (var(--topbar-h) + var(--header-h)));
+      min-height: calc(100vh - (var(--topbar-h) + var(--header-h)));
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      text-align:center;
+      background:#0a4d2e;
+    }
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 90%;
+      transform:scale(1.07) translateY(24px);
+      filter:brightness(1.02) contrast(1.03) saturate(1.02);
+    }
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
+      z-index:1;
+    }
+    .hero-content{
+      position:relative;
+      z-index:2;
+      max-width:950px;
+      padding:0 20px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-content h1{
+      font-size:36px;
+      margin:0 0 12px;
+      font-weight:700;
+      text-shadow:0 3px 10px rgba(0,0,0,0.45)
+    }
+    .hero-content p{
+      font-size:18px;
+      margin:0 0 18px;
+      text-shadow:0 2px 8px rgba(0,0,0,0.45)
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .btn-primary,.btn-secondary{
+      padding:14px 26px;
+      border-radius:10px;
+      border:0;
+      font-weight:700;
+      cursor:pointer;
+      font-size:16px;
+    }
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-primary:hover{background:var(--accent-2)}
+    .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
+    .btn-secondary:hover{background:rgba(255,255,255,0.08)}
+
+    .section{padding:60px 5vw}
+    .section h2{
+      font-size:32px;
+      margin-bottom:18px;
+      color:var(--accent-2);
+      text-align:center
+    }
+    .products-intro,.estimation-intro{
+      max-width:1000px;
+      margin:0 auto 24px;
+      color:var(--muted-text-color);
+      text-align:center;
+      font-size:var(--muted-text-size);
+      line-height:1.7;
+      opacity:0.95;
+    }
+
+    .estimation-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+      max-width:1100px;
+      margin:0 auto;
+    }
+    .estimation-card{
+      position:relative;
+      min-height:360px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(212,175,55,0.75);
+      box-shadow:0 12px 30px rgba(0,0,0,0.42);
+      display:flex;
+      align-items:flex-end;
+      background:#061f14;
+      background-size:cover;
+      background-position:center;
+    }
+    .estimation-city{background-image:linear-gradient(to top, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.10) 55%), url('milieu_urbain_1.png');}
+    .estimation-agri{background-image:linear-gradient(to top, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.10) 55%), url('milieu_agricole.png');}
+    .estimation-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.14) 55%, rgba(0,0,0,0.06) 100%);
+      z-index:1;
+    }
+    .estimation-body{
+      position:relative;
+      z-index:2;
+      width:100%;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      background:linear-gradient(to top, rgba(2,8,6,0.82) 0%, rgba(2,8,6,0.34) 100%);
+      align-items:flex-start;
+      text-align:left;
+    }
+    .estimation-title{
+      font-size:24px;
+      margin:0;
+      color:var(--accent-2);
+      width:100%;
+      text-align:center;
+    }
+    .estimation-sub{
+      margin:0;
+      color:#fff;
+      opacity:.95;
+      font-weight:600;
+      font-size:14px;
+      max-width:700px;
+    }
+    .estimation-list{
+      margin:0;
+      padding-left:20px;
+      line-height:1.7;
+      color:#eaf9ea;
+      font-size:14px;
+      text-align:left;
+      max-width:620px;
+      width:100%;
+    }
+    .estimation-note{
+      margin-top:4px;
+      padding:10px 12px;
+      border-radius:10px;
+      background:rgba(212,175,55,0.08);
+      border:1px solid rgba(212,175,55,0.16);
+      color:#f3fde7;
+      line-height:1.55;
+      font-size:13px;
+      max-width:700px;
+      width:100%;
+    }
+    .estimation-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:2px;
+      justify-content:center;
+      width:100%;
+    }
+    .estimation-actions a{
+      min-width:170px;
+      text-align:center;
+    }
+
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .card{
+      position:relative;
+      background:#061f14;
+      border-radius:16px;
+      overflow:hidden;
+      min-height:420px;
+      box-shadow:0 10px 22px rgba(0,0,0,0.45);
+      border:1px solid rgba(212,175,55,0.85);
+    }
+
+    .card .image-wrap{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+    }
+
+    .card .image-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+      transition:transform .3s, filter .3s;
+    }
+
+    .card:hover .image-wrap img{
+      transform:scale(1.05);
+      filter:brightness(1.02) contrast(1.03);
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);
+      z-index:1;
+    }
+
+    .card-content{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:2;
+      padding:22px 18px 20px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+      text-align:center;
+      background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
+    }
+
+    .card-content h3{
+      margin:0;
+      font-size:18px;
+      line-height:1.15;
+      min-height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--accent-2);
+      width:100%;
+      text-align:center;
+      word-break:normal;
+      overflow-wrap:normal;
+      hyphens:none;
+    }
+
+    .card-content p{
+      margin:0;
+      color:#e6f7ea;
+      font-size:15px;
+      line-height:1.6;
+    }
+
+    .card .btn-card{
+      margin:10px auto 0;
+      padding:10px 18px;
+      border-radius:10px;
+      border:0;
+      background:var(--gold-base);
+      color:#072012;
+      font-weight:800;
+      cursor:pointer;
+      font-size:14px;
+    }
+    .card .btn-card:hover{background:var(--gold-hover)}
+
+    .advantages{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:18px;
+      max-width:1200px;
+      margin:10px auto 0;
+    }
+    .advantage{
+      background:#072b1b;
+      border-radius:14px;
+      padding:22px 18px;
+      text-align:center;
+      border:1px solid rgba(212,175,55,0.18);
+      box-shadow:0 8px 20px rgba(0,0,0,0.24);
+    }
+    .advantage i{
+      font-size:34px;
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+    .advantage h3{
+      margin:6px 0 8px;
+      color:#dfffe6;
+      font-size:18px;
+    }
+    .advantage p{
+      margin:0;
+      color:#e6f7ea;
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    #devis form{
+      max-width:520px;
+      margin:18px auto 0;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      background:rgba(0,0,0,0.55);
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.4)
+    }
+    #devis input,#devis textarea,#devis select{
+      width:100%;
+      padding:12px;
+      border-radius:8px;
+      border:1px solid rgba(124,179,66,0.18);
+      background:transparent;
+      color:#fff;
+      font-size:14px
+    }
+    #devis input::placeholder,#devis textarea::placeholder{color:#dbeed8}
+    #devis button{
+      align-self:center;
+      padding:12px 26px;
+      border-radius:10px;
+      border:0;
+      background:var(--accent);
+      color:#072012;
+      font-weight:700;
+      cursor:pointer
+    }
+    #devis button:hover{background:var(--accent-2)}
+
+    footer{
+      background:var(--green-dark);
+      color:#fff;
+      padding:28px 5vw 36px;
+      position:relative;
+      margin-top:40px;
+      text-align:center;
+    }
+    footer::before{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      height:2px;
+      background:var(--gold-base)
+    }
+    .footer-company{
+      display:block;
+      margin:0 auto 8px;
+      font-size:18px;
+      font-weight:800;
+      color:#04462e;
+      -webkit-text-stroke:0.7px var(--gold-base);
+      text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      padding:4px 8px;
+      border-radius:6px;
+      width:max-content;
+      background:linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%)
+    }
+    .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
+
+    /* CARROUSEL PRO */
+    .gb-carousel{
+      position:relative;
+      max-width:1200px;
+      margin:0 auto;
+      padding-top:10px;
+    }
+
+    .gb-carousel-intro{
+      max-width:920px;
+      margin:0 auto 20px;
+      text-align:center;
+      color:var(--muted-text-color);
+      line-height:1.7;
+      opacity:.96;
+    }
+
+    .gb-track-wrap{
+      overflow:hidden;
+      border-radius:26px;
+      box-shadow:0 16px 38px rgba(0,0,0,0.44);
+      border:1px solid rgba(212,175,55,0.28);
+      background:linear-gradient(135deg, rgba(3,12,8,0.96), rgba(6,31,20,0.96));
+    }
+
+    .gb-track{
+      display:flex;
+      flex-wrap:nowrap;
+      width:100%;
+      margin:0;
+      padding:0;
+      list-style:none;
+      transform:translate3d(0,0,0);
+      transition:transform .75s cubic-bezier(.22,.8,.22,1);
+      will-change:transform;
+    }
+
+    .gb-slide{
+      flex:0 0 100%;
+      min-width:100%;
+      list-style:none;
+    }
+
+    .gb-slide-inner{
+      margin:0;
+      display:grid;
+      grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+      min-height:500px;
+      align-items:stretch;
+      background:linear-gradient(135deg, rgba(6,31,20,0.98), rgba(7,50,23,0.96));
+    }
+
+    .gb-media{
+      padding:26px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:
+        radial-gradient(circle at center, rgba(168,230,161,0.08), rgba(0,0,0,0) 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
+    }
+
+    .gb-media-frame{
+      width:100%;
+      height:100%;
+      min-height:420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:22px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+      padding:18px;
+    }
+
+    .gb-media-frame img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center center;
+      display:block;
+      filter:drop-shadow(0 14px 24px rgba(0,0,0,0.35));
+    }
+
+    .gb-desc{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      gap:14px;
+      padding:34px 30px;
+      border-left:1px solid rgba(212,175,55,0.12);
+    }
+
+    .gb-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(168,230,161,0.10);
+      border:1px solid rgba(168,230,161,0.16);
+      color:#dfffe6;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+    }
+
+    .gb-release{
+      display:inline-block;
+      margin-left:6px;
+      padding:3px 10px;
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--release-orange), var(--release-orange-2));
+      color:#1b0d00;
+      font-weight:900;
+      letter-spacing:.3px;
+      box-shadow:0 8px 18px rgba(255,122,24,0.28);
+      border:1px solid rgba(255,255,255,0.18);
+      text-transform:none;
+    }
+
+    .gb-desc h3{
+      margin:0;
+      font-size:clamp(22px, 2.2vw, 30px);
+      color:var(--accent-2);
+      line-height:1.2;
+      max-width:95%;
+      text-wrap:balance;
+    }
+
+    .gb-summary{
+      margin:0;
+      color:#edf9ec;
+      line-height:1.75;
+      font-size:15px;
+      max-width:92%;
+    }
+
+    .gb-highlights{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      width:100%;
+      max-width:460px;
+      margin-top:4px;
+    }
+
+    .gb-highlight{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(212,175,55,0.14);
+      border-radius:14px;
+      padding:12px 14px;
+      text-align:left;
+      min-height:72px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .gb-highlight strong{
+      display:block;
+      color:var(--accent-2);
+      font-size:12px;
+      letter-spacing:.3px;
+      margin-bottom:4px;
+      text-transform:uppercase;
+    }
+
+    .gb-highlight span{
+      color:#eaf9ea;
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .gb-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:48px;
+      height:48px;
+      border:none;
+      border-radius:50%;
+      cursor:pointer;
+      z-index:3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      font-weight:700;
+      color:#061f14;
+      background:rgba(212,175,55,0.95);
+      box-shadow:0 8px 18px rgba(0,0,0,0.25);
+      transition:transform .18s, background .18s, opacity .18s;
+    }
+    .gb-btn:hover{
+      background:var(--gold-hover);
+      transform:translateY(-50%) scale(1.04);
+    }
+    .gb-prev{left:14px}
+    .gb-next{right:14px}
+
+    .gb-dots{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .gb-dot{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      background:rgba(255,255,255,0.38);
+      transition:all .22s ease;
+      padding:0;
+    }
+    .gb-dot.active{
+      width:34px;
+      background:var(--gold-base);
+      box-shadow:0 0 0 4px rgba(212,175,55,0.10);
+    }
+
+    @media (max-width:1100px){
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+      .estimation-grid{grid-template-columns:1fr}
+      .advantages{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .gb-slide-inner{grid-template-columns:1fr}
+      .gb-desc{
+        border-left:none;
+        border-top:1px solid rgba(212,175,55,0.12);
+      }
+      .gb-media-frame{min-height:320px}
+    }
+
+    @media (max-width:820px){
+      nav{display:none}
+      .burger{display:flex}
+      .hero-content{max-width:86vw}
+      .company-name{
+        font-size:30px;
+        padding:0;
+        margin:0;
+        top:1px;
+        width:max-content;
+      }
+      .company-tagline{
+        font-size:12px;
+        letter-spacing:3px;
+        padding:0;
+        margin:1px 0 0 0;
+        width:max-content;
+      }
+      .hero-content h1{font-size:28px}
+      .hero-content p{font-size:16px}
+      .grid-4{grid-template-columns:1fr}
+      .card{min-height:360px}
+      .card-content h3{font-size:17px}
+      .advantages{grid-template-columns:1fr}
+      .section h2{font-size:28px}
+      .gb-desc{padding:24px 18px}
+      .gb-desc h3{font-size:22px}
+      .gb-summary{font-size:14px}
+      .gb-media-frame{min-height:280px}
+      .gb-btn{width:42px;height:42px;font-size:24px}
+    }
+
+    @media (max-width:768px){
+      .company-name{font-size:26px}
+      .topbar .right{gap:10px;font-size:13px}
+      .hero-bg{
+        object-position:center 94%;
+        transform:scale(1.10) translateY(30px);
+      }
+      .hero-overlay{background:linear-gradient(to bottom, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.12) 50%, rgba(0,0,0,0.24) 100%)}
+    }
+
+    @media (max-width:480px){
+      .hero-content{max-width:92vw;padding:0 12px}
+      .hero-content h1{
+        font-size:28px;
+        margin:0 0 8px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+      .hero-content p{
+        white-space:nowrap;
+        display:inline-block;
+        font-size:16px;
+        line-height:1;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        max-width:100%;
+      }
+      .btn-primary,.btn-secondary{padding:12px 22px;font-size:15px}
+      .estimation-card{min-height:300px}
+      .estimation-body{padding:16px}
+      .estimation-title{font-size:21px}
+      .estimation-sub,.estimation-list{font-size:13px}
+      .estimation-note{font-size:12px}
+      .card{min-height:360px}
+      .card-content h3{font-size:16px;min-height:38px}
+      .card-content p{font-size:14px}
+      .gb-media-frame{min-height:230px}
+      .gb-desc h3{font-size:20px}
+      .gb-summary{font-size:13px}
+      .gb-highlights{grid-template-columns:1fr}
+      .gb-release{display:block;margin-left:0;margin-top:6px;width:fit-content}
+    }
+
+    /* ===================== ELECTRIC BAND ===================== */
+    .electric-band {
+      position: fixed;
+      top: calc(var(--topbar-h) + var(--header-h) - 6px);
+      left: 0;
+      right: 0;
+      height: 14px;
+      z-index: 1600;
+      pointer-events: none;
+      overflow: visible;
+      transform: translateZ(0);
+    }
+    .electric-band .container {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100vw;
+      max-width: none;
+      padding: 0;
+      height: 100%;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+    .lightning-svg {
+      width: 100vw;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .22s ease;
+      mix-blend-mode: screen;
+    }
+    .electric-band.connected .lightning-svg { opacity: 1; }
+    .lightning-svg path.zap {
+      stroke: var(--electric-yellow);
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.98;
+    }
+    .orbs {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .orb {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
+      box-shadow: 0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
+      transform: translate(-50%,-50%);
+      opacity: 0;
+      transition: opacity .18s linear;
+    }
+    .electric-band.connected .orb { opacity: 1; }
+    @keyframes buzz {
+      0% { transform: translate(-50%,-50%) translateX(-2px); }
+      50% { transform: translate(-50%,-50%) translateX(2px); }
+      100% { transform: translate(-50%,-50%) translateX(-2px); }
+    }
+    .orb.buzz { animation: buzz 0.9s linear infinite; }
+    .glowline {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      height: 3px;
+      width: 0;
+      background: linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(255,214,0,0.12);
+      opacity: 0;
+      transition: opacity .22s ease;
+    }
+    .electric-band.connected .glowline {
+      width: 100vw;
+      opacity: 1;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
+      50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 }
+      100%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
+    }
+    @media (max-width:820px){
+      .electric-band .container {
+        width: 100%;
+        left: 0;
+        padding: 0 4vw;
+        box-sizing: border-box;
+      }
+      .glowline {
+        width: 86%;
+        max-width: 86%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar" role="banner" aria-hidden="false">
+    <div class="left">
+      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
+    </div>
+    <div class="right">
+      <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
+    </div>
+  </div>
+
+  <header role="navigation" aria-label="Main">
+    <div class="logo-text">
+      <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
+      <div class="brand-stack">
+        <div class="company-name">GREENBRIDGE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
+      </div>
+    </div>
+
+    <nav aria-label="Menu principal">
+      <a href="#top" class="active">Accueil</a>
+      <a href="etude_dimensionnement.html">Étude</a>
+      <a href="produits.html">Produits</a>
+      <a href="#realisations">Projets futurs</a>
+      <a href="#devis">Contact</a>
+    </nav>
+
+    <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
+      <span class="icon"><span></span><span></span><span></span></span>
+    </button>
+  </header>
+
+  <div class="electric-band" id="electricBand" aria-hidden="true">
+    <div class="container" aria-hidden="true">
+      <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
+        <path class="zap" id="zap1" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
+        <path class="zap" id="zap2" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
+        <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
+      </svg>
+      <div class="orbs" id="orbs">
+        <div class="orb" id="orbA"></div>
+        <div class="orb" id="orbB"></div>
+        <div class="orb" id="orbC"></div>
+      </div>
+      <div class="glowline" id="glowline"></div>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <div class="inner">
+      <div class="contact" aria-hidden="false">
+        <div><strong>GREENBRIDGE</strong></div>
+        <div><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</div>
+        <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
+      </div>
+      <a href="#top" class="mobile-link active">Accueil</a>
+      <a href="etude_dimensionnement.html" class="mobile-link">Étude</a>
+      <a href="#produits" class="mobile-link">Produits</a>
+      <a href="#realisations" class="mobile-link">Réalisations</a>
+      <a href="#devis" class="mobile-link">Contact</a>
+      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.03);padding-top:10px;display:flex;gap:12px;align-items:center;">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero" id="top" aria-label="Hero">
+    <img class="hero-bg" src="Image_central_1.png" alt="Illustration GreenBridge Énergie">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Solutions Énergie sur mesure</h1>
+      <p>Étude du besoin, dimensionnement, installation et maintenance</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('estimation').scrollIntoView({behavior:'smooth'})">Estimer mon besoin</button>
+        <button class="btn-secondary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="estimation" class="section" aria-label="Estimation des besoins">
+    <h2>Estimation des besoins</h2>
+    <p class="estimation-intro">Les blocs ci-dessous ne sont pas des packs figés. Ils servent à estimer le besoin réel afin de proposer ensuite le bon type de batterie, d’onduleur, de panneau, de groupe ou de solution mobile.</p>
+
+    <div class="estimation-grid">
+      <article class="estimation-card estimation-city" id="estimation-citadin">
+        <div class="estimation-overlay"></div>
+        <div class="estimation-body">
+          <h3 class="estimation-title">Besoin citadin</h3>
+          <p class="estimation-sub">Maison, appartement, bureau, boutique, petit commerce.</p>
+          <ul class="estimation-list">
+            <li>Éclairage, TV, ventilateur et recharge</li>
+            <li>Secours pendant les coupures</li>
+            <li>Autonomie adaptée au budget</li>
+            <li>Protection des appareils sensibles</li>
+          </ul>
+          <div class="estimation-note">
+            Solutions souvent recommandées :<br> batterie compacte, onduleur hybride,<br> panneaux solaires, powerbank,<br> petit groupe de secours selon la charge.
+          </div>
+          <div class="estimation-actions">
+            <a class="btn-primary" href="#produits">Voir les solutions</a>
+            <a class="btn-secondary" href="#devis">Faire une étude</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="estimation-card estimation-agri" id="estimation-agricole">
+        <div class="estimation-overlay"></div>
+        <div class="estimation-body">
+          <h3 class="estimation-title">Besoin agricole / élevage</h3>
+          <p class="estimation-sub">Irrigation, pompage, éclairage de site, élevage, conservation.</p>
+          <ul class="estimation-list">
+            <li>Pompage et irrigation solaire</li>
+            <li>Éclairage de ferme et clôtures</li>
+            <li>Autonomie sur site isolé</li>
+            <li>Sécurité et continuité de service</li>
+          </ul>
+          <div class="estimation-note">
+            Solutions souvent recommandées :<br> panneaux solaires, batterie de stockage,<br> onduleur, régulateur MPPT,<br> groupe électrogène de secours selon la continuité attendue.
+          </div>
+          <div class="estimation-actions">
+            <a class="btn-primary" href="#produits">Voir les solutions</a>
+            <a class="btn-secondary" href="#devis">Faire une étude</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="produits" class="section" aria-label="Nos produits">
+    <h2>Nos produits</h2>
+    <p class="products-intro">Les produits sont présentés comme des réponses techniques à un besoin identifié. L’objectif est de proposer la meilleure combinaison selon l’usage réel.</p>
+
+    <div class="grid-4" role="list">
+      <article class="card" role="listitem">
+        <div class="image-wrap"><img src="chantier_solaire.png" alt="Panneaux solaires"></div>
+        <div class="card-content">
+          <h3>Panneaux solaires</h3>
+          <p>Production d’énergie propre pour l’autonomie du site.</p>
+          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
+        </div>
+      </article>
+
+      <article class="card" role="listitem">
+        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Batteries et stockage"></div>
+        <div class="card-content">
+          <h3>Batteries & stockage</h3>
+          <p>Stockage, continuité de service et optimisation de l’énergie.</p>
+          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
+        </div>
+      </article>
+
+      <article class="card" role="listitem">
+        <div class="image-wrap"><img src="onduleur_tech.png" alt="Onduleurs"></div>
+        <div class="card-content">
+          <h3>Onduleurs & MPPT</h3>
+          <p>Conversion, régulation et protection des équipements.</p>
+          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
+        </div>
+      </article>
+
+      <article class="card" role="listitem">
+        <div class="image-wrap"><img src="technicien_groupe_elctro.png" alt="Groupes électrogènes"></div>
+        <div class="card-content">
+          <h3>Groupes électrogènes</h3>
+          <p>Secours énergétique pour les usages critiques.</p>
+          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="realisations" class="section">
+    <h2>Nos réalisations et projets futurs</h2>
+    <p class="gb-carousel-intro">
+      Chaque projet est présenté avec une image complète, des points clés lisibles et une mise en page centrée pour une lecture plus professionnelle.
+    </p>
+
+    <div class="gb-carousel" aria-roledescription="carousel">
+      <div class="gb-track-wrap" role="region" aria-live="polite" aria-label="Projets GreenBridge">
+        <ul class="gb-track">
+          <li class="gb-slide" data-index="0">
+            <figure class="gb-slide-inner">
+              <div class="gb-media">
+                <div class="gb-media-frame">
+                  <img src="Batterie_pack_s.png" alt="Pack batterie">
+                </div>
+              </div>
+              <figcaption class="gb-desc">
+                <span class="gb-kicker">Projet 1 <span class="gb-release">Sortie estimée 15/06/2026</span></span>
+                <h3>Pack batterie</h3>
+                <p class="gb-summary">Pack batterie portable conçu pour la continuité d’alimentation, la recharge de secours et l’usage quotidien. Solution pensée pour les ménages, bureaux et petits commerces.</p>
+                <div class="gb-highlights">
+                  <div class="gb-highlight"><strong>Usage</strong><span>Secours et mobilité</span></div>
+                  <div class="gb-highlight"><strong>Public</strong><span>Maisons, bureaux</span></div>
+                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/06/2026</span></div>
+                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
+                </div>
+                <p class="gb-summary"><strong>Public cible :</strong> Ménages, bureaux, petits commerces, sites isolés.</p>
+              </figcaption>
+            </figure>
+          </li>
+
+          <li class="gb-slide" data-index="1">
+            <figure class="gb-slide-inner">
+              <div class="gb-media">
+                <div class="gb-media-frame">
+                  <img src="Powerbank_wireless.png" alt="Power bank wireless">
+                </div>
+              </div>
+              <figcaption class="gb-desc">
+                <span class="gb-kicker">Projet 2 <span class="gb-release">Sortie estimée 15/07/2026</span></span>
+                <h3>Power bank wireless</h3>
+                <p class="gb-summary">Power bank sans fil à charge induction, conçue pour la recharge rapide des smartphones et petits appareils compatibles. Batterie longue durée avec protections intelligentes.</p>
+                <div class="gb-highlights">
+                  <div class="gb-highlight"><strong>Charge</strong><span>Induction</span></div>
+                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/07/2026</span></div>
+                  <div class="gb-highlight"><strong>Ports</strong><span>USB rapides</span></div>
+                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
+                </div>
+                <p class="gb-summary"><strong>Public cible :</strong> Particuliers, professionnels mobiles, voyageurs et usage quotidien.</p>
+              </figcaption>
+            </figure>
+          </li>
+
+          <li class="gb-slide" data-index="2">
+            <figure class="gb-slide-inner">
+              <div class="gb-media">
+                <div class="gb-media-frame">
+                  <img src="ventillateur_solaire_1.png" alt="Ventilateur solaire">
+                </div>
+              </div>
+              <figcaption class="gb-desc">
+                <span class="gb-kicker">Projet 3 <span class="gb-release">Sortie estimée 15/11/2026</span></span>
+                <h3>Ventilateur solaire</h3>
+                <p class="gb-summary">Ventilateur alimenté par panneau PV 120 W, contrôleur MPPT intégré, autonomie de 6 à 10 heures selon la batterie. Boîtier anticorrosion adapté au climat tropical.</p>
+                <div class="gb-highlights">
+                  <div class="gb-highlight"><strong>Alimentation</strong><span>PV 120 W</span></div>
+                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/11/2026</span></div>
+                  <div class="gb-highlight"><strong>Contrôle</strong><span>MPPT intégré</span></div>
+                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
+                </div>
+                <p class="gb-summary"><strong>Public cible :</strong> Ménages, petits commerces.</p>
+              </figcaption>
+            </figure>
+          </li>
+
+          <li class="gb-slide" data-index="3">
+            <figure class="gb-slide-inner">
+              <div class="gb-media">
+                <div class="gb-media-frame">
+                  <img src="Pompe_immergée.png" alt="Système de pompe solaire">
+                </div>
+              </div>
+              <figcaption class="gb-desc">
+                <span class="gb-kicker">Projet 4 <span class="gb-release">Sortie estimée 31/12/2026</span></span>
+                <h3>Système de pompe solaire</h3>
+                <p class="gb-summary">Système de pompage solaire pour irrigation et alimentation en eau, avec variateur de fréquence, protections anti-surcharge et fonctionnement fiable sur champs PV en courant continu.</p>
+                <div class="gb-highlights">
+                  <div class="gb-highlight"><strong>Puissance</strong><span>1.5 kW</span></div>
+                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>31/12/2026</span></div>
+                  <div class="gb-highlight"><strong>Sécurité</strong><span>Anti-marche à sec</span></div>
+                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
+                </div>
+                <p class="gb-summary"><strong>Public cible :</strong> Agriculture familiale, irrigation, sites isolés.</p>
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+
+      <button class="gb-btn gb-prev" aria-label="Projet précédent">‹</button>
+      <button class="gb-btn gb-next" aria-label="Projet suivant">›</button>
+      <div class="gb-dots" role="tablist" aria-label="Pagination du carrousel"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Pourquoi nos solutions énergie ?</h2>
+    <div class="advantages" role="list">
+      <div class="advantage" role="listitem">
+        <i class="fas fa-bolt" aria-hidden="true"></i>
+        <h3>Efficacité</h3>
+        <p>Maximisez le rendement et l’économie d’énergie</p>
+      </div>
+      <div class="advantage" role="listitem">
+        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+        <h3>Fiabilité</h3>
+        <p>Installation professionnelle et maintenance garantie</p>
+      </div>
+      <div class="advantage" role="listitem">
+        <i class="fas fa-globe-africa" aria-hidden="true"></i>
+        <h3>Local</h3>
+        <p>Expertise adaptée au marché ivoirien</p>
+      </div>
+      <div class="advantage" role="listitem">
+        <i class="fas fa-award" aria-hidden="true"></i>
+        <h3>5 ans de garantie</h3>
+        <p>Tranquillité, suivi et accompagnement sur la durée</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="devis" class="section">
+    <h2>Demandez un devis</h2>
+    <form>
+      <input type="text" placeholder="Nom complet" required>
+      <input type="email" placeholder="Email" required>
+      <input type="tel" placeholder="Téléphone" required>
+      <select required>
+        <option value="">Type de service</option>
+        <option value="etude">Étude & dimensionnement</option>
+        <option value="installation">Installation</option>
+        <option value="formation">Formation</option>
+        <option value="maintenance">Maintenance</option>
+      </select>
+      <textarea placeholder="Message ou détails du projet" rows="5" required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
+    <div class="footer-contact" aria-label="Coordonnées">
+      <div>© 2025 GreenBridge. Tous droits réservés.</div>
+      <div>Abidjan, Côte d’Ivoire</div>
+      <div>Tel: +225 07 07 07 07 07</div>
+    </div>
+  </footer>
+
+  <script>
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    function openCloseMobile(open){
+      if(!burgerBtn || !mobileNav) return;
+      mobileNav.classList.toggle('open', open);
+      burgerBtn.classList.toggle('open', open);
+      mobileNav.setAttribute('aria-hidden', (!open).toString());
+      burgerBtn.setAttribute('aria-expanded', String(open));
+    }
+
+    if (burgerBtn && mobileNav) {
+      burgerBtn.addEventListener('click', () => {
+        const opened = !mobileNav.classList.contains('open');
+        openCloseMobile(opened);
+      });
+      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+        a.addEventListener('click', () => {
+          openCloseMobile(false);
+        });
+      });
+    }
+
+    (function(){
+      const track = document.querySelector('.gb-track');
+      if (!track) return;
+
+      const wrap = document.querySelector('.gb-track-wrap');
+      const slides = Array.from(track.querySelectorAll('.gb-slide'));
+      const prevBtn = document.querySelector('.gb-prev');
+      const nextBtn = document.querySelector('.gb-next');
+      const dotsWrap = document.querySelector('.gb-dots');
+      let index = 0;
+      const AUTOPLAY_INTERVAL = 12000;
+      let autoplayTimer = null;
+      let paused = false;
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      slides.forEach((s,i)=>{
+        const btn = document.createElement('button');
+        btn.className = 'gb-dot';
+        btn.setAttribute('aria-label','Aller au projet ' + (i+1));
+        btn.dataset.index = i;
+        if(i===0) btn.classList.add('active');
+        dotsWrap.appendChild(btn);
+      });
+
+      const dots = Array.from(dotsWrap.children);
+
+      function getSlideWidth(){
+        const firstSlide = slides[0];
+        return firstSlide ? Math.round(firstSlide.getBoundingClientRect().width) : Math.round(wrap.getBoundingClientRect().width);
+      }
+
+      function update(){
+        const slideWidth = getSlideWidth();
+        track.style.transform = 'translate3d(' + (-index * slideWidth) + 'px,0,0)';
+        dots.forEach((d,i)=>d.classList.toggle('active', i===index));
+      }
+
+      function goNext(){
+        index = (index+1) % slides.length;
+        update();
+      }
+
+      function goPrev(){
+        index = (index-1+slides.length) % slides.length;
+        update();
+      }
+
+      function goTo(i){
+        index = i;
+        update();
+      }
+
+      function startAutoplay(){
+        clearInterval(autoplayTimer);
+        autoplayTimer = setInterval(() => {
+          if (!paused) goNext();
+        }, AUTOPLAY_INTERVAL);
+      }
+
+      function resetAutoplay(){
+        clearInterval(autoplayTimer);
+        startAutoplay();
+      }
+
+      if(nextBtn) nextBtn.addEventListener('click', ()=>{ goNext(); resetAutoplay(); });
+      if(prevBtn) prevBtn.addEventListener('click', ()=>{ goPrev(); resetAutoplay(); });
+
+      dotsWrap.addEventListener('click', e=>{
+        if(e.target.classList.contains('gb-dot')) {
+          goTo(Number(e.target.dataset.index));
+          resetAutoplay();
+        }
+      });
+
+      wrap.addEventListener('mouseenter', () => { paused = true; });
+      wrap.addEventListener('mouseleave', () => { paused = false; });
+
+      wrap.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, {passive:true});
+
+      wrap.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) goNext();
+          else goPrev();
+          resetAutoplay();
+        }
+      }, {passive:true});
+
+      window.addEventListener('resize', update);
+      window.addEventListener('load', update);
+      update();
+      startAutoplay();
+    })();
+
+    (function(){
+      const electricBand = document.getElementById('electricBand');
+      if (!electricBand) return;
+      const orbA = document.getElementById('orbA');
+      const orbB = document.getElementById('orbB');
+      const orbC = document.getElementById('orbC');
+      const orbs = [orbA, orbB, orbC];
+      const zapBright = document.getElementById('zapBright');
+      const params = [
+        {rxRatio:0.50, ry:8, speed:0.22, phase:0},
+        {rxRatio:0.33, ry:6, speed:0.36, phase:Math.PI/2},
+        {rxRatio:0.42, ry:10, speed:0.18, phase:Math.PI}
+      ];
+
+      orbs.forEach((o,i)=>{
+        if(o){
+          o.classList.add('buzz');
+          o.style.animationDelay = (i*120) + 'ms';
+        }
+      });
+
+      let t0 = performance.now();
+
+      function tick(now){
+        const time = (now - t0) / 1000;
+        const cont = electricBand.querySelector('.container');
+        if(!cont){
+          requestAnimationFrame(tick);
+          return;
+        }
+        const rect = cont.getBoundingClientRect();
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        for(let i=0;i<orbs.length;i++){
+          const orb = orbs[i];
+          if(!orb) continue;
+          const p = params[i];
+          const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
+          const ry = p.ry;
+          const angle = (time * p.speed * Math.PI * 2) + p.phase;
+          const x = cx + Math.cos(angle) * rx;
+          const y = cy + Math.sin(angle) * ry;
+          orb.style.left = x + 'px';
+          orb.style.top = y + 'px';
+          orb.style.transform = 'translate(-50%,-50%)';
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+
+      function sparkSVG(){
+        if(!zapBright) return;
+        try{
+          const len = zapBright.getTotalLength ? zapBright.getTotalLength() : 520;
+          zapBright.style.transition = 'none';
+          zapBright.setAttribute('stroke-dasharray', String(len));
+          zapBright.setAttribute('stroke-dashoffset', String(len));
+          setTimeout(()=>{
+            zapBright.style.transition = 'stroke-dashoffset 380ms ease-out, opacity 160ms';
+            zapBright.setAttribute('stroke-dashoffset','0');
+            setTimeout(()=>{
+              zapBright.setAttribute('stroke-dashoffset', String(len));
+            }, 320);
+          }, 60);
+        }catch(e){
+          zapBright.setAttribute('stroke-dasharray','520');
+          zapBright.setAttribute('stroke-dashoffset','520');
+          setTimeout(()=>{
+            zapBright.style.transition = 'stroke-dashoffset 360ms ease-out';
+            zapBright.setAttribute('stroke-dashoffset','0');
+          }, 80);
+        }
+      }
+
+      function spawnSparks(){
+        const cont = electricBand.querySelector('.container');
+        if(!cont) return;
+        for(let i=0;i<10;i++){
+          const s = document.createElement('div');
+          s.style.position = 'absolute';
+          s.style.left = (3 + Math.random()*94) + '%';
+          s.style.top = (20 + Math.random()*50) + '%';
+          s.style.width = '2px';
+          s.style.height = (8 + Math.random()*22) + 'px';
+          s.style.borderRadius = '2px';
+          s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
+          s.style.filter = 'blur(6px)';
+          s.style.opacity = '0';
+          s.style.transform = 'translateY(6px)';
+          s.style.pointerEvents = 'none';
+          s.style.zIndex = '1';
+          cont.appendChild(s);
+          setTimeout(()=>{
+            s.style.transition = 'all 260ms ease-out';
+            s.style.opacity='1';
+            s.style.transform='translateY(-6px)';
+          }, 20 + i*25);
+          setTimeout(()=>{
+            s.style.transition = 'all 420ms ease-in';
+            s.style.opacity='0';
+            s.style.transform='translateY(-20px)';
+          }, 280 + i*40);
+          setTimeout(()=>{
+            if(s.parentNode) s.parentNode.removeChild(s);
+          }, 760 + i*40);
+        }
+      }
+
+      function activate(){
+        electricBand.classList.add('connected');
+        spawnSparks();
+        sparkSVG();
+        setInterval(()=>{
+          spawnSparks();
+          if(Math.random() > 0.45) sparkSVG();
+        }, 900 + Math.random()*900);
+      }
+
+      const title = document.querySelector('.company-name');
+      if(title){
+        title.addEventListener('click', ()=>{
+          const on = electricBand.classList.toggle('connected');
+          if(on){
+            spawnSparks();
+            sparkSVG();
+          }
+        });
+      }
+
+      activate();
+      window.addEventListener('resize', ()=>{
+        t0 = performance.now();
+      });
+    })();
+
+    (function(){
+      const p = document.querySelector('.hero-content p');
+      if (!p) return;
+
+      function applyMobileSize(){
+        if (window.innerWidth <= 480) {
+          p.style.whiteSpace = 'nowrap';
+          p.style.display = 'inline-block';
+          p.style.fontSize = '16px';
+          p.style.lineHeight = '1';
+          p.style.overflow = 'hidden';
+          p.style.textOverflow = 'ellipsis';
+        } else {
+          p.style.whiteSpace = '';
+          p.style.display = '';
+          p.style.fontSize = '';
+          p.style.lineHeight = '';
+          p.style.overflow = '';
+          p.style.textOverflow = '';
+        }
+      }
+
+      window.addEventListener('load', applyMobileSize);
+      let to;
+      window.addEventListener('resize', function(){
+        clearTimeout(to);
+        to = setTimeout(applyMobileSize, 80);
+      });
+      window.addEventListener('orientationchange', function(){
+        setTimeout(applyMobileSize, 120);
+      });
+      applyMobileSize();
+    })();
+  </script>
+</body>
+</html>
