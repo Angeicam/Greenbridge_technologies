@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenBridge — Étude</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <style>
+    :root{
+      --topbar-h:48px;
+      --header-h:72px;
+      --green-dark:#061f14;
+      --green-mid:#073217;
+      --green-mid-2:#0b4d26;
+      --accent:#7cb342;
+      --accent-2:#a8e6a1;
+      --bg:#0a4d2e;
+      --gold-base:#d4af37;
+      --gold-hover:#e6c95a;
+      --muted-text-color:#e6f7ea;
+      --muted-text-size:15px;
+      --electric-yellow:#ffd600;
+      --shadow:0 10px 22px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+    html, body{
+      margin:0;
+      padding:0;
+      font-family:'Poppins',Arial,sans-serif;
+      background:var(--bg);
+      color:#fff;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button,input,select,textarea{font-family:inherit}
+
+    .topbar{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height:var(--topbar-h);
+      background:var(--green-dark);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:0 5vw;
+      z-index:1500;
+      font-size:14px;
+    }
+    .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
+    .topbar a{color:#fff;transition:color .18s}
+    .topbar a:hover{color:var(--accent-2)}
+
+    header{
+      position:fixed;
+      top:var(--topbar-h);
+      left:0;
+      right:0;
+      height:var(--header-h);
+      background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 5vw;
+      z-index:1490;
+      box-shadow:0 4px 12px rgba(0,0,0,.25);
+    }
+
+    .logo-text{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .logo-text img{
+      height:56px;
+      display:block;
+      flex:0 0 auto;
+    }
+    .brand-stack{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:flex-start;
+      line-height:1;
+      text-align:left;
+      min-width:0;
+      margin:0;
+      padding:0;
+    }
+    .company-name{
+      font-size:34px;
+      font-weight:800;
+      letter-spacing:1px;
+      padding:0;
+      margin:0;
+      border-radius:8px;
+      color:#04462e;
+      -webkit-text-stroke:0.95px var(--gold-base);
+      text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      position:relative;
+      top:2px;
+      white-space:nowrap;
+      line-height:1;
+      text-align:left;
+      width:max-content;
+      display:block;
+    }
+    .company-tagline{
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:5px;
+      text-transform:uppercase;
+      color:#dfffe6;
+      padding:0;
+      margin:2px 0 0 0;
+      text-shadow:0 2px 6px rgba(0,0,0,0.45);
+      -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
+      white-space:nowrap;
+      line-height:1;
+      text-align:left;
+      width:max-content;
+      display:block;
+    }
+
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{
+      color:#fff;
+      font-size:15px;
+      font-weight:600;
+      padding:8px 10px;
+      border-radius:8px;
+      transition:all .18s;
+    }
+    nav a:hover{color:var(--accent-2)}
+    nav a.active{
+      color:var(--accent-2);
+      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+      border:1px solid rgba(212,175,55,0.12);
+      padding:10px 14px;
+      font-weight:800;
+      border-radius:10px;
+    }
+
+    .burger{
+      display:none;
+      width:44px;
+      height:44px;
+      border-radius:8px;
+      border:none;
+      background:transparent;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer
+    }
+    .burger .icon{display:block;position:relative;width:26px;height:18px}
+    .burger .icon span{
+      position:absolute;
+      left:0;
+      right:0;
+      height:3px;
+      background:#fff;
+      border-radius:2px;
+      transition:all .25s
+    }
+    .burger .icon span:nth-child(1){top:0}
+    .burger .icon span:nth-child(2){top:7.5px}
+    .burger .icon span:nth-child(3){top:15px}
+    .burger.open .icon span:nth-child(1){transform: translateY(7.5px) rotate(45deg)}
+    .burger.open .icon span:nth-child(2){opacity:0}
+    .burger.open .icon span:nth-child(3){transform: translateY(-7.5px) rotate(-45deg)}
+
+    .mobile-nav{
+      display:none;
+      position:fixed;
+      top:calc(var(--topbar-h)+var(--header-h));
+      left:0;
+      right:0;
+      background:var(--bg);
+      z-index:1480;
+      overflow:auto;
+      transition:max-height .28s ease;
+      box-shadow:0 12px 40px rgba(0,0,0,.45);
+      max-height:0;
+    }
+    .mobile-nav.open{display:block;max-height:70vh}
+    .mobile-nav .inner{
+      padding:12px 5vw;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      align-items:stretch;
+    }
+    .mobile-nav .contact{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      padding:8px 12px;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+      margin-bottom:6px;
+      color:var(--muted-text-color);
+    }
+    .mobile-nav a{
+      padding:12px;
+      color:#fff;
+      width:100%;
+      text-align:left;
+      border-radius:8px;
+      font-weight:700;
+      display:flex;
+      justify-content:space-between;
+      align-items:center
+    }
+    .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
+    .mobile-nav a.active{background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2)}
+
+    .hero{
+      margin-top:calc(var(--topbar-h) + var(--header-h));
+      height: calc(100vh - (var(--topbar-h) + var(--header-h)));
+      min-height: calc(100vh - (var(--topbar-h) + var(--header-h)));
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      text-align:center;
+      background:#0a4d2e;
+    }
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 90%;
+      transform:scale(1.07) translateY(24px);
+      filter:brightness(1.02) contrast(1.03) saturate(1.02);
+    }
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
+      z-index:1;
+    }
+    .hero-content{
+      position:relative;
+      z-index:2;
+      max-width:950px;
+      padding:0 20px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-content h1{
+      font-size:36px;
+      margin:0 0 12px;
+      font-weight:700;
+      text-shadow:0 3px 10px rgba(0,0,0,0.45)
+    }
+    .hero-content p{
+      font-size:18px;
+      margin:0 0 18px;
+      text-shadow:0 2px 8px rgba(0,0,0,0.45)
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .btn-primary,.btn-secondary{
+      padding:14px 26px;
+      border-radius:10px;
+      border:0;
+      font-weight:700;
+      cursor:pointer;
+      font-size:16px;
+    }
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-primary:hover{background:var(--accent-2)}
+    .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
+    .btn-secondary:hover{background:rgba(255,255,255,0.08)}
+
+    .section{padding:60px 5vw}
+    .section h2{
+      font-size:32px;
+      margin-bottom:18px;
+      color:var(--accent-2);
+      text-align:center
+    }
+    .products-intro,.activities-intro,.gb-carousel-intro{
+      max-width:1000px;
+      margin:0 auto 24px;
+      color:var(--muted-text-color);
+      text-align:center;
+      font-size:var(--muted-text-size);
+      line-height:1.7;
+      opacity:0.95;
+    }
+
+    .zones-cards{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      justify-content:center;
+      max-width:1100px;
+      margin:0 auto
+    }
+    .zone-card{
+      position:relative;
+      width:48%;
+      max-width:460px;
+      min-width:260px;
+      height:220px;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(212,175,55,0.85);
+      box-shadow:0 8px 16px rgba(0,0,0,0.40);
+      background:#061f14;
+      cursor:pointer;
+      transition:transform .20s,box-shadow .20s;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+    }
+    .zone-card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,0.50)}
+    .zone-card img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:brightness(0.92) contrast(0.98) saturate(0.96)
+    }
+    .zone-card .overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.6) 100%);
+      z-index:1;
+      border-radius:12px
+    }
+    .zone-card h3{
+      position:relative;
+      z-index:2;
+      margin:0;
+      padding:10px 14px;
+      background:rgba(0,0,0,0.35);
+      border-radius:8px;
+      bottom:14px;
+      font-size:20px;
+      color:var(--accent-2);
+      font-weight:900;
+      border:1px solid rgba(212,175,55,0.08);
+      text-align:center
+    }
+
+    .study-shell{
+      max-width:1240px;
+      margin:0 auto;
+    }
+
+    .study-details{
+      background:linear-gradient(180deg, rgba(6,31,20,.96), rgba(7,50,23,.96));
+      border-radius:22px;
+      border:1px solid rgba(212,175,55,.18);
+      box-shadow:0 14px 36px rgba(0,0,0,.26);
+      overflow:hidden;
+      margin-top:18px;
+    }
+    .study-details > summary{
+      list-style:none;
+      cursor:pointer;
+      padding:18px 20px;
+      background:linear-gradient(90deg, rgba(7,50,23,.85), rgba(6,31,20,.95));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      font-weight:800;
+      color:#fff;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .study-details > summary::-webkit-details-marker{display:none}
+    .study-details > summary .meta{
+      font-size:13px;
+      color:#dfffe6;
+      font-weight:600;
+      opacity:.9;
+    }
+    .study-details > summary .toggle{
+      width:34px;
+      height:34px;
+      border-radius:999px;
+      background:rgba(212,175,55,.12);
+      display:grid;
+      place-items:center;
+      color:var(--gold-base);
+      flex:0 0 auto;
+      transition:transform .2s ease;
+    }
+    .study-details[open] > summary .toggle{
+      transform:rotate(180deg);
+    }
+
+    .step{
+      margin:16px 16px 0;
+      background:rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:18px;
+      overflow:hidden;
+    }
+    .step > summary{
+      list-style:none;
+      cursor:pointer;
+      padding:14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      background:rgba(255,255,255,.02);
+      color:#fff;
+      font-weight:800;
+    }
+    .step > summary::-webkit-details-marker{display:none}
+    .step > summary .small{
+      font-size:12px;
+      color:#dfffe6;
+      font-weight:600;
+      opacity:.9;
+    }
+    .step > summary .toggle{
+      color:var(--gold-base);
+      transition:transform .2s ease;
+    }
+    .step[open] > summary .toggle{transform:rotate(180deg)}
+    .step-body{
+      padding:16px;
+      background:rgba(0,0,0,.14);
+    }
+
+    .study-row{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:14px;
+    }
+    .study-row-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .field label{
+      font-size:13px;
+      font-weight:700;
+      color:#eaf9ea;
+    }
+    .field input,.field select,.field textarea{
+      width:100%;
+      padding:12px;
+      border-radius:8px;
+      border:1px solid rgba(124,179,66,0.18);
+      background:rgba(0,0,0,0.18);
+      color:#fff;
+      font-size:14px;
+      outline:none;
+    }
+    .field input::placeholder,.field textarea::placeholder{color:#dbeed8}
+
+    .results{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+    .result-card{
+      background:linear-gradient(180deg,#fbfffb,#f3fff2);
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(3,50,26,.06);
+      box-shadow:0 14px 36px rgba(2,22,12,.12);
+      color:#072012;
+      min-height:118px;
+    }
+    .result-card .label{
+      font-size:13px;
+      color:#6b7f6b;
+      text-transform:uppercase;
+      letter-spacing:.6px;
+    }
+    .result-card .value{
+      font-weight:900;
+      font-size:20px;
+      color:var(--green-mid-2);
+      margin-top:6px;
+      display:inline-block;
+    }
+    .result-card .small{
+      font-size:13px;
+      color:#6b7f6b;
+      margin-top:6px;
+      line-height:1.45;
+    }
+
+    .consumer-list{
+      margin-top:10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .consumer{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 12px;
+      border-radius:12px;
+      background:#fff;
+      border:1px solid #eee;
+      color:#072012;
+      gap:10px;
+    }
+    .consumer .meta{font-size:13px;color:#6b7f6b}
+
+    .summary{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    .big{
+      padding:18px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid #e6f3ea;
+      color:#072012;
+      box-shadow:var(--shadow);
+    }
+    .big h2{
+      margin:0;
+      color:#04462e;
+      text-align:left;
+      font-size:24px;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    .kpi .num{
+      font-weight:900;
+      font-size:22px;
+      color:#0b4d26;
+    }
+    .kpi .muted{font-size:13px;color:#6b7f6b}
+    .note{
+      font-size:12px;
+      color:#6b7f6b;
+      margin-top:10px;
+      line-height:1.6;
+    }
+
+    #mapCard{padding:0;overflow:hidden}
+    #map{height:260px;border-radius:0}
+
+    footer{
+      background:var(--green-dark);
+      color:#fff;
+      padding:28px 5vw 36px;
+      position:relative;
+      margin-top:40px;
+      text-align:center;
+    }
+    footer::before{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      height:2px;
+      background:var(--gold-base)
+    }
+    .footer-company{
+      display:block;
+      margin:0 auto 8px;
+      font-size:18px;
+      font-weight:800;
+      color:#04462e;
+      -webkit-text-stroke:0.7px var(--gold-base);
+      text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      padding:4px 8px;
+      border-radius:6px;
+      width:max-content;
+      background:linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%)
+    }
+    .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
+
+    .card-dark{
+      background:linear-gradient(180deg, rgba(6,31,20,.96), rgba(7,50,23,.96));
+      border-radius:24px;
+      border:1px solid rgba(212,175,55,.20);
+      box-shadow:0 14px 36px rgba(0,0,0,.26);
+      overflow:hidden;
+      color:#fff;
+    }
+
+    .btn-outline{
+      padding:12px 16px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.32);
+      background:transparent;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+      font-size:14px;
+    }
+    .btn-outline:hover{background:rgba(255,255,255,0.08)}
+
+    .zone-title{
+      color:var(--accent-2);
+      text-align:center;
+      font-size:32px;
+      margin:0 0 18px;
+    }
+
+    .room-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-start;
+      margin-top:12px;
+    }
+
+    .room-box{
+      background:#fff;
+      color:#072012;
+      border-radius:16px;
+      border:1px solid #e6f3ea;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .room-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:14px 16px;
+      background:linear-gradient(180deg,#ffffff,#f5fff4);
+      border-bottom:1px solid #e7f2e8;
+    }
+    .room-header strong{font-size:16px;color:#04462e}
+    .room-content{
+      padding:16px;
+    }
+
+    .room-consumers{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:10px;
+    }
+    .room-consumer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid #edf4ef;
+      border-radius:12px;
+      background:#fff;
+    }
+    .room-consumer .meta{
+      color:#6b7f6b;
+      font-size:13px;
+      margin-top:2px;
+    }
+
+    .mini-note{
+      font-size:13px;
+      color:#dfffe6;
+      line-height:1.6;
+      opacity:.95;
+    }
+
+    @media (max-width:1100px){
+      .study-row,.study-row-3,.summary,.kpi,.results{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:820px){
+      nav{display:none}
+      .burger{display:flex}
+      .hero-content{ max-width:86vw; }
+      .hero{
+        min-height:auto;
+      }
+      .hero-content h1 { font-size:28px; }
+      .hero-content p { font-size:14px; }
+      .zone-card{ width:100%; min-width:0; max-width:none; height:200px }
+      .zone-card h3{ font-size:18px; bottom:10px; padding:8px 12px }
+      .study-details > summary{
+        padding:16px;
+        align-items:flex-start;
+        flex-direction:column;
+      }
+    }
+
+    @media (max-width:768px){
+      .company-name{font-size:26px}
+      .topbar .right{gap:10px;font-size:13px}
+      .hero-content h1 { font-size:28px; }
+      .hero-content p { font-size:14px; }
+      .section h2{font-size:24px}
+      .results{grid-template-columns:1fr}
+      .zone-title{font-size:24px}
+    }
+
+    .electric-band {
+      position: fixed;
+      top: calc(var(--topbar-h) + var(--header-h) - 6px);
+      left: 0;
+      right: 0;
+      height: 14px;
+      z-index: 1600;
+      pointer-events: none;
+      overflow: visible;
+      transform: translateZ(0);
+    }
+    .electric-band .container {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100vw;
+      max-width: none;
+      padding: 0;
+      height: 100%;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+    .lightning-svg {
+      width: 100vw;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .22s ease;
+      mix-blend-mode: screen;
+    }
+    .electric-band.connected .lightning-svg { opacity: 1; }
+    .lightning-svg path.zap {
+      stroke: var(--electric-yellow);
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.98;
+    }
+    .orbs {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .orb {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
+      box-shadow: 0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
+      transform: translate(-50%,-50%);
+      opacity: 0;
+      transition: opacity .18s linear;
+    }
+    .electric-band.connected .orb { opacity:1; }
+    @keyframes buzz {
+      0% { transform: translate(-50%,-50%) translateX(-2px); }
+      50% { transform: translate(-50%,-50%) translateX(2px); }
+      100% { transform: translate(-50%,-50%) translateX(-2px); }
+    }
+    .orb.buzz { animation: buzz 0.9s linear infinite; }
+    .glowline {
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      height:3px;
+      width:0;
+      background: linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
+      border-radius:8px;
+      box-shadow: 0 6px 20px rgba(255,214,0,0.12);
+      opacity:0;
+      transition:opacity .22s ease;
+    }
+    .electric-band.connected .glowline {
+      width:100vw;
+      opacity:1;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
+      50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 }
+      100%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
+    }
+    @media (max-width:820px){
+      .electric-band .container {
+        width:100%;
+        left:0;
+        padding:0 4vw;
+        box-sizing:border-box;
+      }
+      .glowline {
+        width:86%;
+        max-width:86%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar" role="banner">
+    <div class="left">
+      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
+    </div>
+    <div class="right">
+      <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
+    </div>
+  </div>
+
+  <header role="navigation" aria-label="Main">
+    <div class="logo-text">
+      <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
+      <div class="brand-stack">
+        <div class="company-name">GREENBRIDGE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
+      </div>
+    </div>
+
+    <nav aria-label="Menu principal">
+      <a href="GreenBrigde technologies.html">Accueil</a>
+      <a href="#top" class="active">Étude</a>
+      <a href="produits.html">Nos Produits</a>
+      <a href="Projets.html">Projets futurs</a>
+      <a href="maintenance.html">Maintenance</a>
+    </nav>
+
+    <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
+      <span class="icon"><span></span><span></span><span></span></span>
+    </button>
+  </header>
+
+  <div class="electric-band" id="electricBand" aria-hidden="true">
+    <div class="container" aria-hidden="true">
+      <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
+        <path class="zap" id="zap1" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
+        <path class="zap" id="zap2" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
+        <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
+      </svg>
+      <div class="orbs" id="orbs">
+        <div class="orb" id="orbA"></div>
+        <div class="orb" id="orbB"></div>
+        <div class="orb" id="orbC"></div>
+      </div>
+      <div class="glowline" id="glowline"></div>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <div class="inner">
+      <div class="contact">
+        <div><strong>GREENBRIDGE</strong></div>
+        <div><i class="fas fa-map-marker-alt"></i> Abidjan, Côte d’Ivoire</div>
+        <div><a href="tel:+22507070707"><i class="fas fa-phone"></i> +225 07 07 07 07 07</a></div>
+      </div>
+      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+      <a href="#top" class="mobile-link active">Étude</a>
+      <a href="produits.html" class="mobile-link">Nos Produits</a>
+      <a href="Projets.html" class="mobile-link">Projets futurs</a>
+      <a href="maintenance.html" class="mobile-link">Maintenance</a>
+    </div>
+  </div>
+
+  <section class="hero" id="top" aria-label="Hero">
+    <img class="hero-bg" src="Etude_1.png" alt="Illustration GreenBridge Énergie">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Solutions Énergie sur mesure</h1>
+      <p>Étude du besoin, dimensionnement, installation et maintenance</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('zones').scrollIntoView({behavior:'smooth'})">Commencer l’étude</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="zones" class="section" aria-label="Nos activités">
+    <h2 class="section-title">Commencer par la bonne zone</h2>
+    <p class="activities-intro">Choisis le contexte. La page adapte ensuite la lecture du besoin : urbain par pièces, agricole par projet.</p>
+    <div class="zones-cards">
+      <div class="zone-card" onclick="document.getElementById('zone-urbaine').scrollIntoView({behavior:'smooth'})" role="button" aria-label="Zone Urbaine">
+        <img src="milieu_urbain_1.png" alt="Zone Urbaine">
+        <div class="overlay"></div>
+        <h3>Zone Urbaine</h3>
+      </div>
+      <div class="zone-card" onclick="document.getElementById('zone-agricole').scrollIntoView({behavior:'smooth'})" role="button" aria-label="Zone Agricole">
+        <img src="milieu_agricole.png" alt="Zone Agricole">
+        <div class="overlay"></div>
+        <h3>Zone Agricole</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZONE URBAINE -->
+  <section id="zone-urbaine" class="section">
+    <h2 class="zone-title">Zone urbaine</h2>
+    <p class="products-intro">Définis les pièces, puis ajoute les équipements de chaque espace pour estimer puissance, énergie, autonomie et budget.</p>
+
+    <div class="study-shell">
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 1 — Paramètres de base</div>
+            <div class="meta">Choisis le pays et les réglages techniques avant de remplir les pièces.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="study-row">
+            <div class="field">
+              <label for="urbanCountry">Pays</label>
+              <select id="urbanCountry">
+                <option value="ci">Côte d'Ivoire</option>
+                <option value="sn">Sénégal</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="urbanSunHours">Heures soleil utiles / jour</label>
+              <input id="urbanSunHours" type="number" min="1" step="0.1" value="5">
+            </div>
+          </div>
+
+          <div class="study-row-3">
+            <div class="field">
+              <label for="urbanDerate">Facteur dérating PV (%)</label>
+              <input id="urbanDerate" type="number" min="10" max="100" value="85">
+            </div>
+            <div class="field">
+              <label for="urbanPanelW">Puissance panneau (W)</label>
+              <input id="urbanPanelW" type="number" min="50" value="550">
+            </div>
+            <div class="field">
+              <label for="urbanBatteryKwh">Capacité utile pack batterie (kWh)</label>
+              <input id="urbanBatteryKwh" type="number" min="0.1" step="0.01" value="1.28">
+            </div>
+          </div>
+
+          <div class="study-row">
+            <div class="field">
+              <label for="urbanAutonomy">Autonomie souhaitée (jours)</label>
+              <input id="urbanAutonomy" type="number" min="0" step="0.5" value="2">
+            </div>
+            <div class="field">
+              <label for="urbanDiversity">Facteur de simultanéité</label>
+              <input id="urbanDiversity" type="number" min="0.1" max="1" step="0.05" value="0.7">
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 2 — Pièces et équipements</div>
+            <div class="meta">Ajoute une pièce, puis les charges de cette pièce. Tu peux réduire chaque bloc pour t’y retrouver plus vite.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="study-row">
+            <div class="field">
+              <label for="urbanRoomType">Type de pièce</label>
+              <select id="urbanRoomType">
+                <option value="Chambre">Chambre</option>
+                <option value="Salon">Salon</option>
+                <option value="Cuisine">Cuisine</option>
+                <option value="Bureau">Bureau</option>
+                <option value="Salle d'eau">Salle d'eau</option>
+                <option value="Boutique">Boutique</option>
+                <option value="Local technique">Local technique</option>
+                <option value="Salle serveur">Salle serveur</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="urbanRoomCount">Nombre</label>
+              <input id="urbanRoomCount" type="number" min="1" value="1">
+            </div>
+          </div>
+
+          <div class="study-row">
+            <div class="field">
+              <label for="urbanRoomName">Nom de base</label>
+              <input id="urbanRoomName" type="text" placeholder="Ex : Chambre, Salon principal, Bureau 1">
+            </div>
+            <div class="field">
+              <label><input type="checkbox" id="urbanPrefill" checked> Préremplir avec les équipements conseillés</label>
+            </div>
+          </div>
+
+          <div class="room-actions">
+            <button type="button" class="btn-primary" id="addUrbanRoomBtn"><i class="fas fa-plus"></i> Ajouter la pièce</button>
+            <button type="button" class="btn-secondary" id="clearUrbanRoomsBtn">Vider les pièces</button>
+          </div>
+
+          <div style="margin-top:18px;color:#dfffe6;font-weight:700">Pièces</div>
+          <div id="urbanRoomsList" style="margin-top:14px;display:flex;flex-direction:column;gap:14px"></div>
+
+          <div style="margin-top:18px;color:#dfffe6;font-weight:700">Équipements conseillés rapidement</div>
+          <div class="room-actions" id="urbanSuggests" style="margin-top:10px"></div>
+        </div>
+      </details>
+
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 3 — Résultats urbains</div>
+            <div class="meta">Puissance, énergie, PV, batterie et budget estimé.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="results" id="urbanResults">
+            <div class="result-card"><div class="label">Puissance connectée</div><div class="value" id="urbanConnectedPower">0 W</div><div class="small">Somme des équipements installés</div></div>
+            <div class="result-card"><div class="label">Puissance de pointe</div><div class="value" id="urbanPeakPower">0 kW</div><div class="small">Simultanéité appliquée aux pièces</div></div>
+            <div class="result-card"><div class="label">Énergie / jour</div><div class="value" id="urbanDailyKwh">0 kWh/j</div><div class="small">Consommation journalière estimée</div></div>
+            <div class="result-card"><div class="label">Énergie / mois</div><div class="value" id="urbanMonthlyKwh">0 kWh/mois</div><div class="small">Sur 30 jours</div></div>
+            <div class="result-card"><div class="label">Onduleur conseillé</div><div class="value" id="urbanInverter">0 kW</div><div class="small">Marge de sécurité incluse</div></div>
+            <div class="result-card"><div class="label">PV conseillé</div><div class="value" id="urbanPvKw">0 kWc</div><div class="small">Dimensionnement brut</div></div>
+            <div class="result-card"><div class="label">Panneaux estimés</div><div class="value" id="urbanPanels">0</div><div class="small">Arrondi au panneau entier</div></div>
+            <div class="result-card"><div class="label">Batterie utile</div><div class="value" id="urbanBatteryNeed">0 kWh</div><div class="small">Pour l’autonomie souhaitée</div></div>
+            <div class="result-card"><div class="label">Budget estimé</div><div class="value" id="urbanBudget">0 FCFA</div><div class="small">Prix adapté selon le pays</div></div>
+          </div>
+
+          <div style="margin-top:18px;color:#dfffe6;font-weight:700">Lecture du besoin</div>
+          <div class="study-panel" style="margin-top:10px">
+            <textarea rows="4" readonly id="urbanAdvice" style="width:100%;background:transparent;color:#fff;border:1px solid rgba(124,179,66,0.18);padding:12px;border-radius:8px">Sélectionne une pièce, ajoute les équipements, puis lance le calcul.</textarea>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ZONE AGRICOLE -->
+  <section id="zone-agricole" class="section">
+    <h2 class="zone-title">Zone agricole</h2>
+    <p class="products-intro">Définis le projet, la surface, le pompage et les besoins de terrain pour estimer la puissance et le solaire.</p>
+
+    <div class="study-shell">
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 1 — Carte et zone</div>
+            <div class="meta">Choisis le pays et la zone avant de remplir les paramètres agricoles.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="card-dark" id="mapCard">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;gap:10px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.06)">
+              <div style="font-weight:800;color:#fff">Carte & zone</div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <label style="font-size:13px;color:#eaf9ea;margin-right:6px">Pays / Zone :</label>
+                <select id="zoneSelect" style="padding:8px 10px;border-radius:10px;border:1px solid #e6e6e6">
+                  <option value="ci">Côte d'Ivoire</option>
+                  <option value="sn">Sénégal</option>
+                </select>
+                <label style="font-size:13px;color:#eaf9ea;margin-left:8px;margin-right:6px">Ville / Zone :</label>
+                <select id="citySelect" style="padding:8px 10px;border-radius:10px;border:1px solid #e6e6e6"></select>
+              </div>
+            </div>
+            <div id="map"></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 2 — Paramètres agricoles</div>
+            <div class="meta">Pays, culture, surface, irrigation, pompage et solaire.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="section-intro" style="margin-bottom:16px;text-align:left;max-width:none;color:#dfffe6">
+            Pays → Culture → Surface ; le champ "Besoin eau (mm/j)" se pré-remplit selon le pays.
+          </div>
+
+          <div class="study-row">
+            <div class="field">
+              <label>Pays</label>
+              <select id="country">
+                <option value="ci">Côte d'Ivoire</option>
+                <option value="sn">Sénégal</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Type de culture</label>
+              <select id="crop">
+                <option value="tomate">Tomate</option>
+                <option value="mais">Maïs</option>
+                <option value="riz">Riz</option>
+                <option value="mangue">Manguier</option>
+                <option value="legume">Légume feuille</option>
+                <option value="palmier">Palmier</option>
+                <option value="custom">Personnalisé (mm/j)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="study-row-3">
+            <div class="field">
+              <label>Surface (ha)</label>
+              <input id="areaHa" type="number" min="0" step="0.01" value="0.5">
+            </div>
+            <div class="field">
+              <label>Besoin eau (mm/j)</label>
+              <input id="needMmPerDay" type="number" step="0.1" value="5.0" aria-describedby="needHelp">
+              <div id="needHelp" style="font-size:13px;color:#dfffe6">La valeur change automatiquement selon le pays + culture sélectionnés.</div>
+            </div>
+            <div class="field">
+              <label>Irrigation : jours / semaine</label>
+              <input id="irrigDays" type="number" min="1" max="7" value="3">
+            </div>
+          </div>
+
+          <div class="study-row-3">
+            <div class="field">
+              <label>Heures de pompage / jour d'irrigation</label>
+              <input id="pumpHours" type="number" min="0.1" step="0.1" value="4">
+            </div>
+            <div class="field">
+              <label>Hauteur manométrique utile (m)</label>
+              <input id="head" type="number" min="0" step="0.1" value="15">
+            </div>
+            <div class="field">
+              <label>Rendement pompe (%)</label>
+              <input id="pumpEff" type="number" min="10" max="90" value="55">
+            </div>
+          </div>
+
+          <div class="study-row-3">
+            <div class="field">
+              <label>Heures soleil utiles / jour</label>
+              <input id="sunHours" type="number" min="1" step="0.1" value="5">
+            </div>
+            <div class="field">
+              <label>Facteur dérating PV (%)</label>
+              <input id="pvDerate" type="number" min="10" max="100" value="85">
+            </div>
+            <div class="field">
+              <label>Puissance panneau utilisé (W)</label>
+              <input id="panelW" type="number" min="50" value="350">
+            </div>
+          </div>
+
+          <div class="study-row">
+            <div class="field">
+              <label>Pack batterie — capacité utile pack (kWh)</label>
+              <input id="packKwh" type="number" min="0.1" step="0.01" value="1.28">
+            </div>
+            <div class="field">
+              <label>Autonomie secours souhaitée (jours)</label>
+              <input id="autonomyDays" type="number" min="0" step="0.5" value="2">
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 3 — Charges et consommateurs</div>
+            <div class="meta">Ajoute des équipements agricoles ou des charges manuelles si nécessaire.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="room-actions">
+            <button id="calcBtn" class="btn-primary"><i class="fas fa-calculator"></i> Calculer</button>
+            <button id="resetBtn" class="btn-secondary">Réinitialiser</button>
+          </div>
+
+          <div style="margin-top:18px;color:#dfffe6;font-weight:700">Consommateurs agricoles courants</div>
+          <div id="suggestList" class="room-actions" style="margin-top:10px"></div>
+
+          <div class="study-row" style="margin-top:14px">
+            <div class="field">
+              <label>Nom consommateur</label>
+              <input id="consName" type="text" placeholder="Ex: Atelier">
+            </div>
+            <div class="field">
+              <label>Puissance W</label>
+              <input id="consPower" type="number" placeholder="W">
+            </div>
+          </div>
+          <div class="study-row">
+            <div class="field">
+              <label>Heures / jour</label>
+              <input id="consHours" type="number" placeholder="h/j">
+            </div>
+            <div class="field" style="display:flex;justify-content:flex-end">
+              <label style="visibility:hidden">Ajouter</label>
+              <button id="addManual" class="btn-secondary">Ajouter manuellement</button>
+            </div>
+          </div>
+
+          <div id="consumerList" style="margin-top:8px"></div>
+        </div>
+      </details>
+
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 4 — Résultats & synthèse</div>
+            <div class="meta">Puissance, énergie, PV, batterie, réservoir et synthèse principale.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="results" id="resultsGrid">
+            <div class="result-card"><div class="label">Volume eau (m³ / jour)</div><div id="volDay" class="value">0 m³</div><div class="small">Basé sur surface × mm/j</div></div>
+            <div class="result-card"><div class="label">Débit pompe requis (m³/h)</div><div id="flowQ" class="value">0 m³/h</div><div class="small">Volume hebdomadaire réparti sur jours d’irrigation</div></div>
+            <div class="result-card"><div class="label">Puissance pompe (kW)</div><div id="pumpKw" class="value">0 kW</div><div class="small">Puissance électrique d'entrée (rendement inclus)</div></div>
+            <div class="result-card"><div class="label">Énergie pompe (kWh / jour)</div><div id="pumpKwh" class="value">0 kWh/j</div><div class="small">Moyenne journalière sur la semaine</div></div>
+            <div class="result-card"><div class="label">Autres consommateurs (kWh / jour)</div><div id="othersKwh" class="value">0 kWh/j</div><div class="small">Somme des équipements ajoutés</div></div>
+            <div class="result-card"><div class="label">Consommation totale (kWh / jour)</div><div id="totalKwhDay" class="value">0 kWh/j</div><div class="small">Pompe + autres, avant pertes</div></div>
+            <div class="result-card"><div class="label">PV requis (kWc)</div><div id="pvKw" class="value">0 kWc</div><div class="small">Dimensionnement brut</div></div>
+            <div class="result-card"><div class="label">Nb panneaux (~W)</div><div id="panelsCount" class="value">0</div><div class="small">Arrondi au panneau entier</div></div>
+            <div class="result-card"><div class="label">Réservoir recommandé (m³)</div><div id="reservoir" class="value">0 m³</div><div class="small">Pour <span id="autDaysLabel">2</span> jours d'autonomie</div></div>
+            <div class="result-card"><div class="label">Batterie estimée (kWh utile)</div><div id="batteryKwh" class="value">0 kWh</div><div class="small">Capacité utile requise pour l'autonomie</div></div>
+          </div>
+
+          <div class="summary">
+            <div class="big">
+              <h2>Synthèse principale</h2>
+              <div class="kpi">
+                <div>
+                  <div class="muted">Consommation (kWh / mois)</div>
+                  <div id="consMonth" class="num">0 kWh</div>
+                  <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
+                </div>
+                <div>
+                  <div class="muted">Énergie / mois après système</div>
+                  <div id="afterMonth" class="num">0 kWh</div>
+                  <div id="afterMonthRange" class="muted">gain: 0 kWh</div>
+                </div>
+                <div>
+                  <div class="muted">PV requis (kWc)</div>
+                  <div id="pvReqKwc" class="num">0 kWc</div>
+                  <div id="pvReqRange" class="muted">incertitude ±15%</div>
+                </div>
+              </div>
+              <div class="note"><strong>Remarque :</strong> valeurs indicatives — vérification terrain recommandée.</div>
+            </div>
+
+            <div class="big">
+              <h2>Détails importants</h2>
+              <div style="margin-top:10px"><div style="font-weight:800">Pompe</div><div id="summaryPump" class="muted">—</div></div>
+              <div style="margin-top:8px"><div style="font-weight:800">Réservoir & autonomie</div><div id="summaryReservoir" class="muted">—</div></div>
+              <div style="margin-top:8px"><div style="font-weight:800">Packs batterie</div><div id="summaryBatteries" class="muted">—</div></div>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
+    <div class="footer-contact" aria-label="Coordonnées">
+      <div>© 2025 GreenBridge. Tous droits réservés.</div>
+      <div>Abidjan, Côte d’Ivoire</div>
+      <div>Tel: +225 07 07 07 07 07</div>
+    </div>
+  </footer>
+
+  <script>
+    function fmt(n,dec=2){ return Number(n||0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
+
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    if (burgerBtn && mobileNav) {
+      burgerBtn.addEventListener('click', () => {
+        const opened = mobileNav.classList.toggle('open');
+        burgerBtn.classList.toggle('open', opened);
+        mobileNav.setAttribute('aria-hidden', (!opened).toString());
+        burgerBtn.setAttribute('aria-expanded', String(opened));
+      });
+
+      mobileNav.querySelectorAll('.mobile-link').forEach(a=>{
+        a.addEventListener('click', ()=>{
+          mobileNav.classList.remove('open');
+          burgerBtn.classList.remove('open');
+          mobileNav.setAttribute('aria-hidden','true');
+          burgerBtn.setAttribute('aria-expanded','false');
+        });
+      });
+    }
+
+    (function(){
+      const electricBand = document.getElementById('electricBand');
+      if (!electricBand) return;
+      const orbA = document.getElementById('orbA');
+      const orbB = document.getElementById('orbB');
+      const orbC = document.getElementById('orbC');
+      const orbs = [orbA, orbB, orbC];
+      const zapBright = document.getElementById('zapBright');
+      const params = [
+        {rxRatio:0.50, ry:8, speed:0.22, phase:0},
+        {rxRatio:0.33, ry:6, speed:0.36, phase:Math.PI/2},
+        {rxRatio:0.42, ry:10, speed:0.18, phase:Math.PI}
+      ];
+
+      orbs.forEach((o,i)=>{
+        if(o){
+          o.classList.add('buzz');
+          o.style.animationDelay = (i*120) + 'ms';
+        }
+      });
+
+      let t0 = performance.now();
+      function tick(now){
+        const time = (now - t0) / 1000;
+        const cont = electricBand.querySelector('.container');
+        if(!cont) {
+          requestAnimationFrame(tick);
+          return;
+        }
+        const rect = cont.getBoundingClientRect();
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        for(let i=0;i<orbs.length;i++){
+          const orb = orbs[i];
+          if(!orb) continue;
+          const p = params[i];
+          const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
+          const ry = p.ry;
+          const angle = (time * p.speed * Math.PI * 2) + p.phase;
+          const x = cx + Math.cos(angle) * rx;
+          const y = cy + Math.sin(angle) * ry;
+          orb.style.left = x + 'px';
+          orb.style.top = y + 'px';
+          orb.style.transform = 'translate(-50%,-50%)';
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+
+      function sparkSVG(){
+        if(!zapBright) return;
+        try{
+          const len = zapBright.getTotalLength ? zapBright.getTotalLength() : 520;
+          zapBright.style.transition = 'none';
+          zapBright.setAttribute('stroke-dasharray', String(len));
+          zapBright.setAttribute('stroke-dashoffset', String(len));
+          setTimeout(()=>{
+            zapBright.style.transition = 'stroke-dashoffset 380ms ease-out, opacity 160ms';
+            zapBright.setAttribute('stroke-dashoffset','0');
+            setTimeout(()=>{
+              zapBright.setAttribute('stroke-dashoffset', String(len));
+            }, 320);
+          }, 60);
+        }catch(e){
+          zapBright.setAttribute('stroke-dasharray','520');
+          zapBright.setAttribute('stroke-dashoffset','520');
+          setTimeout(()=>{
+            zapBright.style.transition = 'stroke-dashoffset 360ms ease-out';
+            zapBright.setAttribute('stroke-dashoffset','0');
+          }, 80);
+        }
+      }
+
+      function spawnSparks(){
+        const cont = electricBand.querySelector('.container');
+        if(!cont) return;
+        for(let i=0;i<10;i++){
+          const s = document.createElement('div');
+          s.style.position = 'absolute';
+          s.style.left = (3 + Math.random()*94) + '%';
+          s.style.top = (20 + Math.random()*50) + '%';
+          s.style.width = '2px';
+          s.style.height = (8 + Math.random()*22) + 'px';
+          s.style.borderRadius = '2px';
+          s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
+          s.style.filter = 'blur(6px)';
+          s.style.opacity = '0';
+          s.style.transform = 'translateY(6px)';
+          s.style.pointerEvents = 'none';
+          s.style.zIndex = '1';
+          cont.appendChild(s);
+          setTimeout(()=>{
+            s.style.transition = 'all 260ms ease-out';
+            s.style.opacity='1';
+            s.style.transform='translateY(-6px)';
+          }, 20 + i*25);
+          setTimeout(()=>{
+            s.style.transition = 'all 420ms ease-in';
+            s.style.opacity='0';
+            s.style.transform='translateY(-20px)';
+          }, 280 + i*40);
+          setTimeout(()=>{
+            if(s.parentNode) s.parentNode.removeChild(s);
+          }, 760 + i*40);
+        }
+      }
+
+      function activate(){
+        electricBand.classList.add('connected');
+        spawnSparks();
+        sparkSVG();
+        setInterval(()=>{
+          spawnSparks();
+          if(Math.random() > 0.45) sparkSVG();
+        }, 900 + Math.random()*900);
+      }
+
+      const title = document.querySelector('.company-name');
+      if(title){
+        title.addEventListener('click', ()=>{
+          const on = electricBand.classList.toggle('connected');
+          if(on){
+            spawnSparks();
+            sparkSVG();
+          }
+        });
+      }
+
+      activate();
+      window.addEventListener('resize', ()=>{ t0 = performance.now(); });
+    })();
+
+    const URBAN_CATALOGUE = [
+      {id:'light_led', label:'Éclairage LED', power:18, hours:5, roomTypes:['Chambre','Salon','Cuisine','Bureau','Boutique','Local technique']},
+      {id:'tv', label:'Télévision', power:120, hours:4, roomTypes:['Salon','Chambre','Boutique']},
+      {id:'fan', label:'Ventilateur', power:60, hours:6, roomTypes:['Chambre','Salon','Bureau','Boutique']},
+      {id:'fridge', label:'Réfrigérateur', power:150, hours:8, roomTypes:['Cuisine','Boutique','Local technique']},
+      {id:'router', label:'Routeur / Internet', power:15, hours:24, roomTypes:['Salon','Bureau','Local technique','Salle serveur']},
+      {id:'charger', label:'Recharge téléphones', power:25, hours:3, roomTypes:['Chambre','Salon','Boutique','Bureau']},
+      {id:'computer', label:'Ordinateur', power:90, hours:6, roomTypes:['Bureau','Salle serveur']},
+      {id:'cam', label:'Caméra de surveillance', power:8, hours:24, roomTypes:['Boutique','Local technique','Salle serveur']},
+      {id:'intercom', label:'Interphone', power:20, hours:8, roomTypes:['Boutique','Bureau']},
+      {id:'gate', label:'Portail / moteur', power:300, hours:0.5, roomTypes:['Boutique']},
+      {id:'ac', label:'Climatiseur', power:900, hours:6, roomTypes:['Salon','Bureau','Salle serveur']},
+      {id:'microwave', label:'Micro-ondes', power:1200, hours:0.25, roomTypes:['Cuisine']}
+    ];
+
+    const URBAN_DEFAULTS = {
+      'Chambre': [{id:'light_led', qty:2, hours:5}, {id:'fan', qty:1, hours:6}, {id:'charger', qty:2, hours:2}],
+      'Salon': [{id:'light_led', qty:3, hours:5}, {id:'tv', qty:1, hours:4}, {id:'fan', qty:2, hours:6}, {id:'router', qty:1, hours:24}],
+      'Cuisine': [{id:'light_led', qty:2, hours:5}, {id:'fridge', qty:1, hours:8}, {id:'microwave', qty:1, hours:0.25}],
+      'Bureau': [{id:'light_led', qty:3, hours:5}, {id:'computer', qty:1, hours:6}, {id:'router', qty:1, hours:24}],
+      'Salle d\'eau': [{id:'light_led', qty:1, hours:2}],
+      'Boutique': [{id:'light_led', qty:4, hours:7}, {id:'fan', qty:2, hours:8}, {id:'router', qty:1, hours:24}, {id:'cam', qty:2, hours:24}],
+      'Local technique': [{id:'light_led', qty:2, hours:6}, {id:'cam', qty:2, hours:24}, {id:'router', qty:1, hours:24}],
+      'Salle serveur': [{id:'router', qty:1, hours:24}, {id:'computer', qty:2, hours:10}, {id:'cam', qty:2, hours:24}, {id:'ac', qty:1, hours:8}]
+    };
+
+    const URBAN_PRICE = {
+      ci: { panel:170000, inverterKw:280000, batteryPack:320000, installBase:240000 },
+      sn: { panel:190000, inverterKw:320000, batteryPack:360000, installBase:275000 }
+    };
+
+    let urbanRooms = [];
+    let roomIdSeq = 1;
+
+    const urbanCountry = document.getElementById('urbanCountry');
+    const urbanRoomType = document.getElementById('urbanRoomType');
+    const urbanRoomCount = document.getElementById('urbanRoomCount');
+    const urbanRoomName = document.getElementById('urbanRoomName');
+    const urbanPrefill = document.getElementById('urbanPrefill');
+    const addUrbanRoomBtn = document.getElementById('addUrbanRoomBtn');
+    const clearUrbanRoomsBtn = document.getElementById('clearUrbanRoomsBtn');
+    const urbanRoomsList = document.getElementById('urbanRoomsList');
+    const urbanSuggests = document.getElementById('urbanSuggests');
+    const urbanSunHours = document.getElementById('urbanSunHours');
+    const urbanDerate = document.getElementById('urbanDerate');
+    const urbanPanelW = document.getElementById('urbanPanelW');
+    const urbanBatteryKwh = document.getElementById('urbanBatteryKwh');
+    const urbanAutonomy = document.getElementById('urbanAutonomy');
+    const urbanDiversity = document.getElementById('urbanDiversity');
+    const urbanAdvice = document.getElementById('urbanAdvice');
+
+    function createUrbanRoom(type, baseName, withPrefill=true){
+      const idx = urbanRooms.filter(r => r.type === type).length + 1;
+      const name = (baseName && baseName.trim()) ? baseName.trim() : `${type} ${idx}`;
+      const room = { id: `${name} (${roomIdSeq++})`, type, consumers: [] };
+      if(withPrefill && URBAN_DEFAULTS[type]) room.consumers = URBAN_DEFAULTS[type].map(c => ({...c}));
+      urbanRooms.push(room);
+      renderUrbanRooms();
+      computeUrban();
+    }
+
+    function urbanDeviceOptions(type){
+      return URBAN_CATALOGUE
+        .filter(d => d.roomTypes.includes(type) || d.roomTypes.includes('Maison'))
+        .map(d => `<option value="${d.id}">${d.label}</option>`)
+        .join('');
+    }
+
+    function renderUrbanSuggests(){
+      urbanSuggests.innerHTML = '';
+      URBAN_CATALOGUE.slice(0,8).forEach(d => {
+        const b = document.createElement('button');
+        b.className = 'btn-outline';
+        b.textContent = `${d.label} — ${d.power}W`;
+        b.addEventListener('click', () => {
+          if(urbanRooms.length === 0) createUrbanRoom('Salon', 'Salon principal', true);
+          urbanRooms[0].consumers.push({id:d.id, qty:1, hours:d.hours});
+          renderUrbanRooms();
+          computeUrban();
+        });
+        urbanSuggests.appendChild(b);
+      });
+    }
+
+    function renderUrbanRooms(){
+      urbanRoomsList.innerHTML = '';
+      if(urbanRooms.length === 0){
+        urbanRoomsList.innerHTML = '<div style="color:#dfffe6;padding:8px">Aucune pièce définie. Ajoute une première pièce pour commencer.</div>';
+        return;
+      }
+
+      urbanRooms.forEach((room, rIdx) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'room-box';
+
+        const consHtml = room.consumers.length ? room.consumers.map((c, cIdx) => {
+          const cat = URBAN_CATALOGUE.find(x => x.id === c.id);
+          return `
+            <div class="room-consumer">
+              <div style="flex:1">
+                <strong>${cat ? cat.label : c.id}</strong>
+                <div class="meta">${(cat ? cat.power : 0)} W × ${c.hours} h/j × ${c.qty} ${c.qty > 1 ? 'unités' : 'unité'}</div>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button class="btn-outline urban-edit-consumer" data-ridx="${rIdx}" data-cidx="${cIdx}" style="padding:8px 12px">Éditer</button>
+                <button class="btn-outline urban-del-consumer" data-ridx="${rIdx}" data-cidx="${cIdx}" style="padding:8px 12px">Suppr</button>
+              </div>
+            </div>`;
+        }).join('') : '<div style="color:#6b7f6b;padding:8px">Aucun équipement dans cette pièce</div>';
+
+        wrap.innerHTML = `
+          <div class="room-header">
+            <div>
+              <strong>${room.id}</strong>
+              <div style="font-size:13px;color:#6b7f6b">Type : ${room.type}</div>
+            </div>
+            <button class="btn-outline urban-remove-room" data-ridx="${rIdx}">Supprimer la pièce</button>
+          </div>
+          <div class="room-content">
+            <div class="study-row" style="margin-bottom:0">
+              <div class="field">
+                <label>Équipement</label>
+                <select class="urban-equip" data-ridx="${rIdx}">${urbanDeviceOptions(room.type)}</select>
+              </div>
+              <div class="field">
+                <label>Qté</label>
+                <input type="number" min="1" value="1" class="urban-qty" data-ridx="${rIdx}">
+              </div>
+            </div>
+            <div class="study-row" style="margin-bottom:0">
+              <div class="field">
+                <label>Heures/j</label>
+                <input type="number" min="0" step="0.1" value="1" class="urban-hours" data-ridx="${rIdx}">
+              </div>
+              <div style="display:flex;align-items:end">
+                <button class="btn-primary urban-add-consumer" data-ridx="${rIdx}" style="width:100%;padding:12px 14px"><i class="fas fa-plus"></i> Ajouter</button>
+              </div>
+            </div>
+            <div class="room-consumers">${consHtml}</div>
+          </div>
+        `;
+        urbanRoomsList.appendChild(wrap);
+      });
+
+      document.querySelectorAll('.urban-remove-room').forEach(btn => btn.onclick = () => {
+        urbanRooms.splice(Number(btn.dataset.ridx),1);
+        renderUrbanRooms();
+        computeUrban();
+      });
+
+      document.querySelectorAll('.urban-add-consumer').forEach(btn => btn.onclick = () => {
+        const idx = Number(btn.dataset.ridx);
+        const room = urbanRooms[idx];
+        const equipSel = urbanRoomsList.querySelector(`.urban-equip[data-ridx="${idx}"]`);
+        const qtyEl = urbanRoomsList.querySelector(`.urban-qty[data-ridx="${idx}"]`);
+        const hoursEl = urbanRoomsList.querySelector(`.urban-hours[data-ridx="${idx}"]`);
+        const cat = URBAN_CATALOGUE.find(x => x.id === equipSel.value);
+        if(!cat) return;
+        room.consumers.push({
+          id:cat.id,
+          qty:Math.max(1, Number(qtyEl.value||1)),
+          hours:Math.max(0, Number(hoursEl.value||0)) || cat.hours
+        });
+        renderUrbanRooms();
+        computeUrban();
+      });
+
+      document.querySelectorAll('.urban-edit-consumer').forEach(btn => btn.onclick = () => {
+        const rIdx = Number(btn.dataset.ridx), cIdx = Number(btn.dataset.cidx);
+        const consumer = urbanRooms[rIdx].consumers[cIdx];
+        const qty = parseFloat(prompt('Quantité', consumer.qty));
+        if(isNaN(qty) || qty <= 0) return;
+        const hours = parseFloat(prompt('Heures par jour', consumer.hours));
+        if(isNaN(hours) || hours < 0) return;
+        consumer.qty = qty;
+        consumer.hours = hours;
+        renderUrbanRooms();
+        computeUrban();
+      });
+
+      document.querySelectorAll('.urban-del-consumer').forEach(btn => btn.onclick = () => {
+        const rIdx = Number(btn.dataset.ridx), cIdx = Number(btn.dataset.cidx);
+        urbanRooms[rIdx].consumers.splice(cIdx,1);
+        renderUrbanRooms();
+        computeUrban();
+      });
+    }
+
+    function urbanConnectedPower(){
+      let total = 0;
+      urbanRooms.forEach(room => {
+        room.consumers.forEach(c => {
+          const cat = URBAN_CATALOGUE.find(x => x.id === c.id);
+          total += (cat ? cat.power : 0) * Number(c.qty || 0);
+        });
+      });
+      return total;
+    }
+    function urbanRoomPower(room){
+      return room.consumers.reduce((s,c) => {
+        const cat = URBAN_CATALOGUE.find(x => x.id === c.id);
+        return s + ((cat ? cat.power : 0) * Number(c.qty || 0));
+      }, 0);
+    }
+    function urbanRoomFactor(type){
+      if(type === 'Salle serveur') return 0.9;
+      if(type === 'Boutique') return 0.8;
+      if(type === 'Local technique') return 0.85;
+      if(type === 'Bureau') return 0.75;
+      if(type === 'Salon') return 0.7;
+      if(type === 'Cuisine') return 0.65;
+      return 0.6;
+    }
+
+    function computeUrban(){
+      const country = urbanCountry.value || 'ci';
+      const price = URBAN_PRICE[country] || URBAN_PRICE.ci;
+
+      const sunH = Math.max(0.1, Number(urbanSunHours.value || 5));
+      const derate = Math.max(0.01, Number(urbanDerate.value || 85))/100;
+      const panelW = Math.max(10, Number(urbanPanelW.value || 550));
+      const battPack = Math.max(0.01, Number(urbanBatteryKwh.value || 1.28));
+      const autonomy = Math.max(0, Number(urbanAutonomy.value || 2));
+      const diversity = Math.max(0.1, Math.min(1, Number(urbanDiversity.value || 0.7)));
+
+      const connectedW = urbanConnectedPower();
+      const dailyWh = urbanRooms.reduce((sum, room) => sum + room.consumers.reduce((s, c) => {
+        const cat = URBAN_CATALOGUE.find(x => x.id === c.id);
+        return s + (cat ? cat.power : 0) * Number(c.qty||0) * Number(c.hours||0);
+      }, 0), 0);
+      const dailyKwh = dailyWh / 1000;
+      const monthlyKwh = dailyKwh * 30;
+      const peakW = urbanRooms.reduce((sum, room) => sum + urbanRoomPower(room) * urbanRoomFactor(room.type), 0) * diversity;
+      const inverterW = peakW * 1.25;
+      const pvKw = dailyKwh / (sunH * derate);
+      const panels = Math.max(0, Math.ceil((pvKw * 1000) / panelW));
+      const batteryKwh = (dailyKwh * autonomy) / 0.85;
+      const packs = Math.ceil(batteryKwh / battPack);
+      const annualKwh = dailyKwh * 365;
+      const coveredBySolar = dailyKwh > 0 ? Math.min(100, Math.round((pvKw * sunH * derate) / dailyKwh * 100)) : 0;
+
+      const budget =
+        (panels * price.panel) +
+        (Math.ceil(inverterW/1000) * price.inverterKw) +
+        (packs * price.batteryPack) +
+        price.installBase;
+
+      document.getElementById('urbanConnectedPower').textContent = fmt(connectedW,0) + ' W';
+      document.getElementById('urbanPeakPower').textContent = fmt(peakW/1000,2) + ' kW';
+      document.getElementById('urbanDailyKwh').textContent = fmt(dailyKwh,2) + ' kWh/j';
+      document.getElementById('urbanMonthlyKwh').textContent = fmt(monthlyKwh,2) + ' kWh/mois';
+      document.getElementById('urbanInverter').textContent = fmt(inverterW/1000,2) + ' kW';
+      document.getElementById('urbanPvKw').textContent = fmt(pvKw,2) + ' kWc';
+      document.getElementById('urbanPanels').textContent = panels;
+      document.getElementById('urbanBatteryNeed').textContent = fmt(batteryKwh,2) + ' kWh (' + packs + ' packs)';
+      document.getElementById('urbanBudget').textContent = Math.round(budget).toLocaleString('fr-FR') + ' FCFA';
+
+      urbanAdvice.value =
+        `Zone urbaine (${country === 'ci' ? 'Côte d’Ivoire' : 'Sénégal'}) : ${urbanRooms.length} pièce(s), ${fmt(connectedW,0)} W connectés, ${fmt(dailyKwh,2)} kWh/j et une pointe estimée à ${fmt(peakW/1000,2)} kW. ` +
+        `Le système conseillé est d'environ ${fmt(inverterW/1000,2)} kW, ${fmt(pvKw,2)} kWc de PV et ${packs} pack(s) de batterie. ` +
+        `Budget estimé : ${Math.round(budget).toLocaleString('fr-FR')} FCFA. Énergie annuelle estimée : ${fmt(annualKwh,0)} kWh/an. Couverture solaire théorique : ${coveredBySolar}%.`;
+    }
+
+    urbanRoomType.addEventListener('change', ()=> {
+      urbanRoomName.placeholder = urbanRoomType.value + ' principal';
+    });
+    addUrbanRoomBtn.addEventListener('click', ()=> {
+      const type = urbanRoomType.value;
+      const count = Math.max(1, Number(urbanRoomCount.value||1));
+      const base = urbanRoomName.value.trim() || type;
+      const withPrefill = urbanPrefill.checked;
+      for(let i=0;i<count;i++) createUrbanRoom(type, count > 1 ? `${base} ${i+1}` : base, withPrefill);
+    });
+    clearUrbanRoomsBtn.addEventListener('click', ()=> {
+      if(!confirm('Vider toutes les pièces urbaines ?')) return;
+      urbanRooms = [];
+      renderUrbanRooms();
+      computeUrban();
+    });
+    [urbanCountry, urbanSunHours, urbanDerate, urbanPanelW, urbanBatteryKwh, urbanAutonomy, urbanDiversity]
+      .forEach(el => el.addEventListener('input', computeUrban));
+
+    renderUrbanSuggests();
+    createUrbanRoom('Salon', 'Salon principal', true);
+
+    const SUGGESTED = [
+      { id:'lighting', label:'Éclairage LED (hangar/serre)', power:100, hours:6 },
+      { id:'fridge', label:'Réfrigérateur / chambre froide', power:200, hours:8 },
+      { id:'charger', label:'Recharge téléphones (borne)', power:200, hours:6 },
+      { id:'radio', label:'Radio / Sono / Info', power:80, hours:6 },
+      { id:'local_staff', label:'Local employés (éclairage + prises)', power:300, hours:8 },
+      { id:'aerator', label:'Aérateur bassin pisciculture', power:250, hours:6 },
+      { id:'sprayer', label:'Pulvérisateur électrique', power:300, hours:1 },
+      { id:'moulin', label:'Broyeur/moulin', power:1500, hours:1 },
+      { id:'pump_secondary', label:'Pompe annexe', power:1500, hours:0.5 }
+    ];
+
+    let consumers = [];
+    const zoneSelect = document.getElementById('zoneSelect');
+    const citySelect = document.getElementById('citySelect');
+    const countryEl = document.getElementById('country');
+    const cropEl = document.getElementById('crop');
+    const areaHaEl = document.getElementById('areaHa');
+    const needMmEl = document.getElementById('needMmPerDay');
+    const irrigDaysEl = document.getElementById('irrigDays');
+    const pumpHoursEl = document.getElementById('pumpHours');
+    const headEl = document.getElementById('head');
+    const pumpEffEl = document.getElementById('pumpEff');
+    const sunHoursEl = document.getElementById('sunHours');
+    const pvDerateEl = document.getElementById('pvDerate');
+    const panelWEl = document.getElementById('panelW');
+    const packKwhEl = document.getElementById('packKwh');
+    const autonomyDaysEl = document.getElementById('autonomyDays');
+    const calcBtn = document.getElementById('calcBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const suggestListEl = document.getElementById('suggestList');
+    const consListEl = document.getElementById('consumerList');
+    const addManualBtn = document.getElementById('addManual');
+    const consNameInput = document.getElementById('consName');
+    const consPowerInput = document.getElementById('consPower');
+    const consHoursInput = document.getElementById('consHours');
+    const volDayEl = document.getElementById('volDay');
+    const flowQEl = document.getElementById('flowQ');
+    const pumpKwEl = document.getElementById('pumpKw');
+    const pumpKwhEl = document.getElementById('pumpKwh');
+    const othersKwhEl = document.getElementById('othersKwh');
+    const totalKwhDayEl = document.getElementById('totalKwhDay');
+    const pvKwEl = document.getElementById('pvKw');
+    const panelsCountEl = document.getElementById('panelsCount');
+    const reservoirEl = document.getElementById('reservoir');
+    const batteryKwhEl = document.getElementById('batteryKwh');
+    const consMonthEl = document.getElementById('consMonth');
+    const consMonthRangeEl = document.getElementById('consMonthRange');
+    const afterMonthEl = document.getElementById('afterMonth');
+    const afterMonthRangeEl = document.getElementById('afterMonthRange');
+    const pvReqKwcEl = document.getElementById('pvReqKwc');
+    const pvReqRangeEl = document.getElementById('pvReqRange');
+    const summaryPumpEl = document.getElementById('summaryPump');
+    const summaryReservoirEl = document.getElementById('summaryReservoir');
+    const summaryBatteriesEl = document.getElementById('summaryBatteries');
+    const autDaysLabel = document.getElementById('autDaysLabel');
+
+    const CITY_COORDS = {
+      'ci_all': { bounds:[[5.345317,-4.024429],[6.818351,-5.276987]], center:[6.05,-4.65], zoom:7 },
+      'ci_abidjan': {lat:5.345317, lng:-4.024429, zoom:12 },
+      'ci_yamoussoukro': {lat:6.818351, lng:-5.276987, zoom:11 },
+      'sn_all': { center:[14.0,-14.0], zoom:6 },
+      'sn_dakar': {lat:14.6937, lng:-17.44406, zoom:12 }
+    };
+    const CROP_DEFAULTS_BY_COUNTRY = {
+      'ci': { 'tomate':5.0,'mais':4.5,'riz':6.5,'mangue':3.5,'legume':5.5,'palmier':4.0 },
+      'sn': { 'tomate':6.0,'mais':5.0,'riz':7.5,'mangue':3.8,'legume':6.0,'palmier':4.5 }
+    };
+    const CROP_GENERIC_DEFAULT = 5.0;
+
+    let map = null;
+    function initMap(){
+      try{
+        map = L.map('map',{dragging:true,zoomControl:true,attributionControl:false}).setView([6.5,-5.0],6.5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+        const pin = L.icon({ iconUrl:'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize:[22,22], iconAnchor:[11,22] });
+        L.marker([5.345317,-4.024429],{icon:pin}).addTo(map).bindTooltip('Abidjan');
+        L.marker([6.818351,-5.276987],{icon:pin}).addTo(map).bindTooltip('Yamoussoukro');
+        L.marker([14.6937,-17.44406],{icon:pin}).addTo(map).bindTooltip('Dakar');
+        map.fitBounds([[5.345317,-4.024429],[6.818351,-5.276987]],{padding:[20,20]});
+      }catch(e){ console.warn('Leaflet init failed',e); }
+    }
+    function populateCities(zone){
+      citySelect.innerHTML='';
+      if(zone === 'ci'){
+        citySelect.appendChild(new Option("Côte d'Ivoire (toutes zones)", 'ci_all'));
+        citySelect.appendChild(new Option('Abidjan', 'ci_abidjan'));
+        citySelect.appendChild(new Option('Yamoussoukro', 'ci_yamoussoukro'));
+        citySelect.value='ci_abidjan';
+      }else{
+        citySelect.appendChild(new Option('Sénégal (toutes zones)', 'sn_all'));
+        citySelect.appendChild(new Option('Dakar', 'sn_dakar'));
+        citySelect.value='sn_dakar';
+      }
+      zoomToCity(citySelect.value);
+    }
+    function zoomToCity(key){
+      if(!map) return;
+      const info = CITY_COORDS[key];
+      if(!info) return;
+      if(info.bounds) map.fitBounds(info.bounds, {padding:[20,20]});
+      else if(info.lat && info.lng) map.setView([info.lat, info.lng], info.zoom || 10);
+      else if(info.center) map.setView(info.center, info.zoom || 7);
+    }
+
+    function renderSuggested(){
+      suggestListEl.innerHTML = '';
+      SUGGESTED.forEach(s=>{
+        const btn = document.createElement('button');
+        btn.className = 'btn-outline';
+        btn.innerText = s.label + ' — ' + s.power + 'W';
+        btn.addEventListener('click', ()=>{
+          consumers.push({name:s.label, power:s.power, hours:s.hours});
+          renderConsumers();
+          computeAll();
+        });
+        suggestListEl.appendChild(btn);
+      });
+    }
+
+    function renderConsumers(){
+      consListEl.innerHTML = '';
+      if(consumers.length === 0){
+        consListEl.innerHTML = '<div style="color:#dfffe6;padding:8px">Aucun consommateur additionnel</div>';
+        return;
+      }
+      consumers.forEach((c, idx)=>{
+        const div = document.createElement('div');
+        div.className = 'consumer';
+        div.innerHTML = `<div><strong>${c.name}</strong><div class="meta">${c.power} W × ${c.hours} h/j</div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button data-idx="${idx}" class="btn-outline edit" style="padding:8px 12px">Éditer</button>
+            <button data-idx="${idx}" class="btn-outline del" style="padding:8px 12px">Suppr</button>
+          </div>`;
+        consListEl.appendChild(div);
+      });
+      consListEl.querySelectorAll('.del').forEach(b=> b.addEventListener('click', ev=>{
+        const i = +ev.target.dataset.idx;
+        consumers.splice(i,1);
+        renderConsumers();
+        computeAll();
+      }));
+      consListEl.querySelectorAll('.edit').forEach(b=> b.addEventListener('click', ev=>{
+        const i = +ev.target.dataset.idx;
+        const c = consumers[i];
+        const name = prompt('Nom', c.name);
+        if(name === null) return;
+        const power = parseFloat(prompt('Puissance (W)', c.power));
+        if(isNaN(power)) return alert('Puissance invalide');
+        const hours = parseFloat(prompt('Heures/j', c.hours));
+        if(isNaN(hours)) return alert('Heures invalides');
+        consumers[i] = { name, power, hours };
+        renderConsumers();
+        computeAll();
+      }));
+    }
+    addManualBtn.addEventListener('click', ()=>{
+      const name = (consNameInput.value||'').trim();
+      const power = Number(consPowerInput.value||0);
+      const hours = Number(consHoursInput.value||0);
+      if(!name || power <= 0 || hours <= 0){ alert('Nom, puissance et heures/j obligatoires'); return; }
+      consumers.push({name,power,hours});
+      consNameInput.value='';
+      consPowerInput.value='';
+      consHoursInput.value='';
+      renderConsumers();
+      computeAll();
+    });
+
+    function updateNeedMmForCountryAndCrop(){
+      const country = (countryEl.value || 'ci');
+      const crop = (cropEl.value || 'tomate');
+      if(crop === 'custom') return;
+      const countryDefaults = CROP_DEFAULTS_BY_COUNTRY[country] || {};
+      const val = (typeof countryDefaults[crop] === 'number') ? countryDefaults[crop] : CROP_GENERIC_DEFAULT;
+      needMmEl.value = val;
+    }
+    function syncCountryToZone(){
+      const c = countryEl.value;
+      if(c === 'ci') zoneSelect.value='ci';
+      else if(c === 'sn') zoneSelect.value='sn';
+      populateCities(zoneSelect.value);
+    }
+    function syncZoneToCountry(){
+      const z = zoneSelect.value;
+      if(z === 'ci') countryEl.value='ci';
+      else if(z === 'sn') countryEl.value='sn';
+      updateNeedMmForCountryAndCrop();
+    }
+
+    function computeAll(){
+      const areaHa = Math.max(0, Number(areaHaEl.value||0));
+      const areaM2 = areaHa * 10000;
+      const mmPerDay = Math.max(0, Number(needMmEl.value||0));
+      const irrigDays = Math.max(1, Number(irrigDaysEl.value||1));
+      const pumpHours = Math.max(0.1, Number(pumpHoursEl.value||1));
+      const head = Math.max(0, Number(headEl.value||0));
+      const pumpEff = Math.max(0.01, Number(pumpEffEl.value||55))/100;
+      const sunH = Math.max(0.1, Number(sunHoursEl.value||5));
+      const pvDerate = Math.max(0.01, Number(pvDerateEl.value||85))/100;
+      const panelW = Math.max(10, Number(panelWEl.value||350));
+      const packKwh = Math.max(0.01, Number(packKwhEl.value||1.28));
+      const autonomyDays = Math.max(0, Number(autonomyDaysEl.value||2));
+
+      const volDay_m3 = (areaM2 * mmPerDay) / 1000;
+      const weeklyVol = volDay_m3 * 7;
+      const volPerPumpingDay = weeklyVol / irrigDays;
+      const q_m3h = (pumpHours > 0) ? (volPerPumpingDay / pumpHours) : 0;
+
+      const phyd_W = 2.725 * q_m3h * head;
+      const pInput_W = pumpEff > 0 ? phyd_W / pumpEff : 0;
+      const pInput_kW = pInput_W / 1000;
+
+      const energyPumpPerPumpingDay_kWh = pInput_kW * pumpHours;
+      const energyPumpDailyAvg_kWh = (energyPumpPerPumpingDay_kWh * irrigDays) / 7;
+
+      let others_kwh = 0;
+      consumers.forEach(c => { others_kwh += (Number(c.power||0) * Number(c.hours||0)) / 1000; });
+
+      const systemEff = 0.95;
+      const totalDaily_kWh = (energyPumpDailyAvg_kWh + others_kwh) / systemEff;
+
+      const pvKw = (sunH * pvDerate) > 0 ? (totalDaily_kWh / (sunH * pvDerate)) : 0;
+      const panels = Math.max(0, Math.ceil((pvKw * 1000) / panelW));
+      const reservoir_m3 = autonomyDays * volDay_m3;
+
+      let nightShare = 0.35;
+      const totalHoursOtherWeighted = consumers.reduce((s,c)=> s + Number(c.hours||0),0);
+      if(totalHoursOtherWeighted > 10) nightShare = Math.min(0.6, 0.35 + (totalHoursOtherWeighted - 10) * 0.01);
+      const dailyNightKwh = totalDaily_kWh * nightShare;
+      const DoD = 0.9;
+      const batteryNeeded_kWh = autonomyDays > 0 ? (dailyNightKwh * autonomyDays) / DoD : 0;
+      const packsRequired = batteryNeeded_kWh > 0 ? Math.ceil(batteryNeeded_kWh / packKwh) : 0;
+
+      const totalMonthly_kWh = totalDaily_kWh * 30;
+      const lowMonthly = totalMonthly_kWh * 0.85;
+      const highMonthly = totalMonthly_kWh * 1.15;
+      const afterMonthly = Math.max(0, totalMonthly_kWh * (1 - Math.min(0.75, pvKw > 0 ? 0.55 : 0)));
+
+      volDayEl.innerText = fmt(volDay_m3,3) + ' m³';
+      flowQEl.innerText = fmt(q_m3h,3) + ' m³/h';
+      pumpKwEl.innerText = fmt(pInput_kW,3) + ' kW';
+      pumpKwhEl.innerText = fmt(energyPumpDailyAvg_kWh,3) + ' kWh/j';
+      othersKwhEl.innerText = fmt(others_kwh,3) + ' kWh/j';
+      totalKwhDayEl.innerText = fmt(totalDaily_kWh,3) + ' kWh/j';
+      pvKwEl.innerText = fmt(pvKw,3) + ' kWc';
+      panelsCountEl.innerText = panels;
+      reservoirEl.innerText = fmt(reservoir_m3,3) + ' m³';
+      batteryKwhEl.innerText = fmt(batteryNeeded_kWh,3) + ' kWh (' + packsRequired + ' packs)';
+
+      consMonthEl.innerText = fmt(totalMonthly_kWh,2) + ' kWh';
+      consMonthRangeEl.innerText = `plage: ${fmt(lowMonthly,2)} - ${fmt(highMonthly,2)} kWh`;
+      afterMonthEl.innerText = fmt(afterMonthly,2) + ' kWh';
+      afterMonthRangeEl.innerText = `gain potentiel: ${fmt(totalMonthly_kWh - afterMonthly,2)} kWh`;
+      pvReqKwcEl.innerText = fmt(pvKw,3) + ' kWc';
+      pvReqRangeEl.innerText = `±15% → ${fmt(pvKw*0.85,2)} - ${fmt(pvKw*1.15,2)} kWc`;
+
+      summaryPumpEl.innerText = `${fmt(pInput_kW,3)} kW - débit ${fmt(q_m3h,3)} m³/h (hauteur ${head} m). Consommation pompe: ${fmt(energyPumpDailyAvg_kWh,3)} kWh/j`;
+      summaryReservoirEl.innerText = `${fmt(reservoir_m3,3)} m³ → autonomie ${autonomyDays} j (à ${fmt(volDay_m3,3)} m³/j)`;
+      summaryBatteriesEl.innerText = `${Math.round(packsRequired)} packs × ${fmt(packKwh,2)} kWh ≈ ${fmt(batteryNeeded_kWh,2)} kWh utile (DoD ${DoD*100}%)`;
+      autDaysLabel.innerText = autonomyDays;
+    }
+
+    cropEl.addEventListener('change', ()=> updateNeedMmForCountryAndCrop());
+    countryEl.addEventListener('change', ()=> { syncCountryToZone(); updateNeedMmForCountryAndCrop(); });
+    zoneSelect.addEventListener('change', ()=> { syncZoneToCountry(); });
+    citySelect.addEventListener('change', ()=> zoomToCity(citySelect.value));
+    calcBtn.addEventListener('click', computeAll);
+    resetBtn.addEventListener('click', ()=>{
+      if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
+      countryEl.value='ci';
+      zoneSelect.value='ci';
+      populateCities(zoneSelect.value);
+      cropEl.value='tomate';
+      areaHaEl.value='0.5';
+      needMmEl.value='5.0';
+      irrigDaysEl.value='3';
+      pumpHoursEl.value='4';
+      headEl.value='15';
+      pumpEffEl.value='55';
+      sunHoursEl.value='5';
+      pvDerateEl.value='85';
+      panelWEl.value='350';
+      packKwhEl.value='1.28';
+      autonomyDaysEl.value='2';
+      consumers = [];
+      renderConsumers();
+      updateNeedMmForCountryAndCrop();
+      computeAll();
+    });
+    [areaHaEl, needMmEl, irrigDaysEl, pumpHoursEl, headEl, pumpEffEl, sunHoursEl, pvDerateEl, panelWEl, packKwhEl, autonomyDaysEl].forEach(el => el.addEventListener('input', computeAll));
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      initMap();
+      populateCities(zoneSelect.value);
+      renderSuggested();
+      renderConsumers();
+      updateNeedMmForCountryAndCrop();
+      computeAll();
+    });
+  </script>
+</body>
+</html>

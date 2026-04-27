@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenBridge Énergie | Projets futurs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --topbar-h:48px;
+      --header-h:72px;
+      --green-dark:#061f14;
+      --green-mid:#073217;
+      --green-mid-2:#0b4d26;
+      --accent:#7cb342;
+      --accent-2:#a8e6a1;
+      --bg:#081b14;
+      --gold-base:#d4af37;
+      --gold-hover:#e7cc5e;
+      --muted:#e8f7ea;
+      --glass:rgba(4,18,12,.62);
+      --line:rgba(212,175,55,.20);
+      --glow:#ffd600;
+      --cyan:#70f0ff;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      padding:0;
+      font-family:'Poppins',Arial,sans-serif;
+      color:#fff;
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(112,240,255,.12), transparent 16%),
+        radial-gradient(circle at 82% 18%, rgba(212,175,55,.10), transparent 18%),
+        radial-gradient(circle at 50% 100%, rgba(124,179,66,.12), transparent 24%),
+        linear-gradient(180deg, #07160f 0%, #081b14 35%, #04110b 100%);
+    }
+    a{text-decoration:none;color:inherit}
+
+    .topbar{
+      position:fixed; inset:0 0 auto 0; height:var(--topbar-h); z-index:1500;
+      display:flex; align-items:center; justify-content:space-between; gap:18px;
+      padding:0 5vw; background:rgba(6,31,20,.96); backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.04); font-size:14px;
+    }
+    .topbar .left,.topbar .right{display:flex;align-items:center;gap:12px}
+    .topbar a{transition:color .18s ease}
+    .topbar a:hover{color:var(--accent-2)}
+
+    header{
+      position:fixed; top:var(--topbar-h); left:0; right:0; height:var(--header-h); z-index:1490;
+      display:flex; align-items:center; justify-content:space-between; padding:0 5vw;
+      background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
+      box-shadow:0 8px 22px rgba(0,0,0,.22);
+      border-bottom:1px solid rgba(255,255,255,.05);
+    }
+    .logo-text{display:flex;align-items:flex-start;gap:12px}
+    .logo-text img{height:56px;display:block}
+    .brand-stack{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+    .company-name{
+      margin:0;font-size:34px;font-weight:800;letter-spacing:1px;white-space:nowrap;line-height:1;
+      color:#04462e;-webkit-text-stroke:0.95px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,.6);
+    }
+    .company-tagline{
+      margin:2px 0 0 0;font-size:14px;font-weight:700;letter-spacing:5px;text-transform:uppercase;white-space:nowrap;
+      color:#dfffe6;text-shadow:0 2px 6px rgba(0,0,0,.45);-webkit-text-stroke:0.4px rgba(212,175,55,.55);
+    }
+
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{
+      color:#fff;font-size:15px;font-weight:600;padding:8px 10px;border-radius:8px;transition:all .18s ease;
+    }
+    nav a:hover{color:var(--accent-2)}
+    nav a.active{
+      color:var(--accent-2);
+      background:linear-gradient(90deg, rgba(212,175,55,.10), rgba(212,175,55,.03));
+      border:1px solid rgba(212,175,55,.14);
+      padding:10px 14px;font-weight:800;border-radius:10px;
+    }
+
+    .burger{
+      display:none;width:44px;height:44px;border-radius:8px;border:none;background:transparent;cursor:pointer;
+      align-items:center;justify-content:center;
+    }
+    .burger .icon{display:block;position:relative;width:26px;height:18px}
+    .burger .icon span{position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s}
+    .burger .icon span:nth-child(1){top:0}
+    .burger .icon span:nth-child(2){top:7.5px}
+    .burger .icon span:nth-child(3){top:15px}
+    .burger.open .icon span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+    .burger.open .icon span:nth-child(2){opacity:0}
+    .burger.open .icon span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+
+    .mobile-nav{
+      display:none;position:fixed;top:calc(var(--topbar-h) + var(--header-h));left:0;right:0;z-index:1480;
+      max-height:0;overflow:auto;background:rgba(7,50,23,.98);backdrop-filter:blur(12px);
+      box-shadow:0 12px 40px rgba(0,0,0,.45);transition:max-height .28s ease;
+    }
+    .mobile-nav.open{display:block;max-height:70vh}
+    .mobile-nav .inner{padding:12px 5vw;display:flex;flex-direction:column;gap:8px}
+    .mobile-nav .contact{
+      display:flex;flex-direction:column;gap:6px;padding:8px 12px;margin-bottom:6px;
+      border-bottom:1px solid rgba(255,255,255,.04);color:var(--muted)
+    }
+    .mobile-nav a{padding:12px;border-radius:8px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+    .mobile-nav a:hover{background:rgba(124,179,66,.08);color:var(--accent-2)}
+    .mobile-nav a.active{background:rgba(212,175,55,.10);color:var(--accent-2)}
+
+    .bg-orbit{
+      position:fixed; pointer-events:none; z-index:0; border-radius:50%; filter:blur(0px);
+      background:radial-gradient(circle at 35% 35%, rgba(112,240,255,.55), rgba(112,240,255,.22) 26%, rgba(112,240,255,.06) 52%, transparent 72%);
+      box-shadow:0 0 26px rgba(112,240,255,.35), 0 0 62px rgba(112,240,255,.12);
+      animation:floatOrb 11s ease-in-out infinite alternate;
+      mix-blend-mode:screen;
+    }
+    .bg-orbit.one{left:-55px; top:17%; width:160px; height:160px; opacity:.95}
+    .bg-orbit.two{right:-55px; top:12%; width:210px; height:210px; opacity:.88; animation-duration:15s}
+    .bg-orbit.three{right:10%; bottom:-90px; width:240px; height:240px; opacity:.72; animation-duration:18s}
+    .bg-orbit.four{left:16%; bottom:8%; width:120px; height:120px; opacity:.78; animation-duration:13s}
+    @keyframes floatOrb{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(18px,-14px,0) scale(1.08)}}
+
+    .hero{
+      position:relative; margin-top:calc(var(--topbar-h) + var(--header-h)); min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden;
+      background:#07160f;
+    }
+
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center center;
+      z-index:0;
+      filter:brightness(.72) contrast(1.08) saturate(1.05);
+    }
+
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      z-index:1;
+      background:
+        linear-gradient(180deg, rgba(4,10,8,.34) 0%, rgba(4,10,8,.56) 40%, rgba(4,10,8,.82) 100%),
+        radial-gradient(circle at 50% 42%, rgba(112,240,255,.10), transparent 30%);
+    }
+
+    .hero-grid{
+      position:absolute;
+      inset:0;
+      z-index:2;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size:64px 64px;
+      opacity:.18;
+      mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.95) 22%, rgba(0,0,0,.95) 80%, transparent);
+    }
+
+    .energy-particles{
+      position:absolute;
+      inset:0;
+      z-index:3;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:4;
+      max-width:1120px;
+      padding:0 20px;
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;
+      background:rgba(255,255,255,.06);border:1px solid rgba(112,240,255,.16);backdrop-filter:blur(10px);
+      font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#eefdf0;
+      box-shadow:0 12px 26px rgba(0,0,0,.18);
+    }
+    .hero h1{
+      margin:18px 0 14px;font-size:clamp(34px,5vw,68px);line-height:1.02;text-wrap:balance;
+      text-shadow:0 10px 24px rgba(0,0,0,.34);
+    }
+    .hero h1 span{color:var(--accent-2)}
+    .hero p{
+      max-width:850px;margin:0 auto 26px;font-size:clamp(16px,1.5vw,19px);line-height:1.85;color:#eefaf0;
+      text-shadow:0 2px 8px rgba(0,0,0,.28);
+    }
+    .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn-primary,.btn-secondary{
+      padding:14px 24px;border-radius:12px;border:0;cursor:pointer;font-weight:800;font-size:15px;transition:transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .btn-primary{background:linear-gradient(135deg,var(--accent),#9be15f);color:#062113;box-shadow:0 16px 30px rgba(124,179,66,.16)}
+    .btn-primary:hover{transform:translateY(-2px);background:linear-gradient(135deg,var(--accent-2),#d0ffca)}
+    .btn-secondary{background:rgba(255,255,255,.04);color:#fff;border:1px solid rgba(255,255,255,.20);backdrop-filter:blur(10px)}
+    .btn-secondary:hover{transform:translateY(-2px);background:rgba(255,255,255,.08)}
+
+    .section{padding:74px 5vw; position:relative; z-index:1}
+    .section h2{
+      margin:0 0 14px;text-align:center;color:var(--accent-2);font-size:clamp(26px,3vw,38px);text-shadow:0 2px 10px rgba(0,0,0,.24);
+    }
+    .section-intro{
+      max-width:980px;margin:0 auto 28px;text-align:center;color:var(--muted);line-height:1.78;font-size:15px;opacity:.96;
+    }
+
+    .roadmap-shell{
+      max-width:1280px;margin:0 auto;padding:24px;border-radius:30px;position:relative;overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.028));
+      border:1px solid rgba(212,175,55,.14);box-shadow:0 20px 42px rgba(0,0,0,.30);backdrop-filter:blur(12px);
+    }
+    .roadmap-shell::before{
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background:radial-gradient(circle at 0% 0%, rgba(112,240,255,.10), transparent 18%), radial-gradient(circle at 100% 0%, rgba(212,175,55,.08), transparent 18%);
+    }
+    .timeline{
+      position:relative; z-index:1; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px;
+    }
+    .timeline::before{
+      content:""; position:absolute; left:8%; right:8%; top:56px; height:2px;
+      background:linear-gradient(90deg, transparent, rgba(112,240,255,.26), rgba(212,175,55,.40), rgba(112,240,255,.26), transparent);
+      filter:drop-shadow(0 0 10px rgba(112,240,255,.16));
+    }
+    .timeline-card{
+      position:relative; min-height:295px; padding:22px 18px 20px; border-radius:22px; overflow:hidden;
+      background:linear-gradient(180deg, rgba(5,19,14,.82), rgba(4,14,10,.72));
+      border:1px solid rgba(212,175,55,.24); box-shadow:0 14px 30px rgba(0,0,0,.24);
+      transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+    .timeline-card:hover{transform:translateY(-6px);border-color:rgba(112,240,255,.22);box-shadow:0 18px 40px rgba(0,0,0,.34)}
+    .timeline-card::before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(145deg, rgba(212,175,55,.10), transparent 24%, transparent 76%, rgba(112,240,255,.09));
+    }
+    .phase-pill{
+      display:inline-flex;align-items:center;gap:8px;padding:7px 12px;margin-bottom:14px;border-radius:999px;
+      background:rgba(112,240,255,.10);border:1px solid rgba(112,240,255,.16);color:#effcff;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;
+    }
+    .phase-dot{width:10px;height:10px;border-radius:50%;background:var(--glow);box-shadow:0 0 18px rgba(255,214,0,.84)}
+    .timeline-card h3{margin:0 0 10px;font-size:20px;color:var(--gold-hover);line-height:1.16}
+    .timeline-card p{margin:0 0 14px;color:#edf9ec;line-height:1.72;font-size:14px}
+    .meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+    .meta-box{
+      background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.16);border-radius:16px;padding:12px 12px 11px;min-height:72px;
+      display:flex;flex-direction:column;justify-content:center;
+    }
+    .meta-box strong{display:block;color:var(--gold-hover);font-size:12px;margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px}
+    .meta-box span{color:#f3fff4;font-size:13px;line-height:1.45}
+
+    .featured{
+      max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:stretch;
+    }
+    .featured-panel,.featured-visual{
+      border-radius:28px;overflow:hidden;position:relative;box-shadow:0 18px 42px rgba(0,0,0,.30);
+      border:1px solid rgba(212,175,55,.22);backdrop-filter:blur(12px);
+    }
+    .featured-panel{
+      padding:24px;background:linear-gradient(135deg, rgba(3,14,9,.74), rgba(8,54,28,.66));
+    }
+    .featured-panel::before{
+      content:""; position:absolute; inset:auto -10% -20% -10%; height:48%;
+      background:radial-gradient(circle at center, rgba(112,240,255,.12), transparent 60%); filter:blur(26px);
+      pointer-events:none;
+    }
+    .featured-panel h3{margin:0 0 10px;font-size:28px;color:var(--gold-hover)}
+    .featured-panel p{margin:0 0 14px;color:#edf9ec;line-height:1.82}
+    .tag-stack{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;position:relative;z-index:1}
+    .tag{
+      padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.18);
+      color:#fff6d2;font-size:12px;font-weight:800;letter-spacing:.3px;display:inline-flex;align-items:center;gap:7px;
+      box-shadow:0 0 0 1px rgba(255,255,255,.02) inset;
+    }
+    .specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;position:relative;z-index:1}
+    .spec{
+      background:rgba(255,255,255,.05);border:1px solid rgba(212,175,55,.16);border-radius:18px;padding:14px;
+    }
+    .spec .label{display:block;color:var(--gold-hover);font-size:12px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;font-weight:800}
+    .spec .value{display:block;color:#f3fff4;font-size:14px;line-height:1.52}
+    .featured-visual{
+      display:flex;align-items:center;justify-content:center;min-height:100%;
+      background:
+        radial-gradient(circle at center, rgba(112,240,255,.10), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,.03), rgba(0,0,0,.10));
+    }
+    .featured-visual img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.02) contrast(1.03) brightness(.96)}
+    .featured-visual .img-overlay{
+      position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.16)); pointer-events:none;
+    }
+
+    .cards-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+    .project-card{
+      position:relative;min-height:440px;border-radius:24px;overflow:hidden;background:#061f14;
+      border:1px solid rgba(212,175,55,.28);box-shadow:0 14px 34px rgba(0,0,0,.32);
+      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .project-card:hover{transform:translateY(-6px);box-shadow:0 18px 42px rgba(0,0,0,.42);border-color:rgba(255,214,0,.32)}
+    .project-card .media{position:absolute;inset:0}
+    .project-card .media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .28s ease, filter .28s ease;filter:saturate(1.02) contrast(1.02) brightness(.95)}
+    .project-card:hover .media img{transform:scale(1.05)}
+    .project-card::after{
+      content:"";position:absolute;inset:0;z-index:1;
+      background:linear-gradient(180deg, rgba(0,0,0,.04) 0%, rgba(0,0,0,.16) 48%, rgba(2,8,6,.92) 100%);
+    }
+    .project-card .energy{
+      position:absolute; inset:auto 0 0 0; height:132px; z-index:2; pointer-events:none;
+      background:radial-gradient(circle at 50% 20%, rgba(112,240,255,.26), transparent 42%), radial-gradient(circle at 30% 65%, rgba(255,214,0,.16), transparent 38%);
+      filter:blur(12px);
+    }
+    .project-content{
+      position:absolute; left:0; right:0; bottom:0; z-index:3; padding:20px 18px 18px;
+      display:flex;flex-direction:column;gap:12px;text-align:center;align-items:center;
+      background:linear-gradient(to top, rgba(2,8,6,.96) 0%, rgba(2,8,6,.74) 70%, rgba(2,8,6,.18) 100%);
+    }
+    .project-content h3{margin:0;font-size:22px;color:var(--gold-hover);line-height:1.15}
+    .project-content p{margin:0;color:#eef9ee;line-height:1.72;font-size:14px}
+    .status-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .status{
+      padding:8px 10px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.3px;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#fff8df;
+    }
+    .status.future{background:rgba(212,175,55,.14);border-color:rgba(212,175,55,.28);color:#fff0bc}
+    .status.dev{background:rgba(112,240,255,.10);border-color:rgba(112,240,255,.20);color:#dcffff}
+    .card-btn{
+      margin-top:2px;padding:10px 18px;border-radius:12px;border:0;cursor:pointer;font-weight:800;
+      background:linear-gradient(135deg,var(--gold-base),var(--gold-hover));color:#072012; box-shadow:0 10px 18px rgba(212,175,55,.14);
+    }
+    .card-btn:hover{filter:brightness(1.03)}
+
+    .cta-zone{
+      max-width:1100px;margin:0 auto;padding:30px;border-radius:28px;display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:center;
+      background:linear-gradient(135deg, rgba(7,50,23,.82), rgba(4,18,12,.70));
+      border:1px solid rgba(212,175,55,.18);box-shadow:0 18px 42px rgba(0,0,0,.28);backdrop-filter:blur(12px);
+    }
+    .cta-zone h3{margin:0 0 10px;font-size:28px;color:var(--gold-hover)}
+    .cta-zone p{margin:0;color:#edf9ec;line-height:1.8}
+    .cta-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+
+    footer{
+      margin-top:40px;
+      position:relative;
+      text-align:center;
+      background:var(--green-dark);
+      padding:28px 5vw 36px;
+      border-top:1px solid rgba(255,255,255,.04);
+    }
+    footer::before{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      height:2px;
+      background:var(--gold-base)
+    }
+    .footer-company{
+      display:block;
+      margin:0 auto 8px;
+      font-size:18px;
+      font-weight:800;
+      color:#04462e;
+      -webkit-text-stroke:0.7px var(--gold-base);
+      text-shadow:0 3px 6px rgba(0,0,0,.6);
+      padding:4px 8px;
+      border-radius:6px;
+      width:max-content;
+      background:linear-gradient(90deg, rgba(212,175,55,.02), rgba(255,255,255,0) 40%);
+    }
+    .footer-contact{
+      margin-top:6px;
+      color:#e6f7ea;
+      line-height:1.6;
+    }
+
+    .particle{
+      position:absolute; width:14px; height:14px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #ffffff 0%, #9fefff 22%, rgba(112,240,255,.86) 38%, rgba(112,240,255,.30) 60%, transparent 76%);
+      box-shadow:
+        0 0 12px rgba(112,240,255,.88),
+        0 0 28px rgba(112,240,255,.34),
+        0 0 48px rgba(112,240,255,.12);
+      opacity:0;
+      transform:translate(-50%,-50%);
+      animation: driftUp linear infinite;
+      mix-blend-mode:screen;
+    }
+    .particle::after{
+      content:"";
+      position:absolute;
+      inset:-10px;
+      border-radius:50%;
+      border:1px solid rgba(112,240,255,.24);
+      filter:blur(2px);
+    }
+    .particle.gold{
+      background:radial-gradient(circle at 30% 30%, #fffce8 0%, #fff0a5 22%, rgba(255,214,0,.90) 40%, rgba(255,214,0,.24) 62%, transparent 78%);
+      box-shadow:
+        0 0 14px rgba(255,214,0,.88),
+        0 0 34px rgba(255,214,0,.34),
+        0 0 60px rgba(255,214,0,.12);
+    }
+    .particle.big{width:18px;height:18px}
+    .particle.small{width:10px;height:10px}
+    .particle.wide{width:22px;height:22px}
+    @keyframes driftUp{
+      0%{transform:translate(-50%,12px) scale(.82);opacity:0}
+      10%{opacity:1}
+      50%{transform:translate(-50%,-28px) scale(1.08);opacity:.96}
+      100%{transform:translate(-50%,-150px) scale(1.25);opacity:0}
+    }
+    .pulse-line{
+      position:fixed; left:0; right:0; top:calc(var(--topbar-h) + var(--header-h) - 6px); z-index:1499; pointer-events:none;
+      height:12px; opacity:.88;
+      background:linear-gradient(90deg, transparent, rgba(255,214,0,.24), rgba(112,240,255,.34), rgba(255,214,0,.22), transparent);
+      filter:blur(6px); animation:pulseMove 5s ease-in-out infinite;
+    }
+    @keyframes pulseMove{
+      0%,100%{transform:translateX(-2%) scaleX(.92);opacity:.55}
+      50%{transform:translateX(2%) scaleX(1);opacity:1}
+    }
+
+    .modal{
+      position:fixed; inset:0; z-index:3000; display:none; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.60); backdrop-filter:blur(10px); padding:18px;
+    }
+    .modal.open{display:flex}
+    .modal-card{
+      width:min(760px, 100%);
+      border-radius:28px; overflow:hidden; border:1px solid rgba(212,175,55,.22);
+      background:linear-gradient(180deg, rgba(6,31,20,.98), rgba(4,18,12,.98));
+      box-shadow:0 24px 60px rgba(0,0,0,.45);
+    }
+    .modal-head{
+      padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .modal-head h3{margin:0;font-size:22px;color:var(--gold-hover)}
+    .modal-close{
+      width:42px;height:42px;border:none;border-radius:50%;cursor:pointer;font-size:18px;font-weight:800;
+      color:#072012;background:linear-gradient(135deg,var(--gold-base),var(--gold-hover));
+    }
+    .modal-body{padding:20px}
+    .modal-body p{margin:0 0 16px;color:#eaf9ea;line-height:1.7}
+    .mini-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .mini-form .full{grid-column:1 / -1}
+    .mini-form input,.mini-form select,.mini-form textarea{
+      width:100%;padding:13px 14px;border-radius:14px;border:1px solid rgba(212,175,55,.18);
+      background:rgba(255,255,255,.03); color:#fff; outline:none; font-family:inherit; font-size:14px;
+    }
+    .mini-form input::placeholder,.mini-form textarea::placeholder{color:#dbeed8}
+    .mini-form textarea{min-height:110px;resize:vertical}
+    .modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}
+    .modal-note{margin-top:10px;font-size:13px;color:#cfe8d1}
+
+    @media (max-width:1100px){
+      .timeline{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .timeline::before{display:none}
+      .featured{grid-template-columns:1fr}
+      .cards-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .cta-zone{grid-template-columns:1fr}
+      .cta-actions{justify-content:flex-start}
+    }
+    @media (max-width:820px){
+      nav{display:none}
+      .burger{display:flex}
+      .company-name{font-size:30px}
+      .mobile-nav.open{max-height:85vh}
+      .section{padding:60px 5vw}
+      .roadmap-shell{padding:18px;border-radius:22px}
+      .timeline,.cards-grid,.mini-form{grid-template-columns:1fr}
+      .meta-grid,.specs{grid-template-columns:1fr}
+      .project-card{min-height:420px}
+      .hero{min-height:calc(90vh - (var(--topbar-h) + var(--header-h)))}
+      .pulse-line{top:calc(var(--topbar-h) + var(--header-h) - 8px)}
+    }
+    @media (max-width:480px){
+      .hero-content{padding:0 12px}
+      .hero h1{font-size:30px}
+      .hero p{font-size:15px}
+      .btn-primary,.btn-secondary{width:100%;justify-content:center}
+      .hero-actions{width:100%}
+      .project-content h3{font-size:20px}
+      .section h2{font-size:26px}
+      .cta-zone{padding:20px}
+      .cta-zone h3{font-size:24px}
+      .modal-body{padding:16px}
+      .modal-head h3{font-size:19px}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orbit one" aria-hidden="true"></div>
+  <div class="bg-orbit two" aria-hidden="true"></div>
+  <div class="bg-orbit three" aria-hidden="true"></div>
+  <div class="bg-orbit four" aria-hidden="true"></div>
+
+  <div class="topbar" role="banner">
+    <div class="left">
+      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
+    </div>
+    <div class="right">
+      <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
+    </div>
+  </div>
+
+  <header role="navigation" aria-label="Main">
+    <div class="logo-text">
+      <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
+      <div class="brand-stack">
+        <div class="company-name">GREENBRIDGE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
+      </div>
+    </div>
+
+    <nav aria-label="Menu principal">
+      <a href="GreenBrigde technologies.html">Accueil</a>
+      <a href="etude_dimensionnement_2.html">Étude</a>
+      <a href="produits.html">Nos Produits</a>
+      <a href="projets_futurs.html" class="active">Projets futurs</a>
+      <a href="maintenance.html">Maintenance</a>
+    </nav>
+
+    <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
+      <span class="icon"><span></span><span></span><span></span></span>
+    </button>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <div class="inner">
+      <div class="contact">
+        <div><strong>GREENBRIDGE</strong></div>
+        <div><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</div>
+        <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
+      </div>
+      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+      <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
+      <a href="produits.html" class="mobile-link">Nos Produits</a>
+      <a href="projets_futurs.html" class="mobile-link active">Projets futurs</a>
+      <a href="maintenance.html" class="mobile-link">Maintenance</a>
+      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.03);padding-top:10px;display:flex;gap:12px;align-items:center;">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero" id="top" aria-label="Hero">
+    <img class="hero-bg" src="futurs_tech.png" alt="Fond futuriste GreenBridge">
+    <div class="hero-overlay"></div>
+    <div class="hero-grid"></div>
+    <div class="energy-particles" id="energyParticles" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-sparkles"></i> vision 2026 · innovation énergétique</div>
+      <h1>Des <span>projets futurs</span> pensés pour demain</h1>
+      <p>
+        Une feuille de route claire, plus élégante et plus technologique, avec une présentation qui parle au client sans entrer dans trop de détails techniques.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('roadmap').scrollIntoView({behavior:'smooth'})">Voir la feuille de route</button>
+        <button class="btn-secondary" onclick="openContactModal('Je souhaite être rappelé au sujet des projets futurs.')">Parler d’un projet</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap" class="section">
+    <h2>Feuille de route des prochaines sorties</h2>
+    <p class="section-intro">
+      Quatre projets, quatre jalons. Les textes sont volontairement plus sobres et plus professionnels, pour une lecture rapide et convaincante côté client.
+    </p>
+
+    <div class="roadmap-shell">
+      <div class="timeline">
+        <article class="timeline-card">
+          <div class="phase-pill"><span class="phase-dot"></span> Phase 01 · Juin 2026</div>
+          <h3>Pack batterie portable</h3>
+          <p>Une solution compacte pour assurer la continuité d’alimentation, la recharge de secours et l’usage en mobilité.</p>
+          <div class="meta-grid">
+            <div class="meta-box"><strong>Usage</strong><span>Secours & mobilité</span></div>
+            <div class="meta-box"><strong>Cible</strong><span>Ménages, bureaux, commerces</span></div>
+            <div class="meta-box"><strong>Sortie</strong><span>15/06/2026</span></div>
+            <div class="meta-box"><strong>Statut</strong><span>Prototype avancé</span></div>
+          </div>
+        </article>
+
+        <article class="timeline-card">
+          <div class="phase-pill"><span class="phase-dot"></span> Phase 02 · Juillet 2026</div>
+          <h3>Power bank wireless</h3>
+          <p>Une batterie externe à charge sans fil, pensée pour la rapidité, la simplicité d’usage et un design moderne.</p>
+          <div class="meta-grid">
+            <div class="meta-box"><strong>Usage</strong><span>Recharge nomade</span></div>
+            <div class="meta-box"><strong>Cible</strong><span>Particuliers & pros mobiles</span></div>
+            <div class="meta-box"><strong>Sortie</strong><span>15/07/2026</span></div>
+            <div class="meta-box"><strong>Statut</strong><span>En développement</span></div>
+          </div>
+        </article>
+
+        <article class="timeline-card">
+          <div class="phase-pill"><span class="phase-dot"></span> Phase 03 · Novembre 2026</div>
+          <h3>Ventilateur solaire</h3>
+          <p>Une solution autonome pour améliorer le confort au quotidien avec une alimentation solaire adaptée au climat local.</p>
+          <div class="meta-grid">
+            <div class="meta-box"><strong>Usage</strong><span>Confort autonome</span></div>
+            <div class="meta-box"><strong>Cible</strong><span>Ménages, petits espaces</span></div>
+            <div class="meta-box"><strong>Sortie</strong><span>15/11/2026</span></div>
+            <div class="meta-box"><strong>Statut</strong><span>Tests terrain</span></div>
+          </div>
+        </article>
+
+        <article class="timeline-card">
+          <div class="phase-pill"><span class="phase-dot"></span> Phase 04 · Décembre 2026</div>
+          <h3>Système de pompe solaire</h3>
+          <p>Une solution fiable pour l’irrigation et l’alimentation en eau, conçue pour les besoins agricoles et les sites isolés.</p>
+          <div class="meta-grid">
+            <div class="meta-box"><strong>Usage</strong><span>Irrigation & eau</span></div>
+            <div class="meta-box"><strong>Cible</strong><span>Agriculture, zones rurales</span></div>
+            <div class="meta-box"><strong>Sortie</strong><span>31/12/2026</span></div>
+            <div class="meta-box"><strong>Statut</strong><span>Pré-lancement</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Projet phare</h2>
+    <p class="section-intro">
+      Une présentation plus visuelle et plus premium, avec un rendu plus futuriste et des éléments plus sobres pour rester pro.
+    </p>
+
+    <div class="featured">
+      <div class="featured-panel">
+        <div class="tag-stack">
+          <span class="tag"><i class="fas fa-bolt"></i> énergie autonome</span>
+          <span class="tag"><i class="fas fa-microchip"></i> gestion intelligente</span>
+          <span class="tag"><i class="fas fa-shield-halved"></i> protections intégrées</span>
+        </div>
+        <h3>Pack batterie nouvelle génération</h3>
+        <p>
+          Un produit pensé pour être utile, compact et élégant. L’idée est de proposer une solution facile à comprendre, rassurante pour le client, et adaptée aux usages du quotidien.
+        </p>
+        <p>
+          Le design reste sobre, mais l’ambiance générale devient plus premium : verre, reflets, halo lumineux et mise en scène plus technologique.
+        </p>
+        <div class="specs">
+          <div class="spec"><span class="label">Fonction</span><span class="value">Sauvegarde d’énergie et mobilité</span></div>
+          <div class="spec"><span class="label">Public visé</span><span class="value">Ménages, PME, bureaux, commerces</span></div>
+          <div class="spec"><span class="label">Approche</span><span class="value">Simple, fiable, moderne</span></div>
+          <div class="spec"><span class="label">Disponibilité</span><span class="value">Sortie estimée : 15/06/2026</span></div>
+        </div>
+      </div>
+
+      <div class="featured-visual">
+        <img src="Batterie_pack_s.png" alt="Visuel du pack batterie">
+        <div class="img-overlay" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Les 4 concepts en avant</h2>
+    <p class="section-intro">
+      Ici, chaque carte garde la même logique visuelle, mais avec plus d’impact. Les cartes reprennent l’or du reste du site, avec un contraste plus premium.
+    </p>
+
+    <div class="cards-grid">
+      <article class="project-card">
+        <div class="media"><img src="Batterie_pack_s.png" alt="Pack batterie"></div>
+        <div class="energy"></div>
+        <div class="project-content">
+          <span class="phase-pill"><span class="phase-dot"></span> Projet 01</span>
+          <h3>Pack batterie</h3>
+          <p>Solution portable pour la continuité d’alimentation et la recharge de secours.</p>
+          <div class="status-row"><span class="status dev">Prototype</span><span class="status future">15/06/2026</span></div>
+          <button class="card-btn" onclick="openContactModal('Je souhaite des informations sur le Pack batterie.')">Être informé</button>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="media"><img src="Powerbank_wireless.png" alt="Power bank wireless"></div>
+        <div class="energy"></div>
+        <div class="project-content">
+          <span class="phase-pill"><span class="phase-dot"></span> Projet 02</span>
+          <h3>Power bank wireless</h3>
+          <p>Recharge sans fil rapide avec un format élégant et pratique.</p>
+          <div class="status-row"><span class="status dev">Conception</span><span class="status future">15/07/2026</span></div>
+          <button class="card-btn" onclick="openContactModal('Je souhaite des informations sur le Power bank wireless.')">Être informé</button>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="media"><img src="ventillateur_solaire_1.png" alt="Ventilateur solaire"></div>
+        <div class="energy"></div>
+        <div class="project-content">
+          <span class="phase-pill"><span class="phase-dot"></span> Projet 03</span>
+          <h3>Ventilateur solaire</h3>
+          <p>Ventilation autonome adaptée aux besoins du quotidien et au climat local.</p>
+          <div class="status-row"><span class="status dev">Tests terrain</span><span class="status future">15/11/2026</span></div>
+          <button class="card-btn" onclick="openContactModal('Je souhaite des informations sur le Ventilateur solaire.')">Être informé</button>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="media"><img src="Pompe_immergée.png" alt="Système de pompe solaire"></div>
+        <div class="energy"></div>
+        <div class="project-content">
+          <span class="phase-pill"><span class="phase-dot"></span> Projet 04</span>
+          <h3>Pompe solaire</h3>
+          <p>Pompage fiable pour l’irrigation et l’alimentation en eau.</p>
+          <div class="status-row"><span class="status dev">Pré-lancement</span><span class="status future">31/12/2026</span></div>
+          <button class="card-btn" onclick="openContactModal('Je souhaite des informations sur la Pompe solaire.')">Être informé</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="cta-zone">
+      <div>
+        <h3>Une idée à développer ensemble ?</h3>
+        <p>
+          Un petit formulaire permet de capter les premières informations rapidement : projet concerné, besoin principal et coordonnées de contact.
+        </p>
+      </div>
+      <div class="cta-actions">
+        <button class="btn-primary" onclick="openContactModal('Je souhaite être recontacté au sujet des projets futurs.')">Nous écrire</button>
+        <button class="btn-secondary" onclick="window.location.href='GreenBrigde technologies.html'">Retour à l’accueil</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-company">GREENBRIDGE TECHNOLOGIES</div>
+    <div class="footer-contact">
+      <div>© 2025 GreenBridge. Tous droits réservés.</div>
+      <div>Abidjan, Côte d’Ivoire</div>
+      <div>Tel: +225 07 07 07 07 07</div>
+    </div>
+  </footer>
+
+  <div class="modal" id="contactModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="contactModalTitle">Nous écrire</h3>
+        <button class="modal-close" type="button" onclick="closeContactModal()" aria-label="Fermer">×</button>
+      </div>
+      <div class="modal-body">
+        <p id="modalIntro">Décris rapidement le besoin, et on revient vers toi avec une première réponse.</p>
+        <form class="mini-form" id="contactForm">
+          <input type="text" id="cfName" name="name" placeholder="Nom complet" required>
+          <input type="tel" id="cfPhone" name="phone" placeholder="Téléphone" required>
+          <input type="email" id="cfEmail" name="email" placeholder="Email">
+          <select id="cfProject" name="project" required>
+            <option value="">Projet concerné</option>
+            <option>Pack batterie</option>
+            <option>Power bank wireless</option>
+            <option>Ventilateur solaire</option>
+            <option>Pompe solaire</option>
+            <option>Autre / à définir</option>
+          </select>
+          <select id="cfNeed" name="need" class="full" required>
+            <option value="">Votre besoin principal</option>
+            <option>Demander des informations</option>
+            <option>Recevoir une présentation</option>
+            <option>Être recontacté par un conseiller</option>
+            <option>Demander un devis</option>
+          </select>
+          <textarea id="cfMessage" name="message" class="full" placeholder="Décrivez brièvement votre besoin, votre contexte ou votre idée..."></textarea>
+          <div class="modal-actions full" style="grid-column:1/-1;">
+            <button type="button" class="btn-secondary" onclick="closeContactModal()">Annuler</button>
+            <button type="submit" class="btn-primary">Envoyer la demande</button>
+          </div>
+        </form>
+        <div class="modal-note">Réponse possible avec une première orientation sur le projet choisi.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    if (burgerBtn && mobileNav) {
+      burgerBtn.addEventListener('click', () => {
+        const opened = mobileNav.classList.toggle('open');
+        burgerBtn.classList.toggle('open');
+        mobileNav.setAttribute('aria-hidden', (!opened).toString());
+        burgerBtn.setAttribute('aria-expanded', String(opened));
+      });
+      mobileNav.querySelectorAll('.mobile-link').forEach(a=>{
+        a.addEventListener('click', ()=>{
+          mobileNav.classList.remove('open');
+          burgerBtn.classList.remove('open');
+          mobileNav.setAttribute('aria-hidden','true');
+          burgerBtn.setAttribute('aria-expanded','false');
+        });
+      });
+    }
+
+    (function(){
+      const holder = document.getElementById('energyParticles');
+      if (!holder) return;
+      const total = 44;
+      const classes = ['small','big','wide'];
+      for (let i = 0; i < total; i++) {
+        const p = document.createElement('span');
+        const isGold = i % 3 === 0 || i % 7 === 0;
+        p.className = 'particle' + (isGold ? ' gold' : '') + ' ' + classes[i % classes.length];
+        const left = 4 + Math.random() * 92;
+        const top = 62 + Math.random() * 36;
+        const duration = 4.4 + Math.random() * 4.8;
+        const delay = Math.random() * 7;
+        p.style.left = left + 'vw';
+        p.style.top = top + 'vh';
+        p.style.animationDuration = duration + 's';
+        p.style.animationDelay = delay + 's';
+        holder.appendChild(p);
+      }
+    })();
+
+    function openContactModal(prefillText = '') {
+      const modal = document.getElementById('contactModal');
+      const intro = document.getElementById('modalIntro');
+      const message = document.getElementById('cfMessage');
+      if (!modal) return;
+      if (intro) intro.textContent = prefillText || 'Décris rapidement le besoin, et on revient vers toi avec une première réponse.';
+      if (message && prefillText) message.value = prefillText;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      setTimeout(() => {
+        const first = document.getElementById('cfName');
+        if (first) first.focus();
+      }, 50);
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contactModal');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    document.getElementById('contactModal')?.addEventListener('click', function(e){
+      if (e.target === this) closeContactModal();
+    });
+
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') closeContactModal();
+    });
+
+    document.getElementById('contactForm')?.addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('cfName')?.value?.trim() || 'Utilisateur';
+      closeContactModal();
+      alert('Merci ' + name + ' ! Votre demande a été préparée.');
+      this.reset();
+    });
+
+    const revealItems = document.querySelectorAll('.timeline-card, .featured-panel, .featured-visual, .project-card, .cta-zone');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealItems.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(18px)';
+      el.style.transition = 'opacity .7s ease, transform .7s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

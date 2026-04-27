@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenBridge Énergie</title>
+  <title>GreenBridge Technologies — Maintenance</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -21,9 +21,11 @@
       --muted-text-color:#e6f7ea;
       --muted-text-size:15px;
       --electric-yellow:#ffd600;
-      --release-orange:#ff7a18;
-      --release-orange-2:#ffb347;
+      --card-bg:#061f14;
+      --form-bg:rgba(6,31,20,0.92);
+      --line:rgba(212,175,55,0.14);
     }
+
     *{box-sizing:border-box}
     html, body{
       margin:0;
@@ -35,6 +37,7 @@
       overflow-x:hidden;
     }
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
 
     .topbar{
       position:fixed;
@@ -50,6 +53,7 @@
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
+      border-bottom:1px solid rgba(255,255,255,.04);
     }
     .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
     .topbar a{color:#fff;transition:color .18s}
@@ -70,74 +74,22 @@
       box-shadow:0 4px 12px rgba(0,0,0,.25);
     }
 
-    .logo-text{
-      display:flex;
-      align-items:flex-start;
-      gap:12px;
-    }
-    .logo-text img{
-      height:56px;
-      display:block;
-      flex:0 0 auto;
-    }
-
-    .brand-stack{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-start;
-      justify-content:flex-start;
-      line-height:1;
-      text-align:left;
-      min-width:0;
-      margin:0;
-      padding:0;
-    }
-
+    .logo-text{display:flex;align-items:flex-start;gap:12px}
+    .logo-text img{height:56px;display:block;flex:0 0 auto}
+    .brand-stack{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;line-height:1;text-align:left;min-width:0;margin:0;padding:0}
     .company-name{
-      font-size:34px;
-      font-weight:800;
-      letter-spacing:1px;
-      padding:0;
-      margin:0;
-      border-radius:8px;
-      color:#04462e;
-      -webkit-text-stroke:0.95px var(--gold-base);
-      text-shadow:0 3px 6px rgba(0,0,0,0.6);
-      position:relative;
-      top:2px;
-      white-space:nowrap;
-      line-height:1;
-      text-align:left;
-      width:max-content;
-      display:block;
+      font-size:34px;font-weight:800;letter-spacing:1px;padding:0;margin:0;border-radius:8px;
+      color:#04462e;-webkit-text-stroke:0.95px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      position:relative;top:2px;white-space:nowrap;line-height:1;text-align:left;width:max-content;display:block;
     }
-
     .company-tagline{
-      font-size:14px;
-      font-weight:700;
-      letter-spacing:5px;
-      text-transform:uppercase;
-      color:#dfffe6;
-      padding:0;
-      margin:2px 0 0 0;
-      text-shadow:0 2px 6px rgba(0,0,0,0.45);
-      -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
-      white-space:nowrap;
-      line-height:1;
-      text-align:left;
-      width:max-content;
-      display:block;
+      font-size:14px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:#dfffe6;
+      padding:0;margin:2px 0 0 0;text-shadow:0 2px 6px rgba(0,0,0,0.45);-webkit-text-stroke:0.4px rgba(212,175,55,0.55);
+      white-space:nowrap;line-height:1;text-align:left;width:max-content;display:block;
     }
 
     nav{display:flex;gap:18px;align-items:center}
-    nav a{
-      color:#fff;
-      font-size:15px;
-      font-weight:600;
-      padding:8px 10px;
-      border-radius:8px;
-      transition:all .18s;
-    }
+    nav a{color:#fff;font-size:15px;font-weight:600;padding:8px 10px;border-radius:8px;transition:all .18s}
     nav a:hover{color:var(--accent-2)}
     nav a.active{
       color:var(--accent-2);
@@ -145,30 +97,12 @@
       border:1px solid rgba(212,175,55,0.12);
       padding:10px 14px;
       font-weight:800;
-      border-radius:10px;
+      border-radius:10px
     }
 
-    .burger{
-      display:none;
-      width:44px;
-      height:44px;
-      border-radius:8px;
-      border:none;
-      background:transparent;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer
-    }
+    .burger{display:none;width:44px;height:44px;border-radius:8px;border:none;background:transparent;align-items:center;justify-content:center;cursor:pointer}
     .burger .icon{display:block;position:relative;width:26px;height:18px}
-    .burger .icon span{
-      position:absolute;
-      left:0;
-      right:0;
-      height:3px;
-      background:#fff;
-      border-radius:2px;
-      transition:all .25s
-    }
+    .burger .icon span{position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s}
     .burger .icon span:nth-child(1){top:0}
     .burger .icon span:nth-child(2){top:7.5px}
     .burger .icon span:nth-child(3){top:15px}
@@ -187,230 +121,96 @@
       overflow:auto;
       transition:max-height .28s ease;
       box-shadow:0 12px 40px rgba(0,0,0,.45);
-      max-height:0;
+      max-height:0
     }
     .mobile-nav.open{display:block;max-height:70vh}
-    .mobile-nav .inner{
-      padding:12px 5vw;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      align-items:stretch;
-    }
-    .mobile-nav .contact{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      padding:8px 12px;
-      border-bottom:1px solid rgba(255,255,255,0.04);
-      margin-bottom:6px;
-      color:var(--muted-text-color);
-    }
-    .mobile-nav a{
-      padding:12px;
-      color:#fff;
-      width:100%;
-      text-align:left;
-      border-radius:8px;
-      font-weight:700;
-      display:flex;
-      justify-content:space-between;
-      align-items:center
-    }
+    .mobile-nav .inner{padding:12px 5vw;display:flex;flex-direction:column;gap:8px;align-items:stretch}
+    .mobile-nav .contact{display:flex;flex-direction:column;gap:6px;padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.04);margin-bottom:6px;color:var(--muted-text-color)}
+    .mobile-nav a{padding:12px;color:#fff;width:100%;text-align:left;border-radius:8px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
     .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
-    .mobile-nav a.active{background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2)}
+    .mobile-nav a.active{background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));color:var(--accent-2)}
 
     .hero{
       margin-top:calc(var(--topbar-h) + var(--header-h));
-      height: calc(100vh - (var(--topbar-h) + var(--header-h)));
-      min-height: calc(100vh - (var(--topbar-h) + var(--header-h)));
+      height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
       position:relative;
       display:flex;
       align-items:center;
       justify-content:center;
-      overflow:hidden;
       text-align:center;
-      background:#0a4d2e;
+      overflow:hidden;
+      background:#0a4d2e
     }
-    .hero-bg{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center 90%;
-      transform:scale(1.07) translateY(24px);
-      filter:brightness(1.02) contrast(1.03) saturate(1.02);
-    }
-    .hero-overlay{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
-      z-index:1;
-    }
-    .hero-content{
-      position:relative;
-      z-index:2;
-      max-width:950px;
-      padding:0 20px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-    }
-    .hero-content h1{
-      font-size:36px;
-      margin:0 0 12px;
-      font-weight:700;
-      text-shadow:0 3px 10px rgba(0,0,0,0.45)
-    }
-    .hero-content p{
-      font-size:18px;
-      margin:0 0 18px;
-      text-shadow:0 2px 8px rgba(0,0,0,0.45)
-    }
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    .btn-primary,.btn-secondary{
-      padding:14px 26px;
-      border-radius:10px;
-      border:0;
-      font-weight:700;
-      cursor:pointer;
-      font-size:16px;
-    }
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-2)}
-    .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
-    .btn-secondary:hover{background:rgba(255,255,255,0.08)}
+    .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 90%;transform:scale(1.07) translateY(24px);filter:brightness(1.02) contrast(1.03) saturate(1.02)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);z-index:1}
+    .hero-content{position:relative;z-index:2;max-width:950px;padding:0 20px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .hero-content h1{font-size:36px;margin:0 0 12px;font-weight:700;text-shadow:0 3px 10px rgba(0,0,0,0.45)}
+    .hero-content p{font-size:18px;margin:0;text-shadow:0 2px 8px rgba(0,0,0,0.45)}
 
     .section{padding:60px 5vw}
-    .section h2{
-      font-size:32px;
-      margin-bottom:18px;
-      color:var(--accent-2);
-      text-align:center
-    }
+    .section h2{font-size:32px;margin-bottom:18px;color:var(--accent-2);text-align:center}
+    .section-intro{max-width:1000px;margin:0 auto 24px;color:var(--muted-text-color);text-align:center;font-size:var(--muted-text-size);line-height:1.7;opacity:0.95}
 
-    .products-intro,.estimation-intro{
-      max-width:1000px;
-      margin:0 auto 24px;
-      color:var(--muted-text-color);
-      text-align:center;
-      font-size:var(--muted-text-size);
-      line-height:1.7;
-      opacity:0.95;
-    }
-
-    .grid-4{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:20px;
-      max-width:1200px;
-      margin:0 auto;
-    }
-    .card{
-      position:relative;
-      background:#061f14;
-      border-radius:16px;
-      overflow:hidden;
-      min-height:420px;
-      box-shadow:0 10px 22px rgba(0,0,0,0.45);
-      border:1px solid rgba(212,175,55,0.85);
-    }
-    .card .image-wrap{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-    }
-    .card .image-wrap img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-      transition:transform .3s, filter .3s;
-    }
-    .card:hover .image-wrap img{
-      transform:scale(1.05);
-      filter:brightness(1.02) contrast(1.03);
-    }
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);
-      z-index:1;
-    }
-    .card-content{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:2;
-      padding:22px 18px 20px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:center;
-      text-align:center;
-      background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
-    }
-    .card-content h3{
-      margin:0;
-      font-size:18px;
-      line-height:1.15;
-      min-height:42px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--accent-2);
-      width:100%;
-      text-align:center;
-    }
-    .card-content p{
-      margin:0;
-      color:#e6f7ea;
-      font-size:15px;
-      line-height:1.6;
-    }
-    .card .btn-card{
-      margin:10px auto 0;
-      padding:10px 18px;
-      border-radius:10px;
-      border:0;
-      background:var(--gold-base);
-      color:#072012;
-      font-weight:800;
-      cursor:pointer;
-      font-size:14px;
-    }
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1200px;margin:0 auto}
+    .card{position:relative;background:var(--card-bg);border-radius:16px;overflow:hidden;min-height:420px;box-shadow:0 10px 22px rgba(0,0,0,0.45);border:1px solid rgba(212,175,55,0.85)}
+    .card .image-wrap{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+    .card .image-wrap img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .3s, filter .3s}
+    .card:hover .image-wrap img{transform:scale(1.05);filter:brightness(1.02) contrast(1.03)}
+    .card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);z-index:1}
+    .card-content{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:22px 18px 20px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%)}
+    .card-content h3{margin:0;font-size:18px;line-height:1.15;min-height:42px;display:flex;align-items:center;justify-content:center;color:var(--accent-2);width:100%;text-align:center}
+    .card-content p{margin:0;color:#e6f7ea;font-size:15px;line-height:1.6}
+    .card .btn-card{margin:10px auto 0;padding:10px 18px;border-radius:10px;border:0;background:var(--gold-base);color:#072012;font-weight:800;cursor:pointer;font-size:14px}
     .card .btn-card:hover{background:var(--gold-hover)}
 
-    .advantages{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top:8px
+    .advantages{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+    .advantage{width:260px;background:#072b1b;border-radius:12px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,0.04)}
+    .advantage i{font-size:34px;color:var(--accent);margin-bottom:8px}
+    .advantage h3{color:#dfffe6;margin:6px 0}
+    .advantage p{margin:0;color:#e6f7ea;line-height:1.6;font-size:15px}
+
+    .modal{display:none;position:fixed;z-index:3000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.62);backdrop-filter:blur(8px)}
+    .modal-content{background:linear-gradient(180deg, rgba(6,31,20,.98), rgba(4,18,12,.98));color:#fff;margin:6% auto;padding:18px;border-radius:18px;max-width:560px;position:relative;border:1px solid rgba(212,175,55,.22);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+    .modal-content img{width:100%;height:240px;object-fit:cover;border-radius:12px;margin-bottom:12px;border:1px solid rgba(212,175,55,.16)}
+    .close{position:absolute;right:12px;top:8px;font-size:20px;cursor:pointer;color:var(--gold-hover);font-weight:900}
+    .modal-content h3{margin:0 0 8px;color:var(--accent-2)}
+    .modal-content p{margin:0;color:#eaf9ea;line-height:1.7}
+
+    .electric-band{
+      position:fixed;
+      top:calc(var(--topbar-h) + var(--header-h) - 6px);
+      left:0;
+      right:0;
+      height:14px;
+      z-index:1600;
+      pointer-events:none;
+      overflow:visible;
+      transform:translateZ(0)
     }
-    .advantage{
-      width:260px;
-      background:#072b1b;
-      border-radius:12px;
-      padding:18px;
-      text-align:center
+    .electric-band .container{
+      position:absolute;
+      left:0;
+      top:50%;
+      transform:translateY(-50%);
+      width:100vw;
+      max-width:none;
+      padding:0;
+      height:100%;
+      pointer-events:none;
+      box-sizing:border-box
     }
-    .advantage i{
-      font-size:34px;
-      color:var(--accent);
-      margin-bottom:8px
-    }
-    .advantage h3{
-      color:#dfffe6;
-      margin:6px 0
-    }
+    .lightning-svg{width:100vw;height:100%;display:block;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:screen}
+    .electric-band.connected .lightning-svg{opacity:1}
+    .lightning-svg path.zap{stroke:var(--electric-yellow);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0.98}
+    .orbs{position:absolute;left:0;top:0;width:100vw;height:100%;pointer-events:none;overflow:visible}
+    .orb{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));box-shadow:0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);transform:translate(-50%,-50%);opacity:0;transition:opacity .18s linear}
+    .electric-band.connected .orb{opacity:1}
+    @keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}}
+    .orb.buzz{animation:buzz 0.9s linear infinite}
+    .glowline{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:3px;width:0;background:linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));border-radius:8px;box-shadow:0 6px 20px rgba(255,214,0,0.12);opacity:0;transition:opacity .22s ease}
+    .electric-band.connected .glowline{width:100vw;opacity:1;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}}
 
     #devis form{
       max-width:520px;
@@ -533,7 +333,6 @@
       text-align:center
     }
 
-    /* ===================== Réalisations / projets futurs ===================== */
     .gb-carousel{
       position:relative;
       max-width:1240px;
@@ -952,7 +751,7 @@
     </div>
   </div>
 
-  <header role="navigation" aria-label="Main">
+  <header>
     <div class="logo-text">
       <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
       <div class="brand-stack">
@@ -962,11 +761,11 @@
     </div>
 
     <nav aria-label="Menu principal">
-      <a href="GreenBrigde technologies.html" class="active">Accueil</a>
+      <a href="GreenBrigde technologies.html">Accueil</a>
       <a href="etude_dimensionnement_2.html">Étude</a>
       <a href="produits.html">Nos Produits</a>
-      <a href="Projets.html">Projets futurs</a>
-      <a href="maintenance.html">Maintenance</a>
+      <a href="projets.html">Projets futurs</a>
+      <a href="maintenance.html" class="active">Maintenance</a>
     </nav>
 
     <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
@@ -977,8 +776,8 @@
   <div class="electric-band" id="electricBand" aria-hidden="true">
     <div class="container" aria-hidden="true">
       <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
-        <path class="zap" id="zap1" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
-        <path class="zap" id="zap2" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
+        <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
+        <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
         <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
       </svg>
       <div class="orbs" id="orbs">
@@ -997,216 +796,95 @@
         <div><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</div>
         <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
       </div>
-      <a href="#top" class="mobile-link active">Accueil</a>
+      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
       <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
       <a href="produits.html" class="mobile-link">Nos Produits</a>
-      <a href="Projets.html" class="mobile-link">Projets futurs</a>
-      <a href="maintenance.html" class="mobile-link">Maintenance</a>
-      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.03);padding-top:10px;display:flex;gap:12px;align-items:center;">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-      </div>
+      <a href="projets.html" class="mobile-link">Projets futurs</a>
+      <a href="maintenance.html" class="mobile-link active">Maintenance</a>
     </div>
   </div>
 
   <section class="hero" id="top" aria-label="Hero">
-    <img class="hero-bg" src="Image_2.png" alt="Illustration GreenBridge Énergie">
+    <img class="hero-bg" src="maintenance_green.png" alt="Illustration maintenance GreenBridge">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Solutions Énergie sur mesure</h1>
-      <p>Étude du besoin, dimensionnement, installation et maintenance</p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
-      </div>
+      <h1>Maintenance & Installation</h1>
+      <p>Des interventions fiables pour garantir la continuité, la sécurité et la performance de vos installations énergétiques et domotiques.</p>
     </div>
   </section>
 
-  <section id="zones" class="section" aria-label="Nos activités">
-    <h2 class="section-title">Nos activités</h2>
-    <p class="activities-intro">
-      Basés en Côte d’Ivoire, nous menons des activités de recherche &amp; développement locales. Passionnés par la technologie et l'innovation, nous concevons des solutions énergétiques et domotiques adaptées au contexte local — performance, robustesse et facilitation du quotidien.
+  <section class="section" id="zones" aria-label="Nos activités">
+    <h2>Nos activités</h2>
+    <p class="section-intro">
+      Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pour l’installation, la maintenance préventive, le dépannage et le suivi technique de solutions énergétiques et domotiques.
     </p>
-    <div class="zones-cards">
-      <div class="zone-card" onclick="window.location.href='zone_urbaine.html'" role="button" aria-label="Zone Urbaine">
-        <img src="milieu_urbain_1.png" alt="Zone Urbaine">
-        <div class="overlay"></div>
-        <h3>Zone Urbaine</h3>
-      </div>
-      <div class="zone-card" onclick="window.location.href='zone_agricole.html'" role="button" aria-label="Zone Agricole">
-        <img src="milieu_agricole.png" alt="Zone Agricole">
-        <div class="overlay"></div>
-        <h3>Zone Agricole</h3>
-      </div>
-    </div>
-  </section>
 
-  <section id="produits" class="section" aria-label="Nos produits">
-    <h2>Nos Produits</h2>
-    <p class="products-intro">
-      Nous proposons une gamme complète : panneaux solaires, batteries, onduleurs et groupes électrogènes. Nos solutions sont dimensionnées pour assurer performance, durabilité et facilité de maintenance.
-    </p>
-    <div class="grid-4" role="list">
-      <article class="card" role="listitem" aria-label="Panneaux solaires">
-        <div class="image-wrap"><img src="chantier_solaire.png" alt="Panneaux solaires"></div>
+    <div class="grid-4" role="list" id="prestations">
+      <article class="card" role="listitem" aria-label="Installation panneaux">
+        <div class="image-wrap"><img src="installation_panel.jpg" alt="Installation panneaux solaires"></div>
         <div class="card-content">
-          <h3>Panneaux solaires</h3>
-          <p>Modules monocristallins haut rendement, résistants aux conditions locales et garantis 10 ans. Installation complète et optimisation de l'orientation.</p>
-          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
+          <h3>Installation panneaux</h3>
+          <p>Étude, pose, câblage et mise en service avec une intégration propre, durable et sécurisée.</p>
+          <button class="btn-card" onclick="openModal('installation_panel.jpg','Installation panneaux','Conception et pose optimisées : étude, fixation, câblage, protections et mise en service.')">Détails</button>
         </div>
       </article>
 
-      <article class="card" role="listitem" aria-label="Batteries & stockage">
-        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Batteries & stockage"></div>
+      <article class="card" role="listitem" aria-label="Maintenance préventive">
+        <div class="image-wrap"><img src="maintenance_visite.jpg" alt="Maintenance préventive"></div>
         <div class="card-content">
-          <h3>Batteries & stockage</h3>
-          <p>Solutions lithium-ion et plomb-acide : stockage modulable, gestion intelligente de charge et monitoring à distance pour une efficacité durable.</p>
-          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
+          <h3>Maintenance préventive</h3>
+          <p>Contrôles réguliers, nettoyage, vérification des points critiques et suivi de performance.</p>
+          <button class="btn-card" onclick="openModal('maintenance_visite.jpg','Maintenance préventive','Visites planifiées, nettoyage, contrôle visuel, resserrage, tests et rapport de suivi.')">Détails</button>
         </div>
       </article>
 
-      <article class="card" role="listitem" aria-label="Onduleurs">
-        <div class="image-wrap"><img src="onduleur_tech.png" alt="Onduleurs"></div>
+      <article class="card" role="listitem" aria-label="Maintenance corrective et dépannage">
+        <div class="image-wrap"><img src="depannage_technicien.jpg" alt="Maintenance corrective et dépannage"></div>
         <div class="card-content">
-          <h3>Onduleurs</h3>
-          <p>Onduleurs hybrides et on-grid pour conversion efficace, protection contre surtensions et gestion intelligente des micro-réseaux.</p>
-          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
+          <h3>Maintenance corrective</h3>
+          <p>Diagnostic rapide, réparation, remplacement de pièces et remise en service au plus vite.</p>
+          <button class="btn-card" onclick="openModal('depannage_technicien.jpg','Maintenance corrective & dépannage','Intervention rapide, diagnostic, réparation, remplacement et remise en service.')">Détails</button>
         </div>
       </article>
 
-      <article class="card" role="listitem" aria-label="Groupes électrogènes">
-        <div class="image-wrap"><img src="technicien_groupe_elctro.png" alt="Groupes électrogènes"></div>
+      <article class="card" role="listitem" aria-label="Contrats de maintenance">
+        <div class="image-wrap"><img src="bureaux_connectes.jpg" alt="Contrats de maintenance"></div>
         <div class="card-content">
-          <h3>Groupes électrogènes</h3>
-          <p>Groupes de secours diesel et gaz, silencieux, avec démarrage automatique et service de maintenance sur site pour garantir continuité.</p>
-          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
+          <h3>Contrats de maintenance</h3>
+          <p>Offres adaptées aux professionnels avec supervision, priorisation des interventions et suivi.</p>
+          <button class="btn-card" onclick="openModal('bureaux_connectes.jpg','Contrats de maintenance','Formules de suivi pour les professionnels : supervision, maintenance planifiée et assistance.')">Détails</button>
         </div>
       </article>
-    </div>
-  </section>
-
-  <section id="realisations" class="section">
-    <h2>Nos réalisations et projets futurs</h2>
-    <p class="gb-carousel-intro">
-      Chaque projet est présenté avec une image complète, des points clés lisibles et une mise en page centrée pour une lecture plus professionnelle.
-    </p>
-    <div class="gb-carousel" aria-roledescription="carousel">
-      <div class="gb-track-wrap" role="region" aria-live="polite" aria-label="Projets GreenBridge">
-        <ul class="gb-track">
-          <li class="gb-slide" data-index="0">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="Batterie_pack_s.png" alt="Pack batterie">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 1 <span class="gb-release">Sortie estimée 15/06/2026</span></span>
-                <h3>Pack batterie</h3>
-                <p class="gb-summary">Pack batterie portable conçu pour la continuité d’alimentation, la recharge de secours et l’usage quotidien. Solution pensée pour les ménages, bureaux et petits commerces.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Usage</strong><span>Secours et mobilité</span></div>
-                  <div class="gb-highlight"><strong>Public</strong><span>Maisons, bureaux</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/06/2026</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Ménages, bureaux, petits commerces, sites isolés.</p>
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="gb-slide" data-index="1">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="Powerbank_wireless.png" alt="Power bank wireless">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 2 <span class="gb-release">Sortie estimée 15/07/2026</span></span>
-                <h3>Power bank wireless</h3>
-                <p class="gb-summary">Power bank sans fil à charge induction, conçue pour la recharge rapide des smartphones et petits appareils compatibles. Batterie longue durée avec protections intelligentes.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Charge</strong><span>Induction</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/07/2026</span></div>
-                  <div class="gb-highlight"><strong>Ports</strong><span>USB rapides</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Particuliers, professionnels mobiles, voyageurs et usage quotidien.</p>
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="gb-slide" data-index="2">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="ventillateur_solaire_1.png" alt="Ventilateur solaire">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 3 <span class="gb-release">Sortie estimée 15/11/2026</span></span>
-                <h3>Ventilateur solaire</h3>
-                <p class="gb-summary">Ventilateur alimenté par panneau PV 120 W, contrôleur MPPT intégré, autonomie de 6 à 10 heures selon la batterie. Boîtier anticorrosion adapté au climat tropical.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Alimentation</strong><span>PV 120 W</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/11/2026</span></div>
-                  <div class="gb-highlight"><strong>Contrôle</strong><span>MPPT intégré</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Ménages, petits commerces.</p>
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="gb-slide" data-index="3">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="Pompe_immergée.png" alt="Système de pompe solaire">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 4 <span class="gb-release">Sortie estimée 31/12/2026</span></span>
-                <h3>Système de pompe solaire</h3>
-                <p class="gb-summary">Système de pompage solaire pour irrigation et alimentation en eau, avec variateur de fréquence, protections anti-surcharge et fonctionnement fiable sur champs PV en courant continu.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Puissance</strong><span>1.5 kW</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>31/12/2026</span></div>
-                  <div class="gb-highlight"><strong>Sécurité</strong><span>Anti-marche à sec</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Agriculture familiale, irrigation, sites isolés.</p>
-              </figcaption>
-            </figure>
-          </li>
-        </ul>
-      </div>
-      <button class="gb-btn gb-prev" aria-label="Projet précédent">‹</button>
-      <button class="gb-btn gb-next" aria-label="Projet suivant">›</button>
-      <div class="gb-dots" role="tablist" aria-label="Pagination du carrousel"></div>
     </div>
   </section>
 
   <section class="section">
-    <h2>Pourquoi nos solutions énergie ?</h2>
+    <h2>Pourquoi choisir GreenBridge ?</h2>
     <div class="advantages" role="list">
-      <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Efficacité</h3><p>Maximisez le rendement et l’économie d’énergie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Fiabilité</h3><p>Installation professionnelle et maintenance garantie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-globe-africa" aria-hidden="true"></i><h3>Local</h3><p>Expertise adaptée au marché ivoirien</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-award" aria-hidden="true"></i><h3>5 ans de garantie</h3><p>Tranquillité, suivi et accompagnement sur la durée</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-user-check" aria-hidden="true"></i><h3>Techniciens qualifiés</h3><p>Équipe formée aux bonnes pratiques et à la sécurité.</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-clipboard-check" aria-hidden="true"></i><h3>Processus clairs</h3><p>Interventions planifiées, traçabilité et rapports.</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Sécurité & conformité</h3><p>Travaux réalisés dans le respect des exigences techniques.</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Réactivité</h3><p>Dépannage rapide pour réduire l’arrêt de vos équipements.</p></div>
     </div>
   </section>
 
+  <div id="detailModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <span class="close" onclick="closeModal()" role="button" aria-label="Fermer">&times;</span>
+      <img id="modalImg" src="" alt="">
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+
   <section id="devis" class="section">
     <h2>Demandez un devis personnalisé</h2>
-    <form>
+    <form id="devis-form">
       <input type="text" placeholder="Nom complet" required>
       <input type="email" placeholder="Email" required>
       <input type="tel" placeholder="Téléphone" required>
       <select required>
-        <option value="">Type de service</option>
+        <option value="">Type de projet</option>
         <option value="installation">Installation complète</option>
         <option value="maintenance">Maintenance</option>
         <option value="audit">Audit énergétique</option>
@@ -1228,6 +906,7 @@
   <script>
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
+
     if (burgerBtn && mobileNav) {
       burgerBtn.addEventListener('click', () => {
         const opened = mobileNav.classList.toggle('open');
@@ -1236,120 +915,48 @@
         burgerBtn.setAttribute('aria-expanded', String(opened));
       });
 
-      mobileNav.querySelectorAll('.mobile-link').forEach(a=>{
-        a.addEventListener('click', ()=>{
+      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+        a.addEventListener('click', () => {
           mobileNav.classList.remove('open');
           burgerBtn.classList.remove('open');
-          mobileNav.setAttribute('aria-hidden','true');
-          burgerBtn.setAttribute('aria-expanded','false');
+          mobileNav.setAttribute('aria-hidden', 'true');
+          burgerBtn.setAttribute('aria-expanded', 'false');
         });
       });
     }
 
-    let aboutImgs = document.querySelectorAll('.about-slider img');
-    let cur = 0;
-    if (aboutImgs.length) {
-      setInterval(()=> {
-        aboutImgs[cur].classList.remove('active');
-        cur = (cur + 1) % aboutImgs.length;
-        aboutImgs[cur].classList.add('active');
-      }, 3500);
+    function openModal(img, title, desc){
+      const modal = document.getElementById('detailModal');
+      document.getElementById('modalImg').src = img;
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDesc').innerText = desc;
+      modal.style.display = 'block';
+      modal.setAttribute('aria-hidden','false');
     }
 
-    (function(){
-      const track = document.querySelector('.gb-track');
-      if (!track) return;
-      const wrap = document.querySelector('.gb-track-wrap');
-      const slides = Array.from(track.querySelectorAll('.gb-slide'));
-      const prevBtn = document.querySelector('.gb-prev');
-      const nextBtn = document.querySelector('.gb-next');
-      const dotsWrap = document.querySelector('.gb-dots');
-      let index = 0;
-      const AUTOPLAY_INTERVAL = 12000;
-      let autoplayTimer = null;
-      let paused = false;
-      let touchStartX = 0;
-      let touchEndX = 0;
+    function closeModal(){
+      const modal = document.getElementById('detailModal');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden','true');
+    }
 
-      slides.forEach((s,i)=>{
-        const btn = document.createElement('button');
-        btn.className = 'gb-dot';
-        btn.setAttribute('aria-label','Aller au projet ' + (i+1));
-        btn.dataset.index = i;
-        if(i===0) btn.classList.add('active');
-        dotsWrap.appendChild(btn);
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('detailModal');
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    const form = document.getElementById('devis-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Votre demande a bien été prise en compte.');
+        form.reset();
       });
-
-      const dots = Array.from(dotsWrap.children);
-
-      function getSlideWidth(){
-        const firstSlide = slides[0];
-        return firstSlide ? Math.round(firstSlide.getBoundingClientRect().width) : Math.round(wrap.getBoundingClientRect().width);
-      }
-
-      function update(){
-        const slideWidth = getSlideWidth();
-        track.style.transform = 'translate3d(' + (-index * slideWidth) + 'px,0,0)';
-        dots.forEach((d,i)=>d.classList.toggle('active', i===index));
-      }
-
-      function goNext(){
-        index = (index+1) % slides.length;
-        update();
-      }
-      function goPrev(){
-        index = (index-1+slides.length) % slides.length;
-        update();
-      }
-      function goTo(i){
-        index = i;
-        update();
-      }
-
-      function startAutoplay(){
-        clearInterval(autoplayTimer);
-        autoplayTimer = setInterval(() => {
-          if (!paused) goNext();
-        }, AUTOPLAY_INTERVAL);
-      }
-
-      function resetAutoplay(){
-        clearInterval(autoplayTimer);
-        startAutoplay();
-      }
-
-      if(nextBtn) nextBtn.addEventListener('click', ()=>{ goNext(); resetAutoplay(); });
-      if(prevBtn) prevBtn.addEventListener('click', ()=>{ goPrev(); resetAutoplay(); });
-
-      dotsWrap.addEventListener('click', e=>{
-        if(e.target.classList.contains('gb-dot')) {
-          goTo(Number(e.target.dataset.index));
-          resetAutoplay();
-        }
-      });
-
-      wrap.addEventListener('mouseenter', () => { paused = true; });
-      wrap.addEventListener('mouseleave', () => { paused = false; });
-
-      wrap.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, {passive:true});
-
-      wrap.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 50) {
-          if (diff > 0) goNext();
-          else goPrev();
-          resetAutoplay();
-        }
-      }, {passive:true});
-
-      window.addEventListener('resize', update);
-      window.addEventListener('load', update);
-      update();
-      startAutoplay();
-    })();
+    }
 
     (function(){
       const electricBand = document.getElementById('electricBand');
@@ -1480,43 +1087,7 @@
       }
 
       activate();
-      window.addEventListener('resize', ()=>{
-        t0 = performance.now();
-      });
-    })();
-
-    (function(){
-      const p = document.querySelector('.hero-content p');
-      if (!p) return;
-      function applyMobileSize(){
-        if (window.innerWidth <= 480) {
-          p.style.whiteSpace = 'nowrap';
-          p.style.display = 'inline-block';
-          p.style.fontSize = '16px';
-          p.style.lineHeight = '1';
-          p.style.overflow = 'hidden';
-          p.style.textOverflow = 'ellipsis';
-          p.style.transform = '';
-        } else {
-          p.style.whiteSpace = '';
-          p.style.display = '';
-          p.style.fontSize = '';
-          p.style.lineHeight = '';
-          p.style.overflow = '';
-          p.style.textOverflow = '';
-          p.style.transform = '';
-        }
-      }
-      window.addEventListener('load', applyMobileSize);
-      let to;
-      window.addEventListener('resize', function(){
-        clearTimeout(to);
-        to = setTimeout(applyMobileSize, 80);
-      });
-      window.addEventListener('orientationchange', function(){
-        setTimeout(applyMobileSize, 120);
-      });
-      applyMobileSize();
+      window.addEventListener('resize', ()=>{ t0 = performance.now(); });
     })();
   </script>
 </body>
