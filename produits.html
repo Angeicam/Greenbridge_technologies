@@ -3,12 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#061f14"/>
-  <title>GreenBridge Énergie | Nos Produits</title>
-
+  <title>GreenBridge Énergie — Nos Produits</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root{
       --topbar-h:48px;
@@ -22,13 +19,11 @@
       --gold-base:#d4af37;
       --gold-hover:#e6c95a;
       --muted-text-color:#e6f7ea;
+      --muted-text-size:15px;
       --electric-yellow:#ffd600;
-      --card-border:rgba(212,175,55,.18);
-      --glass:rgba(255,255,255,.05);
       --release-orange:#ff7a18;
       --release-orange-2:#ffb347;
     }
-
     *{box-sizing:border-box}
     html, body{
       margin:0;
@@ -48,7 +43,7 @@
       left:0;
       right:0;
       height:var(--topbar-h);
-      background:rgba(6,31,20,.96);
+      background:var(--green-dark);
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -56,8 +51,6 @@
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(255,255,255,.05);
     }
     .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
     .topbar a{color:#fff;transition:color .18s}
@@ -69,28 +62,26 @@
       left:0;
       right:0;
       height:var(--header-h);
-      background:linear-gradient(90deg, rgba(7,50,23,.96), rgba(11,77,38,.96));
+      background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
       display:flex;
       align-items:center;
       justify-content:space-between;
       padding:0 5vw;
       z-index:1490;
       box-shadow:0 4px 12px rgba(0,0,0,.25);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid rgba(255,255,255,.04);
     }
 
     .logo-text{
       display:flex;
       align-items:flex-start;
       gap:12px;
-      min-width:0;
     }
     .logo-text img{
       height:56px;
       display:block;
       flex:0 0 auto;
     }
+
     .brand-stack{
       display:flex;
       flex-direction:column;
@@ -102,6 +93,7 @@
       margin:0;
       padding:0;
     }
+
     .company-name{
       font-size:34px;
       font-weight:800;
@@ -120,6 +112,7 @@
       width:max-content;
       display:block;
     }
+
     .company-tagline{
       font-size:14px;
       font-weight:700;
@@ -190,16 +183,16 @@
       top:calc(var(--topbar-h)+var(--header-h));
       left:0;
       right:0;
-      background:linear-gradient(180deg, rgba(10,77,46,.98), rgba(6,31,20,.98));
+      background:var(--bg);
       z-index:1480;
       overflow:auto;
       transition:max-height .28s ease;
       box-shadow:0 12px 40px rgba(0,0,0,.45);
       max-height:0;
     }
-    .mobile-nav.open{display:block;max-height:72vh}
+    .mobile-nav.open{display:block;max-height:70vh}
     .mobile-nav .inner{
-      padding:12px 5vw 18px;
+      padding:12px 5vw;
       display:flex;
       flex-direction:column;
       gap:8px;
@@ -209,427 +202,216 @@
       display:flex;
       flex-direction:column;
       gap:6px;
-      padding:8px 12px 14px;
-      border-bottom:1px solid rgba(255,255,255,0.06);
+      padding:8px 12px;
+      border-bottom:1px solid rgba(255,255,255,0.04);
       margin-bottom:6px;
       color:var(--muted-text-color);
     }
     .mobile-nav a{
-      padding:14px 12px;
+      padding:12px;
       color:#fff;
       width:100%;
       text-align:left;
-      border-radius:12px;
+      border-radius:8px;
       font-weight:700;
       display:flex;
       justify-content:space-between;
       align-items:center
     }
-    .mobile-nav a:hover{background:rgba(124,179,66,0.08);color:var(--accent-2)}
-    .mobile-nav a.active{
-      background:linear-gradient(90deg, rgba(212,175,55,0.08), rgba(212,175,55,0.04));
-      color:var(--accent-2)
-    }
-
-    .page{
-      margin-top:calc(var(--topbar-h) + var(--header-h));
-      min-height:100vh;
-    }
+    .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
+    .mobile-nav a.active{background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2)}
 
     .hero{
+      margin-top:calc(var(--topbar-h) + var(--header-h));
+      height: calc(100vh - (var(--topbar-h) + var(--header-h)));
+      min-height: calc(100vh - (var(--topbar-h) + var(--header-h)));
       position:relative;
-      overflow:hidden;
-      min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
-      padding:74px 5vw 64px;
       display:flex;
-      align-items:center;
-      background:
-        linear-gradient(180deg, rgba(4,14,9,.48), rgba(6,31,20,.84)),
-        url('chantier_solaire.png') center center/cover no-repeat;
-    }
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at top left, rgba(168,230,161,.14), transparent 34%),
-        radial-gradient(circle at bottom right, rgba(212,175,55,.11), transparent 35%);
-      pointer-events:none;
-    }
-
-    .hero-grid{
-      position:relative;
-      z-index:1;
-      max-width:1240px;
-      margin:0 auto;
-      width:100%;
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:24px;
-      align-items:center;
-    }
-
-    .hero-copy{
-      max-width:760px;
-    }
-
-    .hero-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 14px;
-      border-radius:999px;
-      background:rgba(168,230,161,.12);
-      border:1px solid rgba(168,230,161,.18);
-      color:#eaffea;
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.5px;
-      text-transform:uppercase;
-      margin-bottom:16px;
-      backdrop-filter: blur(8px);
-    }
-
-    .hero h1{
-      margin:0 0 14px;
-      font-size:clamp(36px, 4.3vw, 62px);
-      line-height:1.03;
-      color:#fff;
-      text-shadow:0 4px 18px rgba(0,0,0,.5);
-    }
-    .hero h1 .accent{
-      color:var(--accent-2);
-      display:block;
-    }
-    .hero p{
-      margin:0 0 22px;
-      max-width:720px;
-      color:var(--muted-text-color);
-      line-height:1.78;
-      font-size:16px;
-      opacity:.98;
-    }
-
-    .hero-actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-    .btn-primary,.btn-secondary,.btn-outline{
-      padding:14px 24px;
-      border-radius:12px;
-      border:0;
-      font-weight:800;
-      cursor:pointer;
-      font-size:15px;
-      transition:transform .18s ease, background .18s ease, border-color .18s ease;
-      display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-    }
-    .btn-primary{
-      background:var(--accent);
-      color:#072012;
-      box-shadow:0 12px 28px rgba(124,179,66,.2);
-    }
-    .btn-primary:hover{background:var(--accent-2);transform:translateY(-1px)}
-    .btn-secondary{
-      background:rgba(255,255,255,.04);
-      color:#fff;
-      border:1px solid rgba(255,255,255,0.22);
-      backdrop-filter: blur(8px);
-    }
-    .btn-secondary:hover{background:rgba(255,255,255,0.08);transform:translateY(-1px)}
-    .btn-outline{
-      background:transparent;
-      color:#fff;
-      border:1px solid rgba(212,175,55,.34);
-    }
-    .btn-outline:hover{background:rgba(212,175,55,.08);transform:translateY(-1px)}
-
-    .hero-panel{
-      background:linear-gradient(180deg, rgba(2,8,6,.52), rgba(2,8,6,.78));
-      border:1px solid rgba(212,175,55,.22);
-      border-radius:24px;
-      padding:22px;
-      box-shadow:0 16px 40px rgba(0,0,0,.28);
-      backdrop-filter: blur(10px);
-    }
-    .hero-stats{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:14px;
-    }
-    .stat{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.07);
-      border-radius:18px;
-      padding:18px 16px;
-      min-height:110px;
-    }
-    .stat i{
-      font-size:24px;
-      color:var(--accent-2);
-      margin-bottom:10px;
-      display:block;
-    }
-    .stat strong{
-      display:block;
-      font-size:22px;
-      color:#fff;
-      margin-bottom:4px;
-    }
-    .stat span{
-      color:var(--muted-text-color);
-      font-size:13px;
-      line-height:1.5;
-      display:block;
-    }
-
-    .section{
-      padding:64px 5vw;
-    }
-    .section h2{
-      font-size:32px;
-      margin:0 0 16px;
-      color:var(--accent-2);
       text-align:center;
-    }
-    .section-intro{
-      max-width:1000px;
-      margin:0 auto 28px;
-      color:var(--muted-text-color);
-      text-align:center;
-      font-size:15px;
-      line-height:1.75;
-      opacity:0.96;
-    }
-
-    .product-grid{
-      max-width:1240px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0,1fr));
-      gap:18px;
-    }
-
-    .product-card{
-      position:relative;
       overflow:hidden;
-      border-radius:20px;
-      min-height:450px;
-      background:#061f14;
-      border:1px solid rgba(212,175,55,.88);
-      box-shadow:0 10px 22px rgba(0,0,0,0.45);
-      display:flex;
-      flex-direction:column;
-      transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      background:#0a4d2e;
     }
-    .product-card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 16px 30px rgba(0,0,0,0.50);
-      border-color:rgba(212,175,55,.98);
-    }
-    .product-card::after{
-      content:"";
+    .hero-bg{
       position:absolute;
       inset:0;
-      background:linear-gradient(to top, rgba(0,0,0,0.84) 0%, rgba(0,0,0,0.22) 45%, rgba(0,0,0,0.04) 100%);
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 90%;
+      transform:scale(1.07) translateY(24px);
+      filter:brightness(1.02) contrast(1.03) saturate(1.02);
+    }
+    .hero-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
       z-index:1;
-      pointer-events:none;
+    }
+    .hero-content{
+      position:relative;
+      z-index:2;
+      max-width:950px;
+      padding:0 20px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-content h1{
+      font-size:36px;
+      margin:0 0 12px;
+      font-weight:700;
+      text-shadow:0 3px 10px rgba(0,0,0,0.45)
+    }
+    .hero-content p{
+      font-size:18px;
+      margin:0 0 18px;
+      text-shadow:0 2px 8px rgba(0,0,0,0.45)
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .btn-primary,.btn-secondary{
+      padding:14px 26px;
+      border-radius:10px;
+      border:0;
+      font-weight:700;
+      cursor:pointer;
+      font-size:16px;
+    }
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-primary:hover{background:var(--accent-2)}
+    .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
+    .btn-secondary:hover{background:rgba(255,255,255,0.08)}
+
+    .section{padding:60px 5vw}
+    .section h2{
+      font-size:32px;
+      margin-bottom:18px;
+      color:var(--accent-2);
+      text-align:center
     }
 
-    .product-media{
-      position:relative;
-      z-index:0;
-      height:220px;
-      overflow:hidden;
-      background:linear-gradient(180deg, rgba(7,50,23,.35), rgba(6,31,20,.88));
+    .products-intro{
+      max-width:1000px;
+      margin:0 auto 24px;
+      color:var(--muted-text-color);
+      text-align:center;
+      font-size:var(--muted-text-size);
+      line-height:1.7;
+      opacity:0.95;
     }
-    .product-media img{
+
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+      max-width:1200px;
+      margin:0 auto;
+    }
+    .card{
+      position:relative;
+      background:#061f14;
+      border-radius:16px;
+      overflow:hidden;
+      min-height:420px;
+      box-shadow:0 10px 22px rgba(0,0,0,0.45);
+      border:1px solid rgba(212,175,55,0.85);
+    }
+    .card .image-wrap{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+    }
+    .card .image-wrap img{
       width:100%;
       height:100%;
       object-fit:cover;
       object-position:center;
-      transition:transform .28s ease, filter .28s ease;
+      display:block;
+      transition:transform .3s, filter .3s;
     }
-    .product-card:hover .product-media img{
-      transform:scale(1.04);
-      filter:brightness(1.03) contrast(1.02);
+    .card:hover .image-wrap img{
+      transform:scale(1.05);
+      filter:brightness(1.02) contrast(1.03);
     }
-    .product-badge{
+    .card::after{
+      content:"";
       position:absolute;
-      top:14px;
-      left:14px;
-      z-index:3;
-      padding:7px 11px;
-      border-radius:999px;
-      background:rgba(6,31,20,.82);
-      border:1px solid rgba(212,175,55,.20);
-      color:#f4fde8;
-      font-size:11px;
-      font-weight:800;
-      letter-spacing:.3px;
-      backdrop-filter: blur(8px);
+      inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);
+      z-index:1;
     }
-
-    .product-body{
-      position:relative;
+    .card-content{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
       z-index:2;
+      padding:22px 18px 20px;
       display:flex;
       flex-direction:column;
-      justify-content:space-between;
-      gap:14px;
-      padding:18px 18px 20px;
-      flex:1;
-      background:linear-gradient(180deg, rgba(6,31,20,.76), rgba(6,31,20,.95));
-    }
-
-    .product-head{
+      gap:12px;
+      align-items:center;
       text-align:center;
+      background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
     }
-    .product-head h3{
-      margin:0 0 8px;
-      font-size:22px;
-      color:#fff;
+    .card-content h3{
+      margin:0;
+      font-size:18px;
       line-height:1.15;
-    }
-    .product-head p{
-      margin:0;
-      color:#ecf9ec;
-      font-size:14px;
-      line-height:1.7;
-    }
-
-    .product-features{
-      margin:0;
-      padding:0;
-      list-style:none;
+      min-height:42px;
       display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      justify-content:center;
-    }
-    .product-features li{
-      padding:8px 10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      color:#eefbf0;
-      font-size:12px;
-      line-height:1;
-      display:inline-flex;
       align-items:center;
-      gap:8px;
-    }
-    .product-features li i{
-      color:var(--gold-base);
-      font-size:12px;
-    }
-
-    .product-footer{
-      margin-top:auto;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      border-top:1px solid rgba(255,255,255,.08);
-      padding-top:14px;
-    }
-    .product-meta{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      color:#dfffe6;
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:.2px;
-    }
-    .product-meta span{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-    }
-    .product-meta i{color:var(--gold-base)}
-
-    .product-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
       justify-content:center;
-    }
-    .product-actions a{
-      min-width:140px;
+      color:var(--accent-2);
+      width:100%;
       text-align:center;
     }
-
-    .catalogue-section{
-      padding-top:24px;
-    }
-    .catalogue-wrap{
-      max-width:1240px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    .catalogue-box{
-      background:linear-gradient(180deg, rgba(6,31,20,.96), rgba(7,50,23,.96));
-      border:1px solid rgba(212,175,55,.18);
-      border-radius:24px;
-      padding:22px;
-      box-shadow:0 14px 36px rgba(0,0,0,.26);
-    }
-    .catalogue-box h3{
-      margin:0 0 10px;
-      font-size:24px;
-      color:#fff;
-    }
-    .catalogue-box p{
-      margin:0 0 14px;
-      color:var(--muted-text-color);
-      line-height:1.7;
-      font-size:14px;
-    }
-    .catalogue-list{
+    .card-content p{
       margin:0;
-      padding-left:18px;
-      color:#eaf9ea;
-      line-height:1.8;
+      color:#e6f7ea;
+      font-size:15px;
+      line-height:1.6;
+    }
+    .card .btn-card{
+      margin:10px auto 0;
+      padding:10px 18px;
+      border-radius:10px;
+      border:0;
+      background:var(--gold-base);
+      color:#072012;
+      font-weight:800;
+      cursor:pointer;
       font-size:14px;
     }
-    .catalogue-list li{margin-bottom:6px}
+    .card .btn-card:hover{background:var(--gold-hover)}
 
-    .cta-strip{
-      max-width:1240px;
-      margin:0 auto;
-      border-radius:24px;
-      border:1px solid rgba(212,175,55,.2);
-      background:linear-gradient(135deg, rgba(6,31,20,.96), rgba(11,77,38,.92));
-      padding:22px;
-      box-shadow:0 14px 36px rgba(0,0,0,.26);
+    .advantages{
       display:flex;
-      align-items:center;
-      justify-content:space-between;
       gap:18px;
       flex-wrap:wrap;
+      justify-content:center;
+      margin-top:8px
     }
-    .cta-strip h3{
-      margin:0 0 8px;
-      font-size:24px;
-      color:var(--accent-2);
+    .advantage{
+      width:260px;
+      background:#072b1b;
+      border-radius:12px;
+      padding:18px;
+      text-align:center
     }
-    .cta-strip p{
-      margin:0;
-      color:#ecf9ec;
-      line-height:1.7;
-      max-width:760px;
-      font-size:14px;
+    .advantage i{
+      font-size:34px;
+      color:var(--accent);
+      margin-bottom:8px
     }
-    .cta-strip .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .advantage h3{
+      color:#dfffe6;
+      margin:6px 0
+    }
 
     footer{
       background:var(--green-dark);
@@ -689,162 +471,147 @@
     .lightning-svg {
       width: 100vw;
       height: 100%;
-      display:block;
-      pointer-events:none;
-      opacity:0;
-      transition:opacity .22s ease;
-      mix-blend-mode:screen;
+      display: block;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .22s ease;
+      mix-blend-mode: screen;
     }
-    .electric-band.connected .lightning-svg{opacity:1}
-    .lightning-svg path.zap{
-      stroke:var(--electric-yellow);
-      stroke-width:2.2;
-      fill:none;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-      opacity:.98;
+    .electric-band.connected .lightning-svg { opacity: 1; }
+    .lightning-svg path.zap {
+      stroke: var(--electric-yellow);
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.98;
     }
-    .orbs{
-      position:absolute;
-      left:0;
-      top:0;
-      width:100vw;
-      height:100%;
-      pointer-events:none;
-      overflow:visible;
+    .orbs {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
     }
-    .orb{
-      position:absolute;
-      width:8px;
-      height:8px;
+    .orb {
+      position: absolute;
+      width: 8px;
+      height: 8px;
       border-radius:50%;
-      background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
-      box-shadow:0 0 12px rgba(255,214,0,.95), 0 0 30px rgba(255,214,0,.22);
-      transform:translate(-50%,-50%);
-      opacity:0;
-      transition:opacity .18s linear;
+      background: radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
+      box-shadow: 0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
+      transform: translate(-50%,-50%);
+      opacity: 0;
+      transition: opacity .18s linear;
     }
-    .electric-band.connected .orb{opacity:1}
-    @keyframes buzz{
-      0%{transform:translate(-50%,-50%) translateX(-2px)}
-      50%{transform:translate(-50%,-50%) translateX(2px)}
-      100%{transform:translate(-50%,-50%) translateX(-2px)}
+    .electric-band.connected .orb { opacity:1; }
+    @keyframes buzz {
+      0% { transform: translate(-50%,-50%) translateX(-2px); }
+      50% { transform: translate(-50%,-50%) translateX(2px); }
+      100% { transform: translate(-50%,-50%) translateX(-2px); }
     }
-    .orb.buzz{animation:buzz .9s linear infinite}
-    .glowline{
+    .orb.buzz { animation: buzz 0.9s linear infinite; }
+    .glowline {
       position:absolute;
       left:50%;
       top:50%;
       transform:translate(-50%,-50%);
       height:3px;
       width:0;
-      background:linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,.98), rgba(255,238,170,0));
+      background: linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
       border-radius:8px;
-      box-shadow:0 6px 20px rgba(255,214,0,.12);
+      box-shadow: 0 6px 20px rgba(255,214,0,0.12);
       opacity:0;
       transition:opacity .22s ease;
     }
-    .electric-band.connected .glowline{
+    .electric-band.connected .glowline {
       width:100vw;
       opacity:1;
-      animation:pulse 2s ease-in-out infinite;
+      animation: pulse 2s ease-in-out infinite;
     }
-    @keyframes pulse{
-      0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
-      50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}
-      100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
+    @keyframes pulse {
+      0%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
+      50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 }
+      100%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
     }
 
     @media (max-width:1100px){
-      .hero-grid{grid-template-columns:1fr}
-      .product-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
-      .catalogue-wrap{grid-template-columns:1fr}
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+      .advantages{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
 
     @media (max-width:820px){
       nav{display:none}
       .burger{display:flex}
-      .company-name{font-size:30px; top:1px;}
-      .company-tagline{font-size:12px; letter-spacing:3px;}
-      .section{padding:52px 5vw;}
-      .section h2{font-size:28px}
-      .hero{padding:56px 5vw 54px; min-height:auto;}
-      .hero-actions{flex-direction:column;align-items:stretch}
-      .btn-primary,.btn-secondary,.btn-outline{width:100%}
-      .hero-stats{grid-template-columns:1fr}
-      .product-grid{grid-template-columns:1fr}
-      .product-card{min-height:430px}
-      .electric-band .container {
-        width: 100%;
-        left: 0;
-        padding: 0 4vw;
-        box-sizing: border-box;
+      .hero-content{ max-width:86vw; }
+      .grid-4{
+        grid-template-columns:1fr;
+        gap:20px
       }
-      .glowline {
-        width: 86%;
-        max-width: 86%;
+      .card{
+        min-height:auto;
+        text-align:center
       }
+      .card .image-wrap{
+        height:220px;
+        display:flex;
+        justify-content:center;
+        align-items:center
+      }
+      .card-content{
+        padding:18px;
+        text-align:center;
+        align-items:center
+      }
+      .card .btn-card{
+        margin:12px auto 0;
+        font-size:15px;
+        padding:10px 20px
+      }
+      .company-name{font-size:30px}
+      .mobile-nav.open{max-height:85vh}
+      .mobile-nav .inner{padding-bottom:20px}
+      .gb-btn{width:42px;height:42px;font-size:24px}
     }
 
     @media (max-width:768px){
       .company-name{font-size:26px}
       .topbar .right{gap:10px;font-size:13px}
-      .hero h1{font-size:28px}
-      .hero p{font-size:15px}
-      .product-head h3{font-size:20px}
+      .card .image-wrap{height:200px}
+      .card-content{padding:16px 12px 18px}
+      .hero-content h1 { font-size:28px; }
+      .hero-content p { font-size:14px; }
     }
 
     @media (max-width:480px){
-      .topbar{
-        gap:10px;
-        font-size:12px;
-        padding:0 4vw;
+      .hero-content{
+        max-width:92vw;
+        padding:0 12px;
       }
-      .logo-text img{height:48px}
-      .hero{
-        padding:48px 4vw 42px;
-        background:
-          linear-gradient(180deg, rgba(4,14,9,.62), rgba(6,31,20,.92)),
-          url('chantier_solaire.png') center top/cover no-repeat;
+      .hero-content h1{
+        font-size:28px;
+        font-weight:700;
+        margin:0 0 8px;
+        white-space:nowrap;
+        overflow-x:hidden;
+        text-overflow:ellipsis;
       }
-      .hero h1{font-size:26px}
-      .hero p{font-size:14px;line-height:1.7}
-      .hero-badge{font-size:11px;padding:7px 12px}
-      .btn-primary,.btn-secondary,.btn-outline{
-        padding:13px 18px;
-        font-size:14px;
-        border-radius:11px;
+      .hero-content p{
+        font-size:16px;
+        line-height:1.5;
       }
-      .section{
-        padding:46px 4vw;
-      }
-      .section h2{font-size:24px}
-      .section-intro{font-size:14px;margin-bottom:22px}
-      .product-card{
-        border-radius:20px;
-      }
-      .product-media{height:210px}
-      .product-head h3{font-size:18px}
-      .product-head p{font-size:13px}
-      .product-actions{flex-direction:column}
-      .product-actions a{width:100%}
-      .catalogue-box h3,.cta-strip h3{font-size:20px}
-      .catalogue-box p,.cta-strip p{font-size:13px}
-      .footer-company{font-size:15px}
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      html{scroll-behavior:auto}
-      *, *::before, *::after{
-        animation:none !important;
-        transition:none !important;
+      .btn-primary{
+        padding:12px 28px;
+        font-size:15px;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="topbar" role="banner">
+
+  <div class="topbar" role="banner" aria-hidden="false">
     <div class="left">
       <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
     </div>
@@ -855,7 +622,7 @@
 
   <header role="navigation" aria-label="Main">
     <div class="logo-text">
-      <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
+      <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
       <div class="brand-stack">
         <div class="company-name">GREENBRIDGE</div>
         <div class="company-tagline">TECHNOLOGIES</div>
@@ -863,11 +630,11 @@
     </div>
 
     <nav aria-label="Menu principal">
-      <a href="Code1.html">Accueil</a>
-      <a href="etude_dimensionnement.html">Étude</a>
-      <a href="#produits" class="active">Produits</a>
-      <a href="Code1.html#realisations">Projets futurs</a>
-      <a href="Code1.html#devis">Contact</a>
+      <a href="GreenBrigde technologies.html">Accueil</a>
+      <a href="etude_dimensionnement_2.html">Étude</a>
+      <a href="#produits" class="active">Nos Produits</a>
+      <a href="Projets.html">Projets futurs</a>
+      <a href="maintenance.html">Maintenance</a>
     </nav>
 
     <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
@@ -878,8 +645,8 @@
   <div class="electric-band" id="electricBand" aria-hidden="true">
     <div class="container" aria-hidden="true">
       <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
-        <path class="zap" id="zap1" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
-        <path class="zap" id="zap2" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
+        <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
+        <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
         <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
       </svg>
       <div class="orbs" id="orbs">
@@ -893,244 +660,88 @@
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
     <div class="inner">
-      <div class="contact">
+      <div class="contact" aria-hidden="false">
         <div><strong>GREENBRIDGE</strong></div>
         <div><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</div>
         <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
       </div>
-      <a href="Code1.html" class="mobile-link">Accueil</a>
-      <a href="etude_dimensionnement.html" class="mobile-link">Étude</a>
-      <a href="#produits" class="mobile-link active">Produits</a>
-      <a href="Code1.html#realisations" class="mobile-link">Réalisations</a>
-      <a href="Code1.html#devis" class="mobile-link">Contact</a>
+      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+      <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
+      <a href="#produits" class="mobile-link active">Nos Produits</a>
+      <a href="produits.html" class="mobile-link">Projets futurs</a>
+      <a href="maintenance.html" class="mobile-link">Maintenance</a>
     </div>
   </div>
 
-  <main class="page">
-    <section class="hero" id="top">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="hero-badge"><i class="fas fa-box-open"></i> Nos produits</div>
-          <h1>Nos produits
-            <span class="accent">Des solutions pensées pour vos vrais besoins</span>
-          </h1>
-          <p>
-            Les produits GreenBridge sont présentés comme des réponses techniques à un besoin identifié.
-            L’objectif est de vous orienter vers la meilleure combinaison selon l’usage réel, l’autonomie attendue
-            et le niveau de secours recherché.
-          </p>
-          <div class="hero-actions">
-            <button class="btn-primary" onclick="document.getElementById('produits').scrollIntoView({behavior:'smooth'})">
-              <i class="fas fa-solar-panel"></i> Voir les produits
-            </button>
-            <button class="btn-secondary" onclick="document.getElementById('contact-cta').scrollIntoView({behavior:'smooth'})">
-              <i class="fas fa-envelope"></i> Demander un conseil
-            </button>
-          </div>
-        </div>
-
-        <div class="hero-panel">
-          <div class="hero-stats">
-            <div class="stat">
-              <i class="fas fa-solar-panel"></i>
-              <strong>Panneaux</strong>
-              <span>Production d’énergie propre pour l’autonomie du site.</span>
-            </div>
-            <div class="stat">
-              <i class="fas fa-car-battery"></i>
-              <strong>Batteries</strong>
-              <span>Stockage et continuité de service adaptés au besoin.</span>
-            </div>
-            <div class="stat">
-              <i class="fas fa-bolt"></i>
-              <strong>Onduleurs</strong>
-              <span>Conversion, régulation et protection des équipements.</span>
-            </div>
-            <div class="stat">
-              <i class="fas fa-truck-pickup"></i>
-              <strong>Secours</strong>
-              <span>Groupes électrogènes pour les usages critiques.</span>
-            </div>
-          </div>
-        </div>
+  <section class="hero" id="top" aria-label="Hero">
+    <img class="hero-bg" src="Nos_produits_1.png" alt="Illustration GreenBridge Énergie">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Nos Produits</h1>
+      <p>Découvrez une gamme complète de solutions énergétiques conçues pour la performance, la fiabilité et l’adaptation au contexte local.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#produits">Découvrir le catalogue</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="produits" class="section">
-      <h2>Nos produits principaux</h2>
-      <p class="section-intro">
-        Les produits sont présentés comme des réponses techniques à un besoin identifié. L’objectif est de proposer la meilleure combinaison selon l’usage réel.
-      </p>
-
-      <div class="product-grid">
-        <article class="product-card">
-          <div class="product-media">
-            <span class="product-badge"><i class="fas fa-leaf"></i> Énergie propre</span>
-            <img src="chantier_solaire.png" alt="Panneaux solaires GreenBridge">
-          </div>
-          <div class="product-body">
-            <div class="product-head">
-              <h3>Panneaux solaires</h3>
-              <p>Production d’énergie propre pour l’autonomie du site, les installations hybrides et les solutions de secours solaire.</p>
-            </div>
-
-            <ul class="product-features">
-              <li><i class="fas fa-check"></i> Autonomie</li>
-              <li><i class="fas fa-check"></i> Économies</li>
-              <li><i class="fas fa-check"></i> Durable</li>
-            </ul>
-
-            <div class="product-footer">
-              <div class="product-meta">
-                <span><i class="fas fa-sun"></i> Production</span>
-                <span><i class="fas fa-shield-heart"></i> Fiable</span>
-              </div>
-              <div class="product-actions">
-                <a href="#contact-cta" class="btn-primary">Demander un devis</a>
-                <a href="etude_dimensionnement.html" class="btn-outline">Faire une étude</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-media">
-            <span class="product-badge"><i class="fas fa-battery-full"></i> Stockage intelligent</span>
-            <img src="BATTERIE_install.png" alt="Batteries et stockage GreenBridge">
-          </div>
-          <div class="product-body">
-            <div class="product-head">
-              <h3>Batteries & stockage</h3>
-              <p>Stockage, continuité de service et optimisation de l’énergie pour maintenir vos appareils pendant les coupures.</p>
-            </div>
-
-            <ul class="product-features">
-              <li><i class="fas fa-check"></i> Secours</li>
-              <li><i class="fas fa-check"></i> Autonomie</li>
-              <li><i class="fas fa-check"></i> Sécurité</li>
-            </ul>
-
-            <div class="product-footer">
-              <div class="product-meta">
-                <span><i class="fas fa-plug-circle-bolt"></i> Continuity</span>
-                <span><i class="fas fa-battery-three-quarters"></i> Modulable</span>
-              </div>
-              <div class="product-actions">
-                <a href="#contact-cta" class="btn-primary">Demander un devis</a>
-                <a href="etude_dimensionnement.html" class="btn-outline">Faire une étude</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-media">
-            <span class="product-badge"><i class="fas fa-wave-square"></i> Conversion & protection</span>
-            <img src="onduleur_tech.png" alt="Onduleurs et MPPT GreenBridge">
-          </div>
-          <div class="product-body">
-            <div class="product-head">
-              <h3>Onduleurs & MPPT</h3>
-              <p>Conversion, régulation et protection des équipements pour un fonctionnement stable et une gestion efficace de l’énergie.</p>
-            </div>
-
-            <ul class="product-features">
-              <li><i class="fas fa-check"></i> Protection</li>
-              <li><i class="fas fa-check"></i> Régulation</li>
-              <li><i class="fas fa-check"></i> Rendement</li>
-            </ul>
-
-            <div class="product-footer">
-              <div class="product-meta">
-                <span><i class="fas fa-bolt"></i> Conversion</span>
-                <span><i class="fas fa-shield-alt"></i> Sécurisé</span>
-              </div>
-              <div class="product-actions">
-                <a href="#contact-cta" class="btn-primary">Demander un devis</a>
-                <a href="etude_dimensionnement.html" class="btn-outline">Faire une étude</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-media">
-            <span class="product-badge"><i class="fas fa-truck-pickup"></i> Secours critique</span>
-            <img src="technicien_groupe_elctro.png" alt="Groupes électrogènes GreenBridge">
-          </div>
-          <div class="product-body">
-            <div class="product-head">
-              <h3>Groupes électrogènes</h3>
-              <p>Secours énergétique pour les usages critiques, les sites isolés et les besoins nécessitant une alimentation de réserve.</p>
-            </div>
-
-            <ul class="product-features">
-              <li><i class="fas fa-check"></i> Secours</li>
-              <li><i class="fas fa-check"></i> Puissant</li>
-              <li><i class="fas fa-check"></i> Critique</li>
-            </ul>
-
-            <div class="product-footer">
-              <div class="product-meta">
-                <span><i class="fas fa-fan"></i> Continuité</span>
-                <span><i class="fas fa-shield-heart"></i> Très utile</span>
-              </div>
-              <div class="product-actions">
-                <a href="#contact-cta" class="btn-primary">Demander un devis</a>
-                <a href="etude_dimensionnement.html" class="btn-outline">Faire une étude</a>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section catalogue-section">
-      <h2>Comment choisir le bon produit</h2>
-      <p class="section-intro">
-        Le bon équipement dépend toujours de l’usage réel, de la durée d’autonomie souhaitée et du niveau de continuité à assurer.
-      </p>
-
-      <div class="catalogue-wrap">
-        <div class="catalogue-box">
-          <h3>Pour un usage résidentiel ou de bureau</h3>
-          <p>Le plus souvent, on combine panneaux solaires, batteries et onduleur afin de réduire les coupures et améliorer le confort.</p>
-          <ul class="catalogue-list">
-            <li>Panneaux solaires pour la production</li>
-            <li>Batteries pour le stockage</li>
-            <li>Onduleur pour la continuité et la protection</li>
-          </ul>
+  <section id="produits" class="section" aria-label="Nos produits">
+    <h2>Notre catalogue</h2>
+    <p class="products-intro">
+      Nous proposons une gamme complète : panneaux solaires, batteries, onduleurs et groupes électrogènes. Nos solutions sont dimensionnées pour assurer performance, durabilité et facilité de maintenance.
+    </p>
+    <div class="grid-4" role="list">
+      <article class="card" role="listitem" aria-label="Panneaux solaires">
+        <div class="image-wrap"><img src="chantier_solaire.png" alt="Panneaux solaires"></div>
+        <div class="card-content">
+          <h3>Panneaux solaires</h3>
+          <p>Modules monocristallins haut rendement, résistants aux conditions locales et garantis 10 ans. Installation complète et optimisation de l'orientation.</p>
+          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
         </div>
+      </article>
 
-        <div class="catalogue-box">
-          <h3>Pour un site critique ou isolé</h3>
-          <p>On recherche d’abord la fiabilité, l’autonomie et la puissance de secours. Le groupe électrogène peut compléter une installation solaire.</p>
-          <ul class="catalogue-list">
-            <li>Onduleur pour la stabilité</li>
-            <li>Stockage pour la continuité</li>
-            <li>Groupe électrogène pour le secours</li>
-          </ul>
+      <article class="card" role="listitem" aria-label="Batteries & stockage">
+        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Batteries & stockage"></div>
+        <div class="card-content">
+          <h3>Batteries & stockage</h3>
+          <p>Solutions lithium-ion et plomb-acide : stockage modulable, gestion intelligente de charge et monitoring à distance pour une efficacité durable.</p>
+          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
         </div>
-      </div>
-    </section>
+      </article>
 
-    <section class="section" id="contact-cta">
-      <div class="cta-strip">
-        <div>
-          <h3>Besoin d’une recommandation claire ?</h3>
-          <p>Décris ton besoin et nous t’orientons vers la bonne combinaison de produits selon ton usage, ton budget et ton niveau de secours.</p>
+      <article class="card" role="listitem" aria-label="Onduleurs">
+        <div class="image-wrap"><img src="onduleur_tech.png" alt="Onduleurs"></div>
+        <div class="card-content">
+          <h3>Onduleurs</h3>
+          <p>Onduleurs hybrides et on-grid pour conversion efficace, protection contre surtensions et gestion intelligente des micro-réseaux.</p>
+          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
         </div>
-        <div class="actions">
-          <a href="Code1.html#devis" class="btn-primary">Demander un devis</a>
-          <a href="etude_dimensionnement.html" class="btn-secondary">Faire une étude</a>
+      </article>
+
+      <article class="card" role="listitem" aria-label="Groupes électrogènes">
+        <div class="image-wrap"><img src="technicien_groupe_elctro.png" alt="Groupes électrogènes"></div>
+        <div class="card-content">
+          <h3>Groupes électrogènes</h3>
+          <p>Groupes de secours diesel et gaz, silencieux, avec démarrage automatique et service de maintenance sur site pour garantir continuité.</p>
+          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
         </div>
-      </div>
-    </section>
-  </main>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <h2>Pourquoi choisir nos produits ?</h2>
+    <div class="advantages" role="list">
+      <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Efficacité</h3><p>Maximisez le rendement et l’économie d’énergie</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Fiabilité</h3><p>Installation professionnelle et maintenance garantie</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-globe-africa" aria-hidden="true"></i><h3>Local</h3><p>Expertise adaptée au marché ivoirien</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-award" aria-hidden="true"></i><h3>5 ans de garantie</h3><p>Tranquillité, suivi et accompagnement sur la durée</p></div>
+    </div>
+  </section>
 
   <footer>
-    <div class="footer-company">GREENBRIDGE TECHNOLOGIES</div>
-    <div class="footer-contact">
+    <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
+    <div class="footer-contact" aria-label="Coordonnées">
       <div>© 2025 GreenBridge. Tous droits réservés.</div>
       <div>Abidjan, Côte d’Ivoire</div>
       <div>Tel: +225 07 07 07 07 07</div>
@@ -1140,24 +751,20 @@
   <script>
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
-
-    function openCloseMobile(open){
-      if(!burgerBtn || !mobileNav) return;
-      mobileNav.classList.toggle('open', open);
-      burgerBtn.classList.toggle('open', open);
-      mobileNav.setAttribute('aria-hidden', (!open).toString());
-      burgerBtn.setAttribute('aria-expanded', String(open));
-    }
-
     if (burgerBtn && mobileNav) {
       burgerBtn.addEventListener('click', () => {
-        const opened = !mobileNav.classList.contains('open');
-        openCloseMobile(opened);
+        const opened = mobileNav.classList.toggle('open');
+        burgerBtn.classList.toggle('open');
+        mobileNav.setAttribute('aria-hidden', (!opened).toString());
+        burgerBtn.setAttribute('aria-expanded', String(opened));
       });
 
-      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
-        a.addEventListener('click', () => {
-          openCloseMobile(false);
+      mobileNav.querySelectorAll('.mobile-link').forEach(a=>{
+        a.addEventListener('click', ()=>{
+          mobileNav.classList.remove('open');
+          burgerBtn.classList.remove('open');
+          mobileNav.setAttribute('aria-hidden','true');
+          burgerBtn.setAttribute('aria-expanded','false');
         });
       });
     }
@@ -1170,6 +777,7 @@
       const orbC = document.getElementById('orbC');
       const orbs = [orbA, orbB, orbC];
       const zapBright = document.getElementById('zapBright');
+
       const params = [
         {rxRatio:0.50, ry:8, speed:0.22, phase:0},
         {rxRatio:0.33, ry:6, speed:0.36, phase:Math.PI/2},
@@ -1184,11 +792,10 @@
       });
 
       let t0 = performance.now();
-
       function tick(now){
         const time = (now - t0) / 1000;
         const cont = electricBand.querySelector('.container');
-        if(!cont){
+        if(!cont) {
           requestAnimationFrame(tick);
           return;
         }
