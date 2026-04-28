@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenBridge Énergie — Dimensionnement puissance</title>
+  <title>GreenBridge Technologies — Dimensionnement</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
   <style>
     :root{
@@ -24,8 +23,9 @@
       --muted-text-color:#e6f7ea;
       --muted-text-size:15px;
       --electric-yellow:#ffd600;
-      --release-orange:#ff7a18;
-      --release-orange-2:#ffb347;
+      --card-bg:#061f14;
+      --form-bg:rgba(6,31,20,0.92);
+      --line:rgba(212,175,55,0.14);
     }
 
     *{box-sizing:border-box}
@@ -40,7 +40,6 @@
     }
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
-    button,input,select{font-family:inherit}
 
     .topbar{
       position:fixed;
@@ -56,6 +55,7 @@
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
+      border-bottom:1px solid rgba(255,255,255,.04);
     }
     .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
     .topbar a{color:#fff;transition:color .18s}
@@ -76,17 +76,8 @@
       box-shadow:0 4px 12px rgba(0,0,0,.25);
     }
 
-    .logo-text{
-      display:flex;
-      align-items:flex-start;
-      gap:12px;
-    }
-    .logo-text img{
-      height:56px;
-      display:block;
-      flex:0 0 auto;
-    }
-
+    .logo-text{display:flex;align-items:flex-start;gap:12px}
+    .logo-text img{height:56px;display:block;flex:0 0 auto}
     .brand-stack{
       display:flex;
       flex-direction:column;
@@ -98,55 +89,25 @@
       margin:0;
       padding:0;
     }
-
     .company-name{
-      font-size:34px;
-      font-weight:800;
-      letter-spacing:1px;
-      padding:0;
-      margin:0;
-      border-radius:8px;
-      color:#04462e;
-      -webkit-text-stroke:0.95px var(--gold-base);
-      text-shadow:0 3px 6px rgba(0,0,0,0.6);
-      position:relative;
-      top:2px;
-      white-space:nowrap;
-      line-height:1;
-      text-align:left;
-      width:max-content;
-      display:block;
+      font-size:34px;font-weight:800;letter-spacing:1px;padding:0;margin:0;border-radius:8px;
+      color:#04462e;-webkit-text-stroke:0.95px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      position:relative;top:2px;white-space:nowrap;line-height:1;text-align:left;width:max-content;display:block;
     }
-
     .company-tagline{
-      font-size:14px;
-      font-weight:700;
-      letter-spacing:5px;
-      text-transform:uppercase;
-      color:#dfffe6;
-      padding:0;
-      margin:2px 0 0 0;
-      text-shadow:0 2px 6px rgba(0,0,0,0.45);
-      -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
-      white-space:nowrap;
-      line-height:1;
-      text-align:left;
-      width:max-content;
-      display:block;
+      font-size:14px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:#dfffe6;
+      padding:0;margin:2px 0 0 0;text-shadow:0 2px 6px rgba(0,0,0,0.45);-webkit-text-stroke:0.4px rgba(212,175,55,0.55);
+      white-space:nowrap;line-height:1;text-align:left;width:max-content;display:block;
     }
 
-    nav{
-      display:flex;
-      gap:18px;
-      align-items:center;
-    }
+    nav{display:flex;gap:18px;align-items:center}
     nav a{
       color:#fff;
       font-size:15px;
       font-weight:600;
       padding:8px 10px;
       border-radius:8px;
-      transition:all .18s;
+      transition:all .18s
     }
     nav a:hover{color:var(--accent-2)}
     nav a.active{
@@ -155,7 +116,7 @@
       border:1px solid rgba(212,175,55,0.12);
       padding:10px 14px;
       font-weight:800;
-      border-radius:10px;
+      border-radius:10px
     }
 
     .burger{
@@ -169,12 +130,7 @@
       justify-content:center;
       cursor:pointer
     }
-    .burger .icon{
-      display:block;
-      position:relative;
-      width:26px;
-      height:18px;
-    }
+    .burger .icon{display:block;position:relative;width:26px;height:18px}
     .burger .icon span{
       position:absolute;
       left:0;
@@ -202,7 +158,7 @@
       overflow:auto;
       transition:max-height .28s ease;
       box-shadow:0 12px 40px rgba(0,0,0,.45);
-      max-height:0;
+      max-height:0
     }
     .mobile-nav.open{display:block;max-height:70vh}
     .mobile-nav .inner{
@@ -210,7 +166,7 @@
       display:flex;
       flex-direction:column;
       gap:8px;
-      align-items:stretch;
+      align-items:stretch
     }
     .mobile-nav .contact{
       display:flex;
@@ -219,7 +175,7 @@
       padding:8px 12px;
       border-bottom:1px solid rgba(255,255,255,0.04);
       margin-bottom:6px;
-      color:var(--muted-text-color);
+      color:var(--muted-text-color)
     }
     .mobile-nav a{
       padding:12px;
@@ -233,22 +189,19 @@
       align-items:center
     }
     .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
-    .mobile-nav a.active{
-      background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
-      color:var(--accent-2)
-    }
+    .mobile-nav a.active{background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));color:var(--accent-2)}
 
     .hero{
       margin-top:calc(var(--topbar-h) + var(--header-h));
-      height: calc(100vh - (var(--topbar-h) + var(--header-h)));
-      min-height: calc(100vh - (var(--topbar-h) + var(--header-h)));
+      height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
       position:relative;
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
       overflow:hidden;
-      background:#0a4d2e;
+      background:#0a4d2e
     }
     .hero-bg{
       position:absolute;
@@ -258,13 +211,13 @@
       object-fit:cover;
       object-position:center 90%;
       transform:scale(1.07) translateY(24px);
-      filter:brightness(1.02) contrast(1.03) saturate(1.02);
+      filter:brightness(1.02) contrast(1.03) saturate(1.02)
     }
     .hero-overlay{
       position:absolute;
       inset:0;
       background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
-      z-index:1;
+      z-index:1
     }
     .hero-content{
       position:relative;
@@ -274,7 +227,7 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center;
+      justify-content:center
     }
     .hero-content h1{
       font-size:36px;
@@ -284,22 +237,9 @@
     }
     .hero-content p{
       font-size:18px;
-      margin:0 0 18px;
+      margin:0;
       text-shadow:0 2px 8px rgba(0,0,0,0.45)
     }
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    .btn-primary,.btn-secondary{
-      padding:14px 26px;
-      border-radius:10px;
-      border:0;
-      font-weight:700;
-      cursor:pointer;
-      font-size:16px;
-    }
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-2)}
-    .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
-    .btn-secondary:hover{background:rgba(255,255,255,0.08)}
 
     .section{padding:60px 5vw}
     .section h2{
@@ -308,258 +248,30 @@
       color:var(--accent-2);
       text-align:center
     }
-
-    .products-intro{
+    .section-intro{
       max-width:1000px;
       margin:0 auto 24px;
       color:var(--muted-text-color);
       text-align:center;
       font-size:var(--muted-text-size);
       line-height:1.7;
-      opacity:0.95;
+      opacity:0.95
     }
 
-    .grid-4{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:20px;
-      max-width:1200px;
-      margin:0 auto;
-    }
     .card{
       position:relative;
-      background:#061f14;
+      background:var(--card-bg);
       border-radius:16px;
       overflow:hidden;
-      min-height:420px;
       box-shadow:0 10px 22px rgba(0,0,0,0.45);
-      border:1px solid rgba(212,175,55,0.85);
+      border:1px solid rgba(212,175,55,0.85)
     }
-    .card .image-wrap{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-    }
-    .card .image-wrap img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-      transition:transform .3s, filter .3s;
-    }
-    .card:hover .image-wrap img{
-      transform:scale(1.05);
-      filter:brightness(1.02) contrast(1.03);
-    }
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);
-      z-index:1;
-    }
-    .card-content{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:2;
-      padding:22px 18px 20px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:center;
-      text-align:center;
-      background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
-    }
-    .card-content h3{
-      margin:0;
-      font-size:18px;
-      line-height:1.15;
-      min-height:42px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--accent-2);
-      width:100%;
-      text-align:center;
-    }
-    .card-content p{
-      margin:0;
-      color:#e6f7ea;
-      font-size:15px;
-      line-height:1.6;
-    }
-    .card .btn-card{
-      margin:10px auto 0;
-      padding:10px 18px;
-      border-radius:10px;
-      border:0;
-      background:var(--gold-base);
-      color:#072012;
-      font-weight:800;
-      cursor:pointer;
-      font-size:14px;
-    }
-    .card .btn-card:hover{background:var(--gold-hover)}
-
-    .advantages{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top:8px
-    }
-    .advantage{
-      width:260px;
-      background:#072b1b;
-      border-radius:12px;
-      padding:18px;
-      text-align:center
-    }
-    .advantage i{
-      font-size:34px;
-      color:var(--accent);
-      margin-bottom:8px
-    }
-    .advantage h3{
-      color:#dfffe6;
-      margin:6px 0
-    }
-
-    footer{
-      background:var(--green-dark);
-      color:#fff;
-      padding:28px 5vw 36px;
-      position:relative;
-      margin-top:40px;
-      text-align:center;
-    }
-    footer::before{
-      content:"";
-      position:absolute;
-      left:0;
-      right:0;
-      top:0;
-      height:2px;
-      background:var(--gold-base)
-    }
-    .footer-company{
-      display:block;
-      margin:0 auto 8px;
-      font-size:18px;
-      font-weight:800;
-      color:#04462e;
-      -webkit-text-stroke:0.7px var(--gold-base);
-      text-shadow:0 3px 6px rgba(0,0,0,0.6);
-      padding:4px 8px;
-      border-radius:6px;
-      width:max-content;
-      background:linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%)
-    }
-    .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
-
-    .electric-band {
-      position: fixed;
-      top: calc(var(--topbar-h) + var(--header-h) - 6px);
-      left: 0;
-      right: 0;
-      height: 14px;
-      z-index: 1600;
-      pointer-events: none;
-      overflow: visible;
-      transform: translateZ(0);
-    }
-    .electric-band .container {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100vw;
-      max-width: none;
-      padding: 0;
-      height: 100%;
-      pointer-events: none;
-      box-sizing: border-box;
-    }
-    .lightning-svg {
-      width: 100vw;
-      height: 100%;
-      display: block;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity .22s ease;
-      mix-blend-mode: screen;
-    }
-    .electric-band.connected .lightning-svg { opacity: 1; }
-    .lightning-svg path.zap {
-      stroke: var(--electric-yellow);
-      stroke-width: 2.2;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      opacity: 0.98;
-    }
-    .orbs {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100%;
-      pointer-events: none;
-      overflow: visible;
-    }
-    .orb {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
-      box-shadow: 0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
-      transform: translate(-50%,-50%);
-      opacity: 0;
-      transition: opacity .18s linear;
-    }
-    .electric-band.connected .orb { opacity:1; }
-    @keyframes buzz {
-      0% { transform: translate(-50%,-50%) translateX(-2px); }
-      50% { transform: translate(-50%,-50%) translateX(2px); }
-      100% { transform: translate(-50%,-50%) translateX(-2px); }
-    }
-    .orb.buzz { animation: buzz 0.9s linear infinite; }
-    .glowline {
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
-      height:3px;
-      width:0;
-      background: linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
-      border-radius:8px;
-      box-shadow: 0 6px 20px rgba(255,214,0,0.12);
-      opacity:0;
-      transition:opacity .22s ease;
-    }
-    .electric-band.connected .glowline {
-      width:100vw;
-      opacity:1;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
-      50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 }
-      100%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
-    }
-
-    .card-page{
-      background:rgba(6,31,20,0.55);
-      border:1px solid rgba(212,175,55,0.10);
+    .card-soft{
+      background:rgba(6,31,20,0.60);
+      border:1px solid rgba(212,175,55,0.12);
       border-radius:18px;
       padding:18px;
-      box-shadow:0 12px 30px rgba(0,0,0,0.2);
+      box-shadow:0 12px 30px rgba(0,0,0,0.18)
     }
 
     .calc{
@@ -568,7 +280,7 @@
       border-radius:18px;
       padding:16px;
       margin-top:12px;
-      box-shadow:0 10px 22px rgba(0,0,0,0.25);
+      box-shadow:0 10px 22px rgba(0,0,0,0.25)
     }
     .calc h3{
       margin:0;
@@ -604,7 +316,7 @@
       max-width:360px;
       border:1px solid #e6e6e6
     }
-    .btn-reset,.btn-export{
+    .btn-reset,.btn-export,.btn-add,.btn-link{
       padding:9px 12px;
       border-radius:10px;
       border:0;
@@ -613,6 +325,13 @@
     }
     .btn-reset{background:#ececec;color:#072012}
     .btn-export{background:var(--accent);color:#072012}
+    .btn-add{background:var(--gold-base);color:#072012}
+    .btn-add:hover,.btn-export:hover,.btn-reset:hover,.btn-link:hover{filter:brightness(.98)}
+    .btn-link{
+      background:rgba(124,179,66,.12);
+      color:#04462e;
+      border:1px solid rgba(124,179,66,.18)
+    }
 
     .generator{
       display:flex;
@@ -648,7 +367,13 @@
     .subtitle .right{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
     .subtitle .small-variant{font-size:12px;color:#666}
 
-    .rooms-panel{margin-top:12px;background:#fff;padding:12px;border-radius:14px;color:#072012}
+    .rooms-panel{
+      margin-top:12px;
+      background:#fff;
+      padding:12px;
+      border-radius:14px;
+      color:#072012
+    }
     .room{
       background:#f7f7f7;
       padding:10px;
@@ -705,7 +430,12 @@
       border:1px solid rgba(3,50,26,.06);
       box-shadow:0 14px 36px rgba(2,22,12,.12)
     }
-    .result-card .label{font-size:12px;color:#6c7d6f;text-transform:uppercase;letter-spacing:.6px}
+    .result-card .label{
+      font-size:12px;
+      color:#6c7d6f;
+      text-transform:uppercase;
+      letter-spacing:.6px
+    }
     .result-card .value{
       font-weight:900;
       font-size:26px;
@@ -762,6 +492,8 @@
       color:#e6f7ea
     }
 
+    .footer-spacer{height:10px}
+
     footer.footer{
       background:var(--green-dark);
       color:#fff;
@@ -800,49 +532,77 @@
       border-color:var(--accent)
     }
 
+    .electric-band{
+      position:fixed;
+      top:calc(var(--topbar-h) + var(--header-h) - 6px);
+      left:0;
+      right:0;
+      height:14px;
+      z-index:1600;
+      pointer-events:none;
+      overflow:visible;
+      transform:translateZ(0)
+    }
+    .electric-band .container{
+      position:absolute;
+      left:0;
+      top:50%;
+      transform:translateY(-50%);
+      width:100vw;
+      max-width:none;
+      padding:0;
+      height:100%;
+      pointer-events:none;
+      box-sizing:border-box
+    }
+    .lightning-svg{width:100vw;height:100%;display:block;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:screen}
+    .electric-band.connected .lightning-svg{opacity:1}
+    .lightning-svg path.zap{stroke:var(--electric-yellow);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0.98}
+    .orbs{position:absolute;left:0;top:0;width:100vw;height:100%;pointer-events:none;overflow:visible}
+    .orb{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));box-shadow:0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);transform:translate(-50%,-50%);opacity:0;transition:opacity .18s linear}
+    .electric-band.connected .orb{opacity:1}
+    @keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}}
+    .orb.buzz{animation:buzz 0.9s linear infinite}
+    .glowline{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:3px;width:0;background:linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));border-radius:8px;box-shadow:0 6px 20px rgba(255,214,0,0.12);opacity:0;transition:opacity .22s ease}
+    .electric-band.connected .glowline{width:100vw;opacity:1;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}}
+
+    .badge-zone{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(168,230,161,.10);
+      border:1px solid rgba(168,230,161,.16);
+      color:#dfffe6;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+    }
+
     @media (max-width:1100px){
-      .grid-4{grid-template-columns:repeat(2,1fr)}
-      .advantages{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .solar-grid{grid-template-columns:1fr}
     }
 
     @media (max-width:820px){
       nav{display:none}
       .burger{display:flex}
       .hero-content{ max-width:86vw; }
-      .grid-4{
-        grid-template-columns:1fr;
-        gap:20px
-      }
-      .card{
-        min-height:auto;
-        text-align:center
-      }
-      .card .image-wrap{
-        height:220px;
-        display:flex;
-        justify-content:center;
-        align-items:center
-      }
-      .card-content{
-        padding:18px;
-        text-align:center;
-        align-items:center
-      }
-      .card .btn-card{
-        margin:12px auto 0;
-        font-size:15px;
-        padding:10px 20px
-      }
       .company-name{font-size:30px}
       .mobile-nav.open{max-height:85vh}
       .mobile-nav .inner{padding-bottom:20px}
+      .generator .actions{margin-left:0}
+      .top-controls select,.top-controls input{min-width:100px}
+      .room .room-actions{flex-direction:column;align-items:stretch}
+      .consumer{font-size:14px}
+      .result-card{min-width:220px}
     }
 
     @media (max-width:768px){
       .company-name{font-size:26px}
       .topbar .right{gap:10px;font-size:13px}
-      .card .image-wrap{height:200px}
-      .card-content{padding:16px 12px 18px}
       .hero-content h1 { font-size:28px; }
       .hero-content p { font-size:14px; }
     }
@@ -861,8 +621,13 @@
         text-overflow:ellipsis;
       }
       .hero-content p{
+        white-space:nowrap;
+        display:inline-block;
         font-size:16px;
-        line-height:1.5;
+        line-height:1;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        max-width:100%;
       }
       .btn-primary{
         padding:12px 28px;
@@ -882,7 +647,7 @@
     </div>
   </div>
 
-  <header role="navigation" aria-label="Main">
+  <header>
     <div class="logo-text">
       <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
       <div class="brand-stack">
@@ -894,8 +659,8 @@
     <nav aria-label="Menu principal">
       <a href="GreenBrigde technologies.html">Accueil</a>
       <a href="etude_dimensionnement_2.html" class="active">Étude</a>
-      <a href="#produits">Nos Produits</a>
-      <a href="Projets.html">Projets futurs</a>
+      <a href="produits.html">Nos Produits</a>
+      <a href="projets.html">Projets futurs</a>
       <a href="maintenance.html">Maintenance</a>
     </nav>
 
@@ -929,8 +694,8 @@
       </div>
       <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
       <a href="etude_dimensionnement_2.html" class="mobile-link active">Étude</a>
-      <a href="#produits" class="mobile-link">Nos Produits</a>
-      <a href="Projets.html" class="mobile-link">Projets futurs</a>
+      <a href="produits.html" class="mobile-link">Nos Produits</a>
+      <a href="projets.html" class="mobile-link">Projets futurs</a>
       <a href="maintenance.html" class="mobile-link">Maintenance</a>
     </div>
   </div>
@@ -940,119 +705,35 @@
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Dimensionnement de puissance</h1>
-      <p>Évaluez les besoins électriques, la puissance installée et la solution solaire adaptée à vos usages. Une approche sérieuse, urbaine et professionnelle.</p>
-      <div class="hero-actions">
-        <a class="btn-primary" href="#produits">Lancer l'étude</a>
-        <a class="btn-secondary" href="#calcCard">Voir le calculateur</a>
-      </div>
+      <p>Définissez les besoins, calibrez les charges et obtenez une base sérieuse pour la puissance, les panneaux et le stockage.</p>
     </div>
   </section>
 
-  <section id="produits" class="section" aria-label="Nos produits">
-    <h2>Notre catalogue</h2>
-    <p class="products-intro">
-      Nous proposons des solutions pour le dimensionnement, les panneaux solaires, les batteries, les onduleurs et les groupes électrogènes. Le site est centré sur le besoin de puissance, la consommation et l’architecture énergétique.
+  <section class="section" id="dimensionnement">
+    <h2>Étude de dimensionnement</h2>
+    <p class="section-intro">
+      Cette page est dédiée au dimensionnement pur : vous créez vos pièces, ajoutez les charges nécessaires, puis vous obtenez instantanément la consommation, la puissance installée et les recommandations de système.
     </p>
 
-    <div class="grid-4" role="list">
-      <article class="card" role="listitem" aria-label="Panneaux solaires">
-        <div class="image-wrap"><img src="chantier_solaire.png" alt="Panneaux solaires"></div>
-        <div class="card-content">
-          <h3>Panneaux solaires</h3>
-          <p>Modules haut rendement, adaptés au contexte local et dimensionnés selon les besoins réels.</p>
-          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
-        </div>
-      </article>
-
-      <article class="card" role="listitem" aria-label="Batteries & stockage">
-        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Batteries & stockage"></div>
-        <div class="card-content">
-          <h3>Batteries & stockage</h3>
-          <p>Solutions de stockage pour sécuriser l’autonomie, lisser les pics et renforcer la continuité.</p>
-          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
-        </div>
-      </article>
-
-      <article class="card" role="listitem" aria-label="Onduleurs">
-        <div class="image-wrap"><img src="onduleur_tech.png" alt="Onduleurs"></div>
-        <div class="card-content">
-          <h3>Onduleurs</h3>
-          <p>Onduleurs hybrides et on-grid pour conversion efficace et protection de l’installation.</p>
-          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
-        </div>
-      </article>
-
-      <article class="card" role="listitem" aria-label="Groupes électrogènes">
-        <div class="image-wrap"><img src="technicien_groupe_elctro.png" alt="Groupes électrogènes"></div>
-        <div class="card-content">
-          <h3>Groupes électrogènes</h3>
-          <p>Groupes de secours avec démarrage automatique pour assurer la continuité en cas de coupure.</p>
-          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section section-alt">
-    <h2>Pourquoi choisir nos produits ?</h2>
-    <div class="advantages" role="list">
-      <div class="advantage" role="listitem">
-        <i class="fas fa-bolt" aria-hidden="true"></i>
-        <h3>Efficacité</h3>
-        <p>Maximisez le rendement et l’économie d’énergie</p>
-      </div>
-      <div class="advantage" role="listitem">
-        <i class="fas fa-shield-alt" aria-hidden="true"></i>
-        <h3>Fiabilité</h3>
-        <p>Installation professionnelle et maintenance garantie</p>
-      </div>
-      <div class="advantage" role="listitem">
-        <i class="fas fa-globe-africa" aria-hidden="true"></i>
-        <h3>Local</h3>
-        <p>Expertise adaptée au marché ivoirien</p>
-      </div>
-      <div class="advantage" role="listitem">
-        <i class="fas fa-award" aria-hidden="true"></i>
-        <h3>Garantie</h3>
-        <p>Suivi, accompagnement et sécurité sur la durée</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section card-page" id="calcCard" aria-label="Calculateur">
-    <h2>Calculateur de dimensionnement</h2>
-    <p class="products-intro" style="margin-bottom:18px">
-      Saisissez les consommateurs, créez vos pièces et estimez la puissance nécessaire. Les résultats sont indicatifs et servent à orienter le dimensionnement.
-    </p>
-
-    <div class="card" style="margin-bottom:12px;text-align:left">
-      <div class="emph-title">
-        <h2 style="color:#04462e;font-size:24px;margin:0">Renseignez vos consommateurs</h2>
-        <div style="margin-left:8px;background:linear-gradient(90deg,#7cb342,#a8e6a1);color:#072012;padding:6px 9px;border-radius:8px;font-weight:800;font-size:12px">Analyse rapide</div>
-      </div>
-      <p class="emph-sub">Indique la quantité, la fréquence d'utilisation et la taille lorsque demandé. Génère des pièces et pré-remplit les consommateurs par pièce.</p>
-    </div>
-
-    <div class="card" id="mapCard" style="margin-bottom:12px">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-        <strong style="color:#072012">Nos zones d'intervention</strong>
-        <small style="color:#666">Abidjan • Yamoussoukro • Dakar</small>
-      </div>
-      <div id="map" style="margin-top:10px"></div>
-
-      <div class="calc" id="calcInnerCard">
-        <h3><span class="badge">Calculateur</span> Calcul rapide — Besoin de puissance</h3>
-        <div class="small-note">L’objectif est de dimensionner la puissance nécessaire, la consommation et la part de production solaire/batterie.</div>
+    <div class="card-soft" style="max-width:1240px;margin:0 auto;">
+      <div class="calc" id="calcCard">
+        <h3><span class="badge">Calculateur</span> Besoin de puissance — Saisie rapide et rigoureuse</h3>
+        <div class="small-note">Les résultats sont indicatifs et servent à orienter le dimensionnement. Ajustez les charges, les heures et le coefficient d’utilisation selon le projet.</div>
 
         <div class="top-controls">
           <label>Zone :</label>
-          <select id="zone" aria-label="Zone"></select>
+          <select id="zone" aria-label="Zone">
+            <option value="ci">Côte d'Ivoire</option>
+            <option value="sn">Sénégal</option>
+          </select>
 
           <label>Ville :</label>
           <select id="city" aria-label="Ville"></select>
 
+          <span class="badge-zone" id="zoneBadge"><i class="fas fa-building"></i> Zone urbaine</span>
+
           <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
-          <button id="exportPdfBtn" class="btn-export" type="button"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter (PDF)</button>
+          <button id="exportBtn" class="btn-link" type="button">Résumé texte</button>
         </div>
 
         <div class="generator" role="group" aria-label="Générateur rapide de pièces">
@@ -1084,204 +765,170 @@
             <label style="font-size:13px;color:#072012;display:flex;align-items:center;gap:6px">
               <input type="checkbox" id="genAdd"> Ajouter
             </label>
-            <button id="generateBtn" class="btn-export" type="button">Générer pièces</button>
+            <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
           </div>
         </div>
 
-        <div id="itemsSubtitles" class="subtitles" aria-live="polite" aria-atomic="true"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
+          <label style="font-weight:700;color:#072012">Ajouter une pièce manuelle :</label>
+          <select id="roomTypeSelect" style="padding:9px;border-radius:8px;border:1px solid #ddd">
+            <option value="Chambre">Chambre</option>
+            <option value="Salon">Salon</option>
+            <option value="Cuisine">Cuisine</option>
+            <option value="Salle d'eau">Salle d'eau</option>
+            <option value="Bureau">Bureau</option>
+            <option value="Toilette">Toilette</option>
+            <option value="Autre">Autre</option>
+          </select>
+          <input id="roomNameInput" placeholder="Ex: Chambre parentale" style="padding:9px;border-radius:8px;border:1px solid #ddd;min-width:220px">
+          <label style="color:#072012">Quantité :</label>
+          <input id="roomCountInput" type="number" min="1" value="1" style="width:90px;padding:9px;border-radius:8px;border:1px solid #ddd">
+          <button id="addRoomBtn" class="btn-add" type="button">Ajouter pièce(s)</button>
+          <button id="clearRoomsBtn" class="btn-reset" type="button">Vider</button>
+        </div>
 
-        <div id="roomsPanel" class="rooms-panel" style="display:block;margin-top:12px">
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <label style="font-weight:700">Ajouter une pièce manuelle :</label>
-            <select id="roomTypeSelect">
-              <option value="Chambre">Chambre</option>
-              <option value="Salon">Salon</option>
-              <option value="Cuisine">Cuisine</option>
-              <option value="Salle d'eau">Salle d'eau</option>
-              <option value="Bureau">Bureau</option>
-              <option value="Toilette">Toilette</option>
-              <option value="Autre">Autre</option>
-            </select>
-            <input id="roomNameInput" placeholder="Ex: Chambre parentale" style="padding:8px;border-radius:8px;border:1px solid #ddd">
-            <label>Quantité :</label>
-            <input id="roomCountInput" type="number" min="1" value="1" style="width:90px;padding:8px;border-radius:8px;border:1px solid #ddd">
-            <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
-              <button id="addRoomsBtn" class="btn-export" type="button">Ajouter pièce(s)</button>
-              <button id="clearRoomsBtn" class="btn-reset" type="button">Vider pièces</button>
+        <div id="roomsList" class="room-list"></div>
+        <div class="small-note" style="margin-top:8px">Chaque pièce peut être détaillée avec ses charges. Vous pouvez cliquer sur un sous-titre pour aller directement à la pièce concernée.</div>
+
+        <div style="margin-top:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+          <div class="solar-panel">
+            <h4 style="margin:0 0 8px 0;color:#04462e">Paramètres du système</h4>
+            <div class="solar-grid">
+              <div class="solar-block">
+                <div style="font-weight:700;margin-bottom:8px">Panneaux</div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Puissance d'un panneau (W)</label>
+                  <input id="panelW" type="number" value="350" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd">
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Heures soleil utiles / jour</label>
+                  <input id="sunHours" type="number" step="0.1" value="5" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Rendement & pertes (%)</label>
+                  <input id="panelDeratePct" type="number" value="85" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Puissance des panneaux conseillée</label>
+                  <div id="pvRecommended" class="metric">0 kWc</div>
+                </div>
+                <div class="solar-row">
+                  <label>Nb panneaux estimés</label>
+                  <div id="panelCountRec" class="metric">0</div>
+                </div>
+              </div>
+
+              <div class="solar-block">
+                <div style="font-weight:700;margin-bottom:8px">Batteries & autonomie</div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Autonomie souhaitée (jours)</label>
+                  <input id="autonomyDays" type="number" step="0.5" value="1" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>DoD (%)</label>
+                  <input id="dodPct" type="number" value="90" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Rendement onduleur (%)</label>
+                  <input id="invEffPct" type="number" value="95" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Capacité d'un pack batterie (kWh)</label>
+                  <input id="battPackKwh" type="number" step="0.01" value="1.28" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd">
+                </div>
+                <div class="solar-row">
+                  <label>Capacité batterie conseillée</label>
+                  <div id="batteryRec" class="metric">0 kWh</div>
+                </div>
+                <div class="solar-row" style="margin-top:6px">
+                  <label>Nombre de packs estimés</label>
+                  <div id="batteryPackRec" class="metric">0</div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div id="roomsList" class="room-list" style="margin-top:12px"></div>
-          <div class="small-note" style="margin-top:8px">Clique sur un sous-titre pour aller à la pièce correspondante et modifier ses consommateurs.</div>
-        </div>
+          <div class="solar-panel">
+            <h4 style="margin:0 0 8px 0;color:#04462e">Synthèse de puissance</h4>
+            <div class="solar-grid">
+              <div class="solar-block">
+                <div style="font-weight:700;margin-bottom:8px">Puissances</div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Puissance installée</label>
+                  <div id="powerInstalled" class="metric">0 W</div>
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Pointe estimée</label>
+                  <div id="powerPeak" class="metric">0 W</div>
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Onduleur conseillé</label>
+                  <div id="inverterRec" class="metric">0 kVA</div>
+                </div>
+              </div>
 
-        <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <input type="checkbox" id="enableAutres">
-          <label for="enableAutres" style="color:#072012">Saisir "Autres (Grande puissance)"</label>
-        </div>
-        <div id="autresPanel" style="display:none;margin-top:8px">
-          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-            <label style="font-size:13px;color:#072012">Qté</label>
-            <input id="autresQty" type="number" value="0" min="0" style="width:70px;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.08)">
-            <label style="font-size:13px;color:#072012">Puissance (W)</label>
-            <input id="autresPower" type="number" value="0" style="width:100px;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.08)">
-            <label style="font-size:13px;color:#072012">Heures/j</label>
-            <input id="autresH" type="number" value="0" step="0.1" style="width:90px;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.08)">
+              <div class="solar-block">
+                <div style="font-weight:700;margin-bottom:8px">Énergie</div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Consommation / jour</label>
+                  <div id="consDay" class="metric">0 kWh</div>
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Consommation / mois</label>
+                  <div id="consMonth" class="metric">0 kWh</div>
+                </div>
+                <div class="solar-row" style="margin-bottom:6px">
+                  <label>Charges actives</label>
+                  <div id="loadsCount" class="metric">0</div>
+                </div>
+                <div class="solar-row">
+                  <label>Couverture indicative</label>
+                  <div id="coverageNote" class="metric">Dimensionnement en cours</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="subtle-box">
+              <div style="font-size:12px;color:#6c7d6f">Note</div>
+              <div class="metric note" id="summaryNote">Les calculs sont indicatifs. Le coefficient d’utilisation, les heures et les puissances peuvent être adaptés pour chaque projet.</div>
+            </div>
           </div>
         </div>
 
         <div class="results" aria-live="polite" style="margin-top:16px">
           <div class="result-card">
-            <div class="label">Consommation (kWh / mois)</div>
-            <div id="consMonth" class="value">0 kWh</div>
-            <div id="consMonthRange" class="small">plage: 0 - 0 kWh</div>
+            <div class="label">Consommation (kWh / jour)</div>
+            <div id="consDayCard" class="value">0 kWh</div>
+            <div id="consDayRange" class="small">valeur calculée à partir des charges</div>
           </div>
           <div class="result-card">
-            <div class="label">Consommation (kWh / jour)</div>
-            <div id="consDay" class="value">0 kWh</div>
-            <div id="consDayRange" class="small">plage: 0 - 0 kWh</div>
+            <div class="label">Consommation (kWh / mois)</div>
+            <div id="consMonthCard" class="value">0 kWh</div>
+            <div id="consMonthRange" class="small">30 jours de référence</div>
           </div>
           <div class="result-card">
             <div class="label">Puissance installée</div>
-            <div id="powerInstalled" class="value">0 W</div>
+            <div id="powerInstalledCard" class="value">0 W</div>
             <div class="small">Somme nominale des équipements</div>
           </div>
           <div class="result-card">
-            <div class="label">Pointe conseillée</div>
-            <div id="powerPeak" class="value">0 W</div>
-            <div class="small">Avec facteur de simultanéité</div>
+            <div class="label">Pointe estimée</div>
+            <div id="powerPeakCard" class="value">0 W</div>
+            <div class="small">Basée sur le coefficient d’utilisation</div>
+          </div>
+          <div class="result-card">
+            <div class="label">Puissance PV</div>
+            <div id="pvRecCard" class="value">0 kWc</div>
+            <div class="small">Base de dimensionnement</div>
+          </div>
+          <div class="result-card">
+            <div class="label">Stockage conseillé</div>
+            <div id="batteryRecCard" class="value">0 kWh</div>
+            <div class="small">Selon autonomie demandée</div>
           </div>
         </div>
 
-        <div class="solar-panel" aria-label="Dimensionnement solaire">
-          <h4 style="margin:0 0 8px 0;color:#04462e">Dimensionnement solaire & batteries</h4>
-
-          <div class="solar-grid">
-            <div class="solar-block">
-              <div style="font-weight:700;margin-bottom:8px">Configuration panneaux</div>
-
-              <div class="solar-row" style="margin-bottom:6px">
-                <label>Type panneau</label>
-                <select id="panelType" style="min-width:180px">
-                  <option value="mono">Mono 350W</option>
-                  <option value="cigs">CIGS 200W</option>
-                  <option value="custom">Personnalisé</option>
-                </select>
-              </div>
-
-              <div id="panelWRow" class="solar-row" style="margin-bottom:6px;display:none">
-                <label>Puissance par panneau (W)</label>
-                <input id="panelW" type="number" value="350" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                <small style="margin-left:8px;color:#666">Visible uniquement si "Personnalisé"</small>
-              </div>
-
-              <div class="solar-row" style="margin-bottom:6px">
-                <label>Nb panneaux</label>
-                <select id="pvCount" style="min-width:80px">
-                  <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
-                  <option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="8">8</option><option value="10">10</option>
-                </select>
-                <label style="margin-left:12px">Heures soleil/jour</label>
-                <input id="sunHours" type="number" step="0.1" value="5" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
-              </div>
-
-              <div class="solar-row" style="margin-bottom:6px">
-                <label>Rendement & pertes (%)</label>
-                <input id="panelDeratePct" type="number" value="85" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                <small style="margin-left:8px;color:#666">Facteur global (orientation, pertes...)</small>
-              </div>
-
-              <hr style="border:none;border-top:1px solid #eee;margin:10px 0">
-
-              <div style="font-weight:700;margin-bottom:8px">Batteries</div>
-              <div class="solar-row" style="margin-bottom:6px">
-                <label>Nombre packs (1.28 kWh)</label>
-                <select id="battCount" style="min-width:80px">
-                  <option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                </select>
-                <label style="margin-left:12px">DoD (%)</label>
-                <input id="dodPct" type="number" value="90" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
-              </div>
-
-              <div style="margin-top:8px;font-weight:700">Mode production</div>
-              <div class="solar-row" style="margin-bottom:6px">
-                <label>Mode</label>
-                <select id="prodMode" style="min-width:180px">
-                  <option value="estimate">Estimation (W × h)</option>
-                  <option value="measured">Production mesurée / panneau (kWh/j)</option>
-                </select>
-              </div>
-
-              <div id="measuredRow" class="solar-row" style="margin-bottom:6px;display:none">
-                <label>Production mesurée / panneau (kWh/j)</label>
-                <input id="measuredKwhPerPanelDay" type="number" step="0.01" value="0" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                <small style="margin-left:8px;color:#666">laisser 0 si non utilisé</small>
-              </div>
-            </div>
-
-            <div>
-              <div class="solar-block" style="margin-bottom:10px">
-                <div style="font-weight:700;margin-bottom:8px">Production & stockage</div>
-                <div style="display:flex;gap:10px;flex-wrap:wrap">
-                  <div style="min-width:180px;padding:8px;border-radius:10px;background:#fff">
-                    <div style="font-size:12px;color:#6c7d6f">Production PV (kWh / mois)</div>
-                    <div id="pvMonth" class="metric">0 kWh</div>
-                  </div>
-                  <div style="min-width:200px;padding:8px;border-radius:10px;background:#fff">
-                    <div style="font-size:12px;color:#6c7d6f">Énergie batterie utilisable / jour</div>
-                    <div id="battUsableDay" class="metric">0 kWh/j</div>
-                    <div style="font-size:12px;color:#6c7d6f;margin-top:6px">(cap pack 1.28 kWh, DoD configurable)</div>
-                  </div>
-                  <div style="min-width:220px;padding:8px;border-radius:10px;background:#fff">
-                    <div style="font-size:12px;color:#6c7d6f">Contribution batterie possible / mois</div>
-                    <div id="battSupplyMonth" class="metric">0 kWh</div>
-                    <div id="pvUsedDayNote" class="metric note"></div>
-                  </div>
-                </div>
-
-                <div class="subtle-box">
-                  <div style="font-size:12px;color:#6c7d6f">Besoin réseau après système (kWh / mois)</div>
-                  <div id="gridAfter" class="metric" style="color:#b37400">0 kWh</div>
-                  <div id="gridAfterNote" class="metric note"></div>
-                </div>
-              </div>
-
-              <div class="solar-block">
-                <div style="font-weight:700;margin-bottom:8px">Synthèse de dimensionnement</div>
-                <div class="solar-prices">
-                  <div class="solar-price">
-                    <div style="font-size:12px;color:#6c7d6f">Puissance PV conseillée</div>
-                    <div id="pvRecommended" class="metric">0 kWc</div>
-                  </div>
-                  <div class="solar-price">
-                    <div style="font-size:12px;color:#6c7d6f">Couverture énergétique</div>
-                    <div id="coveragePct" class="metric">0%</div>
-                  </div>
-                </div>
-
-                <div class="solar-prices">
-                  <div class="solar-price">
-                    <div style="font-size:12px;color:#6c7d6f">Consommation journalière couverte</div>
-                    <div id="coveredDayKwh" class="metric">0 kWh/j</div>
-                  </div>
-                  <div class="solar-price">
-                    <div style="font-size:12px;color:#6c7d6f">Reste à couvrir</div>
-                    <div id="remainingDayKwh" class="metric">0 kWh/j</div>
-                  </div>
-                </div>
-
-                <div style="margin-top:12px">
-                  <div style="font-size:12px;color:#6c7d6f">Note</div>
-                  <div style="font-size:13px;color:#6c7d6f;margin-top:6px">
-                    Les calculs sont indicatifs et servent au dimensionnement. Les besoins réels dépendent des cycles d’utilisation, du climat, de l’orientation et de la simultanéité des charges.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pdf-note">PDF : synthèse exportable avec filigrane GREENBRIDGE et la mention « À TITRE INDICATIF ».</div>
+        <div class="pdf-note">Dimensionnement sérieux, sans notion de prix. Le fond d’image et la charte restent dans l’esprit GreenBridge.</div>
       </div>
     </div>
   </section>
@@ -1294,10 +941,6 @@
       <div>Tel: +225 07 07 07 07 07</div>
     </div>
   </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <script>
     const burgerBtn = document.getElementById('burgerBtn');
@@ -1328,7 +971,6 @@
       const orbC = document.getElementById('orbC');
       const orbs = [orbA, orbB, orbC];
       const zapBright = document.getElementById('zapBright');
-
       const params = [
         {rxRatio:0.50, ry:8, speed:0.22, phase:0},
         {rxRatio:0.33, ry:6, speed:0.36, phase:Math.PI/2},
@@ -1450,69 +1092,19 @@
       }
 
       activate();
-      window.addEventListener('resize', ()=>{
-        t0 = performance.now();
-      });
+      window.addEventListener('resize', ()=>{ t0 = performance.now(); });
     })();
-
-    const catalogue = [
-      { id:'eclairage', label:'Éclairage • LED/Fluo', powerW:20, hours:4, variantType:'none', color:'#ffd54f' },
-      { id:'ventilation', label:'Ventilation', variantType:'size', sizes:{Petit:{min:25,max:50},Moyen:{min:50,max:75},Grand:{min:75,max:100}}, defaultSize:'Moyen', hours:8, color:'#90caf9' },
-      { id:'vent_plafond', label:'Ventilateur Plafond', variantType:'size', sizes:{Plafond:{min:120,max:120}}, defaultSize:'Plafond', hours:3, color:'#80deea' },
-      { id:'clim', label:'Climatisation • Climatiseur', variantType:'size', sizes:{Petit:{min:400,max:900},Moyen:{min:900,max:1500},Grand:{min:1500,max:3500}}, defaultSize:'Moyen', cycling:true, color:'#b39ddb' },
-      { id:'phone', label:'Téléphone portable', powerW:10, hours:2, variantType:'none', color:'#a5d6a7' },
-      { id:'tablet', label:'Tablette', powerW:20, hours:1, variantType:'none', color:'#c5e1a5' },
-      { id:'pcp', label:'PC portable', powerW:85, hours:4, variantType:'none', color:'#ffe082' },
-      { id:'pcb', label:'PC Bureau', powerW:170, hours:4, variantType:'none', color:'#ffd3b6' },
-      { id:'tv', label:'TV • Écran LED', variantType:'size', sizes:{'LED Petite':{min:20,max:60},'LED Moyenne':{min:60,max:150}}, defaultSize:'LED Moyenne', hours:4, color:'#ffab91' },
-      { id:'tv_plasma', label:'TV • Écran Plasma', variantType:'size', sizes:{Standard:{min:180,max:250}}, defaultSize:'Standard', hours:4, color:'#ff8a65' },
-      { id:'decodeur', label:'Décodeur DSL/ADSL', powerW:10, hours:24, variantType:'none', color:'#ce93d8' },
-      { id:'frigo', label:'Réfrigérateur', variantType:'size', sizes:{Petit:{min:50,max:120},Moyen:{min:100,max:180},Grand:{min:150,max:250}}, defaultSize:'Moyen', cycling:true, color:'#a7ffeb' },
-      { id:'congel', label:'Congélateur', variantType:'size', sizes:{Petit:{min:80,max:150},Moyen:{min:120,max:200},Grand:{min:200,max:300}}, defaultSize:'Moyen', cycling:true, color:'#b2ebf2' },
-      { id:'seche', label:'Sèche Cheveux', powerW:2000, hours:0.05, variantType:'none', color:'#ffcc80' },
-      { id:'micro', label:'Micro-Onde', powerW:900, hours:0.05, variantType:'none', color:'#ffd180' },
-      { id:'cafe', label:'Cafetière / Bouilloire', powerW:1500, hours:0.05, variantType:'none', color:'#ffecb3' },
-      { id:'robot', label:'Robot / Mixeur', powerW:500, hours:0.05, variantType:'none', color:'#c8e6c9' }
-    ];
-
-    const DEFAULT_DUTY_CYCLES = {
-      clim:{Petit:0.35,Moyen:0.50,Grand:0.70},
-      frigo:{Petit:0.25,Moyen:0.40,Grand:0.50},
-      congel:{Petit:0.30,Moyen:0.40,Grand:0.55}
-    };
-
-    let items = catalogue.map(c => ({
-      ...c,
-      qty:0,
-      usage:'Tous les jours',
-      selectedSize:c.defaultSize || (c.sizes ? Object.keys(c.sizes)[0] : undefined),
-      selectedBrand:c.defaultBrand || (c.brands ? Object.keys(c.brands)[0] : undefined)
-    }));
-
-    let pieces = [];
-    let lastCalcSnapshot = null;
-
-    const usageFactors = {'Tous les jours':1,'Régulier':0.6,'Occasionnel':0.3,'Rare':0.05};
 
     const zoneSelect = document.getElementById('zone');
     const citySelect = document.getElementById('city');
-    const consMonthEl = document.getElementById('consMonth');
-    const consMonthRangeEl = document.getElementById('consMonthRange');
-    const consDayEl = document.getElementById('consDay');
-    const consDayRangeEl = document.getElementById('consDayRange');
-    const powerInstalledEl = document.getElementById('powerInstalled');
-    const powerPeakEl = document.getElementById('powerPeak');
+    const zoneBadge = document.getElementById('zoneBadge');
 
-    const enableAutres = document.getElementById('enableAutres');
-    const autresPanel = document.getElementById('autresPanel');
-    const autresQty = document.getElementById('autresQty');
-    const autresPower = document.getElementById('autresPower');
-    const autresH = document.getElementById('autresH');
-
-    const resetBtn = document.getElementById('resetBtn');
-    const exportPdfBtn = document.getElementById('exportPdfBtn');
-    const menuBtn = document.getElementById('menuBtn');
-    const mainNav = document.getElementById('mainNav');
+    const roomTypeSelect = document.getElementById('roomTypeSelect');
+    const roomNameInput = document.getElementById('roomNameInput');
+    const roomCountInput = document.getElementById('roomCountInput');
+    const addRoomBtn = document.getElementById('addRoomBtn');
+    const clearRoomsBtn = document.getElementById('clearRoomsBtn');
+    const roomsListEl = document.getElementById('roomsList');
 
     const genBedrooms = document.getElementById('genBedrooms');
     const genLiving = document.getElementById('genLiving');
@@ -1523,987 +1115,497 @@
     const genAdd = document.getElementById('genAdd');
     const generateBtn = document.getElementById('generateBtn');
 
-    const roomTypeSelect = document.getElementById('roomTypeSelect');
-    const roomNameInput = document.getElementById('roomNameInput');
-    const roomCountInput = document.getElementById('roomCountInput');
-    const addRoomsBtn = document.getElementById('addRoomsBtn');
-    const clearRoomsBtn = document.getElementById('clearRoomsBtn');
-    const roomsListEl = document.getElementById('roomsList');
-    const itemsSubtitles = document.getElementById('itemsSubtitles');
-
-    const pvCountEl = document.getElementById('pvCount');
-    const sunHoursEl = document.getElementById('sunHours');
-    const battCountEl = document.getElementById('battCount');
-    const pvMonthEl = document.getElementById('pvMonth');
-    const battUsableDayEl = document.getElementById('battUsableDay');
-    const battSupplyMonthEl = document.getElementById('battSupplyMonth');
-    const pvUsedDayNoteEl = document.getElementById('pvUsedDayNote');
-    const gridAfterEl = document.getElementById('gridAfter');
-    const gridAfterNoteEl = document.getElementById('gridAfterNote');
-    const pvRecommendedEl = document.getElementById('pvRecommended');
-    const coveragePctEl = document.getElementById('coveragePct');
-    const coveredDayKwhEl = document.getElementById('coveredDayKwh');
-    const remainingDayKwhEl = document.getElementById('remainingDayKwh');
-
-    const panelTypeEl = document.getElementById('panelType');
     const panelWEl = document.getElementById('panelW');
-    const panelWRowEl = document.getElementById('panelWRow');
+    const sunHoursEl = document.getElementById('sunHours');
     const panelDeratePctEl = document.getElementById('panelDeratePct');
-    const prodModeEl = document.getElementById('prodMode');
-    const measuredRowEl = document.getElementById('measuredRow');
-    const measuredKwhPerPanelDayEl = document.getElementById('measuredKwhPerPanelDay');
+    const autonomyDaysEl = document.getElementById('autonomyDays');
     const dodPctEl = document.getElementById('dodPct');
+    const invEffPctEl = document.getElementById('invEffPct');
+    const battPackKwhEl = document.getElementById('battPackKwh');
 
-    let map = null;
+    const consDayEl = document.getElementById('consDay');
+    const consMonthEl = document.getElementById('consMonth');
+    const powerInstalledEl = document.getElementById('powerInstalled');
+    const powerPeakEl = document.getElementById('powerPeak');
+    const inverterRecEl = document.getElementById('inverterRec');
+    const pvRecommendedEl = document.getElementById('pvRecommended');
+    const panelCountRecEl = document.getElementById('panelCountRec');
+    const batteryRecEl = document.getElementById('batteryRec');
+    const batteryPackRecEl = document.getElementById('batteryPackRec');
+    const coverageNoteEl = document.getElementById('coverageNote');
+
+    const consDayCard = document.getElementById('consDayCard');
+    const consMonthCard = document.getElementById('consMonthCard');
+    const powerInstalledCard = document.getElementById('powerInstalledCard');
+    const powerPeakCard = document.getElementById('powerPeakCard');
+    const pvRecCard = document.getElementById('pvRecCard');
+    const batteryRecCard = document.getElementById('batteryRecCard');
+    const loadsCountEl = document.getElementById('loadsCount');
+    const summaryNoteEl = document.getElementById('summaryNote');
+
+    const resetBtn = document.getElementById('resetBtn');
+    const exportBtn = document.getElementById('exportBtn');
+
     const CITY_COORDS = {
-      'ci_all': { bounds:[[5.345317,-4.024429],[6.818351,-5.276987]], zoom:7 },
-      'ci_abidjan': { lat:5.345317, lng:-4.024429, zoom:12 },
-      'ci_yamoussoukro': { lat:6.818351, lng:-5.276987, zoom:11 },
-      'sn_all': { center:[14.0,-14.0], zoom:6 },
-      'sn_dakar': { lat:14.6937, lng:-17.44406, zoom:12 }
+      ci: [
+        { label: "Abidjan", value: "abidjan" },
+        { label: "Yamoussoukro", value: "yamoussoukro" },
+        { label: "Bouaké", value: "bouake" }
+      ],
+      sn: [
+        { label: "Dakar", value: "dakar" },
+        { label: "Thiès", value: "thies" },
+        { label: "Saint-Louis", value: "saintlouis" }
+      ]
     };
 
-    function initMap(){
-      try{
-        map = L.map('map', { dragging:true, zoomControl:true, attributionControl:false }).setView([6.5,-5.0], 6.5);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19 }).addTo(map);
-        const pin = L.icon({ iconUrl:'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize:[22,22], iconAnchor:[11,22] });
-        L.marker([5.345317,-4.024429],{icon:pin}).addTo(map).bindTooltip('Abidjan');
-        L.marker([6.818351,-5.276987],{icon:pin}).addTo(map).bindTooltip('Yamoussoukro');
-        L.marker([14.6937,-17.44406],{icon:pin}).addTo(map).bindTooltip('Dakar');
-        map.fitBounds([[5.345317,-4.024429],[6.818351,-5.276987]], { padding:[20,20] });
-      }catch(e){
-        console.warn(e);
-      }
-    }
-
-    function zoomToCity(key){
-      if(!map) return;
-      const info = CITY_COORDS[key];
-      if(!info) return;
-      if(info.bounds) map.fitBounds(info.bounds, { padding:[20,20] });
-      else if(info.lat && info.lng) map.setView([info.lat, info.lng], info.zoom || 10);
-      else if(info.center) map.setView(info.center, info.zoom || 7);
-    }
-
-    function fmt(n, dec=2){ return Number(n||0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
-    function kwh(n){ return fmt(n,2) + ' kWh'; }
-    function whToKwh(n){ return (Number(n||0)/1000); }
-
-    function getNominalPower(cat, selectedSize, mode='avg'){
-      if(!cat || !cat.sizes || !selectedSize) return 0;
-      const val = cat.sizes[selectedSize];
-      if(typeof val === 'number') return val;
-      if(val && typeof val === 'object'){
-        const min = Number(val.min||0), max = Number(val.max||min);
-        if(mode === 'min') return min;
-        if(mode === 'max') return max;
-        return (min + max) / 2;
-      }
-      return 0;
-    }
-
-    function getActiveConsumers(){
-      if(pieces.length){
-        const list = [];
-        pieces.forEach(p=>p.consumers.forEach(c=>list.push({...c,_room:p.id})));
-        return list;
-      }
-      return items.slice();
-    }
-
-    const DEFAULT_PREFILL = {
-      'Chambre':[{id:'eclairage',qty:1},{id:'phone',qty:1}],
-      'Salon':[{id:'eclairage',qty:1},{id:'tv_plasma',qty:1},{id:'decodeur',qty:1}],
-      'Cuisine':[{id:'eclairage',qty:1},{id:'frigo',qty:1},{id:'micro',qty:1}],
-      "Salle d'eau":[{id:'eclairage',qty:1},{id:'ventilation',qty:1}],
-      'Bureau':[{id:'eclairage',qty:1},{id:'pcp',qty:1}],
-      'Toilette':[{id:'eclairage',qty:1}]
-    };
-
-    function summarizePieceConsumers(consumers){
-      const map = {};
-      consumers.forEach(c=>{ map[c.id] = (map[c.id]||0) + (Number(c.qty)||0); });
-      return Object.keys(map).slice(0,6).map(k=>{
-        const cat = catalogue.find(x=>x.id===k);
-        const label = cat ? cat.label.split(' • ')[0] : k;
-        return `${label}: ${map[k]}`;
-      }).join(' · ');
-    }
-
-    function renderSubtitlesFromPieces(){
-      itemsSubtitles.innerHTML = '';
-      if(!pieces.length){ itemsSubtitles.style.display='none'; return; }
-      itemsSubtitles.style.display='flex';
-      pieces.forEach((p, idx)=>{
-        const totalConsumers = p.consumers.reduce((s,c)=>s+(Number(c.qty)||0),0);
-        const subtitle = document.createElement('div');
-        subtitle.className = 'subtitle';
-        subtitle.dataset.idx = idx;
-        subtitle.innerHTML = `
-          <div class="left">
-            <div class="title">${p.id}</div>
-            <div class="meta">Consommateurs : <strong>${totalConsumers}</strong> — type : <strong>${p.type}</strong></div>
-          </div>
-          <div class="right">
-            <div class="small-variant">${summarizePieceConsumers(p.consumers)}</div>
-            <div style="font-weight:800">${p.consumers.length} équipements</div>
-          </div>
-        `;
-        subtitle.addEventListener('click', ()=>{
-          const el = document.getElementById('room-block-'+idx);
-          if(el){
-            el.scrollIntoView({behavior:'smooth', block:'center'});
-            el.classList.add('highlight');
-            setTimeout(()=>el.classList.remove('highlight'), 900);
-          }
-        });
-        itemsSubtitles.appendChild(subtitle);
+    function populateCities(zone){
+      citySelect.innerHTML = '';
+      (CITY_COORDS[zone] || []).forEach(c=>{
+        citySelect.appendChild(new Option(c.label, c.value));
       });
+      zoneBadge.innerHTML = zone === 'sn'
+        ? '<i class="fas fa-city"></i> Zone urbaine'
+        : '<i class="fas fa-building"></i> Zone urbaine';
     }
 
-    function addPieces(type, baseName, count, withPrefill=true){
-      const c = Math.max(1, Number(count||1));
-      for(let i=1;i<=c;i++){
-        let name = (c===1) ? (baseName||type) : (baseName ? (baseName + ' ' + i) : (type + ' ' + i));
-        let unique = name, k=1;
-        while(pieces.some(p=>p.id===unique)){ k++; unique = name + ' ('+k+')'; }
-        const newPiece = { id:unique, type:type, consumers:[] };
-        if(withPrefill){
-          const rules = DEFAULT_PREFILL[type] || [];
-          rules.forEach(r=>{
-            const cat = catalogue.find(x=>x.id===r.id);
-            if(!cat) return;
-            newPiece.consumers.push({
-              id: cat.id,
-              label: cat.label,
-              qty: r.qty,
-              usage: 'Tous les jours',
-              variantType: cat.variantType,
-              selectedSize: cat.defaultSize || (cat.sizes ? Object.keys(cat.sizes)[0] : undefined),
-              selectedBrand: cat.defaultBrand || (cat.brands ? Object.keys(cat.brands)[0] : undefined),
-              variantLabel: cat.variantType === 'size' ? (cat.defaultSize || '') : (cat.variantType === 'brand' ? (cat.defaultBrand || '') : ''),
-              powerW: cat.powerW || 0,
-              hours: cat.hours || 0,
-              dutyCycle: (cat.cycling ? (DEFAULT_DUTY_CYCLES[cat.id] ? DEFAULT_DUTY_CYCLES[cat.id][cat.defaultSize || Object.keys(cat.sizes)[0]] : undefined) : undefined)
-            });
-          });
-        }
-        pieces.push(newPiece);
+    function fmt(n, dec=2){
+      return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+    }
+
+    function cloneLoads(loads){
+      return (loads || []).map(l=>({
+        name: l.name || '',
+        qty: Number(l.qty ?? 1),
+        powerW: Number(l.powerW ?? 0),
+        hours: Number(l.hours ?? 0),
+        factor: Number(l.factor ?? 1)
+      }));
+    }
+
+    const ROOM_TEMPLATES = {
+      "Chambre": [
+        { name:"Éclairage", qty:4, powerW:12, hours:5, factor:1 },
+        { name:"Ventilation", qty:1, powerW:60, hours:8, factor:1 },
+        { name:"Prises", qty:2, powerW:100, hours:3, factor:0.6 }
+      ],
+      "Salon": [
+        { name:"Éclairage", qty:3, powerW:12, hours:6, factor:1 },
+        { name:"Téléviseur", qty:1, powerW:120, hours:4, factor:1 },
+        { name:"Décodeur", qty:1, powerW:10, hours:24, factor:1 }
+      ],
+      "Cuisine": [
+        { name:"Éclairage", qty:2, powerW:12, hours:5, factor:1 },
+        { name:"Réfrigérateur", qty:1, powerW:150, hours:24, factor:0.35 },
+        { name:"Micro-ondes", qty:1, powerW:900, hours:0.2, factor:0.3 }
+      ],
+      "Salle d'eau": [
+        { name:"Éclairage", qty:1, powerW:12, hours:4, factor:1 },
+        { name:"Ventilation", qty:1, powerW:50, hours:3, factor:1 }
+      ],
+      "Bureau": [
+        { name:"Éclairage", qty:2, powerW:12, hours:8, factor:1 },
+        { name:"Ordinateur", qty:1, powerW:90, hours:6, factor:1 }
+      ],
+      "Toilette": [
+        { name:"Éclairage", qty:1, powerW:12, hours:3, factor:1 }
+      ],
+      "Autre": []
+    };
+
+    let rooms = [];
+    let roomCounter = 0;
+
+    function uniqueRoomName(base){
+      let name = base;
+      let n = 1;
+      while(rooms.some(r => r.name === name)){
+        n += 1;
+        name = `${base} ${n}`;
       }
-      renderPieces();
-      renderSubtitlesFromPieces();
+      return name;
+    }
+
+    function createRoom(type, baseName, withTemplate=true){
+      roomCounter += 1;
+      const name = uniqueRoomName(baseName || `${type} ${roomCounter}`);
+      return {
+        id: roomCounter,
+        type,
+        name,
+        loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : []
+      };
+    }
+
+    function addRooms(type, baseName, count=1, withTemplate=true){
+      const c = Math.max(1, Number(count || 1));
+      for(let i=0;i<c;i++){
+        const roomBase = c === 1 ? (baseName || type) : `${baseName || type} ${i+1}`;
+        rooms.push(createRoom(type, roomBase, withTemplate));
+      }
+      renderRooms();
       recalc();
     }
 
-    function clearPieces(){
-      if(!confirm('Vider toutes les pièces et consommateurs ?')) return;
-      pieces = [];
-      renderPieces();
-      renderSubtitlesFromPieces();
+    function clearRooms(){
+      if(!confirm('Vider toutes les pièces et leurs charges ?')) return;
+      rooms = [];
+      renderRooms();
       recalc();
     }
 
-    function renderPieces(){
+    function addLoad(roomIndex){
+      rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0, factor:1 });
+      renderRooms();
+      recalc();
+    }
+
+    function renderSubtitles(){
+      const container = document.getElementById('subtitles');
+    }
+
+    function renderRooms(){
       roomsListEl.innerHTML = '';
-      if(pieces.length === 0) return;
+      const subtitlesWrap = document.getElementById('itemsSubtitles');
+      if(subtitlesWrap){
+        subtitlesWrap.innerHTML = '';
+        subtitlesWrap.style.display = rooms.length ? 'flex' : 'none';
+      }
 
-      pieces.forEach((p, pIdx)=>{
+      rooms.forEach((room, roomIndex) => {
+        if(subtitlesWrap){
+          const totalLoads = room.loads.length;
+          const subtitle = document.createElement('div');
+          subtitle.className = 'subtitle';
+          subtitle.innerHTML = `
+            <div class="left">
+              <div class="title">${room.name}</div>
+              <div class="meta">Type : <strong>${room.type}</strong> — charges : <strong>${totalLoads}</strong></div>
+            </div>
+            <div class="right">
+              <div class="small-variant">Clique pour aller à la pièce</div>
+              <div style="font-weight:800">${totalLoads} lignes</div>
+            </div>
+          `;
+          subtitle.addEventListener('click', ()=>{
+            const el = document.getElementById(`room-block-${roomIndex}`);
+            if(el){
+              el.scrollIntoView({behavior:'smooth', block:'center'});
+              el.classList.add('highlight');
+              setTimeout(()=>el.classList.remove('highlight'), 900);
+            }
+          });
+          subtitlesWrap.appendChild(subtitle);
+        }
+
         const box = document.createElement('div');
         box.className = 'room';
-        box.id = 'room-block-'+pIdx;
+        box.id = `room-block-${roomIndex}`;
 
-        const consumersHtml = p.consumers.map((c, ci)=>{
-          const variant = c.variantLabel ? (' — ' + c.variantLabel) : '';
-          const dutyText = (c.dutyCycle && c.dutyCycle > 0) ? (` — duty ${Math.round(c.dutyCycle*100)}%`) : '';
-          return `<div class="consumer" data-p="${pIdx}" data-c="${ci}">
+        const loadsHtml = room.loads.map((load, loadIndex) => `
+          <div class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
             <div style="flex:1;min-width:160px">
-              <strong>${c.label}</strong>
-              <div class="mini">${variant}${dutyText}</div>
+              <strong>${room.type === 'Autre' ? 'Charge' : load.name || 'Charge'}</strong>
+              <div class="mini">Saisissez la charge, la puissance, la durée et le coefficient</div>
             </div>
             <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-              <div>Qté:<br><input class="cons-qty" type="number" min="0" value="${c.qty}" style="width:72px"></div>
-              <div>Fréq:<br>
-                <select class="cons-usage">
-                  <option ${c.usage==='Tous les jours'?'selected':''}>Tous les jours</option>
-                  <option ${c.usage==='Régulier'?'selected':''}>Régulier</option>
-                  <option ${c.usage==='Occasionnel'?'selected':''}>Occasionnel</option>
-                  <option ${c.usage==='Rare'?'selected':''}>Rare</option>
-                </select>
+              <div>Nom:<br>
+                <input class="load-field" data-field="name" type="text" value="${load.name}">
               </div>
-              <div><button class="btn-reset remove-consumer" type="button">Suppr</button></div>
+              <div>Qté:<br>
+                <input class="load-field" data-field="qty" type="number" min="0" value="${load.qty}" style="width:72px">
+              </div>
+              <div>W:<br>
+                <input class="load-field" data-field="powerW" type="number" min="0" value="${load.powerW}" style="width:82px">
+              </div>
+              <div>h/j:<br>
+                <input class="load-field" data-field="hours" type="number" min="0" step="0.1" value="${load.hours}" style="width:82px">
+              </div>
+              <div>Coef:<br>
+                <input class="load-field" data-field="factor" type="number" min="0" max="1" step="0.05" value="${load.factor}" style="width:72px">
+              </div>
+              <div><br><button class="btn-reset btn-remove-load" type="button">Suppr</button></div>
             </div>
-          </div>`;
-        }).join('');
+          </div>
+        `).join('');
 
         box.innerHTML = `
           <div class="room-head">
-            <div style="font-weight:800">${p.id} <span style="font-weight:600;color:#6c7d6f">(${p.type})</span></div>
+            <div style="font-weight:800">${room.name} <span style="font-weight:600;color:#6c7d6f">(${room.type})</span></div>
             <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <button data-idx="${pIdx}" class="btn-reset remove-piece" type="button">Suppr pièce</button>
+              <button class="btn-link btn-add-load" data-r="${roomIndex}" type="button">+ charge</button>
+              <button class="btn-reset btn-remove-room" data-r="${roomIndex}" type="button">Suppr pièce</button>
             </div>
           </div>
 
-          <div class="room-actions">
-            <select data-idx="${pIdx}" class="select-equip">
-              ${catalogue.map(c=>`<option value="${c.id}">${c.label}</option>`).join('')}
-            </select>
-            <select data-idx="${pIdx}" class="select-variant" style="display:none;padding:8px;border-radius:8px;border:1px solid #ddd"></select>
-            <input data-idx="${pIdx}" class="input-qty" type="number" min="1" value="1" style="width:80px;padding:8px;border-radius:8px;border:1px solid #ddd">
-            <select data-idx="${pIdx}" class="select-usage" style="padding:8px;border-radius:8px;border:1px solid #ddd">
-              <option>Tous les jours</option>
-              <option>Régulier</option>
-              <option>Occasionnel</option>
-              <option>Rare</option>
-            </select>
-            <button data-idx="${pIdx}" class="btn-export add-to-piece" type="button">Ajouter à la pièce</button>
+          <div class="room-actions" style="margin-top:10px">
+            <div class="badge-zone" style="color:#04462e;background:rgba(124,179,66,.08);border:1px solid rgba(124,179,66,.12)">
+              <i class="fas fa-lightbulb"></i> Charge détaillée
+            </div>
           </div>
 
-          <div class="consumer-list" id="consumers-${pIdx}">
-            ${consumersHtml || '<div style="font-size:13px;color:#666">Aucun consommateur ajouté</div>'}
+          <div class="consumer-list">
+            ${loadsHtml || '<div style="font-size:13px;color:#666">Aucune charge ajoutée</div>'}
           </div>
         `;
         roomsListEl.appendChild(box);
       });
 
-      document.querySelectorAll('.select-equip').forEach(sel=>{
-        sel.addEventListener('change', e=>{
-          const pIdx = +e.target.dataset.idx;
-          const selVar = document.querySelector('.select-variant[data-idx="'+pIdx+'"]');
-          const cat = catalogue.find(c=>c.id === e.target.value);
-          if(!cat){ selVar.style.display='none'; selVar.innerHTML=''; return; }
-          if(cat.variantType === 'size'){
-            selVar.style.display='inline-block';
-            selVar.innerHTML = Object.keys(cat.sizes).map(sz=>`<option value="${sz}">${sz}</option>`).join('');
-          }else{
-            selVar.style.display='none';
-            selVar.innerHTML='';
-          }
-        });
-        sel.dispatchEvent(new Event('change'));
-      });
-
-      document.querySelectorAll('.add-to-piece').forEach(btn=>{
-        btn.addEventListener('click', e=>{
-          const pIdx = +e.target.dataset.idx;
-          const selEquip = document.querySelector('.select-equip[data-idx="'+pIdx+'"]');
-          const selVariant = document.querySelector('.select-variant[data-idx="'+pIdx+'"]');
-          const qtyEl = document.querySelector('.input-qty[data-idx="'+pIdx+'"]');
-          const usageEl = document.querySelector('.select-usage[data-idx="'+pIdx+'"]');
-          const cat = catalogue.find(c=>c.id === selEquip.value);
-          if(!cat) return;
-
-          const qty = Math.max(0, Number(qtyEl.value||0));
-          const usage = usageEl.value || 'Tous les jours';
-
-          const cons = {
-            id: cat.id,
-            label: cat.label,
-            qty,
-            usage,
-            variantType: cat.variantType,
-            selectedSize: cat.defaultSize || (cat.sizes ? Object.keys(cat.sizes)[0] : undefined),
-            selectedBrand: cat.defaultBrand || (cat.brands ? Object.keys(cat.brands)[0] : undefined),
-            variantLabel:'',
-            powerW: cat.powerW || 0,
-            hours: cat.hours || 0
-          };
-
-          if(selVariant && selVariant.style.display !== 'none'){
-            const val = selVariant.value;
-            if(cat.variantType === 'size'){ cons.selectedSize = val; cons.variantLabel = val; }
-          }
-
-          if(cat.cycling){
-            const map = DEFAULT_DUTY_CYCLES[cat.id] || {};
-            cons.dutyCycle = map[cons.selectedSize] || map[Object.keys(map)[0]] || 0.4;
-          }
-
-          pieces[pIdx].consumers.push(cons);
-          renderPieces();
-          renderSubtitlesFromPieces();
-          recalc();
-        });
-      });
-
-      document.querySelectorAll('.remove-piece').forEach(btn=>{
-        btn.addEventListener('click', e=>{
-          const pIdx = +e.target.dataset.idx;
-          if(!confirm('Supprimer la pièce "'+pieces[pIdx].id+'"?')) return;
-          pieces.splice(pIdx,1);
-          renderPieces();
-          renderSubtitlesFromPieces();
-          recalc();
-        });
-      });
-
-      document.querySelectorAll('.consumer').forEach(div=>{
-        const pIdx = +div.dataset.p;
-        const cIdx = +div.dataset.c;
-        const qtyEl = div.querySelector('.cons-qty');
-        const usageEl = div.querySelector('.cons-usage');
-        const rm = div.querySelector('.remove-consumer');
-
-        if(qtyEl) qtyEl.addEventListener('input', ()=>{
-          pieces[pIdx].consumers[cIdx].qty = Math.max(0, Number(qtyEl.value||0));
-          renderSubtitlesFromPieces();
-          recalc();
-        });
-        if(usageEl) usageEl.addEventListener('change', ()=>{
-          pieces[pIdx].consumers[cIdx].usage = usageEl.value;
-          recalc();
-        });
-        if(rm) rm.addEventListener('click', ()=>{
-          pieces[pIdx].consumers.splice(cIdx,1);
-          renderPieces();
-          renderSubtitlesFromPieces();
-          recalc();
-        });
-      });
+      if(!rooms.length && subtitlesWrap){
+        subtitlesWrap.style.display = 'none';
+      }
     }
 
-    function computeDayWhForMode(consumersList, mode='avg'){
-      let totalWhDay = 0;
-      let totalInstalledPower = 0;
+    function onLoadChange(e){
+      const target = e.target;
+      if(!target.classList.contains('load-field')) return;
+      const roomIndex = Number(target.closest('.consumer').dataset.r);
+      const loadIndex = Number(target.closest('.consumer').dataset.l);
+      const field = target.dataset.field;
+      let value = target.value;
 
-      consumersList.forEach(it=>{
-        const qty = Number(it.qty||0);
-        if(qty <= 0) return;
-        const cat = catalogue.find(c=>c.id === it.id);
-        const usageFactor = usageFactors[it.usage] || 1;
-
-        let power = 0;
-        if(cat && cat.variantType === 'size' && it.selectedSize){
-          power = getNominalPower(cat, it.selectedSize, mode);
-        }else{
-          power = Number(it.powerW || (cat ? cat.powerW : 0)) || 0;
-        }
-
-        let hoursOn = 0;
-        if(cat && cat.cycling){
-          let duty = Number(it.dutyCycle || 0) || 0;
-          if(!duty){
-            const map = DEFAULT_DUTY_CYCLES[cat.id] || {};
-            duty = map[it.selectedSize] || map[Object.keys(map)[0]] || 0.4;
-          }
-          hoursOn = 24 * duty * usageFactor;
-        }else{
-          hoursOn = (Number(it.hours) || 0) * usageFactor;
-        }
-
-        totalWhDay += power * qty * hoursOn;
-        totalInstalledPower += power * qty;
-      });
-
-      if(enableAutres.checked){
-        const aq = Number(autresQty.value||0), ap = Number(autresPower.value||0), ah = Number(autresH.value||0);
-        totalWhDay += aq * ap * ah;
-        totalInstalledPower += aq * ap;
+      if(['qty','powerW','hours','factor'].includes(field)){
+        value = Number(value || 0);
       }
-
-      const pertes = 10;
-      const totalWhDayEff = totalWhDay / (1 - pertes/100);
-      return { totalWhDay: totalWhDayEff, installedPower: totalInstalledPower };
+      rooms[roomIndex].loads[loadIndex][field] = value;
+      recalc();
     }
 
-    function computeNightShareFromConsumers(consumersList, sunHours){
-      const nightWindow = Math.max(0, 24 - Number(sunHours || 5));
-      let totalWh = 0, totalWhNight = 0;
+    roomsListEl.addEventListener('input', onLoadChange);
+    roomsListEl.addEventListener('change', onLoadChange);
 
-      consumersList.forEach(it=>{
-        const qty = Number(it.qty||0);
-        if(qty <= 0) return;
-        const cat = catalogue.find(c=>c.id === it.id);
-        let power = 0;
+    roomsListEl.addEventListener('click', (e)=>{
+      const addLoadBtn = e.target.closest('.btn-add-load');
+      const removeRoomBtn = e.target.closest('.btn-remove-room');
+      const removeLoadBtn = e.target.closest('.btn-remove-load');
 
-        if(cat && cat.variantType === 'size' && it.selectedSize){
-          power = getNominalPower(cat, it.selectedSize, 'avg');
-        }else{
-          power = Number(it.powerW || (cat ? cat.powerW : 0)) || 0;
-        }
-
-        const usageFactor = usageFactors[it.usage] || 1;
-        let hoursOn = 0;
-        if(cat && cat.cycling){
-          let duty = Number(it.dutyCycle || 0) || 0;
-          if(!duty){
-            const map = DEFAULT_DUTY_CYCLES[cat.id] || {};
-            duty = map[it.selectedSize] || map[Object.keys(map)[0]] || 0.4;
-          }
-          hoursOn = 24 * duty * usageFactor;
-        }else{
-          hoursOn = (Number(it.hours) || 0) * usageFactor;
-        }
-
-        const wh = power * qty * hoursOn;
-        totalWh += wh;
-        if(cat && cat.cycling){
-          totalWhNight += wh * (nightWindow / 24);
-        }else{
-          const dayPossible = Math.min(hoursOn, sunHours);
-          const nightPossible = Math.max(0, hoursOn - dayPossible);
-          totalWhNight += power * qty * nightPossible;
-        }
-      });
-
-      if(enableAutres.checked){
-        const aq = Number(autresQty.value||0), ap = Number(autresPower.value||0), ah = Number(autresH.value||0);
-        const wh = aq * ap * ah;
-        totalWh += wh;
-        const dayPossible = Math.min(ah, sunHours);
-        const nightPossible = Math.max(0, ah - dayPossible);
-        totalWhNight += aq * ap * nightPossible;
+      if(addLoadBtn){
+        const roomIndex = Number(addLoadBtn.dataset.r);
+        addLoad(roomIndex);
+        return;
       }
 
-      if(totalWh <= 0) return 0.35;
-      return Math.max(0, Math.min(1, totalWhNight / totalWh));
+      if(removeRoomBtn){
+        const roomIndex = Number(removeRoomBtn.dataset.r);
+        if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
+        rooms.splice(roomIndex,1);
+        renderRooms();
+        recalc();
+        return;
+      }
+
+      if(removeLoadBtn){
+        const consumer = removeLoadBtn.closest('.consumer');
+        const roomIndex = Number(consumer.dataset.r);
+        const loadIndex = Number(consumer.dataset.l);
+        rooms[roomIndex].loads.splice(loadIndex,1);
+        renderRooms();
+        recalc();
+      }
+    });
+
+    function getAllLoads(){
+      const list = [];
+      rooms.forEach((room, roomIndex)=>{
+        room.loads.forEach((load, loadIndex)=>{
+          list.push({ ...load, roomIndex, loadIndex, roomName: room.name, roomType: room.type });
+        });
+      });
+      return list;
+    }
+
+    function compute(){
+      const loads = getAllLoads();
+
+      let installedPower = 0;
+      let peakPower = 0;
+      let dailyWh = 0;
+
+      loads.forEach(load=>{
+        const qty = Math.max(0, Number(load.qty || 0));
+        const powerW = Math.max(0, Number(load.powerW || 0));
+        const hours = Math.max(0, Number(load.hours || 0));
+        const factor = Math.max(0, Math.min(1, Number(load.factor || 0)));
+
+        const totalPower = qty * powerW;
+        installedPower += totalPower;
+        peakPower += totalPower * factor;
+        dailyWh += totalPower * hours * factor;
+      });
+
+      const dailyKwh = dailyWh / 1000;
+      const monthlyKwh = dailyKwh * 30;
+
+      const panelW = Math.max(1, Number(panelWEl.value || 350));
+      const sunHours = Math.max(0.1, Number(sunHoursEl.value || 5));
+      const derate = Math.max(0.1, Math.min(1, Number(panelDeratePctEl.value || 85) / 100));
+      const autonomyDays = Math.max(0, Number(autonomyDaysEl.value || 1));
+      const dod = Math.max(0.1, Math.min(1, Number(dodPctEl.value || 90) / 100));
+      const invEff = Math.max(0.1, Math.min(1, Number(invEffPctEl.value || 95) / 100));
+      const battPackKwh = Math.max(0.01, Number(battPackKwhEl.value || 1.28));
+
+      const pvKwRec = dailyKwh / (sunHours * derate);
+      const panelCountRec = Math.ceil((pvKwRec * 1000) / panelW);
+
+      const inverterRecKva = Math.max(peakPower * 1.25 / 1000, installedPower * 0.8 / 1000);
+      const batteryRecKwh = (dailyKwh * autonomyDays) / (dod * invEff);
+      const batteryPackRec = Math.ceil(batteryRecKwh / battPackKwh);
+
+      const coverageNote = pvKwRec > 0
+        ? `Base PV indicative : ${fmt(pvKwRec, 2)} kWc pour ${fmt(dailyKwh, 2)} kWh/j`
+        : 'Ajoutez des charges pour obtenir un dimensionnement';
+
+      return {
+        loads,
+        installedPower,
+        peakPower,
+        dailyKwh,
+        monthlyKwh,
+        pvKwRec,
+        panelCountRec,
+        inverterRecKva,
+        batteryRecKwh,
+        batteryPackRec,
+        coverageNote
+      };
     }
 
     function recalc(){
-      const consumers = getActiveConsumers();
-      const dayMin = computeDayWhForMode(consumers, 'min');
-      const dayAvg = computeDayWhForMode(consumers, 'avg');
-      const dayMax = computeDayWhForMode(consumers, 'max');
+      const r = compute();
 
-      const monthMin = whToKwh(dayMin.totalWhDay) * 30;
-      const monthAvg = whToKwh(dayAvg.totalWhDay) * 30;
-      const monthMax = whToKwh(dayMax.totalWhDay) * 30;
+      loadsCountEl.innerText = String(r.loads.length);
+      consDayEl.innerText = `${fmt(r.dailyKwh,2)} kWh`;
+      consMonthEl.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
+      powerInstalledEl.innerText = `${Math.round(r.installedPower)} W`;
+      powerPeakEl.innerText = `${Math.round(r.peakPower)} W`;
+      inverterRecEl.innerText = `${fmt(r.inverterRecKva,2)} kVA`;
+      pvRecommendedEl.innerText = `${fmt(r.pvKwRec,2)} kWc`;
+      panelCountRecEl.innerText = `${r.panelCountRec}`;
+      batteryRecEl.innerText = `${fmt(r.batteryRecKwh,2)} kWh`;
+      batteryPackRecEl.innerText = `${r.batteryPackRec}`;
 
-      consMonthEl.innerText = kwh(monthAvg);
-      consMonthRangeEl.innerText = `plage: ${kwh(monthMin)} - ${kwh(monthMax)}`;
+      consDayCard.innerText = `${fmt(r.dailyKwh,2)} kWh`;
+      consMonthCard.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
+      powerInstalledCard.innerText = `${Math.round(r.installedPower)} W`;
+      powerPeakCard.innerText = `${Math.round(r.peakPower)} W`;
+      pvRecCard.innerText = `${fmt(r.pvKwRec,2)} kWc`;
+      batteryRecCard.innerText = `${fmt(r.batteryRecKwh,2)} kWh`;
 
-      consDayEl.innerText = kwh(whToKwh(dayAvg.totalWhDay));
-      consDayRangeEl.innerText = `plage: ${kwh(whToKwh(dayMin.totalWhDay))} - ${kwh(whToKwh(dayMax.totalWhDay))}`;
+      coverageNoteEl.innerText = r.coverageNote;
+      summaryNoteEl.innerText = `Dimensionnement calculé à partir de ${r.loads.length} charge(s). Les besoins réels dépendent des usages, des pics simultanés et des marges de sécurité souhaitées.`;
 
-      powerInstalledEl.innerText = `${Math.round(dayAvg.installedPower)} W`;
-      powerPeakEl.innerText = `${Math.round(dayAvg.installedPower * 0.8)} W`;
+      const zoneLabel = zoneSelect.value === 'sn' ? 'Sénégal' : 'Côte d’Ivoire';
+      zoneBadge.innerHTML = zoneSelect.value === 'sn'
+        ? '<i class="fas fa-city"></i> Zone urbaine'
+        : '<i class="fas fa-building"></i> Zone urbaine';
 
-      lastCalcSnapshot = {
-        totalKwhMonth: monthAvg,
-        totalKwhMonthMin: monthMin,
-        totalKwhMonthMax: monthMax,
-        dayWhAvg: dayAvg.totalWhDay,
-        dayWhMin: dayMin.totalWhDay,
-        dayWhMax: dayMax.totalWhDay,
-        installedPower: dayAvg.installedPower
-      };
-
-      const panels = Number(pvCountEl.value||0);
-      let panelW = 350;
-      const panelType = panelTypeEl.value || 'mono';
-      if(panelType === 'mono') panelW = 350;
-      else if(panelType === 'cigs') panelW = 200;
-      else panelW = Number(panelWEl.value || 350);
-
-      const sunH = Number(sunHoursEl.value||5);
-      const battCount = Number(battCountEl.value||0);
-      const batteryPackKwh = 1.28;
-      const prodMode = prodModeEl.value || 'estimate';
-      const deratePct = Math.max(0, Math.min(100, Number(panelDeratePctEl.value || 85))) / 100;
-
-      let pvMonth = 0;
-      if(prodMode === 'measured'){
-        const measuredPerPanelDay = Number(measuredKwhPerPanelDayEl.value || 0);
-        pvMonth = panels * measuredPerPanelDay * 30;
-      }else{
-        pvMonth = panels * panelW * sunH * 30 / 1000 * deratePct;
-      }
-      pvMonthEl.innerText = kwh(pvMonth);
-
-      const DoD = Math.max(0, Math.min(100, Number(dodPctEl.value || 90))) / 100;
-      const invEff = 0.95;
-      const usablePerPackKwh = batteryPackKwh * DoD * invEff;
-      const battUsablePerDay = usablePerPackKwh * battCount;
-      battUsableDayEl.innerText = `${fmt(battUsablePerDay,3)} kWh/j`;
-
-      const totalMonthlyConsumption = monthAvg;
-      const nightShare = computeNightShareFromConsumers(consumers, sunH);
-      const dayConsumptionMonth = totalMonthlyConsumption * (1 - nightShare);
-      const nightConsumptionMonth = totalMonthlyConsumption * nightShare;
-
-      const pvUsedDay = Math.min(pvMonth, dayConsumptionMonth);
-      const pvExcess = Math.max(0, pvMonth - pvUsedDay);
-      const batteryMonthlyCap = battUsablePerDay * 30;
-      const batteryChargedFromPV = Math.min(pvExcess, batteryMonthlyCap);
-      const batterySupplyMonth = Math.min(batteryChargedFromPV, nightConsumptionMonth);
-
-      const remainingNeed = Math.max(0, totalMonthlyConsumption - pvUsedDay - batterySupplyMonth);
-      const coverage = totalMonthlyConsumption > 0 ? Math.round(((totalMonthlyConsumption - remainingNeed) / totalMonthlyConsumption) * 100) : 0;
-
-      pvUsedDayNoteEl.innerText = `PV utilisé jour: ${fmt(pvUsedDay,2)} kWh; excédent PV: ${fmt(pvExcess,2)} kWh`;
-      battSupplyMonthEl.innerText = `${fmt(batterySupplyMonth,2)} kWh`;
-      gridAfterEl.innerText = `${fmt(remainingNeed,2)} kWh`;
-      gridAfterNoteEl.innerText = `sur ${fmt(totalMonthlyConsumption,2)} kWh/mois total`;
-
-      const pvRecommendedKw = (whToKwh(dayAvg.totalWhDay) / (sunH * deratePct || 1));
-      pvRecommendedEl.innerText = `${fmt(pvRecommendedKw,2)} kWc`;
-      coveragePctEl.innerText = `${coverage}%`;
-      coveredDayKwhEl.innerText = `${fmt(Math.min(whToKwh(dayAvg.totalWhDay), pvMonth / 30 + battUsablePerDay),2)} kWh/j`;
-      remainingDayKwhEl.innerText = `${fmt(Math.max(0, whToKwh(dayAvg.totalWhDay) - (pvMonth / 30) - battUsablePerDay),2)} kWh/j`;
+      document.getElementById('zoneBadge').title = `Zone sélectionnée : ${zoneLabel}`;
     }
 
-    async function generatePDF(){
-      try{
-        if(!lastCalcSnapshot){
-          alert("Veuillez effectuer un calcul avant d'exporter.");
-          return;
-        }
-
-        const now = new Date();
-        const dateStr = now.toLocaleString('fr-FR');
-        const zoneLabel = zoneSelect.selectedOptions[0] ? zoneSelect.selectedOptions[0].text : '';
-        const cityLabel = citySelect.selectedOptions[0] ? citySelect.selectedOptions[0].text : '';
-
-        const flagSVG = zoneSelect.value === 'sn'
-          ? `<svg width="84" height="56" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Drapeau Sénégal">
-               <rect width="1" height="2" x="0" fill="#007A3D"></rect>
-               <rect width="1" height="2" x="1" fill="#FCDD09"></rect>
-               <rect width="1" height="2" x="2" fill="#CE1126"></rect>
-               <g transform="translate(1.5 1) scale(0.35)">
-                 <polygon points="0,-1 0.224,-0.309 0.951,-0.309 0.363,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.363,0.118 -0.951,-0.309 -0.224,-0.309" fill="#007A3D"/>
-               </g>
-             </svg>`
-          : `<svg width="84" height="56" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Drapeau Côte d'Ivoire">
-               <rect width="1" height="2" x="0" fill="#009E60"></rect>
-               <rect width="1" height="2" x="1" fill="#ffffff"></rect>
-               <rect width="1" height="2" x="2" fill="#F77F00"></rect>
-             </svg>`;
-
-        const totalMonthlyConsumption = Number(lastCalcSnapshot.totalKwhMonth || 0) || 0.000001;
-        const totalDayConsumption = Number(lastCalcSnapshot.dayWhAvg || 0) / 1000;
-        const totalInstalledPower = Number(lastCalcSnapshot.installedPower || 0);
-
-        let piecesHtml = '';
-        if(pieces.length === 0){
-          piecesHtml = `<tr><td colspan="4" style="padding:8px;border:1px solid #eee;text-align:center">Aucune pièce définie</td></tr>`;
-        }else{
-          pieces.forEach((p)=>{
-            let totalWhPerDay = 0;
-            p.consumers.forEach(c=>{
-              const qty = Number(c.qty||0);
-              if(qty <= 0) return;
-              const cat = catalogue.find(x=>x.id === c.id);
-              let powerPerItem = 0;
-
-              if(cat && cat.variantType === 'size' && c.selectedSize){
-                const val = cat.sizes[c.selectedSize];
-                if(typeof val === 'number') powerPerItem = val;
-                else if(val && typeof val === 'object'){
-                  const min = Number(val.min||0), max = Number(val.max||min);
-                  powerPerItem = (min + max)/2;
-                }
-              }else{
-                powerPerItem = Number(c.powerW || (cat ? cat.powerW : 0)) || 0;
-              }
-
-              const usageFactor = usageFactors[c.usage] || 1;
-              let hoursOn = 0;
-              if(cat && cat.cycling){
-                let duty = Number(c.dutyCycle || 0) || 0;
-                if(!duty){
-                  const map = DEFAULT_DUTY_CYCLES[cat.id] || {};
-                  duty = map[c.selectedSize] || map[Object.keys(map)[0]] || 0.4;
-                }
-                hoursOn = 24 * duty * usageFactor;
-              }else{
-                hoursOn = (Number(c.hours) || 0) * usageFactor;
-              }
-              totalWhPerDay += powerPerItem * qty * hoursOn;
-            });
-
-            const monthlyKwh = (totalWhPerDay * 30) / 1000;
-            const pct = Math.round((monthlyKwh / totalMonthlyConsumption) * 100);
-
-            piecesHtml += `<tr style="background:#f3f6f3">
-              <td colspan="4" style="padding:10px;border:1px solid #eee;font-weight:700;color:#0b4d26">
-                ${p.id} — ${p.type} — <strong>${fmt(monthlyKwh,2)} kWh/mois</strong> — Contribution: <strong>${pct}%</strong>
-              </td>
-            </tr>`;
-
-            if(p.consumers.length === 0){
-              piecesHtml += `<tr><td colspan="4" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucun consommateur</td></tr>`;
-            }else{
-              p.consumers.forEach(c=>{
-                const variant = c.variantLabel || (c.selectedSize || '');
-                piecesHtml += `<tr>
-                  <td style="padding:8px;border:1px solid #eee">${c.label}</td>
-                  <td style="padding:8px;border:1px solid #eee;text-align:center">${c.qty}</td>
-                  <td style="padding:8px;border:1px solid #eee;text-align:center">${c.usage}</td>
-                  <td style="padding:8px;border:1px solid #eee;text-align:center">${variant}</td>
-                </tr>`;
-              });
-            }
-          });
-        }
-
-        const pdfHtml = `
-          <div style="font-family:Arial,Helvetica,sans-serif;width:820px;position:relative;">
-            <div style="position:absolute;left:0;top:0;width:100%;height:100%;z-index:0;display:flex;align-items:center;justify-content:center;pointer-events:none;overflow:visible">
-              <div style="transform:rotate(-28deg);opacity:0.06;font-weight:900;font-size:132px;color:#0b4d26;letter-spacing:6px;white-space:nowrap">GREENBRIDGE — À TITRE INDICATIF</div>
-            </div>
-
-            <div style="position:relative;z-index:1;background:#fff;color:#222;padding:22px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-                <div style="display:flex;align-items:center;gap:12px">
-                  <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:10px;border-radius:8px;border:1px solid #dfeedf">
-                    <div style="font-weight:800;color:#04462e;font-size:18px">GREENBRIDGE</div>
-                    <div style="font-size:11px;color:#556b56">Dimensionnement & énergie</div>
-                  </div>
-                  <div style="margin-left:6px">
-                    <div style="font-size:16px;font-weight:700;color:#062d1b">Synthèse de puissance</div>
-                    <div style="font-size:12px;color:#666;margin-top:4px">${dateStr} — ${zoneLabel}</div>
-                  </div>
-                </div>
-
-                <div style="text-align:right">
-                  <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end">
-                    <div style="width:84px;height:56px">${flagSVG}</div>
-                  </div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">${cityLabel}</div>
-                </div>
-              </div>
-
-              <div style="margin-bottom:12px;">
-                <div style="padding:12px;border:1px solid #eee;border-radius:8px;background:#fbfff9;">
-                  <div style="font-weight:700;margin-bottom:6px">Dimensionnement solaire & batteries</div>
-                  <div style="display:flex;gap:12px;flex-wrap:wrap">
-                    <div style="min-width:170px"><div style="font-size:11px;color:#666">Puissance installée</div><div style="font-weight:800">${Math.round(totalInstalledPower)} W</div></div>
-                    <div style="min-width:170px"><div style="font-size:11px;color:#666">Consommation / jour</div><div style="font-weight:800">${fmt(totalDayConsumption,2)} kWh</div></div>
-                    <div style="min-width:180px"><div style="font-size:11px;color:#666">Consommation / mois</div><div style="font-weight:800">${fmt(Number(lastCalcSnapshot.totalKwhMonth || 0),2)} kWh</div></div>
-                    <div style="min-width:170px"><div style="font-size:11px;color:#666">Pointe conseillée</div><div style="font-weight:800">${Math.round(totalInstalledPower * 0.8)} W</div></div>
-                  </div>
-                </div>
-              </div>
-
-              <div style="font-weight:700;margin-bottom:8px">Détail pièces & consommateurs (contribution en %)</div>
-              <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
-                <thead>
-                  <tr>
-                    <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
-                    <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th>
-                    <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Fréq</th>
-                    <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Variante</th>
-                  </tr>
-                </thead>
-                <tbody>${piecesHtml}</tbody>
-              </table>
-
-              <div style="margin-top:18px;padding:12px;border-radius:10px;border:1px solid #e6e6e6;background:linear-gradient(180deg,#fbfff9,#f4fff5)">
-                <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
-                  <div style="flex:1;padding:12px;background:#fff;border-radius:8px;border:1px solid #eef7ee">
-                    <div style="font-size:12px;color:#666">Consommation (kWh / mois)</div>
-                    <div style="font-weight:800;font-size:22px;color:#0b4d26;margin-top:6px">${fmt(Number(lastCalcSnapshot.totalKwhMonth || 0),2)} kWh</div>
-                    <div style="font-size:12px;color:#666;margin-top:6px">plage: ${fmt(Number(lastCalcSnapshot.totalKwhMonthMin || 0),2)} - ${fmt(Number(lastCalcSnapshot.totalKwhMonthMax || 0),2)} kWh</div>
-                  </div>
-                  <div style="flex:1;padding:12px;background:#fff;border-radius:8px;border:1px solid #eef7ee">
-                    <div style="font-size:12px;color:#666">Consommation (kWh / jour)</div>
-                    <div style="font-weight:800;font-size:22px;color:#0b4d26;margin-top:6px">${fmt(totalDayConsumption,2)} kWh</div>
-                  </div>
-                  <div style="min-width:220px;padding:12px;background:#fff;border-radius:8px;border:1px solid #eef0f0">
-                    <div style="font-size:12px;color:#666">Puissance installée</div>
-                    <div style="font-weight:800;font-size:18px;color:#04462e;margin-top:6px">${Math.round(totalInstalledPower)} W</div>
-                  </div>
-                  <div style="min-width:220px;padding:12px;background:#fff;border-radius:8px;border:1px solid #eef0f0">
-                    <div style="font-size:12px;color:#666">Puissance de pointe conseillée</div>
-                    <div style="font-weight:800;font-size:18px;color:#04462e;margin-top:6px">${Math.round(totalInstalledPower * 0.8)} W</div>
-                  </div>
-                </div>
-              </div>
-
-              <div style="font-size:11px;color:#666;display:flex;justify-content:space-between;align-items:center;margin-top:10px">
-                <div>Synthèse générée par GREENBRIDGE — <strong>À TITRE INDICATIF</strong></div>
-                <div>Export : ${dateStr}</div>
-              </div>
-            </div>
-          </div>
-        `;
-
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'fixed';
-        wrapper.style.left = '-5000px';
-        wrapper.style.top = '0';
-        wrapper.innerHTML = pdfHtml;
-        document.body.appendChild(wrapper);
-
-        const element = wrapper.firstElementChild;
-        const canvas = await html2canvas(element, { scale:2, useCORS:true, backgroundColor:'#ffffff' });
-        const imgData = canvas.toDataURL('image/png');
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p','mm','a4');
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 10;
-        const imgProps = pdf.getImageProperties(imgData);
-        const pdfImgWidth = pageWidth - margin*2;
-        const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
-
-        if(pdfImgHeight <= pageHeight - margin*2){
-          pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight);
-          pdf.setFontSize(9);
-          pdf.setTextColor(120);
-          pdf.text('GreenBridge — Synthèse indicative', margin, pageHeight - 6);
-        }else{
-          const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
-          let rendered = 0, pageIndex = 0;
-          while(rendered < canvas.height){
-            const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
-            const sliceCanvas = document.createElement('canvas');
-            sliceCanvas.width = canvas.width;
-            sliceCanvas.height = sliceH;
-            const ctx = sliceCanvas.getContext('2d');
-            ctx.fillStyle = '#fff';
-            ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
-            ctx.drawImage(canvas,0,rendered,sliceCanvas.width,sliceCanvas.height,0,0,sliceCanvas.width,sliceCanvas.height);
-            const sliceData = sliceCanvas.toDataURL('image/png');
-            if(pageIndex > 0) pdf.addPage();
-            const sliceImgProps = pdf.getImageProperties(sliceData);
-            const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
-            pdf.addImage(sliceData,'PNG',margin,margin,pdfImgWidth,sliceImgHeight);
-            pdf.setFontSize(9);
-            pdf.setTextColor(120);
-            pdf.text(`Page ${pageIndex+1}`, pageWidth - margin - 20, pageHeight - 6);
-            rendered += sliceH;
-            pageIndex++;
-          }
-        }
-
-        pdf.save('GreenBridge_synthese_puissance.pdf');
-        document.body.removeChild(wrapper);
-      }catch(err){
-        console.error(err);
-        alert("Erreur lors de la génération du PDF.");
-      }
+    function addInitialRooms(){
+      rooms = [];
+      roomCounter = 0;
+      addRooms('Salon', 'Salon', 1, true);
     }
 
     function resetAll(){
-      if(!confirm('Réinitialiser tous les paramètres ?')) return;
-
-      items = catalogue.map(c => ({
-        ...c,
-        qty:0,
-        usage:'Tous les jours',
-        selectedSize:c.defaultSize || (c.sizes ? Object.keys(c.sizes)[0] : undefined),
-        selectedBrand:c.defaultBrand || (c.brands ? Object.keys(c.brands)[0] : undefined)
-      }));
-      pieces = [];
-
-      enableAutres.checked = false;
-      autresPanel.style.display = 'none';
-      autresQty.value = 0;
-      autresPower.value = 0;
-      autresH.value = 0;
-
+      if(!confirm('Réinitialiser tous les paramètres et toutes les pièces ?')) return;
       zoneSelect.value = 'ci';
-      populateZones('ci');
+      populateCities('ci');
 
-      pvCountEl.value = '0';
-      battCountEl.value = '0';
-      sunHoursEl.value = '5';
-      panelTypeEl.value = 'mono';
-      panelWEl.value = '350';
-      panelDeratePctEl.value = '85';
-      dodPctEl.value = '90';
-      measuredKwhPerPanelDayEl.value = '0';
-      prodModeEl.value = 'estimate';
-      panelWRowEl.style.display = 'none';
-      measuredRowEl.style.display = 'none';
+      panelWEl.value = 350;
+      sunHoursEl.value = 5;
+      panelDeratePctEl.value = 85;
+      autonomyDaysEl.value = 1;
+      dodPctEl.value = 90;
+      invEffPctEl.value = 95;
+      battPackKwhEl.value = 1.28;
 
-      renderPieces();
-      renderSubtitlesFromPieces();
+      genBedrooms.value = 1;
+      genLiving.value = 1;
+      genKitchens.value = 1;
+      genBaths.value = 1;
+      genOffices.value = 0;
+      genToilets.value = 0;
+      genAdd.checked = false;
+
+      roomTypeSelect.value = 'Chambre';
+      roomNameInput.value = '';
+      roomCountInput.value = 1;
+
+      addInitialRooms();
       recalc();
     }
 
-    enableAutres.addEventListener('change', ()=>{
-      autresPanel.style.display = enableAutres.checked ? 'block' : 'none';
-      recalc();
-    });
-    [autresQty,autresPower,autresH].forEach(el=>el.addEventListener('input', recalc));
+    function exportSummaryText(){
+      const r = compute();
+      const zoneText = zoneSelect.value === 'sn' ? 'Sénégal' : 'Côte d’Ivoire';
+      const cityText = citySelect.options[citySelect.selectedIndex]?.text || '';
+      const text = [
+        'GREENBRIDGE TECHNOLOGIES — DIMENSIONNEMENT',
+        `Zone : ${zoneText}`,
+        `Ville : ${cityText}`,
+        `Charges : ${r.loads.length}`,
+        `Puissance installée : ${Math.round(r.installedPower)} W`,
+        `Pointe estimée : ${Math.round(r.peakPower)} W`,
+        `Consommation journalière : ${fmt(r.dailyKwh,2)} kWh`,
+        `Consommation mensuelle : ${fmt(r.monthlyKwh,2)} kWh`,
+        `Puissance PV conseillée : ${fmt(r.pvKwRec,2)} kWc`,
+        `Nombre de panneaux estimés : ${r.panelCountRec}`,
+        `Onduleur conseillé : ${fmt(r.inverterRecKva,2)} kVA`,
+        `Stockage conseillé : ${fmt(r.batteryRecKwh,2)} kWh`,
+        `Nombre de packs estimés : ${r.batteryPackRec}`
+      ].join('\n');
+      alert(text);
+    }
 
-    resetBtn.addEventListener('click', resetAll);
-    exportPdfBtn.addEventListener('click', generatePDF);
+    zoneSelect.addEventListener('change', ()=>populateCities(zoneSelect.value));
+    citySelect.addEventListener('change', recalc);
+
+    [panelWEl, sunHoursEl, panelDeratePctEl, autonomyDaysEl, dodPctEl, invEffPctEl, battPackKwhEl].forEach(el=>{
+      el.addEventListener('input', recalc);
+      el.addEventListener('change', recalc);
+    });
 
     generateBtn.addEventListener('click', ()=>{
       const counts = {
-        bedrooms: Math.max(0, Number(genBedrooms.value||0)),
-        living: Math.max(0, Number(genLiving.value||0)),
-        kitchens: Math.max(0, Number(genKitchens.value||0)),
-        baths: Math.max(0, Number(genBaths.value||0)),
-        offices: Math.max(0, Number(genOffices.value||0)),
-        toilets: Math.max(0, Number(genToilets.value||0))
+        bedrooms: Math.max(0, Number(genBedrooms.value || 0)),
+        living: Math.max(0, Number(genLiving.value || 0)),
+        kitchens: Math.max(0, Number(genKitchens.value || 0)),
+        baths: Math.max(0, Number(genBaths.value || 0)),
+        offices: Math.max(0, Number(genOffices.value || 0)),
+        toilets: Math.max(0, Number(genToilets.value || 0))
       };
       const add = genAdd.checked;
-      if(!add) pieces = [];
-      for(let i=0;i<counts.bedrooms;i++) addPieces('Chambre','Chambre',1,true);
-      for(let i=0;i<counts.living;i++) addPieces('Salon','Salon',1,true);
-      for(let i=0;i<counts.kitchens;i++) addPieces('Cuisine','Cuisine',1,true);
-      for(let i=0;i<counts.baths;i++) addPieces("Salle d'eau","Salle d'eau",1,true);
-      for(let i=0;i<counts.offices;i++) addPieces('Bureau','Bureau',1,true);
-      for(let i=0;i<counts.toilets;i++) addPieces('Toilette','Toilette',1,true);
-      renderPieces();
-      renderSubtitlesFromPieces();
+      if(!add) rooms = [];
+      for(let i=0;i<counts.bedrooms;i++) rooms.push(createRoom('Chambre','Chambre',true));
+      for(let i=0;i<counts.living;i++) rooms.push(createRoom('Salon','Salon',true));
+      for(let i=0;i<counts.kitchens;i++) rooms.push(createRoom('Cuisine','Cuisine',true));
+      for(let i=0;i<counts.baths;i++) rooms.push(createRoom("Salle d'eau","Salle d'eau",true));
+      for(let i=0;i<counts.offices;i++) rooms.push(createRoom('Bureau','Bureau',true));
+      for(let i=0;i<counts.toilets;i++) rooms.push(createRoom('Toilette','Toilette',true));
+      renderRooms();
       recalc();
     });
 
-    addRoomsBtn.addEventListener('click', ()=>{
+    addRoomBtn.addEventListener('click', ()=>{
       const type = roomTypeSelect.value || 'Autre';
-      const count = Math.max(1, Number(roomCountInput.value||1));
-      const baseName = roomNameInput.value && roomNameInput.value.trim() ? roomNameInput.value.trim() : type;
-      addPieces(type, baseName, count, true);
-    });
-
-    clearRoomsBtn.addEventListener('click', clearPieces);
-
-    [pvCountEl, panelDeratePctEl, sunHoursEl, battCountEl, dodPctEl, measuredKwhPerPanelDayEl, prodModeEl, panelWEl].forEach(el=>{
-      el.addEventListener('input', recalc);
-    });
-
-    panelTypeEl.addEventListener('change', ()=>{
-      const t = panelTypeEl.value;
-      if(t === 'mono'){ panelWEl.value = 350; panelWRowEl.style.display = 'none'; }
-      else if(t === 'cigs'){ panelWEl.value = 200; panelWRowEl.style.display = 'none'; }
-      else panelWRowEl.style.display = 'flex';
+      const count = Math.max(1, Number(roomCountInput.value || 1));
+      const baseName = roomNameInput.value.trim() || type;
+      for(let i=0;i<count;i++){
+        rooms.push(createRoom(type, count > 1 ? `${baseName} ${i+1}` : baseName, true));
+      }
+      renderRooms();
       recalc();
     });
 
-    prodModeEl.addEventListener('change', ()=>{
-      measuredRowEl.style.display = prodModeEl.value === 'measured' ? 'flex' : 'none';
-      recalc();
-    });
-
-    function populateZones(zone){
-      zoneSelect.innerHTML = '';
-      citySelect.innerHTML = '';
-
-      if(zone === 'ci'){
-        citySelect.appendChild(new Option("Côte d'Ivoire (toutes villes)", 'ci_all'));
-        citySelect.appendChild(new Option("Abidjan", 'ci_abidjan'));
-        citySelect.appendChild(new Option("Yamoussoukro", 'ci_yamoussoukro'));
-        zoneSelect.appendChild(new Option("Côte d'Ivoire", 'ci'));
-        zoneSelect.appendChild(new Option("Sénégal", 'sn'));
-        zoneSelect.value = 'ci';
-        citySelect.value = 'ci_abidjan';
-      }else{
-        citySelect.appendChild(new Option("Sénégal (toutes villes)", 'sn_all'));
-        citySelect.appendChild(new Option("Dakar", 'sn_dakar'));
-        zoneSelect.appendChild(new Option("Côte d'Ivoire", 'ci'));
-        zoneSelect.appendChild(new Option("Sénégal", 'sn'));
-        zoneSelect.value = 'sn';
-        citySelect.value = 'sn_dakar';
-      }
-      zoomToCity(citySelect.value);
-      recalc();
-    }
-
-    (function(){
-      const dropdown = document.getElementById('dropdownEnergie');
-      if(!dropdown) return;
-      const toggle = document.getElementById('energieToggle');
-      const menu = document.getElementById('energieMenu');
-      let hideTimer = null;
-
-      function showMenu(){
-        clearTimeout(hideTimer);
-        menu.classList.add('show');
-        dropdown.setAttribute('aria-expanded','true');
-        toggle.setAttribute('aria-expanded','true');
-      }
-      function hideMenu(){
-        clearTimeout(hideTimer);
-        menu.classList.remove('show');
-        dropdown.setAttribute('aria-expanded','false');
-        toggle.setAttribute('aria-expanded','false');
-      }
-      function scheduleHide(delay=220){
-        clearTimeout(hideTimer);
-        hideTimer = setTimeout(hideMenu, delay);
-      }
-
-      dropdown.addEventListener('mouseenter', ()=>{
-        if(window.matchMedia('(hover:hover) and (min-width:901px)').matches) showMenu();
-      });
-      dropdown.addEventListener('mouseleave', ()=>{
-        if(window.matchMedia('(hover:hover) and (min-width:901px)').matches) scheduleHide(220);
-      });
-      dropdown.addEventListener('focusin', showMenu);
-      dropdown.addEventListener('focusout', ()=>scheduleHide(220));
-
-      toggle.addEventListener('click', e=>{
-        if(window.innerWidth <= 900){
-          e.preventDefault();
-          if(menu.classList.contains('show')) hideMenu();
-          else showMenu();
-          if(mainNav) mainNav.style.display = 'block';
-        }
-      });
-
-      document.addEventListener('click', e=>{
-        if(!dropdown.contains(e.target)) scheduleHide(140);
-      });
-      document.addEventListener('keydown', e=>{
-        if(e.key === 'Escape') hideMenu();
-      });
-      window.addEventListener('resize', ()=>hideMenu());
-
-      menu.querySelectorAll('a').forEach(a=>{
-        a.addEventListener('click', function(){
-          const txt = this.textContent.trim();
-          const badge = toggle.querySelector('.sub-badge');
-          if(badge) badge.textContent = txt;
-          menu.querySelectorAll('a').forEach(x=>x.classList.remove('active'));
-          this.classList.add('active');
-          toggle.classList.add('active');
-          if(window.innerWidth <= 900) hideMenu();
-        });
-      });
-
-      (function setActiveFromPath(){
-        const raw = (window.location.pathname.split('/').pop() || '').toLowerCase();
-        const mapping = {
-          'code1.html':'a[href="code1.html"]',
-          'energie.html':'a[href="energie.html"]',
-          'panneaux.html':'a[href="panneaux.html"]',
-          'batteries.html':'a[href="batteries.html"]',
-          'onduleurs.html':'a[href="onduleurs.html"]',
-          'groupes.html':'a[href="groupes.html"]',
-          'zone_urbaine.html':'a[href="zone_urbaine.html"]',
-          'zone_agricole.html':'a[href="zone_agricole.html"]'
-        };
-        const sel = mapping[raw];
-        if(!sel) return;
-        try{
-          document.querySelectorAll('#mainNav a, .dropdown-content a').forEach(a=>a.classList.remove('active'));
-          const el = document.querySelector(sel);
-          if(el){
-            el.classList.add('active');
-            if(el.closest('.dropdown-content')){
-              const badge = toggle.querySelector('.sub-badge');
-              if(badge) badge.textContent = el.textContent.trim();
-              toggle.classList.add('active');
-            }
-          }
-        }catch(e){ console.warn(e); }
-      })();
-    })();
-
-    menuBtn.addEventListener('click', ()=>{
-      if(mainNav.style.display === 'block') mainNav.style.display = 'none';
-      else mainNav.style.display = 'block';
-    });
-
-    zoneSelect.addEventListener('change', ()=>populateZones(zoneSelect.value));
-    citySelect.addEventListener('change', ()=>{ zoomToCity(citySelect.value); recalc(); });
+    clearRoomsBtn.addEventListener('click', clearRooms);
+    resetBtn.addEventListener('click', resetAll);
+    exportBtn.addEventListener('click', exportSummaryText);
 
     function init(){
-      initMap();
-      zoneSelect.innerHTML = '';
-      citySelect.innerHTML = '';
-      zoneSelect.appendChild(new Option("Côte d'Ivoire", 'ci'));
-      zoneSelect.appendChild(new Option("Sénégal", 'sn'));
-      zoneSelect.value = 'ci';
-      populateZones('ci');
-
-      renderPieces();
-      renderSubtitlesFromPieces();
+      populateCities('ci');
+      addInitialRooms();
       recalc();
     }
     init();
