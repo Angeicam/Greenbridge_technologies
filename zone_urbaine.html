@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenBridge Énergie — Nos Produits</title>
+  <title>GreenBridge Énergie — Dimensionnement</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -23,9 +23,6 @@
       --muted-text-color:#e6f7ea;
       --muted-text-size:15px;
       --electric-yellow:#ffd600;
-      --release-orange:#ff7a18;
-      --release-orange-2:#ffb347;
-      --card-bg:#061f14;
     }
 
     *{box-sizing:border-box}
@@ -469,7 +466,7 @@
       text-align:center
     }
 
-    .products-intro{
+    .study-intro{
       max-width:1000px;
       margin:0 auto 24px;
       color:var(--muted-text-color);
@@ -479,118 +476,6 @@
       opacity:0.95;
     }
 
-    .grid-4{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:20px;
-      max-width:1200px;
-      margin:0 auto;
-    }
-    .card{
-      position:relative;
-      background:#061f14;
-      border-radius:16px;
-      overflow:hidden;
-      min-height:420px;
-      box-shadow:0 10px 22px rgba(0,0,0,0.45);
-      border:1px solid rgba(212,175,55,0.85);
-    }
-    .card .image-wrap{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-    }
-    .card .image-wrap img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-      transition:transform .3s, filter .3s;
-    }
-    .card:hover .image-wrap img{
-      transform:scale(1.05);
-      filter:brightness(1.02) contrast(1.03);
-    }
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);
-      z-index:1;
-    }
-    .card-content{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:2;
-      padding:22px 18px 20px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:center;
-      text-align:center;
-      background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
-    }
-    .card-content h3{
-      margin:0;
-      font-size:18px;
-      line-height:1.15;
-      min-height:42px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--accent-2);
-      width:100%;
-      text-align:center;
-    }
-    .card-content p{
-      margin:0;
-      color:#e6f7ea;
-      font-size:15px;
-      line-height:1.6;
-    }
-    .card .btn-card{
-      margin:10px auto 0;
-      padding:10px 18px;
-      border-radius:10px;
-      border:0;
-      background:var(--gold-base);
-      color:#072012;
-      font-weight:800;
-      cursor:pointer;
-      font-size:14px;
-    }
-    .card .btn-card:hover{background:var(--gold-hover)}
-
-    .advantages{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top:8px
-    }
-    .advantage{
-      width:260px;
-      background:#072b1b;
-      border-radius:12px;
-      padding:18px;
-      text-align:center
-    }
-    .advantage i{
-      font-size:34px;
-      color:var(--accent);
-      margin-bottom:8px
-    }
-    .advantage h3{
-      color:#dfffe6;
-      margin:6px 0
-    }
-
-    /* PARTIE BASSE AJOUTÉE / DIMENSIONNEMENT */
     .card-soft{
       background:rgba(6,31,20,0.60);
       border:1px solid rgba(212,175,55,0.12);
@@ -1012,7 +897,6 @@
     }
 
     @media (max-width:1100px){
-      .grid-4{grid-template-columns:repeat(2,1fr)}
       .solar-grid{grid-template-columns:1fr}
       .consumer-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
@@ -1252,8 +1136,7 @@
 
     <nav aria-label="Menu principal">
       <a href="GreenBrigde technologies.html">Accueil</a>
-      <a href="etude_dimensionnement_2.html">Étude</a>
-      <a href="#produits" class="active">Nos Produits</a>
+      <a href="etude_dimensionnement_2.html" class="active">Étude</a>
       <a href="Projets.html">Projets futurs</a>
       <a href="maintenance.html">Maintenance</a>
     </nav>
@@ -1276,8 +1159,7 @@
 
       <div class="menu-links">
         <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
-        <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
-        <a href="#produits" class="mobile-link active">Nos Produits</a>
+        <a href="etude_dimensionnement_2.html" class="mobile-link active">Étude</a>
         <a href="Projets.html" class="mobile-link">Projets futurs</a>
         <a href="maintenance.html" class="mobile-link">Maintenance</a>
       </div>
@@ -1300,76 +1182,21 @@
   </div>
 
   <section class="hero" id="top" aria-label="Hero">
-    <img class="hero-bg" src="Nos_produits_1.png" alt="Illustration GreenBridge Énergie">
+    <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration dimensionnement urbain">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Nos Produits</h1>
-      <p>Découvrez une gamme complète de solutions énergétiques conçues pour la performance, la fiabilité et l’adaptation au contexte local.</p>
+      <h1>Dimensionnement de puissance</h1>
+      <p>Définissez les besoins, calibrez les charges et obtenez une base sérieuse pour la puissance, les panneaux et le stockage.</p>
       <div class="hero-actions">
-        <a class="btn-primary" href="#produits">Découvrir le catalogue</a>
+        <a class="btn-primary" href="#dimensionnement">Commencer l'étude</a>
       </div>
-    </div>
-  </section>
-
-  <section id="produits" class="section" aria-label="Nos produits">
-    <h2>Notre catalogue</h2>
-    <p class="products-intro">
-      Nous proposons une gamme complète : panneaux solaires, batteries, onduleurs et groupes électrogènes. Nos solutions sont dimensionnées pour assurer performance, durabilité et facilité de maintenance.
-    </p>
-
-    <div class="grid-4" role="list">
-      <article class="card" role="listitem" aria-label="Panneaux solaires">
-        <div class="image-wrap"><img src="chantier_solaire.png" alt="Panneaux solaires"></div>
-        <div class="card-content">
-          <h3>Panneaux solaires</h3>
-          <p>Modules monocristallins haut rendement, résistants aux conditions locales et garantis 10 ans. Installation complète et optimisation de l'orientation.</p>
-          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
-        </div>
-      </article>
-
-      <article class="card" role="listitem" aria-label="Batteries & stockage">
-        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Batteries & stockage"></div>
-        <div class="card-content">
-          <h3>Batteries & stockage</h3>
-          <p>Solutions lithium-ion et plomb-acide : stockage modulable, gestion intelligente de charge et monitoring à distance pour une efficacité durable.</p>
-          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
-        </div>
-      </article>
-
-      <article class="card" role="listitem" aria-label="Onduleurs">
-        <div class="image-wrap"><img src="onduleur_tech.png" alt="Onduleurs"></div>
-        <div class="card-content">
-          <h3>Onduleurs</h3>
-          <p>Onduleurs hybrides et on-grid pour conversion efficace, protection contre surtensions et gestion intelligente des micro-réseaux.</p>
-          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
-        </div>
-      </article>
-
-      <article class="card" role="listitem" aria-label="Groupes électrogènes">
-        <div class="image-wrap"><img src="technicien_groupe_elctro.png" alt="Groupes électrogènes"></div>
-        <div class="card-content">
-          <h3>Groupes électrogènes</h3>
-          <p>Groupes de secours diesel et gaz, silencieux, avec démarrage automatique et service de maintenance sur site pour garantir continuité.</p>
-          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section section-alt">
-    <h2>Pourquoi choisir nos produits ?</h2>
-    <div class="advantages" role="list">
-      <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Efficacité</h3><p>Maximisez le rendement et l’économie d’énergie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Fiabilité</h3><p>Installation professionnelle et maintenance garantie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-globe-africa" aria-hidden="true"></i><h3>Local</h3><p>Expertise adaptée au marché ivoirien</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-award" aria-hidden="true"></i><h3>5 ans de garantie</h3><p>Tranquillité, suivi et accompagnement sur la durée</p></div>
     </div>
   </section>
 
   <section id="dimensionnement" class="section" aria-label="Étude de dimensionnement">
     <h2>Étude de dimensionnement</h2>
-    <p class="products-intro">
-      Cette partie est pensée pour le calcul rapide et lisible du besoin en puissance, sans débordement sur téléphone. Les blocs s’adaptent automatiquement à l’écran.
+    <p class="study-intro">
+      Cette page est dédiée au dimensionnement pur : vous créez vos pièces, ajoutez les charges nécessaires, puis vous obtenez instantanément la consommation, la puissance installée et les recommandations de système.
     </p>
 
     <div class="card-soft">
@@ -1447,7 +1274,7 @@
         <div id="roomsList" class="room-list"></div>
         <div class="small-note" style="margin-top:8px">Chaque pièce peut être détaillée avec ses charges.</div>
 
-        <div style="margin-top:16px" class="solar-panel">
+        <div style="margin-top:14px" class="solar-panel">
           <h4 style="margin:0 0 8px 0;color:#04462e">Paramètres du système</h4>
           <div class="solar-grid">
             <div class="solar-block">
@@ -1583,7 +1410,7 @@
           </div>
         </div>
 
-        <div class="pdf-note">Dimensionnement sérieux, sans notion de prix. La mise en page est renforcée pour tenir proprement sur mobile.</div>
+        <div class="pdf-note">Dimensionnement sérieux, sans notion de prix. La mise en page a été renforcée pour tenir proprement sur mobile.</div>
       </div>
     </div>
   </section>
