@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenBridge Énergie</title>
+  <title>GreenBridge — Étude</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
   <style>
     :root{
@@ -25,6 +27,7 @@
       --electric-yellow:#ffd600;
       --release-orange:#ff7a18;
       --release-orange-2:#ffb347;
+      --shadow:0 10px 22px rgba(0,0,0,.35);
     }
 
     *{box-sizing:border-box}
@@ -39,6 +42,8 @@
     }
     body.menu-open{overflow:hidden}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button,input,select,textarea{font-family:inherit}
 
     .topbar{
       position:fixed;
@@ -59,6 +64,7 @@
       display:flex;
       align-items:center;
       gap:12px;
+      min-width:0;
     }
     .topbar a{
       color:#fff;
@@ -85,6 +91,7 @@
       padding:0 5vw;
       z-index:1490;
       box-shadow:0 4px 12px rgba(0,0,0,.25);
+      gap:12px;
     }
 
     .logo-text{
@@ -92,11 +99,15 @@
       align-items:center;
       gap:12px;
       min-width:0;
+      flex:1 1 auto;
+      overflow:hidden;
     }
     .logo-text img{
       height:66px;
+      width:auto;
       display:block;
       flex:0 0 auto;
+      object-fit:contain;
     }
 
     .brand-stack{
@@ -109,6 +120,7 @@
       min-width:0;
       margin:0;
       padding:0;
+      overflow:hidden;
     }
 
     .company-name{
@@ -436,7 +448,7 @@
       text-shadow:0 2px 8px rgba(0,0,0,0.45)
     }
     .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    .btn-primary,.btn-secondary{
+    .btn-primary,.btn-secondary,.btn-outline{
       padding:14px 26px;
       border-radius:10px;
       border:0;
@@ -446,6 +458,19 @@
     }
     .btn-primary{background:var(--accent);color:#fff}
     .btn-primary:hover{background:var(--accent-2)}
+    .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
+    .btn-secondary:hover{background:rgba(255,255,255,0.08)}
+    .btn-outline{
+      padding:12px 16px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.32);
+      background:transparent;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+      font-size:14px;
+    }
+    .btn-outline:hover{background:rgba(255,255,255,0.08)}
 
     .section{padding:60px 5vw}
     .section h2{
@@ -455,7 +480,7 @@
       text-align:center
     }
 
-    .products-intro,.estimation-intro,.activities-intro{
+    .products-intro,.activities-intro,.gb-carousel-intro{
       max-width:1000px;
       margin:0 auto 24px;
       color:var(--muted-text-color);
@@ -464,182 +489,6 @@
       line-height:1.7;
       opacity:0.95;
     }
-
-    .grid-4{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:20px;
-      max-width:1200px;
-      margin:0 auto;
-    }
-    .card{
-      position:relative;
-      background:#061f14;
-      border-radius:16px;
-      overflow:hidden;
-      min-height:420px;
-      box-shadow:0 10px 22px rgba(0,0,0,0.45);
-      border:1px solid rgba(212,175,55,0.85);
-    }
-    .card .image-wrap{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-    }
-    .card .image-wrap img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-      transition:transform .3s, filter .3s;
-    }
-    .card:hover .image-wrap img{
-      transform:scale(1.05);
-      filter:brightness(1.02) contrast(1.03);
-    }
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);
-      z-index:1;
-    }
-    .card-content{
-      position:absolute;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:2;
-      padding:22px 18px 20px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:center;
-      text-align:center;
-      background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
-    }
-    .card-content h3{
-      margin:0;
-      font-size:18px;
-      line-height:1.15;
-      min-height:42px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--accent-2);
-      width:100%;
-      text-align:center;
-    }
-    .card-content p{
-      margin:0;
-      color:#e6f7ea;
-      font-size:15px;
-      line-height:1.6;
-    }
-    .card .btn-card{
-      margin:10px auto 0;
-      padding:10px 18px;
-      border-radius:10px;
-      border:0;
-      background:var(--gold-base);
-      color:#072012;
-      font-weight:800;
-      cursor:pointer;
-      font-size:14px;
-    }
-    .card .btn-card:hover{background:var(--gold-hover)}
-
-    .advantages{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top:8px
-    }
-    .advantage{
-      width:260px;
-      background:#072b1b;
-      border-radius:12px;
-      padding:18px;
-      text-align:center
-    }
-    .advantage i{
-      font-size:34px;
-      color:var(--accent);
-      margin-bottom:8px
-    }
-    .advantage h3{
-      color:#dfffe6;
-      margin:6px 0
-    }
-
-    #devis form{
-      max-width:520px;
-      margin:18px auto 0;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background:rgba(0,0,0,0.55);
-      padding:20px;
-      border-radius:12px;
-      box-shadow:0 6px 20px rgba(0,0,0,0.4)
-    }
-    #devis input,#devis textarea,#devis select{
-      width:100%;
-      padding:12px;
-      border-radius:8px;
-      border:1px solid rgba(124,179,66,0.18);
-      background:transparent;
-      color:#fff;
-      font-size:14px
-    }
-    #devis input::placeholder,#devis textarea::placeholder{color:#dbeed8}
-    #devis button{
-      align-self:center;
-      padding:12px 26px;
-      border-radius:10px;
-      border:0;
-      background:var(--accent);
-      color:#072012;
-      font-weight:700;
-      cursor:pointer
-    }
-    #devis button:hover{background:var(--accent-2)}
-
-    footer{
-      background:var(--green-dark);
-      color:#fff;
-      padding:28px 5vw 36px;
-      position:relative;
-      margin-top:40px;
-      text-align:center;
-    }
-    footer::before{
-      content:"";
-      position:absolute;
-      left:0;
-      right:0;
-      top:0;
-      height:2px;
-      background:var(--gold-base)
-    }
-    .footer-company{
-      display:block;
-      margin:0 auto 8px;
-      font-size:20px;
-      font-weight:800;
-      color:#04462e;
-      -webkit-text-stroke:0.7px var(--gold-base);
-      text-shadow:0 3px 6px rgba(0,0,0,0.6);
-      padding:4px 8px;
-      border-radius:6px;
-      width:max-content;
-      background:linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%)
-    }
-    .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
     .zones-cards{
       display:flex;
@@ -697,483 +546,273 @@
       text-align:center
     }
 
-    .gb-carousel{
-      position:relative;
+    .study-shell{
       max-width:1240px;
       margin:0 auto;
-      padding-top:8px;
     }
-    .gb-carousel-intro{
-      max-width:1000px;
-      margin:0 auto 24px;
-      color:var(--muted-text-color);
-      text-align:center;
-      font-size:var(--muted-text-size);
-      line-height:1.6;
-      opacity:0.95;
-    }
-    .gb-track-wrap{
-      overflow:hidden;
-      border-radius:26px;
-      border:1px solid rgba(212,175,55,.28);
-      box-shadow:0 16px 38px rgba(0,0,0,.44);
-      background:linear-gradient(135deg, rgba(3,12,8,.96), rgba(6,31,20,.96));
-    }
-    .gb-track{
-      display:flex;
-      flex-wrap:nowrap;
-      width:100%;
-      margin:0;
-      padding:0;
-      list-style:none;
-      transform:translate3d(0,0,0);
-      transition:transform .75s cubic-bezier(.22,.8,.22,1);
-      will-change:transform;
-    }
-    .gb-slide{
-      flex:0 0 100%;
-      min-width:100%;
-      list-style:none;
-    }
-    .gb-slide-inner{
-      margin:0;
-      display:grid;
-      grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-      min-height:500px;
-      align-items:stretch;
-      background:linear-gradient(135deg, rgba(6,31,20,0.98), rgba(7,50,23,0.96));
-    }
-    .gb-media{
-      padding:26px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: radial-gradient(circle at center, rgba(168,230,161,0.08), rgba(0,0,0,0) 60%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
-    }
-    .gb-media-frame{
-      width:100%;
-      height:100%;
-      min-height:420px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+
+    .study-details{
+      background:linear-gradient(180deg, rgba(6,31,20,.96), rgba(7,50,23,.96));
       border-radius:22px;
+      border:1px solid rgba(212,175,55,.18);
+      box-shadow:0 14px 36px rgba(0,0,0,.26);
       overflow:hidden;
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.06);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
-      padding:18px;
+      margin-top:18px;
     }
-    .gb-media-frame img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      object-position:center center;
-      display:block;
-      filter:drop-shadow(0 14px 24px rgba(0,0,0,0.35));
-    }
-    .gb-desc{
+    .study-details > summary{
+      list-style:none;
+      cursor:pointer;
+      padding:18px 20px;
+      background:linear-gradient(90deg, rgba(7,50,23,.85), rgba(6,31,20,.95));
       display:flex;
-      flex-direction:column;
-      justify-content:center;
       align-items:center;
-      text-align:center;
+      justify-content:space-between;
       gap:14px;
-      padding:34px 30px;
-      border-left:1px solid rgba(212,175,55,0.12);
+      font-weight:800;
+      color:#fff;
+      border-bottom:1px solid rgba(255,255,255,.06);
     }
-    .gb-kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 12px;
-      border-radius:999px;
-      background:rgba(168,230,161,0.10);
-      border:1px solid rgba(168,230,161,0.16);
+    .study-details > summary::-webkit-details-marker{display:none}
+    .study-details > summary .meta{
+      font-size:13px;
       color:#dfffe6;
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:.5px;
-      text-transform:uppercase;
+      font-weight:600;
+      opacity:.9;
     }
-    .gb-release{
-      display:inline-block;
-      margin-left:6px;
-      padding:3px 10px;
+    .study-details > summary .toggle{
+      width:34px;
+      height:34px;
       border-radius:999px;
-      background:linear-gradient(90deg, var(--release-orange), var(--release-orange-2));
-      color:#1b0d00;
-      font-weight:900;
-      letter-spacing:.3px;
-      box-shadow:0 8px 18px rgba(255,122,24,0.28);
-      border:1px solid rgba(255,255,255,0.18);
-      text-transform:none;
+      background:rgba(212,175,55,.12);
+      display:grid;
+      place-items:center;
+      color:var(--gold-base);
+      flex:0 0 auto;
+      transition:transform .2s ease;
     }
-    .gb-desc h3{
-      margin:0;
-      font-size:clamp(22px, 2.2vw, 30px);
-      color:var(--accent-2);
-      line-height:1.2;
-      max-width:95%;
-      text-wrap:balance;
+    .study-details[open] > summary .toggle{transform:rotate(180deg)}
+
+    .step-body{
+      padding:16px;
+      background:rgba(0,0,0,.14);
     }
-    .gb-summary{
-      margin:0;
-      color:#edf9ec;
-      line-height:1.75;
-      font-size:15px;
-      max-width:92%;
-    }
-    .gb-highlights{
+
+    .study-row{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px;
-      width:100%;
-      max-width:460px;
-      margin-top:4px;
+      gap:14px;
+      margin-bottom:14px;
     }
-    .gb-highlight{
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(212,175,55,0.14);
-      border-radius:14px;
-      padding:12px 14px;
-      text-align:left;
-      min-height:72px;
+    .study-row-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    .field{
       display:flex;
       flex-direction:column;
-      justify-content:center;
+      gap:8px;
     }
-    .gb-highlight strong{
-      display:block;
-      color:var(--accent-2);
-      font-size:12px;
-      letter-spacing:.3px;
-      margin-bottom:4px;
-      text-transform:uppercase;
-    }
-    .gb-highlight span{
-      color:#eaf9ea;
+    .field label{
       font-size:13px;
+      font-weight:700;
+      color:#eaf9ea;
+    }
+    .field input,.field select,.field textarea{
+      width:100%;
+      padding:12px;
+      border-radius:8px;
+      border:1px solid rgba(124,179,66,0.18);
+      background:rgba(0,0,0,0.18);
+      color:#fff;
+      font-size:14px;
+      outline:none;
+    }
+    .field input::placeholder,.field textarea::placeholder{color:#dbeed8}
+
+    .results{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+    .result-card{
+      background:linear-gradient(180deg,#fbfffb,#f3fff2);
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(3,50,26,.06);
+      box-shadow:0 14px 36px rgba(2,22,12,.12);
+      color:#072012;
+      min-height:118px;
+    }
+    .result-card .label{
+      font-size:13px;
+      color:#6b7f6b;
+      text-transform:uppercase;
+      letter-spacing:.6px;
+    }
+    .result-card .value{
+      font-weight:900;
+      font-size:20px;
+      color:var(--green-mid-2);
+      margin-top:6px;
+      display:inline-block;
+    }
+    .result-card .small{
+      font-size:13px;
+      color:#6b7f6b;
+      margin-top:6px;
       line-height:1.45;
     }
-    .gb-btn{
+
+    .consumer{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 12px;
+      border-radius:12px;
+      background:#fff;
+      border:1px solid #eee;
+      color:#072012;
+      gap:10px;
+      margin-top:8px;
+    }
+    .consumer .meta{font-size:13px;color:#6b7f6b}
+
+    .summary{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    .big{
+      padding:18px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid #e6f3ea;
+      color:#072012;
+      box-shadow:var(--shadow);
+    }
+    .big h2{
+      margin:0;
+      color:#04462e;
+      text-align:left;
+      font-size:24px;
+    }
+    .kpi{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    .kpi .num{
+      font-weight:900;
+      font-size:22px;
+      color:#0b4d26;
+    }
+    .kpi .muted{font-size:13px;color:#6b7f6b}
+    .note{
+      font-size:12px;
+      color:#6b7f6b;
+      margin-top:10px;
+      line-height:1.6;
+    }
+
+    #mapCard{padding:0;overflow:hidden}
+    #map{height:260px;border-radius:0}
+
+    footer{
+      background:var(--green-dark);
+      color:#fff;
+      padding:28px 5vw 36px;
+      position:relative;
+      margin-top:40px;
+      text-align:center;
+    }
+    footer::before{
+      content:"";
       position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:48px;
-      height:48px;
-      border:none;
-      border-radius:50%;
-      cursor:pointer;
-      z-index:3;
+      left:0;
+      right:0;
+      top:0;
+      height:2px;
+      background:var(--gold-base)
+    }
+    .footer-company{
+      display:block;
+      margin:0 auto 8px;
+      font-size:20px;
+      font-weight:800;
+      color:#04462e;
+      -webkit-text-stroke:0.7px var(--gold-base);
+      text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      padding:4px 8px;
+      border-radius:6px;
+      width:max-content;
+      background:linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%)
+    }
+    .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
+
+    .card-dark{
+      background:linear-gradient(180deg, rgba(6,31,20,.96), rgba(7,50,23,.96));
+      border-radius:24px;
+      border:1px solid rgba(212,175,55,.20);
+      box-shadow:0 14px 36px rgba(0,0,0,.26);
+      overflow:hidden;
+      color:#fff;
+    }
+
+    .zone-title{
+      color:var(--accent-2);
+      text-align:center;
+      font-size:32px;
+      margin:0 0 18px;
+    }
+
+    .room-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-start;
+      margin-top:12px;
+    }
+
+    .room-box{
+      background:#fff;
+      color:#072012;
+      border-radius:16px;
+      border:1px solid #e6f3ea;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .room-header{
       display:flex;
       align-items:center;
-      justify-content:center;
-      font-size:28px;
-      font-weight:700;
-      color:#061f14;
-      background:rgba(212,175,55,0.95);
-      box-shadow:0 8px 18px rgba(0,0,0,0.25);
-      transition:transform .18s, background .18s, opacity .18s;
-    }
-    .gb-btn:hover{
-      background:var(--gold-hover);
-      transform:translateY(-50%) scale(1.04);
-    }
-    .gb-prev{left:14px}
-    .gb-next{right:14px}
-    .gb-dots{
-      display:flex;
-      justify-content:center;
+      justify-content:space-between;
       gap:10px;
-      margin-top:16px;
-      flex-wrap:wrap;
+      padding:14px 16px;
+      background:linear-gradient(180deg,#ffffff,#f5fff4);
+      border-bottom:1px solid #e7f2e8;
     }
-    .gb-dot{
-      width:12px;
-      height:12px;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-      background:rgba(255,255,255,0.38);
-      transition:all .22s ease;
-      padding:0;
+    .room-header strong{font-size:16px;color:#04462e}
+    .room-content{padding:16px;}
+    .room-consumers{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+    .room-consumer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid #edf4ef;
+      border-radius:12px;
+      background:#fff;
     }
-    .gb-dot.active{
-      width:34px;
-      background:var(--gold-base);
-      box-shadow:0 0 0 4px rgba(212,175,55,0.10);
-    }
-
-    @media (max-width:1100px){
-      .grid-4{grid-template-columns:repeat(2,1fr)}
-      .gb-slide-inner{grid-template-columns:1fr}
-      .gb-desc{
-        border-left:none;
-        border-top:1px solid rgba(212,175,55,0.12);
-      }
-      .gb-media-frame{min-height:320px}
-    }
-
-    @media (max-width:820px){
-      :root{
-        --topbar-h:42px;
-        --header-h:80px;
-      }
-
-      nav{display:none}
-      .burger{display:flex}
-
-      .topbar{
-        padding:0 4vw;
-        font-size:12px;
-      }
-
-      header{
-        padding:0 4vw;
-      }
-
-      .logo-text{
-        gap:8px;
-        align-items:center;
-      }
-      .logo-text img{
-        height:52px;
-      }
-
-      .company-name{
-        font-size:38px;
-        letter-spacing:.15px;
-      }
-
-      .company-tagline{
-        font-size:14px;
-        letter-spacing:3px;
-      }
-
-      .hero{
-        height:auto;
-        min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
-      }
-      .hero-bg{
-        object-position:center center;
-        transform:scale(1.12) translateY(0);
-      }
-      .hero-content{
-        max-width:88vw;
-        padding:24px 14px;
-      }
-      .hero-content h1{
-        font-size:clamp(24px, 5.2vw, 34px);
-      }
-      .hero-content p{
-        font-size:16px;
-      }
-
-      .section{padding:52px 4vw}
-      .grid-4{
-        grid-template-columns:1fr;
-        gap:18px;
-      }
-      .card{min-height:360px}
-      .card .image-wrap{height:220px}
-      .card-content{padding:18px}
-      .card-content h3{min-height:auto}
-      .card-content p{font-size:14px}
-      .card .btn-card{
-        margin:12px auto 0;
-        font-size:15px;
-        padding:10px 20px;
-      }
-
-      .zones-cards{
-        flex-direction:column;
-        align-items:center;
-      }
-      .zone-card{
-        width:100%;
-        min-width:0;
-        max-width:none;
-        height:210px;
-      }
-      .zone-card h3{
-        font-size:18px;
-        bottom:10px;
-        padding:8px 12px;
-      }
-
-      .gb-desc{padding:24px 18px}
-      .gb-desc h3{font-size:22px}
-      .gb-summary{font-size:14px}
-      .gb-highlights{grid-template-columns:1fr; max-width:100%}
-      .gb-media-frame{min-height:280px; padding:12px}
-      .gb-btn{width:42px; height:42px; font-size:24px}
-
-      .advantages{
-        flex-direction:column;
-        align-items:center;
-      }
-      .advantage{
-        width:100%;
-        max-width:420px;
-      }
-
-      #devis form{padding:16px}
-
-      .mobile-brand{
-        padding:28px 4px 12px;
-      }
-      .mobile-brand .company-name{
-        font-size:30px;
-      }
-      .mobile-brand .company-tagline{
-        font-size:12px;
-        letter-spacing:3px;
-      }
-    }
-
-    @media (max-width:480px){
-      :root{
-        --topbar-h:40px;
-        --header-h:76px;
-      }
-
-      .topbar{
-        font-size:11px;
-        padding:0 3.5vw;
-      }
-
-      header{
-        padding:0 3.5vw;
-      }
-
-      .logo-text img{
-        height:46px;
-      }
-      .company-name{
-        font-size:30px;
-        letter-spacing:.08px;
-      }
-      .company-tagline{
-        font-size:10px;
-        letter-spacing:2px;
-      }
-
-      .burger{
-        width:48px;
-        height:48px;
-      }
-
-      .hero{
-        min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
-      }
-      .hero-bg{
-        object-position:center 28%;
-        transform:scale(1.18) translateY(0);
-      }
-      .hero-content{
-        max-width:92vw;
-        padding:18px 12px;
-      }
-      .hero-content h1{
-        font-size:24px;
-        line-height:1.2;
-        margin-bottom:8px;
-        white-space:normal;
-      }
-      .hero-content p{
-        font-size:15px;
-        line-height:1.45;
-        white-space:normal;
-        overflow:visible;
-        text-overflow:clip;
-      }
-
-      .btn-primary{
-        padding:12px 22px;
-        font-size:14px;
-      }
-
-      .section h2{font-size:26px}
-
-      .card{min-height:330px}
-      .card .image-wrap{height:190px}
-      .card-content{padding:14px 12px 16px}
-      .card-content h3{font-size:17px}
-      .card-content p{font-size:13px; line-height:1.5}
-
-      .zone-card{height:190px}
-      .zone-card h3{font-size:17px}
-
-      .gb-media-frame{min-height:230px}
-      .gb-desc h3{font-size:20px}
-      .gb-summary{font-size:13px}
-      .gb-kicker{font-size:11px}
-      .gb-release{
-        font-size:11px;
-        margin-left:4px;
-        padding:3px 8px;
-      }
-
-      .advantage{padding:16px 14px}
-      .advantage i{font-size:30px}
-
-      #devis input,#devis textarea,#devis select{
-        font-size:13px;
-        padding:11px;
-      }
-
-      .footer-company{font-size:17px}
-
-      .electric-band{
-        top:calc(var(--topbar-h) + var(--header-h) - 4px);
-        height:12px;
-      }
-      .electric-band .container{
-        width:100%;
-        left:0;
-        padding:0 4vw;
-        box-sizing:border-box;
-      }
-      .glowline{
-        width:86%;
-        max-width:86%;
-      }
-
-      .mobile-panel{
-        padding:16px 4.5vw 20px;
-      }
-
-      .mobile-brand{
-        padding-top:54px;
-      }
-
-      .mobile-brand .company-name{
-        font-size:30px;
-      }
-      .mobile-brand .company-tagline{
-        font-size:10px;
-        letter-spacing:3px;
-      }
-
-      .mobile-nav a.mobile-link{
-        font-size:20px;
-        min-height:62px;
-        padding:16px 16px;
-      }
-
-      .mobile-contact .phone-line{
-        font-size:15px;
-      }
-
-      .socials{
-        gap:14px;
-      }
-      .socials a{
-        width:40px;
-        height:40px;
-        font-size:18px;
-      }
+    .room-consumer .meta{
+      color:#6b7f6b;
+      font-size:13px;
+      margin-top:2px;
     }
 
     .electric-band {
@@ -1217,7 +856,6 @@
       stroke-linejoin: round;
       opacity: 0.98;
     }
-
     .orbs {
       position: absolute;
       left: 0;
@@ -1239,14 +877,8 @@
       transition: opacity .18s linear;
     }
     .electric-band.connected .orb { opacity:1; }
-
-    @keyframes buzz {
-      0% { transform: translate(-50%,-50%) translateX(-2px); }
-      50% { transform: translate(-50%,-50%) translateX(2px); }
-      100% { transform: translate(-50%,-50%) translateX(-2px); }
-    }
+    @keyframes buzz { 0% { transform: translate(-50%,-50%) translateX(-2px); } 50% { transform: translate(-50%,-50%) translateX(2px); } 100% { transform: translate(-50%,-50%) translateX(-2px); } }
     .orb.buzz { animation: buzz 0.9s linear infinite; }
-
     .glowline {
       position:absolute;
       left:50%;
@@ -1270,10 +902,227 @@
       50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 }
       100%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
     }
+
+    @media (max-width:1100px){
+      .study-row,.study-row-3,.summary,.kpi,.results{grid-template-columns:1fr;}
+    }
+
+    @media (max-width:820px){
+      nav{display:none}
+      .burger{display:flex}
+      :root{
+        --topbar-h:42px;
+        --header-h:80px;
+      }
+      .topbar{
+        padding:0 4vw;
+        font-size:12px;
+      }
+      header{padding:0 4vw;}
+      .logo-text{gap:8px;align-items:center;}
+      .logo-text img{height:52px;}
+      .company-name{
+        font-size:36px;
+        white-space:nowrap;
+        line-height:1;
+        letter-spacing:.2px;
+        text-align:center;
+      }
+      .company-tagline{
+        font-size:14px;
+        letter-spacing:3px;
+        white-space:nowrap;
+        text-align:center;
+      }
+      .hero{
+        height:auto;
+        min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      }
+      .hero-bg{
+        object-position:center center;
+        transform:scale(1.12) translateY(0);
+      }
+      .hero-content{
+        max-width:88vw;
+        padding:24px 14px;
+      }
+      .hero-content h1{font-size:clamp(24px, 5.2vw, 34px);}
+      .hero-content p{font-size:16px;}
+      .section{padding:52px 4vw}
+      .grid-4{grid-template-columns:1fr;gap:18px;}
+      .card{min-height:360px}
+      .card .image-wrap{height:220px}
+      .card-content{padding:18px}
+      .card-content h3{min-height:auto}
+      .card-content p{font-size:14px}
+      .card .btn-card{
+        margin:12px auto 0;
+        font-size:15px;
+        padding:10px 20px;
+      }
+      .zones-cards{flex-direction:column;align-items:center;}
+      .zone-card{
+        width:100%;
+        min-width:0;
+        max-width:none;
+        height:210px;
+      }
+      .zone-card h3{
+        font-size:18px;
+        bottom:10px;
+        padding:8px 12px;
+      }
+      .gb-desc{padding:24px 18px}
+      .gb-desc h3{font-size:22px}
+      .gb-summary{font-size:14px}
+      .gb-highlights{grid-template-columns:1fr; max-width:100%}
+      .gb-media-frame{min-height:280px; padding:12px}
+      .gb-btn{width:42px; height:42px; font-size:24px}
+      .advantages{flex-direction:column;align-items:center;}
+      .advantage{width:100%;max-width:420px;}
+      #devis form{padding:16px}
+      .mobile-nav.open{
+        max-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      }
+
+      .mobile-brand{
+        padding:28px 4px 12px;
+      }
+      .mobile-brand .company-name{
+        font-size:32px;
+      }
+      .mobile-brand .company-tagline{
+        font-size:13px;
+        letter-spacing:3px;
+      }
+    }
+
+    @media (max-width:480px){
+      :root{
+        --topbar-h:40px;
+        --header-h:76px;
+      }
+      .topbar{
+        font-size:11px;
+        padding:0 3.5vw;
+      }
+      header{padding:0 3.5vw;}
+      .logo-text img{height:46px;}
+      .company-name{
+        font-size:30px;
+        letter-spacing:.08px;
+      }
+      .company-tagline{
+        font-size:10px;
+        letter-spacing:2px;
+      }
+      .burger{width:48px;height:48px;}
+      .hero{
+        min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      }
+      .hero-bg{
+        object-position:center 28%;
+        transform:scale(1.18) translateY(0);
+      }
+      .hero-content{
+        max-width:92vw;
+        padding:18px 12px;
+      }
+      .hero-content h1{
+        font-size:24px;
+        line-height:1.2;
+        margin-bottom:8px;
+        white-space:normal;
+      }
+      .hero-content p{
+        font-size:15px;
+        line-height:1.45;
+        white-space:normal;
+        overflow:visible;
+        text-overflow:clip;
+      }
+      .btn-primary{
+        padding:12px 22px;
+        font-size:14px;
+      }
+      .section h2{font-size:26px}
+      .card{min-height:330px}
+      .card .image-wrap{height:190px}
+      .card-content{padding:14px 12px 16px}
+      .card-content h3{font-size:17px}
+      .card-content p{font-size:13px; line-height:1.5}
+      .zone-card{height:190px}
+      .zone-card h3{font-size:17px}
+      .gb-media-frame{min-height:230px}
+      .gb-desc h3{font-size:20px}
+      .gb-summary{font-size:13px}
+      .gb-kicker{font-size:11px}
+      .gb-release{
+        font-size:11px;
+        margin-left:4px;
+        padding:3px 8px;
+      }
+      .advantage{padding:16px 14px}
+      .advantage i{font-size:30px}
+      #devis input,#devis textarea,#devis select{
+        font-size:13px;
+        padding:11px;
+      }
+      .footer-company{font-size:17px}
+      .electric-band{
+        top:calc(var(--topbar-h) + var(--header-h) - 4px);
+        height:12px;
+      }
+      .electric-band .container{
+        width:100%;
+        left:0;
+        padding:0 4vw;
+        box-sizing:border-box;
+      }
+      .glowline{
+        width:86%;
+        max-width:86%;
+      }
+
+      .mobile-panel{
+        padding:16px 4.5vw 20px;
+      }
+
+      .mobile-brand{
+        padding:22px 4px 10px;
+      }
+
+      .mobile-brand .company-name{
+        font-size:28px;
+      }
+      .mobile-brand .company-tagline{
+        font-size:10px;
+        letter-spacing:3px;
+      }
+
+      .mobile-nav a.mobile-link{
+        font-size:20px;
+        min-height:62px;
+        padding:16px 16px;
+      }
+
+      .mobile-contact .phone-line{
+        font-size:15px;
+      }
+
+      .socials{
+        gap:14px;
+      }
+      .socials a{
+        width:40px;
+        height:40px;
+        font-size:18px;
+      }
+    }
   </style>
 </head>
-
 <body>
+
   <div class="topbar" role="banner" aria-hidden="false">
     <div class="right">
       <a href="tel:+2250707070707" id="topPhoneLink">
@@ -1294,8 +1143,8 @@
     </div>
 
     <nav aria-label="Menu principal">
-      <a href="GreenBrigde technologies.html" class="active">Accueil</a>
-      <a href="etude_dimensionnement_2.html">Étude</a>
+      <a href="GreenBrigde technologies.html">Accueil</a>
+      <a href="etude_dimensionnement_2.html" class="active">Étude</a>
       <a href="produits.html">Nos Produits</a>
       <a href="Projets.html">Projets futurs</a>
       <a href="maintenance.html">Maintenance</a>
@@ -1315,13 +1164,11 @@
         <path class="zap" id="zap2" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
         <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
       </svg>
-
       <div class="orbs" id="orbs">
         <div class="orb" id="orbA"></div>
         <div class="orb" id="orbB"></div>
         <div class="orb" id="orbC"></div>
       </div>
-
       <div class="glowline" id="glowline"></div>
     </div>
   </div>
@@ -1336,8 +1183,8 @@
       </div>
 
       <div class="menu-links">
-        <a href="#top" class="mobile-link active">Accueil</a>
-        <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
+        <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+        <a href="etude_dimensionnement_2.html" class="mobile-link active">Étude</a>
         <a href="produits.html" class="mobile-link">Nos Produits</a>
         <a href="Projets.html" class="mobile-link">Projets futurs</a>
         <a href="maintenance.html" class="mobile-link">Maintenance</a>
@@ -1361,30 +1208,27 @@
   </div>
 
   <section class="hero" id="top" aria-label="Hero">
-    <img class="hero-bg" src="Image_2.png" alt="Illustration GreenBridge Énergie">
+    <img class="hero-bg" src="Etude_1.png" alt="Illustration GreenBridge Énergie">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Solutions Énergie sur mesure</h1>
       <p>Étude du besoin, dimensionnement, installation et maintenance</p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
+        <button class="btn-primary" onclick="document.getElementById('zones').scrollIntoView({behavior:'smooth'})">Commencer l’étude</button>
       </div>
     </div>
   </section>
 
   <section id="zones" class="section" aria-label="Nos activités">
-    <h2 class="section-title">Nos activités</h2>
-    <p class="activities-intro">
-      Basés en Côte d’Ivoire, nous menons des activités de recherche &amp; développement locales. Passionnés par la technologie et l'innovation, nous concevons des solutions énergétiques et domotiques adaptées au contexte local — performance, robustesse et facilitation du quotidien.
-    </p>
-
+    <h2 class="section-title">Commencer par la bonne zone</h2>
+    <p class="activities-intro">Choisis le contexte. La page adapte ensuite la lecture du besoin : urbain par pièces, agricole par projet.</p>
     <div class="zones-cards">
-      <div class="zone-card" onclick="window.location.href='zone_urbaine.html'" role="button" aria-label="Zone Urbaine">
+      <div class="zone-card" onclick="document.getElementById('zone-urbaine').scrollIntoView({behavior:'smooth'})" role="button" aria-label="Zone Urbaine">
         <img src="milieu_urbain_1.png" alt="Zone Urbaine">
         <div class="overlay"></div>
         <h3>Zone Urbaine</h3>
       </div>
-      <div class="zone-card" onclick="window.location.href='zone_agricole.html'" role="button" aria-label="Zone Agricole">
+      <div class="zone-card" onclick="document.getElementById('zone-agricole').scrollIntoView({behavior:'smooth'})" role="button" aria-label="Zone Agricole">
         <img src="milieu_agricole.png" alt="Zone Agricole">
         <div class="overlay"></div>
         <h3>Zone Agricole</h3>
@@ -1392,181 +1236,367 @@
     </div>
   </section>
 
-  <section id="produits" class="section" aria-label="Nos produits">
-    <h2>Nos Produits</h2>
-    <p class="products-intro">
-      Nous proposons une gamme complète : panneaux solaires, batteries, onduleurs et groupes électrogènes. Nos solutions sont dimensionnées pour assurer performance, durabilité et facilité de maintenance.
-    </p>
+  <section id="zone-urbaine" class="section">
+    <h2 class="zone-title">Zone urbaine</h2>
+    <p class="products-intro">Définis les pièces, puis ajoute les charges de cette pièce pour estimer puissance, énergie, autonomie et budget.</p>
 
-    <div class="grid-4" role="list">
-      <article class="card" role="listitem" aria-label="Panneaux solaires">
-        <div class="image-wrap"><img src="chantier_solaire.png" alt="Panneaux solaires"></div>
-        <div class="card-content">
-          <h3>Panneaux solaires</h3>
-          <p>Modules monocristallins haut rendement, résistants aux conditions locales et garantis 10 ans. Installation complète et optimisation de l'orientation.</p>
-          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
-        </div>
-      </article>
+    <div class="study-shell">
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 1 — Paramètres de base</div>
+            <div class="meta">Choisis le pays et les réglages techniques avant de remplir les pièces.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="study-row">
+            <div class="field">
+              <label for="urbanCountry">Pays</label>
+              <select id="urbanCountry">
+                <option value="ci">Côte d'Ivoire</option>
+                <option value="sn">Sénégal</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="urbanSunHours">Heures soleil utiles / jour</label>
+              <input id="urbanSunHours" type="number" min="1" step="0.1" value="5">
+            </div>
+          </div>
 
-      <article class="card" role="listitem" aria-label="Batteries & stockage">
-        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Batteries & stockage"></div>
-        <div class="card-content">
-          <h3>Batteries & stockage</h3>
-          <p>Solutions lithium-ion et plomb-acide : stockage modulable, gestion intelligente de charge et monitoring à distance pour une efficacité durable.</p>
-          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
-        </div>
-      </article>
+          <div class="study-row-3">
+            <div class="field">
+              <label for="urbanDerate">Facteur dérating PV (%)</label>
+              <input id="urbanDerate" type="number" min="10" max="100" value="85">
+            </div>
+            <div class="field">
+              <label for="urbanPanelW">Puissance panneau (W)</label>
+              <input id="urbanPanelW" type="number" min="50" value="550">
+            </div>
+            <div class="field">
+              <label for="urbanBatteryKwh">Capacité utile pack batterie (kWh)</label>
+              <input id="urbanBatteryKwh" type="number" min="0.1" step="0.01" value="1.28">
+            </div>
+          </div>
 
-      <article class="card" role="listitem" aria-label="Onduleurs">
-        <div class="image-wrap"><img src="onduleur_tech.png" alt="Onduleurs"></div>
-        <div class="card-content">
-          <h3>Onduleurs</h3>
-          <p>Onduleurs hybrides et on-grid pour conversion efficace, protection contre surtensions et gestion intelligente des micro-réseaux.</p>
-          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
+          <div class="study-row">
+            <div class="field">
+              <label for="urbanAutonomy">Autonomie souhaitée (jours)</label>
+              <input id="urbanAutonomy" type="number" min="0" step="0.5" value="2">
+            </div>
+            <div class="field">
+              <label for="urbanDiversity">Facteur de simultanéité</label>
+              <input id="urbanDiversity" type="number" min="0.1" max="1" step="0.05" value="0.7">
+            </div>
+          </div>
         </div>
-      </article>
+      </details>
 
-      <article class="card" role="listitem" aria-label="Groupes électrogènes">
-        <div class="image-wrap"><img src="technicien_groupe_elctro.png" alt="Groupes électrogènes"></div>
-        <div class="card-content">
-          <h3>Groupes électrogènes</h3>
-          <p>Groupes de secours diesel et gaz, silencieux, avec démarrage automatique et service de maintenance sur site pour garantir continuité.</p>
-          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 2 — Pièces et équipements</div>
+            <div class="meta">Ajoute une pièce, puis les charges de cette pièce. Tu peux réduire chaque bloc pour t’y retrouver plus vite.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="study-row">
+            <div class="field">
+              <label for="urbanRoomType">Type de pièce</label>
+              <select id="urbanRoomType">
+                <option value="Chambre">Chambre</option>
+                <option value="Salon">Salon</option>
+                <option value="Cuisine">Cuisine</option>
+                <option value="Bureau">Bureau</option>
+                <option value="Salle d'eau">Salle d'eau</option>
+                <option value="Boutique">Boutique</option>
+                <option value="Local technique">Local technique</option>
+                <option value="Salle serveur">Salle serveur</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="urbanRoomCount">Nombre</label>
+              <input id="urbanRoomCount" type="number" min="1" value="1">
+            </div>
+          </div>
+
+          <div class="study-row">
+            <div class="field">
+              <label for="urbanRoomName">Nom de base</label>
+              <input id="urbanRoomName" type="text" placeholder="Ex : Chambre, Salon principal, Bureau 1">
+            </div>
+            <div class="field">
+              <label><input type="checkbox" id="urbanPrefill" checked> Préremplir avec les équipements conseillés</label>
+            </div>
+          </div>
+
+          <div class="room-actions">
+            <button type="button" class="btn-primary" id="addUrbanRoomBtn"><i class="fas fa-plus"></i> Ajouter la pièce</button>
+            <button type="button" class="btn-secondary" id="clearUrbanRoomsBtn">Vider les pièces</button>
+          </div>
+
+          <div style="margin-top:18px;color:#dfffe6;font-weight:700">Pièces</div>
+          <div id="urbanRoomsList" style="margin-top:14px;display:flex;flex-direction:column;gap:14px"></div>
+
+          <div style="margin-top:18px;color:#dfffe6;font-weight:700">Équipements conseillés rapidement</div>
+          <div class="room-actions" id="urbanSuggests" style="margin-top:10px"></div>
         </div>
-      </article>
+      </details>
+
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 3 — Résultats urbains</div>
+            <div class="meta">Puissance, énergie, PV, batterie et budget estimé.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="results" id="urbanResults">
+            <div class="result-card"><div class="label">Puissance connectée</div><div class="value" id="urbanConnectedPower">0 W</div><div class="small">Somme des équipements installés</div></div>
+            <div class="result-card"><div class="label">Puissance de pointe</div><div class="value" id="urbanPeakPower">0 kW</div><div class="small">Simultanéité appliquée aux pièces</div></div>
+            <div class="result-card"><div class="label">Énergie / jour</div><div class="value" id="urbanDailyKwh">0 kWh/j</div><div class="small">Consommation journalière estimée</div></div>
+            <div class="result-card"><div class="label">Énergie / mois</div><div class="value" id="urbanMonthlyKwh">0 kWh/mois</div><div class="small">Sur 30 jours</div></div>
+            <div class="result-card"><div class="label">Onduleur conseillé</div><div class="value" id="urbanInverter">0 kW</div><div class="small">Marge de sécurité incluse</div></div>
+            <div class="result-card"><div class="label">PV conseillé</div><div class="value" id="urbanPvKw">0 kWc</div><div class="small">Dimensionnement brut</div></div>
+            <div class="result-card"><div class="label">Panneaux estimés</div><div class="value" id="urbanPanels">0</div><div class="small">Arrondi au panneau entier</div></div>
+            <div class="result-card"><div class="label">Batterie utile</div><div class="value" id="urbanBatteryNeed">0 kWh</div><div class="small">Pour l’autonomie souhaitée</div></div>
+            <div class="result-card"><div class="label">Budget estimé</div><div class="value" id="urbanBudget">0 FCFA</div><div class="small">Prix adapté selon le pays</div></div>
+          </div>
+
+          <div style="margin-top:18px;color:#dfffe6;font-weight:700">Lecture du besoin</div>
+          <div class="study-panel" style="margin-top:10px">
+            <textarea rows="4" readonly id="urbanAdvice" style="width:100%;background:transparent;color:#fff;border:1px solid rgba(124,179,66,0.18);padding:12px;border-radius:8px">Sélectionne une pièce, ajoute les équipements, puis lance le calcul.</textarea>
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 
-  <section id="realisations" class="section">
-    <h2>Nos réalisations et projets futurs</h2>
-    <p class="gb-carousel-intro">
-      Chaque projet est présenté avec une image complète, des points clés lisibles et une mise en page centrée pour une lecture plus professionnelle.
-    </p>
+  <section id="zone-agricole" class="section">
+    <h2 class="zone-title">Zone agricole</h2>
+    <p class="products-intro">Définis le projet, la surface, le pompage et les besoins de terrain pour estimer la puissance et le solaire.</p>
 
-    <div class="gb-carousel" aria-roledescription="carousel">
-      <div class="gb-track-wrap" role="region" aria-live="polite" aria-label="Projets GreenBridge">
-        <ul class="gb-track">
-          <li class="gb-slide" data-index="0">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="Batterie_pack_s.png" alt="Pack batterie">
+    <div class="study-shell">
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 1 — Carte et zone</div>
+            <div class="meta">Choisis le pays et la zone avant de remplir les paramètres agricoles.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="card-dark" id="mapCard">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;gap:10px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.06)">
+              <div style="font-weight:800;color:#fff">Carte & zone</div>
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <label style="font-size:13px;color:#eaf9ea;margin-right:6px">Pays / Zone :</label>
+                <select id="zoneSelect" style="padding:8px 10px;border-radius:10px;border:1px solid #e6e6e6">
+                  <option value="ci">Côte d'Ivoire</option>
+                  <option value="sn">Sénégal</option>
+                </select>
+                <label style="font-size:13px;color:#eaf9ea;margin-left:8px;margin-right:6px">Ville / Zone :</label>
+                <select id="citySelect" style="padding:8px 10px;border-radius:10px;border:1px solid #e6e6e6"></select>
+              </div>
+            </div>
+            <div id="map"></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 2 — Paramètres agricoles</div>
+            <div class="meta">Pays, culture, surface, irrigation, pompage et solaire.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="section-intro" style="margin-bottom:16px;text-align:left;max-width:none;color:#dfffe6">
+            Pays → Culture → Surface ; le champ "Besoin eau (mm/j)" se pré-remplit selon le pays.
+          </div>
+
+          <div class="study-row">
+            <div class="field">
+              <label>Pays</label>
+              <select id="country">
+                <option value="ci">Côte d'Ivoire</option>
+                <option value="sn">Sénégal</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Type de culture</label>
+              <select id="crop">
+                <option value="tomate">Tomate</option>
+                <option value="mais">Maïs</option>
+                <option value="riz">Riz</option>
+                <option value="mangue">Manguier</option>
+                <option value="legume">Légume feuille</option>
+                <option value="palmier">Palmier</option>
+                <option value="custom">Personnalisé (mm/j)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="study-row-3">
+            <div class="field">
+              <label>Surface (ha)</label>
+              <input id="areaHa" type="number" min="0" step="0.01" value="0.5">
+            </div>
+            <div class="field">
+              <label>Besoin eau (mm/j)</label>
+              <input id="needMmPerDay" type="number" step="0.1" value="5.0" aria-describedby="needHelp">
+              <div id="needHelp" style="font-size:13px;color:#dfffe6">La valeur change automatiquement selon le pays + culture sélectionnés.</div>
+            </div>
+            <div class="field">
+              <label>Irrigation : jours / semaine</label>
+              <input id="irrigDays" type="number" min="1" max="7" value="3">
+            </div>
+          </div>
+
+          <div class="study-row-3">
+            <div class="field">
+              <label>Heures de pompage / jour d'irrigation</label>
+              <input id="pumpHours" type="number" min="0.1" step="0.1" value="4">
+            </div>
+            <div class="field">
+              <label>Hauteur manométrique utile (m)</label>
+              <input id="head" type="number" min="0" step="0.1" value="15">
+            </div>
+            <div class="field">
+              <label>Rendement pompe (%)</label>
+              <input id="pumpEff" type="number" min="10" max="90" value="55">
+            </div>
+          </div>
+
+          <div class="study-row-3">
+            <div class="field">
+              <label>Heures soleil utiles / jour</label>
+              <input id="sunHours" type="number" min="1" step="0.1" value="5">
+            </div>
+            <div class="field">
+              <label>Facteur dérating PV (%)</label>
+              <input id="pvDerate" type="number" min="10" max="100" value="85">
+            </div>
+            <div class="field">
+              <label>Puissance panneau utilisé (W)</label>
+              <input id="panelW" type="number" min="50" value="350">
+            </div>
+          </div>
+
+          <div class="study-row">
+            <div class="field">
+              <label>Pack batterie — capacité utile pack (kWh)</label>
+              <input id="packKwh" type="number" min="0.1" step="0.01" value="1.28">
+            </div>
+            <div class="field">
+              <label>Autonomie secours souhaitée (jours)</label>
+              <input id="autonomyDays" type="number" min="0" step="0.5" value="2">
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 3 — Charges et consommateurs</div>
+            <div class="meta">Ajoute des équipements agricoles ou des charges manuelles si nécessaire.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="room-actions">
+            <button id="calcBtn" class="btn-primary"><i class="fas fa-calculator"></i> Calculer</button>
+            <button id="resetBtn" class="btn-secondary">Réinitialiser</button>
+          </div>
+
+          <div style="margin-top:18px;color:#dfffe6;font-weight:700">Consommateurs agricoles courants</div>
+          <div id="suggestList" class="room-actions" style="margin-top:10px"></div>
+
+          <div class="study-row" style="margin-top:14px">
+            <div class="field">
+              <label>Nom consommateur</label>
+              <input id="consName" type="text" placeholder="Ex: Atelier">
+            </div>
+            <div class="field">
+              <label>Puissance W</label>
+              <input id="consPower" type="number" placeholder="W">
+            </div>
+          </div>
+          <div class="study-row">
+            <div class="field">
+              <label>Heures / jour</label>
+              <input id="consHours" type="number" placeholder="h/j">
+            </div>
+            <div class="field" style="display:flex;justify-content:flex-end">
+              <label style="visibility:hidden">Ajouter</label>
+              <button id="addManual" class="btn-secondary">Ajouter manuellement</button>
+            </div>
+          </div>
+
+          <div id="consumerList" style="margin-top:8px"></div>
+        </div>
+      </details>
+
+      <details class="study-details">
+        <summary>
+          <div>
+            <div>Étape 4 — Résultats & synthèse</div>
+            <div class="meta">Puissance, énergie, PV, batterie, réservoir et synthèse principale.</div>
+          </div>
+          <div class="toggle"><i class="fas fa-chevron-down"></i></div>
+        </summary>
+        <div class="step-body">
+          <div class="results" id="resultsGrid">
+            <div class="result-card"><div class="label">Volume eau (m³ / jour)</div><div id="volDay" class="value">0 m³</div><div class="small">Basé sur surface × mm/j</div></div>
+            <div class="result-card"><div class="label">Débit pompe requis (m³/h)</div><div id="flowQ" class="value">0 m³/h</div><div class="small">Volume hebdomadaire réparti sur jours d’irrigation</div></div>
+            <div class="result-card"><div class="label">Puissance pompe (kW)</div><div id="pumpKw" class="value">0 kW</div><div class="small">Puissance électrique d'entrée (rendement inclus)</div></div>
+            <div class="result-card"><div class="label">Énergie pompe (kWh / jour)</div><div id="pumpKwh" class="value">0 kWh/j</div><div class="small">Moyenne journalière sur la semaine</div></div>
+            <div class="result-card"><div class="label">Autres consommateurs (kWh / jour)</div><div id="othersKwh" class="value">0 kWh/j</div><div class="small">Somme des équipements ajoutés</div></div>
+            <div class="result-card"><div class="label">Consommation totale (kWh / jour)</div><div id="totalKwhDay" class="value">0 kWh/j</div><div class="small">Pompe + autres, avant pertes</div></div>
+            <div class="result-card"><div class="label">PV requis (kWc)</div><div id="pvKw" class="value">0 kWc</div><div class="small">Dimensionnement brut</div></div>
+            <div class="result-card"><div class="label">Nb panneaux (~W)</div><div id="panelsCount" class="value">0</div><div class="small">Arrondi au panneau entier</div></div>
+            <div class="result-card"><div class="label">Réservoir recommandé (m³)</div><div id="reservoir" class="value">0 m³</div><div class="small">Pour <span id="autDaysLabel">2</span> jours d'autonomie</div></div>
+            <div class="result-card"><div class="label">Batterie estimée (kWh utile)</div><div id="batteryKwh" class="value">0 kWh</div><div class="small">Capacité utile requise pour l'autonomie</div></div>
+          </div>
+
+          <div class="summary">
+            <div class="big">
+              <h2>Synthèse principale</h2>
+              <div class="kpi">
+                <div>
+                  <div class="muted">Consommation (kWh / mois)</div>
+                  <div id="consMonth" class="num">0 kWh</div>
+                  <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
+                </div>
+                <div>
+                  <div class="muted">Énergie / mois après système</div>
+                  <div id="afterMonth" class="num">0 kWh</div>
+                  <div id="afterMonthRange" class="muted">gain: 0 kWh</div>
+                </div>
+                <div>
+                  <div class="muted">PV requis (kWc)</div>
+                  <div id="pvReqKwc" class="num">0 kWc</div>
+                  <div id="pvReqRange" class="muted">incertitude ±15%</div>
                 </div>
               </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 1 <span class="gb-release">Sortie estimée 15/06/2026</span></span>
-                <h3>Pack batterie</h3>
-                <p class="gb-summary">Pack batterie portable conçu pour la continuité d’alimentation, la recharge de secours et l’usage quotidien. Solution pensée pour les ménages, bureaux et petits commerces.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Usage</strong><span>Secours et mobilité</span></div>
-                  <div class="gb-highlight"><strong>Public</strong><span>Maisons, bureaux</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/06/2026</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Ménages, bureaux, petits commerces, sites isolés.</p>
-              </figcaption>
-            </figure>
-          </li>
+              <div class="note"><strong>Remarque :</strong> valeurs indicatives — vérification terrain recommandée.</div>
+            </div>
 
-          <li class="gb-slide" data-index="1">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="Powerbank_wireless.png" alt="Power bank wireless">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 2 <span class="gb-release">Sortie estimée 15/07/2026</span></span>
-                <h3>Power bank wireless</h3>
-                <p class="gb-summary">Power bank sans fil à charge induction, conçue pour la recharge rapide des smartphones et petits appareils compatibles. Batterie longue durée avec protections intelligentes.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Charge</strong><span>Induction</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/07/2026</span></div>
-                  <div class="gb-highlight"><strong>Ports</strong><span>USB rapides</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Particuliers, professionnels mobiles, voyageurs et usage quotidien.</p>
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="gb-slide" data-index="2">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="ventillateur_solaire_1.png" alt="Ventilateur solaire">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 3 <span class="gb-release">Sortie estimée 15/11/2026</span></span>
-                <h3>Ventilateur solaire</h3>
-                <p class="gb-summary">Ventilateur alimenté par panneau PV 120 W, contrôleur MPPT intégré, autonomie de 6 à 10 heures selon la batterie. Boîtier anticorrosion adapté au climat tropical.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Alimentation</strong><span>PV 120 W</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/11/2026</span></div>
-                  <div class="gb-highlight"><strong>Contrôle</strong><span>MPPT intégré</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Ménages, petits commerces.</p>
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="gb-slide" data-index="3">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="Pompe_immergée.png" alt="Système de pompe solaire">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 4 <span class="gb-release">Sortie estimée 31/12/2026</span></span>
-                <h3>Système de pompe solaire</h3>
-                <p class="gb-summary">Système de pompage solaire pour irrigation et alimentation en eau, avec variateur de fréquence, protections anti-surcharge et fonctionnement fiable sur champs PV en courant continu.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Puissance</strong><span>1.5 kW</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>31/12/2026</span></div>
-                  <div class="gb-highlight"><strong>Sécurité</strong><span>Anti-marche à sec</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Agriculture familiale, irrigation, sites isolés.</p>
-              </figcaption>
-            </figure>
-          </li>
-        </ul>
-      </div>
-
-      <button class="gb-btn gb-prev" aria-label="Projet précédent">‹</button>
-      <button class="gb-btn gb-next" aria-label="Projet suivant">›</button>
-      <div class="gb-dots" role="tablist" aria-label="Pagination du carrousel"></div>
+            <div class="big">
+              <h2>Détails importants</h2>
+              <div style="margin-top:10px"><div style="font-weight:800">Pompe</div><div id="summaryPump" class="muted">—</div></div>
+              <div style="margin-top:8px"><div style="font-weight:800">Réservoir & autonomie</div><div id="summaryReservoir" class="muted">—</div></div>
+              <div style="margin-top:8px"><div style="font-weight:800">Packs batterie</div><div id="summaryBatteries" class="muted">—</div></div>
+            </div>
+          </div>
+        </div>
+      </details>
     </div>
-  </section>
-
-  <section class="section">
-    <h2>Pourquoi nos solutions énergie ?</h2>
-    <div class="advantages" role="list">
-      <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Efficacité</h3><p>Maximisez le rendement et l’économie d’énergie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Fiabilité</h3><p>Installation professionnelle et maintenance garantie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-globe-africa" aria-hidden="true"></i><h3>Local</h3><p>Expertise adaptée au marché ivoirien</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-award" aria-hidden="true"></i><h3>5 ans de garantie</h3><p>Tranquillité, suivi et accompagnement sur la durée</p></div>
-    </div>
-  </section>
-
-  <section id="devis" class="section">
-    <h2>Demandez un devis personnalisé</h2>
-    <form>
-      <input type="text" placeholder="Nom complet" required>
-      <input type="email" placeholder="Email" required>
-      <input type="tel" placeholder="Téléphone" required>
-      <select required>
-        <option value="">Type de service</option>
-        <option value="installation">Installation complète</option>
-        <option value="maintenance">Maintenance</option>
-        <option value="audit">Audit énergétique</option>
-      </select>
-      <textarea placeholder="Message ou détails du projet" rows="5" required></textarea>
-      <button type="submit">Envoyer</button>
-    </form>
   </section>
 
   <footer>
@@ -1578,15 +1608,11 @@
   </footer>
 
   <script>
+    function fmt(n,dec=2){ return Number(n||0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
+
     const contactNumbers = {
-      abidjan: {
-        display: '+225 07 07 07 07 07',
-        tel: '+2250707070707'
-      },
-      dakar: {
-        display: '+221 77 00 00 00 00',
-        tel: '+2217700000000'
-      }
+      abidjan: { display: '+225 07 07 07 07 07', tel: '+2250707070707' },
+      dakar: { display: '+221 77 00 00 00 00', tel: '+2217700000000' }
     };
 
     const burgerBtn = document.getElementById('burgerBtn');
@@ -1596,7 +1622,6 @@
 
     const topPhoneLink = document.getElementById('topPhoneLink');
     const topPhoneText = document.getElementById('topPhoneText');
-
     const mobilePhoneLink = document.getElementById('mobilePhoneLink');
     const footerPhoneText = document.getElementById('footerPhoneText');
 
@@ -1665,99 +1690,6 @@
     countryTimer = setInterval(toggleCountry, 10000);
 
     (function(){
-      const track = document.querySelector('.gb-track');
-      if (!track) return;
-      const wrap = document.querySelector('.gb-track-wrap');
-      const slides = Array.from(track.querySelectorAll('.gb-slide'));
-      const prevBtn = document.querySelector('.gb-prev');
-      const nextBtn = document.querySelector('.gb-next');
-      const dotsWrap = document.querySelector('.gb-dots');
-      let index = 0;
-      const AUTOPLAY_INTERVAL = 12000;
-      let autoplayTimer = null;
-      let paused = false;
-      let touchStartX = 0;
-      let touchEndX = 0;
-
-      slides.forEach((s,i)=>{
-        const btn = document.createElement('button');
-        btn.className = 'gb-dot';
-        btn.setAttribute('aria-label','Aller au projet ' + (i+1));
-        btn.dataset.index = i;
-        if(i===0) btn.classList.add('active');
-        dotsWrap.appendChild(btn);
-      });
-
-      const dots = Array.from(dotsWrap.children);
-
-      function getSlideWidth(){
-        const firstSlide = slides[0];
-        return firstSlide ? Math.round(firstSlide.getBoundingClientRect().width) : Math.round(wrap.getBoundingClientRect().width);
-      }
-
-      function update(){
-        const slideWidth = getSlideWidth();
-        track.style.transform = 'translate3d(' + (-index * slideWidth) + 'px,0,0)';
-        dots.forEach((d,i)=>d.classList.toggle('active', i===index));
-      }
-
-      function goNext(){
-        index = (index+1) % slides.length;
-        update();
-      }
-      function goPrev(){
-        index = (index-1+slides.length) % slides.length;
-        update();
-      }
-      function goTo(i){
-        index = i;
-        update();
-      }
-      function startAutoplay(){
-        clearInterval(autoplayTimer);
-        autoplayTimer = setInterval(() => {
-          if (!paused) goNext();
-        }, AUTOPLAY_INTERVAL);
-      }
-      function resetAutoplay(){
-        clearInterval(autoplayTimer);
-        startAutoplay();
-      }
-
-      if(nextBtn) nextBtn.addEventListener('click', ()=>{ goNext(); resetAutoplay(); });
-      if(prevBtn) prevBtn.addEventListener('click', ()=>{ goPrev(); resetAutoplay(); });
-
-      dotsWrap.addEventListener('click', e=>{
-        if(e.target.classList.contains('gb-dot')) {
-          goTo(Number(e.target.dataset.index));
-          resetAutoplay();
-        }
-      });
-
-      wrap.addEventListener('mouseenter', () => { paused = true; });
-      wrap.addEventListener('mouseleave', () => { paused = false; });
-
-      wrap.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, {passive:true});
-
-      wrap.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 50) {
-          if (diff > 0) goNext();
-          else goPrev();
-          resetAutoplay();
-        }
-      }, {passive:true});
-
-      window.addEventListener('resize', update);
-      window.addEventListener('load', update);
-      update();
-      startAutoplay();
-    })();
-
-    (function(){
       const electricBand = document.getElementById('electricBand');
       if (!electricBand) return;
       const orbA = document.getElementById('orbA');
@@ -1779,7 +1711,6 @@
       });
 
       let t0 = performance.now();
-
       function tick(now){
         const time = (now - t0) / 1000;
         const cont = electricBand.querySelector('.container');
@@ -1790,7 +1721,6 @@
         const rect = cont.getBoundingClientRect();
         const cx = rect.width / 2;
         const cy = rect.height / 2;
-
         for(let i=0;i<orbs.length;i++){
           const orb = orbs[i];
           if(!orb) continue;
@@ -1891,41 +1821,590 @@
       window.addEventListener('resize', ()=>{ t0 = performance.now(); });
     })();
 
-    (function(){
-      const p = document.querySelector('.hero-content p');
-      if (!p) return;
+    function initMap(){
+      try{
+        map = L.map('map',{dragging:true,zoomControl:true,attributionControl:false}).setView([6.5,-5.0],6.5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+        const pin = L.icon({ iconUrl:'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize:[22,22], iconAnchor:[11,22] });
+        L.marker([5.345317,-4.024429],{icon:pin}).addTo(map).bindTooltip('Abidjan');
+        L.marker([6.818351,-5.276987],{icon:pin}).addTo(map).bindTooltip('Yamoussoukro');
+        L.marker([14.6937,-17.44406],{icon:pin}).addTo(map).bindTooltip('Dakar');
+        map.fitBounds([[5.345317,-4.024429],[6.818351,-5.276987]],{padding:[20,20]});
+      }catch(e){ console.warn('Leaflet init failed',e); }
+    }
 
-      function applyMobileSize(){
-        if (window.innerWidth <= 480) {
-          p.style.whiteSpace = 'normal';
-          p.style.display = '';
-          p.style.fontSize = '15px';
-          p.style.lineHeight = '1.45';
-          p.style.overflow = 'visible';
-          p.style.textOverflow = 'clip';
-          p.style.transform = '';
-        } else {
-          p.style.whiteSpace = '';
-          p.style.display = '';
-          p.style.fontSize = '';
-          p.style.lineHeight = '';
-          p.style.overflow = '';
-          p.style.textOverflow = '';
-          p.style.transform = '';
-        }
+    function populateCities(zone){
+      citySelect.innerHTML='';
+      if(zone === 'ci'){
+        citySelect.appendChild(new Option("Côte d'Ivoire (toutes zones)", 'ci_all'));
+        citySelect.appendChild(new Option('Abidjan', 'ci_abidjan'));
+        citySelect.appendChild(new Option('Yamoussoukro', 'ci_yamoussoukro'));
+        citySelect.value='ci_abidjan';
+      }else{
+        citySelect.appendChild(new Option('Sénégal (toutes zones)', 'sn_all'));
+        citySelect.appendChild(new Option('Dakar', 'sn_dakar'));
+        citySelect.value='sn_dakar';
+      }
+      zoomToCity(citySelect.value);
+    }
+
+    function zoomToCity(key){
+      if(!map) return;
+      const info = CITY_COORDS[key];
+      if(!info) return;
+      if(info.bounds) map.fitBounds(info.bounds, {padding:[20,20]});
+      else if(info.lat && info.lng) map.setView([info.lat, info.lng], info.zoom || 10);
+      else if(info.center) map.setView(info.center, info.zoom || 7);
+    }
+
+    const URBAN_CATALOGUE = [
+      {id:'light_led', label:'Éclairage LED', power:18, hours:5, roomTypes:['Chambre','Salon','Cuisine','Bureau','Boutique','Local technique']},
+      {id:'tv', label:'Télévision', power:120, hours:4, roomTypes:['Salon','Chambre','Boutique']},
+      {id:'fan', label:'Ventilateur', power:60, hours:6, roomTypes:['Chambre','Salon','Bureau','Boutique']},
+      {id:'fridge', label:'Réfrigérateur', power:150, hours:8, roomTypes:['Cuisine','Boutique','Local technique']},
+      {id:'router', label:'Routeur / Internet', power:15, hours:24, roomTypes:['Salon','Bureau','Local technique','Salle serveur']},
+      {id:'charger', label:'Recharge téléphones', power:25, hours:3, roomTypes:['Chambre','Salon','Boutique','Bureau']},
+      {id:'computer', label:'Ordinateur', power:90, hours:6, roomTypes:['Bureau','Salle serveur']},
+      {id:'cam', label:'Caméra de surveillance', power:8, hours:24, roomTypes:['Boutique','Local technique','Salle serveur']},
+      {id:'intercom', label:'Interphone', power:20, hours:8, roomTypes:['Boutique','Bureau']},
+      {id:'gate', label:'Portail / moteur', power:300, hours:0.5, roomTypes:['Boutique']},
+      {id:'ac', label:'Climatiseur', power:900, hours:6, roomTypes:['Salon','Bureau','Salle serveur']},
+      {id:'microwave', label:'Micro-ondes', power:1200, hours:0.25, roomTypes:['Cuisine']}
+    ];
+
+    const URBAN_DEFAULTS = {
+      'Chambre': [{id:'light_led', qty:2, hours:5}, {id:'fan', qty:1, hours:6}, {id:'charger', qty:2, hours:2}],
+      'Salon': [{id:'light_led', qty:3, hours:5}, {id:'tv', qty:1, hours:4}, {id:'fan', qty:2, hours:6}, {id:'router', qty:1, hours:24}],
+      'Cuisine': [{id:'light_led', qty:2, hours:5}, {id:'fridge', qty:1, hours:8}, {id:'microwave', qty:1, hours:0.25}],
+      'Bureau': [{id:'light_led', qty:3, hours:5}, {id:'computer', qty:1, hours:6}, {id:'router', qty:1, hours:24}],
+      'Salle d\'eau': [{id:'light_led', qty:1, hours:2}],
+      'Boutique': [{id:'light_led', qty:4, hours:7}, {id:'fan', qty:2, hours:8}, {id:'router', qty:1, hours:24}, {id:'cam', qty:2, hours:24}],
+      'Local technique': [{id:'light_led', qty:2, hours:6}, {id:'cam', qty:2, hours:24}, {id:'router', qty:1, hours:24}],
+      'Salle serveur': [{id:'router', qty:1, hours:24}, {id:'computer', qty:2, hours:10}, {id:'cam', qty:2, hours:24}, {id:'ac', qty:1, hours:8}]
+    };
+
+    const URBAN_PRICE = {
+      ci: { panel:170000, inverterKw:280000, batteryPack:320000, installBase:240000 },
+      sn: { panel:190000, inverterKw:320000, batteryPack:360000, installBase:275000 }
+    };
+
+    let urbanRooms = [];
+    let roomIdSeq = 1;
+
+    const urbanCountry = document.getElementById('urbanCountry');
+    const urbanRoomType = document.getElementById('urbanRoomType');
+    const urbanRoomCount = document.getElementById('urbanRoomCount');
+    const urbanRoomName = document.getElementById('urbanRoomName');
+    const urbanPrefill = document.getElementById('urbanPrefill');
+    const addUrbanRoomBtn = document.getElementById('addUrbanRoomBtn');
+    const clearUrbanRoomsBtn = document.getElementById('clearUrbanRoomsBtn');
+    const urbanRoomsList = document.getElementById('urbanRoomsList');
+    const urbanSuggests = document.getElementById('urbanSuggests');
+    const urbanSunHours = document.getElementById('urbanSunHours');
+    const urbanDerate = document.getElementById('urbanDerate');
+    const urbanPanelW = document.getElementById('urbanPanelW');
+    const urbanBatteryKwh = document.getElementById('urbanBatteryKwh');
+    const urbanAutonomy = document.getElementById('urbanAutonomy');
+    const urbanDiversity = document.getElementById('urbanDiversity');
+    const urbanAdvice = document.getElementById('urbanAdvice');
+
+    function createUrbanRoom(type, baseName, withPrefill=true){
+      const idx = urbanRooms.filter(r => r.type === type).length + 1;
+      const name = (baseName && baseName.trim()) ? baseName.trim() : `${type} ${idx}`;
+      const room = { id: `${name} (${roomIdSeq++})`, type, consumers: [] };
+      if(withPrefill && URBAN_DEFAULTS[type]) room.consumers = URBAN_DEFAULTS[type].map(c => ({...c}));
+      urbanRooms.push(room);
+      renderUrbanRooms();
+      computeUrban();
+    }
+
+    function urbanDeviceOptions(type){
+      return URBAN_CATALOGUE.filter(d => d.roomTypes.includes(type) || d.roomTypes.includes('Maison')).map(d => `<option value="${d.id}">${d.label}</option>`).join('');
+    }
+
+    function renderUrbanSuggests(){
+      urbanSuggests.innerHTML = '';
+      URBAN_CATALOGUE.slice(0,8).forEach(d => {
+        const b = document.createElement('button');
+        b.className = 'btn-outline';
+        b.textContent = `${d.label} — ${d.power}W`;
+        b.addEventListener('click', () => {
+          if(urbanRooms.length === 0) createUrbanRoom('Salon', 'Salon principal', true);
+          urbanRooms[0].consumers.push({id:d.id, qty:1, hours:d.hours});
+          renderUrbanRooms();
+          computeUrban();
+        });
+        urbanSuggests.appendChild(b);
+      });
+    }
+
+    function renderUrbanRooms(){
+      urbanRoomsList.innerHTML = '';
+      if(urbanRooms.length === 0){
+        urbanRoomsList.innerHTML = '<div style="color:#dfffe6;padding:8px">Aucune pièce définie. Ajoute une première pièce pour commencer.</div>';
+        return;
       }
 
-      window.addEventListener('load', applyMobileSize);
-      let to;
-      window.addEventListener('resize', function(){
-        clearTimeout(to);
-        to = setTimeout(applyMobileSize, 80);
+      urbanRooms.forEach((room, rIdx) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'room-box';
+
+        const consHtml = room.consumers.length ? room.consumers.map((c, cIdx) => {
+          const cat = URBAN_CATALOGUE.find(x => x.id === c.id);
+          return `
+            <div class="room-consumer">
+              <div style="flex:1">
+                <strong>${cat ? cat.label : c.id}</strong>
+                <div class="meta">${(cat ? cat.power : 0)} W × ${c.hours} h/j × ${c.qty} ${c.qty > 1 ? 'unités' : 'unité'}</div>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button class="btn-outline urban-edit-consumer" data-ridx="${rIdx}" data-cidx="${cIdx}" style="padding:8px 12px">Éditer</button>
+                <button class="btn-outline urban-del-consumer" data-ridx="${rIdx}" data-cidx="${cIdx}" style="padding:8px 12px">Suppr</button>
+              </div>
+            </div>`;
+        }).join('') : '<div style="color:#6b7f6b;padding:8px">Aucun équipement dans cette pièce</div>';
+
+        wrap.innerHTML = `
+          <div class="room-header">
+            <div>
+              <strong>${room.id}</strong>
+              <div style="font-size:13px;color:#6b7f6b">Type : ${room.type}</div>
+            </div>
+            <button class="btn-outline urban-remove-room" data-ridx="${rIdx}">Supprimer la pièce</button>
+          </div>
+          <div class="room-content">
+            <div class="study-row" style="margin-bottom:0">
+              <div class="field">
+                <label>Équipement</label>
+                <select class="urban-equip" data-ridx="${rIdx}">${urbanDeviceOptions(room.type)}</select>
+              </div>
+              <div class="field">
+                <label>Qté</label>
+                <input type="number" min="1" value="1" class="urban-qty" data-ridx="${rIdx}">
+              </div>
+            </div>
+            <div class="study-row" style="margin-bottom:0">
+              <div class="field">
+                <label>Heures/j</label>
+                <input type="number" min="0" step="0.1" value="1" class="urban-hours" data-ridx="${rIdx}">
+              </div>
+              <div style="display:flex;align-items:end">
+                <button class="btn-primary urban-add-consumer" data-ridx="${rIdx}" style="width:100%;padding:12px 14px"><i class="fas fa-plus"></i> Ajouter</button>
+              </div>
+            </div>
+            <div class="room-consumers">${consHtml}</div>
+          </div>
+        `;
+        urbanRoomsList.appendChild(wrap);
       });
-      window.addEventListener('orientationchange', function(){
-        setTimeout(applyMobileSize, 120);
+
+      document.querySelectorAll('.urban-remove-room').forEach(btn => btn.onclick = () => {
+        urbanRooms.splice(Number(btn.dataset.ridx),1);
+        renderUrbanRooms();
+        computeUrban();
       });
-      applyMobileSize();
-    })();
+
+      document.querySelectorAll('.urban-add-consumer').forEach(btn => btn.onclick = () => {
+        const idx = Number(btn.dataset.ridx);
+        const room = urbanRooms[idx];
+        const equipSel = urbanRoomsList.querySelector(`.urban-equip[data-ridx="${idx}"]`);
+        const qtyEl = urbanRoomsList.querySelector(`.urban-qty[data-ridx="${idx}"]`);
+        const hoursEl = urbanRoomsList.querySelector(`.urban-hours[data-ridx="${idx}"]`);
+        const cat = URBAN_CATALOGUE.find(x => x.id === equipSel.value);
+        if(!cat) return;
+        room.consumers.push({
+          id:cat.id,
+          qty:Math.max(1, Number(qtyEl.value||1)),
+          hours:Math.max(0, Number(hoursEl.value||0)) || cat.hours
+        });
+        renderUrbanRooms();
+        computeUrban();
+      });
+
+      document.querySelectorAll('.urban-edit-consumer').forEach(btn => btn.onclick = () => {
+        const rIdx = Number(btn.dataset.ridx), cIdx = Number(btn.dataset.cidx);
+        const consumer = urbanRooms[rIdx].consumers[cIdx];
+        const qty = parseFloat(prompt('Quantité', consumer.qty));
+        if(isNaN(qty) || qty <= 0) return;
+        const hours = parseFloat(prompt('Heures par jour', consumer.hours));
+        if(isNaN(hours) || hours < 0) return;
+        consumer.qty = qty;
+        consumer.hours = hours;
+        renderUrbanRooms();
+        computeUrban();
+      });
+
+      document.querySelectorAll('.urban-del-consumer').forEach(btn => btn.onclick = () => {
+        const rIdx = Number(btn.dataset.ridx), cIdx = Number(btn.dataset.cidx);
+        urbanRooms[rIdx].consumers.splice(cIdx,1);
+        renderUrbanRooms();
+        computeUrban();
+      });
+    }
+
+    function urbanConnectedPower(){
+      let total = 0;
+      urbanRooms.forEach(room => {
+        room.consumers.forEach(c => {
+          const cat = URBAN_CATALOGUE.find(x => x.id === c.id);
+          total += (cat ? cat.power : 0) * Number(c.qty || 0);
+        });
+      });
+      return total;
+    }
+    function urbanRoomPower(room){
+      return room.consumers.reduce((s,c) => {
+        const cat = URBAN_CATALOGUE.find(x => x.id === c.id);
+        return s + ((cat ? cat.power : 0) * Number(c.qty || 0));
+      }, 0);
+    }
+    function urbanRoomFactor(type){
+      if(type === 'Salle serveur') return 0.9;
+      if(type === 'Boutique') return 0.8;
+      if(type === 'Local technique') return 0.85;
+      if(type === 'Bureau') return 0.75;
+      if(type === 'Salon') return 0.7;
+      if(type === 'Cuisine') return 0.65;
+      return 0.6;
+    }
+
+    function computeUrban(){
+      const country = urbanCountry.value || 'ci';
+      const price = URBAN_PRICE[country] || URBAN_PRICE.ci;
+
+      const sunH = Math.max(0.1, Number(urbanSunHours.value || 5));
+      const derate = Math.max(0.01, Number(urbanDerate.value || 85))/100;
+      const panelW = Math.max(10, Number(urbanPanelW.value || 550));
+      const battPack = Math.max(0.01, Number(urbanBatteryKwh.value || 1.28));
+      const autonomy = Math.max(0, Number(urbanAutonomy.value || 2));
+      const diversity = Math.max(0.1, Math.min(1, Number(urbanDiversity.value || 0.7)));
+
+      const connectedW = urbanConnectedPower();
+      const dailyWh = urbanRooms.reduce((sum, room) => sum + room.consumers.reduce((s, c) => {
+        const cat = URBAN_CATALOGUE.find(x => x.id === c.id);
+        return s + (cat ? cat.power : 0) * Number(c.qty||0) * Number(c.hours||0);
+      }, 0), 0);
+      const dailyKwh = dailyWh / 1000;
+      const monthlyKwh = dailyKwh * 30;
+      const peakW = urbanRooms.reduce((sum, room) => sum + urbanRoomPower(room) * urbanRoomFactor(room.type), 0) * diversity;
+      const inverterW = peakW * 1.25;
+      const pvKw = dailyKwh / (sunH * derate);
+      const panels = Math.max(0, Math.ceil((pvKw * 1000) / panelW));
+      const batteryKwh = (dailyKwh * autonomy) / 0.85;
+      const packs = Math.ceil(batteryKwh / battPack);
+      const annualKwh = dailyKwh * 365;
+      const coveredBySolar = dailyKwh > 0 ? Math.min(100, Math.round((pvKw * sunH * derate) / dailyKwh * 100)) : 0;
+
+      const budget =
+        (panels * price.panel) +
+        (Math.ceil(inverterW/1000) * price.inverterKw) +
+        (packs * price.batteryPack) +
+        price.installBase;
+
+      document.getElementById('urbanConnectedPower').textContent = fmt(connectedW,0) + ' W';
+      document.getElementById('urbanPeakPower').textContent = fmt(peakW/1000,2) + ' kW';
+      document.getElementById('urbanDailyKwh').textContent = fmt(dailyKwh,2) + ' kWh/j';
+      document.getElementById('urbanMonthlyKwh').textContent = fmt(monthlyKwh,2) + ' kWh/mois';
+      document.getElementById('urbanInverter').textContent = fmt(inverterW/1000,2) + ' kW';
+      document.getElementById('urbanPvKw').textContent = fmt(pvKw,2) + ' kWc';
+      document.getElementById('urbanPanels').textContent = panels;
+      document.getElementById('urbanBatteryNeed').textContent = fmt(batteryKwh,2) + ' kWh (' + packs + ' packs)';
+      document.getElementById('urbanBudget').textContent = Math.round(budget).toLocaleString('fr-FR') + ' FCFA';
+
+      urbanAdvice.value =
+        `Zone urbaine (${country === 'ci' ? 'Côte d’Ivoire' : 'Sénégal'}) : ${urbanRooms.length} pièce(s), ${fmt(connectedW,0)} W connectés, ${fmt(dailyKwh,2)} kWh/j et une pointe estimée à ${fmt(peakW/1000,2)} kW. ` +
+        `Le système conseillé est d'environ ${fmt(inverterW/1000,2)} kW, ${fmt(pvKw,2)} kWc de PV et ${packs} pack(s) de batterie. ` +
+        `Budget estimé : ${Math.round(budget).toLocaleString('fr-FR')} FCFA. Énergie annuelle estimée : ${fmt(annualKwh,0)} kWh/an. Couverture solaire théorique : ${coveredBySolar}%.`;
+    }
+
+    urbanRoomType.addEventListener('change', ()=> {
+      urbanRoomName.placeholder = urbanRoomType.value + ' principal';
+    });
+    addUrbanRoomBtn.addEventListener('click', ()=> {
+      const type = urbanRoomType.value;
+      const count = Math.max(1, Number(urbanRoomCount.value||1));
+      const base = urbanRoomName.value.trim() || type;
+      const withPrefill = urbanPrefill.checked;
+      for(let i=0;i<count;i++) createUrbanRoom(type, count > 1 ? `${base} ${i+1}` : base, withPrefill);
+    });
+    clearUrbanRoomsBtn.addEventListener('click', ()=> {
+      if(!confirm('Vider toutes les pièces urbaines ?')) return;
+      urbanRooms = [];
+      renderUrbanRooms();
+      computeUrban();
+    });
+    [urbanCountry, urbanSunHours, urbanDerate, urbanPanelW, urbanBatteryKwh, urbanAutonomy, urbanDiversity].forEach(el => el.addEventListener('input', computeUrban));
+
+    renderUrbanSuggests();
+    createUrbanRoom('Salon', 'Salon principal', true);
+
+    const SUGGESTED = [
+      { id:'lighting', label:'Éclairage LED (hangar/serre)', power:100, hours:6 },
+      { id:'fridge', label:'Réfrigérateur / chambre froide', power:200, hours:8 },
+      { id:'charger', label:'Recharge téléphones (borne)', power:200, hours:6 },
+      { id:'radio', label:'Radio / Sono / Info', power:80, hours:6 },
+      { id:'local_staff', label:'Local employés (éclairage + prises)', power:300, hours:8 },
+      { id:'aerator', label:'Aérateur bassin pisciculture', power:250, hours:6 },
+      { id:'sprayer', label:'Pulvérisateur électrique', power:300, hours:1 },
+      { id:'moulin', label:'Broyeur/moulin', power:1500, hours:1 },
+      { id:'pump_secondary', label:'Pompe annexe', power:1500, hours:0.5 }
+    ];
+
+    let consumers = [];
+    let map;
+    const zoneSelect = document.getElementById('zoneSelect');
+    const citySelect = document.getElementById('citySelect');
+    const countryEl = document.getElementById('country');
+    const cropEl = document.getElementById('crop');
+    const areaHaEl = document.getElementById('areaHa');
+    const needMmEl = document.getElementById('needMmPerDay');
+    const irrigDaysEl = document.getElementById('irrigDays');
+    const pumpHoursEl = document.getElementById('pumpHours');
+    const headEl = document.getElementById('head');
+    const pumpEffEl = document.getElementById('pumpEff');
+    const sunHoursEl = document.getElementById('sunHours');
+    const pvDerateEl = document.getElementById('pvDerate');
+    const panelWEl = document.getElementById('panelW');
+    const packKwhEl = document.getElementById('packKwh');
+    const autonomyDaysEl = document.getElementById('autonomyDays');
+    const calcBtn = document.getElementById('calcBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const suggestListEl = document.getElementById('suggestList');
+    const consListEl = document.getElementById('consumerList');
+    const addManualBtn = document.getElementById('addManual');
+    const consNameInput = document.getElementById('consName');
+    const consPowerInput = document.getElementById('consPower');
+    const consHoursInput = document.getElementById('consHours');
+    const volDayEl = document.getElementById('volDay');
+    const flowQEl = document.getElementById('flowQ');
+    const pumpKwEl = document.getElementById('pumpKw');
+    const pumpKwhEl = document.getElementById('pumpKwh');
+    const othersKwhEl = document.getElementById('othersKwh');
+    const totalKwhDayEl = document.getElementById('totalKwhDay');
+    const pvKwEl = document.getElementById('pvKw');
+    const panelsCountEl = document.getElementById('panelsCount');
+    const reservoirEl = document.getElementById('reservoir');
+    const batteryKwhEl = document.getElementById('batteryKwh');
+    const consMonthEl = document.getElementById('consMonth');
+    const consMonthRangeEl = document.getElementById('consMonthRange');
+    const afterMonthEl = document.getElementById('afterMonth');
+    const afterMonthRangeEl = document.getElementById('afterMonthRange');
+    const pvReqKwcEl = document.getElementById('pvReqKwc');
+    const pvReqRangeEl = document.getElementById('pvReqRange');
+    const summaryPumpEl = document.getElementById('summaryPump');
+    const summaryReservoirEl = document.getElementById('summaryReservoir');
+    const summaryBatteriesEl = document.getElementById('summaryBatteries');
+    const autDaysLabel = document.getElementById('autDaysLabel');
+
+    const CITY_COORDS = {
+      'ci_all': { bounds:[[5.345317,-4.024429],[6.818351,-5.276987]], center:[6.05,-4.65], zoom:7 },
+      'ci_abidjan': {lat:5.345317, lng:-4.024429, zoom:12 },
+      'ci_yamoussoukro': {lat:6.818351, lng:-5.276987, zoom:11 },
+      'sn_all': { center:[14.0,-14.0], zoom:6 },
+      'sn_dakar': {lat:14.6937, lng:-17.44406, zoom:12 }
+    };
+    const CROP_DEFAULTS_BY_COUNTRY = {
+      'ci': { 'tomate':5.0,'mais':4.5,'riz':6.5,'mangue':3.5,'legume':5.5,'palmier':4.0 },
+      'sn': { 'tomate':6.0,'mais':5.0,'riz':7.5,'mangue':3.8,'legume':6.0,'palmier':4.5 }
+    };
+    const CROP_GENERIC_DEFAULT = 5.0;
+
+    function renderSuggested(){
+      suggestListEl.innerHTML = '';
+      SUGGESTED.forEach(s=>{
+        const btn = document.createElement('button');
+        btn.className = 'btn-outline';
+        btn.innerText = s.label + ' — ' + s.power + 'W';
+        btn.addEventListener('click', ()=>{
+          consumers.push({name:s.label, power:s.power, hours:s.hours});
+          renderConsumers();
+          computeAll();
+        });
+        suggestListEl.appendChild(btn);
+      });
+    }
+
+    function renderConsumers(){
+      consListEl.innerHTML = '';
+      if(consumers.length === 0){
+        consListEl.innerHTML = '<div style="color:#dfffe6;padding:8px">Aucun consommateur additionnel</div>';
+        return;
+      }
+      consumers.forEach((c, idx)=>{
+        const div = document.createElement('div');
+        div.className = 'consumer';
+        div.innerHTML = `<div><strong>${c.name}</strong><div class="meta">${c.power} W × ${c.hours} h/j</div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button data-idx="${idx}" class="btn-outline edit" style="padding:8px 12px">Éditer</button>
+            <button data-idx="${idx}" class="btn-outline del" style="padding:8px 12px">Suppr</button>
+          </div>`;
+        consListEl.appendChild(div);
+      });
+      consListEl.querySelectorAll('.del').forEach(b=> b.addEventListener('click', ev=>{
+        const i = +ev.target.dataset.idx;
+        consumers.splice(i,1);
+        renderConsumers();
+        computeAll();
+      }));
+      consListEl.querySelectorAll('.edit').forEach(b=> b.addEventListener('click', ev=>{
+        const i = +ev.target.dataset.idx;
+        const c = consumers[i];
+        const name = prompt('Nom', c.name);
+        if(name === null) return;
+        const power = parseFloat(prompt('Puissance (W)', c.power));
+        if(isNaN(power)) return alert('Puissance invalide');
+        const hours = parseFloat(prompt('Heures/j', c.hours));
+        if(isNaN(hours)) return alert('Heures invalides');
+        consumers[i] = { name, power, hours };
+        renderConsumers();
+        computeAll();
+      }));
+    }
+
+    addManualBtn.addEventListener('click', ()=>{
+      const name = (consNameInput.value||'').trim();
+      const power = Number(consPowerInput.value||0);
+      const hours = Number(consHoursInput.value||0);
+      if(!name || power <= 0 || hours <= 0){ alert('Nom, puissance et heures/j obligatoires'); return; }
+      consumers.push({name,power,hours});
+      consNameInput.value='';
+      consPowerInput.value='';
+      consHoursInput.value='';
+      renderConsumers();
+      computeAll();
+    });
+
+    function updateNeedMmForCountryAndCrop(){
+      const country = (countryEl.value || 'ci');
+      const crop = (cropEl.value || 'tomate');
+      if(crop === 'custom') return;
+      const countryDefaults = CROP_DEFAULTS_BY_COUNTRY[country] || {};
+      const val = (typeof countryDefaults[crop] === 'number') ? countryDefaults[crop] : CROP_GENERIC_DEFAULT;
+      needMmEl.value = val;
+    }
+    function syncCountryToZone(){
+      const c = countryEl.value;
+      if(c === 'ci') zoneSelect.value='ci';
+      else if(c === 'sn') zoneSelect.value='sn';
+      populateCities(zoneSelect.value);
+    }
+    function syncZoneToCountry(){
+      const z = zoneSelect.value;
+      if(z === 'ci') countryEl.value='ci';
+      else if(z === 'sn') countryEl.value='sn';
+      updateNeedMmForCountryAndCrop();
+    }
+
+    function computeAll(){
+      const areaHa = Math.max(0, Number(areaHaEl.value||0));
+      const areaM2 = areaHa * 10000;
+      const mmPerDay = Math.max(0, Number(needMmEl.value||0));
+      const irrigDays = Math.max(1, Number(irrigDaysEl.value||1));
+      const pumpHours = Math.max(0.1, Number(pumpHoursEl.value||1));
+      const head = Math.max(0, Number(headEl.value||0));
+      const pumpEff = Math.max(0.01, Number(pumpEffEl.value||55))/100;
+      const sunH = Math.max(0.1, Number(sunHoursEl.value||5));
+      const pvDerate = Math.max(0.01, Number(pvDerateEl.value||85))/100;
+      const panelW = Math.max(10, Number(panelWEl.value||350));
+      const packKwh = Math.max(0.01, Number(packKwhEl.value||1.28));
+      const autonomyDays = Math.max(0, Number(autonomyDaysEl.value||2));
+
+      const volDay_m3 = (areaM2 * mmPerDay) / 1000;
+      const weeklyVol = volDay_m3 * 7;
+      const volPerPumpingDay = weeklyVol / irrigDays;
+      const q_m3h = (pumpHours > 0) ? (volPerPumpingDay / pumpHours) : 0;
+
+      const phyd_W = 2.725 * q_m3h * head;
+      const pInput_W = pumpEff > 0 ? phyd_W / pumpEff : 0;
+      const pInput_kW = pInput_W / 1000;
+
+      const energyPumpPerPumpingDay_kWh = pInput_kW * pumpHours;
+      const energyPumpDailyAvg_kWh = (energyPumpPerPumpingDay_kWh * irrigDays) / 7;
+
+      let others_kwh = 0;
+      consumers.forEach(c => { others_kwh += (Number(c.power||0) * Number(c.hours||0)) / 1000; });
+
+      const systemEff = 0.95;
+      const totalDaily_kWh = (energyPumpDailyAvg_kWh + others_kwh) / systemEff;
+
+      const pvKw = (sunH * pvDerate) > 0 ? (totalDaily_kWh / (sunH * pvDerate)) : 0;
+      const panels = Math.max(0, Math.ceil((pvKw * 1000) / panelW));
+      const reservoir_m3 = autonomyDays * volDay_m3;
+
+      let nightShare = 0.35;
+      const totalHoursOtherWeighted = consumers.reduce((s,c)=> s + Number(c.hours||0),0);
+      if(totalHoursOtherWeighted > 10) nightShare = Math.min(0.6, 0.35 + (totalHoursOtherWeighted - 10) * 0.01);
+      const dailyNightKwh = totalDaily_kWh * nightShare;
+      const DoD = 0.9;
+      const batteryNeeded_kWh = autonomyDays > 0 ? (dailyNightKwh * autonomyDays) / DoD : 0;
+      const packsRequired = batteryNeeded_kWh > 0 ? Math.ceil(batteryNeeded_kWh / packKwh) : 0;
+
+      const totalMonthly_kWh = totalDaily_kWh * 30;
+      const lowMonthly = totalMonthly_kWh * 0.85;
+      const highMonthly = totalMonthly_kWh * 1.15;
+      const afterMonthly = Math.max(0, totalMonthly_kWh * (1 - Math.min(0.75, pvKw > 0 ? 0.55 : 0)));
+
+      volDayEl.innerText = fmt(volDay_m3,3) + ' m³';
+      flowQEl.innerText = fmt(q_m3h,3) + ' m³/h';
+      pumpKwEl.innerText = fmt(pInput_kW,3) + ' kW';
+      pumpKwhEl.innerText = fmt(energyPumpDailyAvg_kWh,3) + ' kWh/j';
+      othersKwhEl.innerText = fmt(others_kwh,3) + ' kWh/j';
+      totalKwhDayEl.innerText = fmt(totalDaily_kWh,3) + ' kWh/j';
+      pvKwEl.innerText = fmt(pvKw,3) + ' kWc';
+      panelsCountEl.innerText = panels;
+      reservoirEl.innerText = fmt(reservoir_m3,3) + ' m³';
+      batteryKwhEl.innerText = fmt(batteryNeeded_kWh,3) + ' kWh (' + packsRequired + ' packs)';
+
+      consMonthEl.innerText = fmt(totalMonthly_kWh,2) + ' kWh';
+      consMonthRangeEl.innerText = `plage: ${fmt(lowMonthly,2)} - ${fmt(highMonthly,2)} kWh`;
+      afterMonthEl.innerText = fmt(afterMonthly,2) + ' kWh';
+      afterMonthRangeEl.innerText = `gain potentiel: ${fmt(totalMonthly_kWh - afterMonthly,2)} kWh`;
+      pvReqKwcEl.innerText = fmt(pvKw,3) + ' kWc';
+      pvReqRangeEl.innerText = `±15% → ${fmt(pvKw*0.85,2)} - ${fmt(pvKw*1.15,2)} kWc`;
+
+      summaryPumpEl.innerText = `${fmt(pInput_kW,3)} kW - débit ${fmt(q_m3h,3)} m³/h (hauteur ${head} m). Consommation pompe: ${fmt(energyPumpDailyAvg_kWh,3)} kWh/j`;
+      summaryReservoirEl.innerText = `${fmt(reservoir_m3,3)} m³ → autonomie ${autonomyDays} j (à ${fmt(volDay_m3,3)} m³/j)`;
+      summaryBatteriesEl.innerText = `${Math.round(packsRequired)} packs × ${fmt(packKwh,2)} kWh ≈ ${fmt(batteryNeeded_kWh,2)} kWh utile (DoD ${DoD*100}%)`;
+      autDaysLabel.innerText = autonomyDays;
+    }
+
+    cropEl.addEventListener('change', ()=> updateNeedMmForCountryAndCrop());
+    countryEl.addEventListener('change', ()=> { syncCountryToZone(); updateNeedMmForCountryAndCrop(); });
+    zoneSelect.addEventListener('change', ()=> { syncZoneToCountry(); });
+    citySelect.addEventListener('change', ()=> zoomToCity(citySelect.value));
+    calcBtn.addEventListener('click', computeAll);
+    resetBtn.addEventListener('click', ()=>{
+      if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
+      countryEl.value='ci';
+      zoneSelect.value='ci';
+      populateCities(zoneSelect.value);
+      cropEl.value='tomate';
+      areaHaEl.value='0.5';
+      needMmEl.value='5.0';
+      irrigDaysEl.value='3';
+      pumpHoursEl.value='4';
+      headEl.value='15';
+      pumpEffEl.value='55';
+      sunHoursEl.value='5';
+      pvDerateEl.value='85';
+      panelWEl.value='350';
+      packKwhEl.value='1.28';
+      autonomyDaysEl.value='2';
+      consumers = [];
+      renderConsumers();
+      updateNeedMmForCountryAndCrop();
+      computeAll();
+    });
+    [areaHaEl, needMmEl, irrigDaysEl, pumpHoursEl, headEl, pumpEffEl, sunHoursEl, pvDerateEl, panelWEl, packKwhEl, autonomyDaysEl].forEach(el => el.addEventListener('input', computeAll));
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      initMap();
+      populateCities(zoneSelect.value);
+      renderSuggested();
+      renderConsumers();
+      updateNeedMmForCountryAndCrop();
+      computeAll();
+    });
   </script>
 </body>
 </html>
