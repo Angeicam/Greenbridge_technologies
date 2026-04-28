@@ -51,14 +51,14 @@
       background:var(--green-dark);
       display:flex;
       align-items:center;
-      justify-content:space-between;
+      justify-content:flex-end;
       gap:20px;
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
       border-bottom:1px solid rgba(255,255,255,.04);
     }
-    .topbar .left, .topbar .right{
+    .topbar .right{
       display:flex;
       align-items:center;
       gap:12px;
@@ -71,6 +71,10 @@
       font-weight:700;
     }
     .topbar a:hover{color:var(--accent-2)}
+    .phone-label{
+      font-weight:800;
+      margin-right:4px;
+    }
 
     header{
       position:fixed;
@@ -1305,11 +1309,12 @@
 <body>
 
   <div class="topbar" role="banner" aria-hidden="false">
-    <div class="left">
-      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
-    </div>
     <div class="right">
-      <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
+      <a href="tel:+2250707070707" id="topPhoneLink">
+        <i class="fas fa-phone" aria-hidden="true"></i>
+        <span class="phone-label">Tel:</span>
+        <span id="topPhoneText">+225 07 07 07 07 07</span>
+      </a>
     </div>
   </div>
 
@@ -1481,16 +1486,52 @@
     <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
     <div class="footer-contact" aria-label="Coordonnées">
       <div>© 2025 GreenBridge. Tous droits réservés.</div>
-      <div>Abidjan, Côte d’Ivoire</div>
-      <div>Tel: +225 07 07 07 07 07</div>
+      <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
     </div>
   </footer>
 
   <script>
+    const contactNumbers = {
+      abidjan: {
+        display: '+225 07 07 07 07 07',
+        tel: '+2250707070707'
+      },
+      dakar: {
+        display: '+221 77 00 00 00 00',
+        tel: '+2217700000000'
+      }
+    };
+
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
     const mobileBackdrop = document.getElementById('mobileBackdrop');
     const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+
+    const topPhoneLink = document.getElementById('topPhoneLink');
+    const topPhoneText = document.getElementById('topPhoneText');
+    const mobilePhoneLink = document.getElementById('mobilePhoneLink');
+    const footerPhoneText = document.getElementById('footerPhoneText');
+
+    let activeCountry = 'abidjan';
+    let countryTimer = null;
+
+    function updatePhone(country){
+      const info = contactNumbers[country] || contactNumbers.abidjan;
+
+      if (topPhoneLink) topPhoneLink.href = 'tel:' + info.tel;
+      if (topPhoneText) topPhoneText.textContent = info.display;
+
+      if (mobilePhoneLink) {
+        mobilePhoneLink.href = 'tel:' + info.tel;
+        mobilePhoneLink.textContent = info.display;
+      }
+      if (footerPhoneText) footerPhoneText.textContent = info.display;
+    }
+
+    function toggleCountry(){
+      activeCountry = activeCountry === 'abidjan' ? 'dakar' : 'abidjan';
+      updatePhone(activeCountry);
+    }
 
     function openMenu(){
       if (!mobileNav || !burgerBtn) return;
@@ -1530,6 +1571,10 @@
         if (e.key === 'Escape') closeMenu();
       });
     }
+
+    updatePhone('abidjan');
+    clearInterval(countryTimer);
+    countryTimer = setInterval(toggleCountry, 10000);
 
     function openModal(img, title, desc){
       const modal = document.getElementById('detailModal');
