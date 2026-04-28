@@ -55,7 +55,6 @@
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
-      border-bottom:1px solid rgba(255,255,255,.04);
     }
     .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
     .topbar a{color:#fff;transition:color .18s}
@@ -76,8 +75,17 @@
       box-shadow:0 4px 12px rgba(0,0,0,.25);
     }
 
-    .logo-text{display:flex;align-items:flex-start;gap:12px}
-    .logo-text img{height:56px;display:block;flex:0 0 auto}
+    .logo-text{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .logo-text img{
+      height:56px;
+      display:block;
+      flex:0 0 auto;
+    }
+
     .brand-stack{
       display:flex;
       flex-direction:column;
@@ -89,15 +97,41 @@
       margin:0;
       padding:0;
     }
+
     .company-name{
-      font-size:34px;font-weight:800;letter-spacing:1px;padding:0;margin:0;border-radius:8px;
-      color:#04462e;-webkit-text-stroke:0.95px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,0.6);
-      position:relative;top:2px;white-space:nowrap;line-height:1;text-align:left;width:max-content;display:block;
+      font-size:34px;
+      font-weight:800;
+      letter-spacing:1px;
+      padding:0;
+      margin:0;
+      border-radius:8px;
+      color:#04462e;
+      -webkit-text-stroke:0.95px var(--gold-base);
+      text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      position:relative;
+      top:2px;
+      white-space:nowrap;
+      line-height:1;
+      text-align:left;
+      width:max-content;
+      display:block;
     }
+
     .company-tagline{
-      font-size:14px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:#dfffe6;
-      padding:0;margin:2px 0 0 0;text-shadow:0 2px 6px rgba(0,0,0,0.45);-webkit-text-stroke:0.4px rgba(212,175,55,0.55);
-      white-space:nowrap;line-height:1;text-align:left;width:max-content;display:block;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:5px;
+      text-transform:uppercase;
+      color:#dfffe6;
+      padding:0;
+      margin:2px 0 0 0;
+      text-shadow:0 2px 6px rgba(0,0,0,0.45);
+      -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
+      white-space:nowrap;
+      line-height:1;
+      text-align:left;
+      width:max-content;
+      display:block;
     }
 
     nav{display:flex;gap:18px;align-items:center}
@@ -107,7 +141,7 @@
       font-weight:600;
       padding:8px 10px;
       border-radius:8px;
-      transition:all .18s
+      transition:all .18s;
     }
     nav a:hover{color:var(--accent-2)}
     nav a.active{
@@ -116,7 +150,7 @@
       border:1px solid rgba(212,175,55,0.12);
       padding:10px 14px;
       font-weight:800;
-      border-radius:10px
+      border-radius:10px;
     }
 
     .burger{
@@ -128,7 +162,7 @@
       background:transparent;
       align-items:center;
       justify-content:center;
-      cursor:pointer
+      cursor:pointer;
     }
     .burger .icon{display:block;position:relative;width:26px;height:18px}
     .burger .icon span{
@@ -138,7 +172,7 @@
       height:3px;
       background:#fff;
       border-radius:2px;
-      transition:all .25s
+      transition:all .25s;
     }
     .burger .icon span:nth-child(1){top:0}
     .burger .icon span:nth-child(2){top:7.5px}
@@ -158,7 +192,7 @@
       overflow:auto;
       transition:max-height .28s ease;
       box-shadow:0 12px 40px rgba(0,0,0,.45);
-      max-height:0
+      max-height:0;
     }
     .mobile-nav.open{display:block;max-height:70vh}
     .mobile-nav .inner{
@@ -166,7 +200,7 @@
       display:flex;
       flex-direction:column;
       gap:8px;
-      align-items:stretch
+      align-items:stretch;
     }
     .mobile-nav .contact{
       display:flex;
@@ -175,7 +209,7 @@
       padding:8px 12px;
       border-bottom:1px solid rgba(255,255,255,0.04);
       margin-bottom:6px;
-      color:var(--muted-text-color)
+      color:var(--muted-text-color);
     }
     .mobile-nav a{
       padding:12px;
@@ -186,7 +220,7 @@
       font-weight:700;
       display:flex;
       justify-content:space-between;
-      align-items:center
+      align-items:center;
     }
     .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
     .mobile-nav a.active{background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));color:var(--accent-2)}
@@ -201,7 +235,7 @@
       justify-content:center;
       text-align:center;
       overflow:hidden;
-      background:#0a4d2e
+      background:#0a4d2e;
     }
     .hero-bg{
       position:absolute;
@@ -211,13 +245,13 @@
       object-fit:cover;
       object-position:center 90%;
       transform:scale(1.07) translateY(24px);
-      filter:brightness(1.02) contrast(1.03) saturate(1.02)
+      filter:brightness(1.02) contrast(1.03) saturate(1.02);
     }
     .hero-overlay{
       position:absolute;
       inset:0;
       background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
-      z-index:1
+      z-index:1;
     }
     .hero-content{
       position:relative;
@@ -227,18 +261,18 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center
+      justify-content:center;
     }
     .hero-content h1{
       font-size:36px;
       margin:0 0 12px;
       font-weight:700;
-      text-shadow:0 3px 10px rgba(0,0,0,0.45)
+      text-shadow:0 3px 10px rgba(0,0,0,0.45);
     }
     .hero-content p{
       font-size:18px;
       margin:0;
-      text-shadow:0 2px 8px rgba(0,0,0,0.45)
+      text-shadow:0 2px 8px rgba(0,0,0,0.45);
     }
 
     .section{padding:60px 5vw}
@@ -598,6 +632,7 @@
       .room .room-actions{flex-direction:column;align-items:stretch}
       .consumer{font-size:14px}
       .result-card{min-width:220px}
+      .section{padding:50px 4vw}
     }
 
     @media (max-width:768px){
@@ -621,13 +656,8 @@
         text-overflow:ellipsis;
       }
       .hero-content p{
-        white-space:nowrap;
-        display:inline-block;
         font-size:16px;
-        line-height:1;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        max-width:100%;
+        line-height:1.5;
       }
       .btn-primary{
         padding:12px 28px;
@@ -647,7 +677,7 @@
     </div>
   </div>
 
-  <header>
+  <header role="navigation" aria-label="Main">
     <div class="logo-text">
       <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
       <div class="brand-stack">
