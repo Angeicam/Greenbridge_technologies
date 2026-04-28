@@ -92,7 +92,6 @@
       flex:0 0 auto;
       object-fit:contain;
     }
-
     .brand-stack{
       display:flex;
       flex-direction:column;
@@ -105,16 +104,15 @@
       padding:0;
       overflow:hidden;
     }
-
     .company-name{
-      font-size:38px;
+      font-size:34px;
       font-weight:800;
       letter-spacing:1px;
       padding:0;
       margin:0;
       border-radius:8px;
       color:#04462e;
-      -webkit-text-stroke:1px var(--gold-base);
+      -webkit-text-stroke:0.95px var(--gold-base);
       text-shadow:0 3px 6px rgba(0,0,0,0.6);
       position:relative;
       top:2px;
@@ -127,9 +125,8 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
-
     .company-tagline{
-      font-size:15px;
+      font-size:14px;
       font-weight:700;
       letter-spacing:5px;
       text-transform:uppercase;
@@ -188,25 +185,28 @@
     .burger .icon span{
       position:absolute;
       left:0;
-      right:0;
       height:3px;
-      background:#fff;
+      background:linear-gradient(90deg,#fff 0%, #f3f8f4 100%);
       border-radius:999px;
       transition:all .25s ease;
       box-shadow:0 1px 2px rgba(0,0,0,.22);
     }
-    .burger .icon span:nth-child(1){top:0}
-    .burger .icon span:nth-child(2){top:8.5px}
-    .burger .icon span:nth-child(3){top:17px}
+    .burger .icon span:nth-child(1){top:0;width:100%}
+    .burger .icon span:nth-child(2){top:8.5px;width:78%;left:11%}
+    .burger .icon span:nth-child(3){top:17px;width:92%;left:4%}
     .burger.open .icon span:nth-child(1){
       transform:translateY(8.5px) rotate(45deg);
+      left:0;
+      width:100%;
     }
     .burger.open .icon span:nth-child(2){
       opacity:0;
-      transform:scaleX(.4);
+      transform:scaleX(.35);
     }
     .burger.open .icon span:nth-child(3){
       transform:translateY(-8.5px) rotate(-45deg);
+      left:0;
+      width:100%;
     }
 
     .mobile-nav{
@@ -215,57 +215,21 @@
       top:calc(var(--topbar-h)+var(--header-h));
       left:0;
       right:0;
-      bottom:0;
-      background:rgba(0,0,0,.42);
-      backdrop-filter:blur(8px);
+      background:var(--bg);
       z-index:2000;
-      opacity:0;
-      transition:opacity .2s ease;
       overflow:auto;
+      transition:max-height .28s ease;
+      box-shadow:0 12px 40px rgba(0,0,0,.45);
+      max-height:0;
     }
-
-    .mobile-nav.open{
-      display:block;
-      opacity:1;
-    }
-
-    .mobile-nav .panel{
-      background:linear-gradient(180deg, rgba(7,50,23,.98), rgba(6,31,20,.98));
-      box-shadow:0 18px 50px rgba(0,0,0,.48);
-      border-top:1px solid rgba(255,255,255,.06);
-      max-height:88vh;
-      overflow:auto;
-      border-radius:0 0 22px 22px;
-    }
-
+    .mobile-nav.open{display:block;max-height:88vh}
     .mobile-nav .inner{
-      padding:14px 5vw 20px;
+      padding:12px 5vw 20px;
       display:flex;
       flex-direction:column;
-      gap:14px;
+      gap:12px;
+      align-items:stretch;
     }
-
-    .mobile-nav .close-row{
-      display:flex;
-      justify-content:flex-end;
-    }
-
-    .mobile-nav .close-btn{
-      border:none;
-      background:rgba(255,255,255,.08);
-      color:#fff;
-      font-weight:800;
-      border-radius:10px;
-      padding:10px 14px;
-      cursor:pointer;
-      transition:background .18s ease, transform .18s ease;
-    }
-
-    .mobile-nav .close-btn:hover{
-      background:rgba(255,255,255,.14);
-      transform:translateY(-1px);
-    }
-
     .mobile-nav .contact{
       display:flex;
       flex-direction:column;
@@ -276,13 +240,11 @@
       border:1px solid rgba(255,255,255,.06);
       color:var(--muted-text-color);
     }
-
     .mobile-nav .contact strong{
       color:#fff;
       font-size:14px;
       letter-spacing:1px;
     }
-
     .mobile-nav .contact .city-list{
       display:flex;
       flex-wrap:wrap;
@@ -290,14 +252,12 @@
       color:#dfffe6;
       font-weight:600;
     }
-
     .mobile-nav .contact .city-list span{
       background:rgba(212,175,55,.08);
       border:1px solid rgba(212,175,55,.12);
       padding:6px 10px;
       border-radius:999px;
     }
-
     .mobile-nav .contact .phone-line{
       display:flex;
       align-items:center;
@@ -306,52 +266,19 @@
       font-weight:700;
       flex-wrap:wrap;
     }
-
-    .mobile-nav .menu-links{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-
     .mobile-nav a{
-      padding:13px 12px;
+      padding:12px;
       color:#fff;
       width:100%;
       text-align:left;
-      border-radius:10px;
+      border-radius:8px;
       font-weight:700;
       display:flex;
       justify-content:space-between;
-      align-items:center;
-      transition:background .18s ease, color .18s ease, border-color .18s ease;
+      align-items:center
     }
-
-    .mobile-nav .mobile-link:hover{
-      background:rgba(124,179,66,0.10);
-      color:var(--accent-2);
-    }
-
-    .mobile-nav .mobile-link.active{
-      background:linear-gradient(90deg, rgba(212,175,55,.10), rgba(212,175,55,.04));
-      color:var(--accent-2);
-      border:1px solid rgba(212,175,55,.18);
-    }
-
-    .mobile-nav .socials{
-      margin-top:2px;
-      border-top:1px solid rgba(255,255,255,0.05);
-      padding-top:12px;
-      display:flex;
-      gap:12px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-
-    .mobile-nav .socials a{
-      width:auto;
-      padding:0;
-      font-size:18px;
-    }
+    .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
+    .mobile-nav a.active{background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2)}
 
     .hero{
       margin-top:calc(var(--topbar-h) + var(--header-h));
@@ -1160,7 +1087,6 @@
       50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 }
       100%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
     }
-
     @media (max-width:820px){
       .electric-band .container {
         width:100%;
@@ -1225,39 +1151,17 @@
   </div>
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
-    <div class="panel" id="mobilePanel">
-      <div class="inner">
-        <div class="close-row">
-          <button class="close-btn" type="button" id="closeMobileBtn" aria-label="Fermer le menu">Fermer ×</button>
-        </div>
-
-        <div class="contact" aria-hidden="false">
-          <strong>CONTACT</strong>
-          <div class="city-list">
-            <span>Abidjan</span>
-            <span>Dakar</span>
-          </div>
-          <div class="phone-line">
-            <i class="fas fa-phone" aria-hidden="true"></i>
-            <a href="tel:+22507070707">+225 07 07 07 07 07</a>
-          </div>
-        </div>
-
-        <div class="menu-links">
-          <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
-          <a href="#top" class="mobile-link active">Étude</a>
-          <a href="produits.html" class="mobile-link">Nos Produits</a>
-          <a href="Projets.html" class="mobile-link">Projets futurs</a>
-          <a href="maintenance.html" class="mobile-link">Maintenance</a>
-        </div>
-
-        <div class="socials">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-        </div>
+    <div class="inner">
+      <div class="contact" aria-hidden="false">
+        <div><strong>GREENBRIDGE</strong></div>
+        <div><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan · Dakar</div>
+        <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
       </div>
+      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+      <a href="#top" class="mobile-link active">Étude</a>
+      <a href="produits.html" class="mobile-link">Nos Produits</a>
+      <a href="Projets.html" class="mobile-link">Projets futurs</a>
+      <a href="maintenance.html" class="mobile-link">Maintenance</a>
     </div>
   </div>
 
@@ -1667,58 +1571,21 @@
 
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
-    const mobilePanel = document.getElementById('mobilePanel');
-    const closeMobileBtn = document.getElementById('closeMobileBtn');
-
-    function openMobileMenu(){
-      if(!burgerBtn || !mobileNav) return;
-      mobileNav.classList.add('open');
-      burgerBtn.classList.add('open');
-      mobileNav.setAttribute('aria-hidden','false');
-      burgerBtn.setAttribute('aria-expanded','true');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeMobileMenu(){
-      if(!burgerBtn || !mobileNav) return;
-      mobileNav.classList.remove('open');
-      burgerBtn.classList.remove('open');
-      mobileNav.setAttribute('aria-hidden','true');
-      burgerBtn.setAttribute('aria-expanded','false');
-      document.body.style.overflow = '';
-    }
-
     if (burgerBtn && mobileNav) {
       burgerBtn.addEventListener('click', () => {
-        if (mobileNav.classList.contains('open')) {
-          closeMobileMenu();
-        } else {
-          openMobileMenu();
-        }
-      });
-
-      if (closeMobileBtn) {
-        closeMobileBtn.addEventListener('click', closeMobileMenu);
-      }
-
-      mobileNav.addEventListener('click', (e) => {
-        if (e.target === mobileNav) closeMobileMenu();
-      });
-
-      mobilePanel?.addEventListener('click', (e) => {
-        e.stopPropagation();
+        const opened = mobileNav.classList.toggle('open');
+        burgerBtn.classList.toggle('open', opened);
+        mobileNav.setAttribute('aria-hidden', (!opened).toString());
+        burgerBtn.setAttribute('aria-expanded', String(opened));
       });
 
       mobileNav.querySelectorAll('.mobile-link').forEach(a=>{
         a.addEventListener('click', ()=>{
-          closeMobileMenu();
+          mobileNav.classList.remove('open');
+          burgerBtn.classList.remove('open');
+          mobileNav.setAttribute('aria-hidden','true');
+          burgerBtn.setAttribute('aria-expanded','false');
         });
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-          closeMobileMenu();
-        }
       });
     }
 
@@ -2117,17 +1984,17 @@
         `Budget estimé : ${Math.round(budget).toLocaleString('fr-FR')} FCFA. Énergie annuelle estimée : ${fmt(annualKwh,0)} kWh/an. Couverture solaire théorique : ${coveredBySolar}%.`;
     }
 
-    urbanRoomType.addEventListener('change', ()=> {
+    urbanRoomType.addEventListener('change', ()=>{
       urbanRoomName.placeholder = urbanRoomType.value + ' principal';
     });
-    addUrbanRoomBtn.addEventListener('click', ()=> {
+    addUrbanRoomBtn.addEventListener('click', ()=>{
       const type = urbanRoomType.value;
       const count = Math.max(1, Number(urbanRoomCount.value||1));
       const base = urbanRoomName.value.trim() || type;
       const withPrefill = urbanPrefill.checked;
       for(let i=0;i<count;i++) createUrbanRoom(type, count > 1 ? `${base} ${i+1}` : base, withPrefill);
     });
-    clearUrbanRoomsBtn.addEventListener('click', ()=> {
+    clearUrbanRoomsBtn.addEventListener('click', ()=>{
       if(!confirm('Vider toutes les pièces urbaines ?')) return;
       urbanRooms = [];
       renderUrbanRooms();
