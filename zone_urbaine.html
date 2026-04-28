@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenBridge Technologies — Dimensionnement</title>
+  <title>GreenBridge Énergie</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -23,9 +23,8 @@
       --muted-text-color:#e6f7ea;
       --muted-text-size:15px;
       --electric-yellow:#ffd600;
-      --card-bg:#061f14;
-      --form-bg:rgba(6,31,20,0.92);
-      --line:rgba(212,175,55,0.14);
+      --release-orange:#ff7a18;
+      --release-orange-2:#ffb347;
     }
 
     *{box-sizing:border-box}
@@ -38,6 +37,7 @@
       scroll-behavior:smooth;
       overflow-x:hidden;
     }
+    body.menu-open{overflow:hidden}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
 
@@ -57,7 +57,7 @@
       font-size:14px;
     }
     .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
-    .topbar a{color:#fff;transition:color .18s}
+    .topbar a{color:#fff;transition:color .18s;white-space:nowrap}
     .topbar a:hover{color:var(--accent-2)}
 
     header{
@@ -79,6 +79,7 @@
       display:flex;
       align-items:flex-start;
       gap:12px;
+      min-width:0;
     }
     .logo-text img{
       height:56px;
@@ -163,8 +164,15 @@
       align-items:center;
       justify-content:center;
       cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
     }
-    .burger .icon{display:block;position:relative;width:26px;height:18px}
+    .burger .icon{
+      display:block;
+      position:relative;
+      width:26px;
+      height:18px;
+    }
     .burger .icon span{
       position:absolute;
       left:0;
@@ -211,6 +219,20 @@
       margin-bottom:6px;
       color:var(--muted-text-color);
     }
+    .mobile-nav .contact strong{
+      color:#fff;
+      font-size:15px;
+      letter-spacing:1px;
+    }
+    .mobile-nav .contact .phone-line{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#fff;
+      font-weight:700;
+      flex-wrap:wrap;
+      font-size:15px;
+    }
     .mobile-nav a{
       padding:12px;
       color:#fff;
@@ -227,14 +249,14 @@
 
     .hero{
       margin-top:calc(var(--topbar-h) + var(--header-h));
-      height:calc(100vh - (var(--topbar-h) + var(--header-h)));
-      min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      height: calc(100vh - (var(--topbar-h) + var(--header-h)));
+      min-height: calc(100vh - (var(--topbar-h) + var(--header-h)));
       position:relative;
       display:flex;
       align-items:center;
       justify-content:center;
-      text-align:center;
       overflow:hidden;
+      text-align:center;
       background:#0a4d2e;
     }
     .hero-bg{
@@ -271,272 +293,194 @@
     }
     .hero-content p{
       font-size:18px;
-      margin:0;
+      margin:0 0 18px;
       text-shadow:0 2px 8px rgba(0,0,0,0.45);
     }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .btn-primary,.btn-secondary{
+      padding:14px 26px;
+      border-radius:10px;
+      border:0;
+      font-weight:700;
+      cursor:pointer;
+      font-size:16px;
+    }
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-primary:hover{background:var(--accent-2)}
+    .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
+    .btn-secondary:hover{background:rgba(255,255,255,0.08)}
 
     .section{padding:60px 5vw}
     .section h2{
       font-size:32px;
       margin-bottom:18px;
       color:var(--accent-2);
-      text-align:center
+      text-align:center;
     }
-    .section-intro{
+
+    .products-intro,.estimation-intro,.activities-intro,.gb-carousel-intro{
       max-width:1000px;
       margin:0 auto 24px;
       color:var(--muted-text-color);
       text-align:center;
       font-size:var(--muted-text-size);
       line-height:1.7;
-      opacity:0.95
+      opacity:0.95;
     }
 
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+      max-width:1200px;
+      margin:0 auto;
+    }
     .card{
       position:relative;
-      background:var(--card-bg);
+      background:#061f14;
       border-radius:16px;
       overflow:hidden;
+      min-height:420px;
       box-shadow:0 10px 22px rgba(0,0,0,0.45);
-      border:1px solid rgba(212,175,55,0.85)
+      border:1px solid rgba(212,175,55,0.85);
     }
-    .card-soft{
-      background:rgba(6,31,20,0.60);
-      border:1px solid rgba(212,175,55,0.12);
-      border-radius:18px;
-      padding:18px;
-      box-shadow:0 12px 30px rgba(0,0,0,0.18)
+    .card .image-wrap{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      overflow:hidden;
     }
-
-    .calc{
-      background:#fff;
-      color:#072012;
-      border-radius:18px;
-      padding:16px;
-      margin-top:12px;
-      box-shadow:0 10px 22px rgba(0,0,0,0.25)
+    .card .image-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      display:block;
+      transition:transform .3s, filter .3s;
     }
-    .calc h3{
-      margin:0;
-      color:#04462e;
-      font-size:18px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap
+    .card:hover .image-wrap img{
+      transform:scale(1.05);
+      filter:brightness(1.02) contrast(1.03);
     }
-    .calc h3 .badge{
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:#072012;
-      font-weight:900;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:12px
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);
+      z-index:1;
     }
-    .small-note{font-size:12px;color:#6c7d6f;margin-top:8px}
-
-    .top-controls{
-      display:flex;
-      gap:8px;
-      margin-top:12px;
-      align-items:center;
-      flex-wrap:wrap
-    }
-    .top-controls label{white-space:nowrap;font-size:13px;color:#072012}
-    .top-controls select,.top-controls input{
-      padding:9px;
-      border-radius:8px;
-      min-width:120px;
-      max-width:360px;
-      border:1px solid #e6e6e6
-    }
-    .btn-reset,.btn-export,.btn-add,.btn-link{
-      padding:9px 12px;
-      border-radius:10px;
-      border:0;
-      cursor:pointer;
-      font-weight:700
-    }
-    .btn-reset{background:#ececec;color:#072012}
-    .btn-export{background:var(--accent);color:#072012}
-    .btn-add{background:var(--gold-base);color:#072012}
-    .btn-add:hover,.btn-export:hover,.btn-reset:hover,.btn-link:hover{filter:brightness(.98)}
-    .btn-link{
-      background:rgba(124,179,66,.12);
-      color:#04462e;
-      border:1px solid rgba(124,179,66,.18)
-    }
-
-    .generator{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      margin:14px 0;
-      padding:12px;
-      border-radius:12px;
-      background:linear-gradient(180deg,#f7fff6,#f0fff1);
-      border:1px solid #e6f7ea;
-      flex-wrap:wrap
-    }
-    .generator .col{display:flex;flex-direction:column;gap:6px;color:#072012}
-    .generator input[type="number"]{width:72px;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,.08)}
-    .generator .actions{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-
-    .subtitles{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .subtitle{
-      background:linear-gradient(180deg,#f3fff8,#ecfff5);
-      color:#072012;
-      padding:10px;
-      border-radius:12px;
-      border:1px solid #e0f3e9;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:230px;
-      cursor:pointer
-    }
-    .subtitle .left{flex:1}
-    .subtitle .title{font-weight:900;color:#04462e;font-size:15px}
-    .subtitle .meta{font-size:12px;color:#6c7d6f;margin-top:4px}
-    .subtitle .right{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
-    .subtitle .small-variant{font-size:12px;color:#666}
-
-    .rooms-panel{
-      margin-top:12px;
-      background:#fff;
-      padding:12px;
-      border-radius:14px;
-      color:#072012
-    }
-    .room{
-      background:#f7f7f7;
-      padding:10px;
-      border-radius:10px;
-      border:1px solid #ececec;
-      margin-top:8px
-    }
-    .room.highlight{outline:2px solid rgba(124,179,66,.35)}
-    .room .room-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap
-    }
-    .room .room-actions{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      margin-top:8px;
-      flex-wrap:wrap
-    }
-    .consumer-list{
-      margin-top:8px;
+    .card-content{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:2;
+      padding:22px 18px 20px;
       display:flex;
       flex-direction:column;
-      gap:6px
-    }
-    .consumer{
-      display:flex;
-      gap:8px;
-      align-items:center;
-      padding:8px;
-      background:#fff;
-      border-radius:8px;
-      border:1px solid #eee;
-      flex-wrap:wrap
-    }
-    .consumer .mini{font-size:12px;color:#666;margin-top:4px}
-    .consumer input,.consumer select{
-      padding:7px;
-      border-radius:8px;
-      border:1px solid #ddd
-    }
-
-    .results{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
-    .result-card{
-      background:linear-gradient(180deg,#fbfffb,#f3fff2);
-      padding:14px;
-      border-radius:14px;
-      flex:1;
-      text-align:center;
-      min-width:170px;
-      border:1px solid rgba(3,50,26,.06);
-      box-shadow:0 14px 36px rgba(2,22,12,.12)
-    }
-    .result-card .label{
-      font-size:12px;
-      color:#6c7d6f;
-      text-transform:uppercase;
-      letter-spacing:.6px
-    }
-    .result-card .value{
-      font-weight:900;
-      font-size:26px;
-      color:#0b4d26;
-      margin-top:6px;
-      display:inline-block;
-      padding:6px 12px;
-      border-radius:999px
-    }
-    .result-card .small{font-size:13px;color:#6c7d6f;margin-top:6px}
-
-    .solar-panel{
-      margin-top:14px;
-      background:#fff;
-      border-radius:14px;
-      padding:12px;
-      border:1px solid #e6f3ea;
-      color:#072012
-    }
-    .solar-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
       gap:12px;
-      align-items:start
+      align-items:center;
+      text-align:center;
+      background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
     }
-    .solar-block{background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea}
-    .solar-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .solar-row label{min-width:160px}
-    .solar-prices{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
-    .solar-price{
-      background:#fff;
-      padding:8px;
-      border-radius:10px;
-      border:1px solid #e6f3ea;
-      min-width:180px
-    }
-    .subtle-box{
-      margin-top:12px;
-      background:#fbfff7;
-      border:1px solid #e9f2df;
-      padding:10px;
-      border-radius:10px
-    }
-    .metric{
-      font-weight:900;
+    .card-content h3{
+      margin:0;
       font-size:18px;
-      color:#04462e;
-      margin-top:6px
+      line-height:1.15;
+      min-height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--accent-2);
+      width:100%;
+      text-align:center;
     }
-    .metric.note{font-size:13px;color:#6c7d6f;font-weight:600}
-    .pdf-note{
-      margin-top:12px;
-      font-size:13px;
-      color:#e6f7ea
+    .card-content p{
+      margin:0;
+      color:#e6f7ea;
+      font-size:15px;
+      line-height:1.6;
+    }
+    .card .btn-card{
+      margin:10px auto 0;
+      padding:10px 18px;
+      border-radius:10px;
+      border:0;
+      background:var(--gold-base);
+      color:#072012;
+      font-weight:800;
+      cursor:pointer;
+      font-size:14px;
+    }
+    .card .btn-card:hover{background:var(--gold-hover)}
+
+    .advantages{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top:8px
+    }
+    .advantage{
+      width:260px;
+      background:#072b1b;
+      border-radius:12px;
+      padding:18px;
+      text-align:center
+    }
+    .advantage i{
+      font-size:34px;
+      color:var(--accent);
+      margin-bottom:8px
+    }
+    .advantage h3{
+      color:#dfffe6;
+      margin:6px 0
     }
 
-    .footer-spacer{height:10px}
+    #devis form{
+      max-width:520px;
+      margin:18px auto 0;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      background:rgba(0,0,0,0.55);
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.4)
+    }
+    #devis input,#devis textarea,#devis select{
+      width:100%;
+      padding:12px;
+      border-radius:8px;
+      border:1px solid rgba(124,179,66,0.18);
+      background:transparent;
+      color:#fff;
+      font-size:14px
+    }
+    #devis input::placeholder,#devis textarea::placeholder{color:#dbeed8}
+    #devis button{
+      align-self:center;
+      padding:12px 26px;
+      border-radius:10px;
+      border:0;
+      background:var(--accent);
+      color:#072012;
+      font-weight:700;
+      cursor:pointer
+    }
+    #devis button:hover{background:var(--accent-2)}
 
-    footer.footer{
+    footer{
       background:var(--green-dark);
       color:#fff;
       padding:28px 5vw 36px;
       position:relative;
       margin-top:40px;
-      text-align:center
+      text-align:center;
     }
-    footer.footer::before{
+    footer::before{
       content:"";
       position:absolute;
       left:0;
@@ -560,10 +504,259 @@
     }
     .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
-    select:focus,input:focus,button:focus{
-      outline:none;
-      box-shadow:0 0 0 4px rgba(124,179,66,.12);
-      border-color:var(--accent)
+    .zones-cards{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      justify-content:center;
+      max-width:1100px;
+      margin:0 auto
+    }
+    .zone-card{
+      position:relative;
+      width:48%;
+      max-width:460px;
+      min-width:260px;
+      height:220px;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(212,175,55,0.85);
+      box-shadow:0 8px 16px rgba(0,0,0,0.40);
+      background:#061f14;
+      cursor:pointer;
+      transition:transform .20s,box-shadow .20s;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+    }
+    .zone-card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,0.50)}
+    .zone-card img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:brightness(0.92) contrast(0.98) saturate(0.96)
+    }
+    .zone-card .overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.6) 100%);
+      z-index:1;
+      border-radius:12px
+    }
+    .zone-card h3{
+      position:relative;
+      z-index:2;
+      margin:0;
+      padding:10px 14px;
+      background:rgba(0,0,0,0.35);
+      border-radius:8px;
+      bottom:14px;
+      font-size:20px;
+      color:var(--accent-2);
+      font-weight:900;
+      border:1px solid rgba(212,175,55,0.08);
+      text-align:center
+    }
+
+    .gb-carousel{
+      position:relative;
+      max-width:1240px;
+      margin:0 auto;
+      padding-top:8px;
+    }
+    .gb-track-wrap{
+      overflow:hidden;
+      border-radius:26px;
+      border:1px solid rgba(212,175,55,.28);
+      box-shadow:0 16px 38px rgba(0,0,0,.44);
+      background:linear-gradient(135deg, rgba(3,12,8,.96), rgba(6,31,20,.96));
+    }
+    .gb-track{
+      display:flex;
+      flex-wrap:nowrap;
+      width:100%;
+      margin:0;
+      padding:0;
+      list-style:none;
+      transform:translate3d(0,0,0);
+      transition:transform .75s cubic-bezier(.22,.8,.22,1);
+      will-change:transform;
+    }
+    .gb-slide{
+      flex:0 0 100%;
+      min-width:100%;
+      list-style:none;
+    }
+    .gb-slide-inner{
+      margin:0;
+      display:grid;
+      grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+      min-height:500px;
+      align-items:stretch;
+      background:linear-gradient(135deg, rgba(6,31,20,0.98), rgba(7,50,23,0.96));
+    }
+    .gb-media{
+      padding:26px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: radial-gradient(circle at center, rgba(168,230,161,0.08), rgba(0,0,0,0) 60%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
+    }
+    .gb-media-frame{
+      width:100%;
+      height:100%;
+      min-height:420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:22px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+      padding:18px;
+    }
+    .gb-media-frame img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center center;
+      display:block;
+      filter:drop-shadow(0 14px 24px rgba(0,0,0,0.35));
+    }
+    .gb-desc{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      gap:14px;
+      padding:34px 30px;
+      border-left:1px solid rgba(212,175,55,0.12);
+    }
+    .gb-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(168,230,161,0.10);
+      border:1px solid rgba(168,230,161,0.16);
+      color:#dfffe6;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+    }
+    .gb-release{
+      display:inline-block;
+      margin-left:6px;
+      padding:3px 10px;
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--release-orange), var(--release-orange-2));
+      color:#1b0d00;
+      font-weight:900;
+      letter-spacing:.3px;
+      box-shadow:0 8px 18px rgba(255,122,24,0.28);
+      border:1px solid rgba(255,255,255,0.18);
+      text-transform:none;
+    }
+    .gb-desc h3{
+      margin:0;
+      font-size:clamp(22px, 2.2vw, 30px);
+      color:var(--accent-2);
+      line-height:1.2;
+      max-width:95%;
+      text-wrap:balance;
+    }
+    .gb-summary{
+      margin:0;
+      color:#edf9ec;
+      line-height:1.75;
+      font-size:15px;
+      max-width:92%;
+    }
+    .gb-highlights{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      width:100%;
+      max-width:460px;
+      margin-top:4px;
+    }
+    .gb-highlight{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(212,175,55,0.14);
+      border-radius:14px;
+      padding:12px 14px;
+      text-align:left;
+      min-height:72px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .gb-highlight strong{
+      display:block;
+      color:var(--accent-2);
+      font-size:12px;
+      letter-spacing:.3px;
+      margin-bottom:4px;
+      text-transform:uppercase;
+    }
+    .gb-highlight span{
+      color:#eaf9ea;
+      font-size:13px;
+      line-height:1.45;
+    }
+    .gb-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:48px;
+      height:48px;
+      border:none;
+      border-radius:50%;
+      cursor:pointer;
+      z-index:3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      font-weight:700;
+      color:#061f14;
+      background:rgba(212,175,55,0.95);
+      box-shadow:0 8px 18px rgba(0,0,0,0.25);
+      transition:transform .18s, background .18s, opacity .18s;
+    }
+    .gb-btn:hover{
+      background:var(--gold-hover);
+      transform:translateY(-50%) scale(1.04);
+    }
+    .gb-prev{left:14px}
+    .gb-next{right:14px}
+    .gb-dots{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .gb-dot{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      background:rgba(255,255,255,0.38);
+      transition:all .22s ease;
+      padding:0;
+    }
+    .gb-dot.active{
+      width:34px;
+      background:var(--gold-base);
+      box-shadow:0 0 0 4px rgba(212,175,55,0.10);
     }
 
     .electric-band{
@@ -589,35 +782,83 @@
       pointer-events:none;
       box-sizing:border-box
     }
-    .lightning-svg{width:100vw;height:100%;display:block;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:screen}
+    .lightning-svg{
+      width:100vw;
+      height:100%;
+      display:block;
+      pointer-events:none;
+      opacity:0;
+      transition:opacity .22s ease;
+      mix-blend-mode:screen
+    }
     .electric-band.connected .lightning-svg{opacity:1}
-    .lightning-svg path.zap{stroke:var(--electric-yellow);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0.98}
-    .orbs{position:absolute;left:0;top:0;width:100vw;height:100%;pointer-events:none;overflow:visible}
-    .orb{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));box-shadow:0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);transform:translate(-50%,-50%);opacity:0;transition:opacity .18s linear}
+    .lightning-svg path.zap{
+      stroke:var(--electric-yellow);
+      stroke-width:2.2;
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      opacity:0.98
+    }
+    .orbs{
+      position:absolute;
+      left:0;
+      top:0;
+      width:100vw;
+      height:100%;
+      pointer-events:none;
+      overflow:visible
+    }
+    .orb{
+      position:absolute;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
+      box-shadow:0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
+      transform:translate(-50%,-50%);
+      opacity:0;
+      transition:opacity .18s linear
+    }
     .electric-band.connected .orb{opacity:1}
-    @keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}}
+    @keyframes buzz{
+      0%{transform:translate(-50%,-50%) translateX(-2px)}
+      50%{transform:translate(-50%,-50%) translateX(2px)}
+      100%{transform:translate(-50%,-50%) translateX(-2px)}
+    }
     .orb.buzz{animation:buzz 0.9s linear infinite}
-    .glowline{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:3px;width:0;background:linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));border-radius:8px;box-shadow:0 6px 20px rgba(255,214,0,0.12);opacity:0;transition:opacity .22s ease}
-    .electric-band.connected .glowline{width:100vw;opacity:1;animation:pulse 2s ease-in-out infinite}
-    @keyframes pulse{0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}}
-
-    .badge-zone{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 12px;
-      border-radius:999px;
-      background:rgba(168,230,161,.10);
-      border:1px solid rgba(168,230,161,.16);
-      color:#dfffe6;
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:.5px;
-      text-transform:uppercase;
+    .glowline{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      height:3px;
+      width:0;
+      background:linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
+      border-radius:8px;
+      box-shadow:0 6px 20px rgba(255,214,0,0.12);
+      opacity:0;
+      transition:opacity .22s ease
+    }
+    .electric-band.connected .glowline{
+      width:100vw;
+      opacity:1;
+      animation:pulse 2s ease-in-out infinite
+    }
+    @keyframes pulse{
+      0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
+      50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}
+      100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
     }
 
     @media (max-width:1100px){
-      .solar-grid{grid-template-columns:1fr}
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+      .gb-slide-inner{grid-template-columns:1fr}
+      .gb-desc{
+        border-left:none;
+        border-top:1px solid rgba(212,175,55,0.12);
+      }
+      .gb-media-frame{min-height:320px}
     }
 
     @media (max-width:820px){
@@ -627,47 +868,166 @@
       .company-name{font-size:30px}
       .mobile-nav.open{max-height:85vh}
       .mobile-nav .inner{padding-bottom:20px}
-      .generator .actions{margin-left:0}
-      .top-controls select,.top-controls input{min-width:100px}
-      .room .room-actions{flex-direction:column;align-items:stretch}
-      .consumer{font-size:14px}
-      .result-card{min-width:220px}
-      .section{padding:50px 4vw}
-    }
-
-    @media (max-width:768px){
-      .company-name{font-size:26px}
-      .topbar .right{gap:10px;font-size:13px}
       .hero-content h1 { font-size:28px; }
       .hero-content p { font-size:14px; }
+      .grid-4{
+        grid-template-columns:1fr;
+        gap:20px
+      }
+      .card{
+        min-height:auto;
+        text-align:center
+      }
+      .card .image-wrap{
+        height:220px;
+        display:flex;
+        justify-content:center;
+        align-items:center
+      }
+      .card-content{
+        padding:18px;
+        text-align:center;
+        align-items:center
+      }
+      .card .btn-card{
+        margin:12px auto 0;
+        font-size:15px;
+        padding:10px 20px
+      }
+      .zone-card{
+        width:100%;
+        min-width:0;
+        max-width:none;
+        height:210px;
+      }
+      .gb-desc{padding:24px 18px}
+      .gb-desc h3{font-size:22px}
+      .gb-summary{font-size:14px}
+      .gb-highlights{grid-template-columns:1fr; max-width:100%}
+      .gb-media-frame{min-height:280px; padding:12px}
+      .gb-btn{width:42px; height:42px; font-size:24px}
+      .advantages{
+        flex-direction:column;
+        align-items:center;
+      }
+      .advantage{
+        width:100%;
+        max-width:420px;
+      }
+      #devis form{padding:16px}
+      .section{padding:52px 4vw}
+      .mobile-nav.open{
+        max-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      }
     }
 
     @media (max-width:480px){
+      .topbar{
+        font-size:11px;
+        padding:0 3.5vw;
+      }
+      .topbar .left{
+        max-width:46%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+      .topbar .right{
+        max-width:48%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        justify-content:flex-end;
+      }
+      header{
+        padding:0 3.5vw;
+      }
+      .logo-text img{
+        height:44px;
+      }
+      .company-name{
+        font-size:26px;
+        letter-spacing:.1px;
+      }
+      .company-tagline{
+        font-size:10px;
+        letter-spacing:2px;
+      }
+      .burger{
+        width:48px;
+        height:48px;
+      }
+      .hero{
+        min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      }
+      .hero-bg{
+        object-position:center 28%;
+        transform:scale(1.18) translateY(0);
+      }
       .hero-content{
         max-width:92vw;
-        padding:0 12px;
+        padding:18px 12px;
       }
       .hero-content h1{
-        font-size:28px;
-        font-weight:700;
-        margin:0 0 8px;
-        white-space:nowrap;
-        overflow-x:hidden;
-        text-overflow:ellipsis;
+        font-size:24px;
+        line-height:1.2;
+        margin-bottom:8px;
+        white-space:normal;
       }
       .hero-content p{
-        font-size:16px;
-        line-height:1.5;
+        font-size:15px;
+        line-height:1.45;
+        white-space:normal;
+        overflow:visible;
+        text-overflow:clip;
       }
       .btn-primary{
-        padding:12px 28px;
-        font-size:15px;
+        padding:12px 22px;
+        font-size:14px;
+      }
+      .section h2{font-size:26px}
+      .card{min-height:330px}
+      .card .image-wrap{height:190px}
+      .card-content{padding:14px 12px 16px}
+      .card-content h3{font-size:17px}
+      .card-content p{font-size:13px; line-height:1.5}
+      .zone-card{height:190px}
+      .zone-card h3{font-size:17px}
+      .gb-media-frame{min-height:230px}
+      .gb-desc h3{font-size:20px}
+      .gb-summary{font-size:13px}
+      .gb-kicker{font-size:11px}
+      .gb-release{
+        font-size:11px;
+        margin-left:4px;
+        padding:3px 8px;
+      }
+      .advantage{padding:16px 14px}
+      .advantage i{font-size:30px}
+      #devis input,#devis textarea,#devis select{
+        font-size:13px;
+        padding:11px;
+      }
+      .footer-company{font-size:16px}
+      .electric-band{
+        top:calc(var(--topbar-h) + var(--header-h) - 4px);
+        height:12px;
+      }
+      .electric-band .container{
+        width:100%;
+        left:0;
+        padding:0 4vw;
+        box-sizing:border-box;
+      }
+      .glowline{
+        width:86%;
+        max-width:86%;
       }
     }
   </style>
 </head>
-<body>
 
+<body>
   <div class="topbar" role="banner" aria-hidden="false">
     <div class="left">
       <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
@@ -687,10 +1047,10 @@
     </div>
 
     <nav aria-label="Menu principal">
-      <a href="GreenBrigde technologies.html">Accueil</a>
-      <a href="etude_dimensionnement_2.html" class="active">Étude</a>
+      <a href="GreenBrigde technologies.html" class="active">Accueil</a>
+      <a href="etude_dimensionnement_2.html">Étude</a>
       <a href="produits.html">Nos Produits</a>
-      <a href="projets.html">Projets futurs</a>
+      <a href="Projets.html">Projets futurs</a>
       <a href="maintenance.html">Maintenance</a>
     </nav>
 
@@ -706,11 +1066,13 @@
         <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
         <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
       </svg>
+
       <div class="orbs" id="orbs">
         <div class="orb" id="orbA"></div>
         <div class="orb" id="orbB"></div>
         <div class="orb" id="orbC"></div>
       </div>
+
       <div class="glowline" id="glowline"></div>
     </div>
   </div>
@@ -722,276 +1084,348 @@
         <div><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</div>
         <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
       </div>
-      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
-      <a href="etude_dimensionnement_2.html" class="mobile-link active">Étude</a>
+      <a href="GreenBrigde technologies.html" class="mobile-link active">Accueil</a>
+      <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
       <a href="produits.html" class="mobile-link">Nos Produits</a>
-      <a href="projets.html" class="mobile-link">Projets futurs</a>
+      <a href="Projets.html" class="mobile-link">Projets futurs</a>
       <a href="maintenance.html" class="mobile-link">Maintenance</a>
     </div>
   </div>
 
   <section class="hero" id="top" aria-label="Hero">
-    <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration dimensionnement urbain">
+    <img class="hero-bg" src="Image_2.png" alt="Illustration GreenBridge Énergie">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Dimensionnement de puissance</h1>
-      <p>Définissez les besoins, calibrez les charges et obtenez une base sérieuse pour la puissance, les panneaux et le stockage.</p>
-    </div>
-  </section>
-
-  <section class="section" id="dimensionnement">
-    <h2>Étude de dimensionnement</h2>
-    <p class="section-intro">
-      Cette page est dédiée au dimensionnement pur : vous créez vos pièces, ajoutez les charges nécessaires, puis vous obtenez instantanément la consommation, la puissance installée et les recommandations de système.
-    </p>
-
-    <div class="card-soft" style="max-width:1240px;margin:0 auto;">
-      <div class="calc" id="calcCard">
-        <h3><span class="badge">Calculateur</span> Besoin de puissance — Saisie rapide et rigoureuse</h3>
-        <div class="small-note">Les résultats sont indicatifs et servent à orienter le dimensionnement. Ajustez les charges, les heures et le coefficient d’utilisation selon le projet.</div>
-
-        <div class="top-controls">
-          <label>Zone :</label>
-          <select id="zone" aria-label="Zone">
-            <option value="ci">Côte d'Ivoire</option>
-            <option value="sn">Sénégal</option>
-          </select>
-
-          <label>Ville :</label>
-          <select id="city" aria-label="Ville"></select>
-
-          <span class="badge-zone" id="zoneBadge"><i class="fas fa-building"></i> Zone urbaine</span>
-
-          <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
-          <button id="exportBtn" class="btn-link" type="button">Résumé texte</button>
-        </div>
-
-        <div class="generator" role="group" aria-label="Générateur rapide de pièces">
-          <div class="col">
-            <label>Chambres</label>
-            <input type="number" id="genBedrooms" min="0" value="1">
-          </div>
-          <div class="col">
-            <label>Salons</label>
-            <input type="number" id="genLiving" min="0" value="1">
-          </div>
-          <div class="col">
-            <label>Cuisines</label>
-            <input type="number" id="genKitchens" min="0" value="1">
-          </div>
-          <div class="col">
-            <label>Salles d'eau</label>
-            <input type="number" id="genBaths" min="0" value="1">
-          </div>
-          <div class="col">
-            <label>Bureaux</label>
-            <input type="number" id="genOffices" min="0" value="0">
-          </div>
-          <div class="col">
-            <label>Toilettes</label>
-            <input type="number" id="genToilets" min="0" value="0">
-          </div>
-          <div class="actions">
-            <label style="font-size:13px;color:#072012;display:flex;align-items:center;gap:6px">
-              <input type="checkbox" id="genAdd"> Ajouter
-            </label>
-            <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
-          </div>
-        </div>
-
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
-          <label style="font-weight:700;color:#072012">Ajouter une pièce manuelle :</label>
-          <select id="roomTypeSelect" style="padding:9px;border-radius:8px;border:1px solid #ddd">
-            <option value="Chambre">Chambre</option>
-            <option value="Salon">Salon</option>
-            <option value="Cuisine">Cuisine</option>
-            <option value="Salle d'eau">Salle d'eau</option>
-            <option value="Bureau">Bureau</option>
-            <option value="Toilette">Toilette</option>
-            <option value="Autre">Autre</option>
-          </select>
-          <input id="roomNameInput" placeholder="Ex: Chambre parentale" style="padding:9px;border-radius:8px;border:1px solid #ddd;min-width:220px">
-          <label style="color:#072012">Quantité :</label>
-          <input id="roomCountInput" type="number" min="1" value="1" style="width:90px;padding:9px;border-radius:8px;border:1px solid #ddd">
-          <button id="addRoomBtn" class="btn-add" type="button">Ajouter pièce(s)</button>
-          <button id="clearRoomsBtn" class="btn-reset" type="button">Vider</button>
-        </div>
-
-        <div id="roomsList" class="room-list"></div>
-        <div class="small-note" style="margin-top:8px">Chaque pièce peut être détaillée avec ses charges. Vous pouvez cliquer sur un sous-titre pour aller directement à la pièce concernée.</div>
-
-        <div style="margin-top:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
-          <div class="solar-panel">
-            <h4 style="margin:0 0 8px 0;color:#04462e">Paramètres du système</h4>
-            <div class="solar-grid">
-              <div class="solar-block">
-                <div style="font-weight:700;margin-bottom:8px">Panneaux</div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Puissance d'un panneau (W)</label>
-                  <input id="panelW" type="number" value="350" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Heures soleil utiles / jour</label>
-                  <input id="sunHours" type="number" step="0.1" value="5" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Rendement & pertes (%)</label>
-                  <input id="panelDeratePct" type="number" value="85" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Puissance des panneaux conseillée</label>
-                  <div id="pvRecommended" class="metric">0 kWc</div>
-                </div>
-                <div class="solar-row">
-                  <label>Nb panneaux estimés</label>
-                  <div id="panelCountRec" class="metric">0</div>
-                </div>
-              </div>
-
-              <div class="solar-block">
-                <div style="font-weight:700;margin-bottom:8px">Batteries & autonomie</div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Autonomie souhaitée (jours)</label>
-                  <input id="autonomyDays" type="number" step="0.5" value="1" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>DoD (%)</label>
-                  <input id="dodPct" type="number" value="90" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Rendement onduleur (%)</label>
-                  <input id="invEffPct" type="number" value="95" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Capacité d'un pack batterie (kWh)</label>
-                  <input id="battPackKwh" type="number" step="0.01" value="1.28" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd">
-                </div>
-                <div class="solar-row">
-                  <label>Capacité batterie conseillée</label>
-                  <div id="batteryRec" class="metric">0 kWh</div>
-                </div>
-                <div class="solar-row" style="margin-top:6px">
-                  <label>Nombre de packs estimés</label>
-                  <div id="batteryPackRec" class="metric">0</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="solar-panel">
-            <h4 style="margin:0 0 8px 0;color:#04462e">Synthèse de puissance</h4>
-            <div class="solar-grid">
-              <div class="solar-block">
-                <div style="font-weight:700;margin-bottom:8px">Puissances</div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Puissance installée</label>
-                  <div id="powerInstalled" class="metric">0 W</div>
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Pointe estimée</label>
-                  <div id="powerPeak" class="metric">0 W</div>
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Onduleur conseillé</label>
-                  <div id="inverterRec" class="metric">0 kVA</div>
-                </div>
-              </div>
-
-              <div class="solar-block">
-                <div style="font-weight:700;margin-bottom:8px">Énergie</div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Consommation / jour</label>
-                  <div id="consDay" class="metric">0 kWh</div>
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Consommation / mois</label>
-                  <div id="consMonth" class="metric">0 kWh</div>
-                </div>
-                <div class="solar-row" style="margin-bottom:6px">
-                  <label>Charges actives</label>
-                  <div id="loadsCount" class="metric">0</div>
-                </div>
-                <div class="solar-row">
-                  <label>Couverture indicative</label>
-                  <div id="coverageNote" class="metric">Dimensionnement en cours</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="subtle-box">
-              <div style="font-size:12px;color:#6c7d6f">Note</div>
-              <div class="metric note" id="summaryNote">Les calculs sont indicatifs. Le coefficient d’utilisation, les heures et les puissances peuvent être adaptés pour chaque projet.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="results" aria-live="polite" style="margin-top:16px">
-          <div class="result-card">
-            <div class="label">Consommation (kWh / jour)</div>
-            <div id="consDayCard" class="value">0 kWh</div>
-            <div id="consDayRange" class="small">valeur calculée à partir des charges</div>
-          </div>
-          <div class="result-card">
-            <div class="label">Consommation (kWh / mois)</div>
-            <div id="consMonthCard" class="value">0 kWh</div>
-            <div id="consMonthRange" class="small">30 jours de référence</div>
-          </div>
-          <div class="result-card">
-            <div class="label">Puissance installée</div>
-            <div id="powerInstalledCard" class="value">0 W</div>
-            <div class="small">Somme nominale des équipements</div>
-          </div>
-          <div class="result-card">
-            <div class="label">Pointe estimée</div>
-            <div id="powerPeakCard" class="value">0 W</div>
-            <div class="small">Basée sur le coefficient d’utilisation</div>
-          </div>
-          <div class="result-card">
-            <div class="label">Puissance PV</div>
-            <div id="pvRecCard" class="value">0 kWc</div>
-            <div class="small">Base de dimensionnement</div>
-          </div>
-          <div class="result-card">
-            <div class="label">Stockage conseillé</div>
-            <div id="batteryRecCard" class="value">0 kWh</div>
-            <div class="small">Selon autonomie demandée</div>
-          </div>
-        </div>
-
-        <div class="pdf-note">Dimensionnement sérieux, sans notion de prix. Le fond d’image et la charte restent dans l’esprit GreenBridge.</div>
+      <h1>Solutions Énergie sur mesure</h1>
+      <p>Étude du besoin, dimensionnement, installation et maintenance</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="footer-company">GREENBRIDGE TECHNOLOGIES</div>
-    <div class="footer-contact">
+  <section id="zones" class="section" aria-label="Nos activités">
+    <h2 class="section-title">Nos activités</h2>
+    <p class="activities-intro">
+      Basés en Côte d’Ivoire, nous menons des activités de recherche &amp; développement locales. Passionnés par la technologie et l'innovation, nous concevons des solutions énergétiques et domotiques adaptées au contexte local — performance, robustesse et facilitation du quotidien.
+    </p>
+
+    <div class="zones-cards">
+      <div class="zone-card" onclick="window.location.href='zone_urbaine.html'" role="button" aria-label="Zone Urbaine">
+        <img src="milieu_urbain_1.png" alt="Zone Urbaine">
+        <div class="overlay"></div>
+        <h3>Zone Urbaine</h3>
+      </div>
+      <div class="zone-card" onclick="window.location.href='zone_agricole.html'" role="button" aria-label="Zone Agricole">
+        <img src="milieu_agricole.png" alt="Zone Agricole">
+        <div class="overlay"></div>
+        <h3>Zone Agricole</h3>
+      </div>
+    </div>
+  </section>
+
+  <section id="produits" class="section" aria-label="Nos produits">
+    <h2>Nos Produits</h2>
+    <p class="products-intro">
+      Nous proposons une gamme complète : panneaux solaires, batteries, onduleurs et groupes électrogènes. Nos solutions sont dimensionnées pour assurer performance, durabilité et facilité de maintenance.
+    </p>
+
+    <div class="grid-4" role="list">
+      <article class="card" role="listitem" aria-label="Panneaux solaires">
+        <div class="image-wrap"><img src="chantier_solaire.png" alt="Panneaux solaires"></div>
+        <div class="card-content">
+          <h3>Panneaux solaires</h3>
+          <p>Modules monocristallins haut rendement, résistants aux conditions locales et garantis 10 ans. Installation complète et optimisation de l'orientation.</p>
+          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
+        </div>
+      </article>
+
+      <article class="card" role="listitem" aria-label="Batteries & stockage">
+        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Batteries & stockage"></div>
+        <div class="card-content">
+          <h3>Batteries & stockage</h3>
+          <p>Solutions lithium-ion et plomb-acide : stockage modulable, gestion intelligente de charge et monitoring à distance pour une efficacité durable.</p>
+          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
+        </div>
+      </article>
+
+      <article class="card" role="listitem" aria-label="Onduleurs">
+        <div class="image-wrap"><img src="onduleur_tech.png" alt="Onduleurs"></div>
+        <div class="card-content">
+          <h3>Onduleurs</h3>
+          <p>Onduleurs hybrides et on-grid pour conversion efficace, protection contre surtensions et gestion intelligente des micro-réseaux.</p>
+          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
+        </div>
+      </article>
+
+      <article class="card" role="listitem" aria-label="Groupes électrogènes">
+        <div class="image-wrap"><img src="technicien_groupe_elctro.png" alt="Groupes électrogènes"></div>
+        <div class="card-content">
+          <h3>Groupes électrogènes</h3>
+          <p>Groupes de secours diesel et gaz, silencieux, avec démarrage automatique et service de maintenance sur site pour garantir continuité.</p>
+          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="realisations" class="section">
+    <h2>Nos réalisations et projets futurs</h2>
+    <p class="gb-carousel-intro">
+      Chaque projet est présenté avec une image complète, des points clés lisibles et une mise en page centrée pour une lecture plus professionnelle.
+    </p>
+
+    <div class="gb-carousel" aria-roledescription="carousel">
+      <div class="gb-track-wrap" role="region" aria-live="polite" aria-label="Projets GreenBridge">
+        <ul class="gb-track">
+          <li class="gb-slide" data-index="0">
+            <figure class="gb-slide-inner">
+              <div class="gb-media">
+                <div class="gb-media-frame">
+                  <img src="Batterie_pack_s.png" alt="Pack batterie">
+                </div>
+              </div>
+              <figcaption class="gb-desc">
+                <span class="gb-kicker">Projet 1 <span class="gb-release">Sortie estimée 15/06/2026</span></span>
+                <h3>Pack batterie</h3>
+                <p class="gb-summary">Pack batterie portable conçu pour la continuité d’alimentation, la recharge de secours et l’usage quotidien. Solution pensée pour les ménages, bureaux et petits commerces.</p>
+                <div class="gb-highlights">
+                  <div class="gb-highlight"><strong>Usage</strong><span>Secours et mobilité</span></div>
+                  <div class="gb-highlight"><strong>Public</strong><span>Maisons, bureaux</span></div>
+                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/06/2026</span></div>
+                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
+                </div>
+                <p class="gb-summary"><strong>Public cible :</strong> Ménages, bureaux, petits commerces, sites isolés.</p>
+              </figcaption>
+            </figure>
+          </li>
+
+          <li class="gb-slide" data-index="1">
+            <figure class="gb-slide-inner">
+              <div class="gb-media">
+                <div class="gb-media-frame">
+                  <img src="Powerbank_wireless.png" alt="Power bank wireless">
+                </div>
+              </div>
+              <figcaption class="gb-desc">
+                <span class="gb-kicker">Projet 2 <span class="gb-release">Sortie estimée 15/07/2026</span></span>
+                <h3>Power bank wireless</h3>
+                <p class="gb-summary">Power bank sans fil à charge induction, conçue pour la recharge rapide des smartphones et petits appareils compatibles. Batterie longue durée avec protections intelligentes.</p>
+                <div class="gb-highlights">
+                  <div class="gb-highlight"><strong>Charge</strong><span>Induction</span></div>
+                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/07/2026</span></div>
+                  <div class="gb-highlight"><strong>Ports</strong><span>USB rapides</span></div>
+                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
+                </div>
+                <p class="gb-summary"><strong>Public cible :</strong> Particuliers, professionnels mobiles, voyageurs et usage quotidien.</p>
+              </figcaption>
+            </figure>
+          </li>
+
+          <li class="gb-slide" data-index="2">
+            <figure class="gb-slide-inner">
+              <div class="gb-media">
+                <div class="gb-media-frame">
+                  <img src="ventillateur_solaire_1.png" alt="Ventilateur solaire">
+                </div>
+              </div>
+              <figcaption class="gb-desc">
+                <span class="gb-kicker">Projet 3 <span class="gb-release">Sortie estimée 15/11/2026</span></span>
+                <h3>Ventilateur solaire</h3>
+                <p class="gb-summary">Ventilateur alimenté par panneau PV 120 W, contrôleur MPPT intégré, autonomie de 6 à 10 heures selon la batterie. Boîtier anticorrosion adapté au climat tropical.</p>
+                <div class="gb-highlights">
+                  <div class="gb-highlight"><strong>Alimentation</strong><span>PV 120 W</span></div>
+                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/11/2026</span></div>
+                  <div class="gb-highlight"><strong>Contrôle</strong><span>MPPT intégré</span></div>
+                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
+                </div>
+                <p class="gb-summary"><strong>Public cible :</strong> Ménages, petits commerces.</p>
+              </figcaption>
+            </figure>
+          </li>
+
+          <li class="gb-slide" data-index="3">
+            <figure class="gb-slide-inner">
+              <div class="gb-media">
+                <div class="gb-media-frame">
+                  <img src="Pompe_immergée.png" alt="Système de pompe solaire">
+                </div>
+              </div>
+              <figcaption class="gb-desc">
+                <span class="gb-kicker">Projet 4 <span class="gb-release">Sortie estimée 31/12/2026</span></span>
+                <h3>Système de pompe solaire</h3>
+                <p class="gb-summary">Système de pompage solaire pour irrigation et alimentation en eau, avec variateur de fréquence, protections anti-surcharge et fonctionnement fiable sur champs PV en courant continu.</p>
+                <div class="gb-highlights">
+                  <div class="gb-highlight"><strong>Puissance</strong><span>1.5 kW</span></div>
+                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>31/12/2026</span></div>
+                  <div class="gb-highlight"><strong>Sécurité</strong><span>Anti-marche à sec</span></div>
+                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
+                </div>
+                <p class="gb-summary"><strong>Public cible :</strong> Agriculture familiale, irrigation, sites isolés.</p>
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+
+      <button class="gb-btn gb-prev" aria-label="Projet précédent">‹</button>
+      <button class="gb-btn gb-next" aria-label="Projet suivant">›</button>
+      <div class="gb-dots" role="tablist" aria-label="Pagination du carrousel"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Pourquoi nos solutions énergie ?</h2>
+    <div class="advantages" role="list">
+      <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Efficacité</h3><p>Maximisez le rendement et l’économie d’énergie</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Fiabilité</h3><p>Installation professionnelle et maintenance garantie</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-globe-africa" aria-hidden="true"></i><h3>Local</h3><p>Expertise adaptée au marché ivoirien</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-award" aria-hidden="true"></i><h3>5 ans de garantie</h3><p>Tranquillité, suivi et accompagnement sur la durée</p></div>
+    </div>
+  </section>
+
+  <section id="devis" class="section">
+    <h2>Demandez un devis personnalisé</h2>
+    <form>
+      <input type="text" placeholder="Nom complet" required>
+      <input type="email" placeholder="Email" required>
+      <input type="tel" placeholder="Téléphone" required>
+      <select required>
+        <option value="">Type de service</option>
+        <option value="installation">Installation complète</option>
+        <option value="maintenance">Maintenance</option>
+        <option value="audit">Audit énergétique</option>
+      </select>
+      <textarea placeholder="Message ou détails du projet" rows="5" required></textarea>
+      <button type="submit">Envoyer</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
+    <div class="footer-contact" aria-label="Coordonnées">
       <div>© 2025 GreenBridge. Tous droits réservés.</div>
-      <div>Abidjan, Côte d’Ivoire</div>
-      <div>Tel: +225 07 07 07 07 07</div>
+      <div>Abidjan · Dakar</div>
+      <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
     </div>
   </footer>
 
   <script>
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
+
     if (burgerBtn && mobileNav) {
       burgerBtn.addEventListener('click', () => {
         const opened = mobileNav.classList.toggle('open');
         burgerBtn.classList.toggle('open');
         mobileNav.setAttribute('aria-hidden', (!opened).toString());
         burgerBtn.setAttribute('aria-expanded', String(opened));
+        document.body.classList.toggle('menu-open', opened);
       });
 
-      mobileNav.querySelectorAll('.mobile-link').forEach(a=>{
-        a.addEventListener('click', ()=>{
+      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+        a.addEventListener('click', () => {
           mobileNav.classList.remove('open');
           burgerBtn.classList.remove('open');
           mobileNav.setAttribute('aria-hidden','true');
           burgerBtn.setAttribute('aria-expanded','false');
+          document.body.classList.remove('menu-open');
         });
       });
     }
+
+    (function(){
+      const track = document.querySelector('.gb-track');
+      if (!track) return;
+      const wrap = document.querySelector('.gb-track-wrap');
+      const slides = Array.from(track.querySelectorAll('.gb-slide'));
+      const prevBtn = document.querySelector('.gb-prev');
+      const nextBtn = document.querySelector('.gb-next');
+      const dotsWrap = document.querySelector('.gb-dots');
+      let index = 0;
+      const AUTOPLAY_INTERVAL = 12000;
+      let autoplayTimer = null;
+      let paused = false;
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      slides.forEach((s,i)=>{
+        const btn = document.createElement('button');
+        btn.className = 'gb-dot';
+        btn.setAttribute('aria-label','Aller au projet ' + (i+1));
+        btn.dataset.index = i;
+        if(i===0) btn.classList.add('active');
+        dotsWrap.appendChild(btn);
+      });
+
+      const dots = Array.from(dotsWrap.children);
+
+      function getSlideWidth(){
+        const firstSlide = slides[0];
+        return firstSlide ? Math.round(firstSlide.getBoundingClientRect().width) : Math.round(wrap.getBoundingClientRect().width);
+      }
+
+      function update(){
+        const slideWidth = getSlideWidth();
+        track.style.transform = 'translate3d(' + (-index * slideWidth) + 'px,0,0)';
+        dots.forEach((d,i)=>d.classList.toggle('active', i===index));
+      }
+
+      function goNext(){
+        index = (index+1) % slides.length;
+        update();
+      }
+      function goPrev(){
+        index = (index-1+slides.length) % slides.length;
+        update();
+      }
+      function goTo(i){
+        index = i;
+        update();
+      }
+      function startAutoplay(){
+        clearInterval(autoplayTimer);
+        autoplayTimer = setInterval(() => {
+          if (!paused) goNext();
+        }, AUTOPLAY_INTERVAL);
+      }
+      function resetAutoplay(){
+        clearInterval(autoplayTimer);
+        startAutoplay();
+      }
+
+      if(nextBtn) nextBtn.addEventListener('click', ()=>{ goNext(); resetAutoplay(); });
+      if(prevBtn) prevBtn.addEventListener('click', ()=>{ goPrev(); resetAutoplay(); });
+
+      dotsWrap.addEventListener('click', e=>{
+        if(e.target.classList.contains('gb-dot')) {
+          goTo(Number(e.target.dataset.index));
+          resetAutoplay();
+        }
+      });
+
+      wrap.addEventListener('mouseenter', () => { paused = true; });
+      wrap.addEventListener('mouseleave', () => { paused = false; });
+
+      wrap.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, {passive:true});
+
+      wrap.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) goNext();
+          else goPrev();
+          resetAutoplay();
+        }
+      }, {passive:true});
+
+      window.addEventListener('resize', update);
+      window.addEventListener('load', update);
+      update();
+      startAutoplay();
+    })();
 
     (function(){
       const electricBand = document.getElementById('electricBand');
@@ -1015,6 +1449,7 @@
       });
 
       let t0 = performance.now();
+
       function tick(now){
         const time = (now - t0) / 1000;
         const cont = electricBand.querySelector('.container');
@@ -1025,6 +1460,7 @@
         const rect = cont.getBoundingClientRect();
         const cx = rect.width / 2;
         const cy = rect.height / 2;
+
         for(let i=0;i<orbs.length;i++){
           const orb = orbs[i];
           if(!orb) continue;
@@ -1124,521 +1560,6 @@
       activate();
       window.addEventListener('resize', ()=>{ t0 = performance.now(); });
     })();
-
-    const zoneSelect = document.getElementById('zone');
-    const citySelect = document.getElementById('city');
-    const zoneBadge = document.getElementById('zoneBadge');
-
-    const roomTypeSelect = document.getElementById('roomTypeSelect');
-    const roomNameInput = document.getElementById('roomNameInput');
-    const roomCountInput = document.getElementById('roomCountInput');
-    const addRoomBtn = document.getElementById('addRoomBtn');
-    const clearRoomsBtn = document.getElementById('clearRoomsBtn');
-    const roomsListEl = document.getElementById('roomsList');
-
-    const genBedrooms = document.getElementById('genBedrooms');
-    const genLiving = document.getElementById('genLiving');
-    const genKitchens = document.getElementById('genKitchens');
-    const genBaths = document.getElementById('genBaths');
-    const genOffices = document.getElementById('genOffices');
-    const genToilets = document.getElementById('genToilets');
-    const genAdd = document.getElementById('genAdd');
-    const generateBtn = document.getElementById('generateBtn');
-
-    const panelWEl = document.getElementById('panelW');
-    const sunHoursEl = document.getElementById('sunHours');
-    const panelDeratePctEl = document.getElementById('panelDeratePct');
-    const autonomyDaysEl = document.getElementById('autonomyDays');
-    const dodPctEl = document.getElementById('dodPct');
-    const invEffPctEl = document.getElementById('invEffPct');
-    const battPackKwhEl = document.getElementById('battPackKwh');
-
-    const consDayEl = document.getElementById('consDay');
-    const consMonthEl = document.getElementById('consMonth');
-    const powerInstalledEl = document.getElementById('powerInstalled');
-    const powerPeakEl = document.getElementById('powerPeak');
-    const inverterRecEl = document.getElementById('inverterRec');
-    const pvRecommendedEl = document.getElementById('pvRecommended');
-    const panelCountRecEl = document.getElementById('panelCountRec');
-    const batteryRecEl = document.getElementById('batteryRec');
-    const batteryPackRecEl = document.getElementById('batteryPackRec');
-    const coverageNoteEl = document.getElementById('coverageNote');
-
-    const consDayCard = document.getElementById('consDayCard');
-    const consMonthCard = document.getElementById('consMonthCard');
-    const powerInstalledCard = document.getElementById('powerInstalledCard');
-    const powerPeakCard = document.getElementById('powerPeakCard');
-    const pvRecCard = document.getElementById('pvRecCard');
-    const batteryRecCard = document.getElementById('batteryRecCard');
-    const loadsCountEl = document.getElementById('loadsCount');
-    const summaryNoteEl = document.getElementById('summaryNote');
-
-    const resetBtn = document.getElementById('resetBtn');
-    const exportBtn = document.getElementById('exportBtn');
-
-    const CITY_COORDS = {
-      ci: [
-        { label: "Abidjan", value: "abidjan" },
-        { label: "Yamoussoukro", value: "yamoussoukro" },
-        { label: "Bouaké", value: "bouake" }
-      ],
-      sn: [
-        { label: "Dakar", value: "dakar" },
-        { label: "Thiès", value: "thies" },
-        { label: "Saint-Louis", value: "saintlouis" }
-      ]
-    };
-
-    function populateCities(zone){
-      citySelect.innerHTML = '';
-      (CITY_COORDS[zone] || []).forEach(c=>{
-        citySelect.appendChild(new Option(c.label, c.value));
-      });
-      zoneBadge.innerHTML = zone === 'sn'
-        ? '<i class="fas fa-city"></i> Zone urbaine'
-        : '<i class="fas fa-building"></i> Zone urbaine';
-    }
-
-    function fmt(n, dec=2){
-      return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
-    }
-
-    function cloneLoads(loads){
-      return (loads || []).map(l=>({
-        name: l.name || '',
-        qty: Number(l.qty ?? 1),
-        powerW: Number(l.powerW ?? 0),
-        hours: Number(l.hours ?? 0),
-        factor: Number(l.factor ?? 1)
-      }));
-    }
-
-    const ROOM_TEMPLATES = {
-      "Chambre": [
-        { name:"Éclairage", qty:4, powerW:12, hours:5, factor:1 },
-        { name:"Ventilation", qty:1, powerW:60, hours:8, factor:1 },
-        { name:"Prises", qty:2, powerW:100, hours:3, factor:0.6 }
-      ],
-      "Salon": [
-        { name:"Éclairage", qty:3, powerW:12, hours:6, factor:1 },
-        { name:"Téléviseur", qty:1, powerW:120, hours:4, factor:1 },
-        { name:"Décodeur", qty:1, powerW:10, hours:24, factor:1 }
-      ],
-      "Cuisine": [
-        { name:"Éclairage", qty:2, powerW:12, hours:5, factor:1 },
-        { name:"Réfrigérateur", qty:1, powerW:150, hours:24, factor:0.35 },
-        { name:"Micro-ondes", qty:1, powerW:900, hours:0.2, factor:0.3 }
-      ],
-      "Salle d'eau": [
-        { name:"Éclairage", qty:1, powerW:12, hours:4, factor:1 },
-        { name:"Ventilation", qty:1, powerW:50, hours:3, factor:1 }
-      ],
-      "Bureau": [
-        { name:"Éclairage", qty:2, powerW:12, hours:8, factor:1 },
-        { name:"Ordinateur", qty:1, powerW:90, hours:6, factor:1 }
-      ],
-      "Toilette": [
-        { name:"Éclairage", qty:1, powerW:12, hours:3, factor:1 }
-      ],
-      "Autre": []
-    };
-
-    let rooms = [];
-    let roomCounter = 0;
-
-    function uniqueRoomName(base){
-      let name = base;
-      let n = 1;
-      while(rooms.some(r => r.name === name)){
-        n += 1;
-        name = `${base} ${n}`;
-      }
-      return name;
-    }
-
-    function createRoom(type, baseName, withTemplate=true){
-      roomCounter += 1;
-      const name = uniqueRoomName(baseName || `${type} ${roomCounter}`);
-      return {
-        id: roomCounter,
-        type,
-        name,
-        loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : []
-      };
-    }
-
-    function addRooms(type, baseName, count=1, withTemplate=true){
-      const c = Math.max(1, Number(count || 1));
-      for(let i=0;i<c;i++){
-        const roomBase = c === 1 ? (baseName || type) : `${baseName || type} ${i+1}`;
-        rooms.push(createRoom(type, roomBase, withTemplate));
-      }
-      renderRooms();
-      recalc();
-    }
-
-    function clearRooms(){
-      if(!confirm('Vider toutes les pièces et leurs charges ?')) return;
-      rooms = [];
-      renderRooms();
-      recalc();
-    }
-
-    function addLoad(roomIndex){
-      rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0, factor:1 });
-      renderRooms();
-      recalc();
-    }
-
-    function renderSubtitles(){
-      const container = document.getElementById('subtitles');
-    }
-
-    function renderRooms(){
-      roomsListEl.innerHTML = '';
-      const subtitlesWrap = document.getElementById('itemsSubtitles');
-      if(subtitlesWrap){
-        subtitlesWrap.innerHTML = '';
-        subtitlesWrap.style.display = rooms.length ? 'flex' : 'none';
-      }
-
-      rooms.forEach((room, roomIndex) => {
-        if(subtitlesWrap){
-          const totalLoads = room.loads.length;
-          const subtitle = document.createElement('div');
-          subtitle.className = 'subtitle';
-          subtitle.innerHTML = `
-            <div class="left">
-              <div class="title">${room.name}</div>
-              <div class="meta">Type : <strong>${room.type}</strong> — charges : <strong>${totalLoads}</strong></div>
-            </div>
-            <div class="right">
-              <div class="small-variant">Clique pour aller à la pièce</div>
-              <div style="font-weight:800">${totalLoads} lignes</div>
-            </div>
-          `;
-          subtitle.addEventListener('click', ()=>{
-            const el = document.getElementById(`room-block-${roomIndex}`);
-            if(el){
-              el.scrollIntoView({behavior:'smooth', block:'center'});
-              el.classList.add('highlight');
-              setTimeout(()=>el.classList.remove('highlight'), 900);
-            }
-          });
-          subtitlesWrap.appendChild(subtitle);
-        }
-
-        const box = document.createElement('div');
-        box.className = 'room';
-        box.id = `room-block-${roomIndex}`;
-
-        const loadsHtml = room.loads.map((load, loadIndex) => `
-          <div class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
-            <div style="flex:1;min-width:160px">
-              <strong>${room.type === 'Autre' ? 'Charge' : load.name || 'Charge'}</strong>
-              <div class="mini">Saisissez la charge, la puissance, la durée et le coefficient</div>
-            </div>
-            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-              <div>Nom:<br>
-                <input class="load-field" data-field="name" type="text" value="${load.name}">
-              </div>
-              <div>Qté:<br>
-                <input class="load-field" data-field="qty" type="number" min="0" value="${load.qty}" style="width:72px">
-              </div>
-              <div>W:<br>
-                <input class="load-field" data-field="powerW" type="number" min="0" value="${load.powerW}" style="width:82px">
-              </div>
-              <div>h/j:<br>
-                <input class="load-field" data-field="hours" type="number" min="0" step="0.1" value="${load.hours}" style="width:82px">
-              </div>
-              <div>Coef:<br>
-                <input class="load-field" data-field="factor" type="number" min="0" max="1" step="0.05" value="${load.factor}" style="width:72px">
-              </div>
-              <div><br><button class="btn-reset btn-remove-load" type="button">Suppr</button></div>
-            </div>
-          </div>
-        `).join('');
-
-        box.innerHTML = `
-          <div class="room-head">
-            <div style="font-weight:800">${room.name} <span style="font-weight:600;color:#6c7d6f">(${room.type})</span></div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <button class="btn-link btn-add-load" data-r="${roomIndex}" type="button">+ charge</button>
-              <button class="btn-reset btn-remove-room" data-r="${roomIndex}" type="button">Suppr pièce</button>
-            </div>
-          </div>
-
-          <div class="room-actions" style="margin-top:10px">
-            <div class="badge-zone" style="color:#04462e;background:rgba(124,179,66,.08);border:1px solid rgba(124,179,66,.12)">
-              <i class="fas fa-lightbulb"></i> Charge détaillée
-            </div>
-          </div>
-
-          <div class="consumer-list">
-            ${loadsHtml || '<div style="font-size:13px;color:#666">Aucune charge ajoutée</div>'}
-          </div>
-        `;
-        roomsListEl.appendChild(box);
-      });
-
-      if(!rooms.length && subtitlesWrap){
-        subtitlesWrap.style.display = 'none';
-      }
-    }
-
-    function onLoadChange(e){
-      const target = e.target;
-      if(!target.classList.contains('load-field')) return;
-      const roomIndex = Number(target.closest('.consumer').dataset.r);
-      const loadIndex = Number(target.closest('.consumer').dataset.l);
-      const field = target.dataset.field;
-      let value = target.value;
-
-      if(['qty','powerW','hours','factor'].includes(field)){
-        value = Number(value || 0);
-      }
-      rooms[roomIndex].loads[loadIndex][field] = value;
-      recalc();
-    }
-
-    roomsListEl.addEventListener('input', onLoadChange);
-    roomsListEl.addEventListener('change', onLoadChange);
-
-    roomsListEl.addEventListener('click', (e)=>{
-      const addLoadBtn = e.target.closest('.btn-add-load');
-      const removeRoomBtn = e.target.closest('.btn-remove-room');
-      const removeLoadBtn = e.target.closest('.btn-remove-load');
-
-      if(addLoadBtn){
-        const roomIndex = Number(addLoadBtn.dataset.r);
-        addLoad(roomIndex);
-        return;
-      }
-
-      if(removeRoomBtn){
-        const roomIndex = Number(removeRoomBtn.dataset.r);
-        if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
-        rooms.splice(roomIndex,1);
-        renderRooms();
-        recalc();
-        return;
-      }
-
-      if(removeLoadBtn){
-        const consumer = removeLoadBtn.closest('.consumer');
-        const roomIndex = Number(consumer.dataset.r);
-        const loadIndex = Number(consumer.dataset.l);
-        rooms[roomIndex].loads.splice(loadIndex,1);
-        renderRooms();
-        recalc();
-      }
-    });
-
-    function getAllLoads(){
-      const list = [];
-      rooms.forEach((room, roomIndex)=>{
-        room.loads.forEach((load, loadIndex)=>{
-          list.push({ ...load, roomIndex, loadIndex, roomName: room.name, roomType: room.type });
-        });
-      });
-      return list;
-    }
-
-    function compute(){
-      const loads = getAllLoads();
-
-      let installedPower = 0;
-      let peakPower = 0;
-      let dailyWh = 0;
-
-      loads.forEach(load=>{
-        const qty = Math.max(0, Number(load.qty || 0));
-        const powerW = Math.max(0, Number(load.powerW || 0));
-        const hours = Math.max(0, Number(load.hours || 0));
-        const factor = Math.max(0, Math.min(1, Number(load.factor || 0)));
-
-        const totalPower = qty * powerW;
-        installedPower += totalPower;
-        peakPower += totalPower * factor;
-        dailyWh += totalPower * hours * factor;
-      });
-
-      const dailyKwh = dailyWh / 1000;
-      const monthlyKwh = dailyKwh * 30;
-
-      const panelW = Math.max(1, Number(panelWEl.value || 350));
-      const sunHours = Math.max(0.1, Number(sunHoursEl.value || 5));
-      const derate = Math.max(0.1, Math.min(1, Number(panelDeratePctEl.value || 85) / 100));
-      const autonomyDays = Math.max(0, Number(autonomyDaysEl.value || 1));
-      const dod = Math.max(0.1, Math.min(1, Number(dodPctEl.value || 90) / 100));
-      const invEff = Math.max(0.1, Math.min(1, Number(invEffPctEl.value || 95) / 100));
-      const battPackKwh = Math.max(0.01, Number(battPackKwhEl.value || 1.28));
-
-      const pvKwRec = dailyKwh / (sunHours * derate);
-      const panelCountRec = Math.ceil((pvKwRec * 1000) / panelW);
-
-      const inverterRecKva = Math.max(peakPower * 1.25 / 1000, installedPower * 0.8 / 1000);
-      const batteryRecKwh = (dailyKwh * autonomyDays) / (dod * invEff);
-      const batteryPackRec = Math.ceil(batteryRecKwh / battPackKwh);
-
-      const coverageNote = pvKwRec > 0
-        ? `Base PV indicative : ${fmt(pvKwRec, 2)} kWc pour ${fmt(dailyKwh, 2)} kWh/j`
-        : 'Ajoutez des charges pour obtenir un dimensionnement';
-
-      return {
-        loads,
-        installedPower,
-        peakPower,
-        dailyKwh,
-        monthlyKwh,
-        pvKwRec,
-        panelCountRec,
-        inverterRecKva,
-        batteryRecKwh,
-        batteryPackRec,
-        coverageNote
-      };
-    }
-
-    function recalc(){
-      const r = compute();
-
-      loadsCountEl.innerText = String(r.loads.length);
-      consDayEl.innerText = `${fmt(r.dailyKwh,2)} kWh`;
-      consMonthEl.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
-      powerInstalledEl.innerText = `${Math.round(r.installedPower)} W`;
-      powerPeakEl.innerText = `${Math.round(r.peakPower)} W`;
-      inverterRecEl.innerText = `${fmt(r.inverterRecKva,2)} kVA`;
-      pvRecommendedEl.innerText = `${fmt(r.pvKwRec,2)} kWc`;
-      panelCountRecEl.innerText = `${r.panelCountRec}`;
-      batteryRecEl.innerText = `${fmt(r.batteryRecKwh,2)} kWh`;
-      batteryPackRecEl.innerText = `${r.batteryPackRec}`;
-
-      consDayCard.innerText = `${fmt(r.dailyKwh,2)} kWh`;
-      consMonthCard.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
-      powerInstalledCard.innerText = `${Math.round(r.installedPower)} W`;
-      powerPeakCard.innerText = `${Math.round(r.peakPower)} W`;
-      pvRecCard.innerText = `${fmt(r.pvKwRec,2)} kWc`;
-      batteryRecCard.innerText = `${fmt(r.batteryRecKwh,2)} kWh`;
-
-      coverageNoteEl.innerText = r.coverageNote;
-      summaryNoteEl.innerText = `Dimensionnement calculé à partir de ${r.loads.length} charge(s). Les besoins réels dépendent des usages, des pics simultanés et des marges de sécurité souhaitées.`;
-
-      const zoneLabel = zoneSelect.value === 'sn' ? 'Sénégal' : 'Côte d’Ivoire';
-      zoneBadge.innerHTML = zoneSelect.value === 'sn'
-        ? '<i class="fas fa-city"></i> Zone urbaine'
-        : '<i class="fas fa-building"></i> Zone urbaine';
-
-      document.getElementById('zoneBadge').title = `Zone sélectionnée : ${zoneLabel}`;
-    }
-
-    function addInitialRooms(){
-      rooms = [];
-      roomCounter = 0;
-      addRooms('Salon', 'Salon', 1, true);
-    }
-
-    function resetAll(){
-      if(!confirm('Réinitialiser tous les paramètres et toutes les pièces ?')) return;
-      zoneSelect.value = 'ci';
-      populateCities('ci');
-
-      panelWEl.value = 350;
-      sunHoursEl.value = 5;
-      panelDeratePctEl.value = 85;
-      autonomyDaysEl.value = 1;
-      dodPctEl.value = 90;
-      invEffPctEl.value = 95;
-      battPackKwhEl.value = 1.28;
-
-      genBedrooms.value = 1;
-      genLiving.value = 1;
-      genKitchens.value = 1;
-      genBaths.value = 1;
-      genOffices.value = 0;
-      genToilets.value = 0;
-      genAdd.checked = false;
-
-      roomTypeSelect.value = 'Chambre';
-      roomNameInput.value = '';
-      roomCountInput.value = 1;
-
-      addInitialRooms();
-      recalc();
-    }
-
-    function exportSummaryText(){
-      const r = compute();
-      const zoneText = zoneSelect.value === 'sn' ? 'Sénégal' : 'Côte d’Ivoire';
-      const cityText = citySelect.options[citySelect.selectedIndex]?.text || '';
-      const text = [
-        'GREENBRIDGE TECHNOLOGIES — DIMENSIONNEMENT',
-        `Zone : ${zoneText}`,
-        `Ville : ${cityText}`,
-        `Charges : ${r.loads.length}`,
-        `Puissance installée : ${Math.round(r.installedPower)} W`,
-        `Pointe estimée : ${Math.round(r.peakPower)} W`,
-        `Consommation journalière : ${fmt(r.dailyKwh,2)} kWh`,
-        `Consommation mensuelle : ${fmt(r.monthlyKwh,2)} kWh`,
-        `Puissance PV conseillée : ${fmt(r.pvKwRec,2)} kWc`,
-        `Nombre de panneaux estimés : ${r.panelCountRec}`,
-        `Onduleur conseillé : ${fmt(r.inverterRecKva,2)} kVA`,
-        `Stockage conseillé : ${fmt(r.batteryRecKwh,2)} kWh`,
-        `Nombre de packs estimés : ${r.batteryPackRec}`
-      ].join('\n');
-      alert(text);
-    }
-
-    zoneSelect.addEventListener('change', ()=>populateCities(zoneSelect.value));
-    citySelect.addEventListener('change', recalc);
-
-    [panelWEl, sunHoursEl, panelDeratePctEl, autonomyDaysEl, dodPctEl, invEffPctEl, battPackKwhEl].forEach(el=>{
-      el.addEventListener('input', recalc);
-      el.addEventListener('change', recalc);
-    });
-
-    generateBtn.addEventListener('click', ()=>{
-      const counts = {
-        bedrooms: Math.max(0, Number(genBedrooms.value || 0)),
-        living: Math.max(0, Number(genLiving.value || 0)),
-        kitchens: Math.max(0, Number(genKitchens.value || 0)),
-        baths: Math.max(0, Number(genBaths.value || 0)),
-        offices: Math.max(0, Number(genOffices.value || 0)),
-        toilets: Math.max(0, Number(genToilets.value || 0))
-      };
-      const add = genAdd.checked;
-      if(!add) rooms = [];
-      for(let i=0;i<counts.bedrooms;i++) rooms.push(createRoom('Chambre','Chambre',true));
-      for(let i=0;i<counts.living;i++) rooms.push(createRoom('Salon','Salon',true));
-      for(let i=0;i<counts.kitchens;i++) rooms.push(createRoom('Cuisine','Cuisine',true));
-      for(let i=0;i<counts.baths;i++) rooms.push(createRoom("Salle d'eau","Salle d'eau",true));
-      for(let i=0;i<counts.offices;i++) rooms.push(createRoom('Bureau','Bureau',true));
-      for(let i=0;i<counts.toilets;i++) rooms.push(createRoom('Toilette','Toilette',true));
-      renderRooms();
-      recalc();
-    });
-
-    addRoomBtn.addEventListener('click', ()=>{
-      const type = roomTypeSelect.value || 'Autre';
-      const count = Math.max(1, Number(roomCountInput.value || 1));
-      const baseName = roomNameInput.value.trim() || type;
-      for(let i=0;i<count;i++){
-        rooms.push(createRoom(type, count > 1 ? `${baseName} ${i+1}` : baseName, true));
-      }
-      renderRooms();
-      recalc();
-    });
-
-    clearRoomsBtn.addEventListener('click', clearRooms);
-    resetBtn.addEventListener('click', resetAll);
-    exportBtn.addEventListener('click', exportSummaryText);
-
-    function init(){
-      populateCities('ci');
-      addInitialRooms();
-      recalc();
-    }
-    init();
   </script>
 </body>
 </html>
