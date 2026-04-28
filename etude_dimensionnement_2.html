@@ -236,32 +236,48 @@
     .mobile-nav{
       display:none;
       position:fixed;
-      top:calc(var(--topbar-h)+var(--header-h));
-      left:0;
-      right:0;
-      background:linear-gradient(180deg, rgba(10,77,46,0.98), rgba(6,31,20,0.98));
+      inset:0;
       z-index:1480;
-      overflow:auto;
-      transition:max-height .28s ease, opacity .2s ease, transform .2s ease;
-      box-shadow:0 12px 40px rgba(0,0,0,.45);
-      max-height:0;
+      background:linear-gradient(180deg, rgba(10,77,46,0.98), rgba(6,31,20,0.99));
       opacity:0;
-      transform:translateY(-6px);
-      border-top:1px solid rgba(255,255,255,0.06);
+      pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease;
+      transform:scale(0.985);
+      overflow:auto;
     }
     .mobile-nav.open{
-      display:block;
-      max-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      display:flex;
       opacity:1;
-      transform:translateY(0);
+      pointer-events:auto;
+      transform:scale(1);
     }
 
-    .mobile-nav .inner{
-      padding:16px 5vw 22px;
+    .mobile-panel{
+      position:relative;
+      width:100%;
+      min-height:100vh;
+      padding:18px 5vw 22px;
       display:flex;
       flex-direction:column;
       gap:14px;
-      align-items:stretch;
+    }
+
+    .mobile-close{
+      position:absolute;
+      top:14px;
+      right:14px;
+      width:48px;
+      height:48px;
+      border:none;
+      border-radius:12px;
+      background:rgba(255,255,255,0.07);
+      color:#fff;
+      font-size:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow:0 8px 18px rgba(0,0,0,.22);
     }
 
     .mobile-brand{
@@ -270,77 +286,56 @@
       align-items:center;
       justify-content:center;
       gap:2px;
-      padding:8px 4px 8px;
+      padding:54px 4px 12px;
       border-bottom:1px solid rgba(255,255,255,0.06);
       margin-bottom:2px;
       text-align:center;
     }
     .mobile-brand .company-name{
-      font-size:32px;
+      font-size:34px;
       line-height:1;
       text-align:center;
       width:100%;
     }
     .mobile-brand .company-tagline{
-      font-size:13px;
+      font-size:14px;
       letter-spacing:4px;
       text-align:center;
       width:100%;
     }
 
-    .mobile-nav .menu-links{
+    .menu-links{
+      flex:1;
       display:flex;
       flex-direction:column;
-      gap:10px;
-    }
-
-    .mobile-nav .contact{
-      display:flex;
-      flex-direction:column;
+      justify-content:center;
       gap:12px;
-      padding:16px 14px;
-      border-radius:14px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--muted-text-color);
-    }
-    .mobile-nav .contact strong{
-      color:#fff;
-      font-size:15px;
-      letter-spacing:1px;
-    }
-    .mobile-nav .contact .phone-line{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      color:#fff;
-      font-weight:700;
-      flex-wrap:wrap;
-      font-size:15px;
-    }
-    .mobile-nav .contact .phone-line a{
-      word-break:break-word;
+      max-width:560px;
+      width:100%;
+      margin:0 auto;
+      padding:10px 0;
     }
 
-    .mobile-nav a{
-      padding:16px 16px;
+    .mobile-nav a.mobile-link{
+      padding:18px 18px;
       color:#fff;
       width:100%;
-      text-align:left;
-      border-radius:12px;
+      text-align:center;
+      border-radius:14px;
       font-weight:900;
       display:flex;
-      justify-content:flex-start;
+      justify-content:center;
       align-items:center;
       gap:10px;
-      font-size:18px;
-      border:1px solid rgba(255,255,255,0.06);
+      font-size:clamp(20px, 5vw, 26px);
+      border:1px solid rgba(255,255,255,0.08);
       background:rgba(255,255,255,0.03);
-      min-height:56px;
-      white-space:nowrap;
+      min-height:64px;
+      line-height:1.1;
+      white-space:normal;
     }
     .mobile-nav .mobile-link:hover{
-      background:rgba(124,179,66,0.10);
+      background:rgba(124,179,66,0.12);
       color:var(--accent-2);
     }
     .mobile-nav .mobile-link.active{
@@ -348,8 +343,38 @@
       color:var(--accent-2);
     }
 
-    .mobile-nav .socials{
-      margin-top:4px;
+    .mobile-contact{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:16px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted-text-color);
+      max-width:560px;
+      width:100%;
+      margin:0 auto;
+      text-align:center;
+    }
+    .mobile-contact strong{
+      color:#fff;
+      font-size:15px;
+      letter-spacing:1px;
+    }
+    .mobile-contact .phone-line{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      color:#fff;
+      font-weight:800;
+      flex-wrap:wrap;
+      font-size:16px;
+    }
+
+    .socials{
+      margin-top:auto;
       border-top:1px solid rgba(255,255,255,0.05);
       padding-top:14px;
       display:flex;
@@ -359,9 +384,9 @@
       flex-wrap:wrap;
       width:100%;
     }
-    .mobile-nav .socials a{
-      width:42px;
-      height:42px;
+    .socials a{
+      width:44px;
+      height:44px;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -370,8 +395,7 @@
       border:none;
       background:rgba(255,255,255,0.04);
       border-radius:50%;
-      white-space:normal;
-      min-height:42px;
+      min-height:44px;
     }
 
     .hero{
@@ -643,12 +667,6 @@
       line-height:1.45;
     }
 
-    .consumer-list{
-      margin-top:10px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
     .consumer{
       display:flex;
       justify-content:space-between;
@@ -659,6 +677,7 @@
       border:1px solid #eee;
       color:#072012;
       gap:10px;
+      margin-top:8px;
     }
     .consumer .meta{font-size:13px;color:#6b7f6b}
 
@@ -744,18 +763,6 @@
       overflow:hidden;
       color:#fff;
     }
-
-    .btn-outline{
-      padding:12px 16px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.32);
-      background:transparent;
-      color:#fff;
-      font-weight:700;
-      cursor:pointer;
-      font-size:14px;
-    }
-    .btn-outline:hover{background:rgba(255,255,255,0.08)}
 
     .zone-title{
       color:var(--accent-2);
@@ -1136,33 +1143,33 @@
         <path class="zap" id="zap2" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
         <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
       </svg>
-
       <div class="orbs" id="orbs">
         <div class="orb" id="orbA"></div>
         <div class="orb" id="orbB"></div>
         <div class="orb" id="orbC"></div>
       </div>
-
       <div class="glowline" id="glowline"></div>
     </div>
   </div>
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
-    <div class="inner">
+    <div class="mobile-panel">
+      <button class="mobile-close" id="mobileCloseBtn" aria-label="Fermer le menu">×</button>
+
       <div class="mobile-brand">
         <div class="company-name">GREENBRIDGE</div>
         <div class="company-tagline">TECHNOLOGIES</div>
       </div>
 
       <div class="menu-links">
-        <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
-        <a href="#top" class="mobile-link active">Étude</a>
+        <a href="#top" class="mobile-link active">Accueil</a>
+        <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
         <a href="produits.html" class="mobile-link">Nos Produits</a>
         <a href="Projets.html" class="mobile-link">Projets futurs</a>
         <a href="maintenance.html" class="mobile-link">Maintenance</a>
       </div>
 
-      <div class="contact" aria-hidden="false">
+      <div class="mobile-contact" aria-hidden="false">
         <strong>CONTACT</strong>
         <div class="phone-line">
           <i class="fas fa-phone" aria-hidden="true"></i>
@@ -1590,6 +1597,7 @@
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
     const mobileBackdrop = document.getElementById('mobileBackdrop');
+    const mobileCloseBtn = document.getElementById('mobileCloseBtn');
 
     const topPhoneLink = document.getElementById('topPhoneLink');
     const topPhoneText = document.getElementById('topPhoneText');
@@ -1645,6 +1653,7 @@
       });
 
       if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
+      if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
       mobileNav.querySelectorAll('.mobile-link').forEach(a => {
         a.addEventListener('click', () => closeMenu());
