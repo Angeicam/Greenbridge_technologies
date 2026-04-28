@@ -190,25 +190,56 @@
       box-shadow:0 12px 40px rgba(0,0,0,.45);
       max-height:0;
     }
-    .mobile-nav.open{display:block;max-height:70vh}
+    .mobile-nav.open{display:block;max-height:85vh}
     .mobile-nav .inner{
-      padding:12px 5vw;
+      padding:12px 5vw 20px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:stretch;
+    }
+    .mobile-nav .menu-links{
       display:flex;
       flex-direction:column;
       gap:8px;
-      align-items:stretch;
     }
     .mobile-nav .contact{
       display:flex;
       flex-direction:column;
-      gap:6px;
-      padding:8px 12px;
-      border-bottom:1px solid rgba(255,255,255,0.04);
-      margin-bottom:6px;
+      gap:8px;
+      padding:14px 12px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
       color:var(--muted-text-color);
     }
+    .mobile-nav .contact strong{
+      color:#fff;
+      font-size:14px;
+      letter-spacing:1px;
+    }
+    .mobile-nav .contact .city-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      color:#dfffe6;
+      font-weight:600;
+    }
+    .mobile-nav .contact .city-list span{
+      background:rgba(212,175,55,0.08);
+      border:1px solid rgba(212,175,55,0.12);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+    .mobile-nav .contact .phone-line{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#fff;
+      font-weight:700;
+    }
     .mobile-nav a{
-      padding:12px;
+      padding:12px 12px;
       color:#fff;
       width:100%;
       text-align:left;
@@ -218,8 +249,21 @@
       justify-content:space-between;
       align-items:center
     }
-    .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
-    .mobile-nav a.active{background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2)}
+    .mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.10);color:var(--accent-2)}
+    .mobile-nav .mobile-link.active{background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2)}
+    .mobile-nav .socials{
+      margin-top:2px;
+      border-top:1px solid rgba(255,255,255,0.05);
+      padding-top:12px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .mobile-nav .socials a{
+      width:auto;
+      padding:0;
+      font-size:18px;
+    }
 
     .hero{
       margin-top:calc(var(--topbar-h) + var(--header-h));
@@ -534,7 +578,6 @@
       text-align:center
     }
 
-    /* ===================== Réalisations / projets futurs ===================== */
     .gb-carousel{
       position:relative;
       max-width:1240px;
@@ -745,7 +788,6 @@
 
     @media (max-width:1100px){
       .grid-4{grid-template-columns:repeat(2,1fr)}
-      .advantages{justify-content:center}
       .gb-slide-inner{grid-template-columns:1fr}
       .gb-desc{
         border-left:none;
@@ -895,7 +937,6 @@
       }
 
       .mobile-nav.open{max-height:85vh}
-      .mobile-nav .inner{padding-bottom:20px}
     }
 
     @media (max-width:480px){
@@ -1137,7 +1178,7 @@
 
   <div class="topbar" role="banner" aria-hidden="false">
     <div class="left">
-      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
+      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan · Dakar</a>
     </div>
     <div class="right">
       <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
@@ -1184,17 +1225,27 @@
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
     <div class="inner">
-      <div class="contact" aria-hidden="false">
-        <div><strong>GREENBRIDGE</strong></div>
-        <div><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</div>
-        <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
+      <div class="menu-links">
+        <a href="#top" class="mobile-link active">Accueil</a>
+        <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
+        <a href="produits.html" class="mobile-link">Nos Produits</a>
+        <a href="Projets.html" class="mobile-link">Projets futurs</a>
+        <a href="maintenance.html" class="mobile-link">Maintenance</a>
       </div>
-      <a href="#top" class="mobile-link active">Accueil</a>
-      <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
-      <a href="produits.html" class="mobile-link">Nos Produits</a>
-      <a href="Projets.html" class="mobile-link">Projets futurs</a>
-      <a href="maintenance.html" class="mobile-link">Maintenance</a>
-      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.03);padding-top:10px;display:flex;gap:12px;align-items:center;">
+
+      <div class="contact" aria-hidden="false">
+        <strong>CONTACT</strong>
+        <div class="city-list">
+          <span>Abidjan</span>
+          <span>Dakar</span>
+        </div>
+        <div class="phone-line">
+          <i class="fas fa-phone" aria-hidden="true"></i>
+          <a href="tel:+22507070707">+225 07 07 07 07 07</a>
+        </div>
+      </div>
+
+      <div class="socials">
         <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
         <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
         <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
@@ -1412,7 +1463,7 @@
     <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
     <div class="footer-contact" aria-label="Coordonnées">
       <div>© 2025 GreenBridge. Tous droits réservés.</div>
-      <div>Abidjan, Côte d’Ivoire</div>
+      <div>Abidjan · Dakar</div>
       <div>Tel: +225 07 07 07 07 07</div>
     </div>
   </footer>
