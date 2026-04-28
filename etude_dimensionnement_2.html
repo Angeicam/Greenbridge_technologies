@@ -26,6 +26,8 @@
       --muted-text-size:15px;
       --electric-yellow:#ffd600;
       --shadow:0 10px 22px rgba(0,0,0,.35);
+      --release-orange:#ff7a18;
+      --release-orange-2:#ffb347;
     }
 
     *{box-sizing:border-box}
@@ -53,14 +55,52 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:20px;
+      gap:14px;
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
     }
-    .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
-    .topbar a{color:#fff;transition:color .18s}
+    .topbar .left,
+    .topbar .right{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .topbar a{
+      color:#fff;
+      transition:color .18s;
+      white-space:nowrap;
+    }
     .topbar a:hover{color:var(--accent-2)}
+
+    .topbar .country-switcher{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .country-chip{
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.05);
+      color:#fff;
+      border-radius:999px;
+      padding:5px 10px;
+      font-size:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:all .18s ease;
+    }
+    .country-chip.active{
+      background:rgba(212,175,55,0.16);
+      border-color:rgba(212,175,55,0.38);
+      color:#fff;
+    }
+
+    .phone-country{
+      font-weight:700;
+      opacity:.95;
+      margin-right:6px;
+    }
 
     header{
       position:fixed;
@@ -75,7 +115,6 @@
       padding:0 5vw;
       z-index:1490;
       box-shadow:0 4px 12px rgba(0,0,0,.25);
-      gap:12px;
     }
 
     .logo-text{
@@ -170,17 +209,24 @@
 
     .burger{
       display:none;
-      width:44px;
-      height:44px;
-      border-radius:8px;
-      border:none;
-      background:transparent;
+      width:52px;
+      height:52px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.05);
       align-items:center;
       justify-content:center;
       cursor:pointer;
-      flex:0 0 auto;
+      box-shadow:0 6px 18px rgba(0,0,0,.18);
+      -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
     }
-    .burger .icon{display:block;position:relative;width:26px;height:18px}
+    .burger .icon{
+      display:block;
+      position:relative;
+      width:28px;
+      height:20px;
+    }
     .burger .icon span{
       position:absolute;
       left:0;
@@ -188,14 +234,28 @@
       height:3px;
       background:#fff;
       border-radius:2px;
-      transition:all .25s
+      transition:all .25s;
     }
     .burger .icon span:nth-child(1){top:0}
-    .burger .icon span:nth-child(2){top:7.5px}
-    .burger .icon span:nth-child(3){top:15px}
-    .burger.open .icon span:nth-child(1){transform: translateY(7.5px) rotate(45deg)}
+    .burger .icon span:nth-child(2){top:8.5px}
+    .burger .icon span:nth-child(3){top:17px}
+    .burger.open .icon span:nth-child(1){transform: translateY(8.5px) rotate(45deg)}
     .burger.open .icon span:nth-child(2){opacity:0}
-    .burger.open .icon span:nth-child(3){transform: translateY(-7.5px) rotate(-45deg)}
+    .burger.open .icon span:nth-child(3){transform: translateY(-8.5px) rotate(-45deg)}
+
+    .mobile-backdrop{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.42);
+      z-index:1470;
+      opacity:0;
+      transition:opacity .2s ease;
+    }
+    .mobile-backdrop.open{
+      display:block;
+      opacity:1;
+    }
 
     .mobile-nav{
       display:none;
@@ -203,80 +263,87 @@
       top:calc(var(--topbar-h)+var(--header-h));
       left:0;
       right:0;
-      bottom:0;
-      background:rgba(0,0,0,.30);
-      backdrop-filter: blur(6px);
-      z-index:2000;
-      opacity:0;
-      transition:opacity .2s ease;
+      background:linear-gradient(180deg, rgba(10,77,46,0.98), rgba(6,31,20,0.98));
+      z-index:1480;
       overflow:auto;
+      transition:max-height .28s ease, opacity .2s ease, transform .2s ease;
+      box-shadow:0 12px 40px rgba(0,0,0,.45);
+      max-height:0;
+      opacity:0;
+      transform:translateY(-6px);
+      border-top:1px solid rgba(255,255,255,0.06);
     }
     .mobile-nav.open{
       display:block;
+      max-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
       opacity:1;
+      transform:translateY(0);
     }
-    .mobile-nav .panel{
-      background:var(--bg);
-      box-shadow:0 12px 40px rgba(0,0,0,.45);
-      max-height:88vh;
-      overflow:auto;
-      border-top:1px solid rgba(255,255,255,.06);
-    }
+
     .mobile-nav .inner{
-      padding:12px 5vw 20px;
+      padding:16px 5vw 22px;
       display:flex;
       flex-direction:column;
-      gap:12px;
+      gap:14px;
       align-items:stretch;
     }
-    .mobile-nav .close-row{
+
+    .mobile-brand{
       display:flex;
-      justify-content:flex-end;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:2px;
+      padding:8px 4px 8px;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      margin-bottom:2px;
+      text-align:center;
     }
-    .mobile-nav .close-btn{
-      border:none;
-      background:rgba(255,255,255,0.08);
-      color:#fff;
-      font-weight:800;
-      border-radius:10px;
-      padding:10px 14px;
-      cursor:pointer;
+    .mobile-brand .company-name{
+      font-size:32px;
+      line-height:1;
+      text-align:center;
+      width:100%;
     }
-    .mobile-nav .close-btn:hover{
-      background:rgba(255,255,255,0.14);
+    .mobile-brand .company-tagline{
+      font-size:13px;
+      letter-spacing:4px;
+      text-align:center;
+      width:100%;
     }
+
     .mobile-nav .menu-links{
       display:flex;
       flex-direction:column;
-      gap:8px;
+      gap:10px;
     }
+
     .mobile-nav .contact{
       display:flex;
       flex-direction:column;
-      gap:8px;
-      padding:14px 12px;
-      border-radius:12px;
+      gap:12px;
+      padding:16px 14px;
+      border-radius:14px;
       background:rgba(255,255,255,0.04);
       border:1px solid rgba(255,255,255,0.06);
       color:var(--muted-text-color);
     }
     .mobile-nav .contact strong{
       color:#fff;
-      font-size:14px;
+      font-size:15px;
       letter-spacing:1px;
     }
     .mobile-nav .contact .city-list{
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
+      gap:10px;
       color:#dfffe6;
       font-weight:600;
+      align-items:center;
     }
-    .mobile-nav .contact .city-list span{
-      background:rgba(212,175,55,0.08);
-      border:1px solid rgba(212,175,55,0.12);
-      padding:6px 10px;
-      border-radius:999px;
+    .mobile-nav .contact .city-list .country-chip{
+      font-size:13px;
+      padding:7px 12px;
     }
     .mobile-nav .contact .phone-line{
       display:flex;
@@ -285,48 +352,62 @@
       color:#fff;
       font-weight:700;
       flex-wrap:wrap;
+      font-size:15px;
     }
+    .mobile-nav .contact .phone-line a{
+      word-break:break-word;
+    }
+
     .mobile-nav a{
-      padding:12px 12px;
+      padding:16px 16px;
       color:#fff;
       width:100%;
       text-align:left;
-      border-radius:8px;
-      font-weight:700;
+      border-radius:12px;
+      font-weight:900;
       display:flex;
-      justify-content:space-between;
-      align-items:center
+      justify-content:flex-start;
+      align-items:center;
+      gap:10px;
+      font-size:18px;
+      border:1px solid rgba(255,255,255,0.06);
+      background:rgba(255,255,255,0.03);
+      min-height:56px;
+      white-space:nowrap;
     }
     .mobile-nav .mobile-link:hover{
       background:rgba(124,179,66,0.10);
-      color:var(--accent-2)
+      color:var(--accent-2);
     }
     .mobile-nav .mobile-link.active{
-      background:linear-gradient(90deg, rgba(212,175,55,0.10), rgba(212,175,55,0.04));
+      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
       color:var(--accent-2);
-      border:1px solid rgba(212,175,55,0.18);
     }
+
     .mobile-nav .socials{
-      margin-top:2px;
+      margin-top:4px;
       border-top:1px solid rgba(255,255,255,0.05);
-      padding-top:12px;
+      padding-top:14px;
       display:flex;
-      gap:12px;
+      gap:18px;
       align-items:center;
-      flex-wrap:wrap;
       justify-content:center;
+      flex-wrap:wrap;
+      width:100%;
     }
     .mobile-nav .socials a{
-      width:44px;
-      height:44px;
+      width:42px;
+      height:42px;
       display:flex;
       align-items:center;
       justify-content:center;
       padding:0;
-      font-size:18px;
+      font-size:20px;
       border:none;
       background:rgba(255,255,255,0.04);
       border-radius:50%;
+      white-space:normal;
+      min-height:42px;
     }
 
     .hero{
@@ -379,7 +460,7 @@
       text-shadow:0 2px 8px rgba(0,0,0,0.45)
     }
     .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    .btn-primary,.btn-secondary{
+    .btn-primary,.btn-secondary,.btn-outline{
       padding:14px 26px;
       border-radius:10px;
       border:0;
@@ -391,6 +472,17 @@
     .btn-primary:hover{background:var(--accent-2)}
     .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
     .btn-secondary:hover{background:rgba(255,255,255,0.08)}
+    .btn-outline{
+      padding:12px 16px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.32);
+      background:transparent;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+      font-size:14px;
+    }
+    .btn-outline:hover{background:rgba(255,255,255,0.08)}
 
     .section{padding:60px 5vw}
     .section h2{
@@ -465,10 +557,7 @@
       text-align:center
     }
 
-    .study-shell{
-      max-width:1240px;
-      margin:0 auto;
-    }
+    .study-shell{max-width:1240px;margin:0 auto;}
 
     .study-details{
       background:linear-gradient(180deg, rgba(6,31,20,.96), rgba(7,50,23,.96));
@@ -509,69 +598,13 @@
       flex:0 0 auto;
       transition:transform .2s ease;
     }
-    .study-details[open] > summary .toggle{
-      transform:rotate(180deg);
-    }
+    .study-details[open] > summary .toggle{transform:rotate(180deg)}
 
-    .step{
-      margin:16px 16px 0;
-      background:rgba(255,255,255,.02);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:18px;
-      overflow:hidden;
-    }
-    .step > summary{
-      list-style:none;
-      cursor:pointer;
-      padding:14px 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      background:rgba(255,255,255,.02);
-      color:#fff;
-      font-weight:800;
-    }
-    .step > summary::-webkit-details-marker{display:none}
-    .step > summary .small{
-      font-size:12px;
-      color:#dfffe6;
-      font-weight:600;
-      opacity:.9;
-    }
-    .step > summary .toggle{
-      color:var(--gold-base);
-      transition:transform .2s ease;
-    }
-    .step[open] > summary .toggle{transform:rotate(180deg)}
-    .step-body{
-      padding:16px;
-      background:rgba(0,0,0,.14);
-    }
+    .study-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:14px;}
+    .study-row-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:14px;}
 
-    .study-row{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:14px;
-      margin-bottom:14px;
-    }
-    .study-row-3{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:14px;
-      margin-bottom:14px;
-    }
-
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .field label{
-      font-size:13px;
-      font-weight:700;
-      color:#eaf9ea;
-    }
+    .field{display:flex;flex-direction:column;gap:8px;}
+    .field label{font-size:13px;font-weight:700;color:#eaf9ea;}
     .field input,.field select,.field textarea{
       width:100%;
       padding:12px;
@@ -584,12 +617,7 @@
     }
     .field input::placeholder,.field textarea::placeholder{color:#dbeed8}
 
-    .results{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:12px;
-      margin-top:12px;
-    }
+    .results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;}
     .result-card{
       background:linear-gradient(180deg,#fbfffb,#f3fff2);
       padding:14px;
@@ -599,83 +627,21 @@
       color:#072012;
       min-height:118px;
     }
-    .result-card .label{
-      font-size:13px;
-      color:#6b7f6b;
-      text-transform:uppercase;
-      letter-spacing:.6px;
-    }
-    .result-card .value{
-      font-weight:900;
-      font-size:20px;
-      color:var(--green-mid-2);
-      margin-top:6px;
-      display:inline-block;
-    }
-    .result-card .small{
-      font-size:13px;
-      color:#6b7f6b;
-      margin-top:6px;
-      line-height:1.45;
-    }
+    .result-card .label{font-size:13px;color:#6b7f6b;text-transform:uppercase;letter-spacing:.6px;}
+    .result-card .value{font-weight:900;font-size:20px;color:var(--green-mid-2);margin-top:6px;display:inline-block;}
+    .result-card .small{font-size:13px;color:#6b7f6b;margin-top:6px;line-height:1.45;}
 
-    .consumer-list{
-      margin-top:10px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .consumer{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:10px 12px;
-      border-radius:12px;
-      background:#fff;
-      border:1px solid #eee;
-      color:#072012;
-      gap:10px;
-    }
+    .consumer-list{margin-top:10px;display:flex;flex-direction:column;gap:8px;}
+    .consumer{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:12px;background:#fff;border:1px solid #eee;color:#072012;gap:10px;}
     .consumer .meta{font-size:13px;color:#6b7f6b}
 
-    .summary{
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:18px;
-      margin-top:18px;
-    }
-    .big{
-      padding:18px;
-      border-radius:18px;
-      background:#fff;
-      border:1px solid #e6f3ea;
-      color:#072012;
-      box-shadow:var(--shadow);
-    }
-    .big h2{
-      margin:0;
-      color:#04462e;
-      text-align:left;
-      font-size:24px;
-    }
-    .kpi{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:12px;
-      margin-top:12px;
-    }
-    .kpi .num{
-      font-weight:900;
-      font-size:22px;
-      color:#0b4d26;
-    }
+    .summary{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:18px;}
+    .big{padding:18px;border-radius:18px;background:#fff;border:1px solid #e6f3ea;color:#072012;box-shadow:var(--shadow);}
+    .big h2{margin:0;color:#04462e;text-align:left;font-size:24px;}
+    .kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px;}
+    .kpi .num{font-weight:900;font-size:22px;color:#0b4d26;}
     .kpi .muted{font-size:13px;color:#6b7f6b}
-    .note{
-      font-size:12px;
-      color:#6b7f6b;
-      margin-top:10px;
-      line-height:1.6;
-    }
+    .note{font-size:12px;color:#6b7f6b;margin-top:10px;line-height:1.6;}
 
     #mapCard{padding:0;overflow:hidden}
     #map{height:260px;border-radius:0}
@@ -688,15 +654,7 @@
       margin-top:40px;
       text-align:center;
     }
-    footer::before{
-      content:"";
-      position:absolute;
-      left:0;
-      right:0;
-      top:0;
-      height:2px;
-      background:var(--gold-base)
-    }
+    footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold-base)}
     .footer-company{
       display:block;
       margin:0 auto 8px;
@@ -721,251 +679,16 @@
       color:#fff;
     }
 
-    .btn-outline{
-      padding:12px 16px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.32);
-      background:transparent;
-      color:#fff;
-      font-weight:700;
-      cursor:pointer;
-      font-size:14px;
-    }
-    .btn-outline:hover{background:rgba(255,255,255,0.08)}
-
-    .zone-title{
-      color:var(--accent-2);
-      text-align:center;
-      font-size:32px;
-      margin:0 0 18px;
-    }
-
-    .room-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-start;
-      margin-top:12px;
-    }
-
-    .room-box{
-      background:#fff;
-      color:#072012;
-      border-radius:16px;
-      border:1px solid #e6f3ea;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-    .room-header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:14px 16px;
-      background:linear-gradient(180deg,#ffffff,#f5fff4);
-      border-bottom:1px solid #e7f2e8;
-    }
+    .zone-title{color:var(--accent-2);text-align:center;font-size:32px;margin:0 0 18px;}
+    .room-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start;margin-top:12px;}
+    .room-box{background:#fff;color:#072012;border-radius:16px;border:1px solid #e6f3ea;box-shadow:var(--shadow);overflow:hidden;}
+    .room-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;background:linear-gradient(180deg,#ffffff,#f5fff4);border-bottom:1px solid #e7f2e8;}
     .room-header strong{font-size:16px;color:#04462e}
-    .room-content{
-      padding:16px;
-    }
-
-    .room-consumers{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      margin-top:10px;
-    }
-    .room-consumer{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 12px;
-      border:1px solid #edf4ef;
-      border-radius:12px;
-      background:#fff;
-    }
-    .room-consumer .meta{
-      color:#6b7f6b;
-      font-size:13px;
-      margin-top:2px;
-    }
-
-    .mini-note{
-      font-size:13px;
-      color:#dfffe6;
-      line-height:1.6;
-      opacity:.95;
-    }
-
-    @media (max-width:1100px){
-      .study-row,.study-row-3,.summary,.kpi,.results{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media (max-width:820px){
-      nav{display:none}
-      .burger{display:flex}
-      .topbar{
-        padding:0 4vw;
-        font-size:12px;
-        gap:10px;
-      }
-      .topbar .left, .topbar .right{
-        gap:8px;
-      }
-      header{
-        padding:0 4vw;
-      }
-      .logo-text{
-        gap:8px;
-        align-items:flex-start;
-      }
-      .logo-text img{
-        height:46px;
-      }
-      .company-name{
-        font-size:30px;
-        white-space:nowrap;
-        line-height:1;
-      }
-      .company-tagline{
-        font-size:12px;
-        letter-spacing:4px;
-        white-space:nowrap;
-      }
-      .hero-content{ max-width:88vw; }
-      .hero{
-        height:auto;
-        min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
-      }
-      .hero-bg{
-        object-position:center 42%;
-        transform:scale(1.12) translateY(0);
-      }
-      .hero-content{
-        max-width:88vw;
-        padding:24px 14px;
-      }
-      .hero-content h1 { font-size:clamp(24px, 5.2vw, 32px); }
-      .hero-content p { font-size:16px; }
-      .section{
-        padding:52px 4vw;
-      }
-      .zone-card{
-        width:100%;
-        min-width:0;
-        max-width:none;
-        height:210px;
-      }
-      .zone-card h3{ font-size:18px; bottom:10px; padding:8px 12px }
-      .study-details > summary{
-        padding:16px;
-        align-items:flex-start;
-        flex-direction:column;
-      }
-      .mobile-nav .panel{max-height:88vh}
-      .mobile-nav .inner{padding-bottom:20px}
-    }
-
-    @media (max-width:768px){
-      .company-name{font-size:26px}
-      .company-tagline{font-size:10px;letter-spacing:2px}
-      .topbar .right{gap:10px;font-size:13px}
-      .hero-content h1 { font-size:28px; }
-      .hero-content p { font-size:14px; }
-      .section h2{font-size:24px}
-      .results{grid-template-columns:1fr}
-      .zone-title{font-size:24px}
-    }
-
-    @media (max-width:480px){
-      :root{
-        --topbar-h:40px;
-        --header-h:60px;
-      }
-      .topbar{
-        font-size:11px;
-        padding:0 3.5vw;
-      }
-      .topbar .left{
-        max-width:58%;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
-      }
-      .topbar .right{
-        max-width:40%;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
-      }
-      header{
-        padding:0 3.5vw;
-      }
-      .logo-text{
-        gap:6px;
-      }
-      .logo-text img{
-        height:38px;
-      }
-      .company-name{
-        font-size:18px;
-        letter-spacing:.4px;
-      }
-      .company-tagline{
-        font-size:9px;
-        letter-spacing:1.5px;
-      }
-      .hero{
-        min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
-      }
-      .hero-bg{
-        object-position:center 30%;
-        transform:scale(1.18) translateY(0);
-      }
-      .hero-content{
-        max-width:92vw;
-        padding:18px 12px;
-      }
-      .hero-content h1{
-        font-size:24px;
-        line-height:1.2;
-        margin-bottom:8px;
-        white-space:normal;
-      }
-      .hero-content p{
-        font-size:15px;
-        line-height:1.45;
-        white-space:normal;
-        overflow:visible;
-        text-overflow:clip;
-      }
-      .btn-primary{
-        padding:12px 22px;
-        font-size:14px;
-      }
-      .section h2{
-        font-size:26px;
-      }
-      .zone-card{
-        height:190px;
-      }
-      .zone-card h3{
-        font-size:17px;
-      }
-      .gb-desc h3{
-        font-size:20px;
-      }
-      .gb-summary{
-        font-size:13px;
-      }
-      .footer-company{
-        font-size:16px;
-      }
-    }
+    .room-content{padding:16px;}
+    .room-consumers{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+    .room-consumer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #edf4ef;border-radius:12px;background:#fff;}
+    .room-consumer .meta{color:#6b7f6b;font-size:13px;margin-top:2px;}
+    .mini-note{font-size:13px;color:#dfffe6;line-height:1.6;opacity:.95;}
 
     .electric-band {
       position: fixed;
@@ -1054,6 +777,91 @@
       50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 }
       100%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
     }
+
+    @media (max-width:1100px){
+      .study-row,.study-row-3,.summary,.kpi,.results{grid-template-columns:1fr;}
+    }
+
+    @media (max-width:820px){
+      :root{--topbar-h:42px;--header-h:76px;}
+      nav{display:none}
+      .burger{display:flex}
+      .topbar{
+        padding:0 4vw;
+        font-size:12px;
+        gap:8px;
+      }
+      .topbar .left, .topbar .right{gap:8px}
+      .topbar .country-switcher{gap:6px}
+      .country-chip{padding:5px 9px;font-size:11px;}
+      header{padding:0 4vw;}
+      .logo-text{gap:8px;align-items:center;}
+      .logo-text img{height:52px;}
+      .company-name{font-size:34px;white-space:nowrap;line-height:1;letter-spacing:.2px;}
+      .company-tagline{font-size:13px;letter-spacing:3px;white-space:nowrap;}
+      .hero{height:auto;min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));}
+      .hero-bg{object-position:center center;transform:scale(1.12) translateY(0);}
+      .hero-content{max-width:88vw;padding:24px 14px;}
+      .hero-content h1{font-size:clamp(24px, 5.2vw, 34px);}
+      .hero-content p{font-size:16px;}
+      .section{padding:52px 4vw}
+      .zone-card{width:100%;min-width:0;max-width:none;height:210px;}
+      .zone-card h3{font-size:18px;bottom:10px;padding:8px 12px}
+      .study-details > summary{padding:16px;align-items:flex-start;flex-direction:column;}
+      .mobile-nav.open{max-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
+      .gb-desc{padding:24px 18px}
+      .gb-desc h3{font-size:22px}
+      .gb-summary{font-size:14px}
+      .gb-highlights{grid-template-columns:1fr; max-width:100%}
+      .gb-media-frame{min-height:280px; padding:12px}
+      .gb-btn{width:42px; height:42px; font-size:24px}
+    }
+
+    @media (max-width:480px){
+      :root{--topbar-h:40px;--header-h:72px;}
+      .topbar{
+        font-size:11px;
+        padding:0 3.5vw;
+      }
+      .topbar .left{
+        max-width:46%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+      .topbar .right{
+        max-width:48%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        justify-content:flex-end;
+      }
+      .topbar .country-switcher{display:none;}
+      header{padding:0 3.5vw;}
+      .logo-text img{height:44px;}
+      .company-name{font-size:26px;letter-spacing:.1px;}
+      .company-tagline{font-size:10px;letter-spacing:2px;}
+      .burger{width:48px;height:48px;}
+      .hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));}
+      .hero-bg{object-position:center 28%;transform:scale(1.18) translateY(0);}
+      .hero-content{max-width:92vw;padding:18px 12px;}
+      .hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px;white-space:normal;}
+      .hero-content p{font-size:15px;line-height:1.45;white-space:normal;overflow:visible;text-overflow:clip;}
+      .btn-primary{padding:12px 22px;font-size:14px;}
+      .section h2{font-size:26px;}
+      .card-dark{border-radius:20px;}
+      .zone-card{height:190px;}
+      .zone-card h3{font-size:17px;}
+      .gb-desc h3{font-size:20px;}
+      .gb-summary{font-size:13px;}
+      .footer-company{font-size:16px;}
+      .mobile-brand .company-name{font-size:28px;}
+      .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px;}
+      .mobile-nav a{font-size:18px;padding:15px 16px;min-height:56px;width:100%;white-space:nowrap;}
+      .mobile-nav .contact{padding:14px 12px;}
+      .mobile-nav .socials{gap:14px;}
+      .mobile-nav .socials a{width:40px;height:40px;font-size:18px;}
+    }
   </style>
 </head>
 <body>
@@ -1063,7 +871,15 @@
       <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan · Dakar</a>
     </div>
     <div class="right">
-      <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
+      <div class="country-switcher" aria-label="Sélection pays">
+        <button class="country-chip active" type="button" data-country="abidjan">Abidjan</button>
+        <button class="country-chip" type="button" data-country="dakar">Dakar</button>
+      </div>
+      <a href="tel:+2250707070707" id="topPhoneLink">
+        <i class="fas fa-phone" aria-hidden="true"></i>
+        <span class="phone-country" id="topPhoneCountry">Abidjan</span>
+        <span id="topPhoneText">+225 07 07 07 07 07</span>
+      </a>
     </div>
   </div>
 
@@ -1089,6 +905,8 @@
     </button>
   </header>
 
+  <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
+
   <div class="electric-band" id="electricBand" aria-hidden="true">
     <div class="container" aria-hidden="true">
       <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
@@ -1106,43 +924,38 @@
   </div>
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
-    <div class="panel">
-      <div class="inner">
-        <div class="close-row">
-          <button class="close-btn" type="button" id="closeMobileBtn" aria-label="Fermer le menu">Fermer ×</button>
-        </div>
+    <div class="inner">
+      <div class="mobile-brand">
+        <div class="company-name">GREENBRIDGE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
+      </div>
 
-        <div class="mobile-brand">
-          <div class="company-name">GREENBRIDGE</div>
-          <div class="company-tagline">TECHNOLOGIES</div>
-        </div>
+      <div class="menu-links">
+        <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+        <a href="#top" class="mobile-link active">Étude</a>
+        <a href="produits.html" class="mobile-link">Nos Produits</a>
+        <a href="Projets.html" class="mobile-link">Projets futurs</a>
+        <a href="maintenance.html" class="mobile-link">Maintenance</a>
+      </div>
 
-        <div class="menu-links">
-          <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
-          <a href="#top" class="mobile-link active">Étude</a>
-          <a href="produits.html" class="mobile-link">Nos Produits</a>
-          <a href="Projets.html" class="mobile-link">Projets futurs</a>
-          <a href="maintenance.html" class="mobile-link">Maintenance</a>
+      <div class="contact" aria-hidden="false">
+        <strong>CONTACT</strong>
+        <div class="city-list" aria-label="Sélection pays mobile">
+          <button class="country-chip active" type="button" data-country="abidjan">Abidjan</button>
+          <button class="country-chip" type="button" data-country="dakar">Dakar</button>
         </div>
+        <div class="phone-line">
+          <i class="fas fa-phone" aria-hidden="true"></i>
+          <span class="phone-country" id="mobilePhoneCountry">Abidjan</span>
+          <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
+        </div>
+      </div>
 
-        <div class="contact" aria-hidden="false">
-          <strong>CONTACT</strong>
-          <div class="city-list">
-            <span>Abidjan</span>
-            <span>Dakar</span>
-          </div>
-          <div class="phone-line">
-            <i class="fas fa-phone" aria-hidden="true"></i>
-            <a href="tel:+22507070707">+225 07 07 07 07 07</a>
-          </div>
-        </div>
-
-        <div class="socials">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-        </div>
+      <div class="socials">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>
@@ -1178,7 +991,7 @@
 
   <section id="zone-urbaine" class="section">
     <h2 class="zone-title">Zone urbaine</h2>
-    <p class="products-intro">Définis les pièces, puis ajoute les équipements de chaque espace pour estimer puissance, énergie, autonomie et budget.</p>
+    <p class="products-intro">Définis les pièces, puis ajoute les charges de cette pièce pour estimer puissance, énergie, autonomie et budget.</p>
 
     <div class="study-shell">
       <details class="study-details">
@@ -1544,64 +1357,102 @@
     <div class="footer-contact" aria-label="Coordonnées">
       <div>© 2025 GreenBridge. Tous droits réservés.</div>
       <div>Abidjan · Dakar</div>
-      <div>Tel: +225 07 07 07 07 07</div>
+      <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
     </div>
   </footer>
 
   <script>
     function fmt(n,dec=2){ return Number(n||0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
 
+    const contactNumbers = {
+      abidjan: {
+        country: 'Abidjan',
+        display: '+225 07 07 07 07 07',
+        tel: '+2250707070707'
+      },
+      dakar: {
+        country: 'Dakar',
+        display: '+221 77 00 00 00 00',
+        tel: '+2217700000000'
+      }
+    };
+
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
-    const closeMobileBtn = document.getElementById('closeMobileBtn');
+    const mobileBackdrop = document.getElementById('mobileBackdrop');
 
-    function openMobileNav(){
-      if(!mobileNav || !burgerBtn) return;
+    const topPhoneLink = document.getElementById('topPhoneLink');
+    const topPhoneText = document.getElementById('topPhoneText');
+    const topPhoneCountry = document.getElementById('topPhoneCountry');
+
+    const mobilePhoneLink = document.getElementById('mobilePhoneLink');
+    const mobilePhoneCountry = document.getElementById('mobilePhoneCountry');
+    const footerPhoneText = document.getElementById('footerPhoneText');
+
+    function updatePhone(country){
+      const info = contactNumbers[country] || contactNumbers.abidjan;
+
+      if (topPhoneLink) topPhoneLink.href = 'tel:' + info.tel;
+      if (topPhoneText) topPhoneText.textContent = info.display;
+      if (topPhoneCountry) topPhoneCountry.textContent = info.country;
+
+      if (mobilePhoneLink) {
+        mobilePhoneLink.href = 'tel:' + info.tel;
+        mobilePhoneLink.textContent = info.display;
+      }
+      if (mobilePhoneCountry) mobilePhoneCountry.textContent = info.country;
+      if (footerPhoneText) footerPhoneText.textContent = info.display;
+
+      document.querySelectorAll('[data-country]').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.country === country);
+      });
+    }
+
+    function openMenu(){
+      if (!mobileNav || !burgerBtn) return;
       mobileNav.classList.add('open');
+      mobileBackdrop.classList.add('open');
       burgerBtn.classList.add('open');
-      mobileNav.setAttribute('aria-hidden','false');
-      burgerBtn.setAttribute('aria-expanded','true');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      burgerBtn.setAttribute('aria-expanded', 'true');
       document.body.classList.add('menu-open');
     }
 
-    function closeMobileNav(){
-      if(!mobileNav || !burgerBtn) return;
+    function closeMenu(){
+      if (!mobileNav || !burgerBtn) return;
       mobileNav.classList.remove('open');
+      mobileBackdrop.classList.remove('open');
       burgerBtn.classList.remove('open');
-      mobileNav.setAttribute('aria-hidden','true');
-      burgerBtn.setAttribute('aria-expanded','false');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      burgerBtn.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
     }
 
     if (burgerBtn && mobileNav) {
       burgerBtn.addEventListener('click', () => {
-        if (mobileNav.classList.contains('open')) {
-          closeMobileNav();
-        } else {
-          openMobileNav();
-        }
+        const opened = mobileNav.classList.contains('open');
+        if (opened) closeMenu();
+        else openMenu();
       });
 
-      if (closeMobileBtn) {
-        closeMobileBtn.addEventListener('click', closeMobileNav);
-      }
+      mobileBackdrop.addEventListener('click', closeMenu);
 
-      mobileNav.addEventListener('click', (e) => {
-        if (e.target === mobileNav) closeMobileNav();
+      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+        a.addEventListener('click', () => closeMenu());
       });
 
-      mobileNav.querySelectorAll('.mobile-link').forEach(a=>{
-        a.addEventListener('click', ()=>{
-          closeMobileNav();
+      document.querySelectorAll('[data-country]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          updatePhone(btn.dataset.country);
         });
       });
 
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileNav.classList.contains('open')) {
-          closeMobileNav();
-        }
+        if (e.key === 'Escape') closeMenu();
       });
     }
+
+    updatePhone('abidjan');
 
     (function(){
       const electricBand = document.getElementById('electricBand');
@@ -1735,6 +1586,42 @@
       window.addEventListener('resize', ()=>{ t0 = performance.now(); });
     })();
 
+    function initMap(){
+      try{
+        map = L.map('map',{dragging:true,zoomControl:true,attributionControl:false}).setView([6.5,-5.0],6.5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+        const pin = L.icon({ iconUrl:'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize:[22,22], iconAnchor:[11,22] });
+        L.marker([5.345317,-4.024429],{icon:pin}).addTo(map).bindTooltip('Abidjan');
+        L.marker([6.818351,-5.276987],{icon:pin}).addTo(map).bindTooltip('Yamoussoukro');
+        L.marker([14.6937,-17.44406],{icon:pin}).addTo(map).bindTooltip('Dakar');
+        map.fitBounds([[5.345317,-4.024429],[6.818351,-5.276987]],{padding:[20,20]});
+      }catch(e){ console.warn('Leaflet init failed',e); }
+    }
+
+    function populateCities(zone){
+      citySelect.innerHTML='';
+      if(zone === 'ci'){
+        citySelect.appendChild(new Option("Côte d'Ivoire (toutes zones)", 'ci_all'));
+        citySelect.appendChild(new Option('Abidjan', 'ci_abidjan'));
+        citySelect.appendChild(new Option('Yamoussoukro', 'ci_yamoussoukro'));
+        citySelect.value='ci_abidjan';
+      }else{
+        citySelect.appendChild(new Option('Sénégal (toutes zones)', 'sn_all'));
+        citySelect.appendChild(new Option('Dakar', 'sn_dakar'));
+        citySelect.value='sn_dakar';
+      }
+      zoomToCity(citySelect.value);
+    }
+
+    function zoomToCity(key){
+      if(!map) return;
+      const info = CITY_COORDS[key];
+      if(!info) return;
+      if(info.bounds) map.fitBounds(info.bounds, {padding:[20,20]});
+      else if(info.lat && info.lng) map.setView([info.lat, info.lng], info.zoom || 10);
+      else if(info.center) map.setView(info.center, info.zoom || 7);
+    }
+
     const URBAN_CATALOGUE = [
       {id:'light_led', label:'Éclairage LED', power:18, hours:5, roomTypes:['Chambre','Salon','Cuisine','Bureau','Boutique','Local technique']},
       {id:'tv', label:'Télévision', power:120, hours:4, roomTypes:['Salon','Chambre','Boutique']},
@@ -1797,10 +1684,7 @@
     }
 
     function urbanDeviceOptions(type){
-      return URBAN_CATALOGUE
-        .filter(d => d.roomTypes.includes(type) || d.roomTypes.includes('Maison'))
-        .map(d => `<option value="${d.id}">${d.label}</option>`)
-        .join('');
+      return URBAN_CATALOGUE.filter(d => d.roomTypes.includes(type) || d.roomTypes.includes('Maison')).map(d => `<option value="${d.id}">${d.label}</option>`).join('');
     }
 
     function renderUrbanSuggests(){
@@ -2014,8 +1898,7 @@
       renderUrbanRooms();
       computeUrban();
     });
-    [urbanCountry, urbanSunHours, urbanDerate, urbanPanelW, urbanBatteryKwh, urbanAutonomy, urbanDiversity]
-      .forEach(el => el.addEventListener('input', computeUrban));
+    [urbanCountry, urbanSunHours, urbanDerate, urbanPanelW, urbanBatteryKwh, urbanAutonomy, urbanDiversity].forEach(el => el.addEventListener('input', computeUrban));
 
     renderUrbanSuggests();
     createUrbanRoom('Salon', 'Salon principal', true);
@@ -2090,41 +1973,6 @@
     };
     const CROP_GENERIC_DEFAULT = 5.0;
 
-    let map = null;
-    function initMap(){
-      try{
-        map = L.map('map',{dragging:true,zoomControl:true,attributionControl:false}).setView([6.5,-5.0],6.5);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
-        const pin = L.icon({ iconUrl:'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize:[22,22], iconAnchor:[11,22] });
-        L.marker([5.345317,-4.024429],{icon:pin}).addTo(map).bindTooltip('Abidjan');
-        L.marker([6.818351,-5.276987],{icon:pin}).addTo(map).bindTooltip('Yamoussoukro');
-        L.marker([14.6937,-17.44406],{icon:pin}).addTo(map).bindTooltip('Dakar');
-        map.fitBounds([[5.345317,-4.024429],[6.818351,-5.276987]],{padding:[20,20]});
-      }catch(e){ console.warn('Leaflet init failed',e); }
-    }
-    function populateCities(zone){
-      citySelect.innerHTML='';
-      if(zone === 'ci'){
-        citySelect.appendChild(new Option("Côte d'Ivoire (toutes zones)", 'ci_all'));
-        citySelect.appendChild(new Option('Abidjan', 'ci_abidjan'));
-        citySelect.appendChild(new Option('Yamoussoukro', 'ci_yamoussoukro'));
-        citySelect.value='ci_abidjan';
-      }else{
-        citySelect.appendChild(new Option('Sénégal (toutes zones)', 'sn_all'));
-        citySelect.appendChild(new Option('Dakar', 'sn_dakar'));
-        citySelect.value='sn_dakar';
-      }
-      zoomToCity(citySelect.value);
-    }
-    function zoomToCity(key){
-      if(!map) return;
-      const info = CITY_COORDS[key];
-      if(!info) return;
-      if(info.bounds) map.fitBounds(info.bounds, {padding:[20,20]});
-      else if(info.lat && info.lng) map.setView([info.lat, info.lng], info.zoom || 10);
-      else if(info.center) map.setView(info.center, info.zoom || 7);
-    }
-
     function renderSuggested(){
       suggestListEl.innerHTML = '';
       SUGGESTED.forEach(s=>{
@@ -2176,6 +2024,7 @@
         computeAll();
       }));
     }
+
     addManualBtn.addEventListener('click', ()=>{
       const name = (consNameInput.value||'').trim();
       const power = Number(consPowerInput.value||0);
