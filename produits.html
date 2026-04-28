@@ -8,8 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --topbar-h:48px;
-      --header-h:72px;
+      --topbar-h:46px;
+      --header-h:86px;
       --green-dark:#061f14;
       --green-mid:#073217;
       --green-mid-2:#0b4d26;
@@ -24,6 +24,7 @@
       --release-orange:#ff7a18;
       --release-orange-2:#ffb347;
     }
+
     *{box-sizing:border-box}
     html, body{
       margin:0;
@@ -34,6 +35,7 @@
       scroll-behavior:smooth;
       overflow-x:hidden;
     }
+    body.menu-open{overflow:hidden}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
 
@@ -46,15 +48,29 @@
       background:var(--green-dark);
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      gap:20px;
+      justify-content:flex-end;
+      gap:12px;
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
     }
-    .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
-    .topbar a{color:#fff;transition:color .18s}
+    .topbar .right{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+    .topbar a{
+      color:#fff;
+      transition:color .18s;
+      white-space:nowrap;
+      font-weight:700;
+    }
     .topbar a:hover{color:var(--accent-2)}
+    .phone-label{
+      font-weight:800;
+      margin-right:4px;
+    }
 
     header{
       position:fixed;
@@ -69,35 +85,42 @@
       padding:0 5vw;
       z-index:1490;
       box-shadow:0 4px 12px rgba(0,0,0,.25);
+      gap:12px;
     }
 
     .logo-text{
       display:flex;
-      align-items:flex-start;
+      align-items:center;
       gap:12px;
+      min-width:0;
+      flex:1 1 auto;
+      overflow:hidden;
     }
     .logo-text img{
-      height:56px;
+      height:66px;
+      width:auto;
       display:block;
       flex:0 0 auto;
+      object-fit:contain;
     }
 
     .brand-stack{
       display:flex;
       flex-direction:column;
-      align-items:flex-start;
-      justify-content:flex-start;
+      align-items:center;
+      justify-content:center;
       line-height:1;
-      text-align:left;
+      text-align:center;
       min-width:0;
       margin:0;
       padding:0;
+      overflow:hidden;
     }
 
     .company-name{
-      font-size:34px;
+      font-size:44px;
       font-weight:800;
-      letter-spacing:1px;
+      letter-spacing:.4px;
       padding:0;
       margin:0;
       border-radius:8px;
@@ -108,15 +131,15 @@
       top:2px;
       white-space:nowrap;
       line-height:1;
-      text-align:left;
-      width:max-content;
+      text-align:center;
+      width:100%;
       display:block;
     }
 
     .company-tagline{
-      font-size:14px;
+      font-size:18px;
       font-weight:700;
-      letter-spacing:5px;
+      letter-spacing:4px;
       text-transform:uppercase;
       color:#dfffe6;
       padding:0;
@@ -125,15 +148,19 @@
       -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
       white-space:nowrap;
       line-height:1;
-      text-align:left;
-      width:max-content;
+      text-align:center;
+      width:100%;
       display:block;
     }
 
-    nav{display:flex;gap:18px;align-items:center}
+    nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
     nav a{
       color:#fff;
-      font-size:15px;
+      font-size:17px;
       font-weight:600;
       padding:8px 10px;
       border-radius:8px;
@@ -151,16 +178,25 @@
 
     .burger{
       display:none;
-      width:44px;
-      height:44px;
-      border-radius:8px;
-      border:none;
-      background:transparent;
+      width:52px;
+      height:52px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.12);
+      background:rgba(255,255,255,0.05);
       align-items:center;
       justify-content:center;
-      cursor:pointer
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(0,0,0,.18);
+      -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
+      flex:0 0 auto;
     }
-    .burger .icon{display:block;position:relative;width:26px;height:18px}
+    .burger .icon{
+      display:block;
+      position:relative;
+      width:28px;
+      height:20px;
+    }
     .burger .icon span{
       position:absolute;
       left:0;
@@ -168,58 +204,193 @@
       height:3px;
       background:#fff;
       border-radius:2px;
-      transition:all .25s
+      transition:all .25s;
     }
     .burger .icon span:nth-child(1){top:0}
-    .burger .icon span:nth-child(2){top:7.5px}
-    .burger .icon span:nth-child(3){top:15px}
-    .burger.open .icon span:nth-child(1){transform: translateY(7.5px) rotate(45deg)}
+    .burger .icon span:nth-child(2){top:8.5px}
+    .burger .icon span:nth-child(3){top:17px}
+    .burger.open .icon span:nth-child(1){transform: translateY(8.5px) rotate(45deg)}
     .burger.open .icon span:nth-child(2){opacity:0}
-    .burger.open .icon span:nth-child(3){transform: translateY(-7.5px) rotate(-45deg)}
+    .burger.open .icon span:nth-child(3){transform: translateY(-8.5px) rotate(-45deg)}
+
+    .mobile-backdrop{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:#061f14;
+      z-index:1970;
+      opacity:0;
+      transition:opacity .2s ease;
+    }
+    .mobile-backdrop.open{
+      display:block;
+      opacity:1;
+    }
 
     .mobile-nav{
       display:none;
       position:fixed;
-      top:calc(var(--topbar-h)+var(--header-h));
-      left:0;
-      right:0;
-      background:var(--bg);
-      z-index:1480;
+      inset:0;
+      z-index:1980;
+      background:linear-gradient(180deg, #0a4d2e 0%, #061f14 100%);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease;
+      transform:scale(0.985);
       overflow:auto;
-      transition:max-height .28s ease;
-      box-shadow:0 12px 40px rgba(0,0,0,.45);
-      max-height:0;
     }
-    .mobile-nav.open{display:block;max-height:70vh}
-    .mobile-nav .inner{
-      padding:12px 5vw;
+    .mobile-nav.open{
+      display:flex;
+      opacity:1;
+      pointer-events:auto;
+      transform:scale(1);
+    }
+
+    .mobile-panel{
+      position:relative;
+      width:100%;
+      min-height:100vh;
+      padding:18px 5vw 22px;
       display:flex;
       flex-direction:column;
-      gap:8px;
-      align-items:stretch;
+      gap:14px;
     }
-    .mobile-nav .contact{
+
+    .mobile-close{
+      position:absolute;
+      top:14px;
+      right:14px;
+      width:48px;
+      height:48px;
+      border:none;
+      border-radius:12px;
+      background:rgba(255,255,255,0.07);
+      color:#fff;
+      font-size:24px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      box-shadow:0 8px 18px rgba(0,0,0,.22);
+    }
+
+    .mobile-brand{
       display:flex;
       flex-direction:column;
-      gap:6px;
-      padding:8px 12px;
-      border-bottom:1px solid rgba(255,255,255,0.04);
-      margin-bottom:6px;
-      color:var(--muted-text-color);
+      align-items:center;
+      justify-content:center;
+      gap:2px;
+      padding:54px 4px 12px;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      margin-bottom:2px;
+      text-align:center;
     }
-    .mobile-nav a{
-      padding:12px;
+    .mobile-brand .company-name{
+      font-size:34px;
+      line-height:1;
+      text-align:center;
+      width:100%;
+    }
+    .mobile-brand .company-tagline{
+      font-size:14px;
+      letter-spacing:4px;
+      text-align:center;
+      width:100%;
+    }
+
+    .menu-links{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:12px;
+      max-width:560px;
+      width:100%;
+      margin:0 auto;
+      padding:10px 0;
+    }
+
+    .mobile-nav a.mobile-link{
+      padding:18px 18px;
       color:#fff;
       width:100%;
-      text-align:left;
-      border-radius:8px;
-      font-weight:700;
+      text-align:center;
+      border-radius:14px;
+      font-weight:900;
       display:flex;
-      justify-content:space-between;
-      align-items:center
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      font-size:clamp(20px, 5vw, 26px);
+      border:1px solid rgba(255,255,255,0.08);
+      background:rgba(255,255,255,0.03);
+      min-height:64px;
+      line-height:1.1;
+      white-space:normal;
     }
-    .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
-    .mobile-nav a.active{background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2)}
+    .mobile-nav .mobile-link:hover{
+      background:rgba(124,179,66,0.12);
+      color:var(--accent-2);
+    }
+    .mobile-nav .mobile-link.active{
+      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+      color:var(--accent-2);
+    }
+
+    .mobile-contact{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:16px 14px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted-text-color);
+      max-width:560px;
+      width:100%;
+      margin:0 auto;
+      text-align:center;
+    }
+    .mobile-contact strong{
+      color:#fff;
+      font-size:15px;
+      letter-spacing:1px;
+    }
+    .mobile-contact .phone-line{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      color:#fff;
+      font-weight:800;
+      flex-wrap:wrap;
+      font-size:16px;
+    }
+
+    .socials{
+      margin-top:auto;
+      border-top:1px solid rgba(255,255,255,0.05);
+      padding-top:14px;
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      width:100%;
+    }
+    .socials a{
+      width:44px;
+      height:44px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      font-size:20px;
+      border:none;
+      background:rgba(255,255,255,0.04);
+      border-radius:50%;
+      min-height:44px;
+    }
 
     .hero{
       margin-top:calc(var(--topbar-h) + var(--header-h));
@@ -571,9 +742,18 @@
         padding:10px 20px
       }
       .company-name{font-size:30px}
-      .mobile-nav.open{max-height:85vh}
-      .mobile-nav .inner{padding-bottom:20px}
+      .mobile-nav.open{max-height:none}
       .gb-btn{width:42px;height:42px;font-size:24px}
+      .mobile-brand{
+        padding:28px 4px 12px;
+      }
+      .mobile-brand .company-name{
+        font-size:32px;
+      }
+      .mobile-brand .company-tagline{
+        font-size:13px;
+        letter-spacing:3px;
+      }
     }
 
     @media (max-width:768px){
@@ -586,9 +766,35 @@
     }
 
     @media (max-width:480px){
+      :root{
+        --topbar-h:40px;
+        --header-h:76px;
+      }
+      .topbar{
+        font-size:11px;
+        padding:0 3.5vw;
+      }
+      header{padding:0 3.5vw;}
+      .logo-text img{height:46px;}
+      .company-name{
+        font-size:30px;
+        letter-spacing:.08px;
+      }
+      .company-tagline{
+        font-size:10px;
+        letter-spacing:2px;
+      }
+      .burger{width:48px;height:48px;}
+      .hero{
+        min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      }
+      .hero-bg{
+        object-position:center 28%;
+        transform:scale(1.18) translateY(0);
+      }
       .hero-content{
         max-width:92vw;
-        padding:0 12px;
+        padding:18px 12px;
       }
       .hero-content h1{
         font-size:28px;
@@ -606,17 +812,47 @@
         padding:12px 28px;
         font-size:15px;
       }
+      .mobile-panel{
+        padding:16px 4.5vw 20px;
+      }
+      .mobile-brand{
+        padding:22px 4px 10px;
+      }
+      .mobile-brand .company-name{
+        font-size:28px;
+      }
+      .mobile-brand .company-tagline{
+        font-size:10px;
+        letter-spacing:3px;
+      }
+      .mobile-nav a.mobile-link{
+        font-size:20px;
+        min-height:62px;
+        padding:16px 16px;
+      }
+      .mobile-contact .phone-line{
+        font-size:15px;
+      }
+      .socials{
+        gap:14px;
+      }
+      .socials a{
+        width:40px;
+        height:40px;
+        font-size:18px;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="topbar" role="banner" aria-hidden="false">
-    <div class="left">
-      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
-    </div>
     <div class="right">
-      <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
+      <a href="tel:+2250707070707" id="topPhoneLink">
+        <i class="fas fa-phone" aria-hidden="true"></i>
+        <span class="phone-label">Tel:</span>
+        <span id="topPhoneText">+225 07 07 07 07 07</span>
+      </a>
     </div>
   </div>
 
@@ -642,6 +878,8 @@
     </button>
   </header>
 
+  <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
+
   <div class="electric-band" id="electricBand" aria-hidden="true">
     <div class="container" aria-hidden="true">
       <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
@@ -659,17 +897,36 @@
   </div>
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
-    <div class="inner">
-      <div class="contact" aria-hidden="false">
-        <div><strong>GREENBRIDGE</strong></div>
-        <div><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</div>
-        <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
+    <div class="mobile-panel">
+      <button class="mobile-close" id="mobileCloseBtn" aria-label="Fermer le menu">×</button>
+
+      <div class="mobile-brand">
+        <div class="company-name">GREENBRIDGE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
       </div>
-      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
-      <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
-      <a href="#produits" class="mobile-link active">Nos Produits</a>
-      <a href="Projets.html" class="mobile-link">Projets futurs</a>
-      <a href="maintenance.html" class="mobile-link">Maintenance</a>
+
+      <div class="menu-links">
+        <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+        <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
+        <a href="#produits" class="mobile-link active">Nos Produits</a>
+        <a href="Projets.html" class="mobile-link">Projets futurs</a>
+        <a href="maintenance.html" class="mobile-link">Maintenance</a>
+      </div>
+
+      <div class="mobile-contact" aria-hidden="false">
+        <strong>CONTACT</strong>
+        <div class="phone-line">
+          <i class="fas fa-phone" aria-hidden="true"></i>
+          <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
+        </div>
+      </div>
+
+      <div class="socials">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+      </div>
     </div>
   </div>
 
@@ -751,21 +1008,45 @@
   <script>
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
+    const mobileBackdrop = document.getElementById('mobileBackdrop');
+    const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+
+    function openMenu(){
+      if (!mobileNav || !burgerBtn) return;
+      mobileNav.classList.add('open');
+      mobileBackdrop.classList.add('open');
+      burgerBtn.classList.add('open');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      burgerBtn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('menu-open');
+    }
+
+    function closeMenu(){
+      if (!mobileNav || !burgerBtn) return;
+      mobileNav.classList.remove('open');
+      mobileBackdrop.classList.remove('open');
+      burgerBtn.classList.remove('open');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
+    }
+
     if (burgerBtn && mobileNav) {
       burgerBtn.addEventListener('click', () => {
-        const opened = mobileNav.classList.toggle('open');
-        burgerBtn.classList.toggle('open');
-        mobileNav.setAttribute('aria-hidden', (!opened).toString());
-        burgerBtn.setAttribute('aria-expanded', String(opened));
+        const opened = mobileNav.classList.contains('open');
+        if (opened) closeMenu();
+        else openMenu();
       });
 
-      mobileNav.querySelectorAll('.mobile-link').forEach(a=>{
-        a.addEventListener('click', ()=>{
-          mobileNav.classList.remove('open');
-          burgerBtn.classList.remove('open');
-          mobileNav.setAttribute('aria-hidden','true');
-          burgerBtn.setAttribute('aria-expanded','false');
-        });
+      if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
+      if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
+
+      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+        a.addEventListener('click', () => closeMenu());
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
       });
     }
 
