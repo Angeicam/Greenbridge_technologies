@@ -65,6 +65,7 @@
       display:flex;
       align-items:center;
       gap:12px;
+      min-width:0;
     }
     .topbar a{
       color:#fff;
@@ -89,6 +90,7 @@
       font-weight:700;
       cursor:pointer;
       transition:all .18s ease;
+      white-space:nowrap;
     }
     .country-chip.active{
       background:rgba(212,175,55,0.16);
@@ -115,11 +117,13 @@
       padding:0 5vw;
       z-index:1490;
       box-shadow:0 4px 12px rgba(0,0,0,.25);
+      gap:12px;
     }
 
     .logo-text{
       display:flex;
-      align-items:flex-start;
+      align-items:center;
+      justify-content:center;
       gap:12px;
       min-width:0;
       flex:1 1 auto;
@@ -136,10 +140,10 @@
     .brand-stack{
       display:flex;
       flex-direction:column;
-      align-items:flex-start;
-      justify-content:flex-start;
+      align-items:center;
+      justify-content:center;
       line-height:1;
-      text-align:left;
+      text-align:center;
       min-width:0;
       margin:0;
       padding:0;
@@ -160,7 +164,7 @@
       top:2px;
       white-space:nowrap;
       line-height:1;
-      text-align:left;
+      text-align:center;
       width:max-content;
       display:block;
       max-width:100%;
@@ -180,7 +184,7 @@
       -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
       white-space:nowrap;
       line-height:1;
-      text-align:left;
+      text-align:center;
       width:max-content;
       display:block;
       max-width:100%;
@@ -220,6 +224,7 @@
       box-shadow:0 6px 18px rgba(0,0,0,.18);
       -webkit-tap-highlight-color:transparent;
       touch-action:manipulation;
+      flex:0 0 auto;
     }
     .burger .icon{
       display:block;
@@ -263,83 +268,58 @@
       top:calc(var(--topbar-h)+var(--header-h));
       left:0;
       right:0;
-      background:linear-gradient(180deg, rgba(10,77,46,0.98), rgba(6,31,20,0.98));
-      z-index:1480;
-      overflow:auto;
-      transition:max-height .28s ease, opacity .2s ease, transform .2s ease;
-      box-shadow:0 12px 40px rgba(0,0,0,.45);
-      max-height:0;
+      bottom:0;
+      background:rgba(0,0,0,.30);
+      backdrop-filter:blur(6px);
+      z-index:2000;
       opacity:0;
-      transform:translateY(-6px);
-      border-top:1px solid rgba(255,255,255,0.06);
+      transition:opacity .2s ease;
+      overflow:auto;
     }
     .mobile-nav.open{
       display:block;
-      max-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
       opacity:1;
-      transform:translateY(0);
     }
-
+    .mobile-nav .panel{
+      background:linear-gradient(180deg, rgba(10,77,46,0.98), rgba(6,31,20,0.98));
+      box-shadow:0 12px 40px rgba(0,0,0,.45);
+      min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      overflow:auto;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
     .mobile-nav .inner{
-      padding:16px 5vw 22px;
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-      align-items:stretch;
-    }
-
-    .mobile-brand{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:2px;
-      padding:8px 4px 8px;
-      border-bottom:1px solid rgba(255,255,255,0.06);
-      margin-bottom:2px;
-      text-align:center;
-    }
-    .mobile-brand .company-name{
-      font-size:32px;
-      line-height:1;
-      text-align:center;
-      width:100%;
-    }
-    .mobile-brand .company-tagline{
-      font-size:13px;
-      letter-spacing:4px;
-      text-align:center;
-      width:100%;
-    }
-
-    .mobile-nav .menu-links{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .mobile-nav .contact{
+      padding:12px 5vw 20px;
       display:flex;
       flex-direction:column;
       gap:12px;
-      padding:16px 14px;
-      border-radius:14px;
+      align-items:stretch;
+    }
+    .mobile-nav .menu-links{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .mobile-nav .contact{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      padding:14px 12px;
+      border-radius:12px;
       background:rgba(255,255,255,0.04);
       border:1px solid rgba(255,255,255,0.06);
       color:var(--muted-text-color);
     }
     .mobile-nav .contact strong{
       color:#fff;
-      font-size:15px;
+      font-size:14px;
       letter-spacing:1px;
     }
     .mobile-nav .contact .city-list{
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
+      gap:8px;
       color:#dfffe6;
       font-weight:600;
-      align-items:center;
     }
     .mobile-nav .contact .city-list .country-chip{
       font-size:13px;
@@ -357,9 +337,8 @@
     .mobile-nav .contact .phone-line a{
       word-break:break-word;
     }
-
     .mobile-nav a{
-      padding:16px 16px;
+      padding:12px 12px;
       color:#fff;
       width:100%;
       text-align:left;
@@ -383,31 +362,27 @@
       background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
       color:var(--accent-2);
     }
-
     .mobile-nav .socials{
-      margin-top:4px;
+      margin-top:2px;
       border-top:1px solid rgba(255,255,255,0.05);
-      padding-top:14px;
+      padding-top:12px;
       display:flex;
-      gap:18px;
+      gap:12px;
       align-items:center;
-      justify-content:center;
       flex-wrap:wrap;
-      width:100%;
+      justify-content:center;
     }
     .mobile-nav .socials a{
-      width:42px;
-      height:42px;
+      width:44px;
+      height:44px;
       display:flex;
       align-items:center;
       justify-content:center;
       padding:0;
-      font-size:20px;
+      font-size:18px;
       border:none;
       background:rgba(255,255,255,0.04);
       border-radius:50%;
-      white-space:normal;
-      min-height:42px;
     }
 
     .hero{
@@ -689,7 +664,6 @@
     .room-consumers{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
     .room-consumer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #edf4ef;border-radius:12px;background:#fff;}
     .room-consumer .meta{color:#6b7f6b;font-size:13px;margin-top:2px;}
-    .mini-note{font-size:13px;color:#dfffe6;line-height:1.6;opacity:.95;}
 
     .electric-band {
       position: fixed;
@@ -798,8 +772,8 @@
       header{padding:0 4vw;}
       .logo-text{gap:8px;align-items:center;}
       .logo-text img{height:52px;}
-      .company-name{font-size:34px;white-space:nowrap;line-height:1;letter-spacing:.2px;}
-      .company-tagline{font-size:13px;letter-spacing:3px;white-space:nowrap;}
+      .company-name{font-size:34px;white-space:nowrap;line-height:1;letter-spacing:.2px;text-align:center;}
+      .company-tagline{font-size:13px;letter-spacing:3px;white-space:nowrap;text-align:center;}
       .hero{height:auto;min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));}
       .hero-bg{object-position:center center;transform:scale(1.12) translateY(0);}
       .hero-content{max-width:88vw;padding:24px 14px;}
@@ -809,7 +783,7 @@
       .zone-card{width:100%;min-width:0;max-width:none;height:210px;}
       .zone-card h3{font-size:18px;bottom:10px;padding:8px 12px}
       .study-details > summary{padding:16px;align-items:flex-start;flex-direction:column;}
-      .mobile-nav.open{max-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
+      .mobile-nav.open{display:block}
       .gb-desc{padding:24px 18px}
       .gb-desc h3{font-size:22px}
       .gb-summary{font-size:14px}
@@ -825,13 +799,13 @@
         padding:0 3.5vw;
       }
       .topbar .left{
-        max-width:46%;
+        max-width:44%;
         overflow:hidden;
         text-overflow:ellipsis;
         white-space:nowrap;
       }
       .topbar .right{
-        max-width:48%;
+        max-width:52%;
         overflow:hidden;
         text-overflow:ellipsis;
         white-space:nowrap;
@@ -840,8 +814,8 @@
       .topbar .country-switcher{display:none;}
       header{padding:0 3.5vw;}
       .logo-text img{height:44px;}
-      .company-name{font-size:26px;letter-spacing:.1px;}
-      .company-tagline{font-size:10px;letter-spacing:2px;}
+      .company-name{font-size:26px;letter-spacing:.1px;text-align:center;}
+      .company-tagline{font-size:10px;letter-spacing:2px;text-align:center;}
       .burger{width:48px;height:48px;}
       .hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));}
       .hero-bg{object-position:center 28%;transform:scale(1.18) translateY(0);}
@@ -856,8 +830,8 @@
       .gb-desc h3{font-size:20px;}
       .gb-summary{font-size:13px;}
       .footer-company{font-size:16px;}
-      .mobile-brand .company-name{font-size:28px;}
-      .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px;}
+      .mobile-brand .company-name{font-size:28px;text-align:center;}
+      .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px;text-align:center;}
       .mobile-nav a{font-size:18px;padding:15px 16px;min-height:56px;width:100%;white-space:nowrap;}
       .mobile-nav .contact{padding:14px 12px;}
       .mobile-nav .socials{gap:14px;}
@@ -925,38 +899,40 @@
   </div>
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
-    <div class="inner">
-      <div class="mobile-brand">
-        <div class="company-name">GREENBRIDGE</div>
-        <div class="company-tagline">TECHNOLOGIES</div>
-      </div>
-
-      <div class="menu-links">
-        <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
-        <a href="#top" class="mobile-link active">Étude</a>
-        <a href="produits.html" class="mobile-link">Nos Produits</a>
-        <a href="Projets.html" class="mobile-link">Projets futurs</a>
-        <a href="maintenance.html" class="mobile-link">Maintenance</a>
-      </div>
-
-      <div class="contact" aria-hidden="false">
-        <strong>CONTACT</strong>
-        <div class="city-list" aria-label="Sélection pays mobile">
-          <button class="country-chip active" type="button" data-country="abidjan">Abidjan</button>
-          <button class="country-chip" type="button" data-country="dakar">Dakar</button>
+    <div class="panel">
+      <div class="inner">
+        <div class="mobile-brand">
+          <div class="company-name">GREENBRIDGE</div>
+          <div class="company-tagline">TECHNOLOGIES</div>
         </div>
-        <div class="phone-line">
-          <i class="fas fa-phone" aria-hidden="true"></i>
-          <span class="phone-country" id="mobilePhoneCountry">Abidjan</span>
-          <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
-        </div>
-      </div>
 
-      <div class="socials">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+        <div class="menu-links">
+          <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+          <a href="#top" class="mobile-link active">Étude</a>
+          <a href="produits.html" class="mobile-link">Nos Produits</a>
+          <a href="Projets.html" class="mobile-link">Projets futurs</a>
+          <a href="maintenance.html" class="mobile-link">Maintenance</a>
+        </div>
+
+        <div class="contact" aria-hidden="false">
+          <strong>CONTACT</strong>
+          <div class="city-list" aria-label="Sélection pays mobile">
+            <button class="country-chip active" type="button" data-country="abidjan">Abidjan</button>
+            <button class="country-chip" type="button" data-country="dakar">Dakar</button>
+          </div>
+          <div class="phone-line">
+            <i class="fas fa-phone" aria-hidden="true"></i>
+            <span class="phone-country" id="mobilePhoneCountry">Abidjan</span>
+            <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
+          </div>
+        </div>
+
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+        </div>
       </div>
     </div>
   </div>
@@ -1378,6 +1354,10 @@
       }
     };
 
+    const countryKeys = ['abidjan', 'dakar'];
+    let autoCountryIndex = 0;
+    let autoCountryTimer = null;
+
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
     const mobileBackdrop = document.getElementById('mobileBackdrop');
@@ -1407,6 +1387,16 @@
       document.querySelectorAll('[data-country]').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.country === country);
       });
+    }
+
+    function cyclePhone(){
+      autoCountryIndex = (autoCountryIndex + 1) % countryKeys.length;
+      updatePhone(countryKeys[autoCountryIndex]);
+    }
+
+    function startPhoneAutoCycle(){
+      if (autoCountryTimer) clearInterval(autoCountryTimer);
+      autoCountryTimer = setInterval(cyclePhone, 3000);
     }
 
     function openMenu(){
@@ -1444,6 +1434,8 @@
 
       document.querySelectorAll('[data-country]').forEach(btn => {
         btn.addEventListener('click', () => {
+          const idx = countryKeys.indexOf(btn.dataset.country);
+          if (idx >= 0) autoCountryIndex = idx;
           updatePhone(btn.dataset.country);
         });
       });
@@ -1454,6 +1446,7 @@
     }
 
     updatePhone('abidjan');
+    startPhoneAutoCycle();
 
     (function(){
       const electricBand = document.getElementById('electricBand');
