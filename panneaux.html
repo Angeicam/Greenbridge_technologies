@@ -289,6 +289,44 @@
       z-index:2;
     }
 
+    .mobile-nav .brand-mobile{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      width:100%;
+      gap:2px;
+      padding:10px 14px 12px;
+      border-radius:14px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+    }
+
+    .mobile-nav .mobile-company-name{
+      font-size:28px;
+      font-weight:800;
+      letter-spacing:1px;
+      margin:0;
+      color:#04462e;
+      -webkit-text-stroke:0.85px var(--gold-base);
+      text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      line-height:1;
+      white-space:nowrap;
+    }
+
+    .mobile-nav .mobile-company-tagline{
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:#dfffe6;
+      margin:0 0 2px 0;
+      text-shadow:0 2px 6px rgba(0,0,0,0.45);
+      -webkit-text-stroke:0.35px rgba(212,175,55,0.55);
+      line-height:1;
+      white-space:nowrap;
+    }
+
     .mobile-nav .menu-links{
       display:flex;
       flex-direction:column;
@@ -348,69 +386,6 @@
       font-style:italic;
     }
 
-    .mobile-nav .contact{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      padding:16px 14px;
-      border-radius:14px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--muted-text-color);
-      margin-top:4px;
-      align-items:flex-start;
-    }
-
-    .mobile-nav .brand-mobile{
-      align-items:center;
-      text-align:center;
-      width:100%;
-      gap:2px;
-      padding-bottom:6px;
-      margin-bottom:4px;
-      border-bottom:1px solid rgba(255,255,255,0.05);
-    }
-
-    .mobile-nav .mobile-company-name{
-      font-size:28px;
-      font-weight:800;
-      letter-spacing:1px;
-      margin:0;
-      color:#04462e;
-      -webkit-text-stroke:0.85px var(--gold-base);
-      text-shadow:0 3px 6px rgba(0,0,0,0.6);
-      line-height:1;
-      white-space:nowrap;
-    }
-
-    .mobile-nav .mobile-company-tagline{
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:4px;
-      text-transform:uppercase;
-      color:#dfffe6;
-      margin:0 0 6px 0;
-      text-shadow:0 2px 6px rgba(0,0,0,0.45);
-      -webkit-text-stroke:0.35px rgba(212,175,55,0.55);
-      line-height:1;
-      white-space:nowrap;
-    }
-
-    .mobile-nav .contact strong{
-      color:#fff;
-      font-size:15px;
-      letter-spacing:1px;
-    }
-    .mobile-nav .contact .phone-line{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      color:#fff;
-      font-weight:700;
-      flex-wrap:wrap;
-      font-size:15px;
-    }
-
     .mobile-nav .socials{
       margin-top:4px;
       border-top:1px solid rgba(255,255,255,0.05);
@@ -435,6 +410,33 @@
       border-radius:50%;
       white-space:normal;
       min-height:42px;
+    }
+
+    .mobile-nav .contact{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:16px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted-text-color);
+      margin-top:4px;
+      align-items:flex-start;
+    }
+    .mobile-nav .contact strong{
+      color:#fff;
+      font-size:15px;
+      letter-spacing:1px;
+    }
+    .mobile-nav .contact .phone-line{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#fff;
+      font-weight:700;
+      flex-wrap:wrap;
+      font-size:15px;
     }
 
     .electric-band{
@@ -955,15 +957,9 @@
     <div class="inner">
       <button class="mobile-close" id="mobileCloseBtn" type="button" aria-label="Fermer le menu">×</button>
 
-      <div class="contact brand-mobile" aria-hidden="false">
+      <div class="brand-mobile" aria-hidden="false">
         <div class="company-name mobile-company-name">GREENBRIDGE</div>
         <div class="company-tagline mobile-company-tagline">TECHNOLOGIES</div>
-
-        <strong>CONTACT</strong>
-        <div class="phone-line">
-          <i class="fas fa-phone" aria-hidden="true"></i>
-          <a href="tel:+22507070707">+225 07 07 07 07 07</a>
-        </div>
       </div>
 
       <div class="menu-links">
@@ -1002,6 +998,14 @@
         <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
         <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
         <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="contact" aria-hidden="false">
+        <strong>CONTACT</strong>
+        <div class="phone-line">
+          <i class="fas fa-phone" aria-hidden="true"></i>
+          <a href="tel:+22507070707">+225 07 07 07 07 07</a>
+        </div>
       </div>
     </div>
   </div>
