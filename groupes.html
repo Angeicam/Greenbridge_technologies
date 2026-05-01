@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GreenBridge Énergie - Groupes électrogènes</title>
+<title>GreenBridge Technologies - Groupes électrogènes</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --topbar-h:48px;
@@ -22,7 +23,6 @@
   --electric-yellow:#ffd600;
 }
 
-/* Base */
 *{box-sizing:border-box}
 html,body{
   margin:0;
@@ -37,7 +37,6 @@ body.menu-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
-/* Topbar */
 .topbar{
   position:fixed;
   top:0;
@@ -67,7 +66,6 @@ img{max-width:100%;display:block}
 }
 .topbar a:hover{color:var(--accent-2)}
 
-/* Header */
 header{
   position:fixed;
   top:var(--topbar-h);
@@ -110,8 +108,8 @@ header{
   font-size:34px;
   font-weight:800;
   letter-spacing:1px;
-  padding:0;
   margin:0;
+  padding:0;
   border-radius:8px;
   color:#04462e;
   -webkit-text-stroke:0.95px var(--gold-base);
@@ -131,7 +129,6 @@ header{
   letter-spacing:5px;
   text-transform:uppercase;
   color:#dfffe6;
-  padding:0;
   margin:2px 0 0 0;
   text-shadow:0 2px 6px rgba(0,0,0,0.45);
   -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
@@ -142,7 +139,6 @@ header{
   display:block;
 }
 
-/* Desktop nav */
 nav{display:flex;gap:18px;align-items:center}
 nav a{
   color:#fff;
@@ -162,7 +158,6 @@ nav a.active{
   border-radius:10px;
 }
 
-/* Dropdown */
 .dropdown{position:relative}
 .dropdown > a{display:flex;gap:8px;align-items:center;cursor:pointer}
 .dropdown > a::after{
@@ -220,7 +215,6 @@ nav a.active{
   }
 }
 
-/* Burger */
 .burger{
   display:none;
   width:52px;
@@ -257,7 +251,6 @@ nav a.active{
 .burger.open .icon span:nth-child(2){opacity:0}
 .burger.open .icon span:nth-child(3){transform: translateY(-8.5px) rotate(-45deg)}
 
-/* Mobile backdrop / menu */
 .mobile-backdrop{
   display:none;
   position:fixed;
@@ -378,7 +371,10 @@ body.menu-open .electric-band{
   min-height:56px;
   white-space:nowrap;
 }
-.mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.10);color:var(--accent-2)}
+.mobile-nav .mobile-link:hover{
+  background:rgba(124,179,66,0.10);
+  color:var(--accent-2);
+}
 .mobile-nav .mobile-link.active{
   background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
   color:var(--accent-2);
@@ -694,43 +690,25 @@ body.menu-open .electric-band{
   font-size:15px;
 }
 
-/* Modal */
-.modal{
-  display:none;
-  position:fixed;
-  z-index:2000;
-  left:0;
-  top:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,.6);
+/* Why section */
+.advantages{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:8px;
 }
-.modal-content{
-  background:#fff;
-  color:#072012;
-  margin:6% auto;
-  padding:18px;
+.advantage{
+  width:260px;
+  background:#072b1b;
   border-radius:12px;
-  max-width:520px;
-  position:relative;
+  padding:18px;
   text-align:center;
+  border:1px solid rgba(255,255,255,0.05);
 }
-.modal-content img{
-  width:100%;
-  height:220px;
-  object-fit:contain;
-  margin-bottom:12px;
-}
-.close{
-  position:absolute;
-  right:12px;
-  top:8px;
-  background:transparent;
-  border:0;
-  font-size:22px;
-  cursor:pointer;
-  color:#072012;
-}
+.advantage i{font-size:34px;color:var(--accent);margin-bottom:8px}
+.advantage h3{color:#dfffe6;margin:6px 0}
+.advantage p{color:#e6f7ea;line-height:1.6;margin:0}
 
 /* Devis */
 #devis{padding-bottom:60px}
@@ -799,6 +777,44 @@ footer::before{
 }
 .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
+/* Modal */
+.modal{
+  display:none;
+  position:fixed;
+  z-index:2000;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.6);
+}
+.modal-content{
+  background:#fff;
+  color:#072012;
+  margin:6% auto;
+  padding:18px;
+  border-radius:12px;
+  max-width:520px;
+  position:relative;
+  text-align:center;
+}
+.modal-content img{
+  width:100%;
+  height:220px;
+  object-fit:contain;
+  margin-bottom:12px;
+}
+.close{
+  position:absolute;
+  right:12px;
+  top:8px;
+  background:transparent;
+  border:0;
+  font-size:22px;
+  cursor:pointer;
+  color:#072012;
+}
+
 /* Responsive */
 @media (max-width:1100px){
   .cards{flex-direction:row;flex-wrap:wrap;justify-content:center}
@@ -822,7 +838,6 @@ footer::before{
 </head>
 <body>
 
-<!-- Topbar -->
 <div class="topbar" role="banner">
   <div class="right">
     <a href="tel:+22507070707" id="topPhoneLink">
@@ -832,7 +847,6 @@ footer::before{
   </div>
 </div>
 
-<!-- Header -->
 <header role="navigation" aria-label="Main">
   <div class="logo-text">
     <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
@@ -880,7 +894,6 @@ footer::before{
 
 <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
 
-<!-- Mobile nav -->
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="inner">
     <button class="mobile-close" id="mobileCloseBtn" type="button" aria-label="Fermer le menu">×</button>
@@ -938,7 +951,6 @@ footer::before{
   </div>
 </div>
 
-<!-- ELECTRIC BAND -->
 <div class="electric-band" id="electricBand" aria-hidden="true">
   <div class="container" aria-hidden="true">
     <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
@@ -957,16 +969,14 @@ footer::before{
   </div>
 </div>
 
-<!-- Hero -->
 <section class="hero" id="top" aria-label="Hero">
   <div class="hero-content">
     <h1>Groupes électrogènes</h1>
-    <p>De l’appoint silencieux à la maison entièrement autonome, nos solutions s’intègrent chez vous en toute discrétion.</p>
-    <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'});">Demander un devis</button>
+    <p>De l’appoint silencieux à l’autonomie complète, nos solutions s’intègrent avec fiabilité et discrétion.</p>
+    <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
   </div>
 </section>
 
-<!-- Groupes résidentiels -->
 <section class="section">
   <h2><i class="fas fa-home"></i> Résidentiels</h2>
   <p class="description">Compacts, silencieux et fiables pour protéger vos installations domestiques.</p>
@@ -998,13 +1008,21 @@ footer::before{
         <button class="btn" onclick="openModal('groupe_res3.png','7kW','Puissance adaptée pour confort complet.')">Détails</button>
       </div>
     </div>
+    <div class="card" role="listitem">
+      <img src="groupe_res4.png" alt="10kW">
+      <div class="card-content">
+        <h3>10kW</h3>
+        <p>Maisons haut standing et grands besoins.</p>
+        <div class="price"><span class="old-price">1 200 000 FCFA</span> <span class="new-price">1 050 000 FCFA</span></div>
+        <button class="btn" onclick="openModal('groupe_res4.png','10kW','Plus d’autonomie pour un confort total.')">Détails</button>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Groupes professionnels -->
 <section class="section">
   <h2><i class="fas fa-building"></i> Professionnels</h2>
-  <p class="description">Puissants et stables, pour bureaux et commerces exigeants.</p>
+  <p class="description">Puissants et stables, pour bureaux, commerces et petites structures professionnelles.</p>
   <div class="cards" role="list">
     <div class="card" role="listitem">
       <img src="groupe_pro1.png" alt="20kW">
@@ -1033,13 +1051,21 @@ footer::before{
         <button class="btn" onclick="openModal('groupe_pro3.png','50kW','Performance continue pour entreprises.')">Détails</button>
       </div>
     </div>
+    <div class="card" role="listitem">
+      <img src="groupe_pro4.png" alt="75kW">
+      <div class="card-content">
+        <h3>75kW</h3>
+        <p>Sites commerciaux plus exigeants.</p>
+        <div class="price"><span class="old-price">8 900 000 FCFA</span> <span class="new-price">7 700 000 FCFA</span></div>
+        <button class="btn" onclick="openModal('groupe_pro4.png','75kW','Solution stable pour charges soutenues.')">Détails</button>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Groupes industriels -->
 <section class="section">
   <h2><i class="fas fa-industry"></i> Industriels</h2>
-  <p class="description">Rendement élevé et autonomie maximale pour grandes installations.</p>
+  <p class="description">Rendement élevé et autonomie maximale pour grandes installations et sites critiques.</p>
   <div class="cards" role="list">
     <div class="card" role="listitem">
       <img src="groupe_ind1.png" alt="100kW">
@@ -1068,10 +1094,44 @@ footer::before{
         <button class="btn" onclick="openModal('groupe_ind3.png','200kW','Capacité maximale pour installations sensibles.')">Détails</button>
       </div>
     </div>
+    <div class="card" role="listitem">
+      <img src="groupe_ind4.png" alt="300kW">
+      <div class="card-content">
+        <h3>300kW</h3>
+        <p>Très grands sites et besoins intensifs.</p>
+        <div class="price"><span class="old-price">28 000 000 FCFA</span> <span class="new-price">24 500 000 FCFA</span></div>
+        <button class="btn" onclick="openModal('groupe_ind4.png','300kW','Autonomie puissante pour usage industriel lourd.')">Détails</button>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Modal -->
+<section class="section">
+  <h2>Pourquoi nos solutions ?</h2>
+  <div class="advantages" role="list">
+    <div class="advantage" role="listitem">
+      <i class="fas fa-bolt" aria-hidden="true"></i>
+      <h3>Performance</h3>
+      <p>Des groupes adaptés à chaque besoin, du résidentiel à l’industriel.</p>
+    </div>
+    <div class="advantage" role="listitem">
+      <i class="fas fa-shield-alt" aria-hidden="true"></i>
+      <h3>Fiabilité</h3>
+      <p>Des solutions robustes pour garantir la continuité de service.</p>
+    </div>
+    <div class="advantage" role="listitem">
+      <i class="fas fa-gears" aria-hidden="true"></i>
+      <h3>Adaptation locale</h3>
+      <p>Conçus pour les besoins réels des ménages, commerces et sites ivoiriens.</p>
+    </div>
+    <div class="advantage" role="listitem">
+      <i class="fas fa-award" aria-hidden="true"></i>
+      <h3>Accompagnement</h3>
+      <p>Conseil, installation et suivi pour un fonctionnement durable.</p>
+    </div>
+  </div>
+</section>
+
 <div id="productModal" class="modal" aria-hidden="true">
   <div class="modal-content" role="dialog" aria-modal="true">
     <button class="close" onclick="closeModal()" aria-label="Fermer">&times;</button>
@@ -1081,7 +1141,6 @@ footer::before{
   </div>
 </div>
 
-<!-- Devis -->
 <section id="devis" class="section">
   <h2>Demandez votre devis personnalisé</h2>
   <form>
@@ -1093,16 +1152,15 @@ footer::before{
       <option value="domotique">Domotique</option>
       <option value="securite">Sécurité</option>
     </select>
-    <textarea placeholder="Message ou détails du projet" required></textarea>
+    <textarea placeholder="Message ou détails du projet" rows="5" required></textarea>
     <button type="submit" class="btn-primary">Envoyer le devis</button>
   </form>
 </section>
 
-<!-- Footer -->
 <footer>
   <div class="footer-company">GREENBRIDGE</div>
   <div class="footer-contact">
-    <div>© 2025 GreenBridge Énergie. Tous droits réservés.</div>
+    <div>© 2025 GreenBridge Technologies. Tous droits réservés.</div>
     <div>Abidjan, Côte d’Ivoire</div>
     <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
   </div>
@@ -1187,7 +1245,8 @@ document.querySelectorAll('.dropdown').forEach(drop => {
         mobileNav.setAttribute('aria-hidden','false');
         burger.setAttribute('aria-expanded','true');
         document.body.classList.add('menu-open');
-        document.getElementById('mobileBackdrop').classList.add('open');
+        const backdrop = document.getElementById('mobileBackdrop');
+        if(backdrop) backdrop.classList.add('open');
       }
     }
   });
@@ -1285,6 +1344,7 @@ document.querySelectorAll('.dropdown').forEach(drop => {
         activeToggle.setAttribute('aria-expanded','true');
         activeToggle.classList.add('active');
       }
+
       const path = window.location.pathname.split('/').pop().toLowerCase();
       const etudePage = (path === 'zone_urbaine.html' || path === 'zone_agricole.html');
       if(mobileEtudeSub){
@@ -1347,7 +1407,8 @@ document.querySelectorAll('.dropdown').forEach(drop => {
     const cx = rect.width/2;
     const cy = rect.height/2;
     for(let i=0;i<orbs.length;i++){
-      const o = orbs[i]; if(!o) continue;
+      const o = orbs[i];
+      if(!o) continue;
       const p = params[i];
       const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
       const ry = p.ry;
@@ -1372,7 +1433,9 @@ document.querySelectorAll('.dropdown').forEach(drop => {
       setTimeout(()=>{
         bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms';
         bright.setAttribute('stroke-dashoffset','0');
-        setTimeout(()=>{ bright.setAttribute('stroke-dashoffset', String(len)); }, 420);
+        setTimeout(()=>{
+          bright.setAttribute('stroke-dashoffset', String(len));
+        }, 420);
       }, 80);
     }catch(e){
       bright.setAttribute('stroke-dasharray','520');
@@ -1454,8 +1517,7 @@ document.querySelectorAll('.dropdown').forEach(drop => {
     'batteries.html':'a[href="batteries.html"]',
     'onduleurs.html':'a[href="onduleurs.html"]',
     'groupes.html':'a[href="groupes.html"]',
-    'domotique.html':'a[href="domotique.html"]',
-    'securite.html':'a[href="securite.html"]',
+    'projets.html':'a[href="Projets.html"]',
     'maintenance.html':'a[href="maintenance.html"]',
     'zone_urbaine.html':'a[href="zone_urbaine.html"]',
     'zone_agricole.html':'a[href="zone_agricole.html"]'
