@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GreenBridge Technologies - Onduleurs</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --topbar-h:48px;
@@ -16,15 +16,15 @@
   --accent:#7cb342;
   --accent-2:#a8e6a1;
   --bg:#0a4d2e;
+  --muted:#e6f7ea;
   --gold-base:#d4af37;
   --gold-hover:#e6c95a;
-  --muted-text-color:#e6f7ea;
-  --muted-text-size:15px;
   --electric-yellow:#ffd600;
 }
 
+/* Base */
 *{box-sizing:border-box}
-html, body{
+html,body{
   margin:0;
   padding:0;
   font-family:'Poppins',Arial,sans-serif;
@@ -37,6 +37,7 @@ body.menu-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
+/* Topbar */
 .topbar{
   position:fixed;
   top:0;
@@ -46,16 +47,27 @@ img{max-width:100%;display:block}
   background:var(--green-dark);
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:20px;
+  justify-content:flex-end;
+  gap:14px;
   padding:0 5vw;
   z-index:1500;
   font-size:14px;
 }
-.topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
-.topbar a{color:#fff;transition:color .18s;white-space:nowrap}
+.topbar .right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+.topbar a{
+  color:#fff;
+  transition:color .18s;
+  white-space:nowrap;
+  font-weight:700;
+}
 .topbar a:hover{color:var(--accent-2)}
 
+/* Header */
 header{
   position:fixed;
   top:var(--topbar-h);
@@ -130,6 +142,7 @@ header{
   display:block;
 }
 
+/* Desktop nav */
 nav{display:flex;gap:18px;align-items:center}
 nav a{
   color:#fff;
@@ -149,6 +162,7 @@ nav a.active{
   border-radius:10px;
 }
 
+/* Dropdown */
 .dropdown{position:relative}
 .dropdown > a{display:flex;gap:8px;align-items:center;cursor:pointer}
 .dropdown > a::after{
@@ -206,6 +220,7 @@ nav a.active{
   }
 }
 
+/* Burger */
 .burger{
   display:none;
   width:52px;
@@ -228,7 +243,8 @@ nav a.active{
 }
 .burger .icon span{
   position:absolute;
-  left:0; right:0;
+  left:0;
+  right:0;
   height:3px;
   background:#fff;
   border-radius:2px;
@@ -241,6 +257,7 @@ nav a.active{
 .burger.open .icon span:nth-child(2){opacity:0}
 .burger.open .icon span:nth-child(3){transform: translateY(-8.5px) rotate(-45deg)}
 
+/* Mobile backdrop / menu */
 .mobile-backdrop{
   display:none;
   position:fixed;
@@ -407,7 +424,7 @@ body.menu-open .electric-band{
   border-radius:14px;
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,0.06);
-  color:var(--muted-text-color);
+  color:var(--muted);
   margin-top:4px;
 }
 .mobile-nav .contact strong{
@@ -451,6 +468,7 @@ body.menu-open .electric-band{
   min-height:42px;
 }
 
+/* Electric band */
 .electric-band{
   position:fixed;
   top:calc(var(--topbar-h) + var(--header-h) - 6px);
@@ -521,8 +539,12 @@ body.menu-open .electric-band{
   transition:opacity .18s linear;
 }
 .electric-band.connected .orb{opacity:1}
-@keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}}
-.orb.buzz{animation:buzz 0.9s linear infinite}
+@keyframes buzz{
+  0%{transform:translate(-50%,-50%) translateX(-2px)}
+  50%{transform:translate(-50%,-50%) translateX(2px)}
+  100%{transform:translate(-50%,-50%) translateX(-2px)}
+}
+.orb.buzz{animation:buzz .9s linear infinite}
 .glowline{
   position:absolute;
   left:50%;
@@ -547,10 +569,11 @@ body.menu-open .electric-band{
   100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
 }
 
+/* Hero */
 .hero{
   margin-top:calc(var(--topbar-h) + var(--header-h));
-  height: calc(100vh - (var(--topbar-h) + var(--header-h)));
-  min-height: calc(100vh - (var(--topbar-h) + var(--header-h)));
+  height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+  min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
   position:relative;
   display:flex;
   align-items:center;
@@ -610,6 +633,7 @@ body.menu-open .electric-band{
 .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
 .btn-secondary:hover{background:rgba(255,255,255,0.08)}
 
+/* Sections */
 .section{padding:60px 5vw}
 .section h2{
   font-size:32px;
@@ -622,11 +646,12 @@ body.menu-open .electric-band{
   margin:0 auto 24px;
   color:var(--muted-text-color);
   text-align:center;
-  font-size:var(--muted-text-size);
+  font-size:15px;
   line-height:1.7;
   opacity:0.95;
 }
 
+/* Cards */
 .grid-4{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -693,6 +718,7 @@ body.menu-open .electric-band{
   justify-content:center;
   color:var(--accent-2);
   width:100%;
+  text-align:center;
 }
 .card-content p{
   margin:0;
@@ -700,7 +726,13 @@ body.menu-open .electric-band{
   font-size:15px;
   line-height:1.6;
 }
-.price{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+.price{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+}
 .old-price{text-decoration:line-through;color:#b9c7bb;font-size:13px}
 .new-price{
   font-weight:800;
@@ -738,10 +770,22 @@ body.menu-open .electric-band{
   text-align:center;
   border:1px solid rgba(255,255,255,0.05);
 }
-.advantage i{font-size:34px;color:var(--accent);margin-bottom:8px}
-.advantage h3{color:#dfffe6;margin:6px 0}
-.advantage p{color:#e6f7ea;line-height:1.6;margin:0}
+.advantage i{
+  font-size:34px;
+  color:var(--accent);
+  margin-bottom:8px;
+}
+.advantage h3{
+  color:#dfffe6;
+  margin:6px 0;
+}
+.advantage p{
+  color:#e6f7ea;
+  line-height:1.6;
+  margin:0;
+}
 
+/* Devis */
 #devis form{
   max-width:520px;
   margin:18px auto 0;
@@ -775,6 +819,7 @@ body.menu-open .electric-band{
 }
 #devis button:hover{background:var(--accent-2)}
 
+/* Footer */
 footer{
   background:var(--green-dark);
   color:#fff;
@@ -807,6 +852,7 @@ footer::before{
 }
 .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
+/* Modal */
 .modal{
   display:none;
   position:fixed;
@@ -845,9 +891,19 @@ footer::before{
   background:#f7f7f7;
   display:block;
 }
-.modal-body{padding:16px 18px 20px;text-align:center}
-.modal-body h3{margin:0 0 8px;font-size:22px}
-.modal-body p{margin:0;color:#243c2e;line-height:1.6}
+.modal-body{
+  padding:16px 18px 20px;
+  text-align:center;
+}
+.modal-body h3{
+  margin:0 0 8px;
+  font-size:22px;
+}
+.modal-body p{
+  margin:0;
+  color:#243c2e;
+  line-height:1.6;
+}
 
 @media (max-width:1100px){
   .grid-4{grid-template-columns:repeat(2,1fr)}
@@ -855,65 +911,196 @@ footer::before{
   .burger{display:flex}
 }
 @media (max-width:820px){
-  :root{--topbar-h:42px;--header-h:76px}
-  .topbar{padding:0 4vw;font-size:12px;gap:8px}
-  .logo-text{gap:8px;align-items:center}
-  .logo-text img{height:52px}
-  .company-name{font-size:34px;letter-spacing:.2px}
-  .company-tagline{font-size:13px;letter-spacing:3px}
-  .hero{height:auto;min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
-  .hero-bg{object-position:center center;transform:scale(1.12) translateY(0)}
-  .hero-content{max-width:88vw;padding:24px 14px}
-  .hero-content h1{font-size:clamp(24px, 5.2vw, 34px)}
-  .hero-content p{font-size:16px}
-  .section{padding:52px 4vw}
-  .grid-4{grid-template-columns:1fr;gap:18px}
-  .card{min-height:360px}
-  .card-content{padding:18px}
-  .card-content p{font-size:14px}
-  .advantage{width:100%;max-width:420px}
-  .advantages{flex-direction:column;align-items:center}
-  #devis form{padding:16px}
-  .mobile-nav.open{max-height:100vh}
+  :root{
+    --topbar-h:42px;
+    --header-h:76px;
+  }
+  .topbar{
+    padding:0 4vw;
+    font-size:12px;
+    gap:8px;
+  }
+  .logo-text{
+    gap:8px;
+    align-items:center;
+  }
+  .logo-text img{
+    height:52px;
+  }
+  .company-name{
+    font-size:34px;
+    letter-spacing:.2px;
+  }
+  .company-tagline{
+    font-size:13px;
+    letter-spacing:3px;
+  }
+  .hero{
+    height:auto;
+    min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+  }
+  .hero-bg{
+    object-position:center center;
+    transform:scale(1.12) translateY(0);
+  }
+  .hero-content{
+    max-width:88vw;
+    padding:24px 14px;
+  }
+  .hero-content h1{
+    font-size:clamp(24px, 5.2vw, 34px);
+  }
+  .hero-content p{
+    font-size:16px;
+  }
+  .section{
+    padding:52px 4vw;
+  }
+  .grid-4{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+  .card{
+    min-height:360px;
+  }
+  .card-content{
+    padding:18px;
+  }
+  .card-content p{
+    font-size:14px;
+  }
+  .advantage{
+    width:100%;
+    max-width:420px;
+  }
+  .advantages{
+    flex-direction:column;
+    align-items:center;
+  }
+  #devis form{
+    padding:16px;
+  }
+  .mobile-nav.open{
+    max-height:100vh;
+  }
 }
 @media (max-width:480px){
-  :root{--topbar-h:40px;--header-h:72px}
-  .topbar{font-size:11px;padding:0 3.5vw}
-  .topbar .right{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;justify-content:flex-end}
-  .logo-text img{height:44px}
-  .company-name{font-size:26px;letter-spacing:.1px}
-  .company-tagline{font-size:10px;letter-spacing:2px}
-  .burger{width:48px;height:48px}
-  .hero-bg{object-position:center 28%;transform:scale(1.18) translateY(0)}
-  .hero-content{max-width:92vw;padding:18px 12px}
-  .hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px}
-  .hero-content p{font-size:15px;line-height:1.45}
-  .btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}
-  .section h2{font-size:26px}
-  .card{min-height:330px}
-  .card-content{padding:14px 12px 16px}
-  .card-content h3{font-size:17px;min-height:auto}
-  .card-content p{font-size:13px;line-height:1.5}
-  .modal-card img{height:220px}
-  .modal-body h3{font-size:20px}
-  .electric-band{top:calc(var(--topbar-h) + var(--header-h) - 4px);height:12px}
-  .electric-band .container{width:100%;left:0;padding:0 4vw;box-sizing:border-box}
-  .glowline{width:86%;max-width:86%}
-  .mobile-brand .company-name{font-size:28px}
-  .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}
-  .mobile-nav a{font-size:18px;padding:15px 16px;min-height:56px;width:100%;white-space:nowrap}
-  .mobile-nav .submenu a{font-size:15px}
+  :root{
+    --topbar-h:40px;
+    --header-h:72px;
+  }
+  .topbar{
+    font-size:11px;
+    padding:0 3.5vw;
+  }
+  .topbar .right{
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    justify-content:flex-end;
+  }
+  .logo-text img{
+    height:44px;
+  }
+  .company-name{
+    font-size:26px;
+    letter-spacing:.1px;
+  }
+  .company-tagline{
+    font-size:10px;
+    letter-spacing:2px;
+  }
+  .burger{
+    width:48px;
+    height:48px;
+  }
+  .hero-bg{
+    object-position:center 28%;
+    transform:scale(1.18) translateY(0);
+  }
+  .hero-content{
+    max-width:92vw;
+    padding:18px 12px;
+  }
+  .hero-content h1{
+    font-size:24px;
+    line-height:1.2;
+    margin-bottom:8px;
+  }
+  .hero-content p{
+    font-size:15px;
+    line-height:1.45;
+  }
+  .btn-primary,.btn-secondary{
+    padding:12px 22px;
+    font-size:14px;
+  }
+  .section h2{
+    font-size:26px;
+  }
+  .card{
+    min-height:330px;
+  }
+  .card-content{
+    padding:14px 12px 16px;
+  }
+  .card-content h3{
+    font-size:17px;
+    min-height:auto;
+  }
+  .card-content p{
+    font-size:13px;
+    line-height:1.5;
+  }
+  .modal-card img{
+    height:220px;
+  }
+  .modal-body h3{
+    font-size:20px;
+  }
+  .electric-band{
+    top:calc(var(--topbar-h) + var(--header-h) - 4px);
+    height:12px;
+  }
+  .electric-band .container{
+    width:100%;
+    left:0;
+    padding:0 4vw;
+    box-sizing:border-box;
+  }
+  .glowline{
+    width:86%;
+    max-width:86%;
+  }
+  .mobile-brand .company-name{
+    font-size:28px;
+  }
+  .mobile-brand .company-tagline{
+    font-size:10px;
+    letter-spacing:3px;
+  }
+  .mobile-nav a{
+    font-size:18px;
+    padding:15px 16px;
+    min-height:56px;
+    width:100%;
+    white-space:nowrap;
+  }
+  .mobile-nav .submenu a{
+    font-size:15px;
+  }
 }
 </style>
 </head>
 <body>
 
 <div class="topbar" role="banner" aria-hidden="false">
-  <div class="left">
-    <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
-  </div>
   <div class="right">
-    <a href="tel:+22507070707" id="topPhoneLink"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
+    <a href="tel:+2250707070707" id="topPhoneLink">
+      <i class="fas fa-phone" aria-hidden="true"></i>
+      <span id="topPhoneText">+225 07 07 07 07 07</span>
+    </a>
   </div>
 </div>
 
@@ -1008,7 +1195,7 @@ footer::before{
       <strong>CONTACT</strong>
       <div class="phone-line">
         <i class="fas fa-phone" aria-hidden="true"></i>
-        <a href="tel:+22507070707">+225 07 07 07 07 07</a>
+        <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
       </div>
     </div>
 
@@ -1029,13 +1216,13 @@ footer::before{
       <path class="bright" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
     </svg>
 
-    <div class="orbs" id="energyOrbs">
-      <div class="orb" id="eOrbA"></div>
-      <div class="orb" id="eOrbB"></div>
-      <div class="orb" id="eOrbC"></div>
+    <div class="orbs" id="orbs">
+      <div class="orb" id="orbA"></div>
+      <div class="orb" id="orbB"></div>
+      <div class="orb" id="orbC"></div>
     </div>
 
-    <div class="glowline" id="eGlowline"></div>
+    <div class="glowline" id="glowline"></div>
   </div>
 </div>
 
@@ -1084,6 +1271,16 @@ footer::before{
         <button class="btn-card" onclick="openModal('onduleur_resi_hybrid.png','Onduleur Hybride Résidentiel','Gère solaire + batterie, bascule automatique en cas de coupure.')">Détails</button>
       </div>
     </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="onduleur_resi_8k.png" alt="Onduleur Résidentiel 8kW"></div>
+      <div class="card-content">
+        <h3>Onduleur Résidentiel 8kW</h3>
+        <p>Parfait pour foyers avec équipements gourmands et forte autonomie.</p>
+        <div class="price"><span class="old-price">610 000 FCFA</span> <span class="new-price">540 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('onduleur_resi_8k.png','Onduleur Résidentiel 8kW','Puissance renforcée pour maison premium et stockage avancé.')">Détails</button>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -1118,6 +1315,16 @@ footer::before{
         <p>Solution robuste pour sites à forte variabilité de charge.</p>
         <div class="price"><span class="old-price">1 350 000 FCFA</span> <span class="new-price">1 150 000 FCFA</span></div>
         <button class="btn-card" onclick="openModal('onduleur_hybrid_15k.png','Hybride 15kW','Haute fiabilité, parfait pour micro-grid ou sites critiques.')">Détails</button>
+      </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="onduleur_hybrid_20k.png" alt="Onduleur Hybride 20kW"></div>
+      <div class="card-content">
+        <h3>Hybride 20kW</h3>
+        <p>Solution renforcée pour installations plus exigeantes.</p>
+        <div class="price"><span class="old-price">1 900 000 FCFA</span> <span class="new-price">1 620 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('onduleur_hybrid_20k.png','Hybride 20kW','Gestion avancée du stockage, monitoring et redondance.')">Détails</button>
       </div>
     </article>
   </div>
@@ -1156,6 +1363,42 @@ footer::before{
         <button class="btn-card" onclick="openModal('onduleur_indus_100k.png','Industriel 100kW+','Scalable, supervision SCADA, maintenance aisée.')">Détails</button>
       </div>
     </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="onduleur_indus_250k.png" alt="Onduleur Industriel 250kW"></div>
+      <div class="card-content">
+        <h3>Industriel 250kW</h3>
+        <p>Conçu pour les besoins lourds et continus des grands sites.</p>
+        <div class="price"><span class="old-price">17 000 000 FCFA</span> <span class="new-price">15 300 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('onduleur_indus_250k.png','Industriel 250kW','Gestion de charge avancée, forte disponibilité, supervision centralisée.')">Détails</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Pourquoi nos solutions énergie ?</h2>
+  <div class="advantages" role="list">
+    <div class="advantage" role="listitem">
+      <i class="fas fa-bolt" aria-hidden="true"></i>
+      <h3>Efficacité</h3>
+      <p>Maximisez le rendement et l’économie d’énergie</p>
+    </div>
+    <div class="advantage" role="listitem">
+      <i class="fas fa-shield-alt" aria-hidden="true"></i>
+      <h3>Fiabilité</h3>
+      <p>Installation professionnelle et maintenance garantie</p>
+    </div>
+    <div class="advantage" role="listitem">
+      <i class="fas fa-globe-africa" aria-hidden="true"></i>
+      <h3>Local</h3>
+      <p>Expertise adaptée au marché ivoirien</p>
+    </div>
+    <div class="advantage" role="listitem">
+      <i class="fas fa-award" aria-hidden="true"></i>
+      <h3>5 ans de garantie</h3>
+      <p>Tranquillité, suivi et accompagnement sur la durée</p>
+    </div>
   </div>
 </section>
 
@@ -1191,16 +1434,43 @@ footer::before{
   <div class="footer-contact" aria-label="Coordonnées">
     <div>© 2025 GreenBridge Technologies. Tous droits réservés.</div>
     <div>Abidjan, Côte d’Ivoire</div>
-    <div>Tel: +225 07 07 07 07 07</div>
+    <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
   </div>
 </footer>
 
 <script>
+const contactNumbers = [
+  { display: '+225 07 07 07 07 07', tel: '+2250707070707' },
+  { display: '+221 77 00 00 00 00', tel: '+2217700000000' }
+];
+let phoneIndex = 0;
+
+function updatePhone(){
+  const info = contactNumbers[phoneIndex];
+  const topPhoneLink = document.getElementById('topPhoneLink');
+  const topPhoneText = document.getElementById('topPhoneText');
+  const footerPhoneText = document.getElementById('footerPhoneText');
+  const mobilePhoneLink = document.getElementById('mobilePhoneLink');
+
+  if(topPhoneLink) topPhoneLink.href = 'tel:' + info.tel;
+  if(topPhoneText) topPhoneText.textContent = info.display;
+  if(footerPhoneText) footerPhoneText.textContent = info.display;
+  if(mobilePhoneLink){
+    mobilePhoneLink.href = 'tel:' + info.tel;
+    mobilePhoneLink.textContent = info.display;
+  }
+
+  phoneIndex = (phoneIndex + 1) % contactNumbers.length;
+}
+
+updatePhone();
+setInterval(updatePhone, 10000);
+
 function openModal(img, title, desc){
-  document.getElementById("modalImg").src = img;
-  document.getElementById("modalImg").alt = title;
-  document.getElementById("modalTitle").innerText = title;
-  document.getElementById("modalDesc").innerText = desc;
+  document.getElementById('modalImg').src = img;
+  document.getElementById('modalImg').alt = title;
+  document.getElementById('modalTitle').innerText = title;
+  document.getElementById('modalDesc').innerText = desc;
   const modal = document.getElementById('productModal');
   if(modal){
     modal.classList.add('open');
@@ -1223,6 +1493,7 @@ document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') closeModal();
 });
 
+/* desktop dropdown hover */
 document.querySelectorAll('.dropdown').forEach(drop => {
   let timer;
   const menu = drop.querySelector('.dropdown-content');
@@ -1252,6 +1523,7 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   });
 });
 
+/* mobile menu */
 (function(){
   const burger = document.getElementById('burgerBtn');
   const mobileNav = document.getElementById('mobileNav');
@@ -1355,12 +1627,13 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   openActiveSubmenusOnSmall();
 })();
 
+/* electric band */
 (function(){
   const electricBand = document.getElementById('electricBand');
   if (!electricBand) return;
-  const orbA = document.getElementById('eOrbA');
-  const orbB = document.getElementById('eOrbB');
-  const orbC = document.getElementById('eOrbC');
+  const orbA = document.getElementById('orbA');
+  const orbB = document.getElementById('orbB');
+  const orbC = document.getElementById('orbC');
   const orbs = [orbA, orbB, orbC];
   const zapBright = document.getElementById('zapBright');
   const params = [
@@ -1377,7 +1650,6 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   });
 
   let t0 = performance.now();
-
   function tick(now){
     const time = (now - t0) / 1000;
     const cont = electricBand.querySelector('.container');
@@ -1465,7 +1737,7 @@ document.querySelectorAll('.dropdown').forEach(drop => {
     setInterval(()=>{
       spawnSparks();
       if(Math.random() > 0.45) sparkSVG();
-    }, 900 + Math.random()*900);
+    }, 1200 + Math.random()*1200);
   }
 
   const title = document.querySelector('.company-name');
@@ -1483,6 +1755,7 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   window.addEventListener('resize', ()=>{ t0 = performance.now(); });
 })();
 
+/* Active page logic */
 (function(){
   const raw = window.location.pathname.split('/').pop().toLowerCase();
   const path = raw || 'onduleurs.html';
@@ -1539,20 +1812,6 @@ document.querySelectorAll('.dropdown').forEach(drop => {
         }
       }
     }catch(e){}
-  });
-
-  const mobileDisable = document.querySelectorAll('.mobile-nav a');
-  mobileDisable.forEach(a=>{
-    const href = (a.getAttribute('href') || '').toLowerCase();
-    if(href === 'onduleurs.html'){
-      a.classList.add('mobile-disabled');
-      a.setAttribute('aria-disabled','true');
-      a.setAttribute('tabindex','-1');
-      if(a.hasAttribute('href')){
-        a.dataset.href = a.getAttribute('href');
-        a.removeAttribute('href');
-      }
-    }
   });
 })();
 </script>
