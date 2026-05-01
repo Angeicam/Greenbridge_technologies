@@ -264,19 +264,6 @@
       gap:14px;
       align-items:stretch;
     }
-    .mobile-brand{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:2px;
-      padding:8px 4px 10px;
-      border-bottom:1px solid rgba(255,255,255,0.06);
-      margin-bottom:2px;
-      text-align:center;
-    }
-    .mobile-brand .company-name{font-size:32px;line-height:1;white-space:nowrap}
-    .mobile-brand .company-tagline{font-size:13px;letter-spacing:4px;white-space:nowrap}
 
     .mobile-nav .menu-links{
       display:flex;
@@ -301,10 +288,7 @@
       white-space:nowrap;
     }
     .mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.10);color:var(--accent-2)}
-    .mobile-nav .mobile-link.active{
-      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
-      color:var(--accent-2);
-    }
+    .mobile-nav .mobile-link.active{background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));color:var(--accent-2)}
 
     .mobile-nav .submenu{
       display:none;
@@ -345,6 +329,7 @@
       background:rgba(255,255,255,0.04);
       border:1px solid rgba(255,255,255,0.06);
       color:var(--muted-text-color);
+      margin-top:4px;
     }
     .mobile-nav .contact strong{
       color:#fff;
@@ -820,8 +805,6 @@
       .electric-band{top:calc(var(--topbar-h) + var(--header-h) - 4px);height:12px}
       .electric-band .container{width:100%;left:0;padding:0 4vw;box-sizing:border-box}
       .glowline{width:86%;max-width:86%}
-      .mobile-brand .company-name{font-size:28px}
-      .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}
       .mobile-nav a{font-size:18px;padding:15px 16px;min-height:56px;width:100%;white-space:nowrap}
       .mobile-nav .submenu a{font-size:15px}
     }
@@ -896,23 +879,26 @@
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
     <div class="inner">
-      <div class="mobile-brand">
-        <div class="company-name">GREENBRIDGE</div>
-        <div class="company-tagline">TECHNOLOGIES</div>
-      </div>
-
       <div class="menu-links">
         <a href="Code1.html" class="mobile-link">Accueil</a>
-        <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
 
         <div>
-          <a href="#produits" id="mobileProduitsToggle" class="mobile-link active" aria-expanded="true">
+          <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
+            Étude
+            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+          </a>
+          <div class="submenu" id="mobileEtudeSub">
+            <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
+            <a href="zone_agricole.html">🚜 Zone Agricole</a>
+          </div>
+        </div>
+
+        <div>
+          <a href="produits.html" id="mobileProduitsToggle" class="mobile-link active" aria-expanded="true">
             Nos Produits
             <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
           </a>
           <div class="submenu" id="mobileProduitsSub" style="display:flex;flex-direction:column;">
-            <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
-            <a href="zone_agricole.html">🚜 Zone Agricole</a>
             <a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a>
             <a href="batteries.html">🔋 Batteries & stockage</a>
             <a href="onduleurs.html">🔌 Onduleurs</a>
@@ -1340,6 +1326,8 @@
       const burger = document.getElementById('burgerBtn');
       const mobileNav = document.getElementById('mobileNav');
       const mobileBackdrop = document.getElementById('mobileBackdrop');
+      const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
+      const mobileEtudeSub = document.getElementById('mobileEtudeSub');
       const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
       const mobileProduitsSub = document.getElementById('mobileProduitsSub');
 
@@ -1352,11 +1340,15 @@
         mobileNav.setAttribute('aria-hidden','false');
         burger.setAttribute('aria-expanded','true');
         document.body.classList.add('menu-open');
-        if(mobileProduitsSub && mobileProduitsToggle && window.innerWidth <= 1100){
-          mobileProduitsSub.style.display = 'flex';
-          mobileProduitsToggle.setAttribute('aria-expanded','true');
+
+        if(window.innerWidth <= 1100){
+          if(mobileEtudeSub) mobileEtudeSub.style.display = 'flex';
+          if(mobileProduitsSub) mobileProduitsSub.style.display = 'flex';
+          if(mobileEtudeToggle) mobileEtudeToggle.setAttribute('aria-expanded','true');
+          if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
         }
       }
+
       function closeMenu(){
         mobileNav.classList.remove('open');
         mobileBackdrop.classList.remove('open');
@@ -1371,21 +1363,23 @@
         if(opened) closeMenu();
         else openMenu();
       });
+
       mobileBackdrop.addEventListener('click', closeMenu);
 
       mobileNav.querySelectorAll('.mobile-link').forEach(a => {
-        if(a.id === 'mobileProduitsToggle') return;
+        if(a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
         a.addEventListener('click', ()=> closeMenu());
       });
 
-      if(mobileProduitsToggle && mobileProduitsSub){
-        mobileProduitsToggle.addEventListener('click', function(e){
+      function bindExpandable(toggleEl, subEl){
+        if(!toggleEl || !subEl) return;
+        toggleEl.addEventListener('click', function(e){
           if(e.target.closest('.caret')){
             e.preventDefault();
             e.stopPropagation();
-            const opening = mobileProduitsSub.style.display !== 'flex';
-            mobileProduitsSub.style.display = opening ? 'flex' : 'none';
-            mobileProduitsToggle.setAttribute('aria-expanded', String(opening));
+            const opening = subEl.style.display !== 'flex';
+            subEl.style.display = opening ? 'flex' : 'none';
+            toggleEl.setAttribute('aria-expanded', String(opening));
             mobileNav.classList.add('open');
             burger.classList.add('open');
             mobileBackdrop.classList.add('open');
@@ -1398,25 +1392,27 @@
         });
       }
 
+      bindExpandable(mobileEtudeToggle, mobileEtudeSub);
+      bindExpandable(mobileProduitsToggle, mobileProduitsSub);
+
       document.addEventListener('keydown', function(e){
         if(e.key === 'Escape') closeMenu();
       });
 
-      function openActiveSubmenuOnSmall(){
+      function openActiveSubmenusOnSmall(){
         if(window.innerWidth <= 1100){
-          const activeSub = document.getElementById('mobileProduitsSub');
-          const activeToggle = document.getElementById('mobileProduitsToggle');
-          if(activeSub && activeToggle){
-            activeSub.style.display = 'flex';
-            activeToggle.setAttribute('aria-expanded','true');
-          }
+          if(mobileEtudeSub) mobileEtudeSub.style.display = 'flex';
+          if(mobileProduitsSub) mobileProduitsSub.style.display = 'flex';
+          if(mobileEtudeToggle) mobileEtudeToggle.setAttribute('aria-expanded','true');
+          if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
         } else {
-          const activeSub = document.getElementById('mobileProduitsSub');
-          if(activeSub) activeSub.style.display = 'none';
+          if(mobileEtudeSub) mobileEtudeSub.style.display = 'none';
+          if(mobileProduitsSub) mobileProduitsSub.style.display = 'none';
         }
       }
-      window.addEventListener('resize', openActiveSubmenuOnSmall);
-      openActiveSubmenuOnSmall();
+
+      window.addEventListener('resize', openActiveSubmenusOnSmall);
+      openActiveSubmenusOnSmall();
     })();
 
     (function(){
@@ -1431,7 +1427,10 @@
         'groupes.html':'a[href="groupes.html"]',
         'domotique.html':'a[href="domotique.html"]',
         'securite.html':'a[href="securite.html"]',
-        'maintenance.html':'a[href="maintenance.html"]'
+        'maintenance.html':'a[href="maintenance.html"]',
+        'zone_urbaine.html':'a[href="zone_urbaine.html"]',
+        'zone_agricole.html':'a[href="zone_agricole.html"]',
+        'etude_dimensionnement_2.html':'a[href="etude_dimensionnement_2.html"]'
       };
 
       const sel = mapping[path];
@@ -1455,12 +1454,23 @@
             const parentSub = a.closest('.submenu');
             if(parentSub){
               parentSub.style.display = 'flex';
-              const toggle = document.getElementById('mobileProduitsToggle');
-              if(toggle){ toggle.setAttribute('aria-expanded','true'); }
+              const toggle = a.closest('.submenu').previousElementSibling;
+              if(toggle && toggle.classList.contains('mobile-link')){
+                toggle.setAttribute('aria-expanded','true');
+              }
             }
           }
         }catch(e){}
       });
+
+      if(path === 'zone_urbaine.html' || path === 'zone_agricole.html'){
+        const toggle = document.getElementById('mobileEtudeToggle');
+        const sub = document.getElementById('mobileEtudeSub');
+        if(toggle && sub){
+          sub.style.display = 'flex';
+          toggle.setAttribute('aria-expanded','true');
+        }
+      }
     })();
   </script>
 </body>
