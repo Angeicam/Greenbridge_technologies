@@ -24,7 +24,6 @@
   --electric-yellow:#ffd600;
 }
 
-/* Base */
 *{box-sizing:border-box}
 html,body{
   margin:0;
@@ -39,7 +38,6 @@ body.menu-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
-/* Topbar */
 .topbar{
   position:fixed;
   top:0;
@@ -69,7 +67,6 @@ img{max-width:100%;display:block}
 }
 .topbar a:hover{color:var(--accent-2)}
 
-/* Header */
 header{
   position:fixed;
   top:var(--topbar-h);
@@ -144,7 +141,6 @@ header{
   display:block;
 }
 
-/* Desktop nav */
 nav{display:flex;gap:18px;align-items:center}
 nav a{
   color:#fff;
@@ -164,7 +160,6 @@ nav a.active{
   border-radius:10px;
 }
 
-/* Dropdown */
 .dropdown{position:relative}
 .dropdown > a{
   display:flex;
@@ -227,7 +222,6 @@ nav a.active{
   }
 }
 
-/* Burger */
 .burger{
   display:none;
   width:52px;
@@ -264,7 +258,6 @@ nav a.active{
 .burger.open .icon span:nth-child(2){opacity:0}
 .burger.open .icon span:nth-child(3){transform: translateY(-8.5px) rotate(-45deg)}
 
-/* Mobile backdrop / menu */
 .mobile-backdrop{
   display:none;
   position:fixed;
@@ -477,7 +470,6 @@ body.menu-open .electric-band{
   min-height:42px;
 }
 
-/* Electric band */
 .electric-band{
   position:fixed;
   top:calc(var(--topbar-h) + var(--header-h) - 6px);
@@ -578,7 +570,6 @@ body.menu-open .electric-band{
   100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
 }
 
-/* Hero */
 .hero{
   margin-top:calc(var(--topbar-h) + var(--header-h));
   height:calc(100vh - (var(--topbar-h) + var(--header-h)));
@@ -642,7 +633,6 @@ body.menu-open .electric-band{
 .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
 .btn-secondary:hover{background:rgba(255,255,255,0.08)}
 
-/* Sections */
 .section{padding:60px 5vw}
 .section h2{
   font-size:32px;
@@ -660,7 +650,6 @@ body.menu-open .electric-band{
   opacity:0.95;
 }
 
-/* Cards */
 .grid-4{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -783,7 +772,6 @@ body.menu-open .electric-band{
 .advantage h3{color:#dfffe6;margin:6px 0}
 .advantage p{color:#e6f7ea;line-height:1.6;margin:0}
 
-/* Devis */
 #devis form{
   max-width:520px;
   margin:18px auto 0;
@@ -817,7 +805,6 @@ body.menu-open .electric-band{
 }
 #devis button:hover{background:var(--accent-2)}
 
-/* Footer */
 footer{
   background:var(--green-dark);
   color:#fff;
@@ -850,7 +837,6 @@ footer::before{
 }
 .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
-/* Modal */
 .modal{
   display:none;
   position:fixed;
@@ -1093,7 +1079,6 @@ footer::before{
 </head>
 <body>
 
-<!-- Topbar -->
 <div class="topbar" role="banner" aria-hidden="false">
   <div class="right">
     <a href="tel:+2250707070707" id="topPhoneLink">
@@ -1103,7 +1088,6 @@ footer::before{
   </div>
 </div>
 
-<!-- Header -->
 <header role="navigation" aria-label="Main">
   <div class="logo-text">
     <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
@@ -1151,7 +1135,6 @@ footer::before{
 
 <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
 
-<!-- Mobile nav -->
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="inner">
     <button class="mobile-close" id="mobileCloseBtn" type="button" aria-label="Fermer le menu">×</button>
@@ -1209,7 +1192,6 @@ footer::before{
   </div>
 </div>
 
-<!-- Electric band -->
 <div class="electric-band" id="electricBand" aria-hidden="true">
   <div class="container" aria-hidden="true">
     <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
@@ -1228,21 +1210,15 @@ footer::before{
   </div>
 </div>
 
-<!-- Hero -->
 <section class="hero" id="top" aria-label="Hero">
   <img class="hero-bg" src="groupe_hero.png" alt="Illustration GreenBridge Technologies">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1>Groupes électrogènes</h1>
     <p>De l’appoint silencieux à l’autonomie complète, nos solutions s’intègrent avec fiabilité et discrétion.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
-      <button class="btn-secondary" onclick="document.getElementById('residentiels').scrollIntoView({behavior:'smooth'})">Voir les produits</button>
-    </div>
   </div>
 </section>
 
-<!-- Résidentiels -->
 <section class="section" id="residentiels">
   <h2><i class="fas fa-home"></i> Résidentiels</h2>
   <p class="description">Compacts, silencieux et fiables pour protéger vos installations domestiques.</p>
@@ -1290,7 +1266,6 @@ footer::before{
   </div>
 </section>
 
-<!-- Professionnels -->
 <section class="section">
   <h2><i class="fas fa-building"></i> Professionnels</h2>
   <p class="description">Puissants et stables, pour bureaux, commerces et petites structures professionnelles.</p>
@@ -1338,7 +1313,6 @@ footer::before{
   </div>
 </section>
 
-<!-- Industriels -->
 <section class="section">
   <h2><i class="fas fa-industry"></i> Industriels</h2>
   <p class="description">Rendement élevé et autonomie maximale pour grandes installations et sites critiques.</p>
@@ -1386,7 +1360,6 @@ footer::before{
   </div>
 </section>
 
-<!-- Pourquoi -->
 <section class="section">
   <h2>Pourquoi nos solutions ?</h2>
   <div class="advantages" role="list">
@@ -1413,7 +1386,6 @@ footer::before{
   </div>
 </section>
 
-<!-- Modal -->
 <div id="productModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal()" aria-label="Fermer">&times;</button>
@@ -1425,7 +1397,6 @@ footer::before{
   </div>
 </div>
 
-<!-- Devis -->
 <section id="devis" class="section">
   <h2>Demandez votre devis personnalisé</h2>
   <form>
@@ -1442,7 +1413,6 @@ footer::before{
   </form>
 </section>
 
-<!-- Footer -->
 <footer>
   <div class="footer-company">GREENBRIDGE</div>
   <div class="footer-contact">
@@ -1479,7 +1449,6 @@ function updatePhone(){
 updatePhone();
 setInterval(updatePhone, 10000);
 
-/* Modal */
 function openModal(img, title, desc){
   const modal = document.getElementById('productModal');
   document.getElementById('modalImg').src = img;
@@ -1507,7 +1476,6 @@ document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') closeModal();
 });
 
-/* Desktop dropdown hover */
 document.querySelectorAll('.dropdown').forEach(drop => {
   let timer;
   const menu = drop.querySelector('.dropdown-content');
@@ -1538,7 +1506,6 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   });
 });
 
-/* Mobile menu */
 (function(){
   const burger = document.getElementById('burgerBtn');
   const mobileNav = document.getElementById('mobileNav');
@@ -1648,7 +1615,6 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   openActiveSubmenusOnSmall();
 })();
 
-/* Electric band visuals */
 (function(){
   const band = document.getElementById('electricBand');
   if(!band) return;
@@ -1780,7 +1746,6 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   window.addEventListener('resize', ()=>{ t0 = performance.now(); });
 })();
 
-/* Active page logic */
 (function(){
   const raw = window.location.pathname.split('/').pop().toLowerCase();
   const path = raw || 'groupes.html';
