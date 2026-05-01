@@ -29,45 +29,28 @@ html,body{
   background:var(--bg);
   color:#fff;
   scroll-behavior:smooth;
-  overflow-x:hidden;
+  overflow-x:hidden
 }
 body.menu-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
 
 /* Topbar */
 .topbar{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  height:var(--topbar-h);
+  position:fixed;top:0;left:0;right:0;height:var(--topbar-h);
   background:var(--green-dark);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  padding:0 5vw;
-  z-index:1800;
-  font-size:14px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;padding:0 5vw;z-index:1800;font-size:14px;
 }
 .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
-.topbar a{color:#fff;transition:color .18s;white-space:nowrap;font-weight:700}
+.topbar a{color:#fff;transition:color .18s;font-weight:700;white-space:nowrap}
 .topbar a:hover{color:var(--accent-2)}
 
 /* Header */
 header{
-  position:fixed;
-  top:var(--topbar-h);
-  left:0;
-  right:0;
-  height:var(--header-h);
+  position:fixed;top:var(--topbar-h);left:0;right:0;height:var(--header-h);
   background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 5vw;
-  z-index:1750;
-  box-shadow:0 4px 12px rgba(0,0,0,.25)
+  display:flex;align-items:center;justify-content:space-between;padding:0 5vw;
+  z-index:1750;box-shadow:0 4px 12px rgba(0,0,0,.25)
 }
 .logo-text{display:flex;align-items:center;gap:12px}
 .logo-text img{height:56px;display:block}
@@ -81,53 +64,38 @@ header{
   min-width:0;
 }
 .company-name{
-  font-size:28px;
-  font-weight:800;
-  letter-spacing:1px;
-  padding:6px 10px;
-  border-radius:8px;
-  color:#04462e;
-  -webkit-text-stroke:0.95px #d4af37;
-  text-shadow:0 3px 6px rgba(0,0,0,0.6);
+  font-size:28px;font-weight:800;letter-spacing:1px;padding:6px 10px;border-radius:8px;
+  color:#04462e;-webkit-text-stroke:0.95px #d4af37;text-shadow:0 3px 6px rgba(0,0,0,0.6);
   position:relative;
-}
-.company-tagline{
-  font-size:14px;
-  font-weight:700;
-  letter-spacing:5px;
-  text-transform:uppercase;
-  color:#dfffe6;
-  margin:2px 0 0 0;
-  text-shadow:0 2px 6px rgba(0,0,0,0.45);
-  -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
   white-space:nowrap;
   line-height:1;
 }
+.company-tagline{
+  font-size:14px;font-weight:700;letter-spacing:5px;text-transform:uppercase;
+  color:#dfffe6;margin:2px 0 0 0;
+  text-shadow:0 2px 6px rgba(0,0,0,0.45);
+  -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
+  white-space:nowrap;line-height:1;
+}
 
-/* Desktop nav */
+/* Nav desktop */
 nav{display:flex;gap:18px;align-items:center}
 nav a{
-  color:#fff;
-  font-size:15px;
-  font-weight:600;
-  padding:8px 10px;
-  border-radius:8px;
-  transition:all .18s;
-  display:flex;
-  gap:8px;
-  align-items:center;
+  color:#fff;font-size:15px;font-weight:600;padding:8px 10px;border-radius:8px;
+  transition:all .18s;display:flex;gap:8px;align-items:center
 }
 nav a:hover{color:var(--accent-2)}
 nav a.active{
   color:var(--accent-2);
-  background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+  background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
   border:1px solid rgba(212,175,55,0.22);
   padding:10px 14px;
   font-weight:800;
   border-radius:10px;
 }
 
-/* Desktop sub-badge */
+.dropdown{position:relative}
+.dropdown > a{display:flex;gap:6px;align-items:center;cursor:pointer}
 .dropdown > a .sub-badge{
   margin-left:8px;
   padding:6px 10px;
@@ -141,11 +109,8 @@ nav a.active{
   align-items:center;
   box-shadow:0 6px 18px rgba(0,0,0,0.32);
 }
-@media (max-width:1100px){
-  .dropdown > a .sub-badge{display:none}
-}
+@media (max-width:1100px){ .dropdown > a .sub-badge{ display:none } }
 
-/* Desktop arrow */
 .dropdown > a::after{
   content:"\25BC";
   font-size:12px;
@@ -156,8 +121,6 @@ nav a.active{
 }
 .dropdown[aria-expanded="true"] > a::after{transform:rotate(180deg)}
 
-.dropdown{position:relative}
-.dropdown > a{display:flex;gap:6px;align-items:center;cursor:pointer}
 .dropdown-content{
   display:none;
   position:absolute;
@@ -171,18 +134,8 @@ nav a.active{
   z-index:2000;
 }
 .dropdown-content li{list-style:none}
-.dropdown-content a{
-  display:block;
-  padding:10px 16px;
-  color:#fff;
-  font-weight:600;
-  border-radius:8px;
-}
-.dropdown-content a:hover{
-  background:rgba(168,230,161,0.12);
-  color:var(--accent-2);
-  padding-left:24px;
-}
+.dropdown-content a{display:block;padding:10px 16px;color:#fff;font-weight:600;border-radius:8px}
+.dropdown-content a:hover{background:rgba(168,230,161,0.12);color:var(--accent-2);padding-left:24px}
 .dropdown-content .active-item{
   color:var(--accent-2);
   background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
@@ -207,32 +160,19 @@ nav a.active{
 /* Burger */
 .burger{
   display:none;
-  width:52px;
-  height:52px;
+  width:52px;height:52px;
   border-radius:12px;
   border:1px solid rgba(255,255,255,0.12);
   background:rgba(255,255,255,0.05);
-  align-items:center;
-  justify-content:center;
+  align-items:center;justify-content:center;
   cursor:pointer;
   box-shadow:0 6px 18px rgba(0,0,0,.18);
   -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
 }
-.burger .icon{
-  display:block;
-  position:relative;
-  width:28px;
-  height:20px;
-}
+.burger .icon{display:block;position:relative;width:28px;height:20px}
 .burger .icon span{
-  position:absolute;
-  left:0;
-  right:0;
-  height:3px;
-  background:#fff;
-  border-radius:2px;
-  transition:all .25s;
+  position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s
 }
 .burger .icon span:nth-child(1){top:0}
 .burger .icon span:nth-child(2){top:8.5px}
@@ -241,7 +181,7 @@ nav a.active{
 .burger.open .icon span:nth-child(2){opacity:0}
 .burger.open .icon span:nth-child(3){transform: translateY(-8.5px) rotate(-45deg)}
 
-/* Mobile backdrop / mobile menu */
+/* Mobile backdrop / menu */
 .mobile-backdrop{
   display:none;
   position:fixed;
@@ -286,7 +226,7 @@ nav a.active{
   position:relative;
 }
 
-/* hide site header behind burger when open */
+/* Hide page header behind menu */
 body.menu-open .topbar,
 body.menu-open header,
 body.menu-open .electric-band{
@@ -305,16 +245,8 @@ body.menu-open .electric-band{
   margin-bottom:2px;
   text-align:center;
 }
-.mobile-brand .company-name{
-  font-size:32px;
-  line-height:1;
-  white-space:nowrap;
-}
-.mobile-brand .company-tagline{
-  font-size:13px;
-  letter-spacing:4px;
-  white-space:nowrap;
-}
+.mobile-brand .company-name{font-size:32px;line-height:1;white-space:nowrap}
+.mobile-brand .company-tagline{font-size:13px;letter-spacing:4px;white-space:nowrap}
 
 .mobile-close{
   position:sticky;
@@ -500,7 +432,6 @@ body.menu-open .electric-band{
   stroke-dasharray:520;
   stroke-dashoffset:520;
 }
-
 .orbs{
   position:absolute;
   left:0;
@@ -522,9 +453,12 @@ body.menu-open .electric-band{
   transition:opacity .18s linear;
 }
 .electric-band.active .orb{opacity:1}
-@keyframes buzz-slow{0%{transform:translate(-50%,-50%) translateX(-1.5px)}50%{transform:translate(-50%,-50%) translateX(1.5px)}100%{transform:translate(-50%,-50%) translateX(-1.5px)}}
+@keyframes buzz-slow{
+  0%{transform:translate(-50%,-50%) translateX(-1.5px)}
+  50%{transform:translate(-50%,-50%) translateX(1.5px)}
+  100%{transform:translate(-50%,-50%) translateX(-1.5px)}
+}
 .orb.buzz{animation:buzz-slow 1.8s linear infinite}
-
 .glowline{
   position:absolute;
   left:50%;
@@ -768,14 +702,6 @@ footer::before{
   .hero{height:40vh}
   .company-name{font-size:24px}
 }
-
-/* if mobile menu is open, everything behind it is hidden */
-body.menu-open .topbar,
-body.menu-open header,
-body.menu-open .electric-band{
-  visibility:hidden;
-  pointer-events:none;
-}
 </style>
 </head>
 <body>
@@ -839,13 +765,22 @@ body.menu-open .electric-band{
       <a href="Code1.html" class="mobile-link">Accueil</a>
 
       <div>
+        <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
+          Étude
+          <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+        </a>
+        <div class="submenu" id="mobileEtudeSub">
+          <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
+          <a href="zone_agricole.html">🚜 Zone Agricole</a>
+        </div>
+      </div>
+
+      <div>
         <a href="energie.html" id="mobileEnergieToggle" class="mobile-link active" data-current="Onduleurs" aria-expanded="true">
-          Énergie
+          Nos Produits
           <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
         </a>
         <div class="submenu" id="mobileEnergieSub" style="display:flex;flex-direction:column;">
-          <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
-          <a href="zone_agricole.html">🚜 Zone Agricole</a>
           <a href="panneaux.html">⚡ Panneaux solaires</a>
           <a href="batteries.html">🔋 Batteries & stockage</a>
           <a href="onduleurs.html" class="active-item" aria-current="page">🔌 Onduleurs</a>
@@ -853,8 +788,7 @@ body.menu-open .electric-band{
         </div>
       </div>
 
-      <a href="domotique.html" class="mobile-link">Domotique</a>
-      <a href="securite.html" class="mobile-link">Sécurité</a>
+      <a href="Projets.html" class="mobile-link">Projets futurs</a>
       <a href="maintenance.html" class="mobile-link">Maintenance</a>
     </div>
 
@@ -1116,6 +1050,8 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   const mobileNav = document.getElementById('mobileNav');
   const mobileBackdrop = document.getElementById('mobileBackdrop');
   const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+  const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
+  const mobileEtudeSub = document.getElementById('mobileEtudeSub');
   const mobileEnergieToggle = document.getElementById('mobileEnergieToggle');
   const mobileEnergieSub = document.getElementById('mobileEnergieSub');
 
@@ -1154,7 +1090,7 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   if(mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
   mobileNav.querySelectorAll('.mobile-link').forEach(a => {
-    if(a.id === 'mobileEnergieToggle') return;
+    if(a.id === 'mobileEtudeToggle' || a.id === 'mobileEnergieToggle') return;
     a.addEventListener('click', ()=> closeMenu());
   });
 
@@ -1182,24 +1118,34 @@ document.querySelectorAll('.dropdown').forEach(drop => {
     });
   }
 
+  bindExpandable(mobileEtudeToggle, mobileEtudeSub);
   bindExpandable(mobileEnergieToggle, mobileEnergieSub);
 
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') closeMenu();
   });
 
-  function openActiveSubmenuOnSmall(){
+  function openActiveSubmenusOnSmall(){
     if(window.innerWidth <= 1100){
       if(mobileEnergieSub){
         mobileEnergieSub.style.display = 'flex';
         if(mobileEnergieToggle) mobileEnergieToggle.setAttribute('aria-expanded','true');
       }
+      const path = window.location.pathname.split('/').pop().toLowerCase();
+      const etudePage = (path === 'zone_urbaine.html' || path === 'zone_agricole.html');
+      if(mobileEtudeSub){
+        mobileEtudeSub.style.display = etudePage ? 'flex' : 'none';
+      }
+      if(mobileEtudeToggle){
+        mobileEtudeToggle.setAttribute('aria-expanded', String(etudePage));
+      }
     } else {
+      if(mobileEtudeSub) mobileEtudeSub.style.display = 'none';
       if(mobileEnergieSub) mobileEnergieSub.style.display = 'none';
     }
   }
-  window.addEventListener('resize', openActiveSubmenuOnSmall);
-  openActiveSubmenuOnSmall();
+  window.addEventListener('resize', openActiveSubmenusOnSmall);
+  openActiveSubmenusOnSmall();
 })();
 
 /* electric band */
@@ -1225,7 +1171,6 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   });
 
   let t0 = performance.now();
-
   function tick(now){
     const time = (now - t0) / 1000;
     const cont = electricBand.querySelector('.container');
@@ -1233,7 +1178,6 @@ document.querySelectorAll('.dropdown').forEach(drop => {
     const rect = cont.getBoundingClientRect();
     const cx = rect.width / 2;
     const cy = rect.height / 2;
-
     for(let i=0;i<orbs.length;i++){
       const orb = orbs[i];
       if(!orb) continue;
