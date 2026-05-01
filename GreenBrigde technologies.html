@@ -307,11 +307,11 @@
       padding:18px 18px;
       color:#fff;
       width:100%;
-      text-align:center;
+      text-align:left;
       border-radius:14px;
       font-weight:900;
       display:flex;
-      justify-content:center;
+      justify-content:flex-start;
       align-items:center;
       gap:10px;
       font-size:clamp(20px, 5vw, 26px);
@@ -328,6 +328,48 @@
     .mobile-nav .mobile-link.active{
       background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
       color:var(--accent-2);
+    }
+
+    .mobile-nav .submenu{
+      display:none;
+      flex-direction:column;
+      gap:8px;
+      padding-left:10px;
+      margin-top:6px;
+      margin-bottom:6px;
+      max-width:560px;
+      width:100%;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .mobile-nav .submenu a{
+      font-family:'Trebuchet MS', Arial, sans-serif;
+      font-style:italic;
+      font-size:15px;
+      font-weight:700;
+      min-height:48px;
+      padding:12px 14px;
+      border-radius:10px;
+      white-space:nowrap;
+      justify-content:flex-start;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      border:1px solid rgba(255,255,255,0.06);
+      background:rgba(255,255,255,0.02);
+    }
+    .mobile-nav .submenu a:hover{
+      background:rgba(168,230,161,0.08);
+      padding-left:18px;
+    }
+    .mobile-nav .submenu a.active-item,
+    .mobile-nav .submenu a[aria-current="page"]{
+      background:transparent;
+      color:rgba(255,255,255,0.30);
+      border:none;
+      box-shadow:none;
+      font-weight:700;
+      font-style:italic;
     }
 
     .mobile-contact{
@@ -1325,8 +1367,31 @@
 
       <div class="menu-links">
         <a href="#top" class="mobile-link active">Accueil</a>
-        <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
-        <a href="produits.html" class="mobile-link">Nos Produits</a>
+
+        <div>
+          <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
+            Étude
+            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+          </a>
+          <div class="submenu" id="mobileEtudeSub">
+            <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
+            <a href="zone_agricole.html">🚜 Zone Agricole</a>
+          </div>
+        </div>
+
+        <div>
+          <a href="produits.html" id="mobileProduitsToggle" class="mobile-link" aria-expanded="false">
+            Nos Produits
+            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+          </a>
+          <div class="submenu" id="mobileProduitsSub">
+            <a href="panneaux.html">⚡ Panneaux solaires</a>
+            <a href="batteries.html">🔋 Batteries & stockage</a>
+            <a href="onduleurs.html">🔌 Onduleurs</a>
+            <a href="groupes.html">⚙️ Groupes électrogènes</a>
+          </div>
+        </div>
+
         <a href="Projets.html" class="mobile-link">Projets futurs</a>
         <a href="maintenance.html" class="mobile-link">Maintenance</a>
       </div>
@@ -1617,6 +1682,13 @@
       mobileNav.setAttribute('aria-hidden', 'false');
       burgerBtn.setAttribute('aria-expanded', 'true');
       document.body.classList.add('menu-open');
+
+      const activeSub = document.getElementById('mobileProduitsSub');
+      const activeToggle = document.getElementById('mobileProduitsToggle');
+      if(window.innerWidth <= 1100 && activeSub){
+        activeSub.style.display = 'flex';
+        if(activeToggle) activeToggle.setAttribute('aria-expanded','true');
+      }
     }
 
     function closeMenu(){
@@ -1640,8 +1712,42 @@
       if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
       mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+        if(a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
         a.addEventListener('click', () => closeMenu());
       });
+
+      function bindExpandable(toggleEl, subEl){
+        if(!toggleEl || !subEl) return;
+        toggleEl.addEventListener('click', function(e){
+          if(e.target.closest('.caret')){
+            e.preventDefault();
+            e.stopPropagation();
+            const opening = subEl.style.display !== 'flex';
+            document.querySelectorAll('.mobile-nav .submenu').forEach(s=>{
+              if(s !== subEl) s.style.display = 'none';
+            });
+            subEl.style.display = opening ? 'flex' : 'none';
+            toggleEl.setAttribute('aria-expanded', String(opening));
+            mobileNav.classList.add('open');
+            burgerBtn.classList.add('open');
+            mobileBackdrop.classList.add('open');
+            mobileNav.setAttribute('aria-hidden','false');
+            burgerBtn.setAttribute('aria-expanded','true');
+            document.body.classList.add('menu-open');
+          } else {
+            closeMenu();
+          }
+        });
+      }
+
+      bindExpandable(
+        document.getElementById('mobileEtudeToggle'),
+        document.getElementById('mobileEtudeSub')
+      );
+      bindExpandable(
+        document.getElementById('mobileProduitsToggle'),
+        document.getElementById('mobileProduitsSub')
+      );
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeMenu();
@@ -1923,6 +2029,79 @@
         setTimeout(applyMobileSize, 120);
       });
       applyMobileSize();
+    })();
+
+    (function(){
+      const raw = window.location.pathname.split('/').pop().toLowerCase();
+      const path = raw || 'greenbrigde technologies.html';
+      const mapping = {
+        'greenbrigde technologies.html':'a[href="GreenBrigde technologies.html"]',
+        'etude_dimensionnement_2.html':'a[href="etude_dimensionnement_2.html"]',
+        'produits.html':'a[href="produits.html"]',
+        'panneaux.html':'a[href="panneaux.html"]',
+        'batteries.html':'a[href="batteries.html"]',
+        'onduleurs.html':'a[href="onduleurs.html"]',
+        'groupes.html':'a[href="groupes.html"]',
+        'projets.html':'a[href="Projets.html"]',
+        'maintenance.html':'a[href="maintenance.html"]',
+        'zone_urbaine.html':'a[href="zone_urbaine.html"]',
+        'zone_agricole.html':'a[href="zone_agricole.html"]'
+      };
+
+      const sel = mapping[path];
+      if(!sel) return;
+      const el = document.querySelector(sel);
+      if(!el) return;
+
+      el.classList.add('active');
+
+      const inDropdown = el.closest('.dropdown-content');
+      if(inDropdown){
+        const dropdown = el.closest('.dropdown');
+        const parentLink = dropdown && dropdown.querySelector('a[href="produits.html"], a[href="etude_dimensionnement_2.html"], a[data-current]');
+        if(parentLink){
+          parentLink.classList.add('active');
+        }
+        el.classList.add('active-item');
+      }
+
+      const mobileLinks = document.querySelectorAll('.mobile-nav a');
+      mobileLinks.forEach(a=>{
+        try{
+          if(a.getAttribute('href') === el.getAttribute('href')){
+            a.classList.add('active');
+            const parentSub = a.closest('.submenu');
+            if(parentSub){
+              parentSub.style.display = 'flex';
+              const toggle = parentSub.previousElementSibling;
+              if(toggle && toggle.classList.contains('mobile-link')){
+                toggle.classList.add('active');
+                toggle.setAttribute('aria-expanded','true');
+              }
+            }
+          }
+        }catch(e){}
+      });
+
+      const pathLower = path;
+      const etudePages = ['zone_urbaine.html','zone_agricole.html'];
+      const produitPages = ['panneaux.html','batteries.html','onduleurs.html','groupes.html','produits.html'];
+
+      const mobileEtudeSub = document.getElementById('mobileEtudeSub');
+      const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
+      const mobileProduitsSub = document.getElementById('mobileProduitsSub');
+      const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
+
+      if(window.innerWidth <= 1100){
+        if(etudePages.includes(pathLower)){
+          if(mobileEtudeSub) mobileEtudeSub.style.display = 'flex';
+          if(mobileEtudeToggle) mobileEtudeToggle.setAttribute('aria-expanded','true');
+        }
+        if(produitPages.includes(pathLower)){
+          if(mobileProduitsSub) mobileProduitsSub.style.display = 'flex';
+          if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
+        }
+      }
     })();
   </script>
 </body>
