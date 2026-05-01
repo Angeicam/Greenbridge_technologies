@@ -619,7 +619,12 @@ body.menu-open .electric-band{
   margin:0 0 18px;
   text-shadow:0 2px 8px rgba(0,0,0,0.45)
 }
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
 .btn-primary,.btn-secondary{
   padding:14px 26px;
   border-radius:10px;
@@ -1216,6 +1221,9 @@ footer::before{
   <div class="hero-content">
     <h1>Groupes électrogènes</h1>
     <p>De l’appoint silencieux à l’autonomie complète, nos solutions s’intègrent avec fiabilité et discrétion.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
+    </div>
   </div>
 </section>
 
