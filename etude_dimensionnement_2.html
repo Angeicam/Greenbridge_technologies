@@ -1243,7 +1243,19 @@
           </div>
         </div>
 
-        <a href="produits.html" class="mobile-link">Nos Produits</a>
+        <div>
+          <a href="produits.html" id="mobileProduitsToggle" class="mobile-link" aria-expanded="false">
+            Nos Produits
+            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+          </a>
+          <div class="submenu" id="mobileProduitsSub">
+            <a href="panneaux.html">⚡ Panneaux solaires</a>
+            <a href="batteries.html">🔋 Batteries & stockage</a>
+            <a href="onduleurs.html">🔌 Onduleurs</a>
+            <a href="groupes.html">⚙️ Groupes électrogènes</a>
+          </div>
+        </div>
+
         <a href="Projets.html" class="mobile-link">Projets futurs</a>
         <a href="maintenance.html" class="mobile-link">Maintenance</a>
       </div>
@@ -1259,7 +1271,7 @@
       <div class="socials">
         <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
         <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
         <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
       </div>
     </div>
@@ -1707,8 +1719,12 @@
     function closeAllSubmenus(){
       const mobileEtudeSub = document.getElementById('mobileEtudeSub');
       const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
+      const mobileProduitsSub = document.getElementById('mobileProduitsSub');
+      const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
       if(mobileEtudeSub) mobileEtudeSub.style.display = 'none';
       if(mobileEtudeToggle) mobileEtudeToggle.setAttribute('aria-expanded','false');
+      if(mobileProduitsSub) mobileProduitsSub.style.display = 'none';
+      if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','false');
     }
 
     function openMenu(){
@@ -1744,31 +1760,52 @@
       if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
       mobileNav.querySelectorAll('.mobile-link').forEach(a => {
-        if(a.id === 'mobileEtudeToggle') return;
+        if(a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
         a.addEventListener('click', () => closeMenu());
       });
 
       const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
       const mobileEtudeSub = document.getElementById('mobileEtudeSub');
-
       if(mobileEtudeToggle && mobileEtudeSub){
         mobileEtudeSub.style.display = 'none';
         mobileEtudeToggle.setAttribute('aria-expanded','false');
-
         mobileEtudeToggle.addEventListener('click', function(e){
           if(e.target.closest('.caret')){
             e.preventDefault();
             e.stopPropagation();
-
             const opening = mobileEtudeSub.style.display !== 'flex';
-
             document.querySelectorAll('.mobile-nav .submenu').forEach(s=>{
               if(s !== mobileEtudeSub) s.style.display = 'none';
             });
-
             mobileEtudeSub.style.display = opening ? 'flex' : 'none';
             mobileEtudeToggle.setAttribute('aria-expanded', String(opening));
+            mobileNav.classList.add('open');
+            mobileBackdrop.classList.add('open');
+            burgerBtn.classList.add('open');
+            mobileNav.setAttribute('aria-hidden','false');
+            burgerBtn.setAttribute('aria-expanded','true');
+            document.body.classList.add('menu-open');
+          } else {
+            closeMenu();
+          }
+        });
+      }
 
+      const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
+      const mobileProduitsSub = document.getElementById('mobileProduitsSub');
+      if(mobileProduitsToggle && mobileProduitsSub){
+        mobileProduitsSub.style.display = 'none';
+        mobileProduitsToggle.setAttribute('aria-expanded','false');
+        mobileProduitsToggle.addEventListener('click', function(e){
+          if(e.target.closest('.caret')){
+            e.preventDefault();
+            e.stopPropagation();
+            const opening = mobileProduitsSub.style.display !== 'flex';
+            document.querySelectorAll('.mobile-nav .submenu').forEach(s=>{
+              if(s !== mobileProduitsSub) s.style.display = 'none';
+            });
+            mobileProduitsSub.style.display = opening ? 'flex' : 'none';
+            mobileProduitsToggle.setAttribute('aria-expanded', String(opening));
             mobileNav.classList.add('open');
             mobileBackdrop.classList.add('open');
             burgerBtn.classList.add('open');
