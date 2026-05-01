@@ -2,8 +2,8 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>GreenBridge Énergie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GreenBridge Énergie - Étude & Dimensionnement</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -39,6 +39,7 @@
     }
     body.menu-open{overflow:hidden}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
 
     .topbar{
       position:fixed;
@@ -59,6 +60,7 @@
       display:flex;
       align-items:center;
       gap:12px;
+      min-width:0;
     }
     .topbar a{
       color:#fff;
@@ -147,11 +149,7 @@
       display:block;
     }
 
-    nav{
-      display:flex;
-      gap:18px;
-      align-items:center;
-    }
+    nav{display:flex;gap:18px;align-items:center}
     nav a{
       color:#fff;
       font-size:17px;
@@ -168,6 +166,70 @@
       padding:10px 14px;
       font-weight:800;
       border-radius:10px;
+    }
+
+    .dropdown{position:relative}
+    .dropdown > a{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      cursor:pointer;
+    }
+    .dropdown > a::after{
+      content:"\25BC";
+      font-size:12px;
+      transition:transform .2s;
+      opacity:1;
+      color:var(--accent-2);
+    }
+    .dropdown[aria-expanded="true"] > a::after{
+      transform:rotate(180deg);
+    }
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:calc(100% + 8px);
+      left:0;
+      background:rgba(0,0,0,0.88);
+      padding:8px 0;
+      border-radius:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,.5);
+      min-width:260px;
+      z-index:2000;
+      border:1px solid rgba(255,255,255,0.06);
+    }
+    .dropdown-content li{list-style:none}
+    .dropdown-content a{
+      display:block;
+      padding:10px 16px;
+      color:#fff;
+      font-weight:600;
+      border-radius:8px;
+    }
+    .dropdown-content a:hover{
+      background:rgba(168,230,161,0.12);
+      color:var(--accent-2);
+      padding-left:22px;
+    }
+    .dropdown-content .active-item{
+      color:var(--accent-2);
+      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+      border:1px solid rgba(212,175,55,0.12);
+      padding:10px 16px;
+      font-weight:800;
+      border-radius:8px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.28);
+      margin:4px 8px;
+    }
+    @media (max-width:1100px){
+      .dropdown-content .active-item{
+        margin:0;
+        border:none;
+        box-shadow:none;
+        background:transparent;
+        color:inherit;
+        padding:10px 16px;
+      }
     }
 
     .burger{
@@ -445,8 +507,8 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:center 90%;
-      transform:scale(1.07) translateY(24px);
+      object-position:center 60%;
+      transform:scale(1.07) translateY(16px);
       filter:brightness(1.02) contrast(1.03) saturate(1.02);
     }
     .hero-overlay{
@@ -476,7 +538,12 @@
       margin:0 0 18px;
       text-shadow:0 2px 8px rgba(0,0,0,0.45)
     }
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
     .btn-primary,.btn-secondary{
       padding:14px 26px;
       border-radius:10px;
@@ -486,17 +553,18 @@
       font-size:16px;
     }
     .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-2)}
+    .btn-primary:hover{background:var(--accent-2);color:#072012}
+    .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
+    .btn-secondary:hover{background:rgba(255,255,255,0.08)}
 
     .section{padding:60px 5vw}
     .section h2{
       font-size:32px;
-      margin-bottom:18px;
+      margin:0 0 18px;
       color:var(--accent-2);
-      text-align:center
+      text-align:center;
     }
-
-    .products-intro,.estimation-intro,.activities-intro{
+    .products-intro,.description{
       max-width:1000px;
       margin:0 auto 24px;
       color:var(--muted-text-color);
@@ -598,14 +666,15 @@
       gap:18px;
       flex-wrap:wrap;
       justify-content:center;
-      margin-top:8px
+      margin-top:8px;
     }
     .advantage{
       width:260px;
       background:#072b1b;
       border-radius:12px;
       padding:18px;
-      text-align:center
+      text-align:center;
+      border:1px solid rgba(255,255,255,0.05);
     }
     .advantage i{
       font-size:34px;
@@ -615,6 +684,11 @@
     .advantage h3{
       color:#dfffe6;
       margin:6px 0
+    }
+    .advantage p{
+      color:#e6f7ea;
+      line-height:1.6;
+      margin:0;
     }
 
     #devis form{
@@ -682,278 +756,70 @@
     }
     .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
-    .zones-cards{
-      display:flex;
-      gap:16px;
-      flex-wrap:wrap;
-      justify-content:center;
-      max-width:1100px;
-      margin:0 auto
-    }
-    .zone-card{
-      position:relative;
-      width:48%;
-      max-width:460px;
-      min-width:260px;
-      height:220px;
-      border-radius:12px;
-      overflow:hidden;
-      border:1px solid rgba(212,175,55,0.85);
-      box-shadow:0 8px 16px rgba(0,0,0,0.40);
-      background:#061f14;
-      cursor:pointer;
-      transition:transform .20s,box-shadow .20s;
-      display:flex;
-      align-items:flex-end;
-      justify-content:center;
-    }
-    .zone-card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,0.50)}
-    .zone-card img{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      filter:brightness(0.92) contrast(0.98) saturate(0.96)
-    }
-    .zone-card .overlay{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.6) 100%);
-      z-index:1;
-      border-radius:12px
-    }
-    .zone-card h3{
-      position:relative;
-      z-index:2;
-      margin:0;
-      padding:10px 14px;
-      background:rgba(0,0,0,0.35);
-      border-radius:8px;
-      bottom:14px;
-      font-size:20px;
-      color:var(--accent-2);
-      font-weight:900;
-      border:1px solid rgba(212,175,55,0.08);
-      text-align:center
-    }
-
-    .gb-carousel{
-      position:relative;
-      max-width:1240px;
+    .study-grid{
+      max-width:1200px;
       margin:0 auto;
-      padding-top:8px;
-    }
-    .gb-carousel-intro{
-      max-width:1000px;
-      margin:0 auto 24px;
-      color:var(--muted-text-color);
-      text-align:center;
-      font-size:var(--muted-text-size);
-      line-height:1.6;
-      opacity:0.95;
-    }
-    .gb-track-wrap{
-      overflow:hidden;
-      border-radius:26px;
-      border:1px solid rgba(212,175,55,.28);
-      box-shadow:0 16px 38px rgba(0,0,0,.44);
-      background:linear-gradient(135deg, rgba(3,12,8,.96), rgba(6,31,20,.96));
-    }
-    .gb-track{
-      display:flex;
-      flex-wrap:nowrap;
-      width:100%;
-      margin:0;
-      padding:0;
-      list-style:none;
-      transform:translate3d(0,0,0);
-      transition:transform .75s cubic-bezier(.22,.8,.22,1);
-      will-change:transform;
-    }
-    .gb-slide{
-      flex:0 0 100%;
-      min-width:100%;
-      list-style:none;
-    }
-    .gb-slide-inner{
-      margin:0;
       display:grid;
-      grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-      min-height:500px;
-      align-items:stretch;
-      background:linear-gradient(135deg, rgba(6,31,20,0.98), rgba(7,50,23,0.96));
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:20px;
     }
-    .gb-media{
-      padding:26px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: radial-gradient(circle at center, rgba(168,230,161,0.08), rgba(0,0,0,0) 60%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
-    }
-    .gb-media-frame{
-      width:100%;
-      height:100%;
-      min-height:420px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:22px;
+    .study-card{
+      background:linear-gradient(180deg, rgba(6,31,20,0.96), rgba(7,50,23,0.95));
+      border:1px solid rgba(212,175,55,0.45);
+      border-radius:18px;
       overflow:hidden;
-      background:rgba(255,255,255,0.03);
-      border:1px solid rgba(255,255,255,0.06);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
-      padding:18px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.38);
     }
-    .gb-media-frame img{
+    .study-card img{
       width:100%;
-      height:100%;
-      object-fit:contain;
-      object-position:center center;
-      display:block;
-      filter:drop-shadow(0 14px 24px rgba(0,0,0,0.35));
+      height:260px;
+      object-fit:cover;
+      object-position:center;
     }
-    .gb-desc{
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
+    .study-card .body{
+      padding:18px;
       text-align:center;
-      gap:14px;
-      padding:34px 30px;
-      border-left:1px solid rgba(212,175,55,0.12);
     }
-    .gb-kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 12px;
-      border-radius:999px;
-      background:rgba(168,230,161,0.10);
-      border:1px solid rgba(168,230,161,0.16);
-      color:#dfffe6;
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:.5px;
-      text-transform:uppercase;
-    }
-    .gb-release{
-      display:inline-block;
-      margin-left:6px;
-      padding:3px 10px;
-      border-radius:999px;
-      background:linear-gradient(90deg, var(--release-orange), var(--release-orange-2));
-      color:#1b0d00;
-      font-weight:900;
-      letter-spacing:.3px;
-      box-shadow:0 8px 18px rgba(255,122,24,0.28);
-      border:1px solid rgba(255,255,255,0.18);
-      text-transform:none;
-    }
-    .gb-desc h3{
-      margin:0;
-      font-size:clamp(22px, 2.2vw, 30px);
+    .study-card h3{
+      margin:0 0 10px;
       color:var(--accent-2);
-      line-height:1.2;
-      max-width:95%;
-      text-wrap:balance;
+      font-size:22px;
     }
-    .gb-summary{
+    .study-card p{
       margin:0;
       color:#edf9ec;
-      line-height:1.75;
+      line-height:1.7;
       font-size:15px;
-      max-width:92%;
     }
-    .gb-highlights{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:10px;
-      width:100%;
-      max-width:460px;
-      margin-top:4px;
-    }
-    .gb-highlight{
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(212,175,55,0.14);
-      border-radius:14px;
-      padding:12px 14px;
-      text-align:left;
-      min-height:72px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-    .gb-highlight strong{
-      display:block;
-      color:var(--accent-2);
-      font-size:12px;
-      letter-spacing:.3px;
-      margin-bottom:4px;
-      text-transform:uppercase;
-    }
-    .gb-highlight span{
-      color:#eaf9ea;
-      font-size:13px;
-      line-height:1.45;
-    }
-    .gb-btn{
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      width:48px;
-      height:48px;
-      border:none;
-      border-radius:50%;
-      cursor:pointer;
-      z-index:3;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:28px;
-      font-weight:700;
-      color:#061f14;
-      background:rgba(212,175,55,0.95);
-      box-shadow:0 8px 18px rgba(0,0,0,0.25);
-      transition:transform .18s, background .18s, opacity .18s;
-    }
-    .gb-btn:hover{
-      background:var(--gold-hover);
-      transform:translateY(-50%) scale(1.04);
-    }
-    .gb-prev{left:14px}
-    .gb-next{right:14px}
-    .gb-dots{
-      display:flex;
-      justify-content:center;
-      gap:10px;
+    .study-card .actions{
       margin-top:16px;
+      display:flex;
+      gap:10px;
+      justify-content:center;
       flex-wrap:wrap;
     }
-    .gb-dot{
-      width:12px;
-      height:12px;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-      background:rgba(255,255,255,0.38);
-      transition:all .22s ease;
-      padding:0;
+    .btn-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 16px;
+      border-radius:10px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#fff;
+      font-weight:700;
+      font-size:14px;
     }
-    .gb-dot.active{
-      width:34px;
-      background:var(--gold-base);
-      box-shadow:0 0 0 4px rgba(212,175,55,0.10);
+    .btn-link:hover{
+      background:rgba(124,179,66,0.12);
+      color:var(--accent-2);
     }
 
     @media (max-width:1100px){
       .grid-4{grid-template-columns:repeat(2,1fr)}
-      .gb-slide-inner{grid-template-columns:1fr}
-      .gb-desc{
-        border-left:none;
-        border-top:1px solid rgba(212,175,55,0.12);
-      }
-      .gb-media-frame{min-height:320px}
+      nav{display:none}
+      .burger{display:flex}
+      .study-grid{grid-template-columns:1fr}
     }
 
     @media (max-width:820px){
@@ -961,9 +827,6 @@
         --topbar-h:42px;
         --header-h:80px;
       }
-
-      nav{display:none}
-      .burger{display:flex}
 
       .topbar{
         padding:0 4vw;
@@ -1027,28 +890,9 @@
         padding:10px 20px;
       }
 
-      .zones-cards{
-        flex-direction:column;
-        align-items:center;
+      .study-card img{
+        height:220px;
       }
-      .zone-card{
-        width:100%;
-        min-width:0;
-        max-width:none;
-        height:210px;
-      }
-      .zone-card h3{
-        font-size:18px;
-        bottom:10px;
-        padding:8px 12px;
-      }
-
-      .gb-desc{padding:24px 18px}
-      .gb-desc h3{font-size:22px}
-      .gb-summary{font-size:14px}
-      .gb-highlights{grid-template-columns:1fr; max-width:100%}
-      .gb-media-frame{min-height:280px; padding:12px}
-      .gb-btn{width:42px; height:42px; font-size:24px}
 
       .advantages{
         flex-direction:column;
@@ -1132,17 +976,14 @@
       .card-content h3{font-size:17px}
       .card-content p{font-size:13px; line-height:1.5}
 
-      .zone-card{height:190px}
-      .zone-card h3{font-size:17px}
-
-      .gb-media-frame{min-height:230px}
-      .gb-desc h3{font-size:20px}
-      .gb-summary{font-size:13px}
-      .gb-kicker{font-size:11px}
-      .gb-release{
-        font-size:11px;
-        margin-left:4px;
-        padding:3px 8px;
+      .study-card img{
+        height:190px;
+      }
+      .study-card h3{
+        font-size:20px;
+      }
+      .study-card p{
+        font-size:13px;
       }
 
       .advantage{padding:16px 14px}
@@ -1323,17 +1164,40 @@
       </div>
     </div>
 
+    <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
+      <span class="icon"><span></span><span></span><span></span></span>
+    </button>
+
     <nav aria-label="Menu principal">
-      <a href="GreenBrigde technologies.html" class="active">Accueil</a>
-      <a href="etude_dimensionnement_2.html">Étude</a>
-      <a href="produits.html">Nos Produits</a>
+      <a href="GreenBrigde technologies.html">Accueil</a>
+
+      <div class="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a href="etude_dimensionnement_2.html" data-current="Étude" id="etudeLink" aria-controls="dropdownEtude">
+          Étude
+          <span class="sub-badge">Étude</span>
+        </a>
+        <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="dropdownEtude">
+          <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
+          <li><a href="zone_agricole.html" role="menuitem">🚜 Zone Agricole</a></li>
+        </ul>
+      </div>
+
+      <div class="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a href="produits.html" data-current="Nos Produits" id="produitsLink" aria-controls="dropdownProduits">
+          Nos Produits
+          <span class="sub-badge">Nos Produits</span>
+        </a>
+        <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="dropdownProduits">
+          <li><a href="panneaux.html">⚡ Panneaux solaires</a></li>
+          <li><a href="batteries.html">🔋 Batteries & stockage</a></li>
+          <li><a href="onduleurs.html">🔌 Onduleurs</a></li>
+          <li><a href="groupes.html">⚙️ Groupes électrogènes</a></li>
+        </ul>
+      </div>
+
       <a href="Projets.html">Projets futurs</a>
       <a href="maintenance.html">Maintenance</a>
     </nav>
-
-    <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
-      <span class="icon"><span></span><span></span><span></span></span>
-    </button>
   </header>
 
   <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
@@ -1366,7 +1230,7 @@
       </div>
 
       <div class="menu-links">
-        <a href="#top" class="mobile-link active">Accueil</a>
+        <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
 
         <div>
           <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
@@ -1407,206 +1271,130 @@
       <div class="socials">
         <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
         <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
         <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>
 
   <section class="hero" id="top" aria-label="Hero">
-    <img class="hero-bg" src="Image_2.png" alt="Illustration GreenBridge Énergie">
+    <img class="hero-bg" src="Image_2.png" alt="Illustration GreenBridge Étude">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Solutions Énergie sur mesure</h1>
-      <p>Étude du besoin, dimensionnement, installation et maintenance</p>
+      <h1>Étude & dimensionnement</h1>
+      <p>Nous analysons vos besoins pour concevoir la solution la plus fiable, économique et durable.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
       </div>
     </div>
   </section>
 
-  <section id="zones" class="section" aria-label="Nos activités">
-    <h2 class="section-title">Nos activités</h2>
-    <p class="activities-intro">
-      Basés en Côte d’Ivoire, nous menons des activités de recherche &amp; développement locales. Passionnés par la technologie et l'innovation, nous concevons des solutions énergétiques et domotiques adaptées au contexte local — performance, robustesse et facilitation du quotidien.
+  <section class="section">
+    <h2>Nos zones d’étude</h2>
+    <p class="description">
+      Deux approches principales nous permettent de dimensionner des solutions adaptées : l’environnement urbain, où les besoins sont orientés vers le confort, les maisons et les bureaux, et l’environnement agricole, où les besoins concernent surtout l’irrigation, le pompage et les sites isolés.
     </p>
 
-    <div class="zones-cards">
-      <div class="zone-card" onclick="window.location.href='zone_urbaine.html'" role="button" aria-label="Zone Urbaine">
-        <img src="milieu_urbain_1.png" alt="Zone Urbaine">
-        <div class="overlay"></div>
-        <h3>Zone Urbaine</h3>
+    <div class="study-grid">
+      <article class="study-card">
+        <img src="milieu_urbain_1.png" alt="Zone urbaine">
+        <div class="body">
+          <h3>Zone Urbaine</h3>
+          <p>
+            Nous dimensionnons les installations résidentielles et professionnelles en tenant compte de l’éclairage, de la climatisation, des appareils essentiels, de l’autonomie souhaitée et des contraintes de réseau.
+          </p>
+          <div class="actions">
+            <a class="btn-link" href="zone_urbaine.html">Accéder à l’étude</a>
+            <a class="btn-link" href="panneaux.html">Solutions associées</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="study-card">
+        <img src="milieu_agricole.png" alt="Zone agricole">
+        <div class="body">
+          <h3>Zone Agricole</h3>
+          <p>
+            Nous étudions les besoins en pompage, irrigation, stockage et alimentation des équipements agricoles pour garantir un fonctionnement fiable sur site isolé ou en exploitation.
+          </p>
+          <div class="actions">
+            <a class="btn-link" href="zone_agricole.html">Accéder à l’étude</a>
+            <a class="btn-link" href="groupes.html">Solutions associées</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Ce que comprend notre étude</h2>
+    <div class="advantages" role="list">
+      <div class="advantage" role="listitem">
+        <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+        <h3>Analyse du besoin</h3>
+        <p>Nous identifions les usages réels, la puissance nécessaire et les contraintes du site.</p>
       </div>
-      <div class="zone-card" onclick="window.location.href='zone_agricole.html'" role="button" aria-label="Zone Agricole">
-        <img src="milieu_agricole.png" alt="Zone Agricole">
-        <div class="overlay"></div>
-        <h3>Zone Agricole</h3>
+      <div class="advantage" role="listitem">
+        <i class="fas fa-screwdriver-wrench" aria-hidden="true"></i>
+        <h3>Dimensionnement</h3>
+        <p>Nous calculons le bon équilibre entre panneaux, batteries, onduleurs et protections.</p>
+      </div>
+      <div class="advantage" role="listitem">
+        <i class="fas fa-location-dot" aria-hidden="true"></i>
+        <h3>Adaptation locale</h3>
+        <p>Nos propositions tiennent compte du climat, des habitudes d’utilisation et de la zone.</p>
+      </div>
+      <div class="advantage" role="listitem">
+        <i class="fas fa-file-pen" aria-hidden="true"></i>
+        <h3>Rapport clair</h3>
+        <p>Nous livrons une recommandation lisible, exploitable et prête pour la mise en œuvre.</p>
       </div>
     </div>
   </section>
 
-  <section id="produits" class="section" aria-label="Nos produits">
-    <h2>Nos Produits</h2>
-    <p class="products-intro">
-      Nous proposons une gamme complète : panneaux solaires, batteries, onduleurs et groupes électrogènes. Nos solutions sont dimensionnées pour assurer performance, durabilité et facilité de maintenance.
-    </p>
-
+  <section class="section">
+    <h2>Nos services d’étude</h2>
     <div class="grid-4" role="list">
-      <article class="card" role="listitem" aria-label="Panneaux solaires">
-        <div class="image-wrap"><img src="chantier_solaire.png" alt="Panneaux solaires"></div>
+      <article class="card" role="listitem">
+        <div class="image-wrap"><img src="chantier_solaire.png" alt="Audit énergétique"></div>
         <div class="card-content">
-          <h3>Panneaux solaires</h3>
-          <p>Modules monocristallins haut rendement, résistants aux conditions locales et garantis 10 ans. Installation complète et optimisation de l'orientation.</p>
-          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
+          <h3>Audit énergétique</h3>
+          <p>Évaluation des consommations et des profils de charge pour proposer la meilleure architecture.</p>
+          <button class="btn-card" onclick="window.location='zone_urbaine.html'">Voir l’étude</button>
         </div>
       </article>
 
-      <article class="card" role="listitem" aria-label="Batteries & stockage">
-        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Batteries & stockage"></div>
+      <article class="card" role="listitem">
+        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Stockage d'énergie"></div>
         <div class="card-content">
-          <h3>Batteries & stockage</h3>
-          <p>Solutions lithium-ion et plomb-acide : stockage modulable, gestion intelligente de charge et monitoring à distance pour une efficacité durable.</p>
+          <h3>Stockage & autonomie</h3>
+          <p>Choix des batteries et calcul de l’autonomie selon l’usage, les heures de secours et le budget.</p>
           <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
         </div>
       </article>
 
-      <article class="card" role="listitem" aria-label="Onduleurs">
+      <article class="card" role="listitem">
         <div class="image-wrap"><img src="onduleur_tech.png" alt="Onduleurs"></div>
         <div class="card-content">
-          <h3>Onduleurs</h3>
-          <p>Onduleurs hybrides et on-grid pour conversion efficace, protection contre surtensions et gestion intelligente des micro-réseaux.</p>
+          <h3>Onduleurs & protections</h3>
+          <p>Dimensionnement des onduleurs, régulateurs et dispositifs de sécurité pour un système stable.</p>
           <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
         </div>
       </article>
 
-      <article class="card" role="listitem" aria-label="Groupes électrogènes">
+      <article class="card" role="listitem">
         <div class="image-wrap"><img src="technicien_groupe_elctro.png" alt="Groupes électrogènes"></div>
         <div class="card-content">
-          <h3>Groupes électrogènes</h3>
-          <p>Groupes de secours diesel et gaz, silencieux, avec démarrage automatique et service de maintenance sur site pour garantir continuité.</p>
+          <h3>Secours & continuité</h3>
+          <p>Étude des groupes électrogènes pour assurer une alimentation de secours fiable et silencieuse.</p>
           <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
         </div>
       </article>
     </div>
   </section>
 
-  <section id="realisations" class="section">
-    <h2>Nos réalisations et projets futurs</h2>
-    <p class="gb-carousel-intro">
-      Chaque projet est présenté avec une image complète, des points clés lisibles et une mise en page centrée pour une lecture plus professionnelle.
-    </p>
-
-    <div class="gb-carousel" aria-roledescription="carousel">
-      <div class="gb-track-wrap" role="region" aria-live="polite" aria-label="Projets GreenBridge">
-        <ul class="gb-track">
-          <li class="gb-slide" data-index="0">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="Batterie_pack_s.png" alt="Pack batterie">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 1 <span class="gb-release">Sortie estimée 15/06/2026</span></span>
-                <h3>Pack batterie</h3>
-                <p class="gb-summary">Pack batterie portable conçu pour la continuité d’alimentation, la recharge de secours et l’usage quotidien. Solution pensée pour les ménages, bureaux et petits commerces.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Usage</strong><span>Secours et mobilité</span></div>
-                  <div class="gb-highlight"><strong>Public</strong><span>Maisons, bureaux</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/06/2026</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Ménages, bureaux, petits commerces, sites isolés.</p>
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="gb-slide" data-index="1">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="Powerbank_wireless.png" alt="Power bank wireless">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 2 <span class="gb-release">Sortie estimée 15/07/2026</span></span>
-                <h3>Power bank wireless</h3>
-                <p class="gb-summary">Power bank sans fil à charge induction, conçue pour la recharge rapide des smartphones et petits appareils compatibles. Batterie longue durée avec protections intelligentes.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Charge</strong><span>Induction</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/07/2026</span></div>
-                  <div class="gb-highlight"><strong>Ports</strong><span>USB rapides</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Particuliers, professionnels mobiles, voyageurs et usage quotidien.</p>
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="gb-slide" data-index="2">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="ventillateur_solaire_1.png" alt="Ventilateur solaire">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 3 <span class="gb-release">Sortie estimée 15/11/2026</span></span>
-                <h3>Ventilateur solaire</h3>
-                <p class="gb-summary">Ventilateur alimenté par panneau PV 120 W, contrôleur MPPT intégré, autonomie de 6 à 10 heures selon la batterie. Boîtier anticorrosion adapté au climat tropical.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Alimentation</strong><span>PV 120 W</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>15/11/2026</span></div>
-                  <div class="gb-highlight"><strong>Contrôle</strong><span>MPPT intégré</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Ménages, petits commerces.</p>
-              </figcaption>
-            </figure>
-          </li>
-
-          <li class="gb-slide" data-index="3">
-            <figure class="gb-slide-inner">
-              <div class="gb-media">
-                <div class="gb-media-frame">
-                  <img src="Pompe_immergée.png" alt="Système de pompe solaire">
-                </div>
-              </div>
-              <figcaption class="gb-desc">
-                <span class="gb-kicker">Projet 4 <span class="gb-release">Sortie estimée 31/12/2026</span></span>
-                <h3>Système de pompe solaire</h3>
-                <p class="gb-summary">Système de pompage solaire pour irrigation et alimentation en eau, avec variateur de fréquence, protections anti-surcharge et fonctionnement fiable sur champs PV en courant continu.</p>
-                <div class="gb-highlights">
-                  <div class="gb-highlight"><strong>Puissance</strong><span>1.5 kW</span></div>
-                  <div class="gb-highlight"><strong>Sortie prévue</strong><span>31/12/2026</span></div>
-                  <div class="gb-highlight"><strong>Sécurité</strong><span>Anti-marche à sec</span></div>
-                  <div class="gb-highlight"><strong>État</strong><span>Projet futur</span></div>
-                </div>
-                <p class="gb-summary"><strong>Public cible :</strong> Agriculture familiale, irrigation, sites isolés.</p>
-              </figcaption>
-            </figure>
-          </li>
-        </ul>
-      </div>
-
-      <button class="gb-btn gb-prev" aria-label="Projet précédent">‹</button>
-      <button class="gb-btn gb-next" aria-label="Projet suivant">›</button>
-      <div class="gb-dots" role="tablist" aria-label="Pagination du carrousel"></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Pourquoi nos solutions énergie ?</h2>
-    <div class="advantages" role="list">
-      <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Efficacité</h3><p>Maximisez le rendement et l’économie d’énergie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Fiabilité</h3><p>Installation professionnelle et maintenance garantie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-globe-africa" aria-hidden="true"></i><h3>Local</h3><p>Expertise adaptée au marché ivoirien</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-award" aria-hidden="true"></i><h3>5 ans de garantie</h3><p>Tranquillité, suivi et accompagnement sur la durée</p></div>
-    </div>
-  </section>
-
   <section id="devis" class="section">
-    <h2>Demandez un devis personnalisé</h2>
+    <h2>Demandez votre devis personnalisé</h2>
     <form>
       <input type="text" placeholder="Nom complet" required>
       <input type="email" placeholder="Email" required>
@@ -1654,6 +1442,7 @@
     const footerPhoneText = document.getElementById('footerPhoneText');
 
     let activeCountry = 'abidjan';
+    let countryTimer = null;
 
     function updatePhone(country){
       const info = contactNumbers[country] || contactNumbers.abidjan;
@@ -1725,6 +1514,7 @@
 
       function bindExpandable(toggleEl, subEl){
         if(!toggleEl || !subEl) return;
+
         toggleEl.addEventListener('click', function(e){
           if(e.target.closest('.caret')){
             e.preventDefault();
@@ -1766,110 +1556,7 @@
     }
 
     updatePhone('abidjan');
-    setInterval(toggleCountry, 10000);
-
-    let aboutImgs = document.querySelectorAll('.about-slider img');
-    let cur = 0;
-    if (aboutImgs.length) {
-      setInterval(()=> {
-        aboutImgs[cur].classList.remove('active');
-        cur = (cur + 1) % aboutImgs.length;
-        aboutImgs[cur].classList.add('active');
-      }, 3500);
-    }
-
-    (function(){
-      const track = document.querySelector('.gb-track');
-      if (!track) return;
-      const wrap = document.querySelector('.gb-track-wrap');
-      const slides = Array.from(track.querySelectorAll('.gb-slide'));
-      const prevBtn = document.querySelector('.gb-prev');
-      const nextBtn = document.querySelector('.gb-next');
-      const dotsWrap = document.querySelector('.gb-dots');
-      let index = 0;
-      const AUTOPLAY_INTERVAL = 12000;
-      let autoplayTimer = null;
-      let paused = false;
-      let touchStartX = 0;
-      let touchEndX = 0;
-
-      slides.forEach((s,i)=>{
-        const btn = document.createElement('button');
-        btn.className = 'gb-dot';
-        btn.setAttribute('aria-label','Aller au projet ' + (i+1));
-        btn.dataset.index = i;
-        if(i===0) btn.classList.add('active');
-        dotsWrap.appendChild(btn);
-      });
-
-      const dots = Array.from(dotsWrap.children);
-
-      function getSlideWidth(){
-        const firstSlide = slides[0];
-        return firstSlide ? Math.round(firstSlide.getBoundingClientRect().width) : Math.round(wrap.getBoundingClientRect().width);
-      }
-
-      function update(){
-        const slideWidth = getSlideWidth();
-        track.style.transform = 'translate3d(' + (-index * slideWidth) + 'px,0,0)';
-        dots.forEach((d,i)=>d.classList.toggle('active', i===index));
-      }
-
-      function goNext(){
-        index = (index+1) % slides.length;
-        update();
-      }
-      function goPrev(){
-        index = (index-1+slides.length) % slides.length;
-        update();
-      }
-      function goTo(i){
-        index = i;
-        update();
-      }
-      function startAutoplay(){
-        clearInterval(autoplayTimer);
-        autoplayTimer = setInterval(() => {
-          if (!paused) goNext();
-        }, AUTOPLAY_INTERVAL);
-      }
-      function resetAutoplay(){
-        clearInterval(autoplayTimer);
-        startAutoplay();
-      }
-
-      if(nextBtn) nextBtn.addEventListener('click', ()=>{ goNext(); resetAutoplay(); });
-      if(prevBtn) prevBtn.addEventListener('click', ()=>{ goPrev(); resetAutoplay(); });
-
-      dotsWrap.addEventListener('click', e=>{
-        if(e.target.classList.contains('gb-dot')) {
-          goTo(Number(e.target.dataset.index));
-          resetAutoplay();
-        }
-      });
-
-      wrap.addEventListener('mouseenter', () => { paused = true; });
-      wrap.addEventListener('mouseleave', () => { paused = false; });
-
-      wrap.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-      }, {passive:true});
-
-      wrap.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 50) {
-          if (diff > 0) goNext();
-          else goPrev();
-          resetAutoplay();
-        }
-      }, {passive:true});
-
-      window.addEventListener('resize', update);
-      window.addEventListener('load', update);
-      update();
-      startAutoplay();
-    })();
+    countryTimer = setInterval(toggleCountry, 10000);
 
     (function(){
       const electricBand = document.getElementById('electricBand');
@@ -2006,44 +1693,8 @@
     })();
 
     (function(){
-      const p = document.querySelector('.hero-content p');
-      if (!p) return;
-
-      function applyMobileSize(){
-        if (window.innerWidth <= 480) {
-          p.style.whiteSpace = 'normal';
-          p.style.display = '';
-          p.style.fontSize = '15px';
-          p.style.lineHeight = '1.45';
-          p.style.overflow = 'visible';
-          p.style.textOverflow = 'clip';
-          p.style.transform = '';
-        } else {
-          p.style.whiteSpace = '';
-          p.style.display = '';
-          p.style.fontSize = '';
-          p.style.lineHeight = '';
-          p.style.overflow = '';
-          p.style.textOverflow = '';
-          p.style.transform = '';
-        }
-      }
-
-      window.addEventListener('load', applyMobileSize);
-      let to;
-      window.addEventListener('resize', function(){
-        clearTimeout(to);
-        to = setTimeout(applyMobileSize, 80);
-      });
-      window.addEventListener('orientationchange', function(){
-        setTimeout(applyMobileSize, 120);
-      });
-      applyMobileSize();
-    })();
-
-    (function(){
-      const raw = window.location.pathname.split('/').pop().toLowerCase();
-      const path = raw || 'greenbrigde technologies.html';
+      const path = window.location.pathname.split('/').pop().toLowerCase();
+      const current = path || 'etude_dimensionnement_2.html';
       const mapping = {
         'greenbrigde technologies.html':'a[href="GreenBrigde technologies.html"]',
         'etude_dimensionnement_2.html':'a[href="etude_dimensionnement_2.html"]',
@@ -2058,8 +1709,9 @@
         'zone_agricole.html':'a[href="zone_agricole.html"]'
       };
 
-      const sel = mapping[path];
+      const sel = mapping[current];
       if(!sel) return;
+
       const el = document.querySelector(sel);
       if(!el) return;
 
@@ -2068,18 +1720,31 @@
       const inDropdown = el.closest('.dropdown-content');
       if(inDropdown){
         const dropdown = el.closest('.dropdown');
-        const parentLink = dropdown && dropdown.querySelector('a[href="produits.html"], a[href="etude_dimensionnement_2.html"], a[data-current]');
+        const parentLink = dropdown && dropdown.querySelector('a[href="etude_dimensionnement_2.html"], a[data-current]');
         if(parentLink){
           parentLink.classList.add('active');
+          const subBadge = parentLink.querySelector('.sub-badge');
+          if(subBadge){
+            subBadge.style.background = 'rgba(255,214,0,0.08)';
+            subBadge.style.boxShadow = '0 6px 18px rgba(0,0,0,0.32)';
+          }
         }
         el.classList.add('active-item');
       }
 
-      const mobileLinks = document.querySelectorAll('.mobile-nav a');
-      mobileLinks.forEach(a=>{
+      document.querySelectorAll('.mobile-nav a').forEach(a=>{
         try{
           if(a.getAttribute('href') === el.getAttribute('href')){
             a.classList.add('active');
+            const parentSub = a.closest('.submenu');
+            if(parentSub){
+              parentSub.style.display = 'flex';
+              const toggle = parentSub.previousElementSibling;
+              if(toggle && toggle.classList.contains('mobile-link')){
+                toggle.classList.add('active');
+                toggle.setAttribute('aria-expanded','true');
+              }
+            }
           }
         }catch(e){}
       });
