@@ -1653,9 +1653,6 @@
     const mobilePhoneLink = document.getElementById('mobilePhoneLink');
     const footerPhoneText = document.getElementById('footerPhoneText');
 
-    let activeCountry = 'abidjan';
-    let countryTimer = null;
-
     function updatePhone(country){
       const info = contactNumbers[country] || contactNumbers.abidjan;
 
@@ -1669,11 +1666,6 @@
       if (footerPhoneText) footerPhoneText.textContent = info.display;
     }
 
-    function toggleCountry(){
-      activeCountry = activeCountry === 'abidjan' ? 'dakar' : 'abidjan';
-      updatePhone(activeCountry);
-    }
-
     function openMenu(){
       if (!mobileNav || !burgerBtn) return;
       mobileNav.classList.add('open');
@@ -1682,13 +1674,6 @@
       mobileNav.setAttribute('aria-hidden', 'false');
       burgerBtn.setAttribute('aria-expanded', 'true');
       document.body.classList.add('menu-open');
-
-      const activeSub = document.getElementById('mobileProduitsSub');
-      const activeToggle = document.getElementById('mobileProduitsToggle');
-      if(window.innerWidth <= 1100 && activeSub){
-        activeSub.style.display = 'flex';
-        if(activeToggle) activeToggle.setAttribute('aria-expanded','true');
-      }
     }
 
     function closeMenu(){
@@ -1755,8 +1740,10 @@
     }
 
     updatePhone('abidjan');
-    clearInterval(countryTimer);
-    countryTimer = setInterval(toggleCountry, 10000);
+    setInterval(() => {
+      updatePhone('dakar');
+      setTimeout(() => updatePhone('abidjan'), 5000);
+    }, 10000);
 
     let aboutImgs = document.querySelectorAll('.about-slider img');
     let cur = 0;
@@ -2082,26 +2069,6 @@
           }
         }catch(e){}
       });
-
-      const pathLower = path;
-      const etudePages = ['zone_urbaine.html','zone_agricole.html'];
-      const produitPages = ['panneaux.html','batteries.html','onduleurs.html','groupes.html','produits.html'];
-
-      const mobileEtudeSub = document.getElementById('mobileEtudeSub');
-      const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
-      const mobileProduitsSub = document.getElementById('mobileProduitsSub');
-      const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
-
-      if(window.innerWidth <= 1100){
-        if(etudePages.includes(pathLower)){
-          if(mobileEtudeSub) mobileEtudeSub.style.display = 'flex';
-          if(mobileEtudeToggle) mobileEtudeToggle.setAttribute('aria-expanded','true');
-        }
-        if(produitPages.includes(pathLower)){
-          if(mobileProduitsSub) mobileProduitsSub.style.display = 'flex';
-          if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
-        }
-      }
     })();
   </script>
 </body>
