@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenBridge Technologies - Panneaux Solaires</title>
-
+  <title>GreenBridge Technologies — Maintenance</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root{
-      --topbar-h:50px;
-      --header-h:82px;
+      --topbar-h:48px;
+      --header-h:72px;
       --green-dark:#061f14;
       --green-mid:#073217;
       --green-mid-2:#0b4d26;
@@ -23,6 +21,9 @@
       --muted-text-color:#e6f7ea;
       --muted-text-size:15px;
       --electric-yellow:#ffd600;
+      --card-bg:#061f14;
+      --form-bg:rgba(6,31,20,0.92);
+      --line:rgba(212,175,55,0.14);
     }
 
     *{box-sizing:border-box}
@@ -35,41 +36,35 @@
       scroll-behavior:smooth;
       overflow-x:hidden;
     }
-    body.menu-open{overflow:hidden}
     a{color:inherit;text-decoration:none}
-    button,input,textarea,select{font:inherit}
+    img{max-width:100%;display:block}
+    body.menu-open{overflow:hidden}
 
     .topbar{
       position:fixed;
-      top:0; left:0; right:0;
+      top:0;
+      left:0;
+      right:0;
       height:var(--topbar-h);
       background:var(--green-dark);
       display:flex;
       align-items:center;
-      justify-content:flex-end;
-      gap:14px;
+      justify-content:space-between;
+      gap:20px;
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
+      border-bottom:1px solid rgba(255,255,255,.04);
     }
-    .topbar .right{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-    .topbar a{
-      color:#fff;
-      transition:color .18s;
-      white-space:nowrap;
-      font-weight:700;
-    }
+    .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
+    .topbar a{color:#fff;transition:color .18s}
     .topbar a:hover{color:var(--accent-2)}
 
     header{
       position:fixed;
       top:var(--topbar-h);
-      left:0; right:0;
+      left:0;
+      right:0;
       height:var(--header-h);
       background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
       display:flex;
@@ -80,59 +75,22 @@
       box-shadow:0 4px 12px rgba(0,0,0,.25);
     }
 
-    .logo-text{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-    .logo-text img{
-      height:64px;
-      display:block;
-      flex:0 0 auto;
-    }
-    .brand-stack{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      line-height:1;
-      text-align:center;
-      min-width:0;
-    }
+    .logo-text{display:flex;align-items:flex-start;gap:12px}
+    .logo-text img{height:56px;display:block;flex:0 0 auto}
+    .brand-stack{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;line-height:1;text-align:left;min-width:0;margin:0;padding:0}
     .company-name{
-      font-size:40px;
-      font-weight:800;
-      letter-spacing:.6px;
-      margin:0;
-      color:#04462e;
-      -webkit-text-stroke:0.95px var(--gold-base);
-      text-shadow:0 3px 6px rgba(0,0,0,0.6);
-      white-space:nowrap;
-      line-height:1;
+      font-size:34px;font-weight:800;letter-spacing:1px;padding:0;margin:0;border-radius:8px;
+      color:#04462e;-webkit-text-stroke:0.95px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      position:relative;top:2px;white-space:nowrap;line-height:1;text-align:left;width:max-content;display:block;
     }
     .company-tagline{
-      font-size:17px;
-      font-weight:700;
-      letter-spacing:4px;
-      text-transform:uppercase;
-      color:#dfffe6;
-      margin:3px 0 0 0;
-      text-shadow:0 2px 6px rgba(0,0,0,0.45);
-      -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
-      white-space:nowrap;
-      line-height:1;
+      font-size:14px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:#dfffe6;
+      padding:0;margin:2px 0 0 0;text-shadow:0 2px 6px rgba(0,0,0,0.45);-webkit-text-stroke:0.4px rgba(212,175,55,0.55);
+      white-space:nowrap;line-height:1;text-align:left;width:max-content;display:block;
     }
 
     nav{display:flex;gap:18px;align-items:center}
-    nav a{
-      color:#fff;
-      font-size:17px;
-      font-weight:600;
-      padding:8px 10px;
-      border-radius:8px;
-      transition:all .18s;
-    }
+    nav a{color:#fff;font-size:15px;font-weight:600;padding:8px 10px;border-radius:8px;transition:all .18s}
     nav a:hover{color:var(--accent-2)}
     nav a.active{
       color:var(--accent-2);
@@ -140,116 +98,59 @@
       border:1px solid rgba(212,175,55,0.12);
       padding:10px 14px;
       font-weight:800;
-      border-radius:10px;
-    }
-
-    .dropdown{position:relative}
-    .dropdown > a{display:flex;gap:8px;align-items:center;cursor:pointer}
-    .dropdown > a::after{
-      content:"\25BC";
-      font-size:12px;
-      transition:transform .2s;
-      opacity:1;
-      color:var(--accent-2);
-    }
-    .dropdown[aria-expanded="true"] > a::after{transform:rotate(180deg)}
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:calc(100% + 8px);
-      left:0;
-      background:rgba(0,0,0,0.88);
-      padding:8px 0;
-      border-radius:12px;
-      box-shadow:0 10px 30px rgba(0,0,0,.5);
-      min-width:260px;
-      z-index:2000;
-      border:1px solid rgba(255,255,255,0.06);
-    }
-    .dropdown-content li{list-style:none}
-    .dropdown-content a{
-      display:block;
-      padding:10px 16px;
-      color:#fff;
-      font-weight:600;
-      border-radius:8px;
-    }
-    .dropdown-content a:hover{
-      background:rgba(168,230,161,0.12);
-      color:var(--accent-2);
-      padding-left:22px;
-    }
-    .dropdown-content .active-item{
-      color:var(--accent-2);
-      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
-      border:1px solid rgba(212,175,55,0.12);
-      padding:10px 16px;
-      font-weight:800;
-      border-radius:8px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.28);
-      margin:4px 8px;
+      border-radius:10px
     }
 
     .burger{
       display:none;
-      width:52px;
-      height:52px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.12);
-      background:rgba(255,255,255,0.05);
+      width:44px;
+      height:44px;
+      border-radius:8px;
+      border:none;
+      background:transparent;
       align-items:center;
       justify-content:center;
-      cursor:pointer;
-      box-shadow:0 6px 18px rgba(0,0,0,.18);
-      -webkit-tap-highlight-color:transparent;
-      touch-action:manipulation;
+      cursor:pointer
     }
-    .burger .icon{
-      display:block;
-      position:relative;
-      width:28px;
-      height:20px;
-    }
+    .burger .icon{display:block;position:relative;width:26px;height:18px}
     .burger .icon span{
       position:absolute;
-      left:0; right:0;
+      left:0;
+      right:0;
       height:3px;
       background:#fff;
       border-radius:2px;
-      transition:all .25s;
+      transition:all .25s
     }
     .burger .icon span:nth-child(1){top:0}
-    .burger .icon span:nth-child(2){top:8.5px}
-    .burger .icon span:nth-child(3){top:17px}
-    .burger.open .icon span:nth-child(1){transform: translateY(8.5px) rotate(45deg)}
+    .burger .icon span:nth-child(2){top:7.5px}
+    .burger .icon span:nth-child(3){top:15px}
+    .burger.open .icon span:nth-child(1){transform: translateY(7.5px) rotate(45deg)}
     .burger.open .icon span:nth-child(2){opacity:0}
-    .burger.open .icon span:nth-child(3){transform: translateY(-8.5px) rotate(-45deg)}
+    .burger.open .icon span:nth-child(3){transform: translateY(-7.5px) rotate(-45deg)}
 
     .mobile-nav{
       display:none;
       position:fixed;
-      top:calc(var(--topbar-h) + var(--header-h));
+      top:calc(var(--topbar-h)+var(--header-h));
       left:0;
       right:0;
       background:rgba(10,77,46,.98);
       z-index:1480;
       overflow:auto;
-      max-height:0;
       transition:max-height .28s ease;
       box-shadow:0 12px 40px rgba(0,0,0,.45);
+      max-height:0;
       border-top:1px solid rgba(255,255,255,.05);
       backdrop-filter:blur(12px);
     }
-    .mobile-nav.open{
-      display:block;
-      max-height:70vh;
-    }
+    .mobile-nav.open{display:block;max-height:70vh}
     .mobile-nav .inner{
       padding:12px 5vw;
       display:flex;
       flex-direction:column;
       gap:8px;
-      align-items:stretch;
+      align-items:stretch
     }
     .mobile-nav .contact{
       display:flex;
@@ -258,29 +159,23 @@
       padding:8px 12px;
       border-bottom:1px solid rgba(255,255,255,0.04);
       margin-bottom:6px;
-      color:var(--muted-text-color);
+      color:var(--muted-text-color)
     }
     .mobile-nav .contact strong{
       color:#fff;
       font-size:15px;
-      letter-spacing:1px;
+      letter-spacing:1px
     }
     .mobile-nav .contact a{
+      color:#fff;
+      font-weight:700;
       display:inline-flex;
       align-items:center;
       gap:8px;
       width:auto;
       padding:0;
-      border-radius:0;
       background:none;
-      color:#fff;
-      font-weight:700;
-      text-align:left;
-    }
-    .mobile-nav .menu-links{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
+      border-radius:0
     }
     .mobile-nav .mobile-link{
       padding:12px;
@@ -291,15 +186,12 @@
       font-weight:700;
       display:flex;
       justify-content:space-between;
-      align-items:center;
+      align-items:center
     }
-    .mobile-nav .mobile-link:hover{
-      background:rgba(124,179,66,0.06);
-      color:var(--accent-2);
-    }
+    .mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
     .mobile-nav .mobile-link.active{
       background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
-      color:var(--accent-2);
+      color:var(--accent-2)
     }
     .mobile-nav .submenu{
       display:none;
@@ -307,7 +199,7 @@
       gap:6px;
       margin-top:6px;
       margin-bottom:4px;
-      padding-left:0;
+      padding-left:0
     }
     .mobile-nav .submenu a{
       padding:11px 12px 11px 16px;
@@ -316,18 +208,18 @@
       font-weight:600;
       border-radius:8px;
       background:rgba(255,255,255,0.02);
-      color:#fff;
+      color:#fff
     }
     .mobile-nav .submenu a:hover{
       background:rgba(124,179,66,0.08);
       color:var(--accent-2);
-      padding-left:20px;
+      padding-left:20px
     }
     .mobile-nav .submenu a.active-item,
     .mobile-nav .submenu a[aria-current="page"]{
       background:linear-gradient(90deg, rgba(212,175,55,0.08), rgba(212,175,55,0.03));
       color:var(--accent-2);
-      font-weight:800;
+      font-weight:800
     }
     .mobile-nav .socials{
       margin-top:8px;
@@ -337,7 +229,7 @@
       gap:12px;
       align-items:center;
       justify-content:flex-start;
-      flex-wrap:wrap;
+      flex-wrap:wrap
     }
     .mobile-nav .socials a{
       width:40px;
@@ -346,287 +238,90 @@
       border-radius:50%;
       justify-content:center;
       background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.05)
     }
+
+    .hero{
+      margin-top:calc(var(--topbar-h) + var(--header-h));
+      height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      overflow:hidden;
+      background:#0a4d2e
+    }
+    .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 90%;transform:scale(1.07) translateY(24px);filter:brightness(1.02) contrast(1.03) saturate(1.02)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);z-index:1}
+    .hero-content{position:relative;z-index:2;max-width:950px;padding:0 20px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .hero-content h1{font-size:36px;margin:0 0 12px;font-weight:700;text-shadow:0 3px 10px rgba(0,0,0,0.45)}
+    .hero-content p{font-size:18px;margin:0;text-shadow:0 2px 8px rgba(0,0,0,0.45)}
+
+    .section{padding:60px 5vw}
+    .section h2{font-size:32px;margin-bottom:18px;color:var(--accent-2);text-align:center}
+    .section-intro{max-width:1000px;margin:0 auto 24px;color:var(--muted-text-color);text-align:center;font-size:var(--muted-text-size);line-height:1.7;opacity:0.95}
+
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1200px;margin:0 auto}
+    .card{position:relative;background:var(--card-bg);border-radius:16px;overflow:hidden;min-height:420px;box-shadow:0 10px 22px rgba(0,0,0,0.45);border:1px solid rgba(212,175,55,0.85)}
+    .card .image-wrap{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+    .card .image-wrap img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .3s, filter .3s}
+    .card:hover .image-wrap img{transform:scale(1.05);filter:brightness(1.02) contrast(1.03)}
+    .card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);z-index:1}
+    .card-content{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:22px 18px 20px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%)}
+    .card-content h3{margin:0;font-size:18px;line-height:1.15;min-height:42px;display:flex;align-items:center;justify-content:center;color:var(--accent-2);width:100%;text-align:center}
+    .card-content p{margin:0;color:#e6f7ea;font-size:15px;line-height:1.6}
+    .card .btn-card{margin:10px auto 0;padding:10px 18px;border-radius:10px;border:0;background:var(--gold-base);color:#072012;font-weight:800;cursor:pointer;font-size:14px}
+    .card .btn-card:hover{background:var(--gold-hover)}
+
+    .advantages{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+    .advantage{width:260px;background:#072b1b;border-radius:12px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,0.04)}
+    .advantage i{font-size:34px;color:var(--accent);margin-bottom:8px}
+    .advantage h3{color:#dfffe6;margin:6px 0}
+    .advantage p{margin:0;color:#e6f7ea;line-height:1.6;font-size:15px}
+
+    .modal{display:none;position:fixed;z-index:3000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.62);backdrop-filter:blur(8px)}
+    .modal-content{background:linear-gradient(180deg, rgba(6,31,20,.98), rgba(4,18,12,.98));color:#fff;margin:6% auto;padding:18px;border-radius:18px;max-width:560px;position:relative;border:1px solid rgba(212,175,55,.22);box-shadow:0 18px 40px rgba(0,0,0,.5)}
+    .modal-content img{width:100%;height:240px;object-fit:cover;border-radius:12px;margin-bottom:12px;border:1px solid rgba(212,175,55,.16)}
+    .close{position:absolute;right:12px;top:8px;font-size:20px;cursor:pointer;color:var(--gold-hover);font-weight:900}
+    .modal-content h3{margin:0 0 8px;color:var(--accent-2)}
+    .modal-content p{margin:0;color:#eaf9ea;line-height:1.7}
 
     .electric-band{
       position:fixed;
       top:calc(var(--topbar-h) + var(--header-h) - 6px);
-      left:0; right:0;
+      left:0;
+      right:0;
       height:14px;
       z-index:1600;
       pointer-events:none;
       overflow:visible;
-      transform:translateZ(0);
+      transform:translateZ(0)
     }
     .electric-band .container{
       position:absolute;
-      left:0; top:50%;
+      left:0;
+      top:50%;
       transform:translateY(-50%);
       width:100vw;
       max-width:none;
       padding:0;
       height:100%;
       pointer-events:none;
-      box-sizing:border-box;
+      box-sizing:border-box
     }
-    .lightning-svg{
-      width:100vw;
-      height:100%;
-      display:block;
-      pointer-events:none;
-      opacity:0;
-      transition:opacity .22s ease;
-      mix-blend-mode:screen;
-    }
+    .lightning-svg{width:100vw;height:100%;display:block;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:screen}
     .electric-band.connected .lightning-svg{opacity:1}
-    .lightning-svg path.zap{
-      stroke:var(--electric-yellow);
-      stroke-width:2.2;
-      fill:none;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-      opacity:0.98;
-    }
-    .lightning-svg path.bright{
-      stroke:var(--electric-yellow);
-      stroke-width:2.8;
-      fill:none;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-      opacity:1;
-    }
-    .orbs{
-      position:absolute;
-      left:0; top:0;
-      width:100vw;
-      height:100%;
-      pointer-events:none;
-      overflow:visible;
-    }
-    .orb{
-      position:absolute;
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
-      box-shadow:0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
-      transform:translate(-50%,-50%);
-      opacity:0;
-      transition:opacity .18s linear;
-    }
+    .lightning-svg path.zap{stroke:var(--electric-yellow);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0.98}
+    .orbs{position:absolute;left:0;top:0;width:100vw;height:100%;pointer-events:none;overflow:visible}
+    .orb{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));box-shadow:0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);transform:translate(-50%,-50%);opacity:0;transition:opacity .18s linear}
     .electric-band.connected .orb{opacity:1}
     @keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}}
-    .orb.buzz{animation:buzz .9s linear infinite}
-    .glowline{
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
-      height:3px;
-      width:0;
-      background:linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
-      border-radius:8px;
-      box-shadow:0 6px 20px rgba(255,214,0,0.12);
-      opacity:0;
-      transition:opacity .22s ease;
-    }
-    .electric-band.connected .glowline{
-      width:100vw;
-      opacity:1;
-      animation:pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse{
-      0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
-      50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}
-      100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
-    }
-
-    .hero{
-      margin-top:calc(var(--topbar-h) + var(--header-h));
-      height: calc(100vh - (var(--topbar-h) + var(--header-h)));
-      min-height: calc(100vh - (var(--topbar-h) + var(--header-h)));
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      text-align:center;
-      background:#0a4d2e;
-    }
-    .hero-bg{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center 90%;
-      transform:scale(1.07) translateY(24px);
-      filter:brightness(1.02) contrast(1.03) saturate(1.02);
-    }
-    .hero-overlay{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
-      z-index:1;
-    }
-    .hero-content{
-      position:relative;
-      z-index:2;
-      max-width:950px;
-      padding:0 20px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-    }
-    .hero-content h1{
-      font-size:36px;
-      margin:0 0 12px;
-      font-weight:700;
-      text-shadow:0 3px 10px rgba(0,0,0,0.45)
-    }
-    .hero-content p{
-      font-size:18px;
-      margin:0 0 18px;
-      text-shadow:0 2px 8px rgba(0,0,0,0.45)
-    }
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-    .btn-primary,.btn-secondary{
-      padding:14px 26px;
-      border-radius:10px;
-      border:0;
-      font-weight:700;
-      cursor:pointer;
-      font-size:16px;
-    }
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-2);color:#072012}
-    .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
-    .btn-secondary:hover{background:rgba(255,255,255,0.08)}
-
-    .section{padding:60px 5vw}
-    .section h2{
-      font-size:32px;
-      margin:0 0 18px;
-      color:var(--accent-2);
-      text-align:center;
-    }
-    .products-intro,.description{
-      max-width:1000px;
-      margin:0 auto 24px;
-      color:var(--muted-text-color);
-      text-align:center;
-      font-size:var(--muted-text-size);
-      line-height:1.7;
-      opacity:0.95;
-    }
-
-    .grid-4{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:20px;
-      max-width:1200px;
-      margin:0 auto;
-    }
-    .card{
-      position:relative;
-      background:#061f14;
-      border-radius:16px;
-      overflow:hidden;
-      min-height:420px;
-      box-shadow:0 10px 22px rgba(0,0,0,0.45);
-      border:1px solid rgba(212,175,55,0.85);
-    }
-    .card .image-wrap{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      overflow:hidden;
-    }
-    .card .image-wrap img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center;
-      display:block;
-      transition:transform .3s, filter .3s;
-    }
-    .card:hover .image-wrap img{
-      transform:scale(1.05);
-      filter:brightness(1.02) contrast(1.03);
-    }
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);
-      z-index:1;
-    }
-    .card-content{
-      position:absolute;
-      left:0; right:0; bottom:0;
-      z-index:2;
-      padding:22px 18px 20px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:center;
-      text-align:center;
-      background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
-    }
-    .card-content h3{
-      margin:0;
-      font-size:18px;
-      line-height:1.15;
-      min-height:42px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--accent-2);
-      width:100%;
-    }
-    .card-content p{
-      margin:0;
-      color:#e6f7ea;
-      font-size:15px;
-      line-height:1.6;
-    }
-    .price{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
-    .old-price{text-decoration:line-through;color:#b9c7bb;font-size:13px}
-    .new-price{font-weight:800;color:#072012;background:var(--accent-2);padding:6px 8px;border-radius:6px;font-size:15px}
-    .btn-card{
-      margin:10px auto 0;
-      padding:10px 18px;
-      border-radius:10px;
-      border:0;
-      background:var(--gold-base);
-      color:#072012;
-      font-weight:800;
-      cursor:pointer;
-      font-size:14px;
-    }
-    .btn-card:hover{background:var(--gold-hover)}
-
-    .advantages{
-      display:flex;
-      gap:18px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top:8px;
-    }
-    .advantage{
-      width:260px;
-      background:#072b1b;
-      border-radius:12px;
-      padding:18px;
-      text-align:center;
-      border:1px solid rgba(255,255,255,0.05);
-    }
-    .advantage i{font-size:34px;color:var(--accent);margin-bottom:8px}
-    .advantage h3{color:#dfffe6;margin:6px 0}
-    .advantage p{color:#e6f7ea;line-height:1.6;margin:0}
+    .orb.buzz{animation:buzz 0.9s linear infinite}
+    .glowline{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:3px;width:0;background:linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));border-radius:8px;box-shadow:0 6px 20px rgba(255,214,0,0.12);opacity:0;transition:opacity .22s ease}
+    .electric-band.connected .glowline{width:100vw;opacity:1;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}}
 
     #devis form{
       max-width:520px;
@@ -672,7 +367,9 @@
     footer::before{
       content:"";
       position:absolute;
-      left:0; right:0; top:0;
+      left:0;
+      right:0;
+      top:0;
       height:2px;
       background:var(--gold-base)
     }
@@ -691,120 +388,491 @@
     }
     .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
-    .modal{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index:3000;
-      background:rgba(0,0,0,0.65);
-      padding:24px;
-      align-items:center;
+    .zones-cards{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      justify-content:center;
+      max-width:1100px;
+      margin:0 auto
+    }
+    .zone-card{
+      position:relative;
+      width:48%;
+      max-width:460px;
+      min-width:260px;
+      height:220px;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(212,175,55,0.85);
+      box-shadow:0 8px 16px rgba(0,0,0,0.40);
+      background:#061f14;
+      cursor:pointer;
+      transition:transform .20s,box-shadow .20s;
+      display:flex;
+      align-items:flex-end;
       justify-content:center;
     }
-    .modal.open{display:flex}
-    .modal-card{
-      width:min(560px, 100%);
-      background:#fff;
-      color:#072012;
-      border-radius:16px;
-      overflow:hidden;
-      box-shadow:0 20px 60px rgba(0,0,0,0.45);
-      position:relative;
-    }
-    .modal-close{
+    .zone-card:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(0,0,0,0.50)}
+    .zone-card img{
       position:absolute;
-      right:12px;
-      top:10px;
-      border:0;
-      background:transparent;
-      font-size:26px;
-      cursor:pointer;
-      color:#072012;
-      z-index:1;
-    }
-    .modal-card img{
+      inset:0;
       width:100%;
-      height:260px;
-      object-fit:contain;
-      background:#f7f7f7;
-      display:block;
+      height:100%;
+      object-fit:cover;
+      filter:brightness(0.92) contrast(0.98) saturate(0.96)
     }
-    .modal-body{padding:16px 18px 20px;text-align:center}
-    .modal-body h3{margin:0 0 8px;font-size:22px}
-    .modal-body p{margin:0;color:#243c2e;line-height:1.6}
+    .zone-card .overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.6) 100%);
+      z-index:1;
+      border-radius:12px
+    }
+    .zone-card h3{
+      position:relative;
+      z-index:2;
+      margin:0;
+      padding:10px 14px;
+      background:rgba(0,0,0,0.35);
+      border-radius:8px;
+      bottom:14px;
+      font-size:20px;
+      color:var(--accent-2);
+      font-weight:900;
+      border:1px solid rgba(212,175,55,0.08);
+      text-align:center
+    }
+
+    .gb-carousel{
+      position:relative;
+      max-width:1240px;
+      margin:0 auto;
+      padding-top:8px;
+    }
+    .gb-carousel-intro{
+      max-width:1000px;
+      margin:0 auto 24px;
+      color:var(--muted-text-color);
+      text-align:center;
+      font-size:var(--muted-text-size);
+      line-height:1.6;
+      opacity:0.95;
+    }
+    .gb-track-wrap{
+      overflow:hidden;
+      border-radius:26px;
+      border:1px solid rgba(212,175,55,.28);
+      box-shadow:0 16px 38px rgba(0,0,0,.44);
+      background:linear-gradient(135deg, rgba(3,12,8,.96), rgba(6,31,20,.96));
+    }
+    .gb-track{
+      display:flex;
+      flex-wrap:nowrap;
+      width:100%;
+      margin:0;
+      padding:0;
+      list-style:none;
+      transform:translate3d(0,0,0);
+      transition:transform .75s cubic-bezier(.22,.8,.22,1);
+      will-change:transform;
+    }
+    .gb-slide{
+      flex:0 0 100%;
+      min-width:100%;
+      list-style:none;
+    }
+    .gb-slide-inner{
+      margin:0;
+      display:grid;
+      grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+      min-height:500px;
+      align-items:stretch;
+      background:linear-gradient(135deg, rgba(6,31,20,0.98), rgba(7,50,23,0.96));
+    }
+    .gb-media{
+      padding:26px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: radial-gradient(circle at center, rgba(168,230,161,0.08), rgba(0,0,0,0) 60%), linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
+    }
+    .gb-media-frame{
+      width:100%;
+      height:100%;
+      min-height:420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:22px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+      padding:18px;
+    }
+    .gb-media-frame img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      object-position:center center;
+      display:block;
+      filter:drop-shadow(0 14px 24px rgba(0,0,0,0.35));
+    }
+    .gb-desc{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      gap:14px;
+      padding:34px 30px;
+      border-left:1px solid rgba(212,175,55,0.12);
+    }
+    .gb-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(168,230,161,0.10);
+      border:1px solid rgba(168,230,161,0.16);
+      color:#dfffe6;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+    }
+    .gb-release{
+      display:inline-block;
+      margin-left:6px;
+      padding:3px 10px;
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--release-orange), var(--release-orange-2));
+      color:#1b0d00;
+      font-weight:900;
+      letter-spacing:.3px;
+      box-shadow:0 8px 18px rgba(255,122,24,0.28);
+      border:1px solid rgba(255,255,255,0.18);
+      text-transform:none;
+    }
+    .gb-desc h3{
+      margin:0;
+      font-size:clamp(22px, 2.2vw, 30px);
+      color:var(--accent-2);
+      line-height:1.2;
+      max-width:95%;
+      text-wrap:balance;
+    }
+    .gb-summary{
+      margin:0;
+      color:#edf9ec;
+      line-height:1.75;
+      font-size:15px;
+      max-width:92%;
+    }
+    .gb-highlights{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      width:100%;
+      max-width:460px;
+      margin-top:4px;
+    }
+    .gb-highlight{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(212,175,55,0.14);
+      border-radius:14px;
+      padding:12px 14px;
+      text-align:left;
+      min-height:72px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .gb-highlight strong{
+      display:block;
+      color:var(--accent-2);
+      font-size:12px;
+      letter-spacing:.3px;
+      margin-bottom:4px;
+      text-transform:uppercase;
+    }
+    .gb-highlight span{
+      color:#eaf9ea;
+      font-size:13px;
+      line-height:1.45;
+    }
+    .gb-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:48px;
+      height:48px;
+      border:none;
+      border-radius:50%;
+      cursor:pointer;
+      z-index:3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      font-weight:700;
+      color:#061f14;
+      background:rgba(212,175,55,0.95);
+      box-shadow:0 8px 18px rgba(0,0,0,0.25);
+      transition:transform .18s, background .18s, opacity .18s;
+    }
+    .gb-btn:hover{
+      background:var(--gold-hover);
+      transform:translateY(-50%) scale(1.04);
+    }
+    .gb-prev{left:14px}
+    .gb-next{right:14px}
+    .gb-dots{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .gb-dot{
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      background:rgba(255,255,255,0.38);
+      transition:all .22s ease;
+      padding:0;
+    }
+    .gb-dot.active{
+      width:34px;
+      background:var(--gold-base);
+      box-shadow:0 0 0 4px rgba(212,175,55,0.10);
+    }
 
     @media (max-width:1100px){
       .grid-4{grid-template-columns:repeat(2,1fr)}
-      nav{display:none}
-      .burger{display:flex}
+      .advantages{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .gb-slide-inner{grid-template-columns:1fr}
+      .gb-desc{
+        border-left:none;
+        border-top:1px solid rgba(212,175,55,0.12);
+      }
+      .gb-media-frame{min-height:320px}
     }
 
     @media (max-width:820px){
-      :root{--topbar-h:42px;--header-h:76px}
-      .topbar{padding:0 4vw;font-size:12px;gap:8px}
-      .logo-text{gap:8px;align-items:center}
-      .logo-text img{height:52px}
-      .company-name{font-size:34px;letter-spacing:.2px}
-      .company-tagline{font-size:13px;letter-spacing:3px}
-      .hero{height:auto;min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
-      .hero-bg{object-position:center center;transform:scale(1.12) translateY(0)}
-      .hero-content{max-width:88vw;padding:24px 14px}
-      .hero-content h1{font-size:clamp(24px, 5.2vw, 34px)}
-      .hero-content p{font-size:16px}
-      .section{padding:52px 4vw}
-      .grid-4{grid-template-columns:1fr;gap:18px}
-      .card{min-height:360px}
-      .card-content{padding:18px}
-      .card-content p{font-size:14px}
-      .advantage{width:100%;max-width:420px}
-      .advantages{flex-direction:column;align-items:center}
-      #devis form{padding:16px}
+      nav{display:none}
+      .burger{display:flex}
+      .hero-content{ max-width:86vw; }
+      .grid-4{
+        grid-template-columns:1fr;
+        gap:20px
+      }
+      .card{
+        min-height:auto;
+        text-align:center
+      }
+      .card .image-wrap{
+        height:220px;
+        display:flex;
+        justify-content:center;
+        align-items:center
+      }
+      .card-content{
+        padding:18px;
+        text-align:center;
+        align-items:center
+      }
+      .card-content .card-desc{
+        font-size:16px;
+        line-height:1.5
+      }
+      .card .btn-card{
+        margin:12px auto 0;
+        font-size:15px;
+        padding:10px 20px
+      }
+      .hero{background-size:cover}
+      .company-name{font-size:30px}
       .mobile-nav.open{max-height:85vh}
       .mobile-nav .inner{padding-bottom:20px}
+      .gb-desc{padding:24px 18px}
+      .gb-desc h3{font-size:22px}
+      .gb-summary{font-size:14px}
+      .gb-media-frame{min-height:280px}
+      .gb-btn{width:42px;height:42px;font-size:24px}
+    }
+
+    @media (max-width:768px){
+      .company-name{font-size:26px}
+      .topbar .right{gap:10px;font-size:13px}
+      .card .image-wrap{height:200px}
+      .card-content{padding:16px 12px 18px}
+      .hero-content h1 { font-size:28px; }
+      .hero-content p { font-size:14px; }
+      .zone-card{ width:100%; min-width:0; max-width:none; height:200px }
+      .zone-card h3{ font-size:18px; bottom:10px; padding:8px 12px }
     }
 
     @media (max-width:480px){
-      :root{--topbar-h:40px;--header-h:72px}
-      .topbar{font-size:11px;padding:0 3.5vw}
-      .topbar .right{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;justify-content:flex-end}
-      .logo-text img{height:44px}
-      .company-name{font-size:26px;letter-spacing:.1px}
-      .company-tagline{font-size:10px;letter-spacing:2px}
-      .burger{width:48px;height:48px}
-      .hero-bg{object-position:center 28%;transform:scale(1.18) translateY(0)}
-      .hero-content{max-width:92vw;padding:18px 12px}
-      .hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px}
-      .hero-content p{font-size:15px;line-height:1.45}
-      .btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}
-      .section h2{font-size:26px}
-      .card{min-height:330px}
-      .card-content{padding:14px 12px 16px}
-      .card-content h3{font-size:17px;min-height:auto}
-      .card-content p{font-size:13px;line-height:1.5}
-      .modal-card img{height:220px}
-      .modal-body h3{font-size:20px}
-      .electric-band{top:calc(var(--topbar-h) + var(--header-h) - 4px);height:12px}
-      .electric-band .container{width:100%;left:0;padding:0 4vw;box-sizing:border-box}
-      .glowline{width:86%;max-width:86%}
-      .mobile-nav .mobile-link{font-size:16px;padding:12px}
-      .mobile-nav .submenu a{font-size:14px}
+      .hero-content{
+        top:25vh;
+        max-width:92vw;
+        padding:0 12px;
+      }
+      .hero-content h1{
+        font-size:28px;
+        font-weight:700;
+        margin:0 0 8px;
+        white-space:nowrap;
+        overflow-x:hidden;
+        text-overflow:ellipsis;
+      }
+      .hero-content p{
+        white-space:nowrap;
+        display:inline-block;
+        font-size:16px;
+        line-height:1;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        max-width:100%;
+      }
+      .btn-primary{
+        padding:12px 28px;
+        font-size:15px;
+      }
+
+      .mobile-nav .mobile-link{
+        font-size:16px;
+        padding:12px;
+      }
+      .mobile-nav .submenu a{
+        font-size:14px;
+      }
+    }
+
+    .electric-band {
+      position: fixed;
+      top: calc(var(--topbar-h) + var(--header-h) - 6px);
+      left: 0;
+      right: 0;
+      height: 14px;
+      z-index: 1600;
+      pointer-events: none;
+      overflow: visible;
+      transform: translateZ(0);
+    }
+    .electric-band .container {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100vw;
+      max-width: none;
+      padding: 0;
+      height: 100%;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+    .lightning-svg {
+      width: 100vw;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .22s ease;
+      mix-blend-mode: screen;
+    }
+    .electric-band.connected .lightning-svg { opacity: 1; }
+    .lightning-svg path.zap {
+      stroke: var(--electric-yellow);
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.98;
+    }
+    .orbs {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .orb {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
+      box-shadow: 0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
+      transform: translate(-50%,-50%);
+      opacity: 0;
+      transition: opacity .18s linear;
+    }
+    .electric-band.connected .orb { opacity:1; }
+    @keyframes buzz {
+      0% { transform: translate(-50%,-50%) translateX(-2px); }
+      50% { transform: translate(-50%,-50%) translateX(2px); }
+      100% { transform: translate(-50%,-50%) translateX(-2px); }
+    }
+    .orb.buzz { animation: buzz 0.9s linear infinite; }
+    .glowline {
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      height:3px;
+      width:0;
+      background: linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
+      border-radius:8px;
+      box-shadow: 0 6px 20px rgba(255,214,0,0.12);
+      opacity:0;
+      transition:opacity .22s ease;
+    }
+    .electric-band.connected .glowline {
+      width:100vw;
+      opacity:1;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
+      50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 }
+      100%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
+    }
+    @media (max-width:820px){
+      .electric-band .container {
+        width:100%;
+        left:0;
+        padding:0 4vw;
+        box-sizing:border-box;
+      }
+      .glowline {
+        width:86%;
+        max-width:86%;
+      }
     }
   </style>
 </head>
-
 <body>
-  <div class="topbar" role="banner">
+
+  <div class="topbar" role="banner" aria-hidden="false">
+    <div class="left">
+      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
+    </div>
     <div class="right">
-      <a href="tel:+22507070707" id="topPhoneLink">
-        <i class="fas fa-phone" aria-hidden="true"></i>
-        <span id="topPhoneText">+225 07 07 07 07 07</span>
-      </a>
+      <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
     </div>
   </div>
 
-  <header role="navigation" aria-label="Main">
+  <header>
     <div class="logo-text">
-      <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
+      <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
       <div class="brand-stack">
         <div class="company-name">GREENBRIDGE</div>
         <div class="company-tagline">TECHNOLOGIES</div>
@@ -812,28 +880,14 @@
     </div>
 
     <nav aria-label="Menu principal">
-      <a href="Code1.html">Accueil</a>
-
-      <div class="dropdown" aria-haspopup="true" aria-expanded="false">
-        <a href="produits.html" data-current="⚡ Panneaux solaires" id="produitsLink" aria-controls="dropdownContent">
-          Nos Produits
-        </a>
-        <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="dropdownContent">
-          <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
-          <li><a href="zone_agricole.html" role="menuitem">🚜 Zone Agricole</a></li>
-          <li><a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a></li>
-          <li><a href="batteries.html">🔋 Batteries & stockage</a></li>
-          <li><a href="onduleurs.html">🔌 Onduleurs</a></li>
-          <li><a href="groupes.html">⚙️ Groupes électrogènes</a></li>
-        </ul>
-      </div>
-
-      <a href="domotique.html">Domotique</a>
-      <a href="securite.html">Sécurité</a>
-      <a href="maintenance.html">Maintenance</a>
+      <a href="GreenBrigde technologies.html">Accueil</a>
+      <a href="etude_dimensionnement_2.html">Étude</a>
+      <a href="produits.html">Nos Produits</a>
+      <a href="projets.html">Projets futurs</a>
+      <a href="maintenance.html" class="active">Maintenance</a>
     </nav>
 
-    <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
+    <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
       <span class="icon"><span></span><span></span><span></span></span>
     </button>
   </header>
@@ -843,15 +897,13 @@
       <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
         <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
         <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
-        <path class="bright" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
+        <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
       </svg>
-
       <div class="orbs" id="orbs">
         <div class="orb" id="orbA"></div>
         <div class="orb" id="orbB"></div>
         <div class="orb" id="orbC"></div>
       </div>
-
       <div class="glowline" id="glowline"></div>
     </div>
   </div>
@@ -864,36 +916,34 @@
         <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
       </div>
 
-      <div class="menu-links">
-        <a href="Code1.html" class="mobile-link">Accueil</a>
+      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
 
-        <div>
-          <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
-            Étude
-            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-          </a>
-          <div class="submenu" id="mobileEtudeSub">
-            <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
-            <a href="zone_agricole.html">🚜 Zone Agricole</a>
-          </div>
+      <div>
+        <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
+          Étude
+          <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+        </a>
+        <div class="submenu" id="mobileEtudeSub">
+          <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
+          <a href="zone_agricole.html">🚜 Zone Agricole</a>
         </div>
-
-        <div>
-          <a href="produits.html" id="mobileProduitsToggle" class="mobile-link active" aria-expanded="true">
-            Nos Produits
-            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-          </a>
-          <div class="submenu" id="mobileProduitsSub" style="display:flex;flex-direction:column;">
-            <a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a>
-            <a href="batteries.html">🔋 Batteries & stockage</a>
-            <a href="onduleurs.html">🔌 Onduleurs</a>
-            <a href="groupes.html">⚙️ Groupes électrogènes</a>
-          </div>
-        </div>
-
-        <a href="Projets.html" class="mobile-link">Projets futurs</a>
-        <a href="maintenance.html" class="mobile-link">Maintenance</a>
       </div>
+
+      <div>
+        <a href="produits.html" id="mobileProduitsToggle" class="mobile-link" aria-expanded="false">
+          Nos Produits
+          <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+        </a>
+        <div class="submenu" id="mobileProduitsSub">
+          <a href="panneaux.html">⚡ Panneaux solaires</a>
+          <a href="batteries.html">🔋 Batteries & stockage</a>
+          <a href="onduleurs.html">🔌 Onduleurs</a>
+          <a href="groupes.html">⚙️ Groupes électrogènes</a>
+        </div>
+      </div>
+
+      <a href="projets.html" class="mobile-link">Projets futurs</a>
+      <a href="maintenance.html" class="mobile-link active">Maintenance</a>
 
       <div class="socials">
         <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
@@ -905,164 +955,86 @@
   </div>
 
   <section class="hero" id="top" aria-label="Hero">
-    <img class="hero-bg" src="chantier_solaire.png" alt="Illustration GreenBridge Technologies">
+    <img class="hero-bg" src="maintenance_green.png" alt="Illustration maintenance GreenBridge">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Panneaux Solaires</h1>
-      <p>Produisez votre énergie propre et durable avec nos solutions.</p>
-      <div class="hero-actions">
-        <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
-      </div>
+      <h1>Maintenance & Installation</h1>
+      <p>Des interventions fiables pour garantir la continuité, la sécurité et la performance de vos installations énergétiques et domotiques.</p>
     </div>
   </section>
 
-  <section class="section">
-    <h2><i class="fas fa-solar-panel"></i> Monocristallins</h2>
-    <p class="description">Les panneaux monocristallins offrent le rendement le plus élevé pour les installations où la performance et la compacité sont prioritaires.</p>
-    <div class="grid-4" role="list">
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_mono1.png" alt="Panneau 350W Monocristallin"></div>
-        <div class="card-content">
-          <h3>Panneau 350W</h3>
-          <p>Haute performance pour usage résidentiel.</p>
-          <div class="price"><span class="old-price">120 000 FCFA</span> <span class="new-price">105 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono1.png','Panneau 350W','Rendement optimal, garantie 20 ans.')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_mono2.png" alt="Panneau 500W Monocristallin"></div>
-        <div class="card-content">
-          <h3>Panneau 500W</h3>
-          <p>Excellente efficacité pour installations professionnelles.</p>
-          <div class="price"><span class="old-price">180 000 FCFA</span> <span class="new-price">160 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono2.png','Panneau 500W','Haute puissance')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_mono3.png" alt="Panneau hybride Monocristallin"></div>
-        <div class="card-content">
-          <h3>Panneau hybride</h3>
-          <p>Combine production d’électricité et chauffe-eau solaire.</p>
-          <div class="price"><span class="old-price">250 000 FCFA</span> <span class="new-price">220 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono3.png','Panneau hybride','Solution innovante')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_mono4.png" alt="Panneau haute efficacité"></div>
-        <div class="card-content">
-          <h3>Haute efficacité</h3>
-          <p>Conçu pour maximiser la production en surface réduite.</p>
-          <div class="price"><span class="old-price">210 000 FCFA</span> <span class="new-price">188 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono4.png','Haute efficacité','Idéal pour toitures limitées en surface.')">Détails</button>
-        </div>
-      </article>
-    </div>
-  </section>
+  <section class="section" id="zones" aria-label="Nos activités">
+    <h2>Nos activités</h2>
+    <p class="section-intro">
+      Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pour l’installation, la maintenance préventive, le dépannage et le suivi technique de solutions énergétiques et domotiques.
+    </p>
 
-  <section class="section">
-    <h2><i class="fas fa-solar-panel"></i> Polycristallins</h2>
-    <p class="description">Les panneaux polycristallins offrent un bon rapport qualité/prix pour les projets où l’optimisation budgétaire est importante.</p>
-    <div class="grid-4" role="list">
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_poly1.png" alt="Panneau 250W Polycristallin"></div>
+    <div class="grid-4" role="list" id="prestations">
+      <article class="card" role="listitem" aria-label="Installation panneaux">
+        <div class="image-wrap"><img src="installation_panel.jpg" alt="Installation panneaux solaires"></div>
         <div class="card-content">
-          <h3>Panneau 250W</h3>
-          <p>Solution économique pour petites installations.</p>
-          <div class="price"><span class="old-price">70 000 FCFA</span> <span class="new-price">60 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly1.png','Panneau 250W','Fiable et économique')">Détails</button>
+          <h3>Installation panneaux</h3>
+          <p>Étude, pose, câblage et mise en service avec une intégration propre, durable et sécurisée.</p>
+          <button class="btn-card" onclick="openModal('installation_panel.jpg','Installation panneaux','Conception et pose optimisées : étude, fixation, câblage, protections et mise en service.')">Détails</button>
         </div>
       </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_poly2.png" alt="Panneau 300W Polycristallin"></div>
+
+      <article class="card" role="listitem" aria-label="Maintenance préventive">
+        <div class="image-wrap"><img src="maintenance_visite.jpg" alt="Maintenance préventive"></div>
         <div class="card-content">
-          <h3>Panneau 300W</h3>
-          <p>Polyvalent et performant.</p>
-          <div class="price"><span class="old-price">85 000 FCFA</span> <span class="new-price">75 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly2.png','Panneau 300W','Rapport qualité/prix')">Détails</button>
+          <h3>Maintenance préventive</h3>
+          <p>Contrôles réguliers, nettoyage, vérification des points critiques et suivi de performance.</p>
+          <button class="btn-card" onclick="openModal('maintenance_visite.jpg','Maintenance préventive','Visites planifiées, nettoyage, contrôle visuel, resserrage, tests et rapport de suivi.')">Détails</button>
         </div>
       </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_poly3.png" alt="Panneau 350W Polycristallin"></div>
+
+      <article class="card" role="listitem" aria-label="Maintenance corrective et dépannage">
+        <div class="image-wrap"><img src="depannage_technicien.jpg" alt="Maintenance corrective et dépannage"></div>
         <div class="card-content">
-          <h3>Panneau 350W</h3>
-          <p>Performances stables.</p>
-          <div class="price"><span class="old-price">100 000 FCFA</span> <span class="new-price">88 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly3.png','Panneau 350W','Fiable')">Détails</button>
+          <h3>Maintenance corrective</h3>
+          <p>Diagnostic rapide, réparation, remplacement de pièces et remise en service au plus vite.</p>
+          <button class="btn-card" onclick="openModal('depannage_technicien.jpg','Maintenance corrective & dépannage','Intervention rapide, diagnostic, réparation, remplacement et remise en service.')">Détails</button>
         </div>
       </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_poly4.png" alt="Panneau renforcé Polycristallin"></div>
+
+      <article class="card" role="listitem" aria-label="Contrats de maintenance">
+        <div class="image-wrap"><img src="bureaux_connectes.jpg" alt="Contrats de maintenance"></div>
         <div class="card-content">
-          <h3>Renforcé</h3>
-          <p>Solution robuste pour sites exposés et forte chaleur.</p>
-          <div class="price"><span class="old-price">115 000 FCFA</span> <span class="new-price">99 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly4.png','Renforcé','Bonne tenue dans le temps.')">Détails</button>
+          <h3>Contrats de maintenance</h3>
+          <p>Offres adaptées aux professionnels avec supervision, priorisation des interventions et suivi.</p>
+          <button class="btn-card" onclick="openModal('bureaux_connectes.jpg','Contrats de maintenance','Formules de suivi pour les professionnels : supervision, maintenance planifiée et assistance.')">Détails</button>
         </div>
       </article>
     </div>
   </section>
 
   <section class="section">
-    <h2><i class="fas fa-solar-panel"></i> Film mince (Thin-Film)</h2>
-    <p class="description">Les panneaux à film mince sont légers et flexibles, utiles pour certaines configurations particulières ou toitures complexes.</p>
-    <div class="grid-4" role="list">
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_thin1.png" alt="Panneau Amorphe Thin-Film"></div>
-        <div class="card-content">
-          <h3>Amorphe</h3>
-          <p>Flexibilité et légèreté.</p>
-          <div class="price"><span class="old-price">45 000 FCFA</span> <span class="new-price">40 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin1.png','Amorphe','Adapté aux toitures courbes')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_thin2.png" alt="Panneau CdTe Thin-Film"></div>
-        <div class="card-content">
-          <h3>CdTe</h3>
-          <p>Bon rendement en faible luminosité.</p>
-          <div class="price"><span class="old-price">60 000 FCFA</span> <span class="new-price">52 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin2.png','CdTe','Performance stable')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_thin3.png" alt="Panneau CIGS Thin-Film"></div>
-        <div class="card-content">
-          <h3>CIGS</h3>
-          <p>Haute stabilité et durabilité.</p>
-          <div class="price"><span class="old-price">95 000 FCFA</span> <span class="new-price">82 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin3.png','CIGS','Idéal pour installations professionnelles')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_thin4.png" alt="Panneau léger Thin-Film"></div>
-        <div class="card-content">
-          <h3>Léger</h3>
-          <p>Parfait pour structures sensibles au poids.</p>
-          <div class="price"><span class="old-price">72 000 FCFA</span> <span class="new-price">64 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin4.png','Léger','Adapté aux structures fragiles.')">Détails</button>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Pourquoi nos solutions énergie ?</h2>
+    <h2>Pourquoi choisir GreenBridge ?</h2>
     <div class="advantages" role="list">
-      <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Efficacité</h3><p>Maximisez le rendement et l’économie d’énergie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Fiabilité</h3><p>Installation professionnelle et maintenance garantie</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-globe-africa" aria-hidden="true"></i><h3>Local</h3><p>Expertise adaptée au marché ivoirien</p></div>
-      <div class="advantage" role="listitem"><i class="fas fa-award" aria-hidden="true"></i><h3>5 ans de garantie</h3><p>Tranquillité, suivi et accompagnement sur la durée</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-user-check" aria-hidden="true"></i><h3>Techniciens qualifiés</h3><p>Équipe formée aux bonnes pratiques et à la sécurité.</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-clipboard-check" aria-hidden="true"></i><h3>Processus clairs</h3><p>Interventions planifiées, traçabilité et rapports.</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Sécurité & conformité</h3><p>Travaux réalisés dans le respect des exigences techniques.</p></div>
+      <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Réactivité</h3><p>Dépannage rapide pour réduire l’arrêt de vos équipements.</p></div>
     </div>
   </section>
+
+  <div id="detailModal" class="modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <span class="close" onclick="closeModal()" role="button" aria-label="Fermer">&times;</span>
+      <img id="modalImg" src="" alt="">
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
 
   <section id="devis" class="section">
     <h2>Demandez un devis personnalisé</h2>
-    <form>
+    <form id="devis-form">
       <input type="text" placeholder="Nom complet" required>
       <input type="email" placeholder="Email" required>
       <input type="tel" placeholder="Téléphone" required>
       <select required>
-        <option value="">Type de service</option>
+        <option value="">Type de projet</option>
         <option value="installation">Installation complète</option>
         <option value="maintenance">Maintenance</option>
         <option value="audit">Audit énergétique</option>
@@ -1075,99 +1047,135 @@
   <footer>
     <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
     <div class="footer-contact" aria-label="Coordonnées">
-      <div>© 2025 GreenBridge Technologies. Tous droits réservés.</div>
-      <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
+      <div>© 2025 GreenBridge. Tous droits réservés.</div>
+      <div>Abidjan, Côte d’Ivoire</div>
+      <div>Tel: +225 07 07 07 07 07</div>
     </div>
   </footer>
 
-  <div class="modal" id="productModal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" type="button" onclick="closeModal()" aria-label="Fermer">&times;</button>
-      <img id="modalImg" src="" alt="">
-      <div class="modal-body">
-        <h3 id="modalTitle"></h3>
-        <p id="modalDesc"></p>
-      </div>
-    </div>
-  </div>
-
   <script>
-    const contactNumbers = [
-      '+225 07 07 07 07 07',
-      '+221 77 00 00 00 00'
-    ];
-    const telNumbers = [
-      '+2250707070707',
-      '+2217700000000'
-    ];
-    let phoneIndex = 0;
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
+    const mobileEtudeSub = document.getElementById('mobileEtudeSub');
+    const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
+    const mobileProduitsSub = document.getElementById('mobileProduitsSub');
 
-    function updatePhone(){
-      const phone = contactNumbers[phoneIndex];
-      const tel = telNumbers[phoneIndex];
+    if (burgerBtn && mobileNav) {
+      function openMenu(){
+        mobileNav.classList.add('open');
+        mobileNav.setAttribute('aria-hidden','false');
+        burgerBtn.classList.add('open');
+        burgerBtn.setAttribute('aria-expanded','true');
+        document.body.classList.add('menu-open');
+      }
 
-      const topPhoneLink = document.getElementById('topPhoneLink');
-      const topPhoneText = document.getElementById('topPhoneText');
-      const footerPhoneText = document.getElementById('footerPhoneText');
+      function closeMenu(){
+        mobileNav.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden','true');
+        burgerBtn.classList.remove('open');
+        burgerBtn.setAttribute('aria-expanded','false');
+        document.body.classList.remove('menu-open');
+      }
 
-      if(topPhoneLink) topPhoneLink.href = 'tel:' + tel;
-      if(topPhoneText) topPhoneText.textContent = phone;
-      if(footerPhoneText) footerPhoneText.textContent = phone;
+      burgerBtn.addEventListener('click', () => {
+        const opened = mobileNav.classList.contains('open');
+        if (opened) closeMenu();
+        else openMenu();
+      });
 
-      phoneIndex = (phoneIndex + 1) % contactNumbers.length;
+      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+        if (a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
+        a.addEventListener('click', () => closeMenu());
+      });
+
+      function bindExpandable(toggleEl, subEl){
+        if (!toggleEl || !subEl) return;
+
+        toggleEl.addEventListener('click', function(e){
+          if (e.target.closest('.caret')) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const opening = subEl.style.display !== 'flex';
+            subEl.style.display = opening ? 'flex' : 'none';
+            toggleEl.setAttribute('aria-expanded', String(opening));
+
+            mobileNav.classList.add('open');
+            burgerBtn.classList.add('open');
+            mobileNav.setAttribute('aria-hidden','false');
+            burgerBtn.setAttribute('aria-expanded','true');
+            document.body.classList.add('menu-open');
+          } else {
+            closeMenu();
+          }
+        });
+      }
+
+      bindExpandable(mobileEtudeToggle, mobileEtudeSub);
+      bindExpandable(mobileProduitsToggle, mobileProduitsSub);
+
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      function openActiveSubmenusOnSmall(){
+        const path = window.location.pathname.split('/').pop().toLowerCase();
+        const etudePage = (path === 'zone_urbaine.html' || path === 'zone_agricole.html');
+
+        if (window.innerWidth <= 1100){
+          if (mobileProduitsSub){
+            mobileProduitsSub.style.display = 'flex';
+            if (mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
+          }
+          if (mobileEtudeSub){
+            mobileEtudeSub.style.display = etudePage ? 'flex' : 'none';
+          }
+          if (mobileEtudeToggle){
+            mobileEtudeToggle.setAttribute('aria-expanded', String(etudePage));
+          }
+        } else {
+          if (mobileEtudeSub) mobileEtudeSub.style.display = 'none';
+          if (mobileProduitsSub) mobileProduitsSub.style.display = 'none';
+        }
+      }
+
+      window.addEventListener('resize', openActiveSubmenusOnSmall);
+      openActiveSubmenusOnSmall();
     }
-
-    updatePhone();
-    setInterval(updatePhone, 10000);
 
     function openModal(img, title, desc){
-      const modal = document.getElementById('productModal');
+      const modal = document.getElementById('detailModal');
       document.getElementById('modalImg').src = img;
-      document.getElementById('modalImg').alt = title;
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalDesc').innerText = desc;
-      modal.classList.add('open');
+      modal.style.display = 'flex';
       modal.setAttribute('aria-hidden','false');
     }
+
     function closeModal(){
-      const modal = document.getElementById('productModal');
-      modal.classList.remove('open');
+      const modal = document.getElementById('detailModal');
+      modal.style.display = 'none';
       modal.setAttribute('aria-hidden','true');
     }
-    document.getElementById('productModal').addEventListener('click', function(e){
-      if(e.target === this) closeModal();
+
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('detailModal');
+      if (e.target === modal) closeModal();
     });
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape') closeModal();
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
     });
 
-    document.querySelectorAll('.dropdown').forEach(drop => {
-      let timer;
-      const menu = drop.querySelector('.dropdown-content');
-      const trigger = drop.querySelector('a');
-
-      function open(){ if(menu) menu.style.display = 'block'; drop.setAttribute('aria-expanded','true'); }
-      function close(){ if(menu) menu.style.display = 'none'; drop.setAttribute('aria-expanded','false'); }
-
-      drop.addEventListener('mouseenter', () => { clearTimeout(timer); open(); });
-      drop.addEventListener('mouseleave', () => { timer = setTimeout(()=> close(), 220); });
-
-      trigger.addEventListener('click', function(e){
-        if(window.innerWidth <= 1100){
-          e.preventDefault();
-          if(menu && menu.style.display === 'block'){ close(); } else { open(); }
-          const mobileNav = document.getElementById('mobileNav');
-          const burger = document.getElementById('burgerBtn');
-          if(mobileNav && burger){
-            mobileNav.classList.add('open');
-            burger.classList.add('open');
-            mobileNav.setAttribute('aria-hidden','false');
-            burger.setAttribute('aria-expanded','true');
-            document.body.classList.add('menu-open');
-          }
-        }
+    const form = document.getElementById('devis-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Votre demande a bien été prise en compte.');
+        form.reset();
       });
-    });
+    }
 
     (function(){
       const electricBand = document.getElementById('electricBand');
@@ -1191,15 +1199,16 @@
       });
 
       let t0 = performance.now();
-
       function tick(now){
         const time = (now - t0) / 1000;
         const cont = electricBand.querySelector('.container');
-        if(!cont) { requestAnimationFrame(tick); return; }
+        if(!cont) {
+          requestAnimationFrame(tick);
+          return;
+        }
         const rect = cont.getBoundingClientRect();
         const cx = rect.width / 2;
         const cy = rect.height / 2;
-
         for(let i=0;i<orbs.length;i++){
           const orb = orbs[i];
           if(!orb) continue;
@@ -1227,7 +1236,9 @@
           setTimeout(()=>{
             zapBright.style.transition = 'stroke-dashoffset 380ms ease-out, opacity 160ms';
             zapBright.setAttribute('stroke-dashoffset','0');
-            setTimeout(()=>{ zapBright.setAttribute('stroke-dashoffset', String(len)); }, 320);
+            setTimeout(()=>{
+              zapBright.setAttribute('stroke-dashoffset', String(len));
+            }, 320);
           }, 60);
         }catch(e){
           zapBright.setAttribute('stroke-dasharray','520');
@@ -1296,149 +1307,6 @@
 
       activate();
       window.addEventListener('resize', ()=>{ t0 = performance.now(); });
-    })();
-
-    (function(){
-      const burger = document.getElementById('burgerBtn');
-      const mobileNav = document.getElementById('mobileNav');
-      const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
-      const mobileEtudeSub = document.getElementById('mobileEtudeSub');
-      const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
-      const mobileProduitsSub = document.getElementById('mobileProduitsSub');
-
-      if(!burger || !mobileNav) return;
-
-      function openMenu(){
-        mobileNav.classList.add('open');
-        mobileNav.setAttribute('aria-hidden','false');
-        burger.classList.add('open');
-        burger.setAttribute('aria-expanded','true');
-        document.body.classList.add('menu-open');
-
-        if(window.innerWidth <= 1100 && mobileProduitsSub){
-          mobileProduitsSub.style.display = 'flex';
-          if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
-        }
-      }
-
-      function closeMenu(){
-        mobileNav.classList.remove('open');
-        mobileNav.setAttribute('aria-hidden','true');
-        burger.classList.remove('open');
-        burger.setAttribute('aria-expanded','false');
-        document.body.classList.remove('menu-open');
-      }
-
-      burger.addEventListener('click', ()=>{
-        const opened = mobileNav.classList.contains('open');
-        if(opened) closeMenu();
-        else openMenu();
-      });
-
-      mobileNav.querySelectorAll('.mobile-link').forEach(a=>{
-        if(a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
-        a.addEventListener('click', ()=> closeMenu());
-      });
-
-      function bindExpandable(toggleEl, subEl){
-        if(!toggleEl || !subEl) return;
-        toggleEl.addEventListener('click', function(e){
-          if(e.target.closest('.caret')){
-            e.preventDefault();
-            e.stopPropagation();
-            const opening = subEl.style.display !== 'flex';
-            subEl.style.display = opening ? 'flex' : 'none';
-            toggleEl.setAttribute('aria-expanded', String(opening));
-            mobileNav.classList.add('open');
-            burger.classList.add('open');
-            mobileNav.setAttribute('aria-hidden','false');
-            burger.setAttribute('aria-expanded','true');
-            document.body.classList.add('menu-open');
-          } else {
-            closeMenu();
-          }
-        });
-      }
-
-      bindExpandable(mobileEtudeToggle, mobileEtudeSub);
-      bindExpandable(mobileProduitsToggle, mobileProduitsSub);
-
-      document.addEventListener('keydown', function(e){
-        if(e.key === 'Escape') closeMenu();
-      });
-
-      function openActiveSubmenusOnSmall(){
-        const path = window.location.pathname.split('/').pop().toLowerCase();
-        const etudePage = (path === 'zone_urbaine.html' || path === 'zone_agricole.html');
-
-        if(window.innerWidth <= 1100){
-          if(mobileProduitsSub){
-            mobileProduitsSub.style.display = 'flex';
-            if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
-          }
-          if(mobileEtudeSub){
-            mobileEtudeSub.style.display = etudePage ? 'flex' : 'none';
-          }
-          if(mobileEtudeToggle){
-            mobileEtudeToggle.setAttribute('aria-expanded', String(etudePage));
-          }
-        } else {
-          if(mobileEtudeSub) mobileEtudeSub.style.display = 'none';
-          if(mobileProduitsSub) mobileProduitsSub.style.display = 'none';
-        }
-      }
-
-      window.addEventListener('resize', openActiveSubmenusOnSmall);
-      openActiveSubmenusOnSmall();
-    })();
-
-    (function(){
-      const raw = window.location.pathname.split('/').pop().toLowerCase();
-      const path = raw || 'panneaux.html';
-      const mapping = {
-        'code1.html':'a[href="Code1.html"]',
-        'produits.html':'a[href="produits.html"]',
-        'panneaux.html':'a[href="panneaux.html"]',
-        'batteries.html':'a[href="batteries.html"]',
-        'onduleurs.html':'a[href="onduleurs.html"]',
-        'groupes.html':'a[href="groupes.html"]',
-        'domotique.html':'a[href="domotique.html"]',
-        'securite.html':'a[href="securite.html"]',
-        'maintenance.html':'a[href="maintenance.html"]',
-        'zone_urbaine.html':'a[href="zone_urbaine.html"]',
-        'zone_agricole.html':'a[href="zone_agricole.html"]',
-        'etude_dimensionnement_2.html':'a[href="etude_dimensionnement_2.html"]'
-      };
-
-      const sel = mapping[path];
-      if(!sel) return;
-      const el = document.querySelector(sel);
-      if(!el) return;
-      el.classList.add('active');
-
-      const inDropdown = el.closest('.dropdown-content');
-      if(inDropdown){
-        const dropdown = document.querySelector('.dropdown');
-        const prodLink = dropdown && dropdown.querySelector('a[href="produits.html"], a[data-current]');
-        if(prodLink){ prodLink.classList.add('active'); }
-        el.classList.add('active-item');
-      }
-
-      document.querySelectorAll('.mobile-nav a').forEach(a=>{
-        try{
-          if(a.getAttribute('href') === el.getAttribute('href')){
-            a.classList.add('active');
-            const parentSub = a.closest('.submenu');
-            if(parentSub){
-              parentSub.style.display = 'flex';
-              const toggle = a.closest('.submenu').previousElementSibling;
-              if(toggle && toggle.classList.contains('mobile-link')){
-                toggle.setAttribute('aria-expanded','true');
-              }
-            }
-          }
-        }catch(e){}
-      });
     })();
   </script>
 </body>
