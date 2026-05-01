@@ -1,3 +1,158 @@
+<!-- =========================
+     MENU BURGER COMPLET
+     À remplacer dans ton fichier
+========================= -->
+
+<style>
+  .mobile-nav{
+    display:none;
+    position:fixed;
+    top:calc(var(--topbar-h) + var(--header-h));
+    left:0;
+    right:0;
+    background:rgba(10,77,46,.98);
+    z-index:1480;
+    overflow:auto;
+    max-height:0;
+    transition:max-height .28s ease;
+    box-shadow:0 12px 40px rgba(0,0,0,.45);
+    border-top:1px solid rgba(255,255,255,.05);
+    backdrop-filter:blur(12px);
+  }
+
+  .mobile-nav.open{
+    display:block;
+    max-height:70vh;
+  }
+
+  .mobile-nav .inner{
+    padding:12px 5vw;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    align-items:stretch;
+  }
+
+  .mobile-nav .contact{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    padding:8px 12px;
+    border-bottom:1px solid rgba(255,255,255,.04);
+    margin-bottom:6px;
+    color:var(--muted-text-color);
+  }
+
+  .mobile-nav .contact strong{
+    color:#fff;
+    font-size:15px;
+    letter-spacing:1px;
+  }
+
+  .mobile-nav .contact a{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    width:auto;
+    padding:0;
+    border-radius:0;
+    background:none;
+    color:#fff;
+    font-weight:700;
+    text-align:left;
+  }
+
+  .mobile-nav .menu-links{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .mobile-nav a{
+    padding:12px;
+    color:#fff;
+    width:100%;
+    text-align:left;
+    border-radius:8px;
+    font-weight:700;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+
+  .mobile-nav a:hover{
+    background:rgba(124,179,66,0.06);
+    color:var(--accent-2);
+  }
+
+  .mobile-nav a.active{
+    background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+    color:var(--accent-2);
+  }
+
+  .mobile-nav .submenu{
+    display:none;
+    flex-direction:column;
+    gap:6px;
+    margin-top:6px;
+    margin-bottom:4px;
+    padding-left:0;
+  }
+
+  .mobile-nav .submenu a{
+    padding:11px 12px 11px 16px;
+    font-family:'Poppins',Arial,sans-serif;
+    font-size:14px;
+    font-weight:600;
+    border-radius:8px;
+    background:rgba(255,255,255,0.02);
+  }
+
+  .mobile-nav .submenu a:hover{
+    background:rgba(124,179,66,0.08);
+    color:var(--accent-2);
+    padding-left:20px;
+  }
+
+  .mobile-nav .submenu a.active-item,
+  .mobile-nav .submenu a[aria-current="page"]{
+    background:linear-gradient(90deg, rgba(212,175,55,0.08), rgba(212,175,55,0.03));
+    color:var(--accent-2);
+    font-weight:800;
+  }
+
+  .mobile-nav .socials{
+    margin-top:8px;
+    border-top:1px solid rgba(255,255,255,0.03);
+    padding-top:10px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    justify-content:flex-start;
+    flex-wrap:wrap;
+  }
+
+  .mobile-nav .socials a{
+    width:40px;
+    height:40px;
+    padding:0;
+    border-radius:50%;
+    justify-content:center;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.05);
+  }
+
+  .mobile-nav .socials a:hover{
+    background:rgba(124,179,66,0.10);
+    color:var(--accent-2);
+  }
+
+  @media (max-width:820px){
+    .mobile-nav.open{max-height:85vh}
+    .mobile-nav .inner{padding-bottom:20px}
+  }
+</style>
+
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="inner">
     <div class="contact" aria-hidden="false">
@@ -6,36 +161,38 @@
       <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
     </div>
 
-    <a href="Code1.html" class="mobile-link">Accueil</a>
+    <div class="menu-links">
+      <a href="Code1.html" class="mobile-link">Accueil</a>
 
-    <div>
-      <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
-        Étude
-        <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-      </a>
-      <div class="submenu" id="mobileEtudeSub">
-        <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
-        <a href="zone_agricole.html">🚜 Zone Agricole</a>
+      <div>
+        <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
+          Étude
+          <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+        </a>
+        <div class="submenu" id="mobileEtudeSub">
+          <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
+          <a href="zone_agricole.html">🚜 Zone Agricole</a>
+        </div>
       </div>
+
+      <div>
+        <a href="produits.html" id="mobileProduitsToggle" class="mobile-link active" aria-expanded="true">
+          Nos Produits
+          <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+        </a>
+        <div class="submenu" id="mobileProduitsSub" style="display:flex;flex-direction:column;">
+          <a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a>
+          <a href="batteries.html">🔋 Batteries & stockage</a>
+          <a href="onduleurs.html">🔌 Onduleurs</a>
+          <a href="groupes.html">⚙️ Groupes électrogènes</a>
+        </div>
+      </div>
+
+      <a href="Projets.html" class="mobile-link">Projets futurs</a>
+      <a href="maintenance.html" class="mobile-link">Maintenance</a>
     </div>
 
-    <div>
-      <a href="produits.html" id="mobileProduitsToggle" class="mobile-link active" aria-expanded="true">
-        Nos Produits
-        <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-      </a>
-      <div class="submenu" id="mobileProduitsSub" style="display:flex;flex-direction:column;">
-        <a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a>
-        <a href="batteries.html">🔋 Batteries & stockage</a>
-        <a href="onduleurs.html">🔌 Onduleurs</a>
-        <a href="groupes.html">⚙️ Groupes électrogènes</a>
-      </div>
-    </div>
-
-    <a href="Projets.html" class="mobile-link">Projets futurs</a>
-    <a href="maintenance.html" class="mobile-link">Maintenance</a>
-
-    <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.03);padding-top:10px;display:flex;gap:12px;align-items:center;">
+    <div class="socials">
       <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
       <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
       <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
@@ -43,3 +200,103 @@
     </div>
   </div>
 </div>
+
+<script>
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
+  const mobileEtudeSub = document.getElementById('mobileEtudeSub');
+  const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
+  const mobileProduitsSub = document.getElementById('mobileProduitsSub');
+
+  function openMenu(){
+    if (!mobileNav || !burgerBtn) return;
+    mobileNav.classList.add('open');
+    burgerBtn.classList.add('open');
+    mobileNav.setAttribute('aria-hidden','false');
+    burgerBtn.setAttribute('aria-expanded','true');
+
+    if (window.innerWidth <= 1100 && mobileProduitsSub) {
+      mobileProduitsSub.style.display = 'flex';
+      if (mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
+    }
+  }
+
+  function closeMenu(){
+    if (!mobileNav || !burgerBtn) return;
+    mobileNav.classList.remove('open');
+    burgerBtn.classList.remove('open');
+    mobileNav.setAttribute('aria-hidden','true');
+    burgerBtn.setAttribute('aria-expanded','false');
+  }
+
+  if (burgerBtn && mobileNav) {
+    burgerBtn.addEventListener('click', () => {
+      const opened = mobileNav.classList.contains('open');
+      if (opened) closeMenu();
+      else openMenu();
+    });
+
+    mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+      if (a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
+
+      a.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    function bindExpandable(toggleEl, subEl){
+      if (!toggleEl || !subEl) return;
+
+      toggleEl.addEventListener('click', function(e){
+        if (e.target.closest('.caret')) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const opening = subEl.style.display !== 'flex';
+          subEl.style.display = opening ? 'flex' : 'none';
+          toggleEl.setAttribute('aria-expanded', String(opening));
+
+          mobileNav.classList.add('open');
+          burgerBtn.classList.add('open');
+          mobileNav.setAttribute('aria-hidden','false');
+          burgerBtn.setAttribute('aria-expanded','true');
+        } else {
+          closeMenu();
+        }
+      });
+    }
+
+    bindExpandable(mobileEtudeToggle, mobileEtudeSub);
+    bindExpandable(mobileProduitsToggle, mobileProduitsSub);
+
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    function openActiveSubmenusOnSmall(){
+      const path = window.location.pathname.split('/').pop().toLowerCase();
+
+      if (window.innerWidth <= 1100){
+        if (mobileProduitsSub){
+          mobileProduitsSub.style.display = 'flex';
+          if (mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
+        }
+
+        const etudePage = (path === 'zone_urbaine.html' || path === 'zone_agricole.html');
+        if (mobileEtudeSub){
+          mobileEtudeSub.style.display = etudePage ? 'flex' : 'none';
+        }
+        if (mobileEtudeToggle){
+          mobileEtudeToggle.setAttribute('aria-expanded', String(etudePage));
+        }
+      } else {
+        if (mobileEtudeSub) mobileEtudeSub.style.display = 'none';
+        if (mobileProduitsSub) mobileProduitsSub.style.display = 'none';
+      }
+    }
+
+    window.addEventListener('resize', openActiveSubmenusOnSmall);
+    openActiveSubmenusOnSmall();
+  }
+</script>
