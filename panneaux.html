@@ -3,15 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenBridge Technologies - Panneaux Solaires</title>
-
+  <title>GreenBridge Énergie — Nos Produits</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root{
-      --topbar-h:50px;
-      --header-h:82px;
+      --topbar-h:48px;
+      --header-h:72px;
       --green-dark:#061f14;
       --green-mid:#073217;
       --green-mid-2:#0b4d26;
@@ -23,8 +21,9 @@
       --muted-text-color:#e6f7ea;
       --muted-text-size:15px;
       --electric-yellow:#ffd600;
+      --release-orange:#ff7a18;
+      --release-orange-2:#ffb347;
     }
-
     *{box-sizing:border-box}
     html, body{
       margin:0;
@@ -35,41 +34,33 @@
       scroll-behavior:smooth;
       overflow-x:hidden;
     }
-    body.menu-open{overflow:hidden}
     a{color:inherit;text-decoration:none}
-    button,input,textarea,select{font:inherit}
+    img{max-width:100%;display:block}
 
     .topbar{
       position:fixed;
-      top:0; left:0; right:0;
+      top:0;
+      left:0;
+      right:0;
       height:var(--topbar-h);
       background:var(--green-dark);
       display:flex;
       align-items:center;
-      justify-content:flex-end;
-      gap:14px;
+      justify-content:space-between;
+      gap:20px;
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
     }
-    .topbar .right{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-    .topbar a{
-      color:#fff;
-      transition:color .18s;
-      white-space:nowrap;
-      font-weight:700;
-    }
+    .topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
+    .topbar a{color:#fff;transition:color .18s}
     .topbar a:hover{color:var(--accent-2)}
 
     header{
       position:fixed;
       top:var(--topbar-h);
-      left:0; right:0;
+      left:0;
+      right:0;
       height:var(--header-h);
       background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
       display:flex;
@@ -82,52 +73,67 @@
 
     .logo-text{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       gap:12px;
-      min-width:0;
     }
     .logo-text img{
-      height:64px;
+      height:56px;
       display:block;
       flex:0 0 auto;
     }
+
     .brand-stack{
       display:flex;
       flex-direction:column;
-      align-items:center;
-      justify-content:center;
+      align-items:flex-start;
+      justify-content:flex-start;
       line-height:1;
-      text-align:center;
+      text-align:left;
       min-width:0;
-    }
-    .company-name{
-      font-size:40px;
-      font-weight:800;
-      letter-spacing:.6px;
       margin:0;
+      padding:0;
+    }
+
+    .company-name{
+      font-size:34px;
+      font-weight:800;
+      letter-spacing:1px;
+      padding:0;
+      margin:0;
+      border-radius:8px;
       color:#04462e;
       -webkit-text-stroke:0.95px var(--gold-base);
       text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      position:relative;
+      top:2px;
       white-space:nowrap;
       line-height:1;
+      text-align:left;
+      width:max-content;
+      display:block;
     }
+
     .company-tagline{
-      font-size:17px;
+      font-size:14px;
       font-weight:700;
-      letter-spacing:4px;
+      letter-spacing:5px;
       text-transform:uppercase;
       color:#dfffe6;
-      margin:3px 0 0 0;
+      padding:0;
+      margin:2px 0 0 0;
       text-shadow:0 2px 6px rgba(0,0,0,0.45);
       -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
       white-space:nowrap;
       line-height:1;
+      text-align:left;
+      width:max-content;
+      display:block;
     }
 
     nav{display:flex;gap:18px;align-items:center}
     nav a{
       color:#fff;
-      font-size:17px;
+      font-size:15px;
       font-weight:600;
       padding:8px 10px;
       border-radius:8px;
@@ -141,53 +147,6 @@
       padding:10px 14px;
       font-weight:800;
       border-radius:10px;
-    }
-
-    .dropdown{position:relative}
-    .dropdown > a{display:flex;gap:8px;align-items:center;cursor:pointer}
-    .dropdown > a::after{
-      content:"\25BC";
-      font-size:12px;
-      transition:transform .2s;
-      opacity:1;
-      color:var(--accent-2);
-    }
-    .dropdown[aria-expanded="true"] > a::after{transform:rotate(180deg)}
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:calc(100% + 8px);
-      left:0;
-      background:rgba(0,0,0,0.88);
-      padding:8px 0;
-      border-radius:12px;
-      box-shadow:0 10px 30px rgba(0,0,0,.5);
-      min-width:260px;
-      z-index:2000;
-      border:1px solid rgba(255,255,255,0.06);
-    }
-    .dropdown-content li{list-style:none}
-    .dropdown-content a{
-      display:block;
-      padding:10px 16px;
-      color:#fff;
-      font-weight:600;
-      border-radius:8px;
-    }
-    .dropdown-content a:hover{
-      background:rgba(168,230,161,0.12);
-      color:var(--accent-2);
-      padding-left:22px;
-    }
-    .dropdown-content .active-item{
-      color:var(--accent-2);
-      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
-      border:1px solid rgba(212,175,55,0.12);
-      padding:10px 16px;
-      font-weight:800;
-      border-radius:8px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.28);
-      margin:4px 8px;
     }
 
     .burger{
@@ -204,19 +163,15 @@
       -webkit-tap-highlight-color:transparent;
       touch-action:manipulation;
     }
-    .burger .icon{
-      display:block;
-      position:relative;
-      width:28px;
-      height:20px;
-    }
+    .burger .icon{display:block;position:relative;width:28px;height:20px}
     .burger .icon span{
       position:absolute;
-      left:0; right:0;
+      left:0;
+      right:0;
       height:3px;
       background:#fff;
       border-radius:2px;
-      transition:all .25s;
+      transition:all .25s
     }
     .burger .icon span:nth-child(1){top:0}
     .burger .icon span:nth-child(2){top:8.5px}
@@ -234,26 +189,30 @@
       opacity:0;
       transition:opacity .2s ease;
     }
-    .mobile-backdrop.open{display:block;opacity:1}
+    .mobile-backdrop.open{
+      display:block;
+      opacity:1;
+    }
 
     .mobile-nav{
       display:none;
       position:fixed;
-      top:calc(var(--topbar-h) + var(--header-h));
-      left:0; right:0;
+      top:calc(var(--topbar-h)+var(--header-h));
+      left:0;
+      right:0;
       background:linear-gradient(180deg, rgba(10,77,46,0.98), rgba(6,31,20,0.98));
       z-index:1480;
       overflow:auto;
+      transition:max-height .28s ease, opacity .2s ease, transform .2s ease;
+      box-shadow:0 12px 40px rgba(0,0,0,.45);
       max-height:0;
       opacity:0;
       transform:translateY(-6px);
-      transition:max-height .28s ease, opacity .2s ease, transform .2s ease;
-      box-shadow:0 12px 40px rgba(0,0,0,.45);
       border-top:1px solid rgba(255,255,255,0.06);
     }
     .mobile-nav.open{
       display:block;
-      max-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      max-height:calc(100vh - (var(--topbar-h)+var(--header-h)));
       opacity:1;
       transform:translateY(0);
     }
@@ -264,25 +223,62 @@
       gap:14px;
       align-items:stretch;
     }
+
     .mobile-brand{
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
       gap:2px;
-      padding:8px 4px 10px;
+      padding:8px 4px 8px;
       border-bottom:1px solid rgba(255,255,255,0.06);
       margin-bottom:2px;
       text-align:center;
     }
-    .mobile-brand .company-name{font-size:32px;line-height:1;white-space:nowrap}
-    .mobile-brand .company-tagline{font-size:13px;letter-spacing:4px;white-space:nowrap}
+    .mobile-brand .company-name{
+      font-size:32px;
+      line-height:1;
+      text-align:center;
+      width:100%;
+    }
+    .mobile-brand .company-tagline{
+      font-size:13px;
+      letter-spacing:4px;
+      text-align:center;
+      width:100%;
+    }
+
+    .mobile-nav .contact{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:16px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted-text-color);
+    }
+    .mobile-nav .contact strong{
+      color:#fff;
+      font-size:15px;
+      letter-spacing:1px;
+    }
+    .mobile-nav .contact .phone-line{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#fff;
+      font-weight:700;
+      flex-wrap:wrap;
+      font-size:15px;
+    }
 
     .mobile-nav .menu-links{
       display:flex;
       flex-direction:column;
       gap:10px;
     }
+
     .mobile-nav a{
       padding:16px 16px;
       color:#fff;
@@ -301,21 +297,32 @@
       white-space:nowrap;
     }
     .mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.10);color:var(--accent-2)}
-    .mobile-nav .mobile-link.active{background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));color:var(--accent-2)}
+    .mobile-nav .mobile-link.active{
+      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+      color:var(--accent-2);
+    }
 
     .mobile-nav .submenu{
       display:none;
       flex-direction:column;
-      gap:8px;
-      padding-left:10px;
+      padding-left:12px;
+      margin-top:6px;
+      margin-bottom:6px;
+      gap:6px
     }
     .mobile-nav .submenu a{
-      font-size:16px;
-      font-weight:700;
-      min-height:48px;
-      padding:12px 14px;
+      font-weight:600;
+      padding:8px 12px;
       border-radius:10px;
+      text-align:left;
+      min-height:auto;
+      font-size:16px;
     }
+    .mobile-nav .submenu a:hover{
+      background:rgba(168,230,161,0.08);
+      padding-left:18px;
+    }
+
     .mobile-nav .submenu a.active-item,
     .mobile-nav .submenu a[aria-current="page"]{
       background:transparent;
@@ -351,99 +358,6 @@
       min-height:42px;
     }
 
-    .electric-band{
-      position:fixed;
-      top:calc(var(--topbar-h) + var(--header-h) - 6px);
-      left:0; right:0;
-      height:14px;
-      z-index:1600;
-      pointer-events:none;
-      overflow:visible;
-      transform:translateZ(0);
-    }
-    .electric-band .container{
-      position:absolute;
-      left:0; top:50%;
-      transform:translateY(-50%);
-      width:100vw;
-      max-width:none;
-      padding:0;
-      height:100%;
-      pointer-events:none;
-      box-sizing:border-box;
-    }
-    .lightning-svg{
-      width:100vw;
-      height:100%;
-      display:block;
-      pointer-events:none;
-      opacity:0;
-      transition:opacity .22s ease;
-      mix-blend-mode:screen;
-    }
-    .electric-band.connected .lightning-svg{opacity:1}
-    .lightning-svg path.zap{
-      stroke:var(--electric-yellow);
-      stroke-width:2.2;
-      fill:none;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-      opacity:0.98;
-    }
-    .lightning-svg path.bright{
-      stroke:var(--electric-yellow);
-      stroke-width:2.8;
-      fill:none;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-      opacity:1;
-    }
-    .orbs{
-      position:absolute;
-      left:0; top:0;
-      width:100vw;
-      height:100%;
-      pointer-events:none;
-      overflow:visible;
-    }
-    .orb{
-      position:absolute;
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
-      box-shadow:0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
-      transform:translate(-50%,-50%);
-      opacity:0;
-      transition:opacity .18s linear;
-    }
-    .electric-band.connected .orb{opacity:1}
-    @keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}}
-    .orb.buzz{animation:buzz .9s linear infinite}
-    .glowline{
-      position:absolute;
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
-      height:3px;
-      width:0;
-      background:linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
-      border-radius:8px;
-      box-shadow:0 6px 20px rgba(255,214,0,0.12);
-      opacity:0;
-      transition:opacity .22s ease;
-    }
-    .electric-band.connected .glowline{
-      width:100vw;
-      opacity:1;
-      animation:pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse{
-      0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
-      50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}
-      100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
-    }
-
     .hero{
       margin-top:calc(var(--topbar-h) + var(--header-h));
       height: calc(100vh - (var(--topbar-h) + var(--header-h)));
@@ -452,8 +366,8 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      overflow:hidden;
       text-align:center;
+      overflow:hidden;
       background:#0a4d2e;
     }
     .hero-bg{
@@ -503,18 +417,19 @@
       font-size:16px;
     }
     .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-2);color:#072012}
+    .btn-primary:hover{background:var(--accent-2)}
     .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
     .btn-secondary:hover{background:rgba(255,255,255,0.08)}
 
     .section{padding:60px 5vw}
     .section h2{
       font-size:32px;
-      margin:0 0 18px;
+      margin-bottom:18px;
       color:var(--accent-2);
-      text-align:center;
+      text-align:center
     }
-    .products-intro,.description{
+
+    .products-intro{
       max-width:1000px;
       margin:0 auto 24px;
       color:var(--muted-text-color);
@@ -568,7 +483,9 @@
     }
     .card-content{
       position:absolute;
-      left:0; right:0; bottom:0;
+      left:0;
+      right:0;
+      bottom:0;
       z-index:2;
       padding:22px 18px 20px;
       display:flex;
@@ -588,6 +505,7 @@
       justify-content:center;
       color:var(--accent-2);
       width:100%;
+      text-align:center;
     }
     .card-content p{
       margin:0;
@@ -595,10 +513,7 @@
       font-size:15px;
       line-height:1.6;
     }
-    .price{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
-    .old-price{text-decoration:line-through;color:#b9c7bb;font-size:13px}
-    .new-price{font-weight:800;color:#072012;background:var(--accent-2);padding:6px 8px;border-radius:6px;font-size:15px}
-    .btn-card{
+    .card .btn-card{
       margin:10px auto 0;
       padding:10px 18px;
       border-radius:10px;
@@ -609,59 +524,31 @@
       cursor:pointer;
       font-size:14px;
     }
-    .btn-card:hover{background:var(--gold-hover)}
+    .card .btn-card:hover{background:var(--gold-hover)}
 
     .advantages{
       display:flex;
       gap:18px;
       flex-wrap:wrap;
       justify-content:center;
-      margin-top:8px;
+      margin-top:8px
     }
     .advantage{
       width:260px;
       background:#072b1b;
       border-radius:12px;
       padding:18px;
-      text-align:center;
-      border:1px solid rgba(255,255,255,0.05);
+      text-align:center
     }
-    .advantage i{font-size:34px;color:var(--accent);margin-bottom:8px}
-    .advantage h3{color:#dfffe6;margin:6px 0}
-    .advantage p{color:#e6f7ea;line-height:1.6;margin:0}
-
-    #devis form{
-      max-width:520px;
-      margin:18px auto 0;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background:rgba(0,0,0,0.55);
-      padding:20px;
-      border-radius:12px;
-      box-shadow:0 6px 20px rgba(0,0,0,0.4)
+    .advantage i{
+      font-size:34px;
+      color:var(--accent);
+      margin-bottom:8px
     }
-    #devis input,#devis textarea,#devis select{
-      width:100%;
-      padding:12px;
-      border-radius:8px;
-      border:1px solid rgba(124,179,66,0.18);
-      background:transparent;
-      color:#fff;
-      font-size:14px
+    .advantage h3{
+      color:#dfffe6;
+      margin:6px 0
     }
-    #devis input::placeholder,#devis textarea::placeholder{color:#dbeed8}
-    #devis button{
-      align-self:center;
-      padding:12px 26px;
-      border-radius:10px;
-      border:0;
-      background:var(--accent);
-      color:#072012;
-      font-weight:700;
-      cursor:pointer
-    }
-    #devis button:hover{background:var(--accent-2)}
 
     footer{
       background:var(--green-dark);
@@ -674,7 +561,9 @@
     footer::before{
       content:"";
       position:absolute;
-      left:0; right:0; top:0;
+      left:0;
+      right:0;
+      top:0;
       height:2px;
       background:var(--gold-base)
     }
@@ -693,118 +582,184 @@
     }
     .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
-    .modal{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index:3000;
-      background:rgba(0,0,0,0.65);
-      padding:24px;
-      align-items:center;
-      justify-content:center;
+    .electric-band {
+      position: fixed;
+      top: calc(var(--topbar-h) + var(--header-h) - 6px);
+      left: 0;
+      right: 0;
+      height: 14px;
+      z-index: 1600;
+      pointer-events: none;
+      overflow: visible;
+      transform: translateZ(0);
     }
-    .modal.open{display:flex}
-    .modal-card{
-      width:min(560px, 100%);
-      background:#fff;
-      color:#072012;
-      border-radius:16px;
-      overflow:hidden;
-      box-shadow:0 20px 60px rgba(0,0,0,0.45);
-      position:relative;
+    .electric-band .container {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100vw;
+      max-width: none;
+      padding: 0;
+      height: 100%;
+      pointer-events: none;
+      box-sizing: border-box;
     }
-    .modal-close{
+    .lightning-svg {
+      width: 100vw;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .22s ease;
+      mix-blend-mode: screen;
+    }
+    .electric-band.connected .lightning-svg { opacity: 1; }
+    .lightning-svg path.zap {
+      stroke: var(--electric-yellow);
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.98;
+    }
+    .orbs {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+    .orb {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
+      box-shadow: 0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
+      transform: translate(-50%,-50%);
+      opacity: 0;
+      transition: opacity .18s linear;
+    }
+    .electric-band.connected .orb { opacity:1; }
+    @keyframes buzz {
+      0% { transform: translate(-50%,-50%) translateX(-2px); }
+      50% { transform: translate(-50%,-50%) translateX(2px); }
+      100% { transform: translate(-50%,-50%) translateX(-2px); }
+    }
+    .orb.buzz { animation: buzz 0.9s linear infinite; }
+    .glowline {
       position:absolute;
-      right:12px;
-      top:10px;
-      border:0;
-      background:transparent;
-      font-size:26px;
-      cursor:pointer;
-      color:#072012;
-      z-index:1;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      height:3px;
+      width:0;
+      background: linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
+      border-radius:8px;
+      box-shadow: 0 6px 20px rgba(255,214,0,0.12);
+      opacity:0;
+      transition:opacity .22s ease;
     }
-    .modal-card img{
-      width:100%;
-      height:260px;
-      object-fit:contain;
-      background:#f7f7f7;
-      display:block;
+    .electric-band.connected .glowline {
+      width:100vw;
+      opacity:1;
+      animation: pulse 2s ease-in-out infinite;
     }
-    .modal-body{padding:16px 18px 20px;text-align:center}
-    .modal-body h3{margin:0 0 8px;font-size:22px}
-    .modal-body p{margin:0;color:#243c2e;line-height:1.6}
+    @keyframes pulse {
+      0%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
+      50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 }
+      100%{ transform: translate(-50%,-50%) scaleX(.6); opacity:.6 }
+    }
 
     @media (max-width:1100px){
       .grid-4{grid-template-columns:repeat(2,1fr)}
+      .advantages{grid-template-columns:repeat(2,minmax(0,1fr))}
       nav{display:none}
       .burger{display:flex}
     }
+
     @media (max-width:820px){
-      :root{--topbar-h:42px;--header-h:76px}
-      .topbar{padding:0 4vw;font-size:12px;gap:8px}
-      .logo-text{gap:8px;align-items:center}
-      .logo-text img{height:52px}
-      .company-name{font-size:34px;letter-spacing:.2px}
-      .company-tagline{font-size:13px;letter-spacing:3px}
-      .hero{height:auto;min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
-      .hero-bg{object-position:center center;transform:scale(1.12) translateY(0)}
-      .hero-content{max-width:88vw;padding:24px 14px}
-      .hero-content h1{font-size:clamp(24px, 5.2vw, 34px)}
-      .hero-content p{font-size:16px}
-      .section{padding:52px 4vw}
-      .grid-4{grid-template-columns:1fr;gap:18px}
-      .card{min-height:360px}
-      .card-content{padding:18px}
-      .card-content p{font-size:14px}
-      .advantage{width:100%;max-width:420px}
-      .advantages{flex-direction:column;align-items:center}
-      #devis form{padding:16px}
+      .hero-content{ max-width:86vw; }
+      .grid-4{
+        grid-template-columns:1fr;
+        gap:20px
+      }
+      .card{
+        min-height:auto;
+        text-align:center
+      }
+      .card .image-wrap{
+        height:220px;
+        display:flex;
+        justify-content:center;
+        align-items:center
+      }
+      .card-content{
+        padding:18px;
+        text-align:center;
+        align-items:center
+      }
+      .card .btn-card{
+        margin:12px auto 0;
+        font-size:15px;
+        padding:10px 20px
+      }
+      .company-name{font-size:30px}
+      .mobile-nav.open{max-height:85vh}
+      .mobile-nav .inner{padding-bottom:20px}
+      .gb-btn{width:42px;height:42px;font-size:24px}
     }
+
+    @media (max-width:768px){
+      .company-name{font-size:26px}
+      .topbar .right{gap:10px;font-size:13px}
+      .card .image-wrap{height:200px}
+      .card-content{padding:16px 12px 18px}
+      .hero-content h1 { font-size:28px; }
+      .hero-content p { font-size:14px; }
+    }
+
     @media (max-width:480px){
-      :root{--topbar-h:40px;--header-h:72px}
-      .topbar{font-size:11px;padding:0 3.5vw}
-      .topbar .right{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;justify-content:flex-end}
-      .logo-text img{height:44px}
-      .company-name{font-size:26px;letter-spacing:.1px}
-      .company-tagline{font-size:10px;letter-spacing:2px}
-      .burger{width:48px;height:48px}
-      .hero-bg{object-position:center 28%;transform:scale(1.18) translateY(0)}
-      .hero-content{max-width:92vw;padding:18px 12px}
-      .hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px}
-      .hero-content p{font-size:15px;line-height:1.45}
-      .btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}
-      .section h2{font-size:26px}
-      .card{min-height:330px}
-      .card-content{padding:14px 12px 16px}
-      .card-content h3{font-size:17px;min-height:auto}
-      .card-content p{font-size:13px;line-height:1.5}
-      .modal-card img{height:220px}
-      .modal-body h3{font-size:20px}
-      .electric-band{top:calc(var(--topbar-h) + var(--header-h) - 4px);height:12px}
-      .electric-band .container{width:100%;left:0;padding:0 4vw;box-sizing:border-box}
-      .glowline{width:86%;max-width:86%}
-      .mobile-brand .company-name{font-size:28px}
-      .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}
-      .mobile-nav a{font-size:18px;padding:15px 16px;min-height:56px;width:100%;white-space:nowrap}
-      .mobile-nav .submenu a{font-size:15px}
+      .hero-content{
+        max-width:92vw;
+        padding:0 12px;
+      }
+      .hero-content h1{
+        font-size:28px;
+        font-weight:700;
+        margin:0 0 8px;
+        white-space:nowrap;
+        overflow-x:hidden;
+        text-overflow:ellipsis;
+      }
+      .hero-content p{
+        font-size:16px;
+        line-height:1.5;
+      }
+      .btn-primary{
+        padding:12px 28px;
+        font-size:15px;
+      }
     }
   </style>
 </head>
-
 <body>
-  <div class="topbar" role="banner">
+
+  <div class="topbar" role="banner" aria-hidden="false">
+    <div class="left">
+      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
+    </div>
     <div class="right">
-      <a href="tel:+22507070707" id="topPhoneLink">
-        <i class="fas fa-phone" aria-hidden="true"></i>
-        <span id="topPhoneText">+225 07 07 07 07 07</span>
-      </a>
+      <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
     </div>
   </div>
 
   <header role="navigation" aria-label="Main">
     <div class="logo-text">
-      <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
+      <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
       <div class="brand-stack">
         <div class="company-name">GREENBRIDGE</div>
         <div class="company-tagline">TECHNOLOGIES</div>
@@ -812,28 +767,14 @@
     </div>
 
     <nav aria-label="Menu principal">
-      <a href="Code1.html">Accueil</a>
-
-      <div class="dropdown" aria-haspopup="true" aria-expanded="false">
-        <a href="produits.html" data-current="⚡ Panneaux solaires" id="produitsLink" aria-controls="dropdownContent">
-          Nos Produits
-        </a>
-        <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="dropdownContent">
-          <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
-          <li><a href="zone_agricole.html" role="menuitem">🚜 Zone Agricole</a></li>
-          <li><a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a></li>
-          <li><a href="batteries.html">🔋 Batteries & stockage</a></li>
-          <li><a href="onduleurs.html">🔌 Onduleurs</a></li>
-          <li><a href="groupes.html">⚙️ Groupes électrogènes</a></li>
-        </ul>
-      </div>
-
-      <a href="domotique.html">Domotique</a>
-      <a href="securite.html">Sécurité</a>
+      <a href="GreenBrigde technologies.html">Accueil</a>
+      <a href="etude_dimensionnement_2.html">Étude</a>
+      <a href="#produits" class="active">Nos Produits</a>
+      <a href="Projets.html">Projets futurs</a>
       <a href="maintenance.html">Maintenance</a>
     </nav>
 
-    <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
+    <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
       <span class="icon"><span></span><span></span><span></span></span>
     </button>
   </header>
@@ -845,15 +786,13 @@
       <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
         <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
         <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
-        <path class="bright" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
+        <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
       </svg>
-
       <div class="orbs" id="orbs">
         <div class="orb" id="orbA"></div>
         <div class="orb" id="orbB"></div>
         <div class="orb" id="orbC"></div>
       </div>
-
       <div class="glowline" id="glowline"></div>
     </div>
   </div>
@@ -865,175 +804,102 @@
         <div class="company-tagline">TECHNOLOGIES</div>
       </div>
 
+      <div class="contact" aria-hidden="false">
+        <strong>CONTACT</strong>
+        <div class="phone-line">
+          <i class="fas fa-phone" aria-hidden="true"></i>
+          <a href="tel:+22507070707">+225 07 07 07 07 07</a>
+        </div>
+      </div>
+
       <div class="menu-links">
-        <a href="Code1.html" class="mobile-link">Accueil</a>
+        <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+        <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
 
         <div>
-          <a href="produits.html" id="mobileProduitsToggle" class="mobile-link active" data-current="⚡ Panneaux solaires" aria-expanded="true">
+          <a href="#produits" id="mobileProduitsToggle" class="mobile-link active" aria-expanded="true">
             Nos Produits
+            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
           </a>
           <div class="submenu" id="mobileProduitsSub" style="display:flex;flex-direction:column;">
-            <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
-            <a href="zone_agricole.html">🚜 Zone Agricole</a>
             <a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a>
             <a href="batteries.html">🔋 Batteries & stockage</a>
             <a href="onduleurs.html">🔌 Onduleurs</a>
             <a href="groupes.html">⚙️ Groupes électrogènes</a>
           </div>
         </div>
+
+        <a href="Projets.html" class="mobile-link">Projets futurs</a>
+        <a href="maintenance.html" class="mobile-link">Maintenance</a>
       </div>
 
       <div class="socials">
         <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
         <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>
 
   <section class="hero" id="top" aria-label="Hero">
-    <img class="hero-bg" src="chantier_solaire.png" alt="Illustration GreenBridge Technologies">
+    <img class="hero-bg" src="Nos_produits_1.png" alt="Illustration GreenBridge Énergie">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Panneaux Solaires</h1>
-      <p>Produisez votre énergie propre et durable avec nos solutions.</p>
+      <h1>Nos Produits</h1>
+      <p>Découvrez une gamme complète de solutions énergétiques conçues pour la performance, la fiabilité et l’adaptation au contexte local.</p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
+        <a class="btn-primary" href="#produits">Découvrir le catalogue</a>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <h2><i class="fas fa-solar-panel"></i> Monocristallins</h2>
-    <p class="description">Les panneaux monocristallins offrent le rendement le plus élevé pour les installations où la performance et la compacité sont prioritaires.</p>
+  <section id="produits" class="section" aria-label="Nos produits">
+    <h2>Notre catalogue</h2>
+    <p class="products-intro">
+      Nous proposons une gamme complète : panneaux solaires, batteries, onduleurs et groupes électrogènes. Nos solutions sont dimensionnées pour assurer performance, durabilité et facilité de maintenance.
+    </p>
     <div class="grid-4" role="list">
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_mono1.png" alt="Panneau 350W Monocristallin"></div>
+      <article class="card" role="listitem" aria-label="Panneaux solaires">
+        <div class="image-wrap"><img src="chantier_solaire.png" alt="Panneaux solaires"></div>
         <div class="card-content">
-          <h3>Panneau 350W</h3>
-          <p>Haute performance pour usage résidentiel.</p>
-          <div class="price"><span class="old-price">120 000 FCFA</span> <span class="new-price">105 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono1.png','Panneau 350W','Rendement optimal, garantie 20 ans.')">Détails</button>
+          <h3>Panneaux solaires</h3>
+          <p>Modules monocristallins haut rendement, résistants aux conditions locales et garantis 10 ans. Installation complète et optimisation de l'orientation.</p>
+          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
         </div>
       </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_mono2.png" alt="Panneau 500W Monocristallin"></div>
+
+      <article class="card" role="listitem" aria-label="Batteries & stockage">
+        <div class="image-wrap"><img src="BATTERIE_install.png" alt="Batteries & stockage"></div>
         <div class="card-content">
-          <h3>Panneau 500W</h3>
-          <p>Excellente efficacité pour installations professionnelles.</p>
-          <div class="price"><span class="old-price">180 000 FCFA</span> <span class="new-price">160 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono2.png','Panneau 500W','Haute puissance')">Détails</button>
+          <h3>Batteries & stockage</h3>
+          <p>Solutions lithium-ion et plomb-acide : stockage modulable, gestion intelligente de charge et monitoring à distance pour une efficacité durable.</p>
+          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
         </div>
       </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_mono3.png" alt="Panneau hybride Monocristallin"></div>
+
+      <article class="card" role="listitem" aria-label="Onduleurs">
+        <div class="image-wrap"><img src="onduleur_tech.png" alt="Onduleurs"></div>
         <div class="card-content">
-          <h3>Panneau hybride</h3>
-          <p>Combine production d’électricité et chauffe-eau solaire.</p>
-          <div class="price"><span class="old-price">250 000 FCFA</span> <span class="new-price">220 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono3.png','Panneau hybride','Solution innovante')">Détails</button>
+          <h3>Onduleurs</h3>
+          <p>Onduleurs hybrides et on-grid pour conversion efficace, protection contre surtensions et gestion intelligente des micro-réseaux.</p>
+          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
         </div>
       </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_mono4.png" alt="Panneau haute efficacité"></div>
+
+      <article class="card" role="listitem" aria-label="Groupes électrogènes">
+        <div class="image-wrap"><img src="technicien_groupe_elctro.png" alt="Groupes électrogènes"></div>
         <div class="card-content">
-          <h3>Haute efficacité</h3>
-          <p>Conçu pour maximiser la production en surface réduite.</p>
-          <div class="price"><span class="old-price">210 000 FCFA</span> <span class="new-price">188 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono4.png','Haute efficacité','Idéal pour toitures limitées en surface.')">Détails</button>
+          <h3>Groupes électrogènes</h3>
+          <p>Groupes de secours diesel et gaz, silencieux, avec démarrage automatique et service de maintenance sur site pour garantir continuité.</p>
+          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
         </div>
       </article>
     </div>
   </section>
 
-  <section class="section">
-    <h2><i class="fas fa-solar-panel"></i> Polycristallins</h2>
-    <p class="description">Les panneaux polycristallins offrent un bon rapport qualité/prix pour les projets où l’optimisation budgétaire est importante.</p>
-    <div class="grid-4" role="list">
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_poly1.png" alt="Panneau 250W Polycristallin"></div>
-        <div class="card-content">
-          <h3>Panneau 250W</h3>
-          <p>Solution économique pour petites installations.</p>
-          <div class="price"><span class="old-price">70 000 FCFA</span> <span class="new-price">60 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly1.png','Panneau 250W','Fiable et économique')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_poly2.png" alt="Panneau 300W Polycristallin"></div>
-        <div class="card-content">
-          <h3>Panneau 300W</h3>
-          <p>Polyvalent et performant.</p>
-          <div class="price"><span class="old-price">85 000 FCFA</span> <span class="new-price">75 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly2.png','Panneau 300W','Rapport qualité/prix')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_poly3.png" alt="Panneau 350W Polycristallin"></div>
-        <div class="card-content">
-          <h3>Panneau 350W</h3>
-          <p>Performances stables.</p>
-          <div class="price"><span class="old-price">100 000 FCFA</span> <span class="new-price">88 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly3.png','Panneau 350W','Fiable')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_poly4.png" alt="Panneau renforcé Polycristallin"></div>
-        <div class="card-content">
-          <h3>Renforcé</h3>
-          <p>Solution robuste pour sites exposés et forte chaleur.</p>
-          <div class="price"><span class="old-price">115 000 FCFA</span> <span class="new-price">99 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly4.png','Renforcé','Bonne tenue dans le temps.')">Détails</button>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2><i class="fas fa-solar-panel"></i> Film mince (Thin-Film)</h2>
-    <p class="description">Les panneaux à film mince sont légers et flexibles, utiles pour certaines configurations particulières ou toitures complexes.</p>
-    <div class="grid-4" role="list">
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_thin1.png" alt="Panneau Amorphe Thin-Film"></div>
-        <div class="card-content">
-          <h3>Amorphe</h3>
-          <p>Flexibilité et légèreté.</p>
-          <div class="price"><span class="old-price">45 000 FCFA</span> <span class="new-price">40 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin1.png','Amorphe','Adapté aux toitures courbes')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_thin2.png" alt="Panneau CdTe Thin-Film"></div>
-        <div class="card-content">
-          <h3>CdTe</h3>
-          <p>Bon rendement en faible luminosité.</p>
-          <div class="price"><span class="old-price">60 000 FCFA</span> <span class="new-price">52 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin2.png','CdTe','Performance stable')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_thin3.png" alt="Panneau CIGS Thin-Film"></div>
-        <div class="card-content">
-          <h3>CIGS</h3>
-          <p>Haute stabilité et durabilité.</p>
-          <div class="price"><span class="old-price">95 000 FCFA</span> <span class="new-price">82 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin3.png','CIGS','Idéal pour installations professionnelles')">Détails</button>
-        </div>
-      </article>
-      <article class="card" role="listitem">
-        <div class="image-wrap"><img src="panneau_thin4.png" alt="Panneau léger Thin-Film"></div>
-        <div class="card-content">
-          <h3>Léger</h3>
-          <p>Parfait pour structures sensibles au poids.</p>
-          <div class="price"><span class="old-price">72 000 FCFA</span> <span class="new-price">64 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin4.png','Léger','Adapté aux structures fragiles.')">Détails</button>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Pourquoi nos solutions énergie ?</h2>
+  <section class="section section-alt">
+    <h2>Pourquoi choisir nos produits ?</h2>
     <div class="advantages" role="list">
       <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Efficacité</h3><p>Maximisez le rendement et l’économie d’énergie</p></div>
       <div class="advantage" role="listitem"><i class="fas fa-shield-alt" aria-hidden="true"></i><h3>Fiabilité</h3><p>Installation professionnelle et maintenance garantie</p></div>
@@ -1042,120 +908,98 @@
     </div>
   </section>
 
-  <section id="devis" class="section">
-    <h2>Demandez un devis personnalisé</h2>
-    <form>
-      <input type="text" placeholder="Nom complet" required>
-      <input type="email" placeholder="Email" required>
-      <input type="tel" placeholder="Téléphone" required>
-      <select required>
-        <option value="">Type de service</option>
-        <option value="installation">Installation complète</option>
-        <option value="maintenance">Maintenance</option>
-        <option value="audit">Audit énergétique</option>
-      </select>
-      <textarea placeholder="Message ou détails du projet" rows="5" required></textarea>
-      <button type="submit">Envoyer</button>
-    </form>
-  </section>
-
   <footer>
     <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
     <div class="footer-contact" aria-label="Coordonnées">
-      <div>© 2025 GreenBridge Technologies. Tous droits réservés.</div>
-      <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
+      <div>© 2025 GreenBridge. Tous droits réservés.</div>
+      <div>Abidjan, Côte d’Ivoire</div>
+      <div>Tel: +225 07 07 07 07 07</div>
     </div>
   </footer>
 
-  <div class="modal" id="productModal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" type="button" onclick="closeModal()" aria-label="Fermer">&times;</button>
-      <img id="modalImg" src="" alt="">
-      <div class="modal-body">
-        <h3 id="modalTitle"></h3>
-        <p id="modalDesc"></p>
-      </div>
-    </div>
-  </div>
-
   <script>
-    const contactNumbers = [
-      '+225 07 07 07 07 07',
-      '+221 77 00 00 00 00'
-    ];
-    const telNumbers = [
-      '+2250707070707',
-      '+2217700000000'
-    ];
-    let phoneIndex = 0;
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileBackdrop = document.getElementById('mobileBackdrop');
+    const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
+    const mobileProduitsSub = document.getElementById('mobileProduitsSub');
 
-    function updatePhone(){
-      const phone = contactNumbers[phoneIndex];
-      const tel = telNumbers[phoneIndex];
-
-      const topPhoneLink = document.getElementById('topPhoneLink');
-      const topPhoneText = document.getElementById('topPhoneText');
-      const footerPhoneText = document.getElementById('footerPhoneText');
-
-      if(topPhoneLink) topPhoneLink.href = 'tel:' + tel;
-      if(topPhoneText) topPhoneText.textContent = phone;
-      if(footerPhoneText) footerPhoneText.textContent = phone;
-
-      phoneIndex = (phoneIndex + 1) % contactNumbers.length;
+    function openMenu(){
+      if (!mobileNav || !burgerBtn) return;
+      mobileNav.classList.add('open');
+      mobileBackdrop.classList.add('open');
+      burgerBtn.classList.add('open');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      burgerBtn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('menu-open');
+      if (mobileProduitsToggle && mobileProduitsSub && window.innerWidth <= 1100) {
+        mobileProduitsSub.style.display = 'flex';
+        mobileProduitsToggle.setAttribute('aria-expanded', 'true');
+      }
     }
 
-    updatePhone();
-    setInterval(updatePhone, 10000);
-
-    function openModal(img, title, desc){
-      const modal = document.getElementById('productModal');
-      document.getElementById('modalImg').src = img;
-      document.getElementById('modalImg').alt = title;
-      document.getElementById('modalTitle').innerText = title;
-      document.getElementById('modalDesc').innerText = desc;
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
+    function closeMenu(){
+      if (!mobileNav || !burgerBtn) return;
+      mobileNav.classList.remove('open');
+      mobileBackdrop.classList.remove('open');
+      burgerBtn.classList.remove('open');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
     }
-    function closeModal(){
-      const modal = document.getElementById('productModal');
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden','true');
-    }
-    document.getElementById('productModal').addEventListener('click', function(e){
-      if(e.target === this) closeModal();
-    });
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape') closeModal();
-    });
 
-    document.querySelectorAll('.dropdown').forEach(drop => {
-      let timer;
-      const menu = drop.querySelector('.dropdown-content');
-      const trigger = drop.querySelector('a');
+    if (burgerBtn && mobileNav) {
+      burgerBtn.addEventListener('click', () => {
+        const opened = mobileNav.classList.contains('open');
+        if (opened) closeMenu();
+        else openMenu();
+      });
 
-      function open(){ if(menu) menu.style.display = 'block'; drop.setAttribute('aria-expanded','true'); }
-      function close(){ if(menu) menu.style.display = 'none'; drop.setAttribute('aria-expanded','false'); }
+      mobileBackdrop.addEventListener('click', closeMenu);
 
-      drop.addEventListener('mouseenter', () => { clearTimeout(timer); open(); });
-      drop.addEventListener('mouseleave', () => { timer = setTimeout(()=> close(), 220); });
+      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+        a.addEventListener('click', () => {
+          if (a.id === 'mobileProduitsToggle') return;
+          closeMenu();
+        });
+      });
 
-      trigger.addEventListener('click', function(e){
+      if (mobileProduitsToggle && mobileProduitsSub) {
+        mobileProduitsToggle.addEventListener('click', (e) => {
+          if (e.target.closest('.caret')) {
+            e.preventDefault();
+            e.stopPropagation();
+            const opening = mobileProduitsSub.style.display !== 'flex';
+            mobileProduitsSub.style.display = opening ? 'flex' : 'none';
+            mobileProduitsToggle.setAttribute('aria-expanded', String(opening));
+            openMenu();
+          } else {
+            e.preventDefault();
+            closeMenu();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      function openActiveSubmenuOnSmall(){
         if(window.innerWidth <= 1100){
-          e.preventDefault();
-          if(menu && menu.style.display === 'block'){ close(); } else { open(); }
-          const mobileNav = document.getElementById('mobileNav');
-          const burger = document.getElementById('burgerBtn');
-          if(mobileNav && burger){
-            mobileNav.classList.add('open');
-            burger.classList.add('open');
-            mobileNav.setAttribute('aria-hidden','false');
-            burger.setAttribute('aria-expanded','true');
-            document.body.classList.add('menu-open');
-            document.getElementById('mobileBackdrop').classList.add('open');
+          if(mobileProduitsSub && mobileProduitsToggle){
+            mobileProduitsSub.style.display = 'flex';
+            mobileProduitsToggle.setAttribute('aria-expanded','true');
+          }
+        } else {
+          if(mobileProduitsSub){
+            mobileProduitsSub.style.display = 'none';
           }
         }
-      });
-    });
+      }
+
+      window.addEventListener('resize', openActiveSubmenuOnSmall);
+      openActiveSubmenuOnSmall();
+    }
 
     (function(){
       const electricBand = document.getElementById('electricBand');
@@ -1165,6 +1009,7 @@
       const orbC = document.getElementById('orbC');
       const orbs = [orbA, orbB, orbC];
       const zapBright = document.getElementById('zapBright');
+
       const params = [
         {rxRatio:0.50, ry:8, speed:0.22, phase:0},
         {rxRatio:0.33, ry:6, speed:0.36, phase:Math.PI/2},
@@ -1179,15 +1024,16 @@
       });
 
       let t0 = performance.now();
-
       function tick(now){
         const time = (now - t0) / 1000;
         const cont = electricBand.querySelector('.container');
-        if(!cont) { requestAnimationFrame(tick); return; }
+        if(!cont) {
+          requestAnimationFrame(tick);
+          return;
+        }
         const rect = cont.getBoundingClientRect();
         const cx = rect.width / 2;
         const cy = rect.height / 2;
-
         for(let i=0;i<orbs.length;i++){
           const orb = orbs[i];
           if(!orb) continue;
@@ -1215,7 +1061,9 @@
           setTimeout(()=>{
             zapBright.style.transition = 'stroke-dashoffset 380ms ease-out, opacity 160ms';
             zapBright.setAttribute('stroke-dashoffset','0');
-            setTimeout(()=>{ zapBright.setAttribute('stroke-dashoffset', String(len)); }, 320);
+            setTimeout(()=>{
+              zapBright.setAttribute('stroke-dashoffset', String(len));
+            }, 320);
           }, 60);
         }catch(e){
           zapBright.setAttribute('stroke-dasharray','520');
@@ -1283,121 +1131,8 @@
       }
 
       activate();
-      window.addEventListener('resize', ()=>{ t0 = performance.now(); });
-    })();
-
-    (function(){
-      const burger = document.getElementById('burgerBtn');
-      const mobileNav = document.getElementById('mobileNav');
-      const mobileBackdrop = document.getElementById('mobileBackdrop');
-      if(!burger || !mobileNav || !mobileBackdrop) return;
-
-      function openMenu(){
-        mobileNav.classList.add('open');
-        mobileBackdrop.classList.add('open');
-        burger.classList.add('open');
-        mobileNav.setAttribute('aria-hidden','false');
-        burger.setAttribute('aria-expanded','true');
-        document.body.classList.add('menu-open');
-      }
-      function closeMenu(){
-        mobileNav.classList.remove('open');
-        mobileBackdrop.classList.remove('open');
-        burger.classList.remove('open');
-        mobileNav.setAttribute('aria-hidden','true');
-        burger.setAttribute('aria-expanded','false');
-        document.body.classList.remove('menu-open');
-      }
-
-      burger.addEventListener('click', ()=>{
-        const opened = mobileNav.classList.contains('open');
-        if(opened) closeMenu(); else openMenu();
-      });
-      mobileBackdrop.addEventListener('click', closeMenu);
-
-      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
-        a.addEventListener('click', ()=> closeMenu());
-      });
-
-      const mobileToggle = document.getElementById('mobileProduitsToggle');
-      const mobileSub = document.getElementById('mobileProduitsSub');
-      if(mobileToggle && mobileSub){
-        mobileToggle.addEventListener('click', function(e){
-          e.preventDefault();
-          const opening = mobileSub.style.display !== 'flex';
-          mobileSub.style.display = opening ? 'flex' : 'none';
-          mobileToggle.setAttribute('aria-expanded', String(opening));
-          mobileNav.classList.add('open');
-          burger.classList.add('open');
-          mobileBackdrop.classList.add('open');
-          mobileNav.setAttribute('aria-hidden','false');
-          burger.setAttribute('aria-expanded','true');
-          document.body.classList.add('menu-open');
-        });
-      }
-
-      document.addEventListener('keydown', function(e){
-        if(e.key === 'Escape') closeMenu();
-      });
-
-      function openActiveSubmenuOnSmall(){
-        if(window.innerWidth <= 1100){
-          const activeSub = document.getElementById('mobileProduitsSub');
-          const activeToggle = document.getElementById('mobileProduitsToggle');
-          if(activeSub && activeToggle){
-            activeSub.style.display = 'flex';
-            activeToggle.setAttribute('aria-expanded','true');
-          }
-        } else {
-          const activeSub = document.getElementById('mobileProduitsSub');
-          if(activeSub) activeSub.style.display = 'none';
-        }
-      }
-      window.addEventListener('resize', openActiveSubmenuOnSmall);
-      openActiveSubmenuOnSmall();
-    })();
-
-    (function(){
-      const raw = window.location.pathname.split('/').pop().toLowerCase();
-      const path = raw || 'panneaux.html';
-      const mapping = {
-        'code1.html':'a[href="Code1.html"]',
-        'produits.html':'a[href="produits.html"]',
-        'panneaux.html':'a[href="panneaux.html"]',
-        'batteries.html':'a[href="batteries.html"]',
-        'onduleurs.html':'a[href="onduleurs.html"]',
-        'groupes.html':'a[href="groupes.html"]',
-        'domotique.html':'a[href="domotique.html"]',
-        'securite.html':'a[href="securite.html"]',
-        'maintenance.html':'a[href="maintenance.html"]'
-      };
-
-      const sel = mapping[path];
-      if(!sel) return;
-      const el = document.querySelector(sel);
-      if(!el) return;
-      el.classList.add('active');
-
-      const inDropdown = el.closest('.dropdown-content');
-      if(inDropdown){
-        const dropdown = document.querySelector('.dropdown');
-        const prodLink = dropdown && dropdown.querySelector('a[href="produits.html"], a[data-current]');
-        if(prodLink){ prodLink.classList.add('active'); }
-        el.classList.add('active-item');
-      }
-
-      document.querySelectorAll('.mobile-nav a').forEach(a=>{
-        try{
-          if(a.getAttribute('href') === el.getAttribute('href')){
-            a.classList.add('active');
-            const parentSub = a.closest('.submenu');
-            if(parentSub){
-              parentSub.style.display = 'flex';
-              const toggle = document.getElementById('mobileProduitsToggle');
-              if(toggle){ toggle.setAttribute('aria-expanded','true'); }
-            }
-          }
-        }catch(e){}
+      window.addEventListener('resize', ()=>{
+        t0 = performance.now();
       });
     })();
   </script>
