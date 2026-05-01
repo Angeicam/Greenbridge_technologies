@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>GreenBridge Énergie - Batteries & Stockage</title>
+<title>GreenBridge Technologies - Batteries & Stockage</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --topbar-h:48px;
@@ -18,425 +18,1185 @@
   --bg:#0a4d2e;
   --muted:#e6f7ea;
   --gold-base:#d4af37;
-
-  --card-img-h:200px;
-  --card-min-h:360px;
-  --card-radius:14px;
-
-  --electric-yellow: #ffd600;
-  --electric-yellow-soft: rgba(255,214,0,0.18);
+  --gold-hover:#e6c95a;
+  --electric-yellow:#ffd600;
 }
 
 /* Base */
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:'Poppins',Arial,sans-serif;background:var(--bg);color:#fff;scroll-behavior:smooth;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-
-/* Topbar (fixed) */
-.topbar{
-  position:fixed;top:0;left:0;right:0;height:var(--topbar-h);
-  background:var(--green-dark);
-  display:flex;align-items:center;justify-content:space-between;
-  gap:20px;padding:0 5vw;z-index:1800;font-size:14px;
+html,body{
+  margin:0;
+  padding:0;
+  font-family:'Poppins',Arial,sans-serif;
+  background:var(--bg);
+  color:#fff;
+  scroll-behavior:smooth;
+  overflow-x:hidden;
 }
-.topbar .left, .topbar .right{display:flex;align-items:center;gap:12px}
-.topbar a{color:#fff;transition:color .18s}
+body.menu-open{overflow:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* Topbar */
+.topbar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:var(--topbar-h);
+  background:var(--green-dark);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:14px;
+  padding:0 5vw;
+  z-index:1500;
+  font-size:14px;
+}
+.topbar .right{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+.topbar a{
+  color:#fff;
+  transition:color .18s;
+  white-space:nowrap;
+  font-weight:700;
+}
 .topbar a:hover{color:var(--accent-2)}
 
-/* Header (fixed) */
+/* Header */
 header{
-  position:fixed;top:var(--topbar-h);left:0;right:0;height:var(--header-h);
+  position:fixed;
+  top:var(--topbar-h);
+  left:0;
+  right:0;
+  height:var(--header-h);
   background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
-  display:flex;align-items:center;justify-content:space-between;padding:0 5vw;
-  z-index:1750;box-shadow:0 4px 12px rgba(0,0,0,.25)
-}
-.logo-text{display:flex;align-items:center;gap:12px}
-.logo-text img{height:56px;display:block}
-.company-name{
-  font-size:28px;font-weight:800;letter-spacing:1px;padding:6px 10px;border-radius:8px;
-  color:#04462e;-webkit-text-stroke:0.95px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,0.6);
-  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 5vw;
+  z-index:1490;
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
 }
 
-/* Nav desktop */
+.logo-text{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+.logo-text img{
+  height:56px;
+  display:block;
+  flex:0 0 auto;
+}
+
+.brand-stack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+  text-align:center;
+  min-width:0;
+  margin:0;
+  padding:0;
+}
+
+.company-name{
+  font-size:34px;
+  font-weight:800;
+  letter-spacing:1px;
+  padding:0;
+  margin:0;
+  border-radius:8px;
+  color:#04462e;
+  -webkit-text-stroke:0.95px var(--gold-base);
+  text-shadow:0 3px 6px rgba(0,0,0,0.6);
+  position:relative;
+  top:2px;
+  white-space:nowrap;
+  line-height:1;
+  text-align:center;
+  width:100%;
+  display:block;
+}
+
+.company-tagline{
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#dfffe6;
+  padding:0;
+  margin:2px 0 0 0;
+  text-shadow:0 2px 6px rgba(0,0,0,0.45);
+  -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
+  white-space:nowrap;
+  line-height:1;
+  text-align:center;
+  width:100%;
+  display:block;
+}
+
+/* Desktop nav */
 nav{display:flex;gap:18px;align-items:center}
-nav a{color:#fff;font-size:15px;font-weight:600;padding:8px 10px;border-radius:8px;transition:all .18s;display:flex;gap:8px;align-items:center}
+nav a{
+  color:#fff;
+  font-size:15px;
+  font-weight:600;
+  padding:8px 10px;
+  border-radius:8px;
+  transition:all .18s;
+}
 nav a:hover{color:var(--accent-2)}
 nav a.active{
   color:var(--accent-2);
-  background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
-  border:1px solid rgba(212,175,55,0.22);
+  background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+  border:1px solid rgba(212,175,55,0.12);
   padding:10px 14px;
   font-weight:800;
   border-radius:10px;
 }
 
-/* Desktop: show which subpage is active next to parent "Énergie" (badge) */
-.dropdown > a .sub-badge{
-  margin-left:8px;
-  padding:6px 10px;
-  border-radius:10px;
-  background: rgba(255,214,0,0.08);
-  color: var(--electric-yellow);
-  font-weight:800;
-  font-size:13px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.32);
-  white-space:nowrap;
-  display:inline-flex;
-  align-items:center;
-}
-@media (max-width:1100px){
-  .dropdown > a .sub-badge{display:none}
-}
-
-/* Desktop arrow for dropdown and rotated state */
-.dropdown > a::after{ content:"\25BC"; font-size:12px; margin-left:6px; transition:transform .2s; opacity:1; }
-.dropdown[aria-expanded="true"] > a::after{ transform:rotate(180deg); }
-
 /* Dropdown */
 .dropdown{position:relative}
-.dropdown > a{display:flex;gap:6px;align-items:center;cursor:pointer}
+.dropdown > a{display:flex;gap:8px;align-items:center;cursor:pointer}
+.dropdown > a::after{
+  content:"\25BC";
+  font-size:12px;
+  transition:transform .2s;
+  opacity:1;
+  color:var(--accent-2);
+}
+.dropdown[aria-expanded="true"] > a::after{transform:rotate(180deg)}
 .dropdown-content{
-  display:none;position:absolute;top:calc(100% + 8px);left:0;background:rgba(0,0,0,0.85);
-  padding:8px 0;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.5);min-width:220px;z-index:2000;
+  display:none;
+  position:absolute;
+  top:calc(100% + 8px);
+  left:0;
+  background:rgba(0,0,0,0.88);
+  padding:8px 0;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  min-width:260px;
+  z-index:2000;
+  border:1px solid rgba(255,255,255,0.06);
 }
 .dropdown-content li{list-style:none}
-.dropdown-content a{display:block;padding:10px 16px;color:#fff;font-weight:600;border-radius:8px}
-.dropdown-content a:hover{background:rgba(168,230,161,0.12);color:var(--accent-2);padding-left:24px}
-
-/* Mark active item inside dropdown (desktop look) */
+.dropdown-content a{
+  display:block;
+  padding:10px 16px;
+  color:#fff;
+  font-weight:600;
+  border-radius:8px;
+}
+.dropdown-content a:hover{
+  background:rgba(168,230,161,0.12);
+  color:var(--accent-2);
+  padding-left:22px;
+}
 .dropdown-content .active-item{
-  color: var(--accent-2);
-  background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
-  border: 1px solid rgba(212,175,55,0.12);
-  padding: 10px 16px;
-  font-weight: 800;
-  border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.28);
-  margin: 4px 8px;
-}
-@media (max-width:1100px){ .dropdown-content .active-item{ margin:0; border:none; box-shadow:none; background:transparent; color:inherit; padding:10px 16px; } }
-
-/* Burger mobile - hidden on desktop (explicit) */
-.burger{display:none !important;width:44px;height:44px;border-radius:8px;border:none;background:transparent;align-items:center;justify-content:center;cursor:pointer}
-.burger .icon{display:block;position:relative;width:26px;height:18px}
-.burger .icon span{position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s}
-.burger .icon span:nth-child(1){top:0}
-.burger .icon span:nth-child(2){top:7.5px}
-.burger .icon span:nth-child(3){top:15px}
-.burger.open .icon span:nth-child(1){transform: translateY(7.5px) rotate(45deg)}
-.burger.open .icon span:nth-child(2){opacity:0}
-.burger.open .icon span:nth-child(3){transform: translateY(-7.5px) rotate(-45deg)}
-
-.mobile-nav{display:none}
-
-/* Mobile nav */
-.mobile-nav{
-  display:none;
-  position:fixed;
-  top:calc(var(--topbar-h) + var(--header-h));
-  left:0;
-  right:0;
-  background:var(--bg);
-  z-index:1740;
-  box-shadow:0 12px 40px rgba(0,0,0,.45);
-  overflow:auto;
-  max-height:0;
-  transition:max-height .28s ease;
-}
-.mobile-nav.open{ display:block; max-height:85vh; }
-.mobile-nav .inner{ padding:12px 5vw; display:flex; flex-direction:column; gap:8px; align-items:stretch; }
-.mobile-nav a{ padding:12px; color:#fff; width:100%; text-align:left; border-radius:8px; font-weight:700; display:flex; justify-content:space-between; align-items:center }
-.mobile-nav a:hover{ background:rgba(124,179,66,0.06); color:var(--accent-2) }
-.mobile-nav a.active{ background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2) }
-.mobile-nav .submenu{ display:none; flex-direction:column; padding-left:12px; margin-top:6px; margin-bottom:6px; gap:6px }
-.mobile-nav .submenu a{ font-weight:600; padding:8px 12px; border-radius:6px; text-align:left }
-.mobile-nav .submenu a:hover{ background:rgba(168,230,161,0.08); padding-left:18px }
-
-/* mobile: show current subpage on the Energie toggle (now includes icon if present in data-current) */
-.mobile-nav .mobile-link.active[data-current]::after {
-  content: attr(data-current);
-  margin-left:8px;
-  padding:6px 10px;
-  border-radius:8px;
-  background: rgba(255,214,0,0.06);
-  color: var(--electric-yellow);
-  font-weight:800;
-  font-size:13px;
-  white-space:nowrap;
-}
-
-/* ensure submenu active-item stands out on mobile */
-.mobile-nav .submenu a.active-item,
-.mobile-nav .submenu a[aria-current="page"]{
-  background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
-  color: var(--accent-2);
-  font-weight:800;
+  color:var(--accent-2);
+  background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
   border:1px solid rgba(212,175,55,0.12);
-  padding-left:12px;
+  padding:10px 16px;
+  font-weight:800;
   border-radius:8px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.28);
+  margin:4px 8px;
 }
-
-/* Override for mobile: no rectangle behind and much more transparent text (very subtle) */
 @media (max-width:1100px){
-  .mobile-nav .submenu a.active-item,
-  .mobile-nav .submenu a[aria-current="page"]{
-    background: transparent;                    /* no rectangle behind */
-    color: rgba(255,255,255,0.30);              /* much more transparent text (very subtle) */
-    font-weight:700;
-    border: none;
-    padding-left:12px;
-    box-shadow: none;
+  .dropdown-content .active-item{
+    margin:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+    color:inherit;
+    padding:10px 16px;
   }
 }
 
-/* --- NEW: disabled look for Batteries & stockage in mobile --- */
-.mobile-nav a.mobile-disabled {
-  pointer-events: none; /* definitely not clickable on touch */
-  cursor: default;
-  opacity: 0.9;
-  color: rgba(255,255,255,0.65) !important; /* a bit more transparent */
+/* Burger */
+.burger{
+  display:none;
+  width:52px;
+  height:52px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.05);
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
-.mobile-nav .submenu a.mobile-disabled {
-  color: rgba(255,255,255,0.65) !important;
-  opacity: 0.95;
-  padding-left:12px;
-  background: transparent;
-  box-shadow: none;
+.burger .icon{
+  display:block;
+  position:relative;
+  width:28px;
+  height:20px;
+}
+.burger .icon span{
+  position:absolute;
+  left:0;
+  right:0;
+  height:3px;
+  background:#fff;
+  border-radius:2px;
+  transition:all .25s;
+}
+.burger .icon span:nth-child(1){top:0}
+.burger .icon span:nth-child(2){top:8.5px}
+.burger .icon span:nth-child(3){top:17px}
+.burger.open .icon span:nth-child(1){transform: translateY(8.5px) rotate(45deg)}
+.burger.open .icon span:nth-child(2){opacity:0}
+.burger.open .icon span:nth-child(3){transform: translateY(-8.5px) rotate(-45deg)}
+
+/* Mobile backdrop / menu */
+.mobile-backdrop{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.42);
+  z-index:1470;
+  opacity:0;
+  transition:opacity .2s ease;
+}
+.mobile-backdrop.open{display:block;opacity:1}
+
+.mobile-nav{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:100vh;
+  background:linear-gradient(180deg, rgba(10,77,46,0.98), rgba(6,31,20,0.98));
+  z-index:1550;
+  overflow:auto;
+  max-height:0;
+  opacity:0;
+  transform:translateY(-6px);
+  transition:max-height .28s ease, opacity .2s ease, transform .2s ease;
+  box-shadow:0 12px 40px rgba(0,0,0,.45);
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.mobile-nav.open{
+  display:block;
+  max-height:100vh;
+  opacity:1;
+  transform:translateY(0);
+}
+.mobile-nav .inner{
+  padding:16px 5vw 22px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  align-items:stretch;
+  min-height:100%;
+  position:relative;
+}
+
+body.menu-open .topbar,
+body.menu-open header,
+body.menu-open .electric-band{
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.mobile-brand{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  padding:8px 4px 10px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  margin-bottom:2px;
+  text-align:center;
+}
+.mobile-brand .company-name{
+  font-size:32px;
+  line-height:1;
+  white-space:nowrap;
+  text-align:center;
+  width:100%;
+}
+.mobile-brand .company-tagline{
+  font-size:13px;
+  letter-spacing:4px;
+  white-space:nowrap;
+  text-align:center;
+  width:100%;
+}
+
+.mobile-close{
+  position:sticky;
+  top:0;
+  align-self:flex-end;
+  width:46px;
+  height:46px;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  font-size:28px;
+  line-height:1;
+  font-weight:800;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 8px 18px rgba(0,0,0,.22);
+  z-index:2;
+}
+
+.mobile-nav .menu-links{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.mobile-nav a{
+  padding:16px 16px;
+  color:#fff;
+  width:100%;
+  text-align:left;
+  border-radius:12px;
+  font-weight:900;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  border:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.03);
+  min-height:56px;
+  white-space:nowrap;
+}
+.mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.10);color:var(--accent-2)}
+.mobile-nav .mobile-link.active{
+  background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+  color:var(--accent-2);
+}
+
+.mobile-nav .submenu{
+  display:none;
+  flex-direction:column;
+  gap:8px;
+  padding-left:10px;
+  margin-top:6px;
+  margin-bottom:6px;
+}
+.mobile-nav .submenu a{
+  font-family:'Trebuchet MS', Arial, sans-serif;
+  font-style:italic;
+  font-size:15px;
   font-weight:700;
+  min-height:48px;
+  padding:12px 14px;
+  border-radius:10px;
+  white-space:nowrap;
+  justify-content:flex-start;
+  letter-spacing:.2px;
+}
+.mobile-nav .submenu a:hover{
+  background:rgba(168,230,161,0.08);
+  padding-left:18px;
+}
+.mobile-nav .submenu a.active-item,
+.mobile-nav .submenu a[aria-current="page"]{
+  background:transparent;
+  color:rgba(255,255,255,0.30);
+  border:none;
+  box-shadow:none;
+  font-weight:700;
+  font-style:italic;
 }
 
-/* electric band */
-.electric-band {
-  position: fixed;
-  top: calc(var(--topbar-h) + var(--header-h) - 6px);
-  left: 0;
-  right: 0;
-  height: 14px;
-  z-index: 1900;
-  pointer-events: none;
-  overflow: visible;
-  transform: translateZ(0);
+.mobile-nav .contact{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  padding:16px 14px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  color:var(--muted);
+  margin-top:4px;
 }
-.electric-band .container {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100vw;
-  max-width: none;
-  padding: 0;
-  height: 100%;
-  pointer-events: none;
-  box-sizing: border-box;
+.mobile-nav .contact strong{
+  color:#fff;
+  font-size:15px;
+  letter-spacing:1px;
 }
-.lightning-svg {
-  width: 100vw;
-  height: 100%;
-  display: block;
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-.lightning-svg path.zap {
-  stroke: var(--electric-yellow);
-  stroke-width: 2.0;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 0.9;
-}
-.lightning-svg path.bright {
-  stroke: var(--electric-yellow);
-  stroke-width: 2.6;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 1;
-  stroke-dasharray: 520;
-  stroke-dashoffset: 520;
+.mobile-nav .contact .phone-line{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#fff;
+  font-weight:700;
+  flex-wrap:wrap;
+  font-size:15px;
 }
 
-.orbs {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100%;
-  pointer-events: none;
-  overflow: visible;
+.mobile-nav .socials{
+  margin-top:4px;
+  border-top:1px solid rgba(255,255,255,0.05);
+  padding-top:14px;
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  width:100%;
 }
-.orb {
-  position: absolute;
-  width: 8px;
-  height: 8px;
+.mobile-nav .socials a{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  font-size:20px;
+  border:none;
+  background:rgba(255,255,255,0.04);
   border-radius:50%;
-  background: radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
-  box-shadow: 0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.16);
-  transform: translate(-50%,-50%);
-  opacity: 0;
-  transition: opacity .18s linear;
+  white-space:normal;
+  min-height:42px;
 }
-.electric-band.active .orb { opacity:1; }
-@keyframes buzz-slow { 0%{ transform: translate(-50%,-50%) translateX(-1.5px); } 50%{ transform: translate(-50%,-50%) translateX(1.5px);} 100%{ transform: translate(-50%,-50%) translateX(-1.5px);} }
-.orb.buzz { animation: buzz-slow 1.8s linear infinite; }
 
-.glowline {
-  position:absolute; left:50%; top:50%;
-  transform:translate(-50%,-50%); height:3px; width:0;
-  background: linear-gradient(90deg, rgba(255,238,170,0), var(--electric-yellow), rgba(255,238,170,0));
+/* Electric band */
+.electric-band{
+  position:fixed;
+  top:calc(var(--topbar-h) + var(--header-h) - 6px);
+  left:0;
+  right:0;
+  height:14px;
+  z-index:1600;
+  pointer-events:none;
+  overflow:visible;
+  transform:translateZ(0);
+}
+.electric-band .container{
+  position:absolute;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+  width:100vw;
+  max-width:none;
+  padding:0;
+  height:100%;
+  pointer-events:none;
+  box-sizing:border-box;
+}
+.lightning-svg{
+  width:100vw;
+  height:100%;
+  display:block;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .22s ease;
+  mix-blend-mode:screen;
+}
+.electric-band.connected .lightning-svg{opacity:1}
+.lightning-svg path.zap{
+  stroke:var(--electric-yellow);
+  stroke-width:2.2;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:0.98;
+}
+.lightning-svg path.bright{
+  stroke:var(--electric-yellow);
+  stroke-width:2.8;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:1;
+}
+.orbs{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100vw;
+  height:100%;
+  pointer-events:none;
+  overflow:visible;
+}
+.orb{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
+  box-shadow:0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.22);
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:opacity .18s linear;
+}
+.electric-band.connected .orb{opacity:1}
+@keyframes buzz{
+  0%{transform:translate(-50%,-50%) translateX(-2px)}
+  50%{transform:translate(-50%,-50%) translateX(2px)}
+  100%{transform:translate(-50%,-50%) translateX(-2px)}
+}
+.orb.buzz{animation:buzz .9s linear infinite}
+.glowline{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  height:3px;
+  width:0;
+  background:linear-gradient(90deg, rgba(255,238,170,0), rgba(255,214,0,0.98), rgba(255,238,170,0));
   border-radius:8px;
-  box-shadow:0 6px 18px rgba(255,214,0,0.12);
-  opacity:0; transition:opacity .22s ease;
+  box-shadow:0 6px 20px rgba(255,214,0,0.12);
+  opacity:0;
+  transition:opacity .22s ease;
 }
-.electric-band.active .glowline { width:100vw; opacity:1; animation: pulse 3s ease-in-out infinite; }
-@keyframes pulse { 0%{ transform: translate(-50%,-50%) scaleX(.7); opacity:.6 } 50%{ transform: translate(-50%,-50%) scaleX(1); opacity:1 } 100%{ transform: translate(-50%,-50%) scaleX(.7); opacity:.6 } }
+.electric-band.connected .glowline{
+  width:100vw;
+  opacity:1;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
+  50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}
+  100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
+}
 
-/* Hero - offset under fixed header/topbar */
+/* Hero */
 .hero{
   margin-top:calc(var(--topbar-h) + var(--header-h));
-  height: 35vh;
-  min-height: 240px;
-  background: url("BATTERIE_install.png") center/cover no-repeat;
-  display:flex;align-items:center;justify-content:center;position:relative;text-align:center;
+  height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+  min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  text-align:center;
+  background:#0a4d2e;
 }
-.hero::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.45)}
-.hero-content{position:relative;z-index:1;max-width:900px;padding:0 20px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.hero-content h1{font-size:36px;margin:0;color:#fff}
-.hero-content p{font-size:18px;margin:0;color:#fff}
-.btn-primary{padding:12px 28px;border-radius:8px;border:0;background:var(--accent);color:#072012;font-weight:700;cursor:pointer}
-.btn-primary:hover{background:var(--accent-2)}
+.hero-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 90%;
+  transform:scale(1.07) translateY(24px);
+  filter:brightness(1.02) contrast(1.03) saturate(1.02);
+}
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
+  z-index:1;
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:950px;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.hero-content h1{
+  font-size:36px;
+  margin:0 0 12px;
+  font-weight:700;
+  text-shadow:0 3px 10px rgba(0,0,0,0.45)
+}
+.hero-content p{
+  font-size:18px;
+  margin:0 0 18px;
+  text-shadow:0 2px 8px rgba(0,0,0,0.45)
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn-primary,.btn-secondary{
+  padding:14px 26px;
+  border-radius:10px;
+  border:0;
+  font-weight:700;
+  cursor:pointer;
+  font-size:16px;
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-2);color:#072012}
+.btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
+.btn-secondary:hover{background:rgba(255,255,255,0.08)}
 
 /* Sections */
-.section{padding:40px 5vw;text-align:center}
-.section h2{font-size:28px;margin-bottom:16px;color:var(--accent-2);display:flex;gap:10px;align-items:center;justify-content:center}
-.section p.description{max-width:900px;margin:0 auto 20px;color:#e6f7ea;line-height:1.6}
+.section{padding:60px 5vw}
+.section h2{
+  font-size:32px;
+  margin:0 0 18px;
+  color:var(--accent-2);
+  text-align:center;
+}
+.products-intro,.description{
+  max-width:1000px;
+  margin:0 auto 24px;
+  color:var(--muted);
+  text-align:center;
+  font-size:15px;
+  line-height:1.7;
+  opacity:0.95;
+}
 
 /* Cards */
-.cards{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;align-items:stretch}
-.card{
-  background:#fff;color:#0a4d2e;border-radius:14px;overflow:hidden;width:280px;box-shadow:0 10px 22px rgba(0,0,0,0.35);
-  transition:transform .28s,box-shadow .28s;
+.grid-4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+  max-width:1200px;
+  margin:0 auto;
 }
-.card:hover{transform:translateY(-8px);box-shadow:0 18px 44px rgba(0,0,0,0.55)}
-.card img{width:100%;height:200px;object-fit:contain;background:#f8f8f8}
-.card-content{padding:18px 20px;text-align:center}
-.card-content h3{font-size:18px;margin:6px 0;font-weight:700}
-.card-content p{font-size:14px;color:#0a4d2e;margin:8px 0}
+.card{
+  position:relative;
+  background:#061f14;
+  border-radius:16px;
+  overflow:hidden;
+  min-height:420px;
+  box-shadow:0 10px 22px rgba(0,0,0,0.45);
+  border:1px solid rgba(212,175,55,0.85);
+}
+.card .image-wrap{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+.card .image-wrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  transition:transform .3s, filter .3s;
+}
+.card:hover .image-wrap img{
+  transform:scale(1.05);
+  filter:brightness(1.02) contrast(1.03);
+}
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.20) 45%, rgba(0,0,0,0.05) 100%);
+  z-index:1;
+}
+.card-content{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:2;
+  padding:22px 18px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+  text-align:center;
+  background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
+}
+.card-content h3{
+  margin:0;
+  font-size:18px;
+  line-height:1.15;
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--accent-2);
+  width:100%;
+  text-align:center;
+}
+.card-content p{
+  margin:0;
+  color:#e6f7ea;
+  font-size:15px;
+  line-height:1.6;
+}
+.price{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+.old-price{text-decoration:line-through;color:#b9c7bb;font-size:13px}
+.new-price{
+  font-weight:800;
+  color:#072012;
+  background:var(--accent-2);
+  padding:6px 8px;
+  border-radius:6px;
+  font-size:15px;
+}
+.btn-card{
+  margin:10px auto 0;
+  padding:10px 18px;
+  border-radius:10px;
+  border:0;
+  background:var(--gold-base);
+  color:#072012;
+  font-weight:800;
+  cursor:pointer;
+  font-size:14px;
+}
+.btn-card:hover{background:var(--gold-hover)}
 
-/* Price style like first code */
-.price{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:8px}
-.old-price{text-decoration:line-through;color:#9aa69a}
-.new-price{font-weight:800;color:#0a4d2e;background:var(--accent-2);padding:6px 8px;border-radius:6px}
+.advantages{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:8px;
+}
+.advantage{
+  width:260px;
+  background:#072b1b;
+  border-radius:12px;
+  padding:18px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,0.05);
+}
+.advantage i{font-size:34px;color:var(--accent);margin-bottom:8px}
+.advantage h3{color:#dfffe6;margin:6px 0}
+.advantage p{color:#e6f7ea;line-height:1.6;margin:0}
 
-/* buttons inside cards */
-.btn{padding:10px 18px;border-radius:8px;border:0;background:#0a4d2e;color:#fff;cursor:pointer}
-.btn:hover{background:#7cb342}
-
-/* Devis form - match chartre graphical from Energie pages */
-#devis { padding-bottom:60px }
-#devis form { max-width:520px;margin:18px auto 0;display:flex;flex-direction:column;gap:12px;background:rgba(0,0,0,0.55);padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.4) }
-#devis input,#devis textarea,#devis select{width:100%;padding:12px;border-radius:8px;border:1px solid rgba(124,179,66,0.18);background:transparent;color:#fff;font-size:14px}
-#devis button{align-self:center;padding:12px 26px;border-radius:10px;border:0;background:var(--accent);color:#072012;font-weight:700;cursor:pointer}
+/* Devis */
+#devis form{
+  max-width:520px;
+  margin:18px auto 0;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  background:rgba(0,0,0,0.55);
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.4)
+}
+#devis input,#devis textarea,#devis select{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid rgba(124,179,66,0.18);
+  background:transparent;
+  color:#fff;
+  font-size:14px
+}
+#devis input::placeholder,#devis textarea::placeholder{color:#dbeed8}
+#devis button{
+  align-self:center;
+  padding:12px 26px;
+  border-radius:10px;
+  border:0;
+  background:var(--accent);
+  color:#072012;
+  font-weight:700;
+  cursor:pointer
+}
 #devis button:hover{background:var(--accent-2)}
 
-/* Footer - same style as Energie */
-footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:relative;margin-top:40px;text-align:center}
-footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold-base)}
-.footer-company{display:block;margin:0 auto 8px;font-size:18px;font-weight:800;color:#04462e;-webkit-text-stroke:0.7px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,0.6);padding:4px 8px;border-radius:6px;width:max-content;background: linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%)}
+/* Footer */
+footer{
+  background:var(--green-dark);
+  color:#fff;
+  padding:28px 5vw 36px;
+  position:relative;
+  margin-top:40px;
+  text-align:center;
+}
+footer::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  height:2px;
+  background:var(--gold-base)
+}
+.footer-company{
+  display:block;
+  margin:0 auto 8px;
+  font-size:18px;
+  font-weight:800;
+  color:#04462e;
+  -webkit-text-stroke:0.7px var(--gold-base);
+  text-shadow:0 3px 6px rgba(0,0,0,0.6);
+  padding:4px 8px;
+  border-radius:6px;
+  width:max-content;
+  background:linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%)
+}
 .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
-/* Responsive tweaks: show burger only on small screens */
+/* Modal */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:3000;
+  background:rgba(0,0,0,0.65);
+  padding:24px;
+  align-items:center;
+  justify-content:center;
+}
+.modal.open{display:flex}
+.modal-card{
+  width:min(560px, 100%);
+  background:#fff;
+  color:#072012;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.45);
+  position:relative;
+}
+.modal-close{
+  position:absolute;
+  right:12px;
+  top:10px;
+  border:0;
+  background:transparent;
+  font-size:26px;
+  cursor:pointer;
+  color:#072012;
+  z-index:1;
+}
+.modal-card img{
+  width:100%;
+  height:260px;
+  object-fit:contain;
+  background:#f7f7f7;
+  display:block;
+}
+.modal-body{
+  padding:16px 18px 20px;
+  text-align:center;
+}
+.modal-body h3{
+  margin:0 0 8px;
+  font-size:22px;
+}
+.modal-body p{
+  margin:0;
+  color:#243c2e;
+  line-height:1.6;
+}
+
 @media (max-width:1100px){
-  .cards{flex-direction:row;flex-wrap:wrap;justify-content:center}
-  .burger{display:flex !important}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
   nav{display:none}
+  .burger{display:flex}
 }
 @media (max-width:820px){
-  .card{width:100%;max-width:640px}
-  .hero{height:40vh}
-  .company-name{font-size:24px}
+  :root{
+    --topbar-h:42px;
+    --header-h:76px;
+  }
+  .topbar{
+    padding:0 4vw;
+    font-size:12px;
+    gap:8px;
+  }
+  .logo-text{
+    gap:8px;
+    align-items:center;
+  }
+  .logo-text img{
+    height:52px;
+  }
+  .company-name{
+    font-size:34px;
+    letter-spacing:.2px;
+  }
+  .company-tagline{
+    font-size:13px;
+    letter-spacing:3px;
+  }
+  .hero{
+    height:auto;
+    min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+  }
+  .hero-bg{
+    object-position:center center;
+    transform:scale(1.12) translateY(0);
+  }
+  .hero-content{
+    max-width:88vw;
+    padding:24px 14px;
+  }
+  .hero-content h1{
+    font-size:clamp(24px, 5.2vw, 34px);
+  }
+  .hero-content p{
+    font-size:16px;
+  }
+  .section{
+    padding:52px 4vw;
+  }
+  .grid-4{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+  .card{
+    min-height:360px;
+  }
+  .card-content{
+    padding:18px;
+  }
+  .card-content p{
+    font-size:14px;
+  }
+  .advantage{
+    width:100%;
+    max-width:420px;
+  }
+  .advantages{
+    flex-direction:column;
+    align-items:center;
+  }
+  #devis form{
+    padding:16px;
+  }
+  .mobile-nav.open{
+    max-height:100vh;
+  }
+}
+@media (max-width:480px){
+  :root{
+    --topbar-h:40px;
+    --header-h:72px;
+  }
+  .topbar{
+    font-size:11px;
+    padding:0 3.5vw;
+  }
+  .topbar .right{
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    justify-content:flex-end;
+  }
+  .logo-text img{
+    height:44px;
+  }
+  .company-name{
+    font-size:26px;
+    letter-spacing:.1px;
+  }
+  .company-tagline{
+    font-size:10px;
+    letter-spacing:2px;
+  }
+  .burger{
+    width:48px;
+    height:48px;
+  }
+  .hero-bg{
+    object-position:center 28%;
+    transform:scale(1.18) translateY(0);
+  }
+  .hero-content{
+    max-width:92vw;
+    padding:18px 12px;
+  }
+  .hero-content h1{
+    font-size:24px;
+    line-height:1.2;
+    margin-bottom:8px;
+  }
+  .hero-content p{
+    font-size:15px;
+    line-height:1.45;
+  }
+  .btn-primary,.btn-secondary{
+    padding:12px 22px;
+    font-size:14px;
+  }
+  .section h2{
+    font-size:26px;
+  }
+  .card{
+    min-height:330px;
+  }
+  .card-content{
+    padding:14px 12px 16px;
+  }
+  .card-content h3{
+    font-size:17px;
+    min-height:auto;
+  }
+  .card-content p{
+    font-size:13px;
+    line-height:1.5;
+  }
+  .modal-card img{
+    height:220px;
+  }
+  .modal-body h3{
+    font-size:20px;
+  }
+  .electric-band{
+    top:calc(var(--topbar-h) + var(--header-h) - 4px);
+    height:12px;
+  }
+  .electric-band .container{
+    width:100%;
+    left:0;
+    padding:0 4vw;
+    box-sizing:border-box;
+  }
+  .glowline{
+    width:86%;
+    max-width:86%;
+  }
+  .mobile-brand .company-name{
+    font-size:28px;
+  }
+  .mobile-brand .company-tagline{
+    font-size:10px;
+    letter-spacing:3px;
+  }
+  .mobile-nav a{
+    font-size:18px;
+    padding:15px 16px;
+    min-height:56px;
+    width:100%;
+    white-space:nowrap;
+  }
+  .mobile-nav .submenu a{
+    font-size:15px;
+  }
 }
 </style>
 </head>
 <body>
 
 <!-- Topbar -->
-<div class="topbar" role="banner">
-  <div class="left"><a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a></div>
-  <div class="right"><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
+<div class="topbar" role="banner" aria-hidden="false">
+  <div class="right">
+    <a href="tel:+2250707070707" id="topPhoneLink">
+      <i class="fas fa-phone" aria-hidden="true"></i>
+      <span id="topPhoneText">+225 07 07 07 07 07</span>
+    </a>
+  </div>
 </div>
 
 <!-- Header -->
 <header role="navigation" aria-label="Main">
   <div class="logo-text">
     <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
-    <div class="company-name">GREENBRIDGE</div>
+    <div class="brand-stack">
+      <div class="company-name">GREENBRIDGE</div>
+      <div class="company-tagline">TECHNOLOGIES</div>
+    </div>
   </div>
 
-  <!-- hamburger (mobile only via media query) -->
   <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
     <span class="icon"><span></span><span></span><span></span></span>
   </button>
 
   <nav aria-label="Menu principal">
     <a href="Code1.html">Accueil</a>
+
     <div class="dropdown" aria-haspopup="true" aria-expanded="false">
-      <!-- badge includes the emoji so desktop shows icon in badge -->
-      <a href="energie.html" class="active" data-current="🔋 Batteries & stockage">
-        Énergie
+      <a href="etude_dimensionnement_2.html" data-current="🔋 Batteries & stockage" id="etudeLink" aria-controls="dropdownEtude">
+        Étude
         <span class="sub-badge">🔋 Batteries & stockage</span>
       </a>
-      <ul class="dropdown-content" role="menu" aria-label="Sous-menu énergie">
-        <li><a href="zone_urbaine.html">🏙️ Zone Urbaine</a></li>
-        <li><a href="zone_agricole.html">🚜 Zone Agricole</a></li>
+      <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="dropdownEtude">
+        <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
+        <li><a href="zone_agricole.html" role="menuitem">🚜 Zone Agricole</a></li>
+      </ul>
+    </div>
+
+    <div class="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a href="energie.html" data-current="🔋 Batteries & stockage" id="energieLink" aria-controls="dropdownEnergie">
+        Nos Produits
+        <span class="sub-badge">🔋 Batteries & stockage</span>
+      </a>
+      <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="dropdownEnergie">
         <li><a href="panneaux.html">⚡ Panneaux solaires</a></li>
         <li><a href="batteries.html" class="active-item" aria-current="page">🔋 Batteries & stockage</a></li>
         <li><a href="onduleurs.html">🔌 Onduleurs</a></li>
         <li><a href="groupes.html">⚙️ Groupes électrogènes</a></li>
       </ul>
     </div>
-    <a href="domotique.html">Domotique</a>
-    <a href="securite.html">Sécurité</a>
+
+    <a href="Projets.html">Projets futurs</a>
     <a href="maintenance.html">Maintenance</a>
   </nav>
 </header>
 
-<!-- mobile nav (same structure, visible on small screens) -->
+<div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
+
+<!-- Mobile nav -->
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="inner">
-    <a href="Code1.html" class="mobile-link">Accueil</a>
+    <button class="mobile-close" id="mobileCloseBtn" type="button" aria-label="Fermer le menu">×</button>
 
-    <div>
-      <!-- Mobile toggle now has the emoji in data-current so the badge shows it.
-           href preserved so clicking the text navigates to energie.html.
-           The caret toggles submenu; clicking the text follows the link. -->
-      <a href="energie.html" id="mobileEnergieToggle" class="mobile-link active" data-current="🔋 Batteries & stockage" aria-expanded="true">
-        Énergie
-        <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-      </a>
-      <div class="submenu" id="mobileEnergieSub" style="display:flex;flex-direction:column;">
-        <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
-        <a href="zone_agricole.html">🚜 Zone Agricole</a>
-        <a href="panneaux.html">⚡ Panneaux solaires</a>
-        <a href="batteries.html" class="active-item" aria-current="page">🔋 Batteries & stockage</a>
-        <a href="onduleurs.html">🔌 Onduleurs</a>
-        <a href="groupes.html">⚙️ Groupes électrogènes</a>
+    <div class="mobile-brand">
+      <div class="company-name">GREENBRIDGE</div>
+      <div class="company-tagline">TECHNOLOGIES</div>
+    </div>
+
+    <div class="menu-links">
+      <a href="Code1.html" class="mobile-link">Accueil</a>
+
+      <div>
+        <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
+          Étude
+          <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+        </a>
+        <div class="submenu" id="mobileEtudeSub">
+          <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
+          <a href="zone_agricole.html">🚜 Zone Agricole</a>
+        </div>
+      </div>
+
+      <div>
+        <a href="energie.html" id="mobileEnergieToggle" class="mobile-link active" data-current="🔋 Batteries & stockage" aria-expanded="true">
+          Nos Produits
+          <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+        </a>
+        <div class="submenu" id="mobileEnergieSub" style="display:flex;flex-direction:column;">
+          <a href="panneaux.html">⚡ Panneaux solaires</a>
+          <a href="batteries.html" class="active-item" aria-current="page">🔋 Batteries & stockage</a>
+          <a href="onduleurs.html">🔌 Onduleurs</a>
+          <a href="groupes.html">⚙️ Groupes électrogènes</a>
+        </div>
+      </div>
+
+      <a href="Projets.html" class="mobile-link">Projets futurs</a>
+      <a href="maintenance.html" class="mobile-link">Maintenance</a>
+    </div>
+
+    <div class="contact" aria-hidden="false">
+      <strong>CONTACT</strong>
+      <div class="phone-line">
+        <i class="fas fa-phone" aria-hidden="true"></i>
+        <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
       </div>
     </div>
 
-    <a href="domotique.html" class="mobile-link">Domotique</a>
-    <a href="securite.html" class="mobile-link">Sécurité</a>
-    <a href="maintenance.html" class="mobile-link">Maintenance</a>
-
-    <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.03);padding-top:10px;display:flex;gap:12px;align-items:center;">
+    <div class="socials">
       <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
       <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+      <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
     </div>
   </div>
 </div>
 
-<!-- ELECTRIC BAND (fixed directly under header; aligned to remove gap) -->
+<!-- ELECTRIC BAND -->
 <div class="electric-band" id="energyBand" aria-hidden="true">
   <div class="container" aria-hidden="true">
     <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
@@ -457,48 +1217,62 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
 
 <!-- Hero -->
 <section class="hero" id="top" aria-label="Hero">
+  <img class="hero-bg" src="BATTERIE_install.png" alt="Illustration GreenBridge Technologies">
+  <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1>Batteries & stockage</h1>
     <p>Stockez votre énergie efficacement et durablement grâce à nos solutions avancées.</p>
-    <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
+    </div>
   </div>
 </section>
 
-<!-- SECTION 1 : Power Bank (3 cards) -->
+<!-- SECTION 1 : Power Bank -->
 <section class="section">
   <h2><i class="fas fa-battery-full"></i> Power Bank</h2>
   <p class="description">Solutions de charge nomade — plusieurs capacités et sorties pour vos appareils.</p>
 
-  <div class="cards" role="list">
-    <div class="card" role="listitem">
-      <img src="powerbank_10000.png" alt="Powerbank 10 000 mAh">
+  <div class="grid-4" role="list">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="powerbank_10000.png" alt="Powerbank 10 000 mAh"></div>
       <div class="card-content">
         <h3>Power Bank 10 000 mAh</h3>
         <p>Compacte, chargement USB-C rapide — idéale pour smartphone et petites tablettes.</p>
         <div class="price"><span class="old-price">28 000 FCFA</span> <span class="new-price">22 000 FCFA</span></div>
-        <button class="btn" onclick="openModal('powerbank_10000.png','Power Bank 10 000 mAh','Compacte, sortie USB-C, charge rapide.')">Détails</button>
+        <button class="btn-card" onclick="openModal('powerbank_10000.png','Power Bank 10 000 mAh','Compacte, sortie USB-C, charge rapide.')">Détails</button>
       </div>
-    </div>
+    </article>
 
-    <div class="card" role="listitem">
-      <img src="powerbank_20000.png" alt="Powerbank 20 000 mAh">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="powerbank_20000.png" alt="Powerbank 20 000 mAh"></div>
       <div class="card-content">
         <h3>Power Bank 20 000 mAh</h3>
         <p>Grande capacité pour plusieurs charges, double sortie USB + USB-C.</p>
         <div class="price"><span class="old-price">48 000 FCFA</span> <span class="new-price">38 000 FCFA</span></div>
-        <button class="btn" onclick="openModal('powerbank_20000.png','Power Bank 20 000 mAh','Haute capacité, 2 sorties, recharge rapide.')">Détails</button>
+        <button class="btn-card" onclick="openModal('powerbank_20000.png','Power Bank 20 000 mAh','Haute capacité, 2 sorties, recharge rapide.')">Détails</button>
       </div>
-    </div>
+    </article>
 
-    <div class="card" role="listitem">
-      <img src="powerbank_30000.png" alt="Powerbank 30 000 mAh">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="powerbank_30000.png" alt="Powerbank 30 000 mAh"></div>
       <div class="card-content">
         <h3>Power Bank 30 000 mAh</h3>
         <p>Puissante — peut alimenter ordinateurs portables légers et petits équipements.</p>
         <div class="price"><span class="old-price">85 000 FCFA</span> <span class="new-price">72 000 FCFA</span></div>
-        <button class="btn" onclick="openModal('powerbank_30000.png','Power Bank 30 000 mAh','Puissante, compatible laptops légers, multi-ports.')">Détails</button>
+        <button class="btn-card" onclick="openModal('powerbank_30000.png','Power Bank 30 000 mAh','Puissante, compatible laptops légers, multi-ports.')">Détails</button>
       </div>
-    </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="powerbank_wireless.png" alt="Powerbank sans fil"></div>
+      <div class="card-content">
+        <h3>Power Bank Wireless</h3>
+        <p>Recharge sans fil pratique avec protection intelligente.</p>
+        <div class="price"><span class="old-price">62 000 FCFA</span> <span class="new-price">54 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('powerbank_wireless.png','Power Bank Wireless','Recharge sans fil, port USB-C, protection contre surcharge.')">Détails</button>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -507,36 +1281,46 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
   <h2><i class="fas fa-bolt"></i> LiFePO4 (500W → 2500W)</h2>
   <p class="description">Packs LiFePO4 pour résidentiel et petites entreprises — modulables et durables.</p>
 
-  <div class="cards" role="list">
-    <div class="card" role="listitem">
-      <img src="lifepo4_500.png" alt="LiFePO4 500W">
+  <div class="grid-4" role="list">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_500.png" alt="LiFePO4 500W"></div>
       <div class="card-content">
         <h3>LiFePO4 — 500W (pack)</h3>
         <p>Pack d'entrée pour petit système solaire ou secours de courte durée.</p>
         <div class="price"><span class="old-price">185 000 FCFA</span> <span class="new-price">160 000 FCFA</span></div>
-        <button class="btn" onclick="openModal('lifepo4_500.png','LiFePO4 500W','Pack LiFePO4 500W, compact, cycles élevés.')">Détails</button>
+        <button class="btn-card" onclick="openModal('lifepo4_500.png','LiFePO4 500W','Pack LiFePO4 500W, compact, cycles élevés.')">Détails</button>
       </div>
-    </div>
+    </article>
 
-    <div class="card" role="listitem">
-      <img src="lifepo4_1000.png" alt="LiFePO4 1000W">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_1000.png" alt="LiFePO4 1000W"></div>
       <div class="card-content">
         <h3>LiFePO4 — 1 000W (pack)</h3>
         <p>Capable d'alimenter une maison de taille moyenne en complément d'un onduleur.</p>
         <div class="price"><span class="old-price">320 000 FCFA</span> <span class="new-price">285 000 FCFA</span></div>
-        <button class="btn" onclick="openModal('lifepo4_1000.png','LiFePO4 1000W','Pack LiFePO4 1000W, bon compromis autonomie/puissance.')">Détails</button>
+        <button class="btn-card" onclick="openModal('lifepo4_1000.png','LiFePO4 1000W','Pack LiFePO4 1000W, bon compromis autonomie/puissance.')">Détails</button>
       </div>
-    </div>
+    </article>
 
-    <div class="card" role="listitem">
-      <img src="lifepo4_2500.png" alt="LiFePO4 2500W">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_2500.png" alt="LiFePO4 2500W"></div>
       <div class="card-content">
         <h3>LiFePO4 — 2 500W (pack)</h3>
         <p>Pack robuste pour petites entreprises et besoins soutenus.</p>
         <div class="price"><span class="old-price">540 000 FCFA</span> <span class="new-price">480 000 FCFA</span></div>
-        <button class="btn" onclick="openModal('lifepo4_2500.png','LiFePO4 2500W','Pack LiFePO4 2500W, maintien forte charge et cycles longs.')">Détails</button>
+        <button class="btn-card" onclick="openModal('lifepo4_2500.png','LiFePO4 2500W','Pack LiFePO4 2500W, maintien forte charge et cycles longs.')">Détails</button>
       </div>
-    </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_2500_high.png" alt="LiFePO4 2500W pro"></div>
+      <div class="card-content">
+        <h3>LiFePO4 — 2 500W (pro)</h3>
+        <p>Système professionnel pour charges soutenues, monitoring inclus.</p>
+        <div class="price"><span class="old-price">1 050 000 FCFA</span> <span class="new-price">920 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('lifepo4_2500_high.png','LiFePO4 2500W Pro','Système pro LiFePO4 2500W, monitoring & intégration.')">Détails</button>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -545,36 +1329,46 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
   <h2><i class="fas fa-industry"></i> LiFePO4 (2500W → 10000W)</h2>
   <p class="description">Systèmes LiFePO4 pour sites industriels, fermes solaires et installations hors-réseau.</p>
 
-  <div class="cards" role="list">
-    <div class="card" role="listitem">
-      <img src="lifepo4_2500_high.png" alt="LiFePO4 2500W pro">
-      <div class="card-content">
-        <h3>LiFePO4 — 2 500W (pro)</h3>
-        <p>Système professionnel pour charges soutenues, monitoring inclus.</p>
-        <div class="price"><span class="old-price">1 050 000 FCFA</span> <span class="new-price">920 000 FCFA</span></div>
-        <button class="btn" onclick="openModal('lifepo4_2500_high.png','LiFePO4 2500W Pro','Système pro LiFePO4 2500W, monitoring & intégration.')">Détails</button>
-      </div>
-    </div>
-
-    <div class="card" role="listitem">
-      <img src="lifepo4_5000.png" alt="LiFePO4 5000W">
+  <div class="grid-4" role="list">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_5000.png" alt="LiFePO4 5000W"></div>
       <div class="card-content">
         <h3>LiFePO4 — 5 000W</h3>
         <p>Forte puissance pour installations commerciales moyennes.</p>
         <div class="price"><span class="old-price">2 050 000 FCFA</span> <span class="new-price">1 750 000 FCFA</span></div>
-        <button class="btn" onclick="openModal('lifepo4_5000.png','LiFePO4 5000W','Système LiFePO4 5000W, haute disponibilité, redondance possible.')">Détails</button>
+        <button class="btn-card" onclick="openModal('lifepo4_5000.png','LiFePO4 5000W','Système LiFePO4 5000W, haute disponibilité, redondance possible.')">Détails</button>
       </div>
-    </div>
+    </article>
 
-    <div class="card" role="listitem">
-      <img src="lifepo4_10000.png" alt="LiFePO4 10000W">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_10000.png" alt="LiFePO4 10000W"></div>
       <div class="card-content">
         <h3>LiFePO4 — 10 000W</h3>
         <p>Solution pour grandes installations industrielles et micro-réseaux.</p>
         <div class="price"><span class="old-price">4 800 000 FCFA</span> <span class="new-price">3 950 000 FCFA</span></div>
-        <button class="btn" onclick="openModal('lifepo4_10000.png','LiFePO4 10000W','Système LiFePO4 10kW, conçu pour fermes solaires & industrie.')">Détails</button>
+        <button class="btn-card" onclick="openModal('lifepo4_10000.png','LiFePO4 10000W','Système LiFePO4 10kW, conçu pour fermes solaires & industrie.')">Détails</button>
       </div>
-    </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="battery_pack_s.png" alt="Pack batterie portable"></div>
+      <div class="card-content">
+        <h3>Pack batterie portable</h3>
+        <p>Solution compacte pour continuité d’alimentation et usage quotidien.</p>
+        <div class="price"><span class="old-price">120 000 FCFA</span> <span class="new-price">98 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('battery_pack_s.png','Pack batterie portable','Pack batterie portable pour secours et mobilité.')">Détails</button>
+      </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="BATTERIE_install.png" alt="Installation batterie"></div>
+      <div class="card-content">
+        <h3>Installation stockage</h3>
+        <p>Système complet avec câblage, protections et intégration sur site.</p>
+        <div class="price"><span class="old-price">Sur devis</span> <span class="new-price">Personnalisé</span></div>
+        <button class="btn-card" onclick="openModal('BATTERIE_install.png','Installation stockage','Solution sur mesure avec installation complète.')">Détails</button>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -609,39 +1403,201 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
 <footer>
   <div class="footer-company" aria-hidden="false">GREENBRIDGE</div>
   <div class="footer-contact" aria-label="Coordonnées">
-    <div>© 2025 GreenBridge Énergie. Tous droits réservés.</div>
+    <div>© 2025 GreenBridge Technologies. Tous droits réservés.</div>
     <div>Abidjan, Côte d’Ivoire</div>
-    <div>Tel: +225 07 07 07 07 07</div>
+    <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
   </div>
 </footer>
 
-<!-- Scripts -->
 <script>
-/* Modal helpers */
-function openModal(img, title, desc){
-  document.getElementById("modalImg").src = img;
-  document.getElementById("modalTitle").innerText = title;
-  document.getElementById("modalDesc").innerText = desc;
-  const pm = document.querySelector('#productModal');
-  if(pm && pm.style) pm.style.display = 'block';
+const contactNumbers = [
+  { display: '+225 07 07 07 07 07', tel: '+2250707070707' },
+  { display: '+221 77 00 00 00 00', tel: '+2217700000000' }
+];
+let phoneIndex = 0;
+
+function updatePhone(){
+  const info = contactNumbers[phoneIndex];
+  const topPhoneLink = document.getElementById('topPhoneLink');
+  const topPhoneText = document.getElementById('topPhoneText');
+  const footerPhoneText = document.getElementById('footerPhoneText');
+  const mobilePhoneLink = document.getElementById('mobilePhoneLink');
+
+  if(topPhoneLink) topPhoneLink.href = 'tel:' + info.tel;
+  if(topPhoneText) topPhoneText.textContent = info.display;
+  if(footerPhoneText) footerPhoneText.textContent = info.display;
+  if(mobilePhoneLink){
+    mobilePhoneLink.href = 'tel:' + info.tel;
+    mobilePhoneLink.textContent = info.display;
+  }
+
+  phoneIndex = (phoneIndex + 1) % contactNumbers.length;
 }
-function closeModal(){ const el = document.getElementById('productModal'); if(el) el.style.display = 'none'; }
+updatePhone();
+setInterval(updatePhone, 10000);
+
+/* Modal */
+function openModal(img, title, desc){
+  document.getElementById('modalImg').src = img;
+  document.getElementById('modalImg').alt = title;
+  document.getElementById('modalTitle').innerText = title;
+  document.getElementById('modalDesc').innerText = desc;
+  const modal = document.getElementById('productModal');
+  if(modal){
+    modal.style.display = 'block';
+  }
+}
+function closeModal(){
+  const el = document.getElementById('productModal');
+  if(el) el.style.display = 'none';
+}
+document.getElementById('productModal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeModal();
+});
 
 /* Desktop dropdown hover */
 document.querySelectorAll('.dropdown').forEach(drop => {
   let timer;
   const menu = drop.querySelector('.dropdown-content');
-  drop.addEventListener('mouseenter', () => {
-    clearTimeout(timer);
-    if(menu) menu.style.display = 'block';
-    drop.setAttribute('aria-expanded','true');
-  });
-  drop.addEventListener('mouseleave', () => {
-    timer = setTimeout(()=>{ if(menu) menu.style.display = 'none'; drop.setAttribute('aria-expanded','false'); }, 220);
+  const trigger = drop.querySelector('a');
+
+  function open(){ if(menu) menu.style.display = 'block'; drop.setAttribute('aria-expanded','true'); }
+  function close(){ if(menu) menu.style.display = 'none'; drop.setAttribute('aria-expanded','false'); }
+
+  drop.addEventListener('mouseenter', () => { clearTimeout(timer); open(); });
+  drop.addEventListener('mouseleave', () => { timer = setTimeout(()=> close(), 220); });
+
+  trigger.addEventListener('click', function(e){
+    if(window.innerWidth <= 1100){
+      e.preventDefault();
+      if(menu && menu.style.display === 'block'){ close(); } else { open(); }
+      const mobileNav = document.getElementById('mobileNav');
+      const burger = document.getElementById('burgerBtn');
+      if(mobileNav && burger){
+        mobileNav.classList.add('open');
+        burger.classList.add('open');
+        mobileNav.setAttribute('aria-hidden','false');
+        burger.setAttribute('aria-expanded','true');
+        document.body.classList.add('menu-open');
+        document.getElementById('mobileBackdrop').classList.add('open');
+      }
+    }
   });
 });
 
-/* Electric band visuals (kept) */
+/* Mobile menu */
+(function(){
+  const burger = document.getElementById('burgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileBackdrop = document.getElementById('mobileBackdrop');
+  const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+  const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
+  const mobileEtudeSub = document.getElementById('mobileEtudeSub');
+  const mobileEnergieToggle = document.getElementById('mobileEnergieToggle');
+  const mobileEnergieSub = document.getElementById('mobileEnergieSub');
+
+  if(!burger || !mobileNav || !mobileBackdrop) return;
+
+  function openMenu(){
+    mobileNav.classList.add('open');
+    mobileBackdrop.classList.add('open');
+    burger.classList.add('open');
+    mobileNav.setAttribute('aria-hidden','false');
+    burger.setAttribute('aria-expanded','true');
+    document.body.classList.add('menu-open');
+
+    if(window.innerWidth <= 1100 && mobileEnergieSub){
+      mobileEnergieSub.style.display = 'flex';
+      if(mobileEnergieToggle) mobileEnergieToggle.setAttribute('aria-expanded','true');
+    }
+  }
+
+  function closeMenu(){
+    mobileNav.classList.remove('open');
+    mobileBackdrop.classList.remove('open');
+    burger.classList.remove('open');
+    mobileNav.setAttribute('aria-hidden','true');
+    burger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('menu-open');
+  }
+
+  burger.addEventListener('click', ()=>{
+    const opened = mobileNav.classList.contains('open');
+    if(opened) closeMenu();
+    else openMenu();
+  });
+
+  mobileBackdrop.addEventListener('click', closeMenu);
+  if(mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
+
+  mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+    if(a.id === 'mobileEtudeToggle' || a.id === 'mobileEnergieToggle') return;
+    a.addEventListener('click', ()=> closeMenu());
+  });
+
+  function bindExpandable(toggleEl, subEl){
+    if(!toggleEl || !subEl) return;
+    toggleEl.addEventListener('click', function(e){
+      if(e.target.closest('.caret')){
+        e.preventDefault();
+        e.stopPropagation();
+        const opening = subEl.style.display !== 'flex';
+        document.querySelectorAll('.mobile-nav .submenu').forEach(s=>{
+          if(s !== subEl) s.style.display = 'none';
+        });
+        subEl.style.display = opening ? 'flex' : 'none';
+        toggleEl.setAttribute('aria-expanded', String(opening));
+        mobileNav.classList.add('open');
+        burger.classList.add('open');
+        mobileBackdrop.classList.add('open');
+        mobileNav.setAttribute('aria-hidden','false');
+        burger.setAttribute('aria-expanded','true');
+        document.body.classList.add('menu-open');
+      } else {
+        closeMenu();
+      }
+    });
+  }
+
+  bindExpandable(mobileEtudeToggle, mobileEtudeSub);
+  bindExpandable(mobileEnergieToggle, mobileEnergieSub);
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && mobileNav.classList.contains('open')){
+      closeMenu();
+    }
+  });
+
+  function openActiveSubmenusOnSmall(){
+    if(window.innerWidth <= 1100){
+      const activeToggle = document.getElementById('mobileEnergieToggle');
+      const activeSub = document.getElementById('mobileEnergieSub');
+      if(activeToggle && activeSub){
+        activeSub.style.display = 'flex';
+        activeToggle.setAttribute('aria-expanded','true');
+        activeToggle.classList.add('active');
+      }
+      const path = window.location.pathname.split('/').pop().toLowerCase();
+      const etudePage = (path === 'zone_urbaine.html' || path === 'zone_agricole.html');
+      if(mobileEtudeSub){
+        mobileEtudeSub.style.display = etudePage ? 'flex' : 'none';
+      }
+      if(mobileEtudeToggle){
+        mobileEtudeToggle.setAttribute('aria-expanded', String(etudePage));
+      }
+    } else {
+      const activeSub = document.getElementById('mobileEnergieSub');
+      if(activeSub) activeSub.style.display = 'none';
+    }
+  }
+  window.addEventListener('resize', openActiveSubmenusOnSmall);
+  openActiveSubmenusOnSmall();
+})();
+
+/* Electric band visuals */
 (function(){
   const band = document.getElementById('energyBand');
   if(!band) return;
@@ -658,7 +1614,13 @@ document.querySelectorAll('.dropdown').forEach(drop => {
     {rxRatio:0.42, ry:10, speed:0.05, phase:Math.PI}
   ];
 
-  orbs.forEach((o,i)=>{ if(o){ o.classList.add('buzz'); o.style.animationDelay = (i*140)+'ms'; o.style.opacity='1'; } });
+  orbs.forEach((o,i)=>{
+    if(o){
+      o.classList.add('buzz');
+      o.style.animationDelay = (i*140)+'ms';
+      o.style.opacity='1';
+    }
+  });
 
   let t0 = performance.now();
   function tick(now){
@@ -668,15 +1630,18 @@ document.querySelectorAll('.dropdown').forEach(drop => {
     const rect = cont.getBoundingClientRect();
     const cx = rect.width/2;
     const cy = rect.height/2;
+
     for(let i=0;i<orbs.length;i++){
-      const o = orbs[i]; if(!o) continue;
+      const o = orbs[i];
+      if(!o) continue;
       const p = params[i];
       const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
       const ry = p.ry;
       const angle = (time * p.speed * Math.PI * 2) + p.phase;
       const x = cx + Math.cos(angle) * rx;
       const y = cy + Math.sin(angle) * ry;
-      o.style.left = x + 'px'; o.style.top = y + 'px';
+      o.style.left = x + 'px';
+      o.style.top = y + 'px';
       o.style.transform = 'translate(-50%,-50%)';
     }
     requestAnimationFrame(tick);
@@ -690,15 +1655,18 @@ document.querySelectorAll('.dropdown').forEach(drop => {
       const len = bright.getTotalLength ? bright.getTotalLength() : 520;
       bright.setAttribute('stroke-dasharray', String(len));
       bright.setAttribute('stroke-dashoffset', String(len));
-      setTimeout(()=> {
+      setTimeout(()=>{
         bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms';
         bright.setAttribute('stroke-dashoffset','0');
-        setTimeout(()=> { bright.setAttribute('stroke-dashoffset', String(len)); }, 420);
+        setTimeout(()=>{ bright.setAttribute('stroke-dashoffset', String(len)); }, 420);
       }, 80);
     }catch(e){
       bright.setAttribute('stroke-dasharray','520');
       bright.setAttribute('stroke-dashoffset','520');
-      setTimeout(()=> { bright.style.transition = 'stroke-dashoffset 420ms ease-out'; bright.setAttribute('stroke-dashoffset','0'); }, 80);
+      setTimeout(()=>{
+        bright.style.transition = 'stroke-dashoffset 360ms ease-out';
+        bright.setAttribute('stroke-dashoffset','0');
+      }, 80);
     }
   }
 
@@ -718,155 +1686,65 @@ document.querySelectorAll('.dropdown').forEach(drop => {
       s.style.opacity = '0';
       s.style.transform = 'translateY(6px)';
       s.style.pointerEvents = 'none';
+      s.style.zIndex = '1';
       cont.appendChild(s);
-      setTimeout(()=> { s.style.transition = 'all 260ms ease-out'; s.style.opacity='1'; s.style.transform='translateY(-6px)'; }, 20 + i*30);
-      setTimeout(()=> { s.style.transition = 'all 520ms ease-in'; s.style.opacity='0'; s.style.transform='translateY(-20px)'; }, 300 + i*40);
-      setTimeout(()=> { if(s.parentNode) s.parentNode.removeChild(s); }, 820 + i*40);
+      setTimeout(()=>{
+        s.style.transition = 'all 260ms ease-out';
+        s.style.opacity='1';
+        s.style.transform='translateY(-6px)';
+      }, 20 + i*30);
+      setTimeout(()=>{
+        s.style.transition = 'all 520ms ease-in';
+        s.style.opacity='0';
+        s.style.transform='translateY(-20px)';
+      }, 300 + i*40);
+      setTimeout(()=>{
+        if(s.parentNode) s.parentNode.removeChild(s);
+      }, 820 + i*40);
     }
   }
 
   function activate(){
-    band.classList.add('active');
-    spawnSparks(); sparkBright();
-    setInterval(()=> {
+    band.classList.add('connected');
+    spawnSparks();
+    sparkBright();
+    setInterval(()=>{
       spawnSparks();
       if(Math.random() > 0.45) sparkBright();
     }, 1200 + Math.random()*1200);
   }
 
   const title = document.querySelector('.company-name');
-  if(title){ title.addEventListener('click', ()=> { const on = band.classList.toggle('active'); if(on){ spawnSparks(); sparkBright(); } }); }
+  if(title){
+    title.addEventListener('click', ()=>{
+      const on = band.classList.toggle('connected');
+      if(on){
+        spawnSparks();
+        sparkBright();
+      }
+    });
+  }
 
   activate();
   window.addEventListener('resize', ()=>{ t0 = performance.now(); });
-
 })();
 
-/* MOBILE menu behavior */
-(function(){
-  const burger = document.getElementById('burgerBtn');
-  const mobileNav = document.getElementById('mobileNav');
-  if(!burger || !mobileNav) return;
-
-  burger.addEventListener('click', ()=> {
-    const opened = mobileNav.classList.toggle('open');
-    burger.classList.toggle('open', opened);
-    burger.setAttribute('aria-expanded', String(opened));
-    mobileNav.setAttribute('aria-hidden', String(!opened));
-    document.body.style.overflow = opened ? 'hidden' : '';
-    const sub = document.getElementById('mobileEnergieSub');
-    const toggle = document.getElementById('mobileEnergieToggle');
-    if(opened && toggle && toggle.classList.contains('active')) {
-      sub.style.display = 'flex';
-      toggle.setAttribute('aria-expanded','true');
-    }
-  });
-
-  // --- Disable only the actual batteries.html link INSIDE THE MOBILE NAV ---
-  function disableBatteriesLinksInMobile(){
-    if(!mobileNav) return;
-    const anchors = mobileNav.querySelectorAll('a');
-    anchors.forEach(a=>{
-      if(a.id === 'mobileEnergieToggle') return;
-      let href = a.getAttribute('href') || a.getAttribute('data-href') || a.dataset.href || '';
-      const filename = href ? href.replace(/^.*[\\/]/,'') : '';
-      if(filename.toLowerCase() === 'batteries.html'){
-        a.classList.add('mobile-disabled');
-        a.setAttribute('aria-disabled','true');
-        a.setAttribute('tabindex','-1');
-        if(a.hasAttribute('href')){
-          a.dataset.href = a.getAttribute('href');
-          a.removeAttribute('href');
-        }
-      }
-    });
-  }
-  disableBatteriesLinksInMobile();
-
-  mobileNav.addEventListener('click', function(e){
-    const a = e.target.closest('a');
-    if(!a) return;
-    if (a.querySelector('.caret')) return;
-    if(a.classList.contains('mobile-disabled')){
-      e.preventDefault();
-      e.stopPropagation();
-      return;
-    }
-    mobileNav.classList.remove('open');
-    burger.classList.remove('open');
-    mobileNav.setAttribute('aria-hidden','true');
-    burger.setAttribute('aria-expanded','false');
-    document.body.style.overflow = '';
-  });
-
-  const energieToggle = document.getElementById('mobileEnergieToggle');
-  const energieSub = document.getElementById('mobileEnergieSub');
-  if(energieToggle && energieSub){
-    energieToggle.addEventListener('click', function(e){
-      if(e.target.closest('.caret')){
-        e.preventDefault(); e.stopPropagation();
-        const opening = energieSub.style.display !== 'flex';
-        document.querySelectorAll('.mobile-nav .submenu').forEach(s=>{ if(s!==energieSub) s.style.display='none'; });
-        energieSub.style.display = opening ? 'flex' : 'none';
-        energieToggle.setAttribute('aria-expanded', String(opening));
-        energieToggle.classList.toggle('active', opening);
-        mobileNav.classList.add('open');
-        burger.classList.add('open');
-        mobileNav.setAttribute('aria-hidden','false');
-        burger.setAttribute('aria-expanded','true');
-      } else {
-        mobileNav.classList.remove('open');
-        burger.classList.remove('open');
-        mobileNav.setAttribute('aria-hidden','true');
-        burger.setAttribute('aria-expanded','false');
-        document.body.style.overflow = '';
-      }
-    });
-  }
-
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && mobileNav.classList.contains('open')){
-      mobileNav.classList.remove('open');
-      burger.classList.remove('open');
-      mobileNav.setAttribute('aria-hidden','true');
-      burger.setAttribute('aria-expanded','false');
-      document.body.style.overflow = '';
-    }
-  });
-
-  function openActiveSubmenuOnSmall(){
-    if(window.innerWidth <= 1100){
-      const activeToggle = document.getElementById('mobileEnergieToggle');
-      const activeSub = document.getElementById('mobileEnergieSub');
-      if(activeToggle && activeSub){
-        activeSub.style.display = 'flex';
-        activeToggle.setAttribute('aria-expanded','true');
-        activeToggle.classList.add('active');
-      }
-    } else {
-      const activeSub = document.getElementById('mobileEnergieSub');
-      if(activeSub) activeSub.style.display = 'none';
-    }
-  }
-  window.addEventListener('resize', openActiveSubmenuOnSmall);
-  openActiveSubmenuOnSmall();
-
-})();
-
-/* Auto-detect active nav link — DOES NOT auto-open desktop submenu (so hover behavior kept) */
+/* Active page logic */
 (function(){
   const raw = window.location.pathname.split('/').pop().toLowerCase();
-  const path = raw || 'Code1.html';
+  const path = raw || 'batteries.html';
   const mapping = {
-    'Code1.html':'a[href="Code1.html"]',
+    'code1.html':'a[href="Code1.html"]',
+    'etude_dimensionnement_2.html':'a[href="etude_dimensionnement_2.html"]',
     'energie.html':'a[href="energie.html"]',
     'panneaux.html':'a[href="panneaux.html"]',
     'batteries.html':'a[href="batteries.html"]',
     'onduleurs.html':'a[href="onduleurs.html"]',
     'groupes.html':'a[href="groupes.html"]',
-    'domotique.html':'a[href="domotique.html"]',
-    'securite.html':'a[href="securite.html"]',
-    'maintenance.html':'a[href="maintenance.html"]'
+    'projets.html':'a[href="Projets.html"]',
+    'maintenance.html':'a[href="maintenance.html"]',
+    'zone_urbaine.html':'a[href="zone_urbaine.html"]',
+    'zone_agricole.html':'a[href="zone_agricole.html"]'
   };
 
   const sel = mapping[path];
@@ -878,27 +1756,33 @@ document.querySelectorAll('.dropdown').forEach(drop => {
 
   const inDropdown = el.closest('.dropdown-content');
   if(inDropdown){
-    const dropdown = document.querySelector('.dropdown');
-    const energieLink = dropdown && dropdown.querySelector('a[href="energie.html"]');
-    if(energieLink){
-      energieLink.classList.add('active');
-      const subBadge = energieLink.querySelector('.sub-badge');
+    const dropdown = el.closest('.dropdown');
+    const parentLink = dropdown && dropdown.querySelector('a[href="energie.html"], a[href="etude_dimensionnement_2.html"], a[data-current]');
+    if(parentLink){
+      parentLink.classList.add('active');
+      const subBadge = parentLink.querySelector('.sub-badge');
       if(subBadge){
         const label = el.textContent ? el.textContent.trim() : subBadge.textContent.trim();
         subBadge.textContent = label;
+        subBadge.style.background = 'rgba(255,214,0,0.08)';
+        subBadge.style.boxShadow = '0 6px 18px rgba(0,0,0,0.32)';
       }
     }
     el.classList.add('active-item');
   }
 
-  document.querySelectorAll('.mobile-nav a').forEach(a=>{ try{
+  document.querySelectorAll('.mobile-nav a').forEach(a=>{
+    try{
       if(a.getAttribute('href') === el.getAttribute('href')){
         a.classList.add('active');
         const parentSub = a.closest('.submenu');
         if(parentSub){
           parentSub.style.display = 'flex';
-          const toggle = document.getElementById('mobileEnergieToggle');
-          if(toggle){ toggle.classList.add('active'); toggle.setAttribute('aria-expanded','true'); }
+          const toggle = parentSub.previousElementSibling;
+          if(toggle && toggle.classList.contains('mobile-link')){
+            toggle.classList.add('active');
+            toggle.setAttribute('aria-expanded','true');
+          }
         }
       }
     }catch(e){}
