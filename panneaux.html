@@ -358,7 +358,44 @@
       border:1px solid rgba(255,255,255,0.06);
       color:var(--muted-text-color);
       margin-top:4px;
+      align-items:flex-start;
     }
+
+    .mobile-nav .brand-mobile{
+      align-items:center;
+      text-align:center;
+      width:100%;
+      gap:2px;
+      padding-bottom:6px;
+      margin-bottom:4px;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+
+    .mobile-nav .mobile-company-name{
+      font-size:28px;
+      font-weight:800;
+      letter-spacing:1px;
+      margin:0;
+      color:#04462e;
+      -webkit-text-stroke:0.85px var(--gold-base);
+      text-shadow:0 3px 6px rgba(0,0,0,0.6);
+      line-height:1;
+      white-space:nowrap;
+    }
+
+    .mobile-nav .mobile-company-tagline{
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      color:#dfffe6;
+      margin:0 0 6px 0;
+      text-shadow:0 2px 6px rgba(0,0,0,0.45);
+      -webkit-text-stroke:0.35px rgba(212,175,55,0.55);
+      line-height:1;
+      white-space:nowrap;
+    }
+
     .mobile-nav .contact strong{
       color:#fff;
       font-size:15px;
@@ -918,8 +955,10 @@
     <div class="inner">
       <button class="mobile-close" id="mobileCloseBtn" type="button" aria-label="Fermer le menu">×</button>
 
-      <div class="contact" aria-hidden="false">
-        <strong>GREENBRIDGE TECHNOLOGIES</strong>
+      <div class="contact brand-mobile" aria-hidden="false">
+        <div class="company-name mobile-company-name">GREENBRIDGE</div>
+        <div class="company-tagline mobile-company-tagline">TECHNOLOGIES</div>
+
         <strong>CONTACT</strong>
         <div class="phone-line">
           <i class="fas fa-phone" aria-hidden="true"></i>
