@@ -239,118 +239,46 @@
     .mobile-nav{
       display:none;
       position:fixed;
-      top:0;
-      left:0; right:0;
-      height:100vh;
-      background:linear-gradient(180deg, rgba(10,77,46,0.98), rgba(6,31,20,0.98));
-      z-index:1550;
+      top:calc(var(--topbar-h)+var(--header-h));
+      left:0;
+      right:0;
+      background:var(--bg);
+      z-index:1480;
       overflow:auto;
-      max-height:0;
-      opacity:0;
-      transform:translateY(-6px);
-      transition:max-height .28s ease, opacity .2s ease, transform .2s ease;
+      transition:max-height .28s ease;
       box-shadow:0 12px 40px rgba(0,0,0,.45);
-      border-top:1px solid rgba(255,255,255,0.06);
+      max-height:0;
     }
-    .mobile-nav.open{
-      display:block;
-      max-height:100vh;
-      opacity:1;
-      transform:translateY(0);
-    }
+    .mobile-nav.open{display:block;max-height:70vh}
     .mobile-nav .inner{
-      padding:16px 5vw 22px;
+      padding:12px 5vw;
       display:flex;
       flex-direction:column;
-      gap:14px;
+      gap:8px;
       align-items:stretch;
-      min-height:100%;
-      position:relative;
     }
-
-    .mobile-close{
-      position:sticky;
-      top:0;
-      align-self:flex-end;
-      width:46px;
-      height:46px;
-      border:none;
-      border-radius:12px;
-      background:rgba(255,255,255,0.08);
-      color:#fff;
-      font-size:28px;
-      line-height:1;
-      font-weight:800;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 8px 18px rgba(0,0,0,.22);
-      z-index:2;
-    }
-
-    .mobile-nav .brand-mobile{
+    .mobile-nav .contact{
       display:flex;
       flex-direction:column;
-      align-items:center;
-      text-align:center;
-      width:100%;
-      gap:2px;
-      padding:10px 14px 12px;
-      border-radius:14px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.06);
-    }
-
-    .mobile-nav .mobile-company-name{
-      font-size:28px;
-      font-weight:800;
-      letter-spacing:1px;
-      margin:0;
-      color:#04462e;
-      -webkit-text-stroke:0.85px var(--gold-base);
-      text-shadow:0 3px 6px rgba(0,0,0,0.6);
-      line-height:1;
-      white-space:nowrap;
-    }
-
-    .mobile-nav .mobile-company-tagline{
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:4px;
-      text-transform:uppercase;
-      color:#dfffe6;
-      margin:0 0 2px 0;
-      text-shadow:0 2px 6px rgba(0,0,0,0.45);
-      -webkit-text-stroke:0.35px rgba(212,175,55,0.55);
-      line-height:1;
-      white-space:nowrap;
-    }
-
-    .mobile-nav .menu-links{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+      gap:6px;
+      padding:8px 12px;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+      margin-bottom:6px;
+      color:var(--muted-text-color);
     }
     .mobile-nav a{
-      padding:16px 16px;
+      padding:12px;
       color:#fff;
       width:100%;
       text-align:left;
-      border-radius:12px;
-      font-weight:900;
+      border-radius:8px;
+      font-weight:700;
       display:flex;
-      justify-content:flex-start;
-      align-items:center;
-      gap:10px;
-      font-size:18px;
-      border:1px solid rgba(255,255,255,0.06);
-      background:rgba(255,255,255,0.03);
-      min-height:56px;
-      white-space:nowrap;
+      justify-content:space-between;
+      align-items:center
     }
-    .mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.10);color:var(--accent-2)}
-    .mobile-nav .mobile-link.active{background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));color:var(--accent-2)}
+    .mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
+    .mobile-nav a.active{background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03)); color:var(--accent-2)}
 
     .mobile-nav .submenu{
       display:none;
@@ -384,59 +312,6 @@
       box-shadow:none;
       font-weight:700;
       font-style:italic;
-    }
-
-    .mobile-nav .socials{
-      margin-top:4px;
-      border-top:1px solid rgba(255,255,255,0.05);
-      padding-top:14px;
-      display:flex;
-      gap:18px;
-      align-items:center;
-      justify-content:center;
-      flex-wrap:wrap;
-      width:100%;
-    }
-    .mobile-nav .socials a{
-      width:42px;
-      height:42px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:0;
-      font-size:20px;
-      border:none;
-      background:rgba(255,255,255,0.04);
-      border-radius:50%;
-      white-space:normal;
-      min-height:42px;
-    }
-
-    .mobile-nav .contact{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      padding:16px 14px;
-      border-radius:14px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--muted-text-color);
-      margin-top:4px;
-      align-items:flex-start;
-    }
-    .mobile-nav .contact strong{
-      color:#fff;
-      font-size:15px;
-      letter-spacing:1px;
-    }
-    .mobile-nav .contact .phone-line{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      color:#fff;
-      font-weight:700;
-      flex-wrap:wrap;
-      font-size:15px;
     }
 
     .electric-band{
@@ -591,18 +466,19 @@
       font-size:16px;
     }
     .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-2);color:#072012}
+    .btn-primary:hover{background:var(--accent-2)}
     .btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
     .btn-secondary:hover{background:rgba(255,255,255,0.08)}
 
     .section{padding:60px 5vw}
     .section h2{
       font-size:32px;
-      margin:0 0 18px;
+      margin-bottom:18px;
       color:var(--accent-2);
-      text-align:center;
+      text-align:center
     }
-    .products-intro,.description{
+
+    .products-intro{
       max-width:1000px;
       margin:0 auto 24px;
       color:var(--muted-text-color);
@@ -656,7 +532,9 @@
     }
     .card-content{
       position:absolute;
-      left:0; right:0; bottom:0;
+      left:0;
+      right:0;
+      bottom:0;
       z-index:2;
       padding:22px 18px 20px;
       display:flex;
@@ -676,6 +554,7 @@
       justify-content:center;
       color:var(--accent-2);
       width:100%;
+      text-align:center;
     }
     .card-content p{
       margin:0;
@@ -683,10 +562,7 @@
       font-size:15px;
       line-height:1.6;
     }
-    .price{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
-    .old-price{text-decoration:line-through;color:#b9c7bb;font-size:13px}
-    .new-price{font-weight:800;color:#072012;background:var(--accent-2);padding:6px 8px;border-radius:6px;font-size:15px}
-    .btn-card{
+    .card .btn-card{
       margin:10px auto 0;
       padding:10px 18px;
       border-radius:10px;
@@ -697,59 +573,31 @@
       cursor:pointer;
       font-size:14px;
     }
-    .btn-card:hover{background:var(--gold-hover)}
+    .card .btn-card:hover{background:var(--gold-hover)}
 
     .advantages{
       display:flex;
       gap:18px;
       flex-wrap:wrap;
       justify-content:center;
-      margin-top:8px;
+      margin-top:8px
     }
     .advantage{
       width:260px;
       background:#072b1b;
       border-radius:12px;
       padding:18px;
-      text-align:center;
-      border:1px solid rgba(255,255,255,0.05);
+      text-align:center
     }
-    .advantage i{font-size:34px;color:var(--accent);margin-bottom:8px}
-    .advantage h3{color:#dfffe6;margin:6px 0}
-    .advantage p{color:#e6f7ea;line-height:1.6;margin:0}
-
-    #devis form{
-      max-width:520px;
-      margin:18px auto 0;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      background:rgba(0,0,0,0.55);
-      padding:20px;
-      border-radius:12px;
-      box-shadow:0 6px 20px rgba(0,0,0,0.4)
+    .advantage i{
+      font-size:34px;
+      color:var(--accent);
+      margin-bottom:8px
     }
-    #devis input,#devis textarea,#devis select{
-      width:100%;
-      padding:12px;
-      border-radius:8px;
-      border:1px solid rgba(124,179,66,0.18);
-      background:transparent;
-      color:#fff;
-      font-size:14px
+    .advantage h3{
+      color:#dfffe6;
+      margin:6px 0
     }
-    #devis input::placeholder,#devis textarea::placeholder{color:#dbeed8}
-    #devis button{
-      align-self:center;
-      padding:12px 26px;
-      border-radius:10px;
-      border:0;
-      background:var(--accent);
-      color:#072012;
-      font-weight:700;
-      cursor:pointer
-    }
-    #devis button:hover{background:var(--accent-2)}
 
     footer{
       background:var(--green-dark);
@@ -762,7 +610,9 @@
     footer::before{
       content:"";
       position:absolute;
-      left:0; right:0; top:0;
+      left:0;
+      right:0;
+      top:0;
       height:2px;
       background:var(--gold-base)
     }
@@ -849,6 +699,8 @@
       .advantage{width:100%;max-width:420px}
       .advantages{flex-direction:column;align-items:center}
       #devis form{padding:16px}
+      .mobile-nav.open{max-height:85vh}
+      .mobile-nav .inner{padding-bottom:20px}
     }
 
     @media (max-width:480px){
@@ -955,58 +807,26 @@
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
     <div class="inner">
-      <button class="mobile-close" id="mobileCloseBtn" type="button" aria-label="Fermer le menu">×</button>
-
-      <div class="brand-mobile" aria-hidden="false">
-        <div class="company-name mobile-company-name">GREENBRIDGE</div>
-        <div class="company-tagline mobile-company-tagline">TECHNOLOGIES</div>
-      </div>
-
-      <div class="menu-links">
-        <a href="Code1.html" class="mobile-link">Accueil</a>
-
-        <div>
-          <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
-            Étude
-            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-          </a>
-          <div class="submenu" id="mobileEtudeSub">
-            <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
-            <a href="zone_agricole.html">🚜 Zone Agricole</a>
-          </div>
-        </div>
-
-        <div>
-          <a href="produits.html" id="mobileProduitsToggle" class="mobile-link active" aria-expanded="true">
-            Nos Produits
-            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-          </a>
-          <div class="submenu" id="mobileProduitsSub" style="display:flex;flex-direction:column;">
-            <a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a>
-            <a href="batteries.html">🔋 Batteries & stockage</a>
-            <a href="onduleurs.html">🔌 Onduleurs</a>
-            <a href="groupes.html">⚙️ Groupes électrogènes</a>
-          </div>
-        </div>
-
-        <a href="Projets.html" class="mobile-link">Projets futurs</a>
-        <a href="maintenance.html" class="mobile-link">Maintenance</a>
-      </div>
-
-      <div class="socials">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-      </div>
-
       <div class="contact" aria-hidden="false">
-        <strong>CONTACT</strong>
-        <div class="phone-line">
-          <i class="fas fa-phone" aria-hidden="true"></i>
-          <a href="tel:+22507070707">+225 07 07 07 07 07</a>
-        </div>
+        <div><strong>GREENBRIDGE</strong></div>
+        <div><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</div>
+        <div><a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a></div>
       </div>
+
+      <a href="Code1.html" class="mobile-link">Accueil</a>
+
+      <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
+
+      <a href="produits.html" class="mobile-link active">Nos Produits</a>
+      <div class="submenu" style="display:flex;flex-direction:column;">
+        <a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a>
+        <a href="batteries.html">🔋 Batteries & stockage</a>
+        <a href="onduleurs.html">🔌 Onduleurs</a>
+        <a href="groupes.html">⚙️ Groupes électrogènes</a>
+      </div>
+
+      <a href="Projets.html" class="mobile-link">Projets futurs</a>
+      <a href="maintenance.html" class="mobile-link">Maintenance</a>
     </div>
   </div>
 
@@ -1031,8 +851,7 @@
         <div class="card-content">
           <h3>Panneau 350W</h3>
           <p>Haute performance pour usage résidentiel.</p>
-          <div class="price"><span class="old-price">120 000 FCFA</span> <span class="new-price">105 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono1.png','Panneau 350W','Rendement optimal, garantie 20 ans.')">Détails</button>
+          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
         </div>
       </article>
       <article class="card" role="listitem">
@@ -1040,8 +859,7 @@
         <div class="card-content">
           <h3>Panneau 500W</h3>
           <p>Excellente efficacité pour installations professionnelles.</p>
-          <div class="price"><span class="old-price">180 000 FCFA</span> <span class="new-price">160 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono2.png','Panneau 500W','Haute puissance')">Détails</button>
+          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
         </div>
       </article>
       <article class="card" role="listitem">
@@ -1049,8 +867,7 @@
         <div class="card-content">
           <h3>Panneau hybride</h3>
           <p>Combine production d’électricité et chauffe-eau solaire.</p>
-          <div class="price"><span class="old-price">250 000 FCFA</span> <span class="new-price">220 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono3.png','Panneau hybride','Solution innovante')">Détails</button>
+          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
         </div>
       </article>
       <article class="card" role="listitem">
@@ -1058,8 +875,7 @@
         <div class="card-content">
           <h3>Haute efficacité</h3>
           <p>Conçu pour maximiser la production en surface réduite.</p>
-          <div class="price"><span class="old-price">210 000 FCFA</span> <span class="new-price">188 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_mono4.png','Haute efficacité','Idéal pour toitures limitées en surface.')">Détails</button>
+          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
         </div>
       </article>
     </div>
@@ -1074,8 +890,7 @@
         <div class="card-content">
           <h3>Panneau 250W</h3>
           <p>Solution économique pour petites installations.</p>
-          <div class="price"><span class="old-price">70 000 FCFA</span> <span class="new-price">60 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly1.png','Panneau 250W','Fiable et économique')">Détails</button>
+          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
         </div>
       </article>
       <article class="card" role="listitem">
@@ -1083,8 +898,7 @@
         <div class="card-content">
           <h3>Panneau 300W</h3>
           <p>Polyvalent et performant.</p>
-          <div class="price"><span class="old-price">85 000 FCFA</span> <span class="new-price">75 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly2.png','Panneau 300W','Rapport qualité/prix')">Détails</button>
+          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
         </div>
       </article>
       <article class="card" role="listitem">
@@ -1092,8 +906,7 @@
         <div class="card-content">
           <h3>Panneau 350W</h3>
           <p>Performances stables.</p>
-          <div class="price"><span class="old-price">100 000 FCFA</span> <span class="new-price">88 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly3.png','Panneau 350W','Fiable')">Détails</button>
+          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
         </div>
       </article>
       <article class="card" role="listitem">
@@ -1101,8 +914,7 @@
         <div class="card-content">
           <h3>Renforcé</h3>
           <p>Solution robuste pour sites exposés et forte chaleur.</p>
-          <div class="price"><span class="old-price">115 000 FCFA</span> <span class="new-price">99 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_poly4.png','Renforcé','Bonne tenue dans le temps.')">Détails</button>
+          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
         </div>
       </article>
     </div>
@@ -1117,8 +929,7 @@
         <div class="card-content">
           <h3>Amorphe</h3>
           <p>Flexibilité et légèreté.</p>
-          <div class="price"><span class="old-price">45 000 FCFA</span> <span class="new-price">40 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin1.png','Amorphe','Adapté aux toitures courbes')">Détails</button>
+          <button class="btn-card" onclick="window.location='panneaux.html'">Découvrir</button>
         </div>
       </article>
       <article class="card" role="listitem">
@@ -1126,8 +937,7 @@
         <div class="card-content">
           <h3>CdTe</h3>
           <p>Bon rendement en faible luminosité.</p>
-          <div class="price"><span class="old-price">60 000 FCFA</span> <span class="new-price">52 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin2.png','CdTe','Performance stable')">Détails</button>
+          <button class="btn-card" onclick="window.location='batteries.html'">Découvrir</button>
         </div>
       </article>
       <article class="card" role="listitem">
@@ -1135,8 +945,7 @@
         <div class="card-content">
           <h3>CIGS</h3>
           <p>Haute stabilité et durabilité.</p>
-          <div class="price"><span class="old-price">95 000 FCFA</span> <span class="new-price">82 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin3.png','CIGS','Idéal pour installations professionnelles')">Détails</button>
+          <button class="btn-card" onclick="window.location='onduleurs.html'">Découvrir</button>
         </div>
       </article>
       <article class="card" role="listitem">
@@ -1144,8 +953,7 @@
         <div class="card-content">
           <h3>Léger</h3>
           <p>Parfait pour structures sensibles au poids.</p>
-          <div class="price"><span class="old-price">72 000 FCFA</span> <span class="new-price">64 000 FCFA</span></div>
-          <button class="btn-card" onclick="openModal('panneau_thin4.png','Léger','Adapté aux structures fragiles.')">Détails</button>
+          <button class="btn-card" onclick="window.location='groupes.html'">Découvrir</button>
         </div>
       </article>
     </div>
@@ -1409,11 +1217,6 @@
       const burger = document.getElementById('burgerBtn');
       const mobileNav = document.getElementById('mobileNav');
       const mobileBackdrop = document.getElementById('mobileBackdrop');
-      const mobileCloseBtn = document.getElementById('mobileCloseBtn');
-      const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
-      const mobileEtudeSub = document.getElementById('mobileEtudeSub');
-      const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
-      const mobileProduitsSub = document.getElementById('mobileProduitsSub');
 
       if(!burger || !mobileNav || !mobileBackdrop) return;
 
@@ -1424,11 +1227,6 @@
         mobileNav.setAttribute('aria-hidden','false');
         burger.setAttribute('aria-expanded','true');
         document.body.classList.add('menu-open');
-
-        if(window.innerWidth <= 1100 && mobileProduitsSub){
-          mobileProduitsSub.style.display = 'flex';
-          if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
-        }
       }
 
       function closeMenu(){
@@ -1447,111 +1245,13 @@
       });
 
       mobileBackdrop.addEventListener('click', closeMenu);
-      if(mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
-      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
-        if(a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
+      mobileNav.querySelectorAll('a').forEach(a => {
         a.addEventListener('click', ()=> closeMenu());
       });
 
-      function bindExpandable(toggleEl, subEl){
-        if(!toggleEl || !subEl) return;
-        toggleEl.addEventListener('click', function(e){
-          if(e.target.closest('.caret')){
-            e.preventDefault();
-            e.stopPropagation();
-            const opening = subEl.style.display !== 'flex';
-            subEl.style.display = opening ? 'flex' : 'none';
-            toggleEl.setAttribute('aria-expanded', String(opening));
-            mobileNav.classList.add('open');
-            burger.classList.add('open');
-            mobileBackdrop.classList.add('open');
-            mobileNav.setAttribute('aria-hidden','false');
-            burger.setAttribute('aria-expanded','true');
-            document.body.classList.add('menu-open');
-          } else {
-            closeMenu();
-          }
-        });
-      }
-
-      bindExpandable(mobileEtudeToggle, mobileEtudeSub);
-      bindExpandable(mobileProduitsToggle, mobileProduitsSub);
-
       document.addEventListener('keydown', function(e){
         if(e.key === 'Escape') closeMenu();
-      });
-
-      function openActiveSubmenusOnSmall(){
-        if(window.innerWidth <= 1100){
-          if(mobileProduitsSub){
-            mobileProduitsSub.style.display = 'flex';
-            if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
-          }
-          const path = window.location.pathname.split('/').pop().toLowerCase();
-          const etudePage = (path === 'zone_urbaine.html' || path === 'zone_agricole.html');
-          if(mobileEtudeSub){
-            mobileEtudeSub.style.display = etudePage ? 'flex' : 'none';
-          }
-          if(mobileEtudeToggle){
-            mobileEtudeToggle.setAttribute('aria-expanded', String(etudePage));
-          }
-        } else {
-          if(mobileEtudeSub) mobileEtudeSub.style.display = 'none';
-          if(mobileProduitsSub) mobileProduitsSub.style.display = 'none';
-        }
-      }
-
-      window.addEventListener('resize', openActiveSubmenusOnSmall);
-      openActiveSubmenusOnSmall();
-    })();
-
-    (function(){
-      const raw = window.location.pathname.split('/').pop().toLowerCase();
-      const path = raw || 'panneaux.html';
-      const mapping = {
-        'code1.html':'a[href="Code1.html"]',
-        'produits.html':'a[href="produits.html"]',
-        'panneaux.html':'a[href="panneaux.html"]',
-        'batteries.html':'a[href="batteries.html"]',
-        'onduleurs.html':'a[href="onduleurs.html"]',
-        'groupes.html':'a[href="groupes.html"]',
-        'domotique.html':'a[href="domotique.html"]',
-        'securite.html':'a[href="securite.html"]',
-        'maintenance.html':'a[href="maintenance.html"]',
-        'zone_urbaine.html':'a[href="zone_urbaine.html"]',
-        'zone_agricole.html':'a[href="zone_agricole.html"]',
-        'etude_dimensionnement_2.html':'a[href="etude_dimensionnement_2.html"]'
-      };
-
-      const sel = mapping[path];
-      if(!sel) return;
-      const el = document.querySelector(sel);
-      if(!el) return;
-      el.classList.add('active');
-
-      const inDropdown = el.closest('.dropdown-content');
-      if(inDropdown){
-        const dropdown = document.querySelector('.dropdown');
-        const prodLink = dropdown && dropdown.querySelector('a[href="produits.html"], a[data-current]');
-        if(prodLink){ prodLink.classList.add('active'); }
-        el.classList.add('active-item');
-      }
-
-      document.querySelectorAll('.mobile-nav a').forEach(a=>{
-        try{
-          if(a.getAttribute('href') === el.getAttribute('href')){
-            a.classList.add('active');
-            const parentSub = a.closest('.submenu');
-            if(parentSub){
-              parentSub.style.display = 'flex';
-              const toggle = a.closest('.submenu').previousElementSibling;
-              if(toggle && toggle.classList.contains('mobile-link')){
-                toggle.setAttribute('aria-expanded','true');
-              }
-            }
-          }
-        }catch(e){}
       });
     })();
   </script>
