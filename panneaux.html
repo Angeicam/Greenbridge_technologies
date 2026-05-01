@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenBridge Énergie - Panneaux Solaires</title>
+  <title>GreenBridge Technologies - Panneaux Solaires</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -20,7 +20,6 @@
       --bg:#0a4d2e;
       --gold-base:#d4af37;
       --gold-hover:#e6c95a;
-      --muted:#e6f7ea;
       --muted-text-color:#e6f7ea;
       --muted-text-size:15px;
       --electric-yellow:#ffd600;
@@ -47,13 +46,12 @@
       background:var(--green-dark);
       display:flex;
       align-items:center;
-      justify-content:space-between;
+      justify-content:flex-end;
       gap:14px;
       padding:0 5vw;
       z-index:1500;
       font-size:14px;
     }
-    .topbar .left,
     .topbar .right{
       display:flex;
       align-items:center;
@@ -64,6 +62,7 @@
       color:#fff;
       transition:color .18s;
       white-space:nowrap;
+      font-weight:700;
     }
     .topbar a:hover{color:var(--accent-2)}
 
@@ -126,7 +125,14 @@
     }
 
     nav{display:flex;gap:18px;align-items:center}
-    nav a{color:#fff;font-size:17px;font-weight:600;padding:8px 10px;border-radius:8px;transition:all .18s}
+    nav a{
+      color:#fff;
+      font-size:17px;
+      font-weight:600;
+      padding:8px 10px;
+      border-radius:8px;
+      transition:all .18s;
+    }
     nav a:hover{color:var(--accent-2)}
     nav a.active{
       color:var(--accent-2);
@@ -139,7 +145,13 @@
 
     .dropdown{position:relative}
     .dropdown > a{display:flex;gap:8px;align-items:center;cursor:pointer}
-    .dropdown > a::after{content:"\25BC";font-size:12px;transition:transform .2s;opacity:1;color:var(--accent-2)}
+    .dropdown > a::after{
+      content:"\25BC";
+      font-size:12px;
+      transition:transform .2s;
+      opacity:1;
+      color:var(--accent-2);
+    }
     .dropdown[aria-expanded="true"] > a::after{transform:rotate(180deg)}
     .dropdown-content{
       display:none;
@@ -150,13 +162,23 @@
       padding:8px 0;
       border-radius:12px;
       box-shadow:0 10px 30px rgba(0,0,0,.5);
-      min-width:240px;
+      min-width:260px;
       z-index:2000;
       border:1px solid rgba(255,255,255,0.06);
     }
     .dropdown-content li{list-style:none}
-    .dropdown-content a{display:block;padding:10px 16px;color:#fff;font-weight:600;border-radius:8px}
-    .dropdown-content a:hover{background:rgba(168,230,161,0.12);color:var(--accent-2);padding-left:22px}
+    .dropdown-content a{
+      display:block;
+      padding:10px 16px;
+      color:#fff;
+      font-weight:600;
+      border-radius:8px;
+    }
+    .dropdown-content a:hover{
+      background:rgba(168,230,161,0.12);
+      color:var(--accent-2);
+      padding-left:22px;
+    }
     .dropdown-content .active-item{
       color:var(--accent-2);
       background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
@@ -182,8 +204,20 @@
       -webkit-tap-highlight-color:transparent;
       touch-action:manipulation;
     }
-    .burger .icon{display:block;position:relative;width:28px;height:20px}
-    .burger .icon span{position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s}
+    .burger .icon{
+      display:block;
+      position:relative;
+      width:28px;
+      height:20px;
+    }
+    .burger .icon span{
+      position:absolute;
+      left:0; right:0;
+      height:3px;
+      background:#fff;
+      border-radius:2px;
+      transition:all .25s;
+    }
     .burger .icon span:nth-child(1){top:0}
     .burger .icon span:nth-child(2){top:8.5px}
     .burger .icon span:nth-child(3){top:17px}
@@ -263,7 +297,12 @@
     }
     .mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.10);color:var(--accent-2)}
     .mobile-nav .mobile-link.active{background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));color:var(--accent-2)}
-    .mobile-nav .submenu{display:none;flex-direction:column;gap:8px;padding-left:10px}
+    .mobile-nav .submenu{
+      display:none;
+      flex-direction:column;
+      gap:8px;
+      padding-left:10px;
+    }
     .mobile-nav .submenu a{
       font-size:16px;
       font-weight:700;
@@ -352,7 +391,14 @@
       stroke-linejoin:round;
       opacity:1;
     }
-    .orbs{position:absolute;left:0;top:0;width:100vw;height:100%;pointer-events:none;overflow:visible}
+    .orbs{
+      position:absolute;
+      left:0; top:0;
+      width:100vw;
+      height:100%;
+      pointer-events:none;
+      overflow:visible;
+    }
     .orb{
       position:absolute;
       width:8px;
@@ -369,7 +415,8 @@
     .orb.buzz{animation:buzz .9s linear infinite}
     .glowline{
       position:absolute;
-      left:50%; top:50%;
+      left:50%;
+      top:50%;
       transform:translate(-50%,-50%);
       height:3px;
       width:0;
@@ -710,8 +757,7 @@
     @media (max-width:480px){
       :root{--topbar-h:40px;--header-h:72px}
       .topbar{font-size:11px;padding:0 3.5vw}
-      .topbar .left{max-width:46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-      .topbar .right{max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;justify-content:flex-end}
+      .topbar .right{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;justify-content:flex-end}
       .logo-text img{height:44px}
       .company-name{font-size:26px;letter-spacing:.1px}
       .company-tagline{font-size:10px;letter-spacing:2px}
@@ -741,11 +787,11 @@
 
 <body>
   <div class="topbar" role="banner">
-    <div class="left">
-      <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Abidjan, Côte d’Ivoire</a>
-    </div>
     <div class="right">
-      <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i> +225 07 07 07 07 07</a>
+      <a href="tel:+22507070707" id="topPhoneLink">
+        <i class="fas fa-phone" aria-hidden="true"></i>
+        <span id="topPhoneText">+225 07 07 07 07 07</span>
+      </a>
     </div>
   </div>
 
@@ -754,17 +800,18 @@
       <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
       <div class="brand-stack">
         <div class="company-name">GREENBRIDGE</div>
-        <div class="company-tagline">ÉNERGIE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
       </div>
     </div>
 
     <nav aria-label="Menu principal">
       <a href="Code1.html">Accueil</a>
+
       <div class="dropdown" aria-haspopup="true" aria-expanded="false">
-        <a href="energie.html" data-current="⚡ Panneaux solaires" id="energieLink" aria-controls="dropdownContent">
-          Énergie
+        <a href="produits.html" data-current="⚡ Panneaux solaires" id="produitsLink" aria-controls="dropdownContent">
+          Nos Produits
         </a>
-        <ul class="dropdown-content" role="menu" aria-label="Sous-menu énergie" id="dropdownContent">
+        <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="dropdownContent">
           <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
           <li><a href="zone_agricole.html" role="menuitem">🚜 Zone Agricole</a></li>
           <li><a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a></li>
@@ -773,6 +820,7 @@
           <li><a href="groupes.html">⚙️ Groupes électrogènes</a></li>
         </ul>
       </div>
+
       <a href="domotique.html">Domotique</a>
       <a href="securite.html">Sécurité</a>
       <a href="maintenance.html">Maintenance</a>
@@ -807,17 +855,17 @@
     <div class="inner">
       <div class="mobile-brand">
         <div class="company-name">GREENBRIDGE</div>
-        <div class="company-tagline">ÉNERGIE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
       </div>
 
       <div class="menu-links">
         <a href="Code1.html" class="mobile-link">Accueil</a>
 
         <div>
-          <a href="energie.html" id="mobileEnergieToggle" class="mobile-link active" data-current="⚡ Panneaux solaires" aria-expanded="true">
-            Énergie
+          <a href="produits.html" id="mobileProduitsToggle" class="mobile-link active" data-current="⚡ Panneaux solaires" aria-expanded="true">
+            Nos Produits
           </a>
-          <div class="submenu" id="mobileEnergieSub" style="display:flex;flex-direction:column;">
+          <div class="submenu" id="mobileProduitsSub" style="display:flex;flex-direction:column;">
             <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
             <a href="zone_agricole.html">🚜 Zone Agricole</a>
             <a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a>
@@ -841,7 +889,7 @@
   </div>
 
   <section class="hero" id="top" aria-label="Hero">
-    <img class="hero-bg" src="chantier_solaire.png" alt="Illustration GreenBridge Énergie">
+    <img class="hero-bg" src="chantier_solaire.png" alt="Illustration GreenBridge Technologies">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Panneaux Solaires</h1>
@@ -1009,11 +1057,10 @@
   </section>
 
   <footer>
-    <div class="footer-company" aria-hidden="false">GREENBRIDGE ÉNERGIE</div>
+    <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
     <div class="footer-contact" aria-label="Coordonnées">
-      <div>© 2025 GreenBridge Énergie. Tous droits réservés.</div>
-      <div>Abidjan, Côte d’Ivoire</div>
-      <div>Tel: +225 07 07 07 07 07</div>
+      <div>© 2025 GreenBridge Technologies. Tous droits réservés.</div>
+      <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
     </div>
   </footer>
 
@@ -1029,6 +1076,34 @@
   </div>
 
   <script>
+    const contactNumbers = [
+      '+225 07 07 07 07 07',
+      '+221 77 00 00 00 00'
+    ];
+    const telNumbers = [
+      '+2250707070707',
+      '+2217700000000'
+    ];
+    let phoneIndex = 0;
+
+    function updatePhone(){
+      const phone = contactNumbers[phoneIndex];
+      const tel = telNumbers[phoneIndex];
+
+      const topPhoneLink = document.getElementById('topPhoneLink');
+      const topPhoneText = document.getElementById('topPhoneText');
+      const footerPhoneText = document.getElementById('footerPhoneText');
+
+      if(topPhoneLink) topPhoneLink.href = 'tel:' + tel;
+      if(topPhoneText) topPhoneText.textContent = phone;
+      if(footerPhoneText) footerPhoneText.textContent = phone;
+
+      phoneIndex = (phoneIndex + 1) % contactNumbers.length;
+    }
+
+    updatePhone();
+    setInterval(updatePhone, 10000);
+
     function openModal(img, title, desc){
       const modal = document.getElementById('productModal');
       document.getElementById('modalImg').src = img;
@@ -1093,7 +1168,13 @@
         {rxRatio:0.42, ry:10, speed:0.18, phase:Math.PI}
       ];
 
-      orbs.forEach((o,i)=>{ if(o){ o.classList.add('buzz'); o.style.animationDelay = (i*120) + 'ms'; } });
+      orbs.forEach((o,i)=>{
+        if(o){
+          o.classList.add('buzz');
+          o.style.animationDelay = (i*120) + 'ms';
+        }
+      });
+
       let t0 = performance.now();
 
       function tick(now){
@@ -1105,7 +1186,8 @@
         const cy = rect.height / 2;
 
         for(let i=0;i<orbs.length;i++){
-          const orb = orbs[i]; if(!orb) continue;
+          const orb = orbs[i];
+          if(!orb) continue;
           const p = params[i];
           const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
           const ry = p.ry;
@@ -1160,9 +1242,19 @@
           s.style.pointerEvents = 'none';
           s.style.zIndex = '1';
           cont.appendChild(s);
-          setTimeout(()=>{ s.style.transition = 'all 260ms ease-out'; s.style.opacity='1'; s.style.transform='translateY(-6px)'; }, 20 + i*25);
-          setTimeout(()=>{ s.style.transition = 'all 420ms ease-in'; s.style.opacity='0'; s.style.transform='translateY(-20px)'; }, 280 + i*40);
-          setTimeout(()=>{ if(s.parentNode) s.parentNode.removeChild(s); }, 760 + i*40);
+          setTimeout(()=>{
+            s.style.transition = 'all 260ms ease-out';
+            s.style.opacity='1';
+            s.style.transform='translateY(-6px)';
+          }, 20 + i*25);
+          setTimeout(()=>{
+            s.style.transition = 'all 420ms ease-in';
+            s.style.opacity='0';
+            s.style.transform='translateY(-20px)';
+          }, 280 + i*40);
+          setTimeout(()=>{
+            if(s.parentNode) s.parentNode.removeChild(s);
+          }, 760 + i*40);
         }
       }
 
@@ -1180,7 +1272,10 @@
       if(title){
         title.addEventListener('click', ()=>{
           const on = electricBand.classList.toggle('connected');
-          if(on){ spawnSparks(); sparkSVG(); }
+          if(on){
+            spawnSparks();
+            sparkSVG();
+          }
         });
       }
 
@@ -1221,14 +1316,14 @@
         a.addEventListener('click', ()=> closeMenu());
       });
 
-      const mobileEnergieToggle = document.getElementById('mobileEnergieToggle');
-      const mobileEnergieSub = document.getElementById('mobileEnergieSub');
-      if(mobileEnergieToggle && mobileEnergieSub){
-        mobileEnergieToggle.addEventListener('click', function(e){
+      const mobileToggle = document.getElementById('mobileProduitsToggle');
+      const mobileSub = document.getElementById('mobileProduitsSub');
+      if(mobileToggle && mobileSub){
+        mobileToggle.addEventListener('click', function(e){
           e.preventDefault();
-          const opening = mobileEnergieSub.style.display !== 'flex';
-          mobileEnergieSub.style.display = opening ? 'flex' : 'none';
-          mobileEnergieToggle.setAttribute('aria-expanded', String(opening));
+          const opening = mobileSub.style.display !== 'flex';
+          mobileSub.style.display = opening ? 'flex' : 'none';
+          mobileToggle.setAttribute('aria-expanded', String(opening));
           mobileNav.classList.add('open');
           burger.classList.add('open');
           mobileBackdrop.classList.add('open');
@@ -1244,14 +1339,14 @@
 
       function openActiveSubmenuOnSmall(){
         if(window.innerWidth <= 1100){
-          const activeSub = document.getElementById('mobileEnergieSub');
-          const activeToggle = document.getElementById('mobileEnergieToggle');
+          const activeSub = document.getElementById('mobileProduitsSub');
+          const activeToggle = document.getElementById('mobileProduitsToggle');
           if(activeSub && activeToggle){
             activeSub.style.display = 'flex';
             activeToggle.setAttribute('aria-expanded','true');
           }
         } else {
-          const activeSub = document.getElementById('mobileEnergieSub');
+          const activeSub = document.getElementById('mobileProduitsSub');
           if(activeSub) activeSub.style.display = 'none';
         }
       }
@@ -1264,7 +1359,7 @@
       const path = raw || 'panneaux.html';
       const mapping = {
         'code1.html':'a[href="Code1.html"]',
-        'energie.html':'a[href="energie.html"]',
+        'produits.html':'a[href="produits.html"]',
         'panneaux.html':'a[href="panneaux.html"]',
         'batteries.html':'a[href="batteries.html"]',
         'onduleurs.html':'a[href="onduleurs.html"]',
@@ -1283,8 +1378,8 @@
       const inDropdown = el.closest('.dropdown-content');
       if(inDropdown){
         const dropdown = document.querySelector('.dropdown');
-        const energieLink = dropdown && dropdown.querySelector('a[href="energie.html"], a[data-current]');
-        if(energieLink){ energieLink.classList.add('active'); }
+        const prodLink = dropdown && dropdown.querySelector('a[href="produits.html"], a[data-current]');
+        if(prodLink){ prodLink.classList.add('active'); }
         el.classList.add('active-item');
       }
 
@@ -1295,7 +1390,7 @@
             const parentSub = a.closest('.submenu');
             if(parentSub){
               parentSub.style.display = 'flex';
-              const toggle = document.getElementById('mobileEnergieToggle');
+              const toggle = document.getElementById('mobileProduitsToggle');
               if(toggle){ toggle.setAttribute('aria-expanded','true'); }
             }
           }
