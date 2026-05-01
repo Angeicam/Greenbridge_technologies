@@ -265,6 +265,20 @@
       align-items:stretch;
     }
 
+    .mobile-brand{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:2px;
+      padding:8px 4px 10px;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      margin-bottom:2px;
+      text-align:center;
+    }
+    .mobile-brand .company-name{font-size:32px;line-height:1;white-space:nowrap}
+    .mobile-brand .company-tagline{font-size:13px;letter-spacing:4px;white-space:nowrap}
+
     .mobile-nav .menu-links{
       display:flex;
       flex-direction:column;
@@ -288,7 +302,10 @@
       white-space:nowrap;
     }
     .mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.10);color:var(--accent-2)}
-    .mobile-nav .mobile-link.active{background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));color:var(--accent-2)}
+    .mobile-nav .mobile-link.active{
+      background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+      color:var(--accent-2);
+    }
 
     .mobile-nav .submenu{
       display:none;
@@ -805,6 +822,8 @@
       .electric-band{top:calc(var(--topbar-h) + var(--header-h) - 4px);height:12px}
       .electric-band .container{width:100%;left:0;padding:0 4vw;box-sizing:border-box}
       .glowline{width:86%;max-width:86%}
+      .mobile-brand .company-name{font-size:28px}
+      .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}
       .mobile-nav a{font-size:18px;padding:15px 16px;min-height:56px;width:100%;white-space:nowrap}
       .mobile-nav .submenu a{font-size:15px}
     }
@@ -879,6 +898,11 @@
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
     <div class="inner">
+      <div class="mobile-brand">
+        <div class="company-name">GREENBRIDGE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
+      </div>
+
       <div class="menu-links">
         <a href="Code1.html" class="mobile-link">Accueil</a>
 
@@ -1341,10 +1365,8 @@
         burger.setAttribute('aria-expanded','true');
         document.body.classList.add('menu-open');
 
-        if(window.innerWidth <= 1100){
-          if(mobileEtudeSub) mobileEtudeSub.style.display = 'flex';
-          if(mobileProduitsSub) mobileProduitsSub.style.display = 'flex';
-          if(mobileEtudeToggle) mobileEtudeToggle.setAttribute('aria-expanded','true');
+        if(window.innerWidth <= 1100 && mobileProduitsSub){
+          mobileProduitsSub.style.display = 'flex';
           if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
         }
       }
@@ -1401,10 +1423,18 @@
 
       function openActiveSubmenusOnSmall(){
         if(window.innerWidth <= 1100){
-          if(mobileEtudeSub) mobileEtudeSub.style.display = 'flex';
-          if(mobileProduitsSub) mobileProduitsSub.style.display = 'flex';
-          if(mobileEtudeToggle) mobileEtudeToggle.setAttribute('aria-expanded','true');
-          if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
+          if(mobileProduitsSub){
+            mobileProduitsSub.style.display = 'flex';
+            if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','true');
+          }
+          const path = window.location.pathname.split('/').pop().toLowerCase();
+          const etudePage = (path === 'zone_urbaine.html' || path === 'zone_agricole.html');
+          if(mobileEtudeSub){
+            mobileEtudeSub.style.display = etudePage ? 'flex' : 'none';
+          }
+          if(mobileEtudeToggle){
+            mobileEtudeToggle.setAttribute('aria-expanded', String(etudePage));
+          }
         } else {
           if(mobileEtudeSub) mobileEtudeSub.style.display = 'none';
           if(mobileProduitsSub) mobileProduitsSub.style.display = 'none';
@@ -1462,15 +1492,6 @@
           }
         }catch(e){}
       });
-
-      if(path === 'zone_urbaine.html' || path === 'zone_agricole.html'){
-        const toggle = document.getElementById('mobileEtudeToggle');
-        const sub = document.getElementById('mobileEtudeSub');
-        if(toggle && sub){
-          sub.style.display = 'flex';
-          toggle.setAttribute('aria-expanded','true');
-        }
-      }
     })();
   </script>
 </body>
