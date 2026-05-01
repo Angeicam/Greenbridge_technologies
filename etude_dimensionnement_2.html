@@ -23,8 +23,6 @@
       --muted-text-color:#e6f7ea;
       --muted-text-size:15px;
       --electric-yellow:#ffd600;
-      --release-orange:#ff7a18;
-      --release-orange-2:#ffb347;
     }
 
     *{box-sizing:border-box}
@@ -149,7 +147,11 @@
       display:block;
     }
 
-    nav{display:flex;gap:18px;align-items:center}
+    nav{
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
     nav a{
       color:#fff;
       font-size:17px;
@@ -220,16 +222,6 @@
       border-radius:8px;
       box-shadow:0 8px 20px rgba(0,0,0,0.28);
       margin:4px 8px;
-    }
-    @media (max-width:1100px){
-      .dropdown-content .active-item{
-        margin:0;
-        border:none;
-        box-shadow:none;
-        background:transparent;
-        color:inherit;
-        padding:10px 16px;
-      }
     }
 
     .burger{
@@ -1164,7 +1156,7 @@
       </div>
     </div>
 
-    <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
+    <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
       <span class="icon"><span></span><span></span><span></span></span>
     </button>
 
@@ -1177,8 +1169,8 @@
           <span class="sub-badge">Étude</span>
         </a>
         <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="dropdownEtude">
-          <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
-          <li><a href="zone_agricole.html" role="menuitem">🚜 Zone Agricole</a></li>
+          <li><a href="zone_urbaine.html">🏙️ Zone Urbaine</a></li>
+          <li><a href="zone_agricole.html">🚜 Zone Agricole</a></li>
         </ul>
       </div>
 
@@ -1419,144 +1411,116 @@
   </footer>
 
   <script>
-    const contactNumbers = {
-      abidjan: {
-        display: '+225 07 07 07 07 07',
-        tel: '+2250707070707'
-      },
-      dakar: {
-        display: '+221 77 00 00 00 00',
-        tel: '+2217700000000'
-      }
-    };
+    const contactNumbers = [
+      { display: '+225 07 07 07 07 07', tel: '+2250707070707' },
+      { display: '+221 77 00 00 00 00', tel: '+2217700000000' }
+    ];
+    let phoneIndex = 0;
 
-    const burgerBtn = document.getElementById('burgerBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    const mobileBackdrop = document.getElementById('mobileBackdrop');
-    const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+    function updatePhone(){
+      const info = contactNumbers[phoneIndex];
+      const topPhoneLink = document.getElementById('topPhoneLink');
+      const topPhoneText = document.getElementById('topPhoneText');
+      const footerPhoneText = document.getElementById('footerPhoneText');
+      const mobilePhoneLink = document.getElementById('mobilePhoneLink');
 
-    const topPhoneLink = document.getElementById('topPhoneLink');
-    const topPhoneText = document.getElementById('topPhoneText');
-
-    const mobilePhoneLink = document.getElementById('mobilePhoneLink');
-    const footerPhoneText = document.getElementById('footerPhoneText');
-
-    let activeCountry = 'abidjan';
-    let countryTimer = null;
-
-    function updatePhone(country){
-      const info = contactNumbers[country] || contactNumbers.abidjan;
-
-      if (topPhoneLink) topPhoneLink.href = 'tel:' + info.tel;
-      if (topPhoneText) topPhoneText.textContent = info.display;
-
-      if (mobilePhoneLink) {
+      if(topPhoneLink) topPhoneLink.href = 'tel:' + info.tel;
+      if(topPhoneText) topPhoneText.textContent = info.display;
+      if(footerPhoneText) footerPhoneText.textContent = info.display;
+      if(mobilePhoneLink){
         mobilePhoneLink.href = 'tel:' + info.tel;
         mobilePhoneLink.textContent = info.display;
       }
-      if (footerPhoneText) footerPhoneText.textContent = info.display;
-    }
 
-    function toggleCountry(){
-      activeCountry = activeCountry === 'abidjan' ? 'dakar' : 'abidjan';
-      updatePhone(activeCountry);
+      phoneIndex = (phoneIndex + 1) % contactNumbers.length;
     }
+    updatePhone();
+    setInterval(updatePhone, 10000);
 
     function closeAllSubmenus(){
       const mobileEtudeSub = document.getElementById('mobileEtudeSub');
       const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
-      const mobileProduitsSub = document.getElementById('mobileProduitsSub');
-      const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
-
       if(mobileEtudeSub) mobileEtudeSub.style.display = 'none';
-      if(mobileProduitsSub) mobileProduitsSub.style.display = 'none';
-
       if(mobileEtudeToggle) mobileEtudeToggle.setAttribute('aria-expanded','false');
-      if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','false');
     }
 
     function openMenu(){
-      if (!mobileNav || !burgerBtn) return;
+      const burger = document.getElementById('burgerBtn');
+      const mobileNav = document.getElementById('mobileNav');
+      const mobileBackdrop = document.getElementById('mobileBackdrop');
+      if(!burger || !mobileNav || !mobileBackdrop) return;
       mobileNav.classList.add('open');
       mobileBackdrop.classList.add('open');
-      burgerBtn.classList.add('open');
-      mobileNav.setAttribute('aria-hidden', 'false');
-      burgerBtn.setAttribute('aria-expanded', 'true');
+      burger.classList.add('open');
+      mobileNav.setAttribute('aria-hidden','false');
+      burger.setAttribute('aria-expanded','true');
       document.body.classList.add('menu-open');
       closeAllSubmenus();
     }
 
     function closeMenu(){
-      if (!mobileNav || !burgerBtn) return;
+      const burger = document.getElementById('burgerBtn');
+      const mobileNav = document.getElementById('mobileNav');
+      const mobileBackdrop = document.getElementById('mobileBackdrop');
+      if(!burger || !mobileNav || !mobileBackdrop) return;
       mobileNav.classList.remove('open');
       mobileBackdrop.classList.remove('open');
-      burgerBtn.classList.remove('open');
-      mobileNav.setAttribute('aria-hidden', 'true');
-      burgerBtn.setAttribute('aria-expanded', 'false');
+      burger.classList.remove('open');
+      mobileNav.setAttribute('aria-hidden','true');
+      burger.setAttribute('aria-expanded','false');
       document.body.classList.remove('menu-open');
       closeAllSubmenus();
     }
 
-    if (burgerBtn && mobileNav) {
-      burgerBtn.addEventListener('click', () => {
+    (function(){
+      const burger = document.getElementById('burgerBtn');
+      const mobileNav = document.getElementById('mobileNav');
+      const mobileBackdrop = document.getElementById('mobileBackdrop');
+      const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+
+      const mobileEtudeToggle = document.getElementById('mobileEtudeToggle');
+      const mobileEtudeSub = document.getElementById('mobileEtudeSub');
+
+      if(!burger || !mobileNav || !mobileBackdrop) return;
+
+      burger.addEventListener('click', ()=>{
         const opened = mobileNav.classList.contains('open');
-        if (opened) closeMenu();
+        if(opened) closeMenu();
         else openMenu();
       });
 
-      if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
-      if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
+      mobileBackdrop.addEventListener('click', closeMenu);
+      if(mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
       mobileNav.querySelectorAll('.mobile-link').forEach(a => {
-        if(a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
-        a.addEventListener('click', () => closeMenu());
+        if(a.id === 'mobileEtudeToggle') return;
+        a.addEventListener('click', ()=> closeMenu());
       });
 
-      function bindExpandable(toggleEl, subEl){
-        if(!toggleEl || !subEl) return;
-
-        toggleEl.addEventListener('click', function(e){
+      if(mobileEtudeToggle && mobileEtudeSub){
+        mobileEtudeToggle.addEventListener('click', function(e){
           if(e.target.closest('.caret')){
             e.preventDefault();
             e.stopPropagation();
 
-            const opening = subEl.style.display !== 'flex';
-
+            const opening = mobileEtudeSub.style.display !== 'flex';
             document.querySelectorAll('.mobile-nav .submenu').forEach(s=>{
-              if(s !== subEl) s.style.display = 'none';
+              if(s !== mobileEtudeSub) s.style.display = 'none';
             });
-
-            subEl.style.display = opening ? 'flex' : 'none';
-            toggleEl.setAttribute('aria-expanded', String(opening));
-
-            mobileNav.classList.add('open');
-            burgerBtn.classList.add('open');
-            mobileBackdrop.classList.add('open');
-            mobileNav.setAttribute('aria-hidden','false');
-            burgerBtn.setAttribute('aria-expanded','true');
-            document.body.classList.add('menu-open');
-          } else {
+            mobileEtudeSub.style.display = opening ? 'flex' : 'none';
+            mobileEtudeToggle.setAttribute('aria-expanded', String(opening));
+          }else{
             closeMenu();
           }
         });
       }
 
-      bindExpandable(
-        document.getElementById('mobileEtudeToggle'),
-        document.getElementById('mobileEtudeSub')
-      );
-      bindExpandable(
-        document.getElementById('mobileProduitsToggle'),
-        document.getElementById('mobileProduitsSub')
-      );
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeMenu();
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape' && mobileNav.classList.contains('open')){
+          closeMenu();
+        }
       });
-    }
-
-    updatePhone('abidjan');
-    countryTimer = setInterval(toggleCountry, 10000);
+    })();
 
     (function(){
       const electricBand = document.getElementById('electricBand');
@@ -1723,11 +1687,6 @@
         const parentLink = dropdown && dropdown.querySelector('a[href="etude_dimensionnement_2.html"], a[data-current]');
         if(parentLink){
           parentLink.classList.add('active');
-          const subBadge = parentLink.querySelector('.sub-badge');
-          if(subBadge){
-            subBadge.style.background = 'rgba(255,214,0,0.08)';
-            subBadge.style.boxShadow = '0 6px 18px rgba(0,0,0,0.32)';
-          }
         }
         el.classList.add('active-item');
       }
