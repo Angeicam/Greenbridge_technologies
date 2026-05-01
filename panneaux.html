@@ -278,31 +278,6 @@
     .mobile-brand .company-name{font-size:32px;line-height:1;white-space:nowrap}
     .mobile-brand .company-tagline{font-size:13px;letter-spacing:4px;white-space:nowrap}
 
-    .mobile-nav .contact{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      padding:16px 14px;
-      border-radius:14px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--muted-text-color);
-    }
-    .mobile-nav .contact strong{
-      color:#fff;
-      font-size:15px;
-      letter-spacing:1px;
-    }
-    .mobile-nav .contact .phone-line{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      color:#fff;
-      font-weight:700;
-      flex-wrap:wrap;
-      font-size:15px;
-    }
-
     .mobile-nav .menu-links{
       display:flex;
       flex-direction:column;
@@ -359,6 +334,31 @@
       border:none;
       box-shadow:none;
       font-weight:700;
+    }
+
+    .mobile-nav .contact{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:16px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted-text-color);
+    }
+    .mobile-nav .contact strong{
+      color:#fff;
+      font-size:15px;
+      letter-spacing:1px;
+    }
+    .mobile-nav .contact .phone-line{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#fff;
+      font-weight:700;
+      flex-wrap:wrap;
+      font-size:15px;
     }
 
     .mobile-nav .socials{
@@ -488,8 +488,8 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      text-align:center;
       overflow:hidden;
+      text-align:center;
       background:#0a4d2e;
     }
     .hero-bg{
@@ -901,14 +901,6 @@
         <div class="company-tagline">TECHNOLOGIES</div>
       </div>
 
-      <div class="contact" aria-hidden="false">
-        <strong>CONTACT</strong>
-        <div class="phone-line">
-          <i class="fas fa-phone" aria-hidden="true"></i>
-          <a href="tel:+22507070707">+225 07 07 07 07 07</a>
-        </div>
-      </div>
-
       <div class="menu-links">
         <a href="Code1.html" class="mobile-link">Accueil</a>
         <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
@@ -919,12 +911,25 @@
             <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
           </a>
           <div class="submenu" id="mobileProduitsSub" style="display:flex;flex-direction:column;">
+            <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
+            <a href="zone_agricole.html">🚜 Zone Agricole</a>
             <a href="panneaux.html" class="active-item" aria-current="page">⚡ Panneaux solaires</a>
+            <a href="batteries.html">🔋 Batteries & stockage</a>
+            <a href="onduleurs.html">🔌 Onduleurs</a>
+            <a href="groupes.html">⚙️ Groupes électrogènes</a>
           </div>
         </div>
 
         <a href="Projets.html" class="mobile-link">Projets futurs</a>
         <a href="maintenance.html" class="mobile-link">Maintenance</a>
+      </div>
+
+      <div class="contact" aria-hidden="false">
+        <strong>CONTACT</strong>
+        <div class="phone-line">
+          <i class="fas fa-phone" aria-hidden="true"></i>
+          <a href="tel:+22507070707">+225 07 07 07 07 07</a>
+        </div>
       </div>
 
       <div class="socials">
