@@ -232,7 +232,7 @@
       position:fixed;
       inset:0;
       z-index:1980;
-      background:linear-gradient(180deg, #0a4d2e 0%, #061f14 100%);
+      background:linear-gradient(180deg, rgba(10,77,46,0.98), rgba(6,31,20,0.99));
       opacity:0;
       pointer-events:none;
       transition:opacity .2s ease, transform .2s ease;
@@ -337,6 +337,49 @@
       color:var(--accent-2);
     }
 
+    .mobile-nav .submenu{
+      display:none;
+      flex-direction:column;
+      gap:8px;
+      padding-left:10px;
+      margin-top:6px;
+      margin-bottom:6px;
+      max-width:560px;
+      width:100%;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .mobile-nav .submenu a{
+      font-family:'Trebuchet MS', Arial, sans-serif;
+      font-style:italic;
+      font-size:15px;
+      font-weight:700;
+      min-height:48px;
+      padding:12px 14px;
+      border-radius:10px;
+      white-space:nowrap;
+      justify-content:center;
+      text-align:center;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      border:1px solid rgba(255,255,255,0.06);
+      background:rgba(255,255,255,0.02);
+    }
+    .mobile-nav .submenu a:hover{
+      background:rgba(168,230,161,0.08);
+      padding-left:18px;
+    }
+    .mobile-nav .submenu a.active-item,
+    .mobile-nav .submenu a[aria-current="page"]{
+      background:transparent;
+      color:rgba(255,255,255,0.30);
+      border:none;
+      box-shadow:none;
+      font-weight:700;
+      font-style:italic;
+    }
+
     .mobile-contact{
       display:flex;
       flex-direction:column;
@@ -412,34 +455,40 @@
       object-fit:cover;
       object-position:center 90%;
       transform:scale(1.07) translateY(24px);
-      filter:brightness(1.02) contrast(1.03) saturate(1.02);
+      filter:brightness(.86) contrast(1.04) saturate(1.05);
     }
     .hero-overlay{
       position:absolute;
       inset:0;
-      background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
+      background:linear-gradient(to bottom, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.38) 48%, rgba(0,0,0,0.56) 100%);
       z-index:1;
     }
     .hero-content{
       position:relative;
       z-index:2;
       max-width:950px;
-      padding:0 20px;
+      padding:26px 24px;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
+      background:rgba(6,31,20,0.42);
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:24px;
+      backdrop-filter:blur(8px);
+      box-shadow:0 16px 34px rgba(0,0,0,0.22);
     }
     .hero-content h1{
       font-size:36px;
       margin:0 0 12px;
       font-weight:700;
-      text-shadow:0 3px 10px rgba(0,0,0,0.45)
+      text-shadow:0 4px 12px rgba(0,0,0,0.72);
     }
     .hero-content p{
       font-size:18px;
       margin:0 0 18px;
-      text-shadow:0 2px 8px rgba(0,0,0,0.45)
+      line-height:1.6;
+      text-shadow:0 3px 10px rgba(0,0,0,0.72);
     }
     .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
     .btn-primary,.btn-secondary{
@@ -908,7 +957,12 @@
         height:auto;
         min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
       }
-      .hero-content{ max-width:86vw; }
+      .hero-content{
+        max-width:88vw;
+        padding:20px 14px;
+      }
+      .hero-content h1 { font-size:clamp(24px, 5.2vw, 34px); }
+      .hero-content p { font-size:16px; }
       .grid-4{
         grid-template-columns:1fr;
         gap:20px
@@ -1003,39 +1057,92 @@
         font-size:28px;
         font-weight:700;
         margin:0 0 8px;
-        white-space:nowrap;
-        overflow-x:hidden;
-        text-overflow:ellipsis;
+        white-space:normal;
       }
       .hero-content p{
-        font-size:16px;
-        line-height:1.5;
+        font-size:15px;
+        line-height:1.45;
+        white-space:normal;
+        overflow:visible;
+        text-overflow:clip;
       }
       .btn-primary{
-        padding:12px 28px;
-        font-size:15px;
+        padding:12px 22px;
+        font-size:14px;
       }
+
+      .section h2{font-size:26px}
+
+      .card{min-height:330px}
+      .card .image-wrap{height:190px}
+      .card-content{padding:14px 12px 16px}
+      .card-content h3{font-size:17px}
+      .card-content p{font-size:13px; line-height:1.5}
+
+      .zone-card{height:190px}
+      .zone-card h3{font-size:17px}
+
+      .gb-media-frame{min-height:230px}
+      .gb-desc h3{font-size:20px}
+      .gb-summary{font-size:13px}
+      .gb-kicker{font-size:11px}
+      .gb-release{
+        font-size:11px;
+        margin-left:4px;
+        padding:3px 8px;
+      }
+
+      .advantage{padding:16px 14px}
+      .advantage i{font-size:30px}
+
+      #devis input,#devis textarea,#devis select{
+        font-size:13px;
+        padding:11px;
+      }
+
+      .footer-company{font-size:17px}
+
+      .electric-band{
+        top:calc(var(--topbar-h) + var(--header-h) - 4px);
+        height:12px;
+      }
+      .electric-band .container{
+        width:100%;
+        left:0;
+        padding:0 4vw;
+        box-sizing:border-box;
+      }
+      .glowline{
+        width:86%;
+        max-width:86%;
+      }
+
       .mobile-panel{
         padding:16px 4.5vw 20px;
       }
+
       .mobile-brand{
-        padding:22px 4px 10px;
+        padding-top:54px;
       }
+
       .mobile-brand .company-name{
-        font-size:28px;
+        font-size:32px;
       }
       .mobile-brand .company-tagline{
         font-size:10px;
         letter-spacing:3px;
       }
+
       .mobile-nav a.mobile-link{
         font-size:20px;
         min-height:62px;
         padding:16px 16px;
       }
+
       .mobile-contact .phone-line{
         font-size:15px;
       }
+
       .socials{
         gap:14px;
       }
@@ -1044,11 +1151,6 @@
         height:40px;
         font-size:18px;
       }
-
-      .card .image-wrap{height:190px}
-      .card-content{padding:14px 12px 16px}
-      .card-content h3{font-size:17px}
-      .card-content p{font-size:13px; line-height:1.5}
 
       .top-controls{
         gap:10px;
@@ -1104,12 +1206,6 @@
       .result-card .value{
         font-size:22px;
       }
-      .section h2{
-        font-size:26px;
-      }
-      .card-soft{
-        padding:12px;
-      }
     }
   </style>
 </head>
@@ -1159,7 +1255,18 @@
 
       <div class="menu-links">
         <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
-        <a href="etude_dimensionnement_2.html" class="mobile-link active">Étude</a>
+
+        <div>
+          <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
+            Étude
+            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+          </a>
+          <div class="submenu" id="mobileEtudeSub">
+            <a href="zone_urbaine.html" class="active-item" aria-current="page">🏙️ Zone Urbaine</a>
+            <a href="zone_agricole.html">🚜 Zone Agricole</a>
+          </div>
+        </div>
+
         <a href="Projets.html" class="mobile-link">Projets futurs</a>
         <a href="maintenance.html" class="mobile-link">Maintenance</a>
       </div>
@@ -1431,8 +1538,9 @@
     const mobileCloseBtn = document.getElementById('mobileCloseBtn');
 
     function openMenu(){
+      if (!mobileNav || !burgerBtn) return;
       mobileNav.classList.add('open');
-      mobileBackdrop.classList.add('open');
+      if (mobileBackdrop) mobileBackdrop.classList.add('open');
       burgerBtn.classList.add('open');
       mobileNav.setAttribute('aria-hidden', 'false');
       burgerBtn.setAttribute('aria-expanded', 'true');
@@ -1440,12 +1548,20 @@
     }
 
     function closeMenu(){
+      if (!mobileNav || !burgerBtn) return;
       mobileNav.classList.remove('open');
-      mobileBackdrop.classList.remove('open');
+      if (mobileBackdrop) mobileBackdrop.classList.remove('open');
       burgerBtn.classList.remove('open');
       mobileNav.setAttribute('aria-hidden', 'true');
       burgerBtn.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
+
+      document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
+        s.style.display = 'none';
+      });
+      document.querySelectorAll('.mobile-nav .mobile-link[aria-expanded="true"]').forEach(el => {
+        el.setAttribute('aria-expanded', 'false');
+      });
     }
 
     if (burgerBtn && mobileNav) {
@@ -1459,8 +1575,42 @@
       if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
       mobileNav.querySelectorAll('.mobile-link').forEach(a => {
-        a.addEventListener('click', closeMenu);
+        if(a.id === 'mobileEtudeToggle') return;
+        a.addEventListener('click', () => closeMenu());
       });
+
+      function bindExpandable(toggleEl, subEl){
+        if(!toggleEl || !subEl) return;
+        toggleEl.addEventListener('click', function(e){
+          if(e.target.closest('.caret')){
+            e.preventDefault();
+            e.stopPropagation();
+
+            const opening = subEl.style.display !== 'flex';
+
+            document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
+              if(s !== subEl) s.style.display = 'none';
+            });
+
+            subEl.style.display = opening ? 'flex' : 'none';
+            toggleEl.setAttribute('aria-expanded', String(opening));
+
+            mobileNav.classList.add('open');
+            if (burgerBtn) burgerBtn.classList.add('open');
+            if (mobileBackdrop) mobileBackdrop.classList.add('open');
+            mobileNav.setAttribute('aria-hidden','false');
+            if (burgerBtn) burgerBtn.setAttribute('aria-expanded','true');
+            document.body.classList.add('menu-open');
+          } else {
+            closeMenu();
+          }
+        });
+      }
+
+      bindExpandable(
+        document.getElementById('mobileEtudeToggle'),
+        document.getElementById('mobileEtudeSub')
+      );
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeMenu();
