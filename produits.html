@@ -217,7 +217,7 @@
       display:none;
       position:fixed;
       inset:0;
-      background:#061f14;
+      background:#0a4d2e;
       z-index:1970;
       opacity:0;
       transition:opacity .2s ease;
@@ -232,7 +232,7 @@
       position:fixed;
       inset:0;
       z-index:1980;
-      background:linear-gradient(180deg, #0a4d2e 0%, #061f14 100%);
+      background:#0a4d2e;
       opacity:0;
       pointer-events:none;
       transition:opacity .2s ease, transform .2s ease;
@@ -254,6 +254,7 @@
       display:flex;
       flex-direction:column;
       gap:14px;
+      background:#0a4d2e;
     }
 
     .mobile-close{
@@ -335,6 +336,48 @@
     .mobile-nav .mobile-link.active{
       background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
       color:var(--accent-2);
+    }
+
+    .mobile-nav .submenu{
+      display:none;
+      flex-direction:column;
+      gap:8px;
+      padding-left:10px;
+      margin-top:6px;
+      margin-bottom:6px;
+      max-width:560px;
+      width:100%;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .mobile-nav .submenu a{
+      font-family:'Trebuchet MS', Arial, sans-serif;
+      font-style:italic;
+      font-size:15px;
+      font-weight:700;
+      min-height:48px;
+      padding:12px 14px;
+      border-radius:10px;
+      white-space:nowrap;
+      justify-content:flex-start;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      border:1px solid rgba(255,255,255,0.06);
+      background:rgba(255,255,255,0.02);
+    }
+    .mobile-nav .submenu a:hover{
+      background:rgba(168,230,161,0.08);
+      padding-left:18px;
+    }
+    .mobile-nav .submenu a.active-item,
+    .mobile-nav .submenu a[aria-current="page"]{
+      background:transparent;
+      color:rgba(255,255,255,0.30);
+      border:none;
+      box-shadow:none;
+      font-weight:700;
+      font-style:italic;
     }
 
     .mobile-contact{
@@ -959,7 +1002,20 @@
       <div class="menu-links">
         <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
         <a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
-        <a href="#produits" class="mobile-link active">Nos Produits</a>
+
+        <div>
+          <a href="#produits" id="mobileProduitsToggle" class="mobile-link active" aria-expanded="false">
+            Nos Produits
+            <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+          </a>
+          <div class="submenu" id="mobileProduitsSub">
+            <a href="panneaux.html">⚡ Panneaux solaires</a>
+            <a href="batteries.html">🔋 Batteries & stockage</a>
+            <a href="onduleurs.html">🔌 Onduleurs</a>
+            <a href="groupes.html">⚙️ Groupes électrogènes</a>
+          </div>
+        </div>
+
         <a href="Projets.html" class="mobile-link">Projets futurs</a>
         <a href="maintenance.html" class="mobile-link">Maintenance</a>
       </div>
@@ -1062,6 +1118,13 @@
     const mobileBackdrop = document.getElementById('mobileBackdrop');
     const mobileCloseBtn = document.getElementById('mobileCloseBtn');
 
+    function closeAllSubmenus(){
+      const mobileProduitsSub = document.getElementById('mobileProduitsSub');
+      const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
+      if(mobileProduitsSub) mobileProduitsSub.style.display = 'none';
+      if(mobileProduitsToggle) mobileProduitsToggle.setAttribute('aria-expanded','false');
+    }
+
     function openMenu(){
       if (!mobileNav || !burgerBtn) return;
       mobileNav.classList.add('open');
@@ -1070,6 +1133,7 @@
       mobileNav.setAttribute('aria-hidden', 'false');
       burgerBtn.setAttribute('aria-expanded', 'true');
       document.body.classList.add('menu-open');
+      closeAllSubmenus();
     }
 
     function closeMenu(){
@@ -1080,6 +1144,7 @@
       mobileNav.setAttribute('aria-hidden', 'true');
       burgerBtn.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
+      closeAllSubmenus();
     }
 
     if (burgerBtn && mobileNav) {
@@ -1093,8 +1158,36 @@
       if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
       mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+        if(a.id === 'mobileProduitsToggle') return;
         a.addEventListener('click', () => closeMenu());
       });
+
+      const mobileProduitsToggle = document.getElementById('mobileProduitsToggle');
+      const mobileProduitsSub = document.getElementById('mobileProduitsSub');
+      if(mobileProduitsToggle && mobileProduitsSub){
+        mobileProduitsSub.style.display = 'none';
+        mobileProduitsToggle.setAttribute('aria-expanded','false');
+        mobileProduitsToggle.addEventListener('click', function(e){
+          if(e.target.closest('.caret')){
+            e.preventDefault();
+            e.stopPropagation();
+            const opening = mobileProduitsSub.style.display !== 'flex';
+            document.querySelectorAll('.mobile-nav .submenu').forEach(s=>{
+              if(s !== mobileProduitsSub) s.style.display = 'none';
+            });
+            mobileProduitsSub.style.display = opening ? 'flex' : 'none';
+            mobileProduitsToggle.setAttribute('aria-expanded', String(opening));
+            mobileNav.classList.add('open');
+            mobileBackdrop.classList.add('open');
+            burgerBtn.classList.add('open');
+            mobileNav.setAttribute('aria-hidden','false');
+            burgerBtn.setAttribute('aria-expanded','true');
+            document.body.classList.add('menu-open');
+          } else {
+            closeMenu();
+          }
+        });
+      }
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeMenu();
