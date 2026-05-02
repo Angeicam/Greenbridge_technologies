@@ -217,7 +217,7 @@
       display:none;
       position:fixed;
       inset:0;
-      background:#0a4d2e;
+      background:var(--bg);
       z-index:1970;
       opacity:0;
       transition:opacity .2s ease;
@@ -232,7 +232,7 @@
       position:fixed;
       inset:0;
       z-index:1980;
-      background:#0a4d2e;
+      background:var(--bg);
       opacity:0;
       pointer-events:none;
       transition:opacity .2s ease, transform .2s ease;
@@ -433,6 +433,13 @@
       background:rgba(255,255,255,0.04);
       border-radius:50%;
       min-height:44px;
+    }
+
+    body.menu-open .topbar,
+    body.menu-open header,
+    body.menu-open .electric-band{
+      visibility:hidden;
+      pointer-events:none;
     }
 
     .hero{
@@ -894,7 +901,19 @@
       .mobile-nav.open{
         max-height:100vh;
       }
+
+      .mobile-brand{
+        padding:28px 4px 12px;
+      }
+      .mobile-brand .company-name{
+        font-size:32px;
+      }
+      .mobile-brand .company-tagline{
+        font-size:13px;
+        letter-spacing:3px;
+      }
     }
+
     @media (max-width:480px){
       :root{
         --topbar-h:40px;
