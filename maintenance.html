@@ -322,6 +322,47 @@ nav a.active{
  background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
  color:var(--accent-2);
 }
+.mobile-nav .submenu{
+ display:none;
+ flex-direction:column;
+ gap:8px;
+ padding-left:10px;
+ margin-top:6px;
+ margin-bottom:6px;
+ max-width:560px;
+ width:100%;
+ margin-left:auto;
+ margin-right:auto;
+}
+.mobile-nav .submenu a{
+ font-family:'Trebuchet MS', Arial, sans-serif;
+ font-style:italic;
+ font-size:15px;
+ font-weight:700;
+ min-height:48px;
+ padding:12px 14px;
+ border-radius:10px;
+ white-space:nowrap;
+ justify-content:flex-start;
+ letter-spacing:.2px;
+ display:flex;
+ align-items:center;
+ border:1px solid rgba(255,255,255,0.06);
+ background:rgba(255,255,255,0.02);
+}
+.mobile-nav .submenu a:hover{
+ background:rgba(168,230,161,0.08);
+ padding-left:18px;
+}
+.mobile-nav .submenu a.active-item,
+.mobile-nav .submenu a[aria-current="page"]{
+ background:transparent;
+ color:rgba(255,255,255,0.30);
+ border:none;
+ box-shadow:none;
+ font-weight:700;
+ font-style:italic;
+}
 .mobile-contact{
  display:flex;
  flex-direction:column;
@@ -1280,6 +1321,7 @@ footer::before{
 </a>
 </div>
 </div>
+
 <header>
 <div class="logo-text">
 <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
@@ -1288,6 +1330,7 @@ footer::before{
 <div class="company-tagline">TECHNOLOGIES</div>
 </div>
 </div>
+
 <nav aria-label="Menu principal">
 <a href="GreenBrigde technologies.html">Accueil</a>
 <a href="etude_dimensionnement_2.html">Étude</a>
@@ -1295,11 +1338,14 @@ footer::before{
 <a href="Projets.html">Projets futurs</a>
 <a href="maintenance.html" class="active">Maintenance</a>
 </nav>
+
 <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
 <span class="icon"><span></span><span></span><span></span></span>
 </button>
 </header>
+
 <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
+
 <div class="electric-band" id="electricBand" aria-hidden="true">
 <div class="container" aria-hidden="true">
 <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
@@ -1315,20 +1361,47 @@ footer::before{
 <div class="glowline" id="glowline"></div>
 </div>
 </div>
+
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
 <div class="mobile-panel">
 <button class="mobile-close" id="mobileCloseBtn" aria-label="Fermer le menu">×</button>
+
 <div class="mobile-brand">
 <div class="company-name">GREENBRIDGE</div>
 <div class="company-tagline">TECHNOLOGIES</div>
 </div>
+
 <div class="menu-links">
 <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
-<a href="etude_dimensionnement_2.html" class="mobile-link">Étude</a>
-<a href="produits.html" class="mobile-link">Nos Produits</a>
+
+<div>
+  <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link" aria-expanded="false">
+    Étude
+    <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+  </a>
+  <div class="submenu" id="mobileEtudeSub">
+    <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
+    <a href="zone_agricole.html">🚜 Zone Agricole</a>
+  </div>
+</div>
+
+<div>
+  <a href="produits.html" id="mobileProduitsToggle" class="mobile-link" aria-expanded="false">
+    Nos Produits
+    <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
+  </a>
+  <div class="submenu" id="mobileProduitsSub">
+    <a href="panneaux.html">⚡ Panneaux solaires</a>
+    <a href="batteries.html">🔋 Batteries & stockage</a>
+    <a href="onduleurs.html">🔌 Onduleurs</a>
+    <a href="groupes.html">⚙️ Groupes électrogènes</a>
+  </div>
+</div>
+
 <a href="Projets.html" class="mobile-link">Projets futurs</a>
 <a href="maintenance.html" class="mobile-link active">Maintenance</a>
 </div>
+
 <div class="mobile-contact" aria-hidden="false">
 <strong>CONTACT</strong>
 <div class="phone-line">
@@ -1336,6 +1409,7 @@ footer::before{
 <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
 </div>
 </div>
+
 <div class="socials">
 <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
 <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
@@ -1344,6 +1418,7 @@ footer::before{
 </div>
 </div>
 </div>
+
 <section class="hero" id="top" aria-label="Hero">
 <img class="hero-bg" src="maintenance_green.png" alt="Illustration maintenance GreenBridge">
 <div class="hero-overlay"></div>
@@ -1352,6 +1427,7 @@ footer::before{
 <p>Des interventions fiables pour garantir la continuité, la sécurité et la performance de vos installations énergétiques et domotiques.</p>
 </div>
 </section>
+
 <section class="section" id="zones" aria-label="Nos activités">
 <h2>Nos activités</h2>
 <p class="section-intro">
@@ -1366,6 +1442,7 @@ Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pou
 <button class="btn-card" onclick="openModal('installation_panel.jpg','Installation panneaux','Conception et pose optimisées : étude, fixation, câblage, protections et mise en service.')">Détails</button>
 </div>
 </article>
+
 <article class="card" role="listitem" aria-label="Maintenance préventive">
 <div class="image-wrap"><img src="maintenance_visite.jpg" alt="Maintenance préventive"></div>
 <div class="card-content">
@@ -1374,6 +1451,7 @@ Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pou
 <button class="btn-card" onclick="openModal('maintenance_visite.jpg','Maintenance préventive','Visites planifiées, nettoyage, contrôle visuel, resserrage, tests et rapport de suivi.')">Détails</button>
 </div>
 </article>
+
 <article class="card" role="listitem" aria-label="Maintenance corrective et dépannage">
 <div class="image-wrap"><img src="depannage_technicien.jpg" alt="Maintenance corrective et dépannage"></div>
 <div class="card-content">
@@ -1382,6 +1460,7 @@ Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pou
 <button class="btn-card" onclick="openModal('depannage_technicien.jpg','Maintenance corrective & dépannage','Intervention rapide, diagnostic, réparation, remplacement et remise en service.')">Détails</button>
 </div>
 </article>
+
 <article class="card" role="listitem" aria-label="Contrats de maintenance">
 <div class="image-wrap"><img src="bureaux_connectes.jpg" alt="Contrats de maintenance"></div>
 <div class="card-content">
@@ -1392,6 +1471,7 @@ Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pou
 </article>
 </div>
 </section>
+
 <section class="section">
 <h2>Pourquoi choisir GreenBridge ?</h2>
 <div class="advantages" role="list">
@@ -1401,6 +1481,7 @@ Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pou
 <div class="advantage" role="listitem"><i class="fas fa-bolt" aria-hidden="true"></i><h3>Réactivité</h3><p>Dépannage rapide pour réduire l’arrêt de vos équipements.</p></div>
 </div>
 </section>
+
 <div id="detailModal" class="modal" aria-hidden="true">
 <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
 <span class="close" onclick="closeModal()" role="button" aria-label="Fermer">&times;</span>
@@ -1409,6 +1490,7 @@ Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pou
 <p id="modalDesc"></p>
 </div>
 </div>
+
 <section id="devis" class="section">
 <h2>Demandez un devis personnalisé</h2>
 <form id="devis-form">
@@ -1425,6 +1507,7 @@ Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pou
 <button type="submit">Envoyer</button>
 </form>
 </section>
+
 <footer>
 <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
 <div class="footer-contact" aria-label="Coordonnées">
@@ -1432,11 +1515,13 @@ Basés en Côte d’Ivoire, nous accompagnons particuliers et professionnels pou
 <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
 </div>
 </footer>
+
 <script>
 const contactNumbers = {
  abidjan: { display: '+225 07 07 07 07 07', tel: '+2250707070707' },
  dakar: { display: '+221 77 00 00 00 00', tel: '+2217700000000' }
 };
+
 const burgerBtn = document.getElementById('burgerBtn');
 const mobileNav = document.getElementById('mobileNav');
 const mobileBackdrop = document.getElementById('mobileBackdrop');
@@ -1445,8 +1530,10 @@ const topPhoneLink = document.getElementById('topPhoneLink');
 const topPhoneText = document.getElementById('topPhoneText');
 const mobilePhoneLink = document.getElementById('mobilePhoneLink');
 const footerPhoneText = document.getElementById('footerPhoneText');
+
 let activeCountry = 'abidjan';
 let countryTimer = null;
+
 function updatePhone(country){
  const info = contactNumbers[country] || contactNumbers.abidjan;
  if (topPhoneLink) topPhoneLink.href = 'tel:' + info.tel;
@@ -1457,28 +1544,39 @@ function updatePhone(country){
  }
  if (footerPhoneText) footerPhoneText.textContent = info.display;
 }
+
 function toggleCountry(){
  activeCountry = activeCountry === 'abidjan' ? 'dakar' : 'abidjan';
  updatePhone(activeCountry);
 }
+
 function openMenu(){
  if (!mobileNav || !burgerBtn) return;
  mobileNav.classList.add('open');
- mobileBackdrop.classList.add('open');
+ if (mobileBackdrop) mobileBackdrop.classList.add('open');
  burgerBtn.classList.add('open');
  mobileNav.setAttribute('aria-hidden', 'false');
  burgerBtn.setAttribute('aria-expanded', 'true');
  document.body.classList.add('menu-open');
 }
+
 function closeMenu(){
  if (!mobileNav || !burgerBtn) return;
  mobileNav.classList.remove('open');
- mobileBackdrop.classList.remove('open');
+ if (mobileBackdrop) mobileBackdrop.classList.remove('open');
  burgerBtn.classList.remove('open');
  mobileNav.setAttribute('aria-hidden', 'true');
  burgerBtn.setAttribute('aria-expanded', 'false');
  document.body.classList.remove('menu-open');
+
+ document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
+  s.style.display = 'none';
+ });
+ document.querySelectorAll('.mobile-nav .mobile-link[aria-expanded="true"]').forEach(el => {
+  el.setAttribute('aria-expanded', 'false');
+ });
 }
+
 if (burgerBtn && mobileNav) {
  burgerBtn.addEventListener('click', () => {
   const opened = mobileNav.classList.contains('open');
@@ -1487,16 +1585,59 @@ if (burgerBtn && mobileNav) {
  });
  if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
  if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
+
  mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+  if (a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
   a.addEventListener('click', () => closeMenu());
  });
+
+ function bindExpandable(toggleEl, subEl){
+  if(!toggleEl || !subEl) return;
+
+  toggleEl.addEventListener('click', function(e){
+   if(e.target.closest('.caret')){
+    e.preventDefault();
+    e.stopPropagation();
+
+    const opening = subEl.style.display !== 'flex';
+
+    document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
+     if(s !== subEl) s.style.display = 'none';
+    });
+
+    subEl.style.display = opening ? 'flex' : 'none';
+    toggleEl.setAttribute('aria-expanded', String(opening));
+
+    mobileNav.classList.add('open');
+    if (burgerBtn) burgerBtn.classList.add('open');
+    if (mobileBackdrop) mobileBackdrop.classList.add('open');
+    mobileNav.setAttribute('aria-hidden','false');
+    if (burgerBtn) burgerBtn.setAttribute('aria-expanded','true');
+    document.body.classList.add('menu-open');
+   } else {
+    closeMenu();
+   }
+  });
+ }
+
+ bindExpandable(
+  document.getElementById('mobileEtudeToggle'),
+  document.getElementById('mobileEtudeSub')
+ );
+ bindExpandable(
+  document.getElementById('mobileProduitsToggle'),
+  document.getElementById('mobileProduitsSub')
+ );
+
  document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeMenu();
  });
 }
+
 updatePhone('abidjan');
 clearInterval(countryTimer);
 countryTimer = setInterval(toggleCountry, 10000);
+
 function openModal(img, title, desc){
  const modal = document.getElementById('detailModal');
  document.getElementById('modalImg').src = img;
@@ -1505,18 +1646,22 @@ function openModal(img, title, desc){
  modal.style.display = 'block';
  modal.setAttribute('aria-hidden','false');
 }
+
 function closeModal(){
  const modal = document.getElementById('detailModal');
  modal.style.display = 'none';
  modal.setAttribute('aria-hidden','true');
 }
+
 window.addEventListener('click', (e) => {
  const modal = document.getElementById('detailModal');
  if (e.target === modal) closeModal();
 });
+
 document.addEventListener('keydown', (e) => {
  if (e.key === 'Escape') closeModal();
 });
+
 const form = document.getElementById('devis-form');
 if (form) {
  form.addEventListener('submit', (e) => {
@@ -1525,6 +1670,7 @@ if (form) {
   form.reset();
  });
 }
+
 (function(){
  const electricBand = document.getElementById('electricBand');
  if (!electricBand) return;
