@@ -232,6 +232,8 @@
       position:fixed;
       inset:0;
       z-index:1980;
+      width:100vw;
+      height:100vh;
       background:var(--bg);
       opacity:0;
       pointer-events:none;
@@ -254,7 +256,7 @@
       display:flex;
       flex-direction:column;
       gap:14px;
-      background:transparent;
+      background:var(--bg);
     }
 
     .mobile-close{
@@ -898,6 +900,7 @@
       #devis form{
         padding:16px;
       }
+
       .mobile-nav.open{
         max-height:100vh;
       }
