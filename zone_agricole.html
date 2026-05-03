@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>GreenBridge — Zone agricole (dimensionnement irrigation & élevage)</title>
+<title>GreenBridge — Zone urbaine (dimensionnement)</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -40,13 +40,16 @@ html,body{
   font-family:var(--font);
   background:var(--bg);
   color:#fff;
+  overflow-x:hidden;
 }
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
 .topbar{
   position:fixed;
-  top:0;left:0;right:0;
+  top:0;
+  left:0;
+  right:0;
   height:var(--topbar-h);
   background:var(--green-dark);
   display:flex;
@@ -63,7 +66,8 @@ img{max-width:100%;display:block}
 header{
   position:fixed;
   top:var(--topbar-h);
-  left:0;right:0;
+  left:0;
+  right:0;
   height:var(--header-h);
   background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
   display:flex;
@@ -171,11 +175,12 @@ nav a.active{
 .burger.open .icon span:nth-child(2){opacity:0}
 .burger.open .icon span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
 
-.mobile-nav{display:none}
 .mobile-nav{
+  display:none;
   position:fixed;
   top:calc(var(--topbar-h) + var(--header-h));
-  left:0;right:0;
+  left:0;
+  right:0;
   background:var(--bg);
   z-index:1740;
   box-shadow:0 12px 40px rgba(0,0,0,.45);
@@ -254,7 +259,8 @@ nav a.active{
 .electric-band{
   position:fixed;
   top:calc(var(--topbar-h) + var(--header-h) - 6px);
-  left:0;right:0;
+  left:0;
+  right:0;
   height:14px;
   z-index:1900;
   pointer-events:none;
@@ -301,7 +307,8 @@ nav a.active{
 
 .orbs{
   position:absolute;
-  left:0;top:0;
+  left:0;
+  top:0;
   width:100vw;
   height:100%;
   pointer-events:none;
@@ -350,123 +357,384 @@ nav a.active{
   100%{transform:translate(-50%,-50%) scaleX(.7);opacity:.6}
 }
 
-.page-center{
-  max-width:var(--max-width);
-  margin:calc(var(--topbar-h) + var(--header-h) + 18px) auto 80px;
-  padding:0 18px;
+.hero{
+  margin-top:calc(var(--topbar-h) + var(--header-h));
+  height:calc(72vh - (var(--topbar-h) + var(--header-h)));
+  min-height:calc(72vh - (var(--topbar-h) + var(--header-h)));
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  text-align:center;
+  background:#0a4d2e;
 }
-.card{
+.hero-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 90%;
+  transform:scale(1.07) translateY(24px);
+  filter:brightness(1.02) contrast(1.03) saturate(1.02);
+}
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.16) 48%, rgba(0,0,0,0.28) 100%);
+  z-index:1;
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:950px;
+  padding:0 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.hero-content h1{
+  font-size:36px;
+  margin:0 0 12px;
+  font-weight:700;
+  text-shadow:0 3px 10px rgba(0,0,0,0.45)
+}
+.hero-content p{
+  font-size:18px;
+  margin:0 0 18px;
+  text-shadow:0 2px 8px rgba(0,0,0,0.45)
+}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn-primary,.btn-secondary{
+  padding:14px 26px;
+  border-radius:10px;
+  border:0;
+  font-weight:700;
+  cursor:pointer;
+  font-size:16px;
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-2)}
+.btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
+.btn-secondary:hover{background:rgba(255,255,255,0.08)}
+
+.section{
+  padding:60px 5vw;
+  scroll-margin-top:140px;
+}
+.section h2{
+  font-size:32px;
+  margin-bottom:18px;
+  color:var(--accent-2);
+  text-align:center
+}
+.study-intro{
+  max-width:1000px;
+  margin:0 auto 24px;
+  color:var(--muted);
+  text-align:center;
+  font-size:15px;
+  line-height:1.7;
+  opacity:0.95;
+}
+
+.card-soft{
+  background:rgba(6,31,20,0.60);
+  border:1px solid rgba(212,175,55,0.12);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.18);
+  max-width:1240px;
+  margin:0 auto;
+}
+
+.calc{
   background:#fff;
   color:#072012;
-  border-radius:var(--card-radius);
-  padding:14px;
-  box-shadow:var(--shadow);
-  margin-bottom:12px;
+  border-radius:18px;
+  padding:16px;
+  margin-top:12px;
+  box-shadow:0 10px 22px rgba(0,0,0,0.25);
+  overflow:hidden;
 }
-h1{margin:0;color:#04462e;font-size:20px}
-.muted{color:#6b7f6b;font-size:13px}
-
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media (max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:700px){ .grid{grid-template-columns:1fr} }
-
-.field{display:flex;flex-direction:column;gap:6px}
-label{font-size:13px;color:#072012}
-input[type="number"],input[type="text"],select{
-  padding:8px;border-radius:6px;border:1px solid #e6e6e6
+.calc h3{
+  margin:0;
+  color:#04462e;
+  font-size:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
 }
-.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
-
-.btn{padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:#072012;font-weight:700;cursor:pointer}
-.btn-ghost{background:#f3f3f3;border:1px solid #e6e6e6;color:#072012;padding:8px 10px;border-radius:8px}
-
-.suggests{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.suggest{
-  background:linear-gradient(180deg,#f3fff8,#ecfff5);
-  padding:8px;border-radius:10px;
-  border:1px solid #e0f3e9;
+.calc h3 .badge{
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
   color:#072012;
+  font-weight:900;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+}
+.small-note{font-size:12px;color:#6c7d6f;margin-top:8px}
+
+.top-controls{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.top-controls label{
+  white-space:nowrap;
+  font-size:13px;
+  color:#072012;
+}
+.top-controls select,
+.top-controls input{
+  padding:9px;
+  border-radius:8px;
+  min-width:120px;
+  max-width:100%;
+  border:1px solid #e6e6e6;
+}
+.btn-reset,.btn-export,.btn-add,.btn-link{
+  padding:9px 12px;
+  border-radius:10px;
+  border:0;
   cursor:pointer;
-  font-weight:600;
+  font-weight:700;
+}
+.btn-reset{background:#ececec;color:#072012}
+.btn-export{background:var(--accent);color:#072012}
+.btn-add{background:var(--gold-base);color:#072012}
+.btn-add:hover,.btn-export:hover,.btn-reset:hover,.btn-link:hover{filter:brightness(.98)}
+.btn-link{
+  background:rgba(124,179,66,.12);
+  color:#04462e;
+  border:1px solid rgba(124,179,66,.18)
 }
 
-.consumer-list{margin-top:10px;display:flex;flex-direction:column;gap:8px}
-.consumer{
+.generator{
+  display:flex;
+  gap:8px;
+  align-items:flex-end;
+  margin:14px 0;
+  padding:12px;
+  border-radius:12px;
+  background:linear-gradient(180deg,#f7fff6,#f0fff1);
+  border:1px solid #e6f7ea;
+  flex-wrap:wrap;
+}
+.generator .col{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  color:#072012;
+}
+.generator .col input[type="number"]{
+  width:92px;
+  max-width:100%;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,.08);
+}
+.generator .actions{
+  margin-left:auto;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.room{
+  background:#f7f7f7;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid #ececec;
+  margin-top:10px;
+  color:#072012;
+  overflow:hidden;
+}
+.room.highlight{outline:2px solid rgba(124,179,66,.35)}
+.room-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.room-actions{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+.badge-zone{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(168,230,161,.10);
+  border:1px solid rgba(168,230,161,.16);
+  color:#dfffe6;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+}
+
+.consumer-list{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.consumer{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:10px;
+  background:#fff;
+  border-radius:10px;
+  border:1px solid #eee;
+  overflow:hidden;
+}
+.consumer .mini{
+  font-size:12px;
+  color:#666;
+  margin-top:4px;
+}
+.consumer-fields{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:8px;
+  align-items:end;
+}
+.consumer-fields label{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  font-size:12px;
+  font-weight:700;
+  color:#072012;
+  min-width:0;
+}
+.consumer-fields input{
+  width:100%;
+  min-width:0;
   padding:8px;
   border-radius:8px;
-  background:#fff;
-  border:1px solid #eee;
-  color:#072012;
+  border:1px solid #ddd;
 }
-.consumer .meta{font-size:13px;color:#6b7f6b}
+.consumer-actions{
+  display:flex;
+  align-items:end;
+  justify-content:flex-end;
+}
 
-.results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
-@media (max-width:1000px){ .results{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:700px){ .results{grid-template-columns:1fr} }
+.solar-panel{
+  margin-top:14px;
+  background:#fff;
+  border-radius:14px;
+  padding:12px;
+  border:1px solid #e6f3ea;
+  color:#072012;
+  overflow:hidden;
+}
+.solar-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  align-items:start;
+}
+.solar-block{
+  background:#fff;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #e6f3ea;
+  min-width:0;
+}
+.solar-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.solar-row label{
+  min-width:160px;
+  max-width:100%;
+}
+.metric{
+  font-weight:900;
+  font-size:18px;
+  color:#04462e;
+  margin-top:6px;
+  word-break:break-word;
+}
+.metric.note{
+  font-size:13px;
+  color:#6c7d6f;
+  font-weight:600;
+}
 
+.results{
+  display:flex;
+  gap:12px;
+  margin-top:16px;
+  flex-wrap:wrap;
+}
 .result-card{
   background:linear-gradient(180deg,#fbfffb,#f3fff2);
   padding:14px;
-  border-radius:12px;
+  border-radius:14px;
+  flex:1 1 170px;
+  text-align:center;
   min-width:170px;
-  border:1px solid rgba(3,50,26,0.06);
-  box-shadow:0 14px 36px rgba(2,22,12,0.12);
-  color:#072012;
+  border:1px solid rgba(3,50,26,.06);
+  box-shadow:0 14px 36px rgba(2,22,12,.12);
+  overflow:hidden;
 }
 .result-card .label{
-  font-size:13px;
-  color:#6b7f6b;
+  font-size:12px;
+  color:#6c7d6f;
   text-transform:uppercase;
-  letter-spacing:0.6px;
+  letter-spacing:.6px;
 }
 .result-card .value{
   font-weight:900;
-  font-size:20px;
-  color:var(--green-mid-2);
+  font-size:26px;
+  color:#0b4d26;
   margin-top:6px;
-  display:block;
-}
-.result-card .small{font-size:13px;color:#6b7f6b;margin-top:6px}
-#r_panels .value, #r_batt .value{
-  color:#04462e;
-  font-size:24px;
-  background:linear-gradient(90deg, rgba(124,179,66,0.08), rgba(181,134,0,0.04));
-  padding:6px 10px;
+  display:inline-block;
+  padding:6px 12px;
   border-radius:999px;
-  box-shadow:0 8px 20px rgba(124,179,66,0.06);
+  max-width:100%;
+  overflow-wrap:anywhere;
+}
+.result-card .small{
+  font-size:13px;
+  color:#6c7d6f;
+  margin-top:6px;
 }
 
-.summary{
-  display:flex;
-  gap:12px;
-  margin-top:18px;
-  align-items:stretch;
-  flex-wrap:wrap;
+.subtle-box{
+  margin-top:12px;
+  background:#fbfff7;
+  border:1px solid #e9f2df;
+  padding:10px;
+  border-radius:10px;
+  overflow:hidden;
 }
-.summary .big{
-  flex:1;
-  padding:16px;
-  border-radius:14px;
-  background:#fff;
-  border:1px solid #e6f3ea;
-  color:#072012;
-  box-shadow:var(--shadow);
+
+.pdf-note{
+  margin-top:12px;
+  font-size:13px;
+  color:#e6f7ea;
+  overflow-wrap:anywhere;
 }
-.big h2{margin:0;color:#04462e}
-.big .kpi{display:flex;gap:12px;align-items:center;margin-top:12px}
-.kpi .num{font-weight:900;font-size:22px;color:#0b4d26}
-.kpi .muted{font-size:13px;color:#6b7f6b}
-
-#mapCard{padding:0;overflow:hidden}
-#map{height:260px;border-radius:8px}
-
-.pdf-btn{background:#d9534f;color:#fff;padding:8px 12px;border-radius:8px;border:0;font-weight:700;cursor:pointer}
-.note{font-size:12px;color:#6b7f6b;margin-top:10px}
-.highlight{border:2px solid var(--accent);box-shadow:0 8px 30px rgba(124,179,66,0.12);}
-input:focus,select:focus,button:focus{outline:none;box-shadow:0 0 0 4px rgba(124,179,66,0.12)}
 
 footer{
   background:var(--green-dark);
@@ -475,14 +743,15 @@ footer{
   position:relative;
   margin-top:40px;
   text-align:center;
-  box-shadow:0 -6px 12px rgba(0,0,0,0.35);
 }
 footer::before{
   content:"";
   position:absolute;
-  left:0; right:0; top:0;
+  left:0;
+  right:0;
+  top:0;
   height:2px;
-  background:var(--gold-base);
+  background:var(--gold-base)
 }
 .footer-company{
   display:block;
@@ -490,16 +759,19 @@ footer::before{
   font-size:18px;
   font-weight:800;
   color:#04462e;
-  -webkit-text-stroke:0.7px var(--gold);
+  -webkit-text-stroke:0.7px var(--gold-base);
   text-shadow:0 3px 6px rgba(0,0,0,0.6);
   padding:4px 8px;
   border-radius:6px;
   width:max-content;
-  background:linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%);
+  background:linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%)
 }
-.footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6;text-align:center}
+.footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 
 @media (max-width:1100px){
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .solar-grid{grid-template-columns:1fr}
+  .consumer-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
   .dropdown > a .sub-badge{display:none}
 }
 @media (max-width:1100px){
@@ -531,6 +803,22 @@ footer::before{
   .grid,.results{grid-template-columns:1fr}
   .consumer{font-size:14px}
   .result-card{min-width:220px}
+  .mobile-nav.open{max-height:85vh}
+  .mobile-panel{padding-bottom:22px}
+  .generator .actions{margin-left:0}
+  .top-controls select,.top-controls input{min-width:100px; max-width:100%}
+  .room-actions{flex-direction:column;align-items:stretch}
+  .section h2{font-size:28px}
+}
+@media (max-width:768px){
+  .company-name{font-size:26px}
+  .topbar .right{gap:10px;font-size:13px}
+  .hero-content h1 { font-size:28px; }
+  .hero-content p { font-size:14px; }
+  .consumer-fields{grid-template-columns:1fr}
+  .solar-row label{min-width:0}
+  .results{flex-direction:column}
+  .result-card{min-width:0}
 }
 @media (max-width:480px){
   :root{
@@ -604,10 +892,6 @@ footer::before{
     margin-left:0;
     justify-content:flex-start;
   }
-  .consumer{
-    flex-direction:column;
-    align-items:flex-start;
-  }
   .consumer-actions button{
     width:100%;
   }
@@ -646,13 +930,13 @@ footer::before{
       <a href="GreenBrigde technologies.html">Accueil</a>
 
       <div class="dropdown" aria-haspopup="true" aria-expanded="false">
-        <a href="energie.html" id="energieLink" data-current="🌾 Zone agricole">
+        <a href="energie.html" id="energieLink" data-current="🏙️ Zone urbaine">
           Étude
-          <span class="sub-badge">🌾 Zone agricole</span>
+          <span class="sub-badge">🏙️ Zone urbaine</span>
         </a>
         <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="dropdownContent">
-          <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
-          <li><a href="zone_agricole.html" role="menuitem" class="active-item" aria-current="page">🌾 Zone agricole</a></li>
+          <li><a href="zone_urbaine.html" role="menuitem" class="active-item" aria-current="page">🏙️ Zone Urbaine</a></li>
+          <li><a href="zone_agricole.html" role="menuitem">🌾 Zone agricole</a></li>
         </ul>
       </div>
 
@@ -667,13 +951,13 @@ footer::before{
       <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
 
       <div>
-        <a href="energie.html" id="mobileEnergieToggle" class="mobile-link active" data-current="🌾 Zone agricole" aria-expanded="true">
+        <a href="energie.html" id="mobileEnergieToggle" class="mobile-link active" data-current="🏙️ Zone urbaine" aria-expanded="true">
           Étude
           <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
         </a>
         <div class="submenu" id="mobileEnergieSub" style="display:flex;flex-direction:column;">
-          <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
-          <a href="zone_agricole.html" class="active-item" aria-current="page">🌾 Zone agricole</a>
+          <a href="zone_urbaine.html" class="active-item" aria-current="page">🏙️ Zone Urbaine</a>
+          <a href="zone_agricole.html">🌾 Zone agricole</a>
         </div>
       </div>
 
@@ -707,305 +991,243 @@ footer::before{
     </div>
   </div>
 
-  <div class="page-center" role="main">
+  <section class="hero" id="top" aria-label="Hero">
+    <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration dimensionnement urbain">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Dimensionnement de puissance</h1>
+      <p>Définissez les besoins, calibrez les charges et obtenez une base sérieuse pour la puissance, les panneaux et le stockage.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#dimensionnement">Commencer l'étude</a>
+      </div>
+    </div>
+  </section>
 
-    <div class="card" id="mapCard">
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;gap:12px;flex-wrap:wrap">
-        <div style="font-weight:800;color:#072012">Carte & zone</div>
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <label style="font-size:13px;color:#072012;margin-right:6px">Pays / Zone :</label>
-          <select id="zoneSelect" style="padding:6px;border-radius:6px;border:1px solid #e6e6e6">
+  <section id="dimensionnement" class="section" aria-label="Étude de dimensionnement">
+    <h2>Étude de dimensionnement</h2>
+    <p class="study-intro">
+      Cette page est dédiée au dimensionnement pur : vous créez vos pièces, ajoutez les charges nécessaires, puis vous obtenez instantanément la consommation, la puissance installée et les recommandations de système.
+    </p>
+
+    <div class="card-soft">
+      <div class="calc" id="calcCard">
+        <h3><span class="badge">Calculateur</span> Besoin de puissance — Saisie rapide et rigoureuse</h3>
+        <div class="small-note">Les résultats sont indicatifs et servent à orienter le dimensionnement. Ajustez les charges, les heures et le coefficient d’utilisation selon le projet.</div>
+
+        <div class="top-controls">
+          <label for="zone">Zone :</label>
+          <select id="zone" aria-label="Zone">
             <option value="ci">Côte d'Ivoire</option>
             <option value="sn">Sénégal</option>
           </select>
 
-          <label style="font-size:13px;color:#072012;margin-left:8px;margin-right:6px">Ville / Zone :</label>
-          <select id="citySelect" style="padding:6px;border-radius:6px;border:1px solid #e6e6e6"></select>
+          <label for="city">Ville :</label>
+          <select id="city" aria-label="Ville"></select>
+
+          <span class="badge-zone" id="zoneBadge"><i class="fas fa-building"></i> Zone urbaine</span>
+
+          <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
+          <button id="exportBtn" class="btn-link" type="button">Résumé texte</button>
         </div>
+
+        <div class="generator" role="group" aria-label="Générateur rapide de pièces">
+          <div class="col">
+            <label>Chambres</label>
+            <input type="number" id="genBedrooms" min="0" value="1">
+          </div>
+          <div class="col">
+            <label>Salons</label>
+            <input type="number" id="genLiving" min="0" value="1">
+          </div>
+          <div class="col">
+            <label>Cuisines</label>
+            <input type="number" id="genKitchens" min="0" value="1">
+          </div>
+          <div class="col">
+            <label>Salles d'eau</label>
+            <input type="number" id="genBaths" min="0" value="1">
+          </div>
+          <div class="col">
+            <label>Bureaux</label>
+            <input type="number" id="genOffices" min="0" value="0">
+          </div>
+          <div class="col">
+            <label>Toilettes</label>
+            <input type="number" id="genToilets" min="0" value="0">
+          </div>
+          <div class="actions">
+            <label style="font-size:13px;color:#072012;display:flex;align-items:center;gap:6px">
+              <input type="checkbox" id="genAdd"> Ajouter
+            </label>
+            <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px;">
+          <label style="font-weight:700;color:#072012">Ajouter une pièce manuelle :</label>
+          <select id="roomTypeSelect" style="padding:9px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+            <option value="Chambre">Chambre</option>
+            <option value="Salon">Salon</option>
+            <option value="Cuisine">Cuisine</option>
+            <option value="Salle d'eau">Salle d'eau</option>
+            <option value="Bureau">Bureau</option>
+            <option value="Toilette">Toilette</option>
+            <option value="Autre">Autre</option>
+          </select>
+          <input id="roomNameInput" placeholder="Ex: Chambre parentale" style="padding:9px;border-radius:8px;border:1px solid #ddd;min-width:220px;max-width:100%;">
+          <label style="color:#072012">Quantité :</label>
+          <input id="roomCountInput" type="number" min="1" value="1" style="width:90px;padding:9px;border-radius:8px;border:1px solid #ddd">
+          <button id="addRoomBtn" class="btn-add" type="button">Ajouter pièce(s)</button>
+          <button id="clearRoomsBtn" class="btn-reset" type="button">Vider</button>
+        </div>
+
+        <div id="roomsList" class="room-list"></div>
+        <div class="small-note" style="margin-top:8px">Chaque pièce peut être détaillée avec ses charges.</div>
+
+        <div style="margin-top:14px" class="solar-panel">
+          <h4 style="margin:0 0 8px 0;color:#04462e">Paramètres du système</h4>
+          <div class="solar-grid">
+            <div class="solar-block">
+              <div style="font-weight:700;margin-bottom:8px">Panneaux</div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Puissance d'un panneau (W)</label>
+                <input id="panelW" type="number" value="350" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+              </div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Heures soleil utiles / jour</label>
+                <input id="sunHours" type="number" step="0.1" value="5" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+              </div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Rendement & pertes (%)</label>
+                <input id="panelDeratePct" type="number" value="85" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+              </div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Puissance des panneaux conseillée</label>
+                <div id="pvRecommended" class="metric">0 kWc</div>
+              </div>
+              <div class="solar-row">
+                <label>Nb panneaux estimés</label>
+                <div id="panelCountRec" class="metric">0</div>
+              </div>
+            </div>
+
+            <div class="solar-block">
+              <div style="font-weight:700;margin-bottom:8px">Batteries & autonomie</div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Autonomie souhaitée (jours)</label>
+                <input id="autonomyDays" type="number" step="0.5" value="1" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+              </div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>DoD (%)</label>
+                <input id="dodPct" type="number" value="90" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+              </div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Rendement onduleur (%)</label>
+                <input id="invEffPct" type="number" value="95" style="width:90px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+              </div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Capacité d'un pack batterie (kWh)</label>
+                <input id="battPackKwh" type="number" step="0.01" value="1.28" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+              </div>
+              <div class="solar-row">
+                <label>Capacité batterie conseillée</label>
+                <div id="batteryRec" class="metric">0 kWh</div>
+              </div>
+              <div class="solar-row" style="margin-top:6px">
+                <label>Nombre de packs estimés</label>
+                <div id="batteryPackRec" class="metric">0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="solar-panel">
+          <h4 style="margin:0 0 8px 0;color:#04462e">Synthèse de puissance</h4>
+          <div class="solar-grid">
+            <div class="solar-block">
+              <div style="font-weight:700;margin-bottom:8px">Puissances</div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Puissance installée</label>
+                <div id="powerInstalled" class="metric">0 W</div>
+              </div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Onduleur conseillé</label>
+                <div id="inverterRec" class="metric">0 kVA</div>
+              </div>
+            </div>
+
+            <div class="solar-block">
+              <div style="font-weight:700;margin-bottom:8px">Énergie</div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Consommation / jour</label>
+                <div id="consDay" class="metric">0 kWh</div>
+              </div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Consommation / mois</label>
+                <div id="consMonth" class="metric">0 kWh</div>
+              </div>
+              <div class="solar-row" style="margin-bottom:6px">
+                <label>Charges actives</label>
+                <div id="loadsCount" class="metric">0</div>
+              </div>
+              <div class="solar-row">
+                <label>Couverture indicative</label>
+                <div id="coverageNote" class="metric">Dimensionnement en cours</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="subtle-box">
+            <div style="font-size:12px;color:#6c7d6f">Note</div>
+            <div class="metric note" id="summaryNote">Les calculs sont indicatifs. Le coefficient d’utilisation, les heures et les puissances peuvent être adaptés pour chaque projet.</div>
+          </div>
+        </div>
+
+        <div class="results" aria-live="polite">
+          <div class="result-card">
+            <div class="label">Consommation (kWh / jour)</div>
+            <div id="consDayCard" class="value">0 kWh</div>
+            <div class="small">valeur calculée à partir des charges</div>
+          </div>
+          <div class="result-card">
+            <div class="label">Consommation (kWh / mois)</div>
+            <div id="consMonthCard" class="value">0 kWh</div>
+            <div class="small">30 jours de référence</div>
+          </div>
+          <div class="result-card">
+            <div class="label">Puissance installée</div>
+            <div id="powerInstalledCard" class="value">0 W</div>
+            <div class="small">Somme nominale des équipements</div>
+          </div>
+          <div class="result-card">
+            <div class="label">PV requis</div>
+            <div id="pvRecCard" class="value">0 kWc</div>
+            <div class="small">Base de dimensionnement</div>
+          </div>
+          <div class="result-card">
+            <div class="label">Stockage conseillé</div>
+            <div id="batteryRecCard" class="value">0 kWh</div>
+            <div class="small">Selon autonomie demandée</div>
+          </div>
+        </div>
+
+        <div class="pdf-note">Dimensionnement sérieux, sans notion de prix. La mise en page a été renforcée pour tenir proprement sur mobile.</div>
       </div>
-      <div id="map"></div>
     </div>
+  </section>
 
-    <div class="card">
-      <h1>Dimensionnement agricole — irrigation, élevage et autonomie solaire</h1>
-      <div class="muted">Pays → culture / élevage → surface ; le champ besoin en eau est pré-rempli selon le pays et le type sélectionné.</div>
-    </div>
-
-    <div class="card" aria-label="Entrées">
-      <div class="grid">
-        <div class="field">
-          <label>Pays</label>
-          <select id="country">
-            <option value="ci">Côte d'Ivoire</option>
-            <option value="sn">Sénégal</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Type d'exploitation</label>
-          <select id="typeExploitation">
-            <option value="culture">Culture / Irrigation</option>
-            <option value="elevage">Élevage</option>
-            <option value="mixte">Mixte culture + élevage</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Type de culture</label>
-          <select id="crop">
-            <option value="tomate">Tomate</option>
-            <option value="mais">Maïs</option>
-            <option value="riz">Riz</option>
-            <option value="mangue">Manguier</option>
-            <option value="legume">Légume feuille</option>
-            <option value="palmier">Palmier</option>
-            <option value="custom">Personnalisé (mm/j)</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Surface (ha)</label>
-          <input id="areaHa" type="number" min="0" step="0.01" value="0.5">
-        </div>
-
-        <div class="field">
-          <label>Besoin eau (mm/j) — valeur par défaut</label>
-          <input id="needMmPerDay" type="number" step="0.1" value="5.0" aria-describedby="needHelp">
-          <div id="needHelp" class="muted">La valeur change automatiquement selon le pays + type choisi.</div>
-        </div>
-
-        <div class="field">
-          <label>Irrigation : jours / semaine</label>
-          <input id="irrigDays" type="number" min="1" max="7" value="3">
-        </div>
-
-        <div class="field">
-          <label>Heures de pompage (par jour sur jour d'irrigation)</label>
-          <input id="pumpHours" type="number" min="0.1" step="0.1" value="4">
-        </div>
-
-        <div class="field">
-          <label>Hauteur manométrique utile (m)</label>
-          <input id="head" type="number" min="0" step="0.1" value="15">
-        </div>
-
-        <div class="field">
-          <label>Rendement pompe (%)</label>
-          <input id="pumpEff" type="number" min="10" max="90" value="55">
-        </div>
-
-        <div class="field">
-          <label>Heures soleil utiles / jour</label>
-          <input id="sunHours" type="number" min="1" step="0.1" value="5">
-        </div>
-
-        <div class="field">
-          <label>Facteur dérating PV (%)</label>
-          <input id="pvDerate" type="number" min="10" max="100" value="85">
-        </div>
-
-        <div class="field">
-          <label>Puissance panneau utilisé (W)</label>
-          <input id="panelW" type="number" min="50" value="350">
-        </div>
-
-        <div class="field">
-          <label>Type de batterie</label>
-          <select id="batteryType">
-            <option value="lithium">Lithium ion</option>
-            <option value="lifepo4">LiFePO4</option>
-            <option value="gel">Gel</option>
-            <option value="plomb">Plomb</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Capacité utile d'une batterie (kWh)</label>
-          <input id="packKwh" type="number" min="0.1" step="0.01" value="1.28">
-        </div>
-
-        <div class="field">
-          <label>Nombre de batteries souhaité</label>
-          <input id="batteryCount" type="number" min="1" step="1" value="2">
-        </div>
-
-        <div class="field">
-          <label>Autonomie souhaitée (jours)</label>
-          <input id="autonomyDays" type="number" min="0" step="0.5" value="2">
-        </div>
-      </div>
-
-      <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <button id="calcBtn" class="btn"><i class="fas fa-calculator" style="margin-right:8px"></i>Calculer</button>
-        <button id="exportPdfBtn" class="pdf-btn" title="Exporter la synthèse en PDF"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter (PDF)</button>
-        <button id="resetBtn" class="btn-ghost">Réinitialiser</button>
-        <div style="margin-left:auto" class="note">Hypothèses visibles — adaptez hauteur, rendement et autonomie selon le projet.</div>
-      </div>
-    </div>
-
-    <div class="card" aria-label="Consommateurs agricoles proposés">
+  <section class="section" id="chartSection">
+    <div class="card-soft">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div style="font-weight:800">Consommateurs agricoles & élevage courants</div>
-        <div class="muted">Clique pour ajouter (valeurs indicatives), ou ajoute manuellement.</div>
+        <div style="font-weight:800;color:#fff">Graphique 24h de charge</div>
+        <div style="color:#e6f7ea;font-size:13px;opacity:.95">Profil de consommation estimé pour appuyer le dimensionnement</div>
       </div>
-
-      <div class="suggests" id="suggestList" style="margin-top:10px"></div>
-
-      <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <div style="flex:1;display:flex;gap:6px;flex-wrap:wrap">
-          <input id="consName" type="text" placeholder="Nom consommateur (ex: Pompe annexe)" style="flex:1 1 220px;padding:8px;border-radius:6px;border:1px solid #e6e6e6">
-          <input id="consPower" type="number" placeholder="Puissance W" style="width:150px;max-width:100%;padding:8px;border-radius:6px;border:1px solid #e6e6e6">
-          <input id="consHours" type="number" placeholder="h/j" style="width:110px;max-width:100%;padding:8px;border-radius:6px;border:1px solid #e6e6e6">
-        </div>
-        <button id="addManual" class="btn-ghost">Ajouter manuellement</button>
+      <div style="margin-top:10px;background:#fff;border-radius:12px;padding:10px">
+        <canvas id="batteryChart" style="width:100%;height:280px;display:block;"></canvas>
       </div>
-
-      <div class="consumer-list" id="consumerList"></div>
+      <div class="pdf-note">Le profil illustre la consommation sur 24h selon les usages saisis.</div>
     </div>
-
-    <div class="card" aria-label="Résultats détaillés">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div style="font-weight:800">Résultats & dimensionnement</div>
-        <div class="muted">Valeurs et estimations (incertitude ±15%)</div>
-      </div>
-
-      <div class="results" id="resultsGrid">
-        <div class="result-card" id="r_vol">
-          <div class="label">Volume eau (m³ / jour)</div>
-          <div id="volDay" class="value">0 m³</div>
-          <div class="small">Basé sur surface × mm/j</div>
-        </div>
-
-        <div class="result-card" id="r_flow">
-          <div class="label">Débit pompe requis (m³/h)</div>
-          <div id="flowQ" class="value">0 m³/h</div>
-          <div class="small">Volume hebdomadaire réparti sur jours d'irrigation</div>
-        </div>
-
-        <div class="result-card" id="r_pumpkw">
-          <div class="label">Puissance pompe (kW)</div>
-          <div id="pumpKw" class="value">0 kW</div>
-          <div class="small">Puissance électrique d'entrée (rendement inclus)</div>
-        </div>
-
-        <div class="result-card" id="r_pumpkwh">
-          <div class="label">Énergie pompe (kWh / jour)</div>
-          <div id="pumpKwh" class="value">0 kWh/j</div>
-          <div class="small">Moyenne journalière sur la semaine</div>
-        </div>
-
-        <div class="result-card" id="r_others">
-          <div class="label">Autres consommateurs (kWh / jour)</div>
-          <div id="othersKwh" class="value">0 kWh/j</div>
-          <div class="small">Somme des équipements ajoutés</div>
-        </div>
-
-        <div class="result-card" id="r_totalkwh">
-          <div class="label">Consommation totale (kWh / jour)</div>
-          <div id="totalKwhDay" class="value">0 kWh/j</div>
-          <div class="small">Pompe + autres, avant pertes invers.</div>
-        </div>
-
-        <div class="result-card" id="r_pvkw">
-          <div class="label">PV requis (kWc)</div>
-          <div id="pvKw" class="value">0 kWc</div>
-          <div class="small">Dimensionnement brut (avant redondances)</div>
-        </div>
-
-        <div class="result-card" id="r_panels">
-          <div class="label">Nb panneaux (~W)</div>
-          <div id="panelsCount" class="value">0</div>
-          <div class="small">Arrondi au panneau entier</div>
-        </div>
-
-        <div class="result-card" id="r_res">
-          <div class="label">Réservoir recommandé (m³)</div>
-          <div id="reservoir" class="value">0 m³</div>
-          <div class="small">Pour <span id="autDaysLabel">2</span> jours d'autonomie</div>
-        </div>
-
-        <div class="result-card" id="r_batt">
-          <div class="label">Batterie estimée (kWh utile)</div>
-          <div id="batteryKwh" class="value">0 kWh</div>
-          <div class="small">Capacité utile requise pour l'autonomie</div>
-        </div>
-
-        <div class="result-card" id="r_inv">
-          <div class="label">Onduleur conseillé</div>
-          <div id="inverterRec" class="value">0 W</div>
-          <div class="small">Puissance standard recommandée</div>
-        </div>
-
-        <div class="result-card" id="r_battStd">
-          <div class="label">Batterie standard conseillée</div>
-          <div id="batteryStd" class="value">0 kWh</div>
-          <div class="small">Basée sur le type de batterie choisi</div>
-        </div>
-      </div>
-
-      <div class="note">Conseil : privilégie PV-direct + réservoir ; batteries pour nuit / nuages et sécurité de service.</div>
-    </div>
-
-    <div class="summary">
-      <div class="big" id="summaryLeft">
-        <h2>Synthèse principale</h2>
-
-        <div class="kpi" style="margin-top:12px">
-          <div style="flex:1">
-            <div class="muted">Consommation (kWh / mois)</div>
-            <div id="consMonth" class="num">0 kWh</div>
-            <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
-          </div>
-
-          <div style="flex:1">
-            <div class="muted">Montant indicatif (mensuel)</div>
-            <div id="montantMens" class="num">0 FCFA</div>
-            <div id="montantMensRange" class="muted">plage: 0 - 0 FCFA</div>
-          </div>
-
-          <div style="flex:1">
-            <div class="muted">PV requis (kWc)</div>
-            <div id="pvReqKwc" class="num">0 kWc</div>
-            <div id="pvReqRange" class="muted">incertitude ±15%</div>
-          </div>
-        </div>
-
-        <div style="margin-top:12px" class="note">
-          <strong>Remarque :</strong> valeurs indicatives — vérification terrain recommandée.
-        </div>
-      </div>
-
-      <div class="big" id="summaryRight" style="max-width:420px">
-        <h2>Détails importants</h2>
-
-        <div style="margin-top:10px">
-          <div style="font-weight:800">Pompe</div>
-          <div id="summaryPump" class="muted">—</div>
-        </div>
-
-        <div style="margin-top:8px">
-          <div style="font-weight:800">Réservoir & autonomie</div>
-          <div id="summaryReservoir" class="muted">—</div>
-        </div>
-
-        <div style="margin-top:8px">
-          <div style="font-weight:800">Batteries & type</div>
-          <div id="summaryBatteries" class="muted">—</div>
-        </div>
-
-        <div style="margin-top:8px">
-          <div style="font-weight:800">Sécurité & usage</div>
-          <div id="summarySafety" class="muted">—</div>
-        </div>
-
-        <div style="margin-top:12px" class="note">
-          Export PDF : prévient le client qu'une étude plus fine nécessite un contact terrain.
-        </div>
-      </div>
-    </div>
-
-    <div style="height:32px"></div>
-  </div>
+  </section>
 
   <footer>
     <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
@@ -1179,7 +1401,7 @@ footer::before{
           if(a.id === 'mobileEnergieToggle') return;
           let href = a.getAttribute('href') || a.getAttribute('data-href') || a.dataset.href || '';
           const filename = href ? href.replace(/^.*[\\/]/,'') : '';
-          if(filename.toLowerCase() === 'zone_agricole.html'){
+          if(filename.toLowerCase() === 'zone_urbaine.html'){
             a.classList.add('mobile-disabled');
             a.setAttribute('aria-disabled','true');
             a.setAttribute('tabindex','-1');
@@ -1256,7 +1478,7 @@ footer::before{
 
     (function(){
       const raw = window.location.pathname.split('/').pop().toLowerCase();
-      const path = raw || 'zone_agricole.html';
+      const path = raw || 'zone_urbaine.html';
       const mapping = {
         'greenbrigde technologies.html':'a[href="GreenBrigde technologies.html"]',
         'energie.html':'a[href="energie.html"]',
@@ -1341,31 +1563,65 @@ footer::before{
 
   let consumers = [];
   let lastCalcSnapshot = null;
-  let batteryChart = null;
 
-  const zoneSelect = document.getElementById('zoneSelect');
-  const citySelect = document.getElementById('citySelect');
+  const zoneSelect = document.getElementById('zone');
+  const citySelect = document.getElementById('city');
 
-  const countryEl = document.getElementById('country');
-  const typeExploitationEl = document.getElementById('typeExploitation');
+  const roomTypeSelect = document.getElementById('roomTypeSelect');
+  const roomNameInput = document.getElementById('roomNameInput');
+  const roomCountInput = document.getElementById('roomCountInput');
+  const addRoomBtn = document.getElementById('addRoomBtn');
+  const clearRoomsBtn = document.getElementById('clearRoomsBtn');
+  const roomsListEl = document.getElementById('roomsList');
+
+  const genBedrooms = document.getElementById('genBedrooms');
+  const genLiving = document.getElementById('genLiving');
+  const genKitchens = document.getElementById('genKitchens');
+  const genBaths = document.getElementById('genBaths');
+  const genOffices = document.getElementById('genOffices');
+  const genToilets = document.getElementById('genToilets');
+  const genAdd = document.getElementById('genAdd');
+  const generateBtn = document.getElementById('generateBtn');
+
+  const panelWEl = document.getElementById('panelW');
+  const sunHoursEl = document.getElementById('sunHours');
+  const panelDeratePctEl = document.getElementById('panelDeratePct');
+  const autonomyDaysEl = document.getElementById('autonomyDays');
+  const dodPctEl = document.getElementById('dodPct');
+  const invEffPctEl = document.getElementById('invEffPct');
+  const battPackKwhEl = document.getElementById('battPackKwh');
+
+  const consDayEl = document.getElementById('consDay');
+  const consMonthEl = document.getElementById('consMonth');
+  const powerInstalledEl = document.getElementById('powerInstalled');
+  const inverterRecEl = document.getElementById('inverterRec');
+  const pvRecommendedEl = document.getElementById('pvRecommended');
+  const panelCountRecEl = document.getElementById('panelCountRec');
+  const batteryRecEl = document.getElementById('batteryRec');
+  const batteryPackRecEl = document.getElementById('batteryPackRec');
+  const coverageNoteEl = document.getElementById('coverageNote');
+
+  const consDayCard = document.getElementById('consDayCard');
+  const consMonthCard = document.getElementById('consMonthCard');
+  const powerInstalledCard = document.getElementById('powerInstalledCard');
+  const pvRecCard = document.getElementById('pvRecCard');
+  const batteryRecCard = document.getElementById('batteryRecCard');
+  const loadsCountEl = document.getElementById('loadsCount');
+  const summaryNoteEl = document.getElementById('summaryNote');
+  const resetBtn = document.getElementById('resetBtn');
+  const exportBtn = document.getElementById('exportBtn');
+
+  const zoneBadge = document.getElementById('zoneBadge');
+  const needHelpEl = document.getElementById('needHelp');
   const cropEl = document.getElementById('crop');
-  const areaHaEl = document.getElementById('areaHa');
   const needMmEl = document.getElementById('needMmPerDay');
   const irrigDaysEl = document.getElementById('irrigDays');
   const pumpHoursEl = document.getElementById('pumpHours');
   const headEl = document.getElementById('head');
   const pumpEffEl = document.getElementById('pumpEff');
-  const sunHoursEl = document.getElementById('sunHours');
-  const pvDerateEl = document.getElementById('pvDerate');
-  const panelWEl = document.getElementById('panelW');
-  const batteryTypeEl = document.getElementById('batteryType');
-  const packKwhEl = document.getElementById('packKwh');
-  const batteryCountEl = document.getElementById('batteryCount');
-  const autonomyDaysEl = document.getElementById('autonomyDays');
 
-  const calcBtn = document.getElementById('calcBtn');
-  const resetBtn = document.getElementById('resetBtn');
-  const exportPdfBtn = document.getElementById('exportPdfBtn');
+  const countryEl = document.getElementById('country');
+  const typeExploitationEl = document.getElementById('typeExploitation');
 
   const suggestListEl = document.getElementById('suggestList');
   const consListEl = document.getElementById('consumerList');
@@ -1374,20 +1630,6 @@ footer::before{
   const consPowerInput = document.getElementById('consPower');
   const consHoursInput = document.getElementById('consHours');
 
-  const volDayEl = document.getElementById('volDay');
-  const flowQEl = document.getElementById('flowQ');
-  const pumpKwEl = document.getElementById('pumpKw');
-  const pumpKwhEl = document.getElementById('pumpKwh');
-  const othersKwhEl = document.getElementById('othersKwh');
-  const totalKwhDayEl = document.getElementById('totalKwhDay');
-  const pvKwEl = document.getElementById('pvKw');
-  const panelsCountEl = document.getElementById('panelsCount');
-  const reservoirEl = document.getElementById('reservoir');
-  const batteryKwhEl = document.getElementById('batteryKwh');
-  const inverterRecEl = document.getElementById('inverterRec');
-  const batteryStdEl = document.getElementById('batteryStd');
-
-  const consMonthEl = document.getElementById('consMonth');
   const consMonthRangeEl = document.getElementById('consMonthRange');
   const montantMensEl = document.getElementById('montantMens');
   const montantMensRangeEl = document.getElementById('montantMensRange');
@@ -1400,9 +1642,14 @@ footer::before{
   const summarySafetyEl = document.getElementById('summarySafety');
   const autDaysLabel = document.getElementById('autDaysLabel');
 
+  const batteryTypeEl = document.getElementById('batteryType');
+  const batteryCountEl = document.getElementById('batteryCount');
+
+  let map = null;
+
   function initMap(){
     try {
-      const map = L.map('map', { dragging:true, zoomControl:true, attributionControl:false }).setView([6.5, -5.0], 6.5);
+      map = L.map('map', { dragging:true, zoomControl:true, attributionControl:false }).setView([6.5, -5.0], 6.5);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19 }).addTo(map);
       const pin = L.icon({ iconUrl:'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize:[22,22], iconAnchor:[11,22] });
 
@@ -1411,7 +1658,6 @@ footer::before{
       L.marker([14.6937,-17.44406],{icon:pin}).addTo(map).bindTooltip('Dakar');
 
       map.fitBounds([[5.345317,-4.024429],[6.818351,-5.276987]], { padding:[20,20] });
-
       window._gbMap = map;
     } catch(e){ console.warn('Leaflet init failed', e) }
   }
@@ -1567,9 +1813,12 @@ footer::before{
     return size || 6000;
   }
 
+  function getAllLoads(){
+    return consumers.map((load, idx)=>({ ...load, idx }));
+  }
+
   function compute(){
-    const typeExploitation = typeExploitationEl.value || 'culture';
-    const areaHa = Math.max(0, Number(areaHaEl.value || 0));
+    const areaHa = Math.max(0, Number(document.getElementById('areaHa')?.value || 0));
     const areaM2 = areaHa * 10000;
     const mmPerDay = Math.max(0, Number(needMmEl.value || 0));
     const irrigDays = Math.max(1, Number(irrigDaysEl.value || 1));
@@ -1577,9 +1826,9 @@ footer::before{
     const head = Math.max(0, Number(headEl.value || 0));
     const pumpEff = Math.max(0.01, Number(pumpEffEl.value || 55)) / 100;
     const sunH = Math.max(0.1, Number(sunHoursEl.value || 5));
-    const pvDerate = Math.max(0.01, Number(pvDerateEl.value || 85)) / 100;
+    const pvDerate = Math.max(0.01, Number(panelDeratePctEl.value || 85)) / 100;
     const panelW = Math.max(10, Number(panelWEl.value || 350));
-    const packKwh = Math.max(0.01, Number(packKwhEl.value || 1.28));
+    const packKwh = Math.max(0.01, Number(battPackKwhEl.value || 1.28));
     const batteryCount = Math.max(1, Number(batteryCountEl.value || 1));
     const autonomyDays = Math.max(0, Number(autonomyDaysEl.value || 2));
     const battFactor = batteryTypeFactor(batteryTypeEl.value);
@@ -1614,9 +1863,7 @@ footer::before{
 
     const DoD = battFactor;
     const batteryNeeded_kWh = autonomyDays > 0 ? (dailyNightKwh * autonomyDays) / DoD : 0;
-
     const packsRequired = batteryNeeded_kWh > 0 ? Math.ceil(batteryNeeded_kWh / packKwh) : 0;
-    const batteryNeededFromBatteryCount = batteryUsableTotal > 0 ? Math.max(batteryNeeded_kWh, batteryUsableTotal) : batteryNeeded_kWh;
 
     const totalMonthly_kWh = totalDaily_kWh * 30;
     const price_kwh = 95;
@@ -1642,12 +1889,6 @@ footer::before{
       'Contrôle niveau d’eau et entretien régulier'
     ];
 
-    let coverageNote = pvKw > 0
-      ? `Base PV indicative : ${fmt(pvKw, 2)} kWc pour ${fmt(dailyKwh(totalDaily_kWh), 2)} kWh/j`
-      : 'Ajoutez des charges pour obtenir un dimensionnement';
-
-    function dailyKwh(v){ return v; }
-
     const batteryLabel = batteryTypeEl.value === 'lifepo4'
       ? 'LiFePO4'
       : batteryTypeEl.value === 'lithium'
@@ -1657,9 +1898,8 @@ footer::before{
       : 'Plomb';
 
     return {
-      typeExploitation,
-      loads: getAllLoads(),
-      installedPower: consumers.reduce((s,c)=>s + (Number(c.power||0) * Number(c.hours||0) / Math.max(0.1, Number(c.hours||1)) ),0),
+      loads:getAllLoads(),
+      installedPower: consumers.reduce((s,c)=> s + (Number(c.power||0)), 0),
       peakPower: pInput_W,
       dailyKwh: totalDaily_kWh,
       monthlyKwh: totalMonthly_kWh,
@@ -1668,7 +1908,9 @@ footer::before{
       inverterRecKva: inverterSuggestedW / 1000,
       batteryRecKwh: batteryNeeded_kWh,
       batteryPackRec: packsRequired,
-      coverageNote,
+      coverageNote: pvKw > 0
+        ? `Base PV indicative : ${fmt(pvKw, 2)} kWc pour ${fmt(totalDaily_kWh, 2)} kWh/j`
+        : 'Ajoutez des charges pour obtenir un dimensionnement',
       volDay_m3,
       q_m3h,
       pInput_kW,
@@ -1686,60 +1928,56 @@ footer::before{
       lowMontant,
       highMontant,
       montantMensuel,
-      batteryNeededFromBatteryCount,
       inverterSuggestedW
     };
-  }
-
-  function getAllLoads(){
-    return consumers.map((load, idx)=>({ ...load, idx }));
   }
 
   function recalc(){
     const r = compute();
 
-    volDayEl.innerText = fmt(r.volDay_m3,3) + ' m³';
-    flowQEl.innerText = fmt(r.q_m3h,3) + ' m³/h';
-    pumpKwEl.innerText = fmt(r.pInput_kW,3) + ' kW';
-    pumpKwhEl.innerText = fmt(r.energyPumpDailyAvg_kWh,3) + ' kWh/j';
-    othersKwhEl.innerText = fmt(r.others_kwh,3) + ' kWh/j';
-    totalKwhDayEl.innerText = fmt(r.dailyKwh,3) + ' kWh/j';
-    pvKwEl.innerText = fmt(r.pvKwRec,3) + ' kWc';
-    panelsCountEl.innerText = r.panelCountRec;
-    reservoirEl.innerText = fmt(r.reservoir_m3,3) + ' m³';
-    batteryKwhEl.innerText = fmt(r.batteryNeeded_kWh,3) + ' kWh';
-    inverterRecEl.innerText = Math.round(r.inverterSuggestedW) + ' W';
-    batteryStdEl.innerText = fmt(r.batteryStd,3) + ' kWh';
-
+    loadsCountEl.innerText = String(r.loads.length);
+    consDayEl.innerText = fmt(r.dailyKwh,3) + ' kWh/j';
     consMonthEl.innerText = fmt(r.monthlyKwh,2) + ' kWh';
-    consMonthRangeEl.innerText = `plage: ${fmt(r.lowMonthly,2)} - ${fmt(r.highMonthly,2)} kWh`;
-    montantMensEl.innerText = fcfa(Math.round(r.montantMensuel));
-    montantMensRangeEl.innerText = `plage: ${fcfa(Math.round(r.lowMontant))} - ${fcfa(Math.round(r.highMontant))}`;
+    powerInstalledEl.innerText = Math.round(r.installedPower) + ' W';
+    inverterRecEl.innerText = fmt(r.inverterRecKva,2) + ' kVA';
+    pvRecommendedEl.innerText = fmt(r.pvKwRec,2) + ' kWc';
+    panelCountRecEl.innerText = r.panelCountRec;
+    batteryRecEl.innerText = fmt(r.batteryRecKwh,2) + ' kWh';
+    batteryPackRecEl.innerText = r.batteryPackRec;
 
-    pvReqKwcEl.innerText = fmt(r.pvKwRec,3) + ' kWc';
-    pvReqRangeEl.innerText = `±15% → ${fmt(r.pvKwRec*0.85,2)} - ${fmt(r.pvKwRec*1.15,2)} kWc`;
+    consDayCard.innerText = fmt(r.dailyKwh,2) + ' kWh';
+    consMonthCard.innerText = fmt(r.monthlyKwh,2) + ' kWh';
+    powerInstalledCard.innerText = Math.round(r.installedPower) + ' W';
+    pvRecCard.innerText = fmt(r.pvKwRec,2) + ' kWc';
+    batteryRecCard.innerText = fmt(r.batteryRecKwh,2) + ' kWh';
+
+    coverageNoteEl.innerText = r.coverageNote;
+    summaryNoteEl.innerText = `Dimensionnement calculé à partir de ${r.loads.length} charge(s). Les besoins réels dépendent des usages, des pics simultanés et des marges de sécurité souhaitées.`;
+
+    const zoneLabel = zoneSelect.value === 'sn' ? 'Sénégal' : 'Côte d’Ivoire';
+    zoneBadge.innerHTML = zoneSelect.value === 'sn'
+      ? '<i class="fas fa-city"></i> Zone urbaine'
+      : '<i class="fas fa-building"></i> Zone urbaine';
+    zoneBadge.title = `Zone sélectionnée : ${zoneLabel}`;
 
     summaryPumpEl.innerText = `${fmt(r.pInput_kW,3)} kW - débit ${fmt(r.q_m3h,3)} m³/h (hauteur ${headEl.value} m). Consommation pompe: ${fmt(r.energyPumpDailyAvg_kWh,3)} kWh/j`;
     summaryReservoirEl.innerText = `${fmt(r.reservoir_m3,3)} m³ → autonomie ${autonomyDaysEl.value || 2} j (à ${fmt(r.volDay_m3,3)} m³/j)`;
-    summaryBatteriesEl.innerText = `${batteryTypeEl.options[batteryTypeEl.selectedIndex].text} | ${fmt(r.batteryStd,2)} kWh utile | ${Math.max(1, Number(batteryCountEl.value || 1))} batterie(s)`;
+    summaryBatteriesEl.innerText = `${batteryTypeEl.options[batteryTypeEl.selectedIndex].text} | ${fmt(r.batteryStd,2)} kWh utile | ${Math.max(1, Number(batteryCountEl.value || 1))} batterie(s) | ${r.batteryLife[0]} à ${r.batteryLife[1]} ans en climat chaud`;
     summarySafetyEl.innerText = r.safetyNotes.join(' · ');
 
     autDaysLabel.innerText = autonomyDaysEl.value || 2;
 
     document.getElementById('r_pumpkw').classList.toggle('highlight', r.pInput_W >= 5000);
-    document.getElementById('r_batt').classList.toggle('highlight', r.batteryNeeded_kWh > 0);
-    document.getElementById('r_inv').classList.toggle('highlight', r.inverterSuggestedW > 0);
+    document.getElementById('r_batt').classList.toggle('highlight', r.batteryRecKwh > 0);
+    document.getElementById('r_panels').classList.toggle('highlight', r.panelCountRec > 0);
     document.getElementById('r_battStd').classList.toggle('highlight', r.batteryStd > 0);
 
-    const consListSnapshot = JSON.parse(JSON.stringify(consumers));
     lastCalcSnapshot = {
       timestamp: new Date().toLocaleString('fr-FR'),
       country: countryEl.value,
       city: citySelect.value,
-      crop: cropEl.value,
-      typeExploitation: typeExploitationEl.value,
-      areaHa: Number(areaHaEl.value||0),
-      mmPerDay: Number(needMmEl.value||0),
+      areaHa: Number(document.getElementById('areaHa').value || 0),
+      typeExploitation: 'zone urbaine',
       volDay_m3: r.volDay_m3,
       q_m3h: r.q_m3h,
       pInput_kW: r.pInput_kW,
@@ -1749,7 +1987,7 @@ footer::before{
       pvKw: r.pvKwRec,
       panels: r.panelCountRec,
       reservoir_m3: r.reservoir_m3,
-      batteryNeeded_kWh: r.batteryNeeded_kWh,
+      batteryNeeded_kWh: r.batteryRecKwh,
       batteryStd: r.batteryStd,
       batteryType: r.batteryLabel,
       batteryLife: r.batteryLife,
@@ -1761,7 +1999,7 @@ footer::before{
       highMonthly: r.highMonthly,
       lowMontant: r.lowMontant,
       highMontant: r.highMontant,
-      consumers: consListSnapshot
+      consumers: JSON.parse(JSON.stringify(consumers))
     };
 
     updateChart(r);
@@ -1841,7 +2079,27 @@ footer::before{
 
     ctx.fillStyle = '#6b7f6b';
     ctx.font = '12px Arial';
-    ctx.fillText('Charge estimée 24h liée à l’utilisation agricole', pad, 14);
+    ctx.fillText('Charge estimée 24h liée à l’utilisation urbaine', pad, 14);
+  }
+
+  function buildChartBlock(){
+    const existing = document.getElementById('batteryChartCard');
+    if(existing) return;
+    const chartCard = document.createElement('div');
+    chartCard.className = 'card';
+    chartCard.id = 'batteryChartCard';
+    chartCard.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="font-weight:800">Graphique 24h de charge</div>
+        <div class="muted">Profil de consommation estimé pour appuyer le dimensionnement</div>
+      </div>
+      <canvas id="batteryChart" style="width:100%;height:280px;margin-top:10px;border:1px solid #e6f3ea;border-radius:10px;background:#fff"></canvas>
+      <div class="note">Le profil illustre la consommation sur 24h selon les usages saisis.</div>
+    `;
+    const cardSoft = document.querySelector('.section#dimensionnement .card-soft');
+    if(cardSoft){
+      cardSoft.parentNode.insertBefore(chartCard, cardSoft.nextSibling);
+    }
   }
 
   function addInitialConsumers(){
@@ -1852,10 +2110,9 @@ footer::before{
   }
 
   function resetAll(){
-    if(!confirm('Réinitialiser tous les paramètres et toutes les consommations ?')) return;
+    if(!confirm('Réinitialiser les paramètres et les consommations ?')) return;
     countryEl.value = 'ci';
     zoneSelect.value = 'ci';
-    typeExploitationEl.value = 'culture';
     populateCities('ci');
 
     cropEl.value='tomate';
@@ -1866,12 +2123,16 @@ footer::before{
     headEl.value='15';
     pumpEffEl.value='55';
     sunHoursEl.value='5';
-    pvDerateEl.value='85';
+    panelDeratePctEl.value='85';
     panelWEl.value='350';
     batteryTypeEl.value='lithium';
-    packKwhEl.value='1.28';
+    battPackKwhEl.value='1.28';
     batteryCountEl.value='2';
     autonomyDaysEl.value='2';
+
+    consNameInput.value='';
+    consPowerInput.value='';
+    consHoursInput.value='';
 
     consumers = [];
     addInitialConsumers();
@@ -1935,11 +2196,11 @@ footer::before{
               <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
                 <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
                   <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
-                  <div style="font-size:11px;color:#556b56">Énergie & Agriculture</div>
+                  <div style="font-size:11px;color:#556b56">Étude urbaine</div>
                 </div>
                 <div>
-                  <div style="font-size:16px;font-weight:700;color:#062d1b">Dimensionnement agricole</div>
-                  <div style="font-size:12px;color:#666;margin-top:4px">${esc(s.timestamp)} — ${esc(s.typeExploitation)} — ${esc(s.crop)} — ${esc(s.areaHa)} ha</div>
+                  <div style="font-size:16px;font-weight:700;color:#062d1b">Dimensionnement urbain</div>
+                  <div style="font-size:12px;color:#666;margin-top:4px">${esc(s.timestamp)} — ${esc(s.areaHa)} ha</div>
                 </div>
               </div>
               <div style="text-align:right">
@@ -1951,75 +2212,20 @@ footer::before{
             <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
                 <div>
-                  <div style="font-weight:700">Volume eau (m³ / jour)</div>
-                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.volDay_m3,3))} m³</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Basé sur surface × mm/j</div>
-                </div>
-
-                <div>
-                  <div style="font-weight:700">Débit pompe requis (m³/h)</div>
-                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.q_m3h,3))} m³/h</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Volume hebdomadaire réparti sur jours d'irrigation</div>
-                </div>
-
-                <div>
-                  <div style="font-weight:700">Puissance pompe (kW)</div>
-                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.pInput_kW,3))} kW</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Puissance électrique d'entrée</div>
-                </div>
-
-                <div>
-                  <div style="font-weight:700">Énergie pompe (kWh / jour)</div>
-                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.energyPumpDailyAvg_kWh,3))} kWh/j</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Moyenne journalière sur la semaine</div>
-                </div>
-
-                <div>
-                  <div style="font-weight:700">Autres consommateurs (kWh / jour)</div>
-                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.others_kwh,3))} kWh/j</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Somme des équipements ajoutés</div>
-                </div>
-
-                <div>
-                  <div style="font-weight:700">Consommation totale (kWh / jour)</div>
+                  <div style="font-weight:700">Consommation (kWh / jour)</div>
                   <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.totalDaily_kWh,3))} kWh/j</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Pompe + autres, avant pertes invers.</div>
                 </div>
-
                 <div>
                   <div style="font-weight:700">PV requis (kWc)</div>
                   <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.pvKw,3))} kWc</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Dimensionnement brut</div>
                 </div>
-
                 <div>
-                  <div style="font-weight:700">Nb panneaux (~W)</div>
-                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(s.panels)}</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Arrondi au panneau entier</div>
-                </div>
-
-                <div>
-                  <div style="font-weight:700">Réservoir recommandé (m³)</div>
-                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.reservoir_m3,3))} m³</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Pour ${esc(autonomyDaysEl.value || 2)} jours d'autonomie</div>
-                </div>
-
-                <div>
-                  <div style="font-weight:700">Batterie estimée (kWh utile)</div>
+                  <div style="font-weight:700">Batterie conseillée</div>
                   <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.batteryNeeded_kWh,3))} kWh</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Selon autonomie demandée</div>
                 </div>
-
                 <div>
                   <div style="font-weight:700">Onduleur conseillé</div>
                   <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(Math.round(s.inverterSuggestedW))} W</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">Puissance standard recommandée</div>
-                </div>
-
-                <div>
-                  <div style="font-weight:700">Batterie standard conseillée</div>
-                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.batteryStd,3))} kWh</div>
-                  <div style="font-size:12px;color:#666;margin-top:6px">${esc(s.batteryType)} | ${esc(s.batteryLife[0])} à ${esc(s.batteryLife[1])} ans en climat chaud</div>
                 </div>
               </div>
             </div>
@@ -2027,7 +2233,7 @@ footer::before{
             <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fff">
               <div style="font-weight:700;margin-bottom:8px">Lecture graphique — consommation estimée sur 24h</div>
               ${chartData ? `<img src="${chartData}" alt="Graphique 24h" style="width:100%;height:auto;border-radius:8px;border:1px solid #eee">` : ''}
-              <div style="font-size:12px;color:#666;margin-top:8px">Le profil ci-dessus montre une consommation indicative sur 24h liée à l’utilisation agricole et à l’élevage.</div>
+              <div style="font-size:12px;color:#666;margin-top:8px">Le profil ci-dessus montre une consommation indicative sur 24h liée à l’utilisation urbaine.</div>
             </div>
 
             <div style="font-weight:700;margin-bottom:8px">Détail Consommateurs</div>
@@ -2117,7 +2323,7 @@ footer::before{
       pdf.setTextColor(120);
       pdf.text('GreenBridge — Synthèse indicative', margin, pageHeight - 6);
 
-      const filename = `GreenBridge_zone_agricole_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
+      const filename = `GreenBridge_zone_urbaine_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
       pdf.save(filename);
 
       document.body.removeChild(wrapper);
@@ -2127,140 +2333,19 @@ footer::before{
     }
   }
 
-  function updateChart(r){
-    const canvas = document.getElementById('batteryChart');
-    if(!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const dpr = window.devicePixelRatio || 1;
-    const w = canvas.clientWidth || 900;
-    const h = canvas.clientHeight || 280;
-    canvas.width = Math.floor(w * dpr);
-    canvas.height = Math.floor(h * dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-
-    ctx.clearRect(0,0,w,h);
-
-    const hours = Array.from({length:24}, (_,i)=>i);
-    const baseLoad = Math.max(0.2, r.totalDaily_kWh / 24);
-    const points = hours.map(hh=>{
-      let load = baseLoad * 0.7;
-      if(hh >= 5 && hh <= 8) load += baseLoad * 1.8;
-      if(hh >= 10 && hh <= 14) load += baseLoad * 1.0;
-      if(hh >= 18 && hh <= 22) load += baseLoad * 2.2;
-      if(hh >= 0 && hh <= 4) load += baseLoad * 0.4;
-      return load;
-    });
-
-    const maxY = Math.max(...points) * 1.25;
-    const pad = 26;
-    const chartW = w - pad*2;
-    const chartH = h - pad*2;
-
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0,0,w,h);
-
-    ctx.strokeStyle = '#dfeadf';
-    ctx.lineWidth = 1;
-    for(let i=0;i<=4;i++){
-      const y = pad + (chartH/4)*i;
-      ctx.beginPath();
-      ctx.moveTo(pad,y);
-      ctx.lineTo(w-pad,y);
-      ctx.stroke();
-    }
-
-    ctx.strokeStyle = '#04462e';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    points.forEach((p,i)=>{
-      const x = pad + (chartW/23)*i;
-      const y = pad + chartH - (p/maxY)*chartH;
-      if(i===0) ctx.moveTo(x,y);
-      else ctx.lineTo(x,y);
-    });
-    ctx.stroke();
-
-    ctx.fillStyle = 'rgba(124,179,66,0.22)';
-    ctx.beginPath();
-    points.forEach((p,i)=>{
-      const x = pad + (chartW/23)*i;
-      const y = pad + chartH - (p/maxY)*chartH;
-      if(i===0) ctx.moveTo(x,chartH+pad);
-      ctx.lineTo(x,y);
-    });
-    ctx.lineTo(w-pad,h-pad);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = '#04462e';
-    ctx.font = '12px Arial';
-    for(let i=0;i<24;i+=3){
-      const x = pad + (chartW/23)*i;
-      ctx.fillText(String(i).padStart(2,'0') + 'h', x-8, h-8);
-    }
-
-    ctx.fillStyle = '#6b7f6b';
-    ctx.font = '12px Arial';
-    ctx.fillText('Charge estimée 24h liée à l’utilisation agricole / élevage', pad, 14);
-  }
-
-  function buildChartBlock(){
-    const existing = document.getElementById('batteryChartCard');
-    if(existing) return;
-    const chartCard = document.createElement('div');
-    chartCard.className = 'card';
-    chartCard.id = 'batteryChartCard';
-    chartCard.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div style="font-weight:800">Graphique 24h de charge</div>
-        <div class="muted">Profil de consommation estimé pour appuyer le dimensionnement</div>
-      </div>
-      <canvas id="batteryChart" style="width:100%;height:280px;margin-top:10px;border:1px solid #e6f3ea;border-radius:10px;background:#fff"></canvas>
-      <div class="note">Le profil illustre la consommation sur 24h selon les usages agricoles et d’élevage saisis.</div>
-    `;
-    const pageCenter = document.querySelector('.page-center');
-    const summary = document.querySelector('.summary');
-    if(pageCenter && summary){
-      pageCenter.insertBefore(chartCard, summary);
-    }
-  }
-
-  function addInitialConsumers(){
-    consumers = [
-      {name:'Pompe annexe', power:1500, hours:0.5},
-      {name:'Éclairage hangar', power:120, hours:6}
-    ];
-  }
-
   zoneSelect.addEventListener('change', ()=>populateCities(zoneSelect.value));
+  cropEl.addEventListener('change', ()=>updateNeedMmForCountryAndCrop());
   countryEl.addEventListener('change', ()=>{ syncCountryToZone(); updateNeedMmForCountryAndCrop(); });
   zoneSelect.addEventListener('change', ()=>{ syncZoneToCountry(); });
-
-  cropEl.addEventListener('change', ()=>updateNeedMmForCountryAndCrop());
-  typeExploitationEl.addEventListener('change', ()=>{
-    if(typeExploitationEl.value === 'elevage'){
-      needMmEl.value = 0;
-      needMmEl.readOnly = true;
-      document.getElementById('needHelp').textContent = 'Mode élevage : le besoin en eau est remplacé par les usages d’élevage (abreuvement, nettoyage, refroidissement).';
-    } else if(typeExploitationEl.value === 'mixte'){
-      needMmEl.readOnly = false;
-      document.getElementById('needHelp').textContent = 'Mode mixte : irrigation + usages d’élevage.';
-      updateNeedMmForCountryAndCrop();
-    } else {
-      needMmEl.readOnly = false;
-      document.getElementById('needHelp').textContent = 'La valeur change automatiquement selon le pays + type choisi.';
-      updateNeedMmForCountryAndCrop();
-    }
-  });
+  citySelect.addEventListener('change', ()=>zoomToCity(citySelect.value));
 
   addManualBtn.addEventListener('click', addManualConsumer);
-
   calcBtn.addEventListener('click', computeAll);
+
   resetBtn.addEventListener('click', ()=>{
     if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
     countryEl.value='ci';
     zoneSelect.value='ci';
-    typeExploitationEl.value='culture';
     populateCities(zoneSelect.value);
 
     cropEl.value='tomate';
@@ -2271,10 +2356,10 @@ footer::before{
     headEl.value='15';
     pumpEffEl.value='55';
     sunHoursEl.value='5';
-    pvDerateEl.value='85';
+    panelDeratePctEl.value='85';
     panelWEl.value='350';
     batteryTypeEl.value='lithium';
-    packKwhEl.value='1.28';
+    battPackKwhEl.value='1.28';
     batteryCountEl.value='2';
     autonomyDaysEl.value='2';
 
@@ -2289,11 +2374,34 @@ footer::before{
     computeAll();
   });
 
-  exportPdfBtn.addEventListener('click', generatePDF);
+  exportBtn.addEventListener('click', ()=>{
+    const r = compute();
+    const text = [
+      'GREENBRIDGE TECHNOLOGIES — DIMENSIONNEMENT',
+      `Zone : ${zoneSelect.value === 'sn' ? 'Sénégal' : 'Côte d’Ivoire'}`,
+      `Ville : ${citySelect.options[citySelect.selectedIndex]?.text || ''}`,
+      `Consommation jour : ${fmt(r.dailyKwh,2)} kWh`,
+      `Consommation mois : ${fmt(r.monthlyKwh,2)} kWh`,
+      `PV requis : ${fmt(r.pvKwRec,2)} kWc`,
+      `Batterie conseillée : ${fmt(r.batteryRecKwh,2)} kWh`,
+      `Onduleur conseillé : ${Math.round(r.inverterSuggestedW)} W`
+    ].join('\n');
+    alert(text);
+  });
 
   [
-    areaHaEl, needMmEl, irrigDaysEl, pumpHoursEl, headEl, pumpEffEl,
-    sunHoursEl, pvDerateEl, panelWEl, packKwhEl, autonomyDaysEl, batteryCountEl
+    document.getElementById('areaHa'),
+    needMmEl,
+    irrigDaysEl,
+    pumpHoursEl,
+    headEl,
+    pumpEffEl,
+    sunHoursEl,
+    panelDeratePctEl,
+    panelWEl,
+    battPackKwhEl,
+    autonomyDaysEl,
+    batteryCountEl
   ].forEach(el => el.addEventListener('input', () => computeAll()));
 
   batteryTypeEl.addEventListener('change', computeAll);
@@ -2305,7 +2413,6 @@ footer::before{
     addInitialConsumers();
     renderConsumers();
     populateCities(zoneSelect.value);
-    if(countryEl.value !== zoneSelect.value) zoneSelect.value = countryEl.value;
     updateNeedMmForCountryAndCrop();
     computeAll();
   }
