@@ -101,6 +101,15 @@ header{
   height:56px;
   display:block;
 }
+.brand-stack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+  text-align:center;
+  min-width:0;
+}
 .company-name{
   font-size:24px;
   font-weight:800;
@@ -108,6 +117,16 @@ header{
   -webkit-text-stroke:0.8px var(--gold);
   padding:6px 10px;
   border-radius:8px;
+  white-space:nowrap;
+  line-height:1;
+}
+.company-tagline{
+  margin-top:2px;
+  font-size:13px;
+  letter-spacing:4px;
+  font-weight:700;
+  color:#dfffe6;
+  text-transform:uppercase;
   white-space:nowrap;
   line-height:1;
 }
@@ -166,7 +185,7 @@ nav a.active{
   position:absolute;
   top:calc(100% + 8px);
   left:0;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,0.88);
   padding:8px 0;
   border-radius:10px;
   box-shadow:0 10px 30px rgba(0,0,0,.5);
@@ -202,12 +221,15 @@ nav a.active{
   width:44px;
   height:44px;
   border-radius:8px;
-  border:none;
-  background:transparent;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
   align-items:center;
   justify-content:center;
   cursor:pointer;
   flex:0 0 auto;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
 .burger .icon{
   display:block;
@@ -235,7 +257,7 @@ nav a.active{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.46);
+  background:rgba(0,0,0,.68);
   z-index:1970;
   opacity:0;
   transition:opacity .2s ease;
@@ -250,7 +272,7 @@ nav a.active{
   position:fixed;
   inset:0;
   z-index:1980;
-  background:linear-gradient(180deg, #0a4d2e 0%, #061f14 100%);
+  background:linear-gradient(180deg, rgba(10,77,46,1), rgba(6,31,20,1));
   opacity:0;
   pointer-events:none;
   transition:opacity .2s ease, transform .2s ease;
@@ -583,24 +605,8 @@ nav a.active{
   align-items:center;
   justify-content:center;
 }
-.hero-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(10px);
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.6px;
-  text-transform:uppercase;
-  color:#eefdf0;
-  box-shadow:0 12px 26px rgba(0,0,0,.18);
-}
 .hero h1{
-  margin:18px 0 14px;
+  margin:0 0 14px;
   font-size:clamp(28px,4.5vw,54px);
   line-height:1.08;
   text-wrap:balance;
@@ -663,7 +669,7 @@ nav a.active{
   color:var(--accent-2);
   text-align:center
 }
-.study-intro,.agri-intro,.note-intro{
+.study-intro,.note-intro{
   max-width:1000px;
   margin:0 auto 24px;
   color:var(--muted);
@@ -791,8 +797,37 @@ nav a.active{
   padding:8px 10px;
   border-radius:999px;
 }
-.hidden{
-  display:none !important;
+.hidden{display:none !important;}
+
+details.fold{
+  margin-top:12px;
+  border:1px solid #e8efe7;
+  border-radius:12px;
+  overflow:hidden;
+  background:#fbfffb;
+}
+details.fold > summary{
+  list-style:none;
+  cursor:pointer;
+  padding:12px 14px;
+  font-weight:800;
+  color:#04462e;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  background:linear-gradient(180deg, #f7fff8, #eef8f1);
+}
+details.fold > summary::-webkit-details-marker{display:none}
+details.fold > summary::after{
+  content:"\25BC";
+  font-size:12px;
+  color:#7a8d7a;
+  transition:transform .2s ease;
+}
+details.fold[open] > summary::after{transform:rotate(180deg)}
+.fold-body{
+  padding:12px 14px 14px;
 }
 
 .suggests{
@@ -922,11 +957,6 @@ nav a.active{
   max-width:1240px;
   margin:0 auto;
 }
-.chart-card h3{
-  margin:0 0 10px;
-  color:#fff;
-  font-size:18px;
-}
 .chart-wrap{
   background:#fff;
   border-radius:14px;
@@ -983,6 +1013,7 @@ footer::before{
   .logo-text{gap:8px;align-items:center}
   .logo-text img{height:52px}
   .company-name{font-size:36px;letter-spacing:.15px}
+  .company-tagline{font-size:11px;letter-spacing:3px}
   .hero{
     height:auto;
     min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
@@ -1028,6 +1059,10 @@ footer::before{
   .company-name{
     font-size:30px;
     letter-spacing:.08px;
+  }
+  .company-tagline{
+    font-size:10px;
+    letter-spacing:2px;
   }
   .burger{width:48px;height:48px}
   .hero{
@@ -1097,7 +1132,10 @@ footer::before{
   <header role="navigation" aria-label="Main">
     <div class="logo-text">
       <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
-      <div class="company-name">GREENBRIDGE</div>
+      <div class="brand-stack">
+        <div class="company-name">GREENBRIDGE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
+      </div>
     </div>
 
     <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
@@ -1118,7 +1156,18 @@ footer::before{
         </ul>
       </div>
 
-      <a href="produits.html">Nos Produits</a>
+      <div class="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a href="produits.html" id="produitsLink">
+          Nos Produits
+        </a>
+        <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="dropdownProducts">
+          <li><a href="panneaux.html" role="menuitem">⚡ Panneaux solaires</a></li>
+          <li><a href="batteries.html" role="menuitem">🔋 Batteries & stockage</a></li>
+          <li><a href="onduleurs.html" role="menuitem">🔌 Onduleurs</a></li>
+          <li><a href="groupes.html" role="menuitem">⚙️ Groupes électrogènes</a></li>
+        </ul>
+      </div>
+
       <a href="Projets.html">Projets futurs</a>
       <a href="maintenance.html">Maintenance</a>
     </nav>
@@ -1205,7 +1254,6 @@ footer::before{
     <img class="hero-bg" src="milieu_agricole.png" alt="Illustration dimensionnement agricole">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-badge"><i class="fas fa-seedling"></i> étude agricole</div>
       <h1>Dimensionnement agricole</h1>
       <p>Évaluez clairement vos besoins en eau, la puissance de pompage, le stockage batterie et l’onduleur adapté à votre site.</p>
       <div class="hero-actions">
@@ -1288,16 +1336,6 @@ footer::before{
               <label for="pumpEff">Rendement pompe (%)</label>
               <input id="pumpEff" type="number" min="10" max="90" value="55">
             </div>
-
-            <div class="form-row">
-              <label>Heures soleil utiles / jour</label>
-              <div id="sunHoursDisplay" class="readonly">4.5 h</div>
-            </div>
-
-            <div class="form-row">
-              <label>Rendement PV & pertes</label>
-              <div id="pvDerateDisplay" class="readonly">85 %</div>
-            </div>
           </div>
 
           <div class="form-panel">
@@ -1349,21 +1387,41 @@ footer::before{
           </div>
         </div>
 
-        <div style="margin-top:14px" class="form-panel">
-          <h4>Charges additionnelles agricoles</h4>
-          <div class="small-note">Ajoute les équipements du site : éclairage, chambre froide, ventilation, pompe annexe, clôture électrique, recharge, etc.</div>
+        <details class="fold" open>
+          <summary>Paramètres avancés et charges additionnelles</summary>
+          <div class="fold-body">
+            <div class="small-note">Les heures d’ensoleillement et les pertes PV sont gérées automatiquement selon la ville. Les charges additionnelles permettent d’intégrer les besoins réels du site.</div>
 
-          <div class="suggests" id="suggestList"></div>
+            <div class="form-grid" style="margin-top:12px">
+              <div class="form-panel">
+                <h4>Charges additionnelles agricoles</h4>
+                <div class="small-note">Ajoute les équipements du site : éclairage, chambre froide, ventilation, pompe annexe, clôture électrique, recharge, etc.</div>
 
-          <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-            <input id="consName" type="text" placeholder="Nom consommateur (ex: Éclairage hangar)" style="flex:1 1 240px;padding:8px;border-radius:8px;border:1px solid #e6e6e6">
-            <input id="consPower" type="number" placeholder="Puissance W" style="width:150px;padding:8px;border-radius:8px;border:1px solid #e6e6e6">
-            <input id="consHours" type="number" placeholder="h/j" style="width:120px;padding:8px;border-radius:8px;border:1px solid #e6e6e6">
-            <button id="addManual" class="btn-add" type="button">Ajouter</button>
+                <div class="suggests" id="suggestList"></div>
+
+                <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                  <input id="consName" type="text" placeholder="Nom consommateur (ex: Éclairage hangar)" style="flex:1 1 240px;padding:8px;border-radius:8px;border:1px solid #e6e6e6">
+                  <input id="consPower" type="number" placeholder="Puissance W" style="width:150px;padding:8px;border-radius:8px;border:1px solid #e6e6e6">
+                  <input id="consHours" type="number" placeholder="h/j" style="width:120px;padding:8px;border-radius:8px;border:1px solid #e6e6e6">
+                  <button id="addManual" class="btn-add" type="button">Ajouter</button>
+                </div>
+
+                <div class="consumer-list" id="consumerList"></div>
+              </div>
+
+              <div class="form-panel">
+                <h4>Lecture rapide</h4>
+                <div class="small-note">
+                  Cette partie reste volontairement lisible : l’essentiel ressort en priorité, le détail technique reste disponible sans encombrer la page.
+                </div>
+                <div class="subtle-box" style="margin-top:12px">
+                  <div style="font-size:12px;color:#6c7d6f">Rappel</div>
+                  <div class="metric note" id="summaryNote">Les calculs sont indicatifs. Le coefficient d’utilisation, les heures et les puissances peuvent être adaptés pour chaque projet.</div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div class="consumer-list" id="consumerList"></div>
-        </div>
+        </details>
 
         <div style="margin-top:14px" class="form-panel">
           <h4>Résultats principaux</h4>
@@ -1431,7 +1489,7 @@ footer::before{
 
           <div class="subtle-box">
             <div style="font-size:12px;color:#6c7d6f">Note</div>
-            <div class="metric note" id="summaryNote">Les calculs sont indicatifs. Le coefficient d’utilisation, les heures et les puissances peuvent être adaptés pour chaque projet.</div>
+            <div class="metric note" id="summaryNote2">Les calculs sont indicatifs. Le coefficient d’utilisation, les heures et les puissances peuvent être adaptés pour chaque projet.</div>
           </div>
 
           <div style="margin-top:12px" class="pdf-note">
@@ -1780,9 +1838,6 @@ footer::before{
   const batteryPackKwhEl = document.getElementById('batteryPackKwh');
   const batteryCountEl = document.getElementById('batteryCount');
 
-  const sunHoursDisplay = document.getElementById('sunHoursDisplay');
-  const pvDerateDisplay = document.getElementById('pvDerateDisplay');
-
   const suggestListEl = document.getElementById('suggestList');
   const consListEl = document.getElementById('consumerList');
   const addManualBtn = document.getElementById('addManual');
@@ -1808,6 +1863,7 @@ footer::before{
   const inverterStdEl = document.getElementById('inverterStd');
 
   const summaryNoteEl = document.getElementById('summaryNote');
+  const summaryNote2El = document.getElementById('summaryNote2');
   const resetBtn = document.getElementById('resetBtn');
   const exportBtn = document.getElementById('exportBtn');
   const exportPdfBtn = document.getElementById('exportPdfBtn');
@@ -1855,8 +1911,8 @@ footer::before{
 
   function batteryLifeYears(type){
     const ranges = {
-      lifepo4:[5,8],
-      lithium:[4,6],
+      lifepo4:[6,10],
+      lithium:[4,7],
       gel:[2,4],
       plomb:[1,3]
     };
@@ -1881,10 +1937,8 @@ footer::before{
     const country = zoneSelect.value;
     const selected = citySelect.value;
     const city = (CITY_CONFIG[country] || []).find(c => c.value === selected) || (CITY_CONFIG[country] || [])[0];
-    const sun = city ? city.sun : (country === 'sn' ? 6.5 : 4.5);
-    sunHoursDisplay.textContent = sun.toFixed(1) + ' h';
-    pvDerateDisplay.textContent = '85 %';
     if(cropEl.value !== 'custom') updateNeedMmForCrop();
+    return city ? city.sun : (country === 'sn' ? 6.5 : 4.5);
   }
 
   function updateNeedMmForCrop(){
@@ -1913,7 +1967,7 @@ footer::before{
   function renderConsumers(){
     consListEl.innerHTML = '';
     if(consumers.length === 0){
-      consListEl.innerHTML = '<div class="muted" style="color:#6b7f6b;padding:8px">Aucun consommateur additionnel</div>';
+      consListEl.innerHTML = '<div class="small-note" style="color:#6b7f6b;padding:8px">Aucun consommateur additionnel</div>';
       return;
     }
 
@@ -2159,6 +2213,7 @@ footer::before{
     inverterStdEl.textContent = r.inverterStdW + ' W';
 
     summaryNoteEl.textContent = `Dimensionnement calculé à partir de ${consumers.length} charge(s). Les besoins réels dépendent des usages, des pics simultanés et des marges de sécurité souhaitées.`;
+    summaryNote2El.textContent = summaryNoteEl.textContent;
 
     document.getElementById('r_pumpkw').classList.toggle('highlight', r.pInput_W >= 5000);
     document.getElementById('r_batt').classList.toggle('highlight', r.batteryUsableKwh > 0);
@@ -2473,16 +2528,7 @@ footer::before{
 
   document.getElementById('exportPdfBtn').addEventListener('click', generatePDF);
 
-  function initMap(){
-    try {
-      map = null;
-    } catch(e){
-      console.warn('Leaflet init failed', e);
-    }
-  }
-
   function init(){
-    initMap();
     populateCities(zoneSelect.value);
     renderSuggested();
     addInitialConsumers();
