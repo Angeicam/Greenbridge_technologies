@@ -192,11 +192,12 @@ nav a.active{
   width:44px;
   height:44px;
   border-radius:8px;
-  border:none;
-  background:transparent;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
   align-items:center;
   justify-content:center;
   cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
 }
 .burger .icon{display:block;position:relative;width:26px;height:18px}
 .burger .icon span{
@@ -561,22 +562,6 @@ nav a.active{
   max-width:1120px;
   padding:0 20px;
 }
-.hero-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(112,240,255,.16);
-  backdrop-filter:blur(10px);
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.6px;
-  text-transform:uppercase;
-  color:#eefdf0;
-  box-shadow:0 12px 26px rgba(0,0,0,.18);
-}
 .hero h1{
   margin:18px 0 14px;
   font-size:clamp(34px,5vw,68px);
@@ -855,7 +840,7 @@ nav a.active{
 }
 .note{
   font-size:12px;
-  color:#6b7f6b;
+  color:#6b7f6f;
   margin-top:10px;
 }
 
@@ -1066,9 +1051,6 @@ footer::before{
     justify-self:start;
     text-align:left;
     font-size:17px;
-  }
-  .solar-grid{
-    grid-template-columns:1fr !important;
   }
 }
 
@@ -1293,7 +1275,6 @@ footer::before{
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <div class="hero-badge"><i class="fas fa-sparkles"></i> étude urbaine</div>
     <h1>Étude <span>zone urbaine</span></h1>
     <p>
       Une étude simple à utiliser, mais structurée comme un vrai pré-dimensionnement :
@@ -1315,7 +1296,7 @@ footer::before{
 
     <div class="card-soft">
       <div class="calc" id="calcCard">
-        <h3><span class="badge">Calculateur</span> Étude urbaine — pré-dimensionnement simple et sérieux</h3>
+        <h3><span class="badge">Calculateur</span> Pré-dimensionnement simple et sérieux</h3>
         <div class="small-note">
           Les pièces ne sont générées qu’au clic sur <strong>Générer pièces</strong>.
         </div>
@@ -1330,7 +1311,8 @@ footer::before{
 
           <label for="batteryType">Batterie :</label>
           <select id="batteryType" aria-label="Type de batterie">
-            <option value="lithium">Lithium</option>
+            <option value="lithium_ion">Lithium ion</option>
+            <option value="lifepo4">LiFePO4</option>
             <option value="gel">Gel</option>
             <option value="plomb">Plomb</option>
           </select>
@@ -1473,7 +1455,7 @@ footer::before{
             </div>
           </div>
 
-          <div class="subtle-box" style="margin-top:12px;background:#fbfff7;border:1px solid #e9f2df;padding:10px;border-radius:10px;overflow:hidden;">
+          <div class="subtle-box" style="margin-top:12px;background:#fbfffb;border:1px solid #e9f2df;padding:10px;border-radius:10px;overflow:hidden;">
             <div style="font-size:12px;color:#6c7d6f">Note</div>
             <div class="metric note" id="summaryNote">Clique sur « Générer pièces » pour démarrer l’étude.</div>
           </div>
@@ -1640,9 +1622,10 @@ const SUN_HOURS_BY_CITY = {
 };
 
 const BATTERY_TYPES = {
-  lithium: { label:'Lithium', dod:0.90, eff:0.95, cycles:3000, lifeLabel:'10 à 15 ans' },
-  gel:     { label:'Gel',     dod:0.70, eff:0.90, cycles:1200, lifeLabel:'5 à 7 ans' },
-  plomb:   { label:'Plomb',   dod:0.50, eff:0.82, cycles:700,  lifeLabel:'3 à 5 ans' }
+  lithium_ion: { label:'Lithium ion', dod:0.85, eff:0.93, cycles:2000, lifeLabel:'8 à 12 ans' },
+  lifepo4:     { label:'LiFePO4',     dod:0.90, eff:0.95, cycles:4000, lifeLabel:'12 à 18 ans' },
+  gel:         { label:'Gel',         dod:0.70, eff:0.90, cycles:1200, lifeLabel:'5 à 7 ans' },
+  plomb:       { label:'Plomb',       dod:0.50, eff:0.82, cycles:700,  lifeLabel:'3 à 5 ans' }
 };
 
 const STD_INVERTERS = [300, 500, 1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000];
@@ -1751,7 +1734,7 @@ function getSunHours(city){
   return SUN_HOURS_BY_CITY[city] ?? 4.5;
 }
 function getBatteryProfile(type){
-  return BATTERY_TYPES[type] || BATTERY_TYPES.lithium;
+  return BATTERY_TYPES[type] || BATTERY_TYPES.lithium_ion;
 }
 function pickStandardInverter(targetW){
   const value = Math.max(300, Number(targetW || 0));
@@ -2087,9 +2070,9 @@ function openMenu(){
   const productsSub = document.getElementById('mobileProductsSub');
   const productsToggle = document.getElementById('mobileProductsToggle');
   if(productsSub && productsToggle){
-    productsSub.style.display = 'flex';
-    productsToggle.setAttribute('aria-expanded','true');
-    productsToggle.classList.add('active');
+    productsSub.style.display = 'none';
+    productsToggle.setAttribute('aria-expanded','false');
+    productsToggle.classList.remove('active');
   }
 }
 function closeMenu(){
@@ -2377,7 +2360,7 @@ async function generatePDF(){
             <div style="display:flex;gap:12px;align-items:center">
               <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
                 <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
-                <div style="font-size:11px;color:#556b56">Étude urbaine</div>
+                <div style="font-size:11px;color:#556b56">Étude zone urbaine</div>
               </div>
               <div>
                 <div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone urbaine</div>
@@ -2430,6 +2413,14 @@ async function generatePDF(){
               <div>
                 <div style="font-weight:700">Type batterie</div>
                 <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryType}</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Durée de vie batterie</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryLifeYears}</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Ville</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.cityLabel}</div>
               </div>
             </div>
           </div>
@@ -2532,7 +2523,6 @@ async function generatePDF(){
   }
 }
 
-/* Events */
 burgerBtn.addEventListener('click', () => {
   const opened = mobileNav.classList.contains('open');
   if(opened) closeMenu();
@@ -2565,7 +2555,7 @@ generateBtn.addEventListener('click', generateInitialRooms);
 resetBtn.addEventListener('click', () => {
   if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
   cityEl.value = 'abidjan';
-  batteryTypeEl.value = 'lithium';
+  batteryTypeEl.value = 'lithium_ion';
   batteryPackCountEl.value = 4;
   battPackKwhEl.value = 1.28;
   panelWEl.value = 350;
@@ -2624,7 +2614,6 @@ function initializePage(){
   rooms = [];
   roomCounter = 0;
   renderRooms();
-  activateElectricBand();
   openDesktopDropdowns();
   applyCurrentPageState();
   recalc();
