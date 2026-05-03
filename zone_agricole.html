@@ -797,7 +797,6 @@ nav a.active{
   padding:8px 10px;
   border-radius:999px;
 }
-.hidden{display:none !important;}
 
 details.fold{
   margin-top:12px;
@@ -964,7 +963,7 @@ details.fold[open] > summary::after{transform:rotate(180deg)}
 }
 #batteryChart{
   width:100%;
-  height:280px;
+  height:320px;
   display:block;
 }
 
@@ -1157,9 +1156,7 @@ footer::before{
       </div>
 
       <div class="dropdown" aria-haspopup="true" aria-expanded="false">
-        <a href="produits.html" id="produitsLink">
-          Nos Produits
-        </a>
+        <a href="produits.html" id="produitsLink">Nos Produits</a>
         <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="dropdownProducts">
           <li><a href="panneaux.html" role="menuitem">⚡ Panneaux solaires</a></li>
           <li><a href="batteries.html" role="menuitem">🔋 Batteries & stockage</a></li>
@@ -1272,7 +1269,7 @@ footer::before{
     <div class="card-soft">
       <div class="calc" id="calcCard">
         <h3><span class="badge">Calculateur</span> Besoin de pompage et de stockage</h3>
-        <div class="small-note">Les valeurs d’ensoleillement sont ajustées automatiquement selon la ville. L’utilisateur ne voit que l’essentiel.</div>
+        <div class="small-note">Les valeurs d’ensoleillement et de température sont ajustées automatiquement selon la ville. L’utilisateur ne voit que l’essentiel.</div>
 
         <div class="top-controls">
           <label for="zone">Pays :</label>
@@ -1387,7 +1384,7 @@ footer::before{
           </div>
         </div>
 
-        <details class="fold" open>
+        <details class="fold">
           <summary>Paramètres avancés et charges additionnelles</summary>
           <div class="fold-body">
             <div class="small-note">Les heures d’ensoleillement et les pertes PV sont gérées automatiquement selon la ville. Les charges additionnelles permettent d’intégrer les besoins réels du site.</div>
@@ -1503,13 +1500,13 @@ footer::before{
   <section class="section" id="chartSection">
     <div class="chart-card">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div style="font-weight:800;color:#fff">Graphique 24h de charge</div>
-        <div style="color:#e6f7ea;font-size:13px;opacity:.95">Profil de consommation estimé pour appuyer le dimensionnement</div>
+        <div style="font-weight:800;color:#fff">Graphique 24h de charge et batterie</div>
+        <div style="color:#e6f7ea;font-size:13px;opacity:.95">Profil de charge, production solaire et état de batterie pendant l’utilisation</div>
       </div>
       <div class="chart-wrap" style="margin-top:10px">
         <canvas id="batteryChart"></canvas>
       </div>
-      <div class="pdf-note">Le profil illustre la consommation sur 24h selon les usages saisis.</div>
+      <div class="pdf-note">Le profil illustre la consommation sur 24h, la production solaire et la charge de batterie pendant l’utilisation.</div>
 
       <div style="margin-top:14px;display:flex;justify-content:flex-end">
         <button id="exportPdfBtn" class="btn-export" type="button"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter en PDF</button>
@@ -1875,11 +1872,11 @@ footer::before{
 
   const CITY_CONFIG = {
     ci: [
-      {label:"Abidjan", value:"abidjan", sun:4.5},
-      {label:"Yamoussoukro", value:"yamoussoukro", sun:5.5}
+      {label:"Abidjan", value:"abidjan", sun:4.5, temp:25},
+      {label:"Yamoussoukro", value:"yamoussoukro", sun:5.5, temp:28}
     ],
     sn: [
-      {label:"Dakar", value:"dakar", sun:6.5}
+      {label:"Dakar", value:"dakar", sun:6.5, temp:29}
     ]
   };
 
@@ -1893,9 +1890,10 @@ footer::before{
     { id:'charger', label:'Recharge téléphones', power:50, hours:6 }
   ];
 
+  const STANDARD_INVERTERS = [300,500,800,1000,1200,1500,2000,3000,4000,5000,6000,8000,10000];
+
   let consumers = [];
   let lastCalcSnapshot = null;
-  let map = null;
 
   function fmt(n,dec=2){
     return Number(n||0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
@@ -1911,8 +1909,8 @@ footer::before{
 
   function batteryLifeYears(type){
     const ranges = {
-      lifepo4:[6,10],
-      lithium:[4,7],
+      lifepo4:[5,8],
+      lithium:[4,6],
       gel:[2,4],
       plomb:[1,3]
     };
@@ -1920,8 +1918,7 @@ footer::before{
   }
 
   function standardInverterSize(requiredW){
-    const standards = [300,500,800,1000,1200,1500,2000,3000,4000,5000,6000,8000];
-    return standards.find(v => v >= requiredW) || 8000;
+    return STANDARD_INVERTERS.find(v => v >= requiredW) || STANDARD_INVERTERS[STANDARD_INVERTERS.length - 1];
   }
 
   function populateCities(country){
@@ -2036,8 +2033,12 @@ footer::before{
   function compute(){
     const country = zoneSelect.value || 'ci';
     const city = citySelect.value || (country === 'sn' ? 'dakar' : 'abidjan');
-    const sun = (CITY_CONFIG[country] || []).find(c => c.value === city)?.sun || (country === 'sn' ? 6.5 : 4.5);
-    const derate = 0.85;
+    const cityInfo = (CITY_CONFIG[country] || []).find(c => c.value === city) || { sun: country === 'sn' ? 6.5 : 4.5, temp: 25 };
+    const sun = cityInfo.sun || (country === 'sn' ? 6.5 : 4.5);
+    const tempC = cityInfo.temp || 25;
+    const derateBase = 0.85;
+    const tempDerate = 1 - Math.max(0, tempC - 25) * 0.005;
+    const derate = Math.max(0.70, derateBase * tempDerate);
 
     const areaHa = Math.max(0, Number(areaHaEl.value || 0));
     const areaM2 = areaHa * 10000;
@@ -2093,6 +2094,7 @@ footer::before{
       country,
       city,
       sun,
+      tempC,
       derate,
       volDay_m3,
       q_m3h,
@@ -2118,13 +2120,67 @@ footer::before{
     };
   }
 
+  function buildHourlyProfile(r){
+    const hours = [];
+    const batteryCapacity = Math.max(0.01, r.batteryUsableKwh || 0.01);
+    let soc = Math.min(batteryCapacity, Math.max(0, batteryCapacity * 0.55));
+    const chargeEff = 0.93;
+    const dischargeEff = 0.92;
+    const sunStart = 6;
+    const sunEnd = 18;
+    const peakLoad = Math.max(0.2, r.totalDaily_kWh / 24);
+    const peakScale = Math.max(0.8, r.totalDaily_kWh / 2.5);
+
+    for(let h = 0; h < 24; h++){
+      let loadKw = peakLoad * 0.55;
+      if(h >= 5 && h <= 8) loadKw += peakLoad * 1.55;
+      if(h >= 10 && h <= 14) loadKw += peakLoad * 0.85;
+      if(h >= 18 && h <= 22) loadKw += peakLoad * 1.95;
+      if(h >= 0 && h <= 4) loadKw += peakLoad * 0.25;
+      if(h === 12 || h === 13) loadKw += peakLoad * 0.20;
+
+      const pvCurve = (() => {
+        if(h < sunStart || h > sunEnd) return 0;
+        const x = (h - sunStart) / (sunEnd - sunStart);
+        const wave = Math.sin(Math.PI * x);
+        return Math.max(0, wave) * Math.max(0.05, r.pvKw) * 0.92;
+      })();
+
+      const solarToLoad = Math.min(loadKw, pvCurve);
+      const solarExcess = Math.max(0, pvCurve - solarToLoad);
+      const loadFromSolar = solarToLoad;
+      const deficitAfterSolar = Math.max(0, loadKw - loadFromSolar);
+
+      let batteryFlowKw = 0;
+      if(solarExcess > 0){
+        const charge = Math.min(batteryCapacity - soc, solarExcess * chargeEff);
+        soc += charge;
+        batteryFlowKw = -solarExcess;
+      } else if(deficitAfterSolar > 0){
+        const canDischarge = Math.min(soc, deficitAfterSolar / dischargeEff);
+        soc -= canDischarge;
+        batteryFlowKw = deficitAfterSolar;
+      }
+
+      hours.push({
+        hour:h,
+        loadKw,
+        pvKw:pvCurve,
+        batterySocPct: batteryCapacity > 0 ? (soc / batteryCapacity) * 100 : 0,
+        batteryKwh:soc,
+        batteryFlowKw
+      });
+    }
+    return hours;
+  }
+
   function updateChart(r){
     const canvas = document.getElementById('batteryChart');
     if(!canvas) return;
     const ctx = canvas.getContext('2d');
     const dpr = window.devicePixelRatio || 1;
     const w = canvas.clientWidth || 900;
-    const h = canvas.clientHeight || 280;
+    const h = canvas.clientHeight || 320;
     canvas.width = Math.floor(w * dpr);
     canvas.height = Math.floor(h * dpr);
     ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -2133,64 +2189,139 @@ footer::before{
     ctx.fillStyle = '#fff';
     ctx.fillRect(0,0,w,h);
 
-    const base = Math.max(0.2, r.totalDaily_kWh / 24);
-    const points = Array.from({length:24}, (_,hh) => {
-      let load = base * 0.60;
-      if(hh >= 5 && hh <= 8) load += base * 1.6;
-      if(hh >= 10 && hh <= 14) load += base * 0.8;
-      if(hh >= 18 && hh <= 22) load += base * 1.9;
-      if(hh >= 0 && hh <= 4) load += base * 0.35;
-      return load;
-    });
+    const data = buildHourlyProfile(r);
+    const padL = 58;
+    const padR = 58;
+    const padT = 20;
+    const padB = 36;
+    const chartW = w - padL - padR;
+    const chartH = h - padT - padB;
 
-    const maxY = Math.max(...points) * 1.25;
-    const pad = 24;
-    const chartW = w - pad*2;
-    const chartH = h - pad*2;
+    const maxPower = Math.max(1, ...data.map(d => Math.max(d.loadKw, d.pvKw))) * 1.25;
+    const maxPct = 100;
+
+    function xFor(i){ return padL + (chartW / 23) * i; }
+    function yLeft(v){ return padT + chartH - (v / maxPower) * chartH; }
+    function yRight(v){ return padT + chartH - (v / maxPct) * chartH; }
 
     ctx.strokeStyle = '#dfeadf';
     ctx.lineWidth = 1;
-    for(let i=0;i<=4;i++){
-      const y = pad + (chartH/4)*i;
+    ctx.font = '12px Poppins, Arial, sans-serif';
+    ctx.fillStyle = '#6b7f6b';
+
+    for(let i=0;i<=5;i++){
+      const y = padT + (chartH / 5) * i;
       ctx.beginPath();
-      ctx.moveTo(pad,y);
-      ctx.lineTo(w-pad,y);
+      ctx.moveTo(padL, y);
+      ctx.lineTo(w - padR, y);
       ctx.stroke();
     }
 
-    ctx.fillStyle = 'rgba(124,179,66,0.22)';
+    ctx.strokeStyle = '#9eb59f';
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
-    points.forEach((p,i)=>{
-      const x = pad + (chartW/23)*i;
-      const y = pad + chartH - (p/maxY)*chartH;
-      if(i===0) ctx.moveTo(x, h-pad);
-      ctx.lineTo(x,y);
-    });
-    ctx.lineTo(w-pad, h-pad);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.strokeStyle = '#04462e';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    points.forEach((p,i)=>{
-      const x = pad + (chartW/23)*i;
-      const y = pad + chartH - (p/maxY)*chartH;
-      if(i===0) ctx.moveTo(x,y);
-      else ctx.lineTo(x,y);
-    });
+    ctx.moveTo(padL, padT);
+    ctx.lineTo(padL, padT + chartH);
+    ctx.lineTo(w - padR, padT + chartH);
     ctx.stroke();
 
-    ctx.fillStyle = '#04462e';
-    ctx.font = '12px Arial';
-    for(let i=0;i<24;i+=3){
-      const x = pad + (chartW/23)*i;
-      ctx.fillText(String(i).padStart(2,'0') + 'h', x-8, h-8);
+    const leftTicks = 5;
+    for(let i=0;i<=leftTicks;i++){
+      const val = maxPower * (1 - i/leftTicks);
+      const y = padT + (chartH / leftTicks) * i;
+      ctx.fillStyle = '#4f6350';
+      ctx.fillText(`${fmt(val,1)} kW`, 6, y + 4);
+    }
+
+    for(let i=0;i<=5;i++){
+      const pct = 100 - (100 / 5) * i;
+      const y = padT + (chartH / 5) * i;
+      ctx.fillStyle = '#4f6350';
+      ctx.fillText(`${pct}%`, w - padR + 10, y + 4);
     }
 
     ctx.fillStyle = '#6b7f6b';
-    ctx.font = '12px Arial';
-    ctx.fillText('Charge estimée sur 24h liée à l’usage agricole', pad, 14);
+    for(let i=0;i<24;i+=3){
+      const x = xFor(i);
+      ctx.fillText(String(i).padStart(2,'0') + 'h', x - 10, h - 10);
+    }
+
+    const loadPath = [];
+    const pvPath = [];
+    const socPath = [];
+    data.forEach((d,i)=>{
+      loadPath.push([xFor(i), yLeft(d.loadKw)]);
+      pvPath.push([xFor(i), yLeft(d.pvKw)]);
+      socPath.push([xFor(i), yRight(d.batterySocPct)]);
+    });
+
+    function strokePath(points, color, width, dashed=false){
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.setLineDash(dashed ? [8,6] : []);
+      ctx.beginPath();
+      points.forEach((p,idx)=>{
+        if(idx===0) ctx.moveTo(p[0], p[1]);
+        else ctx.lineTo(p[0], p[1]);
+      });
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function fillArea(points, baselineY, color){
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      points.forEach((p,idx)=>{
+        if(idx===0) ctx.moveTo(p[0], baselineY);
+        ctx.lineTo(p[0], p[1]);
+      });
+      ctx.lineTo(points[points.length - 1][0], baselineY);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    fillArea(loadPath, padT + chartH, 'rgba(255,122,24,0.12)');
+    fillArea(pvPath, padT + chartH, 'rgba(124,179,66,0.12)');
+
+    strokePath(loadPath, '#ff7a18', 2.5);
+    strokePath(pvPath, '#0b4d26', 2.5, true);
+    strokePath(socPath, '#2f7d32', 2.2);
+
+    data.forEach((d,i)=>{
+      const x = xFor(i);
+      if(i % 3 === 0){
+        ctx.fillStyle = '#04462e';
+        ctx.beginPath();
+        ctx.arc(x, yLeft(d.loadKw), 3.2, 0, Math.PI*2);
+        ctx.fill();
+      }
+    });
+
+    const legendY = 14;
+    const legendItems = [
+      {label:'Charge demand', color:'#ff7a18'},
+      {label:'Production solaire', color:'#0b4d26'},
+      {label:'État batterie', color:'#2f7d32'}
+    ];
+    let lx = padL;
+    ctx.font = '12px Poppins, Arial, sans-serif';
+    legendItems.forEach(item => {
+      ctx.fillStyle = item.color;
+      ctx.fillRect(lx, legendY - 8, 16, 4);
+      ctx.fillStyle = '#4f6350';
+      ctx.fillText(item.label, lx + 22, legendY);
+      lx += 140;
+    });
+
+    ctx.fillStyle = '#6b7f6b';
+    ctx.fillText('Charge estimée sur 24h liée à l’usage agricole et au stockage', padL, 24);
+
+    ctx.fillStyle = '#6b7f6b';
+    ctx.fillText('Consommation / production', 6, padT - 3);
+    ctx.fillText('Batterie', w - padR + 10, padT - 3);
   }
 
   function recalc(){
@@ -2224,6 +2355,7 @@ footer::before{
       country: r.country,
       city: r.city,
       sun: r.sun,
+      tempC: r.tempC,
       areaHa: Number(areaHaEl.value || 0),
       crop: cropEl.value,
       mmPerDay: Number(needMmEl.value || 0),
@@ -2295,7 +2427,7 @@ footer::before{
       const s = lastCalcSnapshot;
       function esc(t){
         return String(t||'').replace(/[&<>"']/g, m => ({
-          '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+          '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"
         }[m]));
       }
 
