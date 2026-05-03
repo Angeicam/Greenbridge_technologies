@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>GreenBridge — Zone agricole (pompage, solaire & PDF)</title>
+<title>GreenBridge — Zone agricole (dimensionnement irrigation & élevage)</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,12 +26,13 @@
   --gold:#d4af37;
   --gold-base:#d4af37;
   --card-radius:12px;
-  --font:'Poppins',Arial,sans-serif;
+  --font:'Poppins', Arial, sans-serif;
   --max-width:1100px;
   --shadow:0 10px 22px rgba(0,0,0,0.35);
   --electric-yellow:#ffd600;
-  --electric-yellow-soft: rgba(255,214,0,0.18);
+  --electric-yellow-soft:rgba(255,214,0,0.18);
 }
+
 *{box-sizing:border-box}
 html,body{
   height:100%;
@@ -39,61 +40,49 @@ html,body{
   font-family:var(--font);
   background:var(--bg);
   color:#fff;
-  overflow-x:hidden;
-  scroll-behavior:smooth;
 }
-body.menu-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
-button,input,select,textarea{font:inherit}
+img{max-width:100%;display:block}
 
 .topbar{
   position:fixed;
-  top:0;left:0;right:0;height:var(--topbar-h);
+  top:0;left:0;right:0;
+  height:var(--topbar-h);
   background:var(--green-dark);
-  display:flex;align-items:center;justify-content:flex-end;
-  gap:20px;padding:0 4vw;z-index:1800;font-size:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:0 4vw;
+  z-index:1800;
+  font-size:14px;
 }
-.topbar .right{display:flex;align-items:center;gap:12px}
-.topbar a{color:#fff;white-space:nowrap}
+.topbar .left,.topbar .right{display:flex;align-items:center;gap:12px}
+.topbar a{color:#fff}
 
 header{
   position:fixed;
   top:var(--topbar-h);
-  left:0;right:0;height:var(--header-h);
+  left:0;right:0;
+  height:var(--header-h);
   background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   padding:0 4vw;
   z-index:1750;
-  box-shadow:0 4px 12px rgba(0,0,0,.25)
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
 }
-.logo-text{display:flex;align-items:center;gap:12px;min-width:0}
+.logo-text{display:flex;align-items:center;gap:12px}
 .logo-text img{height:56px;display:block}
-.brand-stack{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  line-height:1;
-  text-align:center;
-}
 .company-name{
   font-size:24px;
   font-weight:800;
   color:#04462e;
-  -webkit-text-stroke:.8px var(--gold);
+  -webkit-text-stroke:0.8px var(--gold);
   padding:6px 10px;
   border-radius:8px;
   white-space:nowrap;
-  text-shadow:0 3px 6px rgba(0,0,0,.6);
-}
-.company-tagline{
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  color:#dfffe6;
-  white-space:nowrap;
-  -webkit-text-stroke:.35px rgba(212,175,55,.55);
 }
 
 nav{display:flex;gap:18px;align-items:center}
@@ -105,14 +94,14 @@ nav a{
   border-radius:8px;
   transition:all .18s;
   display:flex;
-  align-items:center;
   gap:8px;
+  align-items:center;
 }
 nav a:hover{color:var(--accent-2)}
 nav a.active{
   color:var(--accent-2);
-  background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));
-  border:1px solid rgba(212,175,55,.22);
+  background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+  border:1px solid rgba(212,175,55,0.22);
   padding:10px 14px;
   font-weight:800;
   border-radius:10px;
@@ -121,37 +110,21 @@ nav a.active{
 .dropdown{position:relative}
 .dropdown > a::after{
   content:"\25BC";
-  font-size:11px;
+  font-size:12px;
   margin-left:6px;
   color:var(--accent-2);
 }
 .dropdown[aria-expanded="true"] > a::after{transform:rotate(180deg)}
-.dropdown > a .sub-badge{
-  margin-left:8px;
-  padding:6px 10px;
-  border-radius:10px;
-  background:rgba(255,214,0,.08);
-  color:var(--electric-yellow);
-  font-weight:800;
-  font-size:13px;
-  white-space:nowrap;
-  display:inline-flex;
-  align-items:center;
-  box-shadow:0 6px 18px rgba(0,0,0,.32);
-}
-@media (max-width:1100px){
-  .dropdown > a .sub-badge{display:none}
-}
 .dropdown-content{
   display:none;
   position:absolute;
   top:calc(100% + 8px);
   left:0;
-  background:rgba(0,0,0,.85);
+  background:rgba(0,0,0,0.85);
   padding:8px 0;
   border-radius:10px;
   box-shadow:0 10px 30px rgba(0,0,0,.5);
-  min-width:230px;
+  min-width:220px;
   z-index:2000;
 }
 .dropdown-content li{list-style:none}
@@ -163,18 +136,18 @@ nav a.active{
   border-radius:8px;
 }
 .dropdown-content a:hover{
-  background:rgba(168,230,161,.12);
+  background:rgba(168,230,161,0.12);
   color:var(--accent-2);
   padding-left:24px;
 }
 .dropdown-content .active-item{
   color:var(--accent-2);
-  background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));
-  border:1px solid rgba(212,175,55,.12);
+  background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
+  border:1px solid rgba(212,175,55,0.12);
   padding:10px 16px;
   font-weight:800;
   border-radius:8px;
-  box-shadow:0 8px 20px rgba(0,0,0,.28);
+  box-shadow:0 8px 20px rgba(0,0,0,0.28);
   margin:4px 8px;
 }
 
@@ -183,22 +156,14 @@ nav a.active{
   width:44px;
   height:44px;
   border-radius:8px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.05);
+  border:none;
+  background:transparent;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  box-shadow:0 6px 18px rgba(0,0,0,.18);
 }
 .burger .icon{display:block;position:relative;width:26px;height:18px}
-.burger .icon span{
-  position:absolute;
-  left:0;right:0;
-  height:3px;
-  background:#fff;
-  border-radius:2px;
-  transition:all .25s;
-}
+.burger .icon span{position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s}
 .burger .icon span:nth-child(1){top:0}
 .burger .icon span:nth-child(2){top:7.5px}
 .burger .icon span:nth-child(3){top:15px}
@@ -206,218 +171,84 @@ nav a.active{
 .burger.open .icon span:nth-child(2){opacity:0}
 .burger.open .icon span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
 
-.mobile-backdrop{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(6,31,20,.96);
-  z-index:1970;
-  opacity:0;
-  transition:opacity .2s ease;
-}
-.mobile-backdrop.open{
-  display:block;
-  opacity:1;
-}
-
+.mobile-nav{display:none}
 .mobile-nav{
-  display:none;
   position:fixed;
-  inset:0;
-  z-index:1980;
-  background:linear-gradient(180deg,#0a4d2e 0%,#061f14 100%);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s ease, transform .2s ease;
-  transform:scale(.985);
+  top:calc(var(--topbar-h) + var(--header-h));
+  left:0;right:0;
+  background:var(--bg);
+  z-index:1740;
+  box-shadow:0 12px 40px rgba(0,0,0,.45);
   overflow:auto;
+  max-height:0;
+  transition:max-height .28s ease;
 }
-.mobile-nav.open{
-  display:flex;
-  opacity:1;
-  pointer-events:auto;
-  transform:scale(1);
-}
-.mobile-panel{
-  position:relative;
-  width:100%;
-  min-height:100vh;
-  padding:18px 5vw 22px;
+.mobile-nav.open{display:block;max-height:85vh}
+.mobile-nav .inner{
+  padding:12px 4vw;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:8px;
+  align-items:stretch;
 }
-.mobile-close{
-  position:absolute;
-  top:14px;
-  right:14px;
-  width:48px;
-  height:48px;
-  border:none;
-  border-radius:12px;
-  background:rgba(255,255,255,.07);
-  color:#fff;
-  font-size:24px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  box-shadow:0 8px 18px rgba(0,0,0,.22);
-}
-.mobile-brand{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:2px;
-  padding:54px 4px 12px;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  margin-bottom:2px;
-  text-align:center;
-}
-.mobile-brand .company-name{
-  font-size:34px;
-  line-height:1;
-  text-align:center;
-  width:100%;
-}
-.mobile-brand .company-tagline{
-  font-size:14px;
-  letter-spacing:4px;
-  text-align:center;
-  width:100%;
-}
-
-.menu-links{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  gap:12px;
-  max-width:560px;
-  width:100%;
-  margin:0 auto;
-  padding:10px 0;
-}
-.mobile-nav a.mobile-link{
-  padding:18px 18px;
+.mobile-nav a{
+  padding:12px;
   color:#fff;
   width:100%;
-  text-align:center;
-  border-radius:14px;
-  font-weight:900;
+  text-align:left;
+  border-radius:8px;
+  font-weight:700;
   display:flex;
-  justify-content:center;
+  justify-content:space-between;
   align-items:center;
-  gap:10px;
-  font-size:clamp(20px, 5vw, 26px);
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.03);
-  min-height:64px;
-  line-height:1.1;
-  white-space:normal;
 }
-.mobile-nav .mobile-link:hover{
-  background:rgba(124,179,66,.12);
+.mobile-nav a:hover{background:rgba(124,179,66,0.06);color:var(--accent-2)}
+.mobile-nav a.active{
+  background:linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.03));
   color:var(--accent-2);
-}
-.mobile-nav .mobile-link.active{
-  background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));
-  color:var(--accent-2);
-  border:1px solid rgba(212,175,55,.28);
 }
 .mobile-nav .submenu{
   display:none;
   flex-direction:column;
-  gap:8px;
-  padding-left:10px;
+  padding-left:12px;
   margin-top:6px;
   margin-bottom:6px;
-  max-width:560px;
-  width:100%;
-  margin-left:auto;
-  margin-right:auto;
+  gap:6px;
 }
 .mobile-nav .submenu a{
-  font-family:'Trebuchet MS',Arial,sans-serif;
-  font-style:italic;
-  font-size:15px;
-  font-weight:700;
-  min-height:48px;
-  padding:12px 14px;
-  border-radius:10px;
-  white-space:nowrap;
-  justify-content:center;
-  text-align:center;
-  letter-spacing:.2px;
-  display:flex;
-  align-items:center;
-  border:1px solid rgba(255,255,255,.06);
-  background:rgba(255,255,255,.02);
+  font-weight:600;
+  padding:8px 12px;
+  border-radius:6px;
+  text-align:left;
 }
 .mobile-nav .submenu a:hover{
-  background:rgba(168,230,161,.08);
+  background:rgba(168,230,161,0.08);
   padding-left:18px;
 }
-.mobile-nav .submenu a.active-item,
-.mobile-nav .submenu a[aria-current="page"]{
+.mobile-nav .mobile-disabled{
+  pointer-events:none;
+  cursor:default;
+  opacity:0.9;
+  color:rgba(255,255,255,0.65)!important;
+}
+.mobile-nav .submenu a.mobile-disabled{
+  color:rgba(255,255,255,0.65)!important;
+  opacity:0.95;
+  padding-left:12px;
   background:transparent;
-  color:rgba(255,255,255,.30);
-  border:none;
   box-shadow:none;
   font-weight:700;
-  font-style:italic;
 }
-
-.mobile-contact{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  padding:16px 14px;
-  border-radius:16px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.06);
-  color:var(--muted);
-  max-width:560px;
-  width:100%;
-  margin:0 auto;
-  text-align:center;
-}
-.mobile-contact strong{color:#fff;font-size:15px;letter-spacing:1px}
-.mobile-contact .phone-line{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  color:#fff;
+.mobile-nav .mobile-link.active[data-current]::after{
+  content:attr(data-current);
+  margin-left:8px;
+  padding:6px 10px;
+  border-radius:8px;
+  background:rgba(255,214,0,0.06);
+  color:var(--electric-yellow);
   font-weight:800;
-  flex-wrap:wrap;
-  font-size:16px;
-}
-
-.socials{
-  margin-top:auto;
-  border-top:1px solid rgba(255,255,255,.05);
-  padding-top:14px;
-  display:flex;
-  gap:18px;
-  align-items:center;
-  justify-content:center;
-  flex-wrap:wrap;
-  width:100%;
-}
-.socials a{
-  width:44px;
-  height:44px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-  font-size:20px;
-  border:none;
-  background:rgba(255,255,255,.04);
-  border-radius:50%;
-  min-height:44px;
+  font-size:13px;
+  white-space:nowrap;
 }
 
 .electric-band{
@@ -425,7 +256,7 @@ nav a.active{
   top:calc(var(--topbar-h) + var(--header-h) - 6px);
   left:0;right:0;
   height:14px;
-  z-index:1600;
+  z-index:1900;
   pointer-events:none;
   overflow:visible;
   transform:translateZ(0);
@@ -447,19 +278,27 @@ nav a.active{
   height:100%;
   display:block;
   pointer-events:none;
-  opacity:0;
-  transition:opacity .22s ease;
   mix-blend-mode:screen;
 }
-.electric-band.active .lightning-svg{opacity:1}
 .lightning-svg path.zap{
   stroke:var(--electric-yellow);
-  stroke-width:2.2;
+  stroke-width:2.0;
   fill:none;
   stroke-linecap:round;
   stroke-linejoin:round;
-  opacity:.95;
+  opacity:0.9;
 }
+.lightning-svg path.bright{
+  stroke:var(--electric-yellow);
+  stroke-width:2.6;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:1;
+  stroke-dasharray:520;
+  stroke-dashoffset:520;
+}
+
 .orbs{
   position:absolute;
   left:0;top:0;
@@ -470,22 +309,23 @@ nav a.active{
 }
 .orb{
   position:absolute;
-  width:8px;
-  height:8px;
+  width:10px;
+  height:10px;
   border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,#fff8b0,var(--electric-yellow));
-  box-shadow:0 0 12px rgba(255,214,0,.95),0 0 30px rgba(255,214,0,.22);
+  background:radial-gradient(circle at 30% 30%, #fff8b0, var(--electric-yellow));
+  box-shadow:0 0 12px rgba(255,214,0,0.95), 0 0 30px rgba(255,214,0,0.16);
   transform:translate(-50%,-50%);
   opacity:0;
   transition:opacity .18s linear;
 }
 .electric-band.active .orb{opacity:1}
-@keyframes buzz{
-  0%{transform:translate(-50%,-50%) translateX(-2px)}
-  50%{transform:translate(-50%,-50%) translateX(2px)}
-  100%{transform:translate(-50%,-50%) translateX(-2px)}
+@keyframes buzz-slow{
+  0%{transform:translate(-50%,-50%) translateX(-1.6px)}
+  50%{transform:translate(-50%,-50%) translateX(1.6px)}
+  100%{transform:translate(-50%,-50%) translateX(-1.6px)}
 }
-.orb.buzz{animation:buzz .9s linear infinite}
+.orb.buzz{animation:buzz-slow 1.8s linear infinite}
+
 .glowline{
   position:absolute;
   left:50%;
@@ -493,9 +333,9 @@ nav a.active{
   transform:translate(-50%,-50%);
   height:3px;
   width:0;
-  background:linear-gradient(90deg,rgba(255,238,170,0),var(--electric-yellow),rgba(255,238,170,0));
+  background:linear-gradient(90deg, rgba(255,238,170,0), var(--electric-yellow), rgba(255,238,170,0));
   border-radius:8px;
-  box-shadow:0 6px 18px rgba(255,214,0,.12);
+  box-shadow:0 6px 18px rgba(255,214,0,0.12);
   opacity:0;
   transition:opacity .22s ease;
 }
@@ -515,369 +355,72 @@ nav a.active{
   margin:calc(var(--topbar-h) + var(--header-h) + 18px) auto 80px;
   padding:0 18px;
 }
+.card{
+  background:#fff;
+  color:#072012;
+  border-radius:var(--card-radius);
+  padding:14px;
+  box-shadow:var(--shadow);
+  margin-bottom:12px;
+}
+h1{margin:0;color:#04462e;font-size:20px}
+.muted{color:#6b7f6b;font-size:13px}
 
-.hero{
-  position:relative;
-  margin-top:calc(var(--topbar-h) + var(--header-h));
-  min-height:calc(72vh - (var(--topbar-h) + var(--header-h)));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-  background:#07160f;
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:1000px){ .grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:700px){ .grid{grid-template-columns:1fr} }
+
+.field{display:flex;flex-direction:column;gap:6px}
+label{font-size:13px;color:#072012}
+input[type="number"],input[type="text"],select{
+  padding:8px;border-radius:6px;border:1px solid #e6e6e6
 }
-.hero-bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center center;
-  z-index:0;
-  filter:brightness(1.03) contrast(1.03) saturate(1.02);
-}
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background:linear-gradient(180deg, rgba(4,10,8,.10) 0%, rgba(4,10,8,.28) 38%, rgba(4,10,8,.48) 100%);
-}
-.hero-content{
-  position:relative;
-  z-index:4;
-  max-width:1120px;
-  padding:0 20px;
-}
-.hero h1{
-  margin:18px 0 14px;
-  font-size:clamp(34px,5vw,68px);
-  line-height:1.02;
-  text-shadow:0 10px 24px rgba(0,0,0,.34);
-}
-.hero h1 span{color:var(--accent-2)}
-.hero p{
-  max-width:850px;
-  margin:0 auto 26px;
-  font-size:clamp(16px,1.5vw,19px);
-  line-height:1.85;
-  color:#eefaf0;
-  text-shadow:0 2px 8px rgba(0,0,0,.28);
-}
-.hero-actions{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-.btn-primary,.btn-secondary,.btn-link,.btn-reset,.btn-add,.btn-export{
-  padding:14px 24px;
-  border-radius:12px;
-  border:0;
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+
+.btn{padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:#072012;font-weight:700;cursor:pointer}
+.btn-ghost{background:#f3f3f3;border:1px solid #e6e6e6;color:#072012;padding:8px 10px;border-radius:8px}
+
+.suggests{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.suggest{
+  background:linear-gradient(180deg,#f3fff8,#ecfff5);
+  padding:8px;border-radius:10px;
+  border:1px solid #e0f3e9;
+  color:#072012;
   cursor:pointer;
-  font-weight:800;
-  font-size:15px;
-  transition:transform .18s ease, background .18s ease, border-color .18s ease, filter .18s ease;
-}
-.btn-primary{
-  background:linear-gradient(135deg,var(--accent),#9be15f);
-  color:#062113;
-  box-shadow:0 16px 30px rgba(124,179,66,.16);
-}
-.btn-primary:hover{
-  transform:translateY(-2px);
-  background:linear-gradient(135deg,var(--accent-2),#d0ffca);
-}
-.btn-secondary{
-  background:rgba(255,255,255,.04);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.20);
-  backdrop-filter:blur(10px);
-}
-.btn-secondary:hover{
-  transform:translateY(-2px);
-  background:rgba(255,255,255,.08);
-}
-.btn-link{
-  background:rgba(124,179,66,.12);
-  color:#04462e;
-  border:1px solid rgba(124,179,66,.18);
-}
-.btn-reset{background:#ececec;color:#072012}
-.btn-add{background:var(--gold-base);color:#072012}
-.btn-link:hover,.btn-reset:hover,.btn-add:hover{filter:brightness(.98)}
-.btn-export{
-  background:linear-gradient(135deg,var(--gold-base),var(--gold-hover));
-  color:#072012;
-  box-shadow:0 10px 18px rgba(212,175,55,.14);
-}
-.btn-export:hover{transform:translateY(-2px)}
-
-.section{
-  padding:74px 0;
-  position:relative;
-  z-index:1;
-}
-.section h2{
-  margin:0 0 14px;
-  text-align:center;
-  color:var(--accent-2);
-  font-size:clamp(26px,3vw,38px);
-  text-shadow:0 2px 10px rgba(0,0,0,.24);
-}
-.section-intro{
-  max-width:980px;
-  margin:0 auto 28px;
-  text-align:center;
-  color:var(--muted);
-  line-height:1.78;
-  font-size:15px;
-  opacity:.96;
-}
-
-.card-soft{
-  background:rgba(6,31,20,.60);
-  border:1px solid rgba(212,175,55,.12);
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,.18);
-}
-.calc{
-  background:#fff;
-  color:#072012;
-  border-radius:18px;
-  padding:16px;
-  margin-top:12px;
-  box-shadow:0 10px 22px rgba(0,0,0,.25);
-  overflow:hidden;
-}
-.calc h3{
-  margin:0;
-  color:#04462e;
-  font-size:18px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.calc h3 .badge{
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-  color:#072012;
-  font-weight:900;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-}
-.small-note{font-size:12px;color:#6c7d6f;margin-top:8px}
-
-.top-controls{
-  display:flex;
-  gap:8px;
-  margin-top:12px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-.top-controls label{
-  white-space:nowrap;
-  font-size:13px;
-  color:#072012;
-}
-.top-controls select,
-.top-controls input{
-  padding:9px;
-  border-radius:8px;
-  min-width:120px;
-  max-width:100%;
-  border:1px solid #e6e6e6;
-  background:#fff;
-  color:#072012;
-}
-.top-controls .badge-zone{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 12px;
-  border-radius:999px;
-  background:rgba(168,230,161,.10);
-  border:1px solid rgba(168,230,161,.16);
-  color:#dfffe6;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.5px;
-  text-transform:uppercase;
-}
-
-.generator{
-  display:flex;
-  gap:8px;
-  align-items:flex-end;
-  margin:14px 0;
-  padding:12px;
-  border-radius:12px;
-  background:linear-gradient(180deg,#f7fff6,#f0fff1);
-  border:1px solid #e6f7ea;
-  flex-wrap:wrap;
-}
-.generator .col{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  color:#072012;
-}
-.generator .col input[type="number"]{
-  width:92px;
-  max-width:100%;
-  padding:8px;
-  border-radius:8px;
-  border:1px solid rgba(0,0,0,.08);
-}
-.generator .actions{
-  margin-left:auto;
-  display:flex;
-  gap:8px;
-  align-items:center;
-  flex-wrap:wrap;
-}
-
-.room{
-  background:#f7f7f7;
-  padding:0;
-  border-radius:14px;
-  border:1px solid #ececec;
-  margin-top:10px;
-  color:#072012;
-  overflow:hidden;
-}
-.room summary{
-  list-style:none;
-  cursor:pointer;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:12px;
-  background:#fff;
-  user-select:none;
-}
-.room summary::-webkit-details-marker{display:none}
-.room-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
-.room-summary-title{
-  font-weight:800;
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  align-items:center;
-}
-.room-summary-title span{
   font-weight:600;
-  color:#6c7d6f;
 }
-.room-body{
-  padding:12px;
-  border-top:1px solid #ececec;
-}
-.room-actions{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  margin-top:8px;
-  flex-wrap:wrap;
-}
-.badge-zone{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 12px;
-  border-radius:999px;
-  background:rgba(168,230,161,.10);
-  border:1px solid rgba(168,230,161,.16);
-  color:#dfffe6;
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.5px;
-  text-transform:uppercase;
-}
-.consumer-list{
-  margin-top:10px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
+
+.consumer-list{margin-top:10px;display:flex;flex-direction:column;gap:8px}
 .consumer{
   display:flex;
-  flex-direction:column;
-  gap:10px;
-  padding:10px;
-  background:#fff;
-  border-radius:10px;
-  border:1px solid #eee;
-  overflow:hidden;
-}
-.consumer .mini{
-  font-size:12px;
-  color:#666;
-  margin-top:4px;
-}
-.consumer-fields{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:8px;
-  align-items:end;
-}
-.consumer-fields label{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  font-size:12px;
-  font-weight:700;
-  color:#072012;
-  min-width:0;
-}
-.consumer-fields input{
-  width:100%;
-  min-width:0;
+  justify-content:space-between;
+  align-items:center;
   padding:8px;
   border-radius:8px;
-  border:1px solid #ddd;
+  background:#fff;
+  border:1px solid #eee;
+  color:#072012;
 }
-.consumer-actions{
-  display:flex;
-  align-items:end;
-  justify-content:flex-end;
-}
-.note{
-  font-size:12px;
-  color:#6b7f6f;
-  margin-top:10px;
-}
+.consumer .meta{font-size:13px;color:#6b7f6b}
 
-.results{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:12px;
-}
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+@media (max-width:1000px){ .results{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:700px){ .results{grid-template-columns:1fr} }
+
 .result-card{
   background:linear-gradient(180deg,#fbfffb,#f3fff2);
   padding:14px;
-  border-radius:14px;
+  border-radius:12px;
   min-width:170px;
-  border:1px solid rgba(3,50,26,.06);
-  box-shadow:0 14px 36px rgba(2,22,12,.12);
-  overflow:hidden;
+  border:1px solid rgba(3,50,26,0.06);
+  box-shadow:0 14px 36px rgba(2,22,12,0.12);
   color:#072012;
 }
 .result-card .label{
-  font-size:12px;
-  color:#6c7d6f;
+  font-size:13px;
+  color:#6b7f6b;
   text-transform:uppercase;
-  letter-spacing:.6px;
+  letter-spacing:0.6px;
 }
 .result-card .value{
   font-weight:900;
@@ -886,29 +429,14 @@ nav a.active{
   margin-top:6px;
   display:block;
 }
-.result-card .small{font-size:13px;color:#6c7d6f;margin-top:6px}
-
-#r_power .value,
-#r_inv .value,
-#r_batt .value,
-#r_autonomy .value,
-#r_life .value{
+.result-card .small{font-size:13px;color:#6b7f6b;margin-top:6px}
+#r_panels .value, #r_batt .value{
   color:#04462e;
   font-size:24px;
-  background:linear-gradient(90deg,rgba(124,179,66,.08),rgba(181,134,0,.04));
+  background:linear-gradient(90deg, rgba(124,179,66,0.08), rgba(181,134,0,0.04));
   padding:6px 10px;
   border-radius:999px;
-  box-shadow:0 8px 20px rgba(124,179,66,.06);
-}
-#r_safety .value{
-  font-size:14px;
-  line-height:1.5;
-  color:#04462e;
-  background:linear-gradient(90deg,rgba(124,179,66,.08),rgba(181,134,0,.04));
-  padding:10px 12px;
-  border-radius:14px;
-  white-space:pre-line;
-  text-align:left;
+  box-shadow:0 8px 20px rgba(124,179,66,0.06);
 }
 
 .summary{
@@ -928,30 +456,17 @@ nav a.active{
   box-shadow:var(--shadow);
 }
 .big h2{margin:0;color:#04462e}
-.big .kpi{display:flex;gap:12px;align-items:stretch;margin-top:12px;flex-wrap:wrap}
+.big .kpi{display:flex;gap:12px;align-items:center;margin-top:12px}
 .kpi .num{font-weight:900;font-size:22px;color:#0b4d26}
-.kpi .muted{font-size:13px;color:#6b7f6f}
-.muted{color:#6b7f6f}
-.summary-list{
-  margin:10px 0 0;
-  padding:0;
-  list-style:none;
-  display:grid;
-  gap:8px;
-}
-.summary-list li{
-  padding:10px 12px;
-  border-radius:12px;
-  background:#f7fff7;
-  border:1px solid #e7f1e4;
-  color:#2b3c2d;
-  line-height:1.45;
-}
+.kpi .muted{font-size:13px;color:#6b7f6b}
 
-input:focus,select:focus,button:focus,textarea:focus{
-  outline:none;
-  box-shadow:0 0 0 4px rgba(124,179,66,.12);
-}
+#mapCard{padding:0;overflow:hidden}
+#map{height:260px;border-radius:8px}
+
+.pdf-btn{background:#d9534f;color:#fff;padding:8px 12px;border-radius:8px;border:0;font-weight:700;cursor:pointer}
+.note{font-size:12px;color:#6b7f6b;margin-top:10px}
+.highlight{border:2px solid var(--accent);box-shadow:0 8px 30px rgba(124,179,66,0.12);}
+input:focus,select:focus,button:focus{outline:none;box-shadow:0 0 0 4px rgba(124,179,66,0.12)}
 
 footer{
   background:var(--green-dark);
@@ -960,12 +475,12 @@ footer{
   position:relative;
   margin-top:40px;
   text-align:center;
-  box-shadow:0 -6px 12px rgba(0,0,0,.35);
+  box-shadow:0 -6px 12px rgba(0,0,0,0.35);
 }
 footer::before{
   content:"";
   position:absolute;
-  left:0;right:0;top:0;
+  left:0; right:0; top:0;
   height:2px;
   background:var(--gold-base);
 }
@@ -975,107 +490,48 @@ footer::before{
   font-size:18px;
   font-weight:800;
   color:#04462e;
-  -webkit-text-stroke:.7px var(--gold);
-  text-shadow:0 3px 6px rgba(0,0,0,.6);
+  -webkit-text-stroke:0.7px var(--gold);
+  text-shadow:0 3px 6px rgba(0,0,0,0.6);
   padding:4px 8px;
   border-radius:6px;
   width:max-content;
-  background:linear-gradient(90deg,rgba(212,175,55,.02),rgba(255,255,255,0) 40%);
+  background:linear-gradient(90deg, rgba(212,175,55,0.02), rgba(255,255,255,0) 40%);
 }
-.footer-contact{
-  margin-top:6px;
-  color:#e6f7ea;
-  line-height:1.6;
-  text-align:center;
-}
-
-.pdf-zone{
-  margin-top:18px;
-  display:flex;
-  justify-content:center;
-}
-
-.solar-row{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  gap:10px;
-  align-items:center;
-  margin-bottom:6px;
-}
-.solar-row label{
-  min-width:0;
-  overflow-wrap:anywhere;
-}
-.metric{
-  font-weight:900;
-  font-size:18px;
-  color:#04462e;
-  margin-top:0;
-  word-break:break-word;
-  text-align:right;
-  justify-self:end;
-}
-.metric.note{
-  font-size:13px;
-  color:#6c7d6f;
-  font-weight:600;
-  text-align:left;
-  justify-self:start;
-}
+.footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6;text-align:center}
 
 @media (max-width:1100px){
-  .results{grid-template-columns:repeat(2,1fr)}
-  .consumer-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dropdown > a .sub-badge{display:none}
 }
-
+@media (max-width:1100px){
+  .dropdown-content .active-item{
+    margin:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+    color:inherit;
+    padding:10px 16px;
+  }
+}
 @media (max-width:820px){
   nav{display:none}
-  .burger{display:flex !important}
+  .burger{display:flex}
+  .topbar{padding:0 4vw;font-size:12px}
+  header{padding:0 4vw}
+  .logo-text{gap:8px;align-items:center}
+  .logo-text img{height:52px}
+  .company-name{font-size:36px;letter-spacing:.15px}
   .hero{
     height:auto;
     min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
   }
   .hero-content{max-width:88vw;padding:24px 14px}
-  .hero h1{font-size:clamp(24px,5.2vw,34px)}
-  .hero p{font-size:16px}
-  .section{padding:52px 0}
-  .card-soft{padding:14px}
-  .generator .actions{margin-left:0}
-  .room-actions{flex-direction:column;align-items:stretch}
+  .hero-content h1{font-size:clamp(24px, 5.2vw, 34px)}
+  .hero-content p{font-size:16px}
+  .section{padding:52px 4vw}
+  .grid,.results{grid-template-columns:1fr}
   .consumer{font-size:14px}
-  .results{grid-template-columns:1fr}
-  .result-card{min-width:0}
-  .mobile-panel{padding-bottom:22px}
-  .top-controls > *{
-    width:100%;
-  }
-  .top-controls label{
-    width:100%;
-  }
-  .top-controls select,
-  .top-controls input,
-  .top-controls button,
-  .top-controls .badge-zone{
-    width:100%;
-    min-width:0;
-  }
-  .solar-row{
-    grid-template-columns:1fr;
-  }
-  .metric{
-    justify-self:start;
-    text-align:left;
-    font-size:17px;
-  }
+  .result-card{min-width:220px}
 }
-
-@media (max-width:768px){
-  .topbar .right{gap:10px;font-size:13px}
-  .hero-content h1{font-size:28px}
-  .hero-content p{font-size:14px}
-  .consumer-fields{grid-template-columns:1fr}
-}
-
 @media (max-width:480px){
   :root{
     --topbar-h:40px;
@@ -1091,17 +547,13 @@ footer::before{
     font-size:30px;
     letter-spacing:.08px;
   }
-  .company-tagline{
-    font-size:10px;
-    letter-spacing:2px;
-  }
   .burger{width:48px;height:48px;}
   .hero{
     min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
   }
   .hero-bg{
     object-position:center 28%;
-    transform:scale(1.08) translateY(0);
+    transform:scale(1.18) translateY(0);
   }
   .hero-content{
     max-width:92vw;
@@ -1111,1652 +563,1755 @@ footer::before{
     font-size:28px;
     font-weight:700;
     margin:0 0 8px;
-    white-space:normal;
+    white-space:nowrap;
+    overflow-x:hidden;
+    text-overflow:ellipsis;
   }
   .hero-content p{
     font-size:16px;
     line-height:1.5;
   }
-  .btn-primary{
-    padding:12px 28px;
-    font-size:15px;
+  .btn-primary{padding:12px 28px;font-size:15px}
+  .mobile-panel{padding:16px 4.5vw 20px}
+  .mobile-brand{padding:22px 4px 10px}
+  .mobile-brand .company-name{font-size:28px}
+  .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}
+  .mobile-nav a.mobile-link{font-size:20px;min-height:62px;padding:16px 16px}
+  .mobile-contact .phone-line{font-size:15px}
+  .socials{gap:14px}
+  .socials a{width:40px;height:40px;font-size:18px}
+  .top-controls{
+    gap:10px;
   }
-  .mobile-panel{padding:16px 4.5vw 20px;}
-  .mobile-brand{padding:22px 4px 10px;}
-  .mobile-brand .company-name{font-size:28px;}
-  .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px;}
-  .mobile-nav a.mobile-link{
-    font-size:20px;
-    min-height:62px;
-    padding:16px 16px;
+  .top-controls > *{width:100%}
+  .top-controls label{width:100%}
+  .top-controls select,
+  .top-controls input{
+    width:100%;
+    min-width:0;
   }
-  .mobile-contact .phone-line{font-size:15px;}
-  .socials{gap:14px;}
-  .socials a{width:40px;height:40px;font-size:18px;}
-
-  .card-soft{padding:12px;}
-  .calc{padding:12px;}
-  .calc h3{font-size:16px}
-  .solar-row label{font-size:13px}
-  .metric{font-size:16px}
-  .result-card .value{font-size:18px}
-  #r_power .value,
-  #r_inv .value,
-  #r_batt .value,
-  #r_autonomy .value,
-  #r_life .value{
-    font-size:20px;
+  .generator{
+    gap:10px;
   }
-  .summary .big{padding:14px}
+  .generator .col,
+  .generator .actions{
+    width:100%;
+  }
+  .generator .col input[type="number"]{
+    width:100%;
+  }
+  .generator .actions{
+    margin-left:0;
+    justify-content:flex-start;
+  }
+  .consumer{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .consumer-actions button{
+    width:100%;
+  }
+  .result-card .value{font-size:22px}
+  .section h2{font-size:26px}
 }
 </style>
 </head>
+
 <body>
 
-<div class="topbar" role="banner">
-  <div class="right">
-    <a href="tel:+2250707070707" id="topPhoneLink">
-      <i class="fas fa-phone" aria-hidden="true"></i>&nbsp;<span id="topPhoneText">+225 07 07 07 07 07</span>
-    </a>
-  </div>
-</div>
-
-<header role="navigation" aria-label="Main">
-  <div class="logo-text">
-    <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
-    <div class="brand-stack">
-      <div class="company-name">GREENBRIDGE</div>
-      <div class="company-tagline">TECHNOLOGIES</div>
-    </div>
-  </div>
-
-  <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
-    <span class="icon"><span></span><span></span><span></span></span>
-  </button>
-
-  <nav aria-label="Menu principal">
-    <a href="Code1.html">Accueil</a>
-
-    <div class="dropdown" aria-haspopup="true" aria-expanded="false" id="studyDropdown">
-      <a href="etude_dimensionnement_2.html" id="studyLink" data-current="🌾 Zone Agricole">
-        Étude
-        <span class="sub-badge">🌾 Zone Agricole</span>
+  <div class="topbar" role="banner">
+    <div class="left">
+      <a href="#" aria-label="Localisation">
+        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>&nbsp; Côte d’Ivoire / Sénégal
       </a>
-      <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="studyDropdownContent">
-        <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
-        <li><a href="zone_agricole.html" role="menuitem" class="active-item" aria-current="page">🌾 Zone Agricole</a></li>
-      </ul>
     </div>
-
-    <div class="dropdown" aria-haspopup="true" aria-expanded="false" id="productsDropdown">
-      <a href="produits.html" id="productsLink">Nos Produits</a>
-      <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="productsDropdownContent">
-        <li><a href="panneaux.html" role="menuitem">⚡ Panneaux solaires</a></li>
-        <li><a href="batteries.html" role="menuitem">🔋 Batteries & stockage</a></li>
-        <li><a href="onduleurs.html" role="menuitem">🔌 Onduleurs</a></li>
-        <li><a href="groupes.html" role="menuitem">⚙️ Groupes électrogènes</a></li>
-      </ul>
+    <div class="right">
+      <a href="tel:+22507070707">
+        <i class="fas fa-phone" aria-hidden="true"></i>&nbsp;+225 07 07 07 07 07
+      </a>
     </div>
+  </div>
 
-    <a href="Projets.html">Projets futurs</a>
-    <a href="maintenance.html">Maintenance</a>
-  </nav>
-</header>
-
-<div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
-
-<div class="mobile-nav" id="mobileNav" aria-hidden="true">
-  <div class="mobile-panel">
-    <button class="mobile-close" id="mobileCloseBtn" aria-label="Fermer le menu">×</button>
-
-    <div class="mobile-brand">
+  <header role="navigation" aria-label="Main">
+    <div class="logo-text">
+      <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="logo"></a>
       <div class="company-name">GREENBRIDGE</div>
-      <div class="company-tagline">TECHNOLOGIES</div>
     </div>
 
-    <div class="menu-links">
-      <a href="Code1.html" class="mobile-link">Accueil</a>
+    <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
+      <span class="icon"><span></span><span></span><span></span></span>
+    </button>
+
+    <nav aria-label="Menu principal">
+      <a href="GreenBrigde technologies.html">Accueil</a>
+
+      <div class="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a href="energie.html" id="energieLink" data-current="🌾 Zone agricole">
+          Étude
+          <span class="sub-badge">🌾 Zone agricole</span>
+        </a>
+        <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="dropdownContent">
+          <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
+          <li><a href="zone_agricole.html" role="menuitem" class="active-item" aria-current="page">🌾 Zone agricole</a></li>
+        </ul>
+      </div>
+
+      <a href="produits.html">Nos Produits</a>
+      <a href="Projets.html">Projets futurs</a>
+      <a href="maintenance.html">Maintenance</a>
+    </nav>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <div class="inner">
+      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
 
       <div>
-        <a href="etude_dimensionnement_2.html" id="mobileStudyToggle" class="mobile-link active" data-current="🌾 Zone Agricole" aria-expanded="true">
+        <a href="energie.html" id="mobileEnergieToggle" class="mobile-link active" data-current="🌾 Zone agricole" aria-expanded="true">
           Étude
           <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
         </a>
-        <div class="submenu" id="mobileStudySub" style="display:flex;">
+        <div class="submenu" id="mobileEnergieSub" style="display:flex;flex-direction:column;">
           <a href="zone_urbaine.html">🏙️ Zone Urbaine</a>
-          <a href="zone_agricole.html" class="active-item" aria-current="page">🌾 Zone Agricole</a>
+          <a href="zone_agricole.html" class="active-item" aria-current="page">🌾 Zone agricole</a>
         </div>
       </div>
 
-      <div>
-        <a href="produits.html" id="mobileProductsToggle" class="mobile-link" aria-expanded="false">
-          Nos Produits
-          <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-        </a>
-        <div class="submenu" id="mobileProductsSub">
-          <a href="panneaux.html">⚡ Panneaux solaires</a>
-          <a href="batteries.html">🔋 Batteries & stockage</a>
-          <a href="onduleurs.html">🔌 Onduleurs</a>
-          <a href="groupes.html">⚙️ Groupes électrogènes</a>
-        </div>
-      </div>
-
+      <a href="produits.html" class="mobile-link">Nos Produits</a>
       <a href="Projets.html" class="mobile-link">Projets futurs</a>
       <a href="maintenance.html" class="mobile-link">Maintenance</a>
-    </div>
 
-    <div class="mobile-contact" aria-hidden="false">
-      <strong>CONTACT</strong>
-      <div class="phone-line">
-        <i class="fas fa-phone" aria-hidden="true"></i>
-        <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
+      <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.03);padding-top:10px;display:flex;gap:12px;align-items:center;">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
       </div>
     </div>
+  </div>
 
-    <div class="socials">
-      <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-      <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-      <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+  <div class="electric-band active" id="energyBand" aria-hidden="true">
+    <div class="container" aria-hidden="true">
+      <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
+        <path class="zap" d="M10,22 C260,6 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.14"/>
+        <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.10"/>
+        <path class="bright" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
+      </svg>
+
+      <div class="orbs" id="energyOrbs">
+        <div class="orb" id="eOrbA"></div>
+        <div class="orb" id="eOrbB"></div>
+        <div class="orb" id="eOrbC"></div>
+      </div>
+
+      <div class="glowline" id="eGlowline"></div>
     </div>
   </div>
-</div>
 
-<div class="electric-band" id="energyBand" aria-hidden="true">
-  <div class="container" aria-hidden="true">
-    <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
-      <path class="zap" d="M10,22 C260,6 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.14"/>
-      <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.10"/>
-      <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
-    </svg>
+  <div class="page-center" role="main">
 
-    <div class="orbs" id="energyOrbs">
-      <div class="orb" id="eOrbA"></div>
-      <div class="orb" id="eOrbB"></div>
-      <div class="orb" id="eOrbC"></div>
-    </div>
-
-    <div class="glowline" id="eGlowline"></div>
-  </div>
-</div>
-
-<section class="hero" id="top" aria-label="Hero">
-  <img class="hero-bg" src="milieu_agricole.png" alt="Illustration zone agricole">
-  <div class="hero-overlay"></div>
-
-  <div class="hero-content">
-    <h1>Étude <span>zone agricole</span></h1>
-    <p>
-      Une étude simple à utiliser, mais structurée comme un vrai pré-dimensionnement :
-      charges, panneaux, batteries, autonomie, onduleur standard et sécurité.
-    </p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('study').scrollIntoView({behavior:'smooth'})">Commencer étude</button>
-    </div>
-  </div>
-</section>
-
-<div class="page-center" role="main">
-  <section id="study" class="section" aria-label="Étude de dimensionnement">
-    <h2>Étude de dimensionnement</h2>
-    <p class="section-intro">
-      La zone agricole permet d’intégrer automatiquement l’ensoleillement interne.
-      Le client garde une utilisation simple, avec des résultats utiles pour un premier dimensionnement.
-    </p>
-
-    <div class="card-soft">
-      <div class="calc" id="calcCard">
-        <h3><span class="badge">Calculateur</span> Pré-dimensionnement simple et sérieux</h3>
-        <div class="small-note">
-          Les pièces ne sont générées qu’au clic sur <strong>Générer pièces</strong>.
-        </div>
-
-        <div class="top-controls">
-          <label for="city">Ville :</label>
-          <select id="city" aria-label="Ville">
-            <option value="abidjan">Abidjan</option>
-            <option value="yamoussoukro">Yamoussoukro</option>
-            <option value="dakar">Dakar</option>
+    <div class="card" id="mapCard">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;gap:12px;flex-wrap:wrap">
+        <div style="font-weight:800;color:#072012">Carte & zone</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <label style="font-size:13px;color:#072012;margin-right:6px">Pays / Zone :</label>
+          <select id="zoneSelect" style="padding:6px;border-radius:6px;border:1px solid #e6e6e6">
+            <option value="ci">Côte d'Ivoire</option>
+            <option value="sn">Sénégal</option>
           </select>
 
-          <label for="batteryType">Batterie :</label>
-          <select id="batteryType" aria-label="Type de batterie">
-            <option value="lithium_ion">Lithium ion</option>
+          <label style="font-size:13px;color:#072012;margin-left:8px;margin-right:6px">Ville / Zone :</label>
+          <select id="citySelect" style="padding:6px;border-radius:6px;border:1px solid #e6e6e6"></select>
+        </div>
+      </div>
+      <div id="map"></div>
+    </div>
+
+    <div class="card">
+      <h1>Dimensionnement agricole — irrigation, élevage et autonomie solaire</h1>
+      <div class="muted">Pays → culture / élevage → surface ; le champ besoin en eau est pré-rempli selon le pays et le type sélectionné.</div>
+    </div>
+
+    <div class="card" aria-label="Entrées">
+      <div class="grid">
+        <div class="field">
+          <label>Pays</label>
+          <select id="country">
+            <option value="ci">Côte d'Ivoire</option>
+            <option value="sn">Sénégal</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Type d'exploitation</label>
+          <select id="typeExploitation">
+            <option value="culture">Culture / Irrigation</option>
+            <option value="elevage">Élevage</option>
+            <option value="mixte">Mixte culture + élevage</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Type de culture</label>
+          <select id="crop">
+            <option value="tomate">Tomate</option>
+            <option value="mais">Maïs</option>
+            <option value="riz">Riz</option>
+            <option value="mangue">Manguier</option>
+            <option value="legume">Légume feuille</option>
+            <option value="palmier">Palmier</option>
+            <option value="custom">Personnalisé (mm/j)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Surface (ha)</label>
+          <input id="areaHa" type="number" min="0" step="0.01" value="0.5">
+        </div>
+
+        <div class="field">
+          <label>Besoin eau (mm/j) — valeur par défaut</label>
+          <input id="needMmPerDay" type="number" step="0.1" value="5.0" aria-describedby="needHelp">
+          <div id="needHelp" class="muted">La valeur change automatiquement selon le pays + type choisi.</div>
+        </div>
+
+        <div class="field">
+          <label>Irrigation : jours / semaine</label>
+          <input id="irrigDays" type="number" min="1" max="7" value="3">
+        </div>
+
+        <div class="field">
+          <label>Heures de pompage (par jour sur jour d'irrigation)</label>
+          <input id="pumpHours" type="number" min="0.1" step="0.1" value="4">
+        </div>
+
+        <div class="field">
+          <label>Hauteur manométrique utile (m)</label>
+          <input id="head" type="number" min="0" step="0.1" value="15">
+        </div>
+
+        <div class="field">
+          <label>Rendement pompe (%)</label>
+          <input id="pumpEff" type="number" min="10" max="90" value="55">
+        </div>
+
+        <div class="field">
+          <label>Heures soleil utiles / jour</label>
+          <input id="sunHours" type="number" min="1" step="0.1" value="5">
+        </div>
+
+        <div class="field">
+          <label>Facteur dérating PV (%)</label>
+          <input id="pvDerate" type="number" min="10" max="100" value="85">
+        </div>
+
+        <div class="field">
+          <label>Puissance panneau utilisé (W)</label>
+          <input id="panelW" type="number" min="50" value="350">
+        </div>
+
+        <div class="field">
+          <label>Type de batterie</label>
+          <select id="batteryType">
+            <option value="lithium">Lithium ion</option>
             <option value="lifepo4">LiFePO4</option>
             <option value="gel">Gel</option>
             <option value="plomb">Plomb</option>
           </select>
-
-          <label for="batteryPackCount">Nb packs :</label>
-          <input id="batteryPackCount" type="number" min="0" step="1" value="4" style="width:92px">
-
-          <label for="battPackKwh">Capacité pack (kWh) :</label>
-          <input id="battPackKwh" type="number" min="0.1" step="0.01" value="1.28" style="width:104px">
-
-          <label for="panelW">Panneau (W) :</label>
-          <input id="panelW" type="number" min="50" value="350" style="width:90px">
-
-          <span class="badge-zone" id="zoneBadge"><i class="fas fa-leaf"></i> Zone agricole</span>
-
-          <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
         </div>
 
-        <div class="generator" role="group" aria-label="Générateur rapide de pièces">
-          <div class="col">
-            <label>Chambres</label>
-            <input type="number" id="genBedrooms" min="0" value="1">
-          </div>
-          <div class="col">
-            <label>Salons</label>
-            <input type="number" id="genLiving" min="0" value="1">
-          </div>
-          <div class="col">
-            <label>Cuisines</label>
-            <input type="number" id="genKitchens" min="0" value="1">
-          </div>
-          <div class="col">
-            <label>Salles d'eau</label>
-            <input type="number" id="genBaths" min="0" value="1">
-          </div>
-          <div class="col">
-            <label>Bureaux</label>
-            <input type="number" id="genOffices" min="0" value="0">
-          </div>
-          <div class="col">
-            <label>Toilettes</label>
-            <input type="number" id="genToilets" min="0" value="0">
-          </div>
-          <div class="actions">
-            <label style="font-size:13px;color:#072012;display:flex;align-items:center;gap:6px">
-              <input type="checkbox" id="genAdd"> Ajouter aux pièces existantes
-            </label>
-            <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
-          </div>
+        <div class="field">
+          <label>Capacité utile d'une batterie (kWh)</label>
+          <input id="packKwh" type="number" min="0.1" step="0.01" value="1.28">
         </div>
 
-        <div class="note">Les pièces et leurs charges apparaissent uniquement après génération. Chaque bloc peut être développé ou replié.</div>
-
-        <div id="roomsList" class="room-list"></div>
-
-        <div style="margin-top:14px" class="solar-panel">
-          <h4 style="margin:0 0 8px 0;color:#04462e">Paramètres du système</h4>
-
-          <div class="solar-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;">
-            <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
-              <div style="font-weight:700;margin-bottom:8px">Panneaux</div>
-              <div class="solar-row">
-                <label>Puissance d'un panneau (W)</label>
-                <input id="panelWInput" type="number" value="350" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
-              </div>
-              <div class="solar-row">
-                <label>Puissance PV conseillée</label>
-                <div id="pvRecommended" class="metric">0 kWc</div>
-              </div>
-              <div class="solar-row">
-                <label>Nb panneaux estimés</label>
-                <div id="panelCountRec" class="metric">0</div>
-              </div>
-            </div>
-
-            <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
-              <div style="font-weight:700;margin-bottom:8px">Batteries</div>
-              <div class="solar-row">
-                <label>Capacité utile d'un pack (kWh)</label>
-                <input id="battPackKwhInput" type="number" step="0.01" value="1.28" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
-              </div>
-              <div class="solar-row">
-                <label>Nombre de packs batterie</label>
-                <input id="batteryPackCountInput" type="number" min="0" step="1" value="4" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
-              </div>
-              <div class="solar-row">
-                <label>Capacité batterie utile totale</label>
-                <div id="batteryRec" class="metric">0 kWh</div>
-              </div>
-              <div class="solar-row">
-                <label>Autonomie estimée</label>
-                <div id="autonomyRec" class="metric">0 jour</div>
-              </div>
-              <div class="solar-row">
-                <label>Durée de vie indicative</label>
-                <div id="batteryLifeRec" class="metric">—</div>
-              </div>
-            </div>
-          </div>
+        <div class="field">
+          <label>Nombre de batteries souhaité</label>
+          <input id="batteryCount" type="number" min="1" step="1" value="2">
         </div>
 
-        <div style="margin-top:14px" class="solar-panel">
-          <h4 style="margin:0 0 8px 0;color:#04462e">Synthèse de puissance</h4>
-
-          <div class="solar-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;">
-            <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
-              <div style="font-weight:700;margin-bottom:8px">Puissances</div>
-              <div class="solar-row">
-                <label>Puissance installée</label>
-                <div id="powerInstalled" class="metric">0 W</div>
-              </div>
-              <div class="solar-row">
-                <label>Onduleur standard conseillé</label>
-                <div id="inverterRec" class="metric">0 W</div>
-              </div>
-              <div class="solar-row">
-                <label>Type batterie retenu</label>
-                <div id="batteryTypeOut" class="metric">—</div>
-              </div>
-            </div>
-
-            <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
-              <div style="font-weight:700;margin-bottom:8px">Énergie</div>
-              <div class="solar-row">
-                <label>Consommation / jour</label>
-                <div id="consDay" class="metric">0 kWh</div>
-              </div>
-              <div class="solar-row">
-                <label>Consommation / mois</label>
-                <div id="consMonth" class="metric">0 kWh</div>
-              </div>
-              <div class="solar-row">
-                <label>Charges actives</label>
-                <div id="loadsCount" class="metric">0</div>
-              </div>
-              <div class="solar-row">
-                <label>Couverture indicative</label>
-                <div id="coverageNote" class="metric">En attente de génération</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="subtle-box" style="margin-top:12px;background:#fbfffb;border:1px solid #e9f2df;padding:10px;border-radius:10px;overflow:hidden;">
-            <div style="font-size:12px;color:#6c7d6f">Note</div>
-            <div class="metric note" id="summaryNote">Clique sur « Générer pièces » pour démarrer l’étude.</div>
-          </div>
-        </div>
-
-        <div class="results" aria-live="polite">
-          <div class="result-card" id="r_power">
-            <div class="label">Puissance installée</div>
-            <div id="powerInstalledCard" class="value">0 W</div>
-            <div class="small">Somme nominale des équipements</div>
-          </div>
-
-          <div class="result-card" id="r_inv">
-            <div class="label">Onduleur conseillé</div>
-            <div id="inverterRecCard" class="value">0 W</div>
-            <div class="small">Puissance standard supérieure</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Consommation (kWh / jour)</div>
-            <div id="consDayCard" class="value">0 kWh</div>
-            <div class="small">Valeur calculée à partir des charges</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Consommation (kWh / mois)</div>
-            <div id="consMonthCard" class="value">0 kWh</div>
-            <div class="small">30 jours de référence</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Puissance PV</div>
-            <div id="pvRecCard" class="value">0 kWc</div>
-            <div class="small">Base de dimensionnement solaire</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Nb panneaux</div>
-            <div id="panelCountCard" class="value">0</div>
-            <div class="small">Arrondi au panneau entier</div>
-          </div>
-
-          <div class="result-card" id="r_batt">
-            <div class="label">Batterie utile totale</div>
-            <div id="batteryRecCard" class="value">0 kWh</div>
-            <div class="small">Selon le nombre de packs saisis</div>
-          </div>
-
-          <div class="result-card" id="r_autonomy">
-            <div class="label">Autonomie estimée</div>
-            <div id="autonomyCard" class="value">0 jour</div>
-            <div class="small">Liée au nombre de packs batterie</div>
-          </div>
-
-          <div class="result-card" id="r_life">
-            <div class="label">Durée de vie batterie</div>
-            <div id="batteryLifeCard" class="value">—</div>
-            <div class="small">Estimation selon le type choisi</div>
-          </div>
-
-          <div class="result-card" id="r_safety">
-            <div class="label">Points de sécurité</div>
-            <div id="safetyCard" class="value">—</div>
-            <div class="small">Protections à prévoir pour le projet</div>
-          </div>
-        </div>
-
-        <div class="note">
-          Les résultats les plus importants pour un dimensionnement sont : la consommation, l’onduleur standard, la batterie utile,
-          l’autonomie obtenue, la puissance PV et la durée de vie des batteries.
-        </div>
-
-        <div class="pdf-zone">
-          <button id="exportPdfBtn" class="btn-export" type="button">
-            <i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF
-          </button>
+        <div class="field">
+          <label>Autonomie souhaitée (jours)</label>
+          <input id="autonomyDays" type="number" min="0" step="0.5" value="2">
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <h2>Pourquoi cette étude est utile ?</h2>
+      <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button id="calcBtn" class="btn"><i class="fas fa-calculator" style="margin-right:8px"></i>Calculer</button>
+        <button id="exportPdfBtn" class="pdf-btn" title="Exporter la synthèse en PDF"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter (PDF)</button>
+        <button id="resetBtn" class="btn-ghost">Réinitialiser</button>
+        <div style="margin-left:auto" class="note">Hypothèses visibles — adaptez hauteur, rendement et autonomie selon le projet.</div>
+      </div>
+    </div>
+
+    <div class="card" aria-label="Consommateurs agricoles proposés">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="font-weight:800">Consommateurs agricoles & élevage courants</div>
+        <div class="muted">Clique pour ajouter (valeurs indicatives), ou ajoute manuellement.</div>
+      </div>
+
+      <div class="suggests" id="suggestList" style="margin-top:10px"></div>
+
+      <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;display:flex;gap:6px;flex-wrap:wrap">
+          <input id="consName" type="text" placeholder="Nom consommateur (ex: Pompe annexe)" style="flex:1 1 220px;padding:8px;border-radius:6px;border:1px solid #e6e6e6">
+          <input id="consPower" type="number" placeholder="Puissance W" style="width:150px;max-width:100%;padding:8px;border-radius:6px;border:1px solid #e6e6e6">
+          <input id="consHours" type="number" placeholder="h/j" style="width:110px;max-width:100%;padding:8px;border-radius:6px;border:1px solid #e6e6e6">
+        </div>
+        <button id="addManual" class="btn-ghost">Ajouter manuellement</button>
+      </div>
+
+      <div class="consumer-list" id="consumerList"></div>
+    </div>
+
+    <div class="card" aria-label="Résultats détaillés">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="font-weight:800">Résultats & dimensionnement</div>
+        <div class="muted">Valeurs et estimations (incertitude ±15%)</div>
+      </div>
+
+      <div class="results" id="resultsGrid">
+        <div class="result-card" id="r_vol">
+          <div class="label">Volume eau (m³ / jour)</div>
+          <div id="volDay" class="value">0 m³</div>
+          <div class="small">Basé sur surface × mm/j</div>
+        </div>
+
+        <div class="result-card" id="r_flow">
+          <div class="label">Débit pompe requis (m³/h)</div>
+          <div id="flowQ" class="value">0 m³/h</div>
+          <div class="small">Volume hebdomadaire réparti sur jours d'irrigation</div>
+        </div>
+
+        <div class="result-card" id="r_pumpkw">
+          <div class="label">Puissance pompe (kW)</div>
+          <div id="pumpKw" class="value">0 kW</div>
+          <div class="small">Puissance électrique d'entrée (rendement inclus)</div>
+        </div>
+
+        <div class="result-card" id="r_pumpkwh">
+          <div class="label">Énergie pompe (kWh / jour)</div>
+          <div id="pumpKwh" class="value">0 kWh/j</div>
+          <div class="small">Moyenne journalière sur la semaine</div>
+        </div>
+
+        <div class="result-card" id="r_others">
+          <div class="label">Autres consommateurs (kWh / jour)</div>
+          <div id="othersKwh" class="value">0 kWh/j</div>
+          <div class="small">Somme des équipements ajoutés</div>
+        </div>
+
+        <div class="result-card" id="r_totalkwh">
+          <div class="label">Consommation totale (kWh / jour)</div>
+          <div id="totalKwhDay" class="value">0 kWh/j</div>
+          <div class="small">Pompe + autres, avant pertes invers.</div>
+        </div>
+
+        <div class="result-card" id="r_pvkw">
+          <div class="label">PV requis (kWc)</div>
+          <div id="pvKw" class="value">0 kWc</div>
+          <div class="small">Dimensionnement brut (avant redondances)</div>
+        </div>
+
+        <div class="result-card" id="r_panels">
+          <div class="label">Nb panneaux (~W)</div>
+          <div id="panelsCount" class="value">0</div>
+          <div class="small">Arrondi au panneau entier</div>
+        </div>
+
+        <div class="result-card" id="r_res">
+          <div class="label">Réservoir recommandé (m³)</div>
+          <div id="reservoir" class="value">0 m³</div>
+          <div class="small">Pour <span id="autDaysLabel">2</span> jours d'autonomie</div>
+        </div>
+
+        <div class="result-card" id="r_batt">
+          <div class="label">Batterie estimée (kWh utile)</div>
+          <div id="batteryKwh" class="value">0 kWh</div>
+          <div class="small">Capacité utile requise pour l'autonomie</div>
+        </div>
+
+        <div class="result-card" id="r_inv">
+          <div class="label">Onduleur conseillé</div>
+          <div id="inverterRec" class="value">0 W</div>
+          <div class="small">Puissance standard recommandée</div>
+        </div>
+
+        <div class="result-card" id="r_battStd">
+          <div class="label">Batterie standard conseillée</div>
+          <div id="batteryStd" class="value">0 kWh</div>
+          <div class="small">Basée sur le type de batterie choisi</div>
+        </div>
+      </div>
+
+      <div class="note">Conseil : privilégie PV-direct + réservoir ; batteries pour nuit / nuages et sécurité de service.</div>
+    </div>
+
     <div class="summary">
-      <div class="big">
+      <div class="big" id="summaryLeft">
         <h2>Synthèse principale</h2>
 
         <div class="kpi" style="margin-top:12px">
-          <div style="flex:1;min-width:180px">
+          <div style="flex:1">
             <div class="muted">Consommation (kWh / mois)</div>
-            <div id="consMonthKpi" class="num">0 kWh</div>
+            <div id="consMonth" class="num">0 kWh</div>
             <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
           </div>
 
-          <div style="flex:1;min-width:180px">
-            <div class="muted">Puissance PV (kWc)</div>
+          <div style="flex:1">
+            <div class="muted">Montant indicatif (mensuel)</div>
+            <div id="montantMens" class="num">0 FCFA</div>
+            <div id="montantMensRange" class="muted">plage: 0 - 0 FCFA</div>
+          </div>
+
+          <div style="flex:1">
+            <div class="muted">PV requis (kWc)</div>
             <div id="pvReqKwc" class="num">0 kWc</div>
             <div id="pvReqRange" class="muted">incertitude ±15%</div>
           </div>
-
-          <div style="flex:1;min-width:180px">
-            <div class="muted">Onduleur standard</div>
-            <div id="invStdKpi" class="num">0 W</div>
-            <div id="packsNeedKpi" class="muted">packs saisis: 0</div>
-          </div>
         </div>
 
-        <ul class="summary-list">
-          <li><strong>Étude simple :</strong> le client choisit la ville, le type de batterie et le nombre de packs.</li>
-          <li><strong>Étude pro :</strong> les paramètres techniques internes restent masqués pour garder une lecture claire.</li>
-          <li><strong>Zone Afrique :</strong> Abidjan, Yamoussoukro et Dakar sont intégrés avec des hypothèses adaptées.</li>
-        </ul>
+        <div style="margin-top:12px" class="note">
+          <strong>Remarque :</strong> valeurs indicatives — vérification terrain recommandée.
+        </div>
       </div>
 
-      <div class="big" style="max-width:420px">
+      <div class="big" id="summaryRight" style="max-width:420px">
         <h2>Détails importants</h2>
 
         <div style="margin-top:10px">
-          <div style="font-weight:800">Pièces générées</div>
-          <div id="summaryRooms" class="muted">—</div>
+          <div style="font-weight:800">Pompe</div>
+          <div id="summaryPump" class="muted">—</div>
         </div>
 
         <div style="margin-top:8px">
-          <div style="font-weight:800">Autonomie liée</div>
-          <div id="summaryAutonomy" class="muted">—</div>
+          <div style="font-weight:800">Réservoir & autonomie</div>
+          <div id="summaryReservoir" class="muted">—</div>
         </div>
 
         <div style="margin-top:8px">
-          <div style="font-weight:800">Batteries</div>
+          <div style="font-weight:800">Batteries & type</div>
           <div id="summaryBatteries" class="muted">—</div>
         </div>
 
         <div style="margin-top:8px">
-          <div style="font-weight:800">Sécurité</div>
+          <div style="font-weight:800">Sécurité & usage</div>
           <div id="summarySafety" class="muted">—</div>
         </div>
 
         <div style="margin-top:12px" class="note">
-          Pour une étude plus fine, une validation terrain reste nécessaire : câbles, protections DC/AC, chute de tension, structure, mise à la terre et réserve d’exploitation.
+          Export PDF : prévient le client qu'une étude plus fine nécessite un contact terrain.
         </div>
       </div>
     </div>
-  </section>
 
-  <div style="height:32px"></div>
-</div>
-
-<footer>
-  <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
-  <div class="footer-contact" aria-label="Coordonnées">
-    <div>© 2025 GreenBridge. Tous droits réservés.</div>
-    <div>Abidjan, Côte d’Ivoire</div>
-    <div>Tel: +225 07 07 07 07 07</div>
+    <div style="height:32px"></div>
   </div>
-</footer>
 
-<script>
-const CONTACT_NUMBER = {
-  abidjan: { display:'+225 07 07 07 07 07', tel:'+2250707070707' },
-  dakar: { display:'+221 77 00 00 00 00', tel:'+2217700000000' }
-};
+  <footer>
+    <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
+    <div class="footer-contact" aria-label="Coordonnées">
+      <div>© 2025 GreenBridge. Tous droits réservés.</div>
+      <div>Abidjan, Côte d’Ivoire</div>
+      <div>Tel: +225 07 07 07 07 07</div>
+    </div>
+  </footer>
 
-const SUN_HOURS_BY_CITY = {
-  abidjan: 4.5,
-  yamoussoukro: 5.5,
-  dakar: 6.5
-};
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-const BATTERY_TYPES = {
-  lithium_ion: { label:'Lithium ion', dod:0.85, eff:0.93, cycles:1600, lifeLabel:'5 à 7 ans' },
-  lifepo4:     { label:'LiFePO4',     dod:0.90, eff:0.95, cycles:3000, lifeLabel:'7 à 10 ans' },
-  gel:         { label:'Gel',         dod:0.70, eff:0.90, cycles:1000, lifeLabel:'3 à 5 ans' },
-  plomb:       { label:'Plomb',       dod:0.50, eff:0.82, cycles:500,  lifeLabel:'2 à 4 ans' }
-};
+  <script>
+  (function(){
+    document.querySelectorAll('.dropdown').forEach(drop => {
+      let timer;
+      const menu = drop.querySelector('.dropdown-content');
+      const trigger = drop.querySelector('a');
 
-const STD_INVERTERS = [300, 500, 1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000];
+      function open(){ if(menu) menu.style.display = 'block'; drop.setAttribute('aria-expanded','true'); }
+      function close(){ if(menu) menu.style.display = 'none'; drop.setAttribute('aria-expanded','false'); }
 
-const ROOM_TEMPLATES = {
-  "Chambre":[
-    { name:"Éclairage LED", qty:4, powerW:12, hours:5, factor:1 },
-    { name:"Ventilation", qty:1, powerW:45, hours:8, factor:1 },
-    { name:"Prises", qty:2, powerW:100, hours:3, factor:0.6 }
-  ],
-  "Salon":[
-    { name:"Éclairage LED", qty:3, powerW:12, hours:6, factor:1 },
-    { name:"Téléviseur", qty:1, powerW:120, hours:4, factor:1 },
-    { name:"Décodeur", qty:1, powerW:10, hours:24, factor:1 }
-  ],
-  "Cuisine":[
-    { name:"Éclairage LED", qty:2, powerW:12, hours:5, factor:1 },
-    { name:"Réfrigérateur", qty:1, powerW:150, hours:24, factor:0.35 },
-    { name:"Micro-ondes", qty:1, powerW:900, hours:0.2, factor:0.3 }
-  ],
-  "Salle d'eau":[
-    { name:"Éclairage LED", qty:1, powerW:12, hours:4, factor:1 },
-    { name:"Ventilation", qty:1, powerW:50, hours:3, factor:1 }
-  ],
-  "Bureau":[
-    { name:"Éclairage LED", qty:2, powerW:12, hours:8, factor:1 },
-    { name:"Ordinateur", qty:1, powerW:90, hours:6, factor:1 }
-  ],
-  "Toilette":[
-    { name:"Éclairage LED", qty:1, powerW:12, hours:3, factor:1 }
-  ]
-};
+      drop.addEventListener('mouseenter', () => { clearTimeout(timer); if(window.innerWidth > 1100) open(); });
+      drop.addEventListener('mouseleave', () => { timer = setTimeout(()=> close(), 220); });
 
-let rooms = [];
-let roomCounter = 0;
-let lastCalcSnapshot = null;
-
-const burgerBtn = document.getElementById('burgerBtn');
-const mobileNav = document.getElementById('mobileNav');
-const mobileBackdrop = document.getElementById('mobileBackdrop');
-const mobileCloseBtn = document.getElementById('mobileCloseBtn');
-const topPhoneLink = document.getElementById('topPhoneLink');
-const mobilePhoneLink = document.getElementById('mobilePhoneLink');
-
-const cityEl = document.getElementById('city');
-const batteryTypeEl = document.getElementById('batteryType');
-const batteryPackCountEl = document.getElementById('batteryPackCount');
-const battPackKwhEl = document.getElementById('battPackKwh');
-const panelWEl = document.getElementById('panelW');
-
-const roomListEl = document.getElementById('roomsList');
-const genBedrooms = document.getElementById('genBedrooms');
-const genLiving = document.getElementById('genLiving');
-const genKitchens = document.getElementById('genKitchens');
-const genBaths = document.getElementById('genBaths');
-const genOffices = document.getElementById('genOffices');
-const genToilets = document.getElementById('genToilets');
-const genAdd = document.getElementById('genAdd');
-const generateBtn = document.getElementById('generateBtn');
-const resetBtn = document.getElementById('resetBtn');
-const exportPdfBtn = document.getElementById('exportPdfBtn');
-
-const loadsCountEl = document.getElementById('loadsCount');
-const consDayEl = document.getElementById('consDay');
-const consMonthEl = document.getElementById('consMonth');
-const powerInstalledEl = document.getElementById('powerInstalled');
-const inverterRecEl = document.getElementById('inverterRec');
-const pvRecommendedEl = document.getElementById('pvRecommended');
-const panelCountRecEl = document.getElementById('panelCountRec');
-const batteryRecEl = document.getElementById('batteryRec');
-const autonomyRecEl = document.getElementById('autonomyRec');
-const batteryLifeRecEl = document.getElementById('batteryLifeRec');
-const batteryTypeOutEl = document.getElementById('batteryTypeOut');
-const coverageNoteEl = document.getElementById('coverageNote');
-const summaryNoteEl = document.getElementById('summaryNote');
-const safetyCardEl = document.getElementById('safetyCard');
-
-const consDayCard = document.getElementById('consDayCard');
-const consMonthCard = document.getElementById('consMonthCard');
-const powerInstalledCard = document.getElementById('powerInstalledCard');
-const inverterRecCard = document.getElementById('inverterRecCard');
-const pvRecCard = document.getElementById('pvRecCard');
-const panelCountCard = document.getElementById('panelCountCard');
-const batteryRecCard = document.getElementById('batteryRecCard');
-const autonomyCard = document.getElementById('autonomyCard');
-const batteryLifeCard = document.getElementById('batteryLifeCard');
-
-const consMonthKpi = document.getElementById('consMonthKpi');
-const consMonthRange = document.getElementById('consMonthRange');
-const pvReqKwc = document.getElementById('pvReqKwc');
-const pvReqRange = document.getElementById('pvReqRange');
-const invStdKpi = document.getElementById('invStdKpi');
-const packsNeedKpi = document.getElementById('packsNeedKpi');
-const summaryRooms = document.getElementById('summaryRooms');
-const summaryAutonomy = document.getElementById('summaryAutonomy');
-const summaryBatteries = document.getElementById('summaryBatteries');
-const summarySafety = document.getElementById('summarySafety');
-
-function fmt(n, dec = 2){
-  return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
-}
-function getSunHours(city){ return SUN_HOURS_BY_CITY[city] ?? 4.5; }
-function getBatteryProfile(type){ return BATTERY_TYPES[type] || BATTERY_TYPES.lithium_ion; }
-function pickStandardInverter(targetW){
-  const value = Math.max(300, Number(targetW || 0));
-  return STD_INVERTERS.find(v => v >= value) || STD_INVERTERS[STD_INVERTERS.length - 1];
-}
-function cloneLoads(loads){
-  return (loads || []).map(l => ({
-    name:l.name || '',
-    qty:Number(l.qty ?? 1),
-    powerW:Number(l.powerW ?? 0),
-    hours:Number(l.hours ?? 0),
-    factor:Number(l.factor ?? 1)
-  }));
-}
-function uniqueRoomName(base){
-  let name = base;
-  let n = 1;
-  while(rooms.some(r => r.name === name)){
-    n += 1;
-    name = `${base} ${n}`;
-  }
-  return name;
-}
-function createRoom(type, baseName, withTemplate = true){
-  roomCounter += 1;
-  const name = uniqueRoomName(baseName || `${type} ${roomCounter}`);
-  return {
-    id: roomCounter,
-    type,
-    name,
-    loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : []
-  };
-}
-function addRooms(type, baseName, count = 1, withTemplate = true){
-  const c = Math.max(1, Number(count || 1));
-  for(let i=0;i<c;i++){
-    const roomBase = c === 1 ? (baseName || type) : `${baseName || type} ${i+1}`;
-    rooms.push(createRoom(type, roomBase, withTemplate));
-  }
-  renderRooms();
-  recalc();
-}
-function generateInitialRooms(){
-  const addExisting = genAdd.checked;
-  if(!addExisting){
-    rooms = [];
-    roomCounter = 0;
-  }
-  addRooms('Chambre', 'Chambre', Number(genBedrooms.value || 0), true);
-  addRooms('Salon', 'Salon', Number(genLiving.value || 0), true);
-  addRooms('Cuisine', 'Cuisine', Number(genKitchens.value || 0), true);
-  addRooms("Salle d'eau", "Salle d'eau", Number(genBaths.value || 0), true);
-  addRooms('Bureau', 'Bureau', Number(genOffices.value || 0), true);
-  addRooms('Toilette', 'Toilette', Number(genToilets.value || 0), true);
-}
-function addLoad(roomIndex){
-  rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0, factor:1 });
-  renderRooms();
-  recalc();
-}
-function renderRooms(){
-  roomListEl.innerHTML = '';
-  if(rooms.length === 0){
-    roomListEl.innerHTML = '<div class="note" style="margin-top:10px;color:#6c7d6f">Aucune pièce générée pour le moment.</div>';
-    return;
-  }
-
-  rooms.forEach((room, roomIndex) => {
-    const box = document.createElement('details');
-    box.className = 'room';
-    box.id = `room-block-${roomIndex}`;
-
-    const loadsHtml = room.loads.map((load, loadIndex) => `
-      <div class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
-        <div>
-          <strong>${room.type === 'Autre' ? 'Charge' : load.name || 'Charge'}</strong>
-          <div class="mini">Saisissez le nom, la puissance, la durée et le coefficient d’usage</div>
-        </div>
-
-        <div class="consumer-fields">
-          <label>Nom
-            <input class="load-field" data-field="name" type="text" value="${load.name}">
-          </label>
-          <label>Qté
-            <input class="load-field" data-field="qty" type="number" min="0" value="${load.qty}">
-          </label>
-          <label>W
-            <input class="load-field" data-field="powerW" type="number" min="0" value="${load.powerW}">
-          </label>
-          <label>h/j
-            <input class="load-field" data-field="hours" type="number" min="0" step="0.1" value="${load.hours}">
-          </label>
-          <label>Coef
-            <input class="load-field" data-field="factor" type="number" min="0" max="1" step="0.05" value="${load.factor}">
-          </label>
-        </div>
-
-        <div class="consumer-actions">
-          <button class="btn-reset btn-remove-load" type="button">Suppr</button>
-        </div>
-      </div>
-    `).join('');
-
-    box.innerHTML = `
-      <summary>
-        <div class="room-summary-title">
-          ${room.name}
-          <span>(${room.type})</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;color:#6c7d6f;font-size:12px;">
-          <i class="fas fa-chevron-down"></i>
-          <span>Développer / réduire</span>
-        </div>
-      </summary>
-
-      <div class="room-body">
-        <div class="room-head">
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn-link btn-add-load" data-r="${roomIndex}" type="button">+ charge</button>
-            <button class="btn-reset btn-remove-room" data-r="${roomIndex}" type="button">Suppr pièce</button>
-          </div>
-        </div>
-
-        <div class="room-actions" style="margin-top:10px">
-          <div class="badge-zone" style="color:#04462e;background:rgba(124,179,66,.08);border:1px solid rgba(124,179,66,.12)">
-            <i class="fas fa-lightbulb"></i> Charge détaillée
-          </div>
-        </div>
-
-        <div class="consumer-list">
-          ${loadsHtml || '<div style="font-size:13px;color:#666">Aucune charge ajoutée</div>'}
-        </div>
-      </div>
-    `;
-    roomListEl.appendChild(box);
-  });
-}
-function onLoadChange(e){
-  const target = e.target;
-  if(!target.classList.contains('load-field')) return;
-  const consumer = target.closest('.consumer');
-  if(!consumer) return;
-  const roomIndex = Number(consumer.dataset.r);
-  const loadIndex = Number(consumer.dataset.l);
-  const field = target.dataset.field;
-  let value = target.value;
-
-  if(['qty','powerW','hours','factor'].includes(field)){
-    value = Number(value || 0);
-  }
-  rooms[roomIndex].loads[loadIndex][field] = value;
-  recalc();
-}
-function getAllLoads(){
-  const list = [];
-  rooms.forEach((room, roomIndex) => {
-    room.loads.forEach((load, loadIndex) => {
-      list.push({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type });
-    });
-  });
-  return list;
-}
-function getSafetyPoints(){
-  return [
-    '1) Parafoudre DC/AC et protections contre surtension.',
-    '2) Disjoncteurs, fusibles et sectionnement accessibles.',
-    '3) Mise à la terre et câblage dimensionnés correctement.',
-    '4) Ventilation correcte de l’emplacement batteries.',
-    '5) Réserve d’exploitation et marge de sécurité recommandées.'
-  ];
-}
-function compute(){
-  const loads = getAllLoads();
-  let installedPower = 0;
-  let peakPower = 0;
-  let dailyWh = 0;
-
-  loads.forEach(load => {
-    const qty = Math.max(0, Number(load.qty || 0));
-    const powerW = Math.max(0, Number(load.powerW || 0));
-    const hours = Math.max(0, Number(load.hours || 0));
-    const factor = Math.max(0, Math.min(1, Number(load.factor || 0)));
-
-    const totalPower = qty * powerW;
-    installedPower += totalPower;
-    peakPower += totalPower * factor;
-    dailyWh += totalPower * hours * factor;
-  });
-
-  const city = cityEl.value;
-  const sunHours = getSunHours(city);
-  const batteryProfile = getBatteryProfile(batteryTypeEl.value);
-  const panelW = Math.max(1, Number(panelWEl.value || 350));
-  const battPackKwh = Math.max(0.01, Number(battPackKwhEl.value || 1.28));
-  const batteryPackCount = Math.max(0, Number(batteryPackCountEl.value || 0));
-
-  const dailyKwh = dailyWh / 1000;
-  const monthlyKwh = dailyKwh * 30;
-
-  const pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.85) : 0;
-  const panelCountRec = Math.ceil((pvKwRec * 1000) / panelW);
-
-  const inverterNeed = pickStandardInverter(Math.max(peakPower * 1.25, installedPower * 0.8, 300));
-
-  const batteryUsefulTotal = batteryPackCount * battPackKwh * batteryProfile.dod * batteryProfile.eff;
-  const autonomyDays = dailyKwh > 0 ? (batteryUsefulTotal / dailyKwh) : 0;
-
-  const coverageNote = pvKwRec > 0
-    ? `Base PV : ${fmt(pvKwRec,2)} kWc pour ${fmt(dailyKwh,2)} kWh/j`
-    : 'Générez des pièces pour obtenir un dimensionnement';
-
-  const safetyPoints = getSafetyPoints();
-
-  return {
-    loads,
-    installedPower,
-    peakPower,
-    dailyKwh,
-    monthlyKwh,
-    pvKwRec,
-    panelCountRec,
-    inverterNeed,
-    batteryUsefulTotal,
-    autonomyDays,
-    batteryLifeYears: batteryProfile.lifeLabel,
-    batteryCycles: batteryProfile.cycles,
-    coverageNote,
-    batteryPackCount,
-    battPackKwh,
-    batteryProfile,
-    safetyPoints,
-    sunHours
-  };
-}
-function recalc(){
-  const r = compute();
-
-  loadsCountEl.innerText = String(r.loads.length);
-  consDayEl.innerText = `${fmt(r.dailyKwh,2)} kWh`;
-  consMonthEl.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
-  powerInstalledEl.innerText = `${Math.round(r.installedPower)} W`;
-  inverterRecEl.innerText = `${r.inverterNeed} W`;
-  pvRecommendedEl.innerText = `${fmt(r.pvKwRec,2)} kWc`;
-  panelCountRecEl.innerText = `${r.panelCountRec}`;
-  batteryRecEl.innerText = `${fmt(r.batteryUsefulTotal,2)} kWh`;
-  autonomyRecEl.innerText = `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''}`;
-  batteryLifeRecEl.innerText = r.batteryLifeYears;
-  batteryTypeOutEl.innerText = r.batteryProfile.label;
-  coverageNoteEl.innerText = r.coverageNote;
-  safetyCardEl.innerText = r.safetyPoints.join('\n');
-  summarySafety.innerText = r.safetyPoints.join(' ');
-
-  summaryNoteEl.innerText = r.loads.length > 0
-    ? `Dimensionnement calculé à partir de ${r.loads.length} charge(s). Les résultats clés sont la consommation, l’onduleur standard, la batterie utile et l’autonomie.`
-    : 'Clique sur « Générer pièces » pour démarrer l’étude.';
-
-  consDayCard.innerText = `${fmt(r.dailyKwh,2)} kWh`;
-  consMonthCard.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
-  powerInstalledCard.innerText = `${Math.round(r.installedPower)} W`;
-  inverterRecCard.innerText = `${r.inverterNeed} W`;
-  pvRecCard.innerText = `${fmt(r.pvKwRec,2)} kWc`;
-  panelCountCard.innerText = `${r.panelCountRec}`;
-  batteryRecCard.innerText = `${fmt(r.batteryUsefulTotal,2)} kWh`;
-  autonomyCard.innerText = `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''}`;
-  batteryLifeCard.innerText = r.batteryLifeYears;
-
-  const lowMonthly = r.monthlyKwh * 0.85;
-  const highMonthly = r.monthlyKwh * 1.15;
-  consMonthKpi.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
-  consMonthRange.innerText = `plage: ${fmt(lowMonthly,2)} - ${fmt(highMonthly,2)} kWh`;
-  pvReqKwc.innerText = `${fmt(r.pvKwRec,2)} kWc`;
-  pvReqRange.innerText = `incertitude ±15% → ${fmt(r.pvKwRec*0.85,2)} - ${fmt(r.pvKwRec*1.15,2)} kWc`;
-  invStdKpi.innerText = `${r.inverterNeed} W`;
-  packsNeedKpi.innerText = `packs saisis: ${r.batteryPackCount}`;
-
-  summaryRooms.innerText = r.loads.length > 0
-    ? `${rooms.length} pièce(s) générée(s) avec ${r.loads.length} charge(s) détaillée(s).`
-    : 'Aucune pièce générée pour le moment.';
-
-  summaryAutonomy.innerText = r.loads.length > 0
-    ? `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''} d’autonomie avec ${r.batteryPackCount} pack(s) de ${fmt(r.battPackKwh,2)} kWh utile en ${r.batteryProfile.label}.`
-    : '—';
-
-  summaryBatteries.innerText = r.loads.length > 0
-    ? `${r.batteryPackCount} pack(s) saisis, soit ${fmt(r.batteryUsefulTotal,2)} kWh utile totale. Durée de vie indicative : ${r.batteryLifeYears} (${r.batteryCycles} cycles approx.).`
-    : '—';
-
-  document.getElementById('r_power').classList.toggle('highlight', r.installedPower > 0);
-  document.getElementById('r_inv').classList.toggle('highlight', r.inverterNeed > 0);
-  document.getElementById('r_batt').classList.toggle('highlight', r.batteryUsefulTotal > 0);
-  document.getElementById('r_autonomy').classList.toggle('highlight', r.autonomyDays > 0);
-  document.getElementById('r_life').classList.toggle('highlight', true);
-  document.getElementById('r_safety').classList.toggle('highlight', true);
-
-  lastCalcSnapshot = {
-    timestamp:new Date().toLocaleString('fr-FR'),
-    city:cityEl.value,
-    cityLabel:cityEl.options[cityEl.selectedIndex]?.text || '',
-    installedPower:r.installedPower,
-    peakPower:r.peakPower,
-    dailyKwh:r.dailyKwh,
-    monthlyKwh:r.monthlyKwh,
-    pvKwRec:r.pvKwRec,
-    panelCountRec:r.panelCountRec,
-    inverterNeed:r.inverterNeed,
-    batteryUsefulTotal:r.batteryUsefulTotal,
-    autonomyDays:r.autonomyDays,
-    batteryPackCount:r.batteryPackCount,
-    battPackKwh:r.battPackKwh,
-    batteryType:r.batteryProfile.label,
-    batteryLifeYears:r.batteryLifeYears,
-    batteryCycles:r.batteryCycles,
-    loads:r.loads,
-    roomsCount:rooms.length,
-    safetyPoints:r.safetyPoints,
-    sunHours:r.sunHours
-  };
-}
-
-function populateCities(){
-  cityEl.innerHTML = '';
-  cityEl.appendChild(new Option('Abidjan', 'abidjan'));
-  cityEl.appendChild(new Option('Yamoussoukro', 'yamoussoukro'));
-  cityEl.appendChild(new Option('Dakar', 'dakar'));
-}
-
-function openMenu(){
-  if(!mobileNav || !burgerBtn) return;
-  mobileNav.classList.add('open');
-  if(mobileBackdrop) mobileBackdrop.classList.add('open');
-  burgerBtn.classList.add('open');
-  mobileNav.setAttribute('aria-hidden','false');
-  burgerBtn.setAttribute('aria-expanded','true');
-  document.body.style.overflow = 'hidden';
-
-  const studySub = document.getElementById('mobileStudySub');
-  const studyToggle = document.getElementById('mobileStudyToggle');
-  if(studySub && studyToggle){
-    studySub.style.display = 'flex';
-    studyToggle.setAttribute('aria-expanded','true');
-    studyToggle.classList.add('active');
-  }
-
-  const productsSub = document.getElementById('mobileProductsSub');
-  const productsToggle = document.getElementById('mobileProductsToggle');
-  if(productsSub && productsToggle){
-    productsSub.style.display = 'none';
-    productsToggle.setAttribute('aria-expanded','false');
-    productsToggle.classList.remove('active');
-  }
-}
-function closeMenu(){
-  if(!mobileNav || !burgerBtn) return;
-  mobileNav.classList.remove('open');
-  if(mobileBackdrop) mobileBackdrop.classList.remove('open');
-  burgerBtn.classList.remove('open');
-  mobileNav.setAttribute('aria-hidden','true');
-  burgerBtn.setAttribute('aria-expanded','false');
-  document.body.style.overflow = '';
-  document.querySelectorAll('.mobile-nav .submenu').forEach(s => s.style.display = 'none');
-}
-function bindMobileExpandable(toggleEl, subEl){
-  if(!toggleEl || !subEl) return;
-  toggleEl.addEventListener('click', function(e){
-    if(e.target.closest('.caret')){
-      e.preventDefault();
-      e.stopPropagation();
-      const opening = subEl.style.display !== 'flex';
-
-      document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
-        if(s !== subEl) s.style.display = 'none';
+      trigger.addEventListener('click', function(e){
+        if(window.innerWidth <= 1100){
+          e.preventDefault();
+          if(menu && menu.style.display === 'block'){ close(); } else { open(); }
+          const mobileNav = document.getElementById('mobileNav');
+          const burger = document.getElementById('burgerBtn');
+          if(mobileNav && burger){
+            mobileNav.classList.add('open');
+            burger.classList.add('open');
+            mobileNav.setAttribute('aria-hidden','false');
+            burger.setAttribute('aria-expanded','true');
+            document.body.style.overflow='hidden';
+          }
+        }
       });
+    });
 
-      subEl.style.display = opening ? 'flex' : 'none';
-      toggleEl.setAttribute('aria-expanded', String(opening));
-      toggleEl.classList.toggle('active', opening);
+    (function(){
+      const band = document.getElementById('energyBand');
+      if(!band) return;
+      const orbA = document.getElementById('eOrbA');
+      const orbB = document.getElementById('eOrbB');
+      const orbC = document.getElementById('eOrbC');
+      const orbs = [orbA, orbB, orbC];
+      const bright = document.getElementById('zapBright');
 
-      mobileNav.classList.add('open');
-      if(mobileBackdrop) mobileBackdrop.classList.add('open');
-      burgerBtn.classList.add('open');
-      mobileNav.setAttribute('aria-hidden','false');
-      burgerBtn.setAttribute('aria-expanded','true');
-      document.body.style.overflow = 'hidden';
-    }else{
-      closeMenu();
-    }
-  });
-}
-function disableActiveLinksInMobile(){
-  document.querySelectorAll('.mobile-nav a').forEach(a => {
-    if(a.getAttribute('aria-current') === 'page'){
-      a.classList.add('mobile-disabled');
-      a.setAttribute('aria-disabled','true');
-      a.setAttribute('tabindex','-1');
-    }
-  });
-}
+      const params = [
+        {rxRatio:0.50, ry:8, speed:0.06, phase:0},
+        {rxRatio:0.33, ry:6, speed:0.08, phase:Math.PI/2},
+        {rxRatio:0.42, ry:10, speed:0.05, phase:Math.PI}
+      ];
 
-function updatePhoneNumbers(){
-  const state = updatePhoneNumbers.state || 'abidjan';
-  const info = CONTACT_NUMBER[state];
-  if(topPhoneLink){
-    topPhoneLink.href = 'tel:' + info.tel;
-    topPhoneLink.innerHTML = '<i class="fas fa-phone" aria-hidden="true"></i>&nbsp;' + info.display;
-  }
-  if(mobilePhoneLink){
-    mobilePhoneLink.href = 'tel:' + info.tel;
-    mobilePhoneLink.textContent = info.display;
-  }
-}
-updatePhoneNumbers.state = 'abidjan';
+      orbs.forEach((o,i)=>{ if(o){ o.classList.add('buzz'); o.style.animationDelay = (i*140)+'ms'; o.style.opacity='1'; } });
 
-function cyclePhone(){
-  updatePhoneNumbers.state = updatePhoneNumbers.state === 'abidjan' ? 'dakar' : 'abidjan';
-  updatePhoneNumbers();
-}
-
-function applyCurrentPageState(){
-  const path = (window.location.pathname.split('/').pop() || 'zone_agricole.html').toLowerCase();
-
-  const desktopStudyDropdown = document.getElementById('studyDropdown');
-  const desktopStudyLink = document.getElementById('studyLink');
-
-  if(desktopStudyLink){
-    desktopStudyLink.classList.add('active');
-    desktopStudyLink.setAttribute('data-current','🌾 Zone Agricole');
-  }
-
-  document.querySelectorAll('.dropdown-content a').forEach(a => {
-    const href = (a.getAttribute('href') || '').toLowerCase();
-    if(href === path){
-      a.classList.add('active-item');
-      a.setAttribute('aria-current','page');
-      const parent = a.closest('.dropdown');
-      if(parent){
-        parent.setAttribute('aria-expanded','true');
-        const parentLink = parent.querySelector('a');
-        if(parentLink) parentLink.classList.add('active');
+      let t0 = performance.now();
+      function tick(now){
+        const time = (now - t0)/1000;
+        const cont = band.querySelector('.container');
+        if(!cont){ requestAnimationFrame(tick); return; }
+        const rect = cont.getBoundingClientRect();
+        const cx = rect.width/2;
+        const cy = rect.height/2;
+        for(let i=0;i<orbs.length;i++){
+          const o = orbs[i]; if(!o) continue;
+          const p = params[i];
+          const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
+          const ry = p.ry;
+          const angle = (time * p.speed * Math.PI * 2) + p.phase;
+          const x = cx + Math.cos(angle) * rx;
+          const y = cy + Math.sin(angle) * ry;
+          o.style.left = x + 'px';
+          o.style.top = y + 'px';
+          o.style.transform = 'translate(-50%,-50%)';
+        }
+        requestAnimationFrame(tick);
       }
-    }
-  });
+      requestAnimationFrame(tick);
 
-  document.querySelectorAll('.mobile-nav a').forEach(a => {
-    const href = (a.getAttribute('href') || '').toLowerCase();
-    if(href === path){
-      a.classList.add('active');
-      a.setAttribute('aria-current','page');
-      const parentSub = a.closest('.submenu');
-      if(parentSub){
-        parentSub.style.display = 'flex';
-        const toggle = parentSub.previousElementSibling;
-        if(toggle && toggle.classList.contains('mobile-link')){
-          toggle.classList.add('active');
-          toggle.setAttribute('aria-expanded','true');
+      function sparkBright(){
+        if(!bright) return;
+        bright.style.transition = 'none';
+        try{
+          const len = bright.getTotalLength ? bright.getTotalLength() : 520;
+          bright.setAttribute('stroke-dasharray', String(len));
+          bright.setAttribute('stroke-dashoffset', String(len));
+          setTimeout(()=> {
+            bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms';
+            bright.setAttribute('stroke-dashoffset','0');
+            setTimeout(()=> { bright.setAttribute('stroke-dashoffset', String(len)); }, 420);
+          }, 80);
+        }catch(e){
+          bright.setAttribute('stroke-dasharray','520');
+          bright.setAttribute('stroke-dashoffset','520');
+          setTimeout(()=> { bright.style.transition = 'stroke-dashoffset 420ms ease-out'; bright.setAttribute('stroke-dashoffset','0'); }, 80);
         }
       }
-    }
-  });
 
-  if(desktopStudyDropdown){
-    desktopStudyDropdown.setAttribute('aria-expanded','true');
-  }
-
-  disableActiveLinksInMobile();
-}
-
-function openDesktopDropdowns(){
-  const studyDropdown = document.getElementById('studyDropdown');
-  const studyContent = document.getElementById('studyDropdownContent');
-  const studyLink = document.getElementById('studyLink');
-
-  if(studyDropdown && studyContent && studyLink){
-    studyDropdown.addEventListener('mouseenter', () => {
-      if(window.innerWidth > 1100){
-        studyContent.style.display = 'block';
-        studyDropdown.setAttribute('aria-expanded','true');
+      function spawnSparks(){
+        const cont = band.querySelector('.container');
+        if(!cont) return;
+        for(let i=0;i<8;i++){
+          const s = document.createElement('div');
+          s.style.position='absolute';
+          s.style.left = (3 + Math.random()*94) + '%';
+          s.style.top = (20 + Math.random()*50) + '%';
+          s.style.width = '2px';
+          s.style.height = (8 + Math.random()*18) + 'px';
+          s.style.borderRadius = '2px';
+          s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
+          s.style.filter = 'blur(6px)';
+          s.style.opacity = '0';
+          s.style.transform = 'translateY(6px)';
+          s.style.pointerEvents = 'none';
+          cont.appendChild(s);
+          setTimeout(()=> { s.style.transition = 'all 260ms ease-out'; s.style.opacity='1'; s.style.transform='translateY(-6px)'; }, 20 + i*30);
+          setTimeout(()=> { s.style.transition = 'all 520ms ease-in'; s.style.opacity='0'; s.style.transform='translateY(-20px)'; }, 300 + i*40);
+          setTimeout(()=> { if(s.parentNode) s.parentNode.removeChild(s); }, 820 + i*40);
+        }
       }
-    });
-    studyDropdown.addEventListener('mouseleave', () => {
-      if(window.innerWidth > 1100){
-        studyContent.style.display = 'none';
-        studyDropdown.setAttribute('aria-expanded','false');
-      }
-    });
-    studyLink.addEventListener('click', (e) => {
-      if(window.innerWidth <= 1100){
-        e.preventDefault();
-        studyContent.style.display = studyContent.style.display === 'block' ? 'none' : 'block';
-        studyDropdown.setAttribute('aria-expanded', studyContent.style.display === 'block' ? 'true' : 'false');
-      }
-    });
-  }
 
-  const productsDropdown = document.getElementById('productsDropdown');
-  const productsContent = document.getElementById('productsDropdownContent');
-  const productsLink = document.getElementById('productsLink');
+      function activate(){
+        band.classList.add('active');
+        spawnSparks();
+        sparkBright();
+        setInterval(()=>{
+          spawnSparks();
+          if(Math.random() > 0.45) sparkBright();
+        }, 1200 + Math.random()*1200);
+      }
 
-  if(productsDropdown && productsContent && productsLink){
-    productsDropdown.addEventListener('mouseenter', () => {
-      if(window.innerWidth > 1100){
-        productsContent.style.display = 'block';
-        productsDropdown.setAttribute('aria-expanded','true');
+      const title = document.querySelector('.company-name');
+      if(title){
+        title.addEventListener('click', ()=>{
+          const on = band.classList.toggle('active');
+          if(on){ spawnSparks(); sparkBright(); }
+        });
       }
-    });
-    productsDropdown.addEventListener('mouseleave', () => {
-      if(window.innerWidth > 1100){
-        productsContent.style.display = 'none';
-        productsDropdown.setAttribute('aria-expanded','false');
-      }
-    });
-    productsLink.addEventListener('click', (e) => {
-      if(window.innerWidth <= 1100){
-        e.preventDefault();
-        productsContent.style.display = productsContent.style.display === 'block' ? 'none' : 'block';
-        productsDropdown.setAttribute('aria-expanded', productsContent.style.display === 'block' ? 'true' : 'false');
-      }
-    });
-  }
-}
 
-function buildHourlyProfile(loads, dailyBatteryUsefulKwh){
-  const profile = new Array(24).fill(0);
-  const getWindow = (name) => {
-    const n = String(name || '').toLowerCase();
-    if(n.includes('éclairage') || n.includes('eclairage') || n.includes('light')) return { start:18, hours:6 };
-    if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv') || n.includes('décodeur') || n.includes('decodeur') || n.includes('radio') || n.includes('sono')) return { start:19, hours:5 };
-    if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) return { start:0, hours:24 };
-    if(n.includes('ventilation') || n.includes('ventilateur')) return { start:12, hours:12 };
-    if(n.includes('ordinateur') || n.includes('bureau')) return { start:8, hours:8 };
-    if(n.includes('micro') || n.includes('cuisine')) return { start:12, hours:4 };
-    if(n.includes('pompe')) return { start:8, hours:10 };
-    return { start:8, hours:12 };
+      activate();
+      window.addEventListener('resize', ()=>{ t0 = performance.now(); });
+    })();
+
+    (function(){
+      const burger = document.getElementById('burgerBtn');
+      const mobileNav = document.getElementById('mobileNav');
+      if(!burger || !mobileNav) return;
+
+      burger.addEventListener('click', ()=> {
+        const opened = mobileNav.classList.toggle('open');
+        burger.classList.toggle('open', opened);
+        burger.setAttribute('aria-expanded', String(opened));
+        mobileNav.setAttribute('aria-hidden', String(!opened));
+        document.body.style.overflow = opened ? 'hidden' : '';
+        const sub = document.getElementById('mobileEnergieSub');
+        const toggle = document.getElementById('mobileEnergieToggle');
+        if(opened && toggle && toggle.classList.contains('active')) {
+          sub.style.display = 'flex';
+          toggle.setAttribute('aria-expanded','true');
+        }
+      });
+
+      function disableActiveLinksInMobile(){
+        if(!mobileNav) return;
+        const anchors = mobileNav.querySelectorAll('a');
+        anchors.forEach(a=>{
+          if(a.id === 'mobileEnergieToggle') return;
+          let href = a.getAttribute('href') || a.getAttribute('data-href') || a.dataset.href || '';
+          const filename = href ? href.replace(/^.*[\\/]/,'') : '';
+          if(filename.toLowerCase() === 'zone_agricole.html'){
+            a.classList.add('mobile-disabled');
+            a.setAttribute('aria-disabled','true');
+            a.setAttribute('tabindex','-1');
+            if(a.hasAttribute('href')){ a.dataset.href = a.getAttribute('href'); a.removeAttribute('href'); }
+          }
+        });
+      }
+      disableActiveLinksInMobile();
+
+      mobileNav.addEventListener('click', function(e){
+        const a = e.target.closest('a');
+        if(!a) return;
+        if (a.querySelector('.caret')) return;
+        if(a.classList.contains('mobile-disabled')){ e.preventDefault(); e.stopPropagation(); return; }
+        mobileNav.classList.remove('open');
+        burger.classList.remove('open');
+        mobileNav.setAttribute('aria-hidden','true');
+        burger.setAttribute('aria-expanded','false');
+        document.body.style.overflow = '';
+      });
+
+      const energieToggle = document.getElementById('mobileEnergieToggle');
+      const energieSub = document.getElementById('mobileEnergieSub');
+      if(energieToggle && energieSub){
+        energieToggle.addEventListener('click', function(e){
+          if(e.target.closest('.caret')){
+            e.preventDefault(); e.stopPropagation();
+            const opening = energieSub.style.display !== 'flex';
+            document.querySelectorAll('.mobile-nav .submenu').forEach(s=>{ if(s!==energieSub) s.style.display='none'; });
+            energieSub.style.display = opening ? 'flex' : 'none';
+            energieToggle.setAttribute('aria-expanded', String(opening));
+            energieToggle.classList.toggle('active', opening);
+            mobileNav.classList.add('open');
+            burger.classList.add('open');
+            mobileNav.setAttribute('aria-hidden','false');
+            burger.setAttribute('aria-expanded','true');
+          } else {
+            mobileNav.classList.remove('open');
+            burger.classList.remove('open');
+            mobileNav.setAttribute('aria-hidden','true');
+            burger.setAttribute('aria-expanded','false');
+            document.body.style.overflow = '';
+          }
+        });
+      }
+
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape' && mobileNav.classList.contains('open')){
+          mobileNav.classList.remove('open');
+          burger.classList.remove('open');
+          mobileNav.setAttribute('aria-hidden','true');
+          burger.setAttribute('aria-expanded','false');
+          document.body.style.overflow = '';
+        }
+      });
+
+      function openActiveSubmenuOnSmall(){
+        if(window.innerWidth <= 1100){
+          const activeToggle = document.getElementById('mobileEnergieToggle');
+          const activeSub = document.getElementById('mobileEnergieSub');
+          if(activeToggle && activeSub){
+            activeSub.style.display = 'flex';
+            activeToggle.setAttribute('aria-expanded','true');
+            activeToggle.classList.add('active');
+          }
+        } else {
+          const activeSub = document.getElementById('mobileEnergieSub');
+          if(activeSub) activeSub.style.display = 'none';
+        }
+      }
+      window.addEventListener('resize', openActiveSubmenuOnSmall);
+      openActiveSubmenuOnSmall();
+    })();
+
+    (function(){
+      const raw = window.location.pathname.split('/').pop().toLowerCase();
+      const path = raw || 'zone_agricole.html';
+      const mapping = {
+        'greenbrigde technologies.html':'a[href="GreenBrigde technologies.html"]',
+        'energie.html':'a[href="energie.html"]',
+        'panneaux.html':'a[href="panneaux.html"]',
+        'batteries.html':'a[href="batteries.html"]',
+        'onduleurs.html':'a[href="onduleurs.html"]',
+        'groupes.html':'a[href="groupes.html"]',
+        'zone_urbaine.html':'a[href="zone_urbaine.html"]',
+        'zone_agricole.html':'a[href="zone_agricole.html"]',
+        'projets.html':'a[href="Projets.html"]',
+        'maintenance.html':'a[href="maintenance.html"]',
+        'produits.html':'a[href="produits.html"]'
+      };
+
+      const sel = mapping[path];
+      if(!sel) return;
+      const el = document.querySelector(sel);
+      if(!el) return;
+
+      el.classList.add('active');
+      const inDropdown = el.closest('.dropdown-content');
+      if(inDropdown){
+        const dropdown = document.querySelector('.dropdown');
+        const energyLink = dropdown && dropdown.querySelector('a[href="energie.html"], a[data-current]');
+        if(energyLink){
+          energyLink.classList.add('active');
+          const subBadge = energyLink.querySelector('.sub-badge');
+          if(subBadge){
+            const label = el.textContent ? el.textContent.trim() : subBadge.textContent.trim();
+            subBadge.textContent = label;
+            subBadge.style.background = 'rgba(255,214,0,0.08)';
+            subBadge.style.boxShadow = '0 6px 18px rgba(0,0,0,0.32)';
+          }
+        }
+        el.classList.add('active-item');
+      }
+
+      document.querySelectorAll('.mobile-nav a').forEach(a=>{
+        try{
+          if(a.getAttribute('href') === el.getAttribute('href')){
+            a.classList.add('active');
+            const parentSub = a.closest('.submenu');
+            if(parentSub){
+              parentSub.style.display = 'flex';
+              const toggle = document.getElementById('mobileEnergieToggle');
+              if(toggle){ toggle.classList.add('active'); toggle.setAttribute('aria-expanded','true'); }
+            }
+          }
+        }catch(e){}
+      });
+    })();
+  })();
+
+  function fmt(n,dec=2){ return Number(n||0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
+  function fcfa(n){ return Number(Math.round(n||0)).toLocaleString('fr-FR') + ' FCFA'; }
+
+  const CITY_COORDS = {
+    'ci_all': { bounds:[[5.345317,-4.024429],[6.818351,-5.276987]], center:[6.05,-4.65], zoom:7 },
+    'ci_abidjan': {lat:5.345317, lng:-4.024429, zoom:12 },
+    'ci_yamoussoukro': {lat:6.818351, lng:-5.276987, zoom:11 },
+    'sn_all': { center:[14.0,-14.0], zoom:6 },
+    'sn_dakar': {lat:14.6937, lng:-17.44406, zoom:12 }
   };
 
-  loads.forEach(load => {
-    const qty = Math.max(0, Number(load.qty || 0));
-    const powerW = Math.max(0, Number(load.powerW || 0));
-    const hours = Math.max(1, Math.round(Number(load.hours || 0) || 1));
-    const factor = Math.max(0, Math.min(1, Number(load.factor || 0)));
-    const activePower = qty * powerW * factor;
-    const w = getWindow(load.name);
+  const CROP_DEFAULTS_BY_COUNTRY = {
+    'ci': { 'tomate':5.0,'mais':4.5,'riz':6.5,'mangue':3.5,'legume':5.5,'palmier':4.0 },
+    'sn': { 'tomate':6.0,'mais':5.0,'riz':7.5,'mangue':3.8,'legume':6.0,'palmier':4.5 }
+  };
+  const CROP_GENERIC_DEFAULT = 5.0;
 
-    const span = Math.max(1, Math.min(24, hours));
-    for(let i=0;i<span;i++){
-      const h = (w.start + i) % 24;
-      profile[h] += activePower;
+  const SUGGESTED = [
+    { id:'lighting', label:'Éclairage LED (hangar/serre)', power:100, hours:6 },
+    { id:'fridge', label:'Réfrigérateur / chambre froide', power:200, hours:8 },
+    { id:'charger', label:'Recharge téléphones (borne)', power:200, hours:6 },
+    { id:'radio', label:'Radio / Sono / Info', power:80, hours:6 },
+    { id:'local_staff', label:'Local employés (éclairage + prises)', power:300, hours:8 },
+    { id:'aerator', label:'Aérateur bassin pisciculture', power:250, hours:6 },
+    { id:'sprayer', label:'Pulvérisateur électrique', power:300, hours:1 },
+    { id:'moulin', label:'Broyeur/moulin', power:1500, hours:1 },
+    { id:'pump_secondary', label:'Pompe annexe', power:1500, hours:0.5 }
+  ];
+
+  let consumers = [];
+  let lastCalcSnapshot = null;
+  let batteryChart = null;
+
+  const zoneSelect = document.getElementById('zoneSelect');
+  const citySelect = document.getElementById('citySelect');
+
+  const countryEl = document.getElementById('country');
+  const typeExploitationEl = document.getElementById('typeExploitation');
+  const cropEl = document.getElementById('crop');
+  const areaHaEl = document.getElementById('areaHa');
+  const needMmEl = document.getElementById('needMmPerDay');
+  const irrigDaysEl = document.getElementById('irrigDays');
+  const pumpHoursEl = document.getElementById('pumpHours');
+  const headEl = document.getElementById('head');
+  const pumpEffEl = document.getElementById('pumpEff');
+  const sunHoursEl = document.getElementById('sunHours');
+  const pvDerateEl = document.getElementById('pvDerate');
+  const panelWEl = document.getElementById('panelW');
+  const batteryTypeEl = document.getElementById('batteryType');
+  const packKwhEl = document.getElementById('packKwh');
+  const batteryCountEl = document.getElementById('batteryCount');
+  const autonomyDaysEl = document.getElementById('autonomyDays');
+
+  const calcBtn = document.getElementById('calcBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const exportPdfBtn = document.getElementById('exportPdfBtn');
+
+  const suggestListEl = document.getElementById('suggestList');
+  const consListEl = document.getElementById('consumerList');
+  const addManualBtn = document.getElementById('addManual');
+  const consNameInput = document.getElementById('consName');
+  const consPowerInput = document.getElementById('consPower');
+  const consHoursInput = document.getElementById('consHours');
+
+  const volDayEl = document.getElementById('volDay');
+  const flowQEl = document.getElementById('flowQ');
+  const pumpKwEl = document.getElementById('pumpKw');
+  const pumpKwhEl = document.getElementById('pumpKwh');
+  const othersKwhEl = document.getElementById('othersKwh');
+  const totalKwhDayEl = document.getElementById('totalKwhDay');
+  const pvKwEl = document.getElementById('pvKw');
+  const panelsCountEl = document.getElementById('panelsCount');
+  const reservoirEl = document.getElementById('reservoir');
+  const batteryKwhEl = document.getElementById('batteryKwh');
+  const inverterRecEl = document.getElementById('inverterRec');
+  const batteryStdEl = document.getElementById('batteryStd');
+
+  const consMonthEl = document.getElementById('consMonth');
+  const consMonthRangeEl = document.getElementById('consMonthRange');
+  const montantMensEl = document.getElementById('montantMens');
+  const montantMensRangeEl = document.getElementById('montantMensRange');
+  const pvReqKwcEl = document.getElementById('pvReqKwc');
+  const pvReqRangeEl = document.getElementById('pvReqRange');
+
+  const summaryPumpEl = document.getElementById('summaryPump');
+  const summaryReservoirEl = document.getElementById('summaryReservoir');
+  const summaryBatteriesEl = document.getElementById('summaryBatteries');
+  const summarySafetyEl = document.getElementById('summarySafety');
+  const autDaysLabel = document.getElementById('autDaysLabel');
+
+  function initMap(){
+    try {
+      const map = L.map('map', { dragging:true, zoomControl:true, attributionControl:false }).setView([6.5, -5.0], 6.5);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19 }).addTo(map);
+      const pin = L.icon({ iconUrl:'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize:[22,22], iconAnchor:[11,22] });
+
+      L.marker([5.345317,-4.024429],{icon:pin}).addTo(map).bindTooltip('Abidjan');
+      L.marker([6.818351,-5.276987],{icon:pin}).addTo(map).bindTooltip('Yamoussoukro');
+      L.marker([14.6937,-17.44406],{icon:pin}).addTo(map).bindTooltip('Dakar');
+
+      map.fitBounds([[5.345317,-4.024429],[6.818351,-5.276987]], { padding:[20,20] });
+
+      window._gbMap = map;
+    } catch(e){ console.warn('Leaflet init failed', e) }
+  }
+
+  function populateCities(zone){
+    citySelect.innerHTML = '';
+    if(zone === 'ci'){
+      citySelect.appendChild(new Option("Côte d'Ivoire (toutes zones)", 'ci_all'));
+      citySelect.appendChild(new Option("Abidjan", 'ci_abidjan'));
+      citySelect.appendChild(new Option("Yamoussoukro", 'ci_yamoussoukro'));
+      citySelect.value = 'ci_abidjan';
+    } else {
+      citySelect.appendChild(new Option("Sénégal (toutes zones)", 'sn_all'));
+      citySelect.appendChild(new Option("Dakar", 'sn_dakar'));
+      citySelect.value = 'sn_dakar';
     }
-  });
+    zoomToCity(citySelect.value);
+  }
 
-  const maxW = Math.max(...profile, 1);
-  let cumKwh = 0;
-  const batteryLine = profile.map(p => {
-    cumKwh += p / 1000;
-    if(!dailyBatteryUsefulKwh || dailyBatteryUsefulKwh <= 0) return 0;
-    const soc = Math.max(0, 100 - (cumKwh / dailyBatteryUsefulKwh) * 100);
-    return soc;
-  });
+  function zoomToCity(key){
+    const map = window._gbMap;
+    if(!map) return;
+    const info = CITY_COORDS[key];
+    if(!info) return;
+    if(info.bounds){ map.fitBounds(info.bounds, {padding:[20,20]}); }
+    else if(info.lat && info.lng){ map.setView([info.lat, info.lng], info.zoom || 10); }
+    else if(info.center){ map.setView(info.center, info.zoom || 7); }
+  }
 
-  return { profile, maxW, batteryLine };
-}
+  function renderSuggested(){
+    suggestListEl.innerHTML = '';
+    SUGGESTED.forEach(s=>{
+      const btn = document.createElement('button');
+      btn.className = 'suggest';
+      btn.innerText = s.label + ' — ' + s.power + 'W';
+      btn.addEventListener('click', ()=> {
+        consumers.push({name:s.label, power:s.power, hours:s.hours});
+        renderConsumers();
+        computeAll();
+      });
+      suggestListEl.appendChild(btn);
+    });
+  }
 
-function renderPdfChart(profileData){
-  const { profile, maxW, batteryLine } = profileData;
-  const width = 760;
-  const height = 240;
-  const chartTop = 24;
-  const chartBottom = 170;
-  const chartLeft = 46;
-  const chartRight = 18;
-  const barAreaWidth = width - chartLeft - chartRight;
-  const step = barAreaWidth / 24;
-  const barW = Math.max(10, step * 0.72);
-
-  const bars = profile.map((v, i) => {
-    const x = chartLeft + i * step + (step - barW) / 2;
-    const barH = maxW > 0 ? (v / maxW) * (chartBottom - chartTop) : 0;
-    const y = chartBottom - barH;
-    return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" rx="2" fill="#7cb342"></rect>`;
-  }).join('');
-
-  const batteryPoints = batteryLine.map((v, i) => {
-    const x = chartLeft + i * step + step/2;
-    const y = chartTop + ((100 - v) / 100) * (chartBottom - chartTop);
-    return `${x.toFixed(1)},${y.toFixed(1)}`;
-  }).join(' ');
-
-  const labels = Array.from({length:24}, (_, i) => {
-    if(i % 3 !== 0) return '';
-    const x = chartLeft + i * step + step/2;
-    return `<text x="${x.toFixed(1)}" y="192" font-size="10" text-anchor="middle" fill="#556b56">${i}h</text>`;
-  }).join('');
-
-  return `
-    <div style="margin-top:10px;border:1px solid #e6f3ea;border-radius:10px;background:#fbfffb;padding:10px">
-      <div style="font-weight:700;color:#062d1b;margin-bottom:8px">Profil de charge 24h (indicatif)</div>
-      <svg width="100%" viewBox="0 0 ${width} ${height}" role="img" aria-label="Profil 24h">
-        <rect x="0" y="0" width="${width}" height="${height}" fill="#ffffff"></rect>
-        <line x1="${chartLeft}" y1="${chartTop}" x2="${chartLeft}" y2="${chartBottom}" stroke="#d9e6da" />
-        <line x1="${chartLeft}" y1="${chartBottom}" x2="${width-chartRight}" y2="${chartBottom}" stroke="#d9e6da" />
-        ${bars}
-        <polyline points="${batteryPoints}" fill="none" stroke="#0b4d26" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
-        ${labels}
-        <text x="${chartLeft}" y="16" font-size="10" fill="#6b7f6b">Puissance (W) + niveau batterie (%)</text>
-      </svg>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:#666;margin-top:6px">
-        <div><span style="display:inline-block;width:10px;height:10px;background:#7cb342;border-radius:2px;margin-right:6px"></span>Consommation horaire</div>
-        <div><span style="display:inline-block;width:10px;height:10px;background:#0b4d26;border-radius:2px;margin-right:6px"></span>Niveau batterie estimé</div>
-      </div>
-    </div>
-  `;
-}
-
-async function generatePDF(){
-  try{
-    if(!lastCalcSnapshot){
-      alert("Veuillez effectuer un calcul avant d'exporter le PDF.");
+  function renderConsumers(){
+    consListEl.innerHTML = '';
+    if(consumers.length === 0){
+      consListEl.innerHTML = '<div class="muted" style="color:#6b7f6b;padding:8px">Aucun consommateur additionnel</div>';
       return;
     }
-
-    const s = lastCalcSnapshot;
-    const safe = s.safetyPoints || [];
-    const loadsRows = (s.loads || []).map(l => `
-      <tr>
-        <td style="padding:8px;border:1px solid #eee">${l.name}</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.qty}</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.powerW} W</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.hours} h/j</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.factor}</td>
-      </tr>
-    `).join('');
-
-    const safetyHtml = safe.map(item => `<li style="margin-bottom:6px">${item}</li>`).join('');
-    const chartHtml = renderPdfChart(buildHourlyProfile(s.loads || [], s.batteryUsefulTotal));
-
-    const html = `
-      <div id="pdfWrapper" style="position:relative;width:820px;padding:20px;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;">
-        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">
-          GREENBRIDGE — À TITRE INDICATIF
+    consumers.forEach((c, idx) => {
+      const div = document.createElement('div');
+      div.className = 'consumer';
+      div.innerHTML = `
+        <div>
+          <strong>${c.name}</strong>
+          <div class="meta">${c.power} W × ${c.hours} h/j</div>
         </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button data-idx="${idx}" class="btn-ghost edit">Éditer</button>
+          <button data-idx="${idx}" class="btn-ghost del">Suppr</button>
+        </div>
+      `;
+      consListEl.appendChild(div);
+    });
+    consListEl.querySelectorAll('.del').forEach(b=>{
+      b.addEventListener('click', (ev)=>{
+        const i = +ev.target.dataset.idx;
+        consumers.splice(i,1);
+        renderConsumers();
+        computeAll();
+      });
+    });
+    consListEl.querySelectorAll('.edit').forEach(b=>{
+      b.addEventListener('click', (ev)=>{
+        const i = +ev.target.dataset.idx;
+        const c = consumers[i];
+        const name = prompt('Nom', c.name);
+        if(name === null) return;
+        const power = parseFloat(prompt('Puissance (W)', c.power));
+        if(isNaN(power)) return alert('Puissance invalide');
+        const hours = parseFloat(prompt('Heures/j', c.hours));
+        if(isNaN(hours)) return alert('Heures invalides');
+        consumers[i] = { name, power, hours };
+        renderConsumers();
+        computeAll();
+      });
+    });
+  }
 
-        <div style="position:relative;z-index:1;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
-                <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
-                <div style="font-size:11px;color:#556b56">Zone agricole</div>
-              </div>
-              <div>
-                <div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone agricole</div>
-                <div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.roomsCount} pièce(s) — ${s.cityLabel}</div>
-              </div>
-            </div>
-            <div style="text-align:right">
-              <div style="font-size:11px;color:#666;margin-top:6px">${s.cityLabel}</div>
-            </div>
+  function updateNeedMmForCountryAndCrop(){
+    const country = countryEl.value || 'ci';
+    const crop = cropEl.value || 'tomate';
+    if(crop === 'custom') return;
+    const countryDefaults = CROP_DEFAULTS_BY_COUNTRY[country] || {};
+    const val = (typeof countryDefaults[crop] === 'number') ? countryDefaults[crop] : CROP_GENERIC_DEFAULT;
+    needMmEl.value = val;
+  }
+
+  function syncCountryToZone(){
+    const c = countryEl.value;
+    if(c === 'ci') zoneSelect.value = 'ci';
+    else if(c === 'sn') zoneSelect.value = 'sn';
+    populateCities(zoneSelect.value);
+  }
+
+  function syncZoneToCountry(){
+    const z = zoneSelect.value;
+    if(z === 'ci') countryEl.value = 'ci';
+    else if(z === 'sn') countryEl.value = 'sn';
+    updateNeedMmForCountryAndCrop();
+  }
+
+  function addManualConsumer(){
+    const name = (consNameInput.value || '').trim();
+    const power = Number(consPowerInput.value || 0);
+    const hours = Number(consHoursInput.value || 0);
+    if(!name || power <= 0 || hours <= 0){
+      alert('Nom, puissance et heures/j obligatoires');
+      return;
+    }
+    consumers.push({name,power,hours});
+    consNameInput.value = '';
+    consPowerInput.value = '';
+    consHoursInput.value = '';
+    renderConsumers();
+    computeAll();
+  }
+
+  function batteryTypeFactor(type){
+    if(type === 'lifepo4') return 0.85;
+    if(type === 'lithium') return 0.80;
+    if(type === 'gel') return 0.60;
+    if(type === 'plomb') return 0.50;
+    return 0.80;
+  }
+
+  function batteryLifetimeYears(type, usage, climate){
+    const hotPenalty = climate === 'hot' ? 0.85 : 1.0;
+    const base = {
+      lifepo4: [7, 10],
+      lithium: [5, 8],
+      gel: [3, 5],
+      plomb: [2, 4]
+    }[type] || [4, 6];
+    const factor = usage === 'heavy' ? 0.85 : usage === 'medium' ? 1 : 1.05;
+    return [Math.round(base[0] * hotPenalty * factor), Math.round(base[1] * hotPenalty * factor)];
+  }
+
+  function standardInverterSize(requiredW){
+    const standards = [300, 500, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000, 6000];
+    const size = standards.find(v => v >= requiredW);
+    return size || 6000;
+  }
+
+  function compute(){
+    const typeExploitation = typeExploitationEl.value || 'culture';
+    const areaHa = Math.max(0, Number(areaHaEl.value || 0));
+    const areaM2 = areaHa * 10000;
+    const mmPerDay = Math.max(0, Number(needMmEl.value || 0));
+    const irrigDays = Math.max(1, Number(irrigDaysEl.value || 1));
+    const pumpHours = Math.max(0.1, Number(pumpHoursEl.value || 1));
+    const head = Math.max(0, Number(headEl.value || 0));
+    const pumpEff = Math.max(0.01, Number(pumpEffEl.value || 55)) / 100;
+    const sunH = Math.max(0.1, Number(sunHoursEl.value || 5));
+    const pvDerate = Math.max(0.01, Number(pvDerateEl.value || 85)) / 100;
+    const panelW = Math.max(10, Number(panelWEl.value || 350));
+    const packKwh = Math.max(0.01, Number(packKwhEl.value || 1.28));
+    const batteryCount = Math.max(1, Number(batteryCountEl.value || 1));
+    const autonomyDays = Math.max(0, Number(autonomyDaysEl.value || 2));
+    const battFactor = batteryTypeFactor(batteryTypeEl.value);
+    const batteryUsableTotal = packKwh * batteryCount;
+
+    const volDay_m3 = (areaM2 * mmPerDay) / 1000;
+    const weeklyVol = volDay_m3 * 7;
+    const volPerPumpingDay = weeklyVol / irrigDays;
+    const q_m3h = (pumpHours > 0) ? (volPerPumpingDay / pumpHours) : 0;
+
+    const phyd_W = 2.725 * q_m3h * head;
+    const pInput_W = pumpEff > 0 ? phyd_W / pumpEff : 0;
+    const pInput_kW = pInput_W / 1000;
+    const energyPumpPerPumpingDay_kWh = pInput_kW * pumpHours;
+    const energyPumpDailyAvg_kWh = (energyPumpPerPumpingDay_kWh * irrigDays) / 7;
+
+    let others_kwh = 0;
+    consumers.forEach(c => { others_kwh += (Number(c.power||0) * Number(c.hours||0)) / 1000; });
+
+    const systemEff = 0.95;
+    const totalDaily_kWh = (energyPumpDailyAvg_kWh + others_kwh) / systemEff;
+
+    const pvKw = (sunH * pvDerate) > 0 ? (totalDaily_kWh / (sunH * pvDerate)) : 0;
+    const panels = Math.max(0, Math.ceil((pvKw * 1000) / panelW));
+
+    const reservoir_m3 = autonomyDays * volDay_m3;
+
+    let nightShare = 0.35;
+    const totalHoursOtherWeighted = consumers.reduce((s,c)=> s + (Number(c.hours||0)),0);
+    if(totalHoursOtherWeighted > 10) nightShare = Math.min(0.6, 0.35 + (totalHoursOtherWeighted - 10) * 0.01);
+    const dailyNightKwh = totalDaily_kWh * nightShare;
+
+    const DoD = battFactor;
+    const batteryNeeded_kWh = autonomyDays > 0 ? (dailyNightKwh * autonomyDays) / DoD : 0;
+
+    const packsRequired = batteryNeeded_kWh > 0 ? Math.ceil(batteryNeeded_kWh / packKwh) : 0;
+    const batteryNeededFromBatteryCount = batteryUsableTotal > 0 ? Math.max(batteryNeeded_kWh, batteryUsableTotal) : batteryNeeded_kWh;
+
+    const totalMonthly_kWh = totalDaily_kWh * 30;
+    const price_kwh = 95;
+    const energy_ht = totalMonthly_kWh * price_kwh;
+    const tva = energy_ht * 0.18;
+    const montantMensuel = energy_ht + tva;
+
+    const lowFactor = 0.85, highFactor = 1.15;
+    const lowMonthly = totalMonthly_kWh * lowFactor;
+    const highMonthly = totalMonthly_kWh * highFactor;
+    const lowMontant = (lowMonthly * price_kwh) * 1.18;
+    const highMontant = (highMonthly * price_kwh) * 1.18;
+
+    const inverterSuggestedW = standardInverterSize(Math.max((pInput_W * 1.25), (totalDaily_kWh * 250)));
+    const batteryStd = batteryUsableTotal > 0 ? batteryUsableTotal : batteryNeeded_kWh;
+    const batteryLife = batteryLifetimeYears(batteryTypeEl.value, totalDaily_kWh > 10 ? 'heavy' : totalDaily_kWh > 3 ? 'medium' : 'light', 'hot');
+
+    const safetyNotes = [
+      'Ventilation du local batteries',
+      'Protection fusibles et sectionnement',
+      'Câbles protégés et bien dimensionnés',
+      'Réservoir éloigné des sources de chaleur',
+      'Contrôle niveau d’eau et entretien régulier'
+    ];
+
+    let coverageNote = pvKw > 0
+      ? `Base PV indicative : ${fmt(pvKw, 2)} kWc pour ${fmt(dailyKwh(totalDaily_kWh), 2)} kWh/j`
+      : 'Ajoutez des charges pour obtenir un dimensionnement';
+
+    function dailyKwh(v){ return v; }
+
+    const batteryLabel = batteryTypeEl.value === 'lifepo4'
+      ? 'LiFePO4'
+      : batteryTypeEl.value === 'lithium'
+      ? 'Lithium ion'
+      : batteryTypeEl.value === 'gel'
+      ? 'Gel'
+      : 'Plomb';
+
+    return {
+      typeExploitation,
+      loads: getAllLoads(),
+      installedPower: consumers.reduce((s,c)=>s + (Number(c.power||0) * Number(c.hours||0) / Math.max(0.1, Number(c.hours||1)) ),0),
+      peakPower: pInput_W,
+      dailyKwh: totalDaily_kWh,
+      monthlyKwh: totalMonthly_kWh,
+      pvKwRec: pvKw,
+      panelCountRec: panels,
+      inverterRecKva: inverterSuggestedW / 1000,
+      batteryRecKwh: batteryNeeded_kWh,
+      batteryPackRec: packsRequired,
+      coverageNote,
+      volDay_m3,
+      q_m3h,
+      pInput_kW,
+      energyPumpDailyAvg_kWh,
+      others_kwh,
+      reservoir_m3,
+      batteryNeeded_kWh,
+      batteryUsableTotal,
+      batteryStd,
+      batteryLife,
+      batteryLabel,
+      safetyNotes,
+      lowMonthly,
+      highMonthly,
+      lowMontant,
+      highMontant,
+      montantMensuel,
+      batteryNeededFromBatteryCount,
+      inverterSuggestedW
+    };
+  }
+
+  function getAllLoads(){
+    return consumers.map((load, idx)=>({ ...load, idx }));
+  }
+
+  function recalc(){
+    const r = compute();
+
+    volDayEl.innerText = fmt(r.volDay_m3,3) + ' m³';
+    flowQEl.innerText = fmt(r.q_m3h,3) + ' m³/h';
+    pumpKwEl.innerText = fmt(r.pInput_kW,3) + ' kW';
+    pumpKwhEl.innerText = fmt(r.energyPumpDailyAvg_kWh,3) + ' kWh/j';
+    othersKwhEl.innerText = fmt(r.others_kwh,3) + ' kWh/j';
+    totalKwhDayEl.innerText = fmt(r.dailyKwh,3) + ' kWh/j';
+    pvKwEl.innerText = fmt(r.pvKwRec,3) + ' kWc';
+    panelsCountEl.innerText = r.panelCountRec;
+    reservoirEl.innerText = fmt(r.reservoir_m3,3) + ' m³';
+    batteryKwhEl.innerText = fmt(r.batteryNeeded_kWh,3) + ' kWh';
+    inverterRecEl.innerText = Math.round(r.inverterSuggestedW) + ' W';
+    batteryStdEl.innerText = fmt(r.batteryStd,3) + ' kWh';
+
+    consMonthEl.innerText = fmt(r.monthlyKwh,2) + ' kWh';
+    consMonthRangeEl.innerText = `plage: ${fmt(r.lowMonthly,2)} - ${fmt(r.highMonthly,2)} kWh`;
+    montantMensEl.innerText = fcfa(Math.round(r.montantMensuel));
+    montantMensRangeEl.innerText = `plage: ${fcfa(Math.round(r.lowMontant))} - ${fcfa(Math.round(r.highMontant))}`;
+
+    pvReqKwcEl.innerText = fmt(r.pvKwRec,3) + ' kWc';
+    pvReqRangeEl.innerText = `±15% → ${fmt(r.pvKwRec*0.85,2)} - ${fmt(r.pvKwRec*1.15,2)} kWc`;
+
+    summaryPumpEl.innerText = `${fmt(r.pInput_kW,3)} kW - débit ${fmt(r.q_m3h,3)} m³/h (hauteur ${headEl.value} m). Consommation pompe: ${fmt(r.energyPumpDailyAvg_kWh,3)} kWh/j`;
+    summaryReservoirEl.innerText = `${fmt(r.reservoir_m3,3)} m³ → autonomie ${autonomyDaysEl.value || 2} j (à ${fmt(r.volDay_m3,3)} m³/j)`;
+    summaryBatteriesEl.innerText = `${batteryTypeEl.options[batteryTypeEl.selectedIndex].text} | ${fmt(r.batteryStd,2)} kWh utile | ${Math.max(1, Number(batteryCountEl.value || 1))} batterie(s)`;
+    summarySafetyEl.innerText = r.safetyNotes.join(' · ');
+
+    autDaysLabel.innerText = autonomyDaysEl.value || 2;
+
+    document.getElementById('r_pumpkw').classList.toggle('highlight', r.pInput_W >= 5000);
+    document.getElementById('r_batt').classList.toggle('highlight', r.batteryNeeded_kWh > 0);
+    document.getElementById('r_inv').classList.toggle('highlight', r.inverterSuggestedW > 0);
+    document.getElementById('r_battStd').classList.toggle('highlight', r.batteryStd > 0);
+
+    const consListSnapshot = JSON.parse(JSON.stringify(consumers));
+    lastCalcSnapshot = {
+      timestamp: new Date().toLocaleString('fr-FR'),
+      country: countryEl.value,
+      city: citySelect.value,
+      crop: cropEl.value,
+      typeExploitation: typeExploitationEl.value,
+      areaHa: Number(areaHaEl.value||0),
+      mmPerDay: Number(needMmEl.value||0),
+      volDay_m3: r.volDay_m3,
+      q_m3h: r.q_m3h,
+      pInput_kW: r.pInput_kW,
+      energyPumpDailyAvg_kWh: r.energyPumpDailyAvg_kWh,
+      others_kwh: r.others_kwh,
+      totalDaily_kWh: r.dailyKwh,
+      pvKw: r.pvKwRec,
+      panels: r.panelCountRec,
+      reservoir_m3: r.reservoir_m3,
+      batteryNeeded_kWh: r.batteryNeeded_kWh,
+      batteryStd: r.batteryStd,
+      batteryType: r.batteryLabel,
+      batteryLife: r.batteryLife,
+      inverterSuggestedW: r.inverterSuggestedW,
+      packsRequired: r.batteryPackRec,
+      totalMonthly_kWh: r.monthlyKwh,
+      montantMensuel: r.montantMensuel,
+      lowMonthly: r.lowMonthly,
+      highMonthly: r.highMonthly,
+      lowMontant: r.lowMontant,
+      highMontant: r.highMontant,
+      consumers: consListSnapshot
+    };
+
+    updateChart(r);
+  }
+
+  function updateChart(r){
+    const canvas = document.getElementById('batteryChart');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth || 900;
+    const h = canvas.clientHeight || 280;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    ctx.clearRect(0,0,w,h);
+
+    const hours = Array.from({length:24}, (_,i)=>i);
+    const baseLoad = Math.max(0.2, r.totalDaily_kWh / 24);
+    const points = hours.map(hh=>{
+      let load = baseLoad * 0.7;
+      if(hh >= 5 && hh <= 8) load += baseLoad * 1.8;
+      if(hh >= 10 && hh <= 14) load += baseLoad * 1.0;
+      if(hh >= 18 && hh <= 22) load += baseLoad * 2.2;
+      if(hh >= 0 && hh <= 4) load += baseLoad * 0.4;
+      return load;
+    });
+
+    const maxY = Math.max(...points) * 1.25;
+    const pad = 26;
+    const chartW = w - pad*2;
+    const chartH = h - pad*2;
+
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0,0,w,h);
+
+    ctx.strokeStyle = '#dfeadf';
+    ctx.lineWidth = 1;
+    for(let i=0;i<=4;i++){
+      const y = pad + (chartH/4)*i;
+      ctx.beginPath();
+      ctx.moveTo(pad,y);
+      ctx.lineTo(w-pad,y);
+      ctx.stroke();
+    }
+
+    ctx.strokeStyle = '#04462e';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    points.forEach((p,i)=>{
+      const x = pad + (chartW/23)*i;
+      const y = pad + chartH - (p/maxY)*chartH;
+      if(i===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(124,179,66,0.22)';
+    ctx.beginPath();
+    points.forEach((p,i)=>{
+      const x = pad + (chartW/23)*i;
+      const y = pad + chartH - (p/maxY)*chartH;
+      if(i===0) ctx.moveTo(x,chartH+pad);
+      ctx.lineTo(x,y);
+    });
+    ctx.lineTo(w-pad,h-pad);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = '#04462e';
+    ctx.font = '12px Arial';
+    for(let i=0;i<24;i+=3){
+      const x = pad + (chartW/23)*i;
+      ctx.fillText(String(i).padStart(2,'0') + 'h', x-8, h-8);
+    }
+
+    ctx.fillStyle = '#6b7f6b';
+    ctx.font = '12px Arial';
+    ctx.fillText('Charge estimée 24h liée à l’utilisation agricole', pad, 14);
+  }
+
+  function addInitialConsumers(){
+    consumers = [
+      {name:'Pompe annexe', power:1500, hours:0.5},
+      {name:'Éclairage hangar', power:120, hours:6}
+    ];
+  }
+
+  function resetAll(){
+    if(!confirm('Réinitialiser tous les paramètres et toutes les consommations ?')) return;
+    countryEl.value = 'ci';
+    zoneSelect.value = 'ci';
+    typeExploitationEl.value = 'culture';
+    populateCities('ci');
+
+    cropEl.value='tomate';
+    areaHaEl.value='0.5';
+    needMmEl.value='5.0';
+    irrigDaysEl.value='3';
+    pumpHoursEl.value='4';
+    headEl.value='15';
+    pumpEffEl.value='55';
+    sunHoursEl.value='5';
+    pvDerateEl.value='85';
+    panelWEl.value='350';
+    batteryTypeEl.value='lithium';
+    packKwhEl.value='1.28';
+    batteryCountEl.value='2';
+    autonomyDaysEl.value='2';
+
+    consumers = [];
+    addInitialConsumers();
+    renderConsumers();
+    updateNeedMmForCountryAndCrop();
+    computeAll();
+  }
+
+  async function generatePDF(){
+    try {
+      if(!lastCalcSnapshot){
+        alert("Veuillez effectuer un calcul avant d'exporter le PDF.");
+        return;
+      }
+      const s = lastCalcSnapshot;
+      function esc(t){ return String(t||'').replace(/[&<>"']/g, m=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+      let consumersHtml = '';
+      if((s.consumers||[]).length === 0){
+        consumersHtml = `<tr><td colspan="4" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucun consommateur ajouté</td></tr>`;
+      } else {
+        s.consumers.forEach(c=>{
+          const kwhj = ((c.power*c.hours)/1000).toFixed(3);
+          consumersHtml += `<tr>
+            <td style="padding:8px;border:1px solid #eee">${esc(c.name)}</td>
+            <td style="padding:8px;border:1px solid #eee;text-align:center">${esc(c.power)} W</td>
+            <td style="padding:8px;border:1px solid #eee;text-align:center">${esc(c.hours)} h/j</td>
+            <td style="padding:8px;border:1px solid #eee;text-align:center">${esc(kwhj)} kWh/j</td>
+          </tr>`;
+        });
+      }
+
+      const chartCanvas = document.getElementById('batteryChart');
+      const chartData = chartCanvas ? chartCanvas.toDataURL('image/png') : null;
+
+      const flagSVG = (s.country === 'sn') ? `
+        <svg width="84" height="56" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1" height="2" x="0" fill="#00a551"></rect>
+          <rect width="1" height="2" x="1" fill="#fcd116"></rect>
+          <rect width="1" height="2" x="2" fill="#0066cc"></rect>
+          <g transform="translate(1.5,1)">
+            <path d="M0 -0.45 L0.11 -0.15 L0.45 -0.15 L0.17 0.03 L0.28 0.33 L0 0.15 L-0.28 0.33 L-0.17 0.03 L-0.45 -0.15 L-0.11 -0.15 Z" fill="#006400" transform="scale(0.6)"/>
+          </g>
+        </svg>
+      ` : `
+        <svg width="84" height="56" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1" height="2" x="0" fill="#009e60"></rect>
+          <rect width="1" height="2" x="1" fill="#ffffff"></rect>
+          <rect width="1" height="2" x="2" fill="#f77f00"></rect>
+        </svg>
+      `;
+
+      const html = `
+        <div id="pdfWrapper" style="position:relative;width:820px;padding:20px;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;">
+          <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">
+            GREENBRIDGE — À TITRE INDICATIF
           </div>
 
-          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div>
-                <div style="font-weight:700">Puissance installée</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div>
+          <div style="position:relative;z-index:1;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px">
+              <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
+                  <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
+                  <div style="font-size:11px;color:#556b56">Énergie & Agriculture</div>
+                </div>
+                <div>
+                  <div style="font-size:16px;font-weight:700;color:#062d1b">Dimensionnement agricole</div>
+                  <div style="font-size:12px;color:#666;margin-top:4px">${esc(s.timestamp)} — ${esc(s.typeExploitation)} — ${esc(s.crop)} — ${esc(s.areaHa)} ha</div>
+                </div>
               </div>
-              <div>
-                <div style="font-weight:700">Onduleur standard conseillé</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Consommation / jour</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Consommation / mois</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div>
-              </div>
-              <div>
-                <div style="font-weight:700">PV requis</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Nb panneaux</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Batterie utile totale</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Autonomie estimée</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Pack batterie utile</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.battPackKwh,2)} kWh × ${s.batteryPackCount}</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Type batterie</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryType}</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Durée de vie batterie</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryLifeYears}</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Ville</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.cityLabel}</div>
+              <div style="text-align:right">
+                <div style="width:84px;height:56px">${flagSVG}</div>
+                <div style="font-size:11px;color:#666;margin-top:6px">${esc(s.country)}</div>
               </div>
             </div>
-          </div>
 
-          ${chartHtml}
+            <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div>
+                  <div style="font-weight:700">Volume eau (m³ / jour)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.volDay_m3,3))} m³</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Basé sur surface × mm/j</div>
+                </div>
 
-          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-top:12px;margin-bottom:12px;background:#fbfffb">
-            <div style="font-weight:700;margin-bottom:6px">Points de sécurité</div>
-            <ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">
-              ${safetyHtml}
-            </ul>
-          </div>
+                <div>
+                  <div style="font-weight:700">Débit pompe requis (m³/h)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.q_m3h,3))} m³/h</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Volume hebdomadaire réparti sur jours d'irrigation</div>
+                </div>
 
-          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
-            <div style="font-weight:700;margin-bottom:8px">Détail des pièces et charges</div>
+                <div>
+                  <div style="font-weight:700">Puissance pompe (kW)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.pInput_kW,3))} kW</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Puissance électrique d'entrée</div>
+                </div>
+
+                <div>
+                  <div style="font-weight:700">Énergie pompe (kWh / jour)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.energyPumpDailyAvg_kWh,3))} kWh/j</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Moyenne journalière sur la semaine</div>
+                </div>
+
+                <div>
+                  <div style="font-weight:700">Autres consommateurs (kWh / jour)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.others_kwh,3))} kWh/j</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Somme des équipements ajoutés</div>
+                </div>
+
+                <div>
+                  <div style="font-weight:700">Consommation totale (kWh / jour)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.totalDaily_kWh,3))} kWh/j</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Pompe + autres, avant pertes invers.</div>
+                </div>
+
+                <div>
+                  <div style="font-weight:700">PV requis (kWc)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.pvKw,3))} kWc</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Dimensionnement brut</div>
+                </div>
+
+                <div>
+                  <div style="font-weight:700">Nb panneaux (~W)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(s.panels)}</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Arrondi au panneau entier</div>
+                </div>
+
+                <div>
+                  <div style="font-weight:700">Réservoir recommandé (m³)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.reservoir_m3,3))} m³</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Pour ${esc(autonomyDaysEl.value || 2)} jours d'autonomie</div>
+                </div>
+
+                <div>
+                  <div style="font-weight:700">Batterie estimée (kWh utile)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.batteryNeeded_kWh,3))} kWh</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Selon autonomie demandée</div>
+                </div>
+
+                <div>
+                  <div style="font-weight:700">Onduleur conseillé</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(Math.round(s.inverterSuggestedW))} W</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">Puissance standard recommandée</div>
+                </div>
+
+                <div>
+                  <div style="font-weight:700">Batterie standard conseillée</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.batteryStd,3))} kWh</div>
+                  <div style="font-size:12px;color:#666;margin-top:6px">${esc(s.batteryType)} | ${esc(s.batteryLife[0])} à ${esc(s.batteryLife[1])} ans en climat chaud</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fff">
+              <div style="font-weight:700;margin-bottom:8px">Lecture graphique — consommation estimée sur 24h</div>
+              ${chartData ? `<img src="${chartData}" alt="Graphique 24h" style="width:100%;height:auto;border-radius:8px;border:1px solid #eee">` : ''}
+              <div style="font-size:12px;color:#666;margin-top:8px">Le profil ci-dessus montre une consommation indicative sur 24h liée à l’utilisation agricole et à l’élevage.</div>
+            </div>
+
+            <div style="font-weight:700;margin-bottom:8px">Détail Consommateurs</div>
             <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
               <thead>
                 <tr>
                   <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
-                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th>
                   <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
                   <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
-                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Coef</th>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">kWh / j</th>
                 </tr>
               </thead>
               <tbody>
-                ${loadsRows || '<tr><td colspan="5" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune pièce générée</td></tr>'}
+                ${consumersHtml}
               </tbody>
             </table>
 
-            <div style="font-size:12px;color:#444;line-height:1.6">
-              <strong>Recommandation :</strong> pour une étude plus fine, de sécurité et de mise en œuvre, rapprochez-vous de GreenBridge.
-              Les protections, les câbles, la structure, la ventilation, la mise à la terre et les marges d’exploitation doivent être validés sur site.
+            <div style="border:1px solid #eee;padding:10px;border-radius:8px;margin-bottom:12px;background:#fbfff7">
+              <div style="font-weight:700;margin-bottom:6px">Sécurité à prévoir</div>
+              <ul style="margin:0;padding-left:18px;font-size:12px;color:#444;line-height:1.6">
+                <li>Ventilation du local batteries</li>
+                <li>Protections fusibles et sectionnement</li>
+                <li>Câbles protégés et bien dimensionnés</li>
+                <li>Réservoir éloigné des sources de chaleur</li>
+                <li>Contrôle niveau d’eau et entretien régulier</li>
+              </ul>
+            </div>
+
+            <div style="font-weight:700;margin-bottom:6px">Avertissement</div>
+            <div style="font-size:12px;color:#444;line-height:1.6;margin-bottom:10px">
+              Ce document reste indicatif. Pour une étude plus fine, un dimensionnement complet et un choix final de matériel, il est recommandé de se rapprocher de GreenBridge avec les données terrain exactes.
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
+              <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
+              <div>Export : ${esc(s.timestamp)}</div>
             </div>
           </div>
-
-          <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
-            <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
-            <div>Export : ${s.timestamp}</div>
-          </div>
         </div>
-      </div>
-    `;
+      `;
 
-    const wrapper = document.createElement('div');
-    wrapper.style.position = 'fixed';
-    wrapper.style.left = '-5000px';
-    wrapper.style.top = '0';
-    wrapper.innerHTML = html;
-    document.body.appendChild(wrapper);
+      const wrapper = document.createElement('div');
+      wrapper.style.position = 'fixed';
+      wrapper.style.left = '-5000px';
+      wrapper.style.top = '0';
+      wrapper.innerHTML = html;
+      document.body.appendChild(wrapper);
 
-    const element = wrapper.firstElementChild;
-    const scale = 2;
-    const canvas = await html2canvas(element, { scale, useCORS:true, backgroundColor:'#ffffff' });
-    const imgData = canvas.toDataURL('image/png');
+      const element = wrapper.firstElementChild;
+      const scale = 2;
+      const canvas = await html2canvas(element, { scale, useCORS:true, backgroundColor:'#ffffff' });
+      const imgData = canvas.toDataURL('image/png');
 
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p','mm','a4');
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const margin = 10;
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfImgWidth = pageWidth - margin*2;
-    const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p','mm','a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 10;
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfImgWidth = pageWidth - margin*2;
+      const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
 
-    if(pdfImgHeight <= pageHeight - margin*2){
-      pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight);
-    }else{
-      const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
-      let rendered = 0;
-      while(rendered < canvas.height){
-        const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
-        const sliceCanvas = document.createElement('canvas');
-        sliceCanvas.width = canvas.width;
-        sliceCanvas.height = sliceH;
-        const ctx = sliceCanvas.getContext('2d');
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
-        ctx.drawImage(canvas,0,rendered,sliceCanvas.width,sliceCanvas.height,0,0,sliceCanvas.width,sliceCanvas.height);
-        const sliceData = sliceCanvas.toDataURL('image/png');
-        const sliceImgProps = pdf.getImageProperties(sliceData);
-        const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
-        if(rendered > 0) pdf.addPage();
-        pdf.addImage(sliceData,'PNG',margin,margin,pdfImgWidth,sliceImgHeight);
-        rendered += sliceH;
+      if(pdfImgHeight <= pageHeight - margin*2){
+        pdf.addImage(imgData,'PNG', margin, margin, pdfImgWidth, pdfImgHeight);
+      } else {
+        const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
+        let rendered = 0;
+        while(rendered < canvas.height){
+          const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
+          const sliceCanvas = document.createElement('canvas');
+          sliceCanvas.width = canvas.width;
+          sliceCanvas.height = sliceH;
+          const ctx = sliceCanvas.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
+          ctx.drawImage(canvas, 0, rendered, sliceCanvas.width, sliceCanvas.height, 0, 0, sliceCanvas.width, sliceCanvas.height);
+          const sliceData = sliceCanvas.toDataURL('image/png');
+          const sliceImgProps = pdf.getImageProperties(sliceData);
+          const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
+          if(rendered > 0) pdf.addPage();
+          pdf.addImage(sliceData, 'PNG', margin, margin, pdfImgWidth, sliceImgHeight);
+          rendered += sliceH;
+        }
       }
+
+      pdf.setFontSize(9);
+      pdf.setTextColor(120);
+      pdf.text('GreenBridge — Synthèse indicative', margin, pageHeight - 6);
+
+      const filename = `GreenBridge_zone_agricole_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
+      pdf.save(filename);
+
+      document.body.removeChild(wrapper);
+    } catch(err){
+      console.error(err);
+      alert('Erreur lors de la génération du PDF. Voir console pour détails.');
+    }
+  }
+
+  function updateChart(r){
+    const canvas = document.getElementById('batteryChart');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth || 900;
+    const h = canvas.clientHeight || 280;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    ctx.clearRect(0,0,w,h);
+
+    const hours = Array.from({length:24}, (_,i)=>i);
+    const baseLoad = Math.max(0.2, r.totalDaily_kWh / 24);
+    const points = hours.map(hh=>{
+      let load = baseLoad * 0.7;
+      if(hh >= 5 && hh <= 8) load += baseLoad * 1.8;
+      if(hh >= 10 && hh <= 14) load += baseLoad * 1.0;
+      if(hh >= 18 && hh <= 22) load += baseLoad * 2.2;
+      if(hh >= 0 && hh <= 4) load += baseLoad * 0.4;
+      return load;
+    });
+
+    const maxY = Math.max(...points) * 1.25;
+    const pad = 26;
+    const chartW = w - pad*2;
+    const chartH = h - pad*2;
+
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0,0,w,h);
+
+    ctx.strokeStyle = '#dfeadf';
+    ctx.lineWidth = 1;
+    for(let i=0;i<=4;i++){
+      const y = pad + (chartH/4)*i;
+      ctx.beginPath();
+      ctx.moveTo(pad,y);
+      ctx.lineTo(w-pad,y);
+      ctx.stroke();
     }
 
-    pdf.setFontSize(9);
-    pdf.setTextColor(120);
-    pdf.text('GreenBridge — Synthèse indicative', margin, pageHeight - 6);
+    ctx.strokeStyle = '#04462e';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    points.forEach((p,i)=>{
+      const x = pad + (chartW/23)*i;
+      const y = pad + chartH - (p/maxY)*chartH;
+      if(i===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
 
-    const filename = `GreenBridge_zone_agricole_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
-    pdf.save(filename);
+    ctx.fillStyle = 'rgba(124,179,66,0.22)';
+    ctx.beginPath();
+    points.forEach((p,i)=>{
+      const x = pad + (chartW/23)*i;
+      const y = pad + chartH - (p/maxY)*chartH;
+      if(i===0) ctx.moveTo(x,chartH+pad);
+      ctx.lineTo(x,y);
+    });
+    ctx.lineTo(w-pad,h-pad);
+    ctx.closePath();
+    ctx.fill();
 
-    document.body.removeChild(wrapper);
-  }catch(err){
-    console.error(err);
-    alert('Erreur lors de la génération du PDF. Voir console pour détails.');
+    ctx.fillStyle = '#04462e';
+    ctx.font = '12px Arial';
+    for(let i=0;i<24;i+=3){
+      const x = pad + (chartW/23)*i;
+      ctx.fillText(String(i).padStart(2,'0') + 'h', x-8, h-8);
+    }
+
+    ctx.fillStyle = '#6b7f6b';
+    ctx.font = '12px Arial';
+    ctx.fillText('Charge estimée 24h liée à l’utilisation agricole / élevage', pad, 14);
   }
-}
 
-burgerBtn.addEventListener('click', () => {
-  const opened = mobileNav.classList.contains('open');
-  if(opened) closeMenu();
-  else openMenu();
-});
-if(mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
-if(mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
-
-document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => {
-  if(a.id === 'mobileStudyToggle' || a.id === 'mobileProductsToggle') return;
-  a.addEventListener('click', () => closeMenu());
-});
-
-bindMobileExpandable(
-  document.getElementById('mobileStudyToggle'),
-  document.getElementById('mobileStudySub')
-);
-bindMobileExpandable(
-  document.getElementById('mobileProductsToggle'),
-  document.getElementById('mobileProductsSub')
-);
-
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeMenu();
-});
-
-generateBtn.addEventListener('click', generateInitialRooms);
-resetBtn.addEventListener('click', () => {
-  if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
-  cityEl.value = 'abidjan';
-  batteryTypeEl.value = 'lithium_ion';
-  batteryPackCountEl.value = 4;
-  battPackKwhEl.value = 1.28;
-  panelWEl.value = 350;
-  genBedrooms.value = 1;
-  genLiving.value = 1;
-  genKitchens.value = 1;
-  genBaths.value = 1;
-  genOffices.value = 0;
-  genToilets.value = 0;
-  genAdd.checked = false;
-  rooms = [];
-  roomCounter = 0;
-  renderRooms();
-  recalc();
-});
-exportPdfBtn.addEventListener('click', generatePDF);
-
-cityEl.addEventListener('change', recalc);
-batteryTypeEl.addEventListener('change', recalc);
-batteryPackCountEl.addEventListener('input', recalc);
-battPackKwhEl.addEventListener('input', recalc);
-panelWEl.addEventListener('input', recalc);
-
-roomListEl.addEventListener('input', onLoadChange);
-roomListEl.addEventListener('change', onLoadChange);
-roomListEl.addEventListener('click', (e) => {
-  const addLoadBtn = e.target.closest('.btn-add-load');
-  const removeRoomBtn = e.target.closest('.btn-remove-room');
-  const removeLoadBtn = e.target.closest('.btn-remove-load');
-
-  if(addLoadBtn){
-    addLoad(Number(addLoadBtn.dataset.r));
-    return;
+  function buildChartBlock(){
+    const existing = document.getElementById('batteryChartCard');
+    if(existing) return;
+    const chartCard = document.createElement('div');
+    chartCard.className = 'card';
+    chartCard.id = 'batteryChartCard';
+    chartCard.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="font-weight:800">Graphique 24h de charge</div>
+        <div class="muted">Profil de consommation estimé pour appuyer le dimensionnement</div>
+      </div>
+      <canvas id="batteryChart" style="width:100%;height:280px;margin-top:10px;border:1px solid #e6f3ea;border-radius:10px;background:#fff"></canvas>
+      <div class="note">Le profil illustre la consommation sur 24h selon les usages agricoles et d’élevage saisis.</div>
+    `;
+    const pageCenter = document.querySelector('.page-center');
+    const summary = document.querySelector('.summary');
+    if(pageCenter && summary){
+      pageCenter.insertBefore(chartCard, summary);
+    }
   }
-  if(removeRoomBtn){
-    const roomIndex = Number(removeRoomBtn.dataset.r);
-    if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
-    rooms.splice(roomIndex,1);
-    renderRooms();
-    recalc();
-    return;
+
+  function addInitialConsumers(){
+    consumers = [
+      {name:'Pompe annexe', power:1500, hours:0.5},
+      {name:'Éclairage hangar', power:120, hours:6}
+    ];
   }
-  if(removeLoadBtn){
-    const consumer = removeLoadBtn.closest('.consumer');
-    const roomIndex = Number(consumer.dataset.r);
-    const loadIndex = Number(consumer.dataset.l);
-    rooms[roomIndex].loads.splice(loadIndex,1);
-    renderRooms();
-    recalc();
-  }
-});
 
-function initializePage(){
-  updatePhoneNumbers();
-  populateCities();
-  rooms = [];
-  roomCounter = 0;
-  renderRooms();
-  openDesktopDropdowns();
-  applyCurrentPageState();
-  recalc();
-  setInterval(cyclePhone, 10000);
-}
-initializePage();
+  zoneSelect.addEventListener('change', ()=>populateCities(zoneSelect.value));
+  countryEl.addEventListener('change', ()=>{ syncCountryToZone(); updateNeedMmForCountryAndCrop(); });
+  zoneSelect.addEventListener('change', ()=>{ syncZoneToCountry(); });
 
-(function(){
-  const band = document.getElementById('energyBand');
-  if(!band) return;
-  const orbA = document.getElementById('eOrbA');
-  const orbB = document.getElementById('eOrbB');
-  const orbC = document.getElementById('eOrbC');
-  const orbs = [orbA, orbB, orbC];
-  const bright = document.getElementById('zapBright');
-
-  const params = [
-    {rxRatio:0.50, ry:8, speed:0.06, phase:0},
-    {rxRatio:0.33, ry:6, speed:0.08, phase:Math.PI/2},
-    {rxRatio:0.42, ry:10, speed:0.05, phase:Math.PI}
-  ];
-
-  orbs.forEach((o,i)=>{
-    if(o){
-      o.classList.add('buzz');
-      o.style.animationDelay = (i*140)+'ms';
-      o.style.opacity='1';
+  cropEl.addEventListener('change', ()=>updateNeedMmForCountryAndCrop());
+  typeExploitationEl.addEventListener('change', ()=>{
+    if(typeExploitationEl.value === 'elevage'){
+      needMmEl.value = 0;
+      needMmEl.readOnly = true;
+      document.getElementById('needHelp').textContent = 'Mode élevage : le besoin en eau est remplacé par les usages d’élevage (abreuvement, nettoyage, refroidissement).';
+    } else if(typeExploitationEl.value === 'mixte'){
+      needMmEl.readOnly = false;
+      document.getElementById('needHelp').textContent = 'Mode mixte : irrigation + usages d’élevage.';
+      updateNeedMmForCountryAndCrop();
+    } else {
+      needMmEl.readOnly = false;
+      document.getElementById('needHelp').textContent = 'La valeur change automatiquement selon le pays + type choisi.';
+      updateNeedMmForCountryAndCrop();
     }
   });
 
-  let t0 = performance.now();
-  function tick(now){
-    const time = (now - t0)/1000;
-    const cont = band.querySelector('.container');
-    if(!cont){ requestAnimationFrame(tick); return; }
-    const rect = cont.getBoundingClientRect();
-    const cx = rect.width/2;
-    const cy = rect.height/2;
-    for(let i=0;i<orbs.length;i++){
-      const o = orbs[i]; if(!o) continue;
-      const p = params[i];
-      const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
-      const ry = p.ry;
-      const angle = (time * p.speed * Math.PI * 2) + p.phase;
-      const x = cx + Math.cos(angle) * rx;
-      const y = cy + Math.sin(angle) * ry;
-      o.style.left = x + 'px';
-      o.style.top = y + 'px';
-      o.style.transform = 'translate(-50%,-50%)';
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
+  addManualBtn.addEventListener('click', addManualConsumer);
 
-  function sparkBright(){
-    if(!bright) return;
-    bright.style.transition = 'none';
-    try{
-      const len = bright.getTotalLength ? bright.getTotalLength() : 520;
-      bright.setAttribute('stroke-dasharray', String(len));
-      bright.setAttribute('stroke-dashoffset', String(len));
-      setTimeout(()=> {
-        bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms';
-        bright.setAttribute('stroke-dashoffset','0');
-        setTimeout(()=> { bright.setAttribute('stroke-dashoffset', String(len)); }, 420);
-      }, 80);
-    }catch(e){
-      bright.setAttribute('stroke-dasharray','520');
-      bright.setAttribute('stroke-dashoffset','520');
-      setTimeout(()=> { bright.style.transition = 'stroke-dashoffset 420ms ease-out'; bright.setAttribute('stroke-dashoffset','0'); }, 80);
-    }
-  }
+  calcBtn.addEventListener('click', computeAll);
+  resetBtn.addEventListener('click', ()=>{
+    if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
+    countryEl.value='ci';
+    zoneSelect.value='ci';
+    typeExploitationEl.value='culture';
+    populateCities(zoneSelect.value);
 
-  function spawnSparks(){
-    const cont = band.querySelector('.container');
-    if(!cont) return;
-    for(let i=0;i<8;i++){
-      const s = document.createElement('div');
-      s.style.position='absolute';
-      s.style.left = (3 + Math.random()*94) + '%';
-      s.style.top = (20 + Math.random()*50) + '%';
-      s.style.width = '2px';
-      s.style.height = (8 + Math.random()*18) + 'px';
-      s.style.borderRadius = '2px';
-      s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
-      s.style.filter = 'blur(6px)';
-      s.style.opacity = '0';
-      s.style.transform = 'translateY(6px)';
-      s.style.pointerEvents = 'none';
-      cont.appendChild(s);
-      setTimeout(()=> { s.style.transition = 'all 260ms ease-out'; s.style.opacity='1'; s.style.transform='translateY(-6px)'; }, 20 + i*30);
-      setTimeout(()=> { s.style.transition = 'all 520ms ease-in'; s.style.opacity='0'; s.style.transform='translateY(-20px)'; }, 300 + i*40);
-      setTimeout(()=> { if(s.parentNode) s.parentNode.removeChild(s); }, 820 + i*40);
-    }
+    cropEl.value='tomate';
+    areaHaEl.value='0.5';
+    needMmEl.value='5.0';
+    irrigDaysEl.value='3';
+    pumpHoursEl.value='4';
+    headEl.value='15';
+    pumpEffEl.value='55';
+    sunHoursEl.value='5';
+    pvDerateEl.value='85';
+    panelWEl.value='350';
+    batteryTypeEl.value='lithium';
+    packKwhEl.value='1.28';
+    batteryCountEl.value='2';
+    autonomyDaysEl.value='2';
+
+    consNameInput.value='';
+    consPowerInput.value='';
+    consHoursInput.value='';
+
+    consumers = [];
+    addInitialConsumers();
+    renderConsumers();
+    updateNeedMmForCountryAndCrop();
+    computeAll();
+  });
+
+  exportPdfBtn.addEventListener('click', generatePDF);
+
+  [
+    areaHaEl, needMmEl, irrigDaysEl, pumpHoursEl, headEl, pumpEffEl,
+    sunHoursEl, pvDerateEl, panelWEl, packKwhEl, autonomyDaysEl, batteryCountEl
+  ].forEach(el => el.addEventListener('input', () => computeAll()));
+
+  batteryTypeEl.addEventListener('change', computeAll);
+
+  function init(){
+    initMap();
+    buildChartBlock();
+    renderSuggested();
+    addInitialConsumers();
+    renderConsumers();
+    populateCities(zoneSelect.value);
+    if(countryEl.value !== zoneSelect.value) zoneSelect.value = countryEl.value;
+    updateNeedMmForCountryAndCrop();
+    computeAll();
   }
 
-  function activate(){
-    band.classList.add('active');
-    spawnSparks(); sparkBright();
-    setInterval(()=>{
-      spawnSparks();
-      if(Math.random() > 0.45) sparkBright();
-    }, 1200 + Math.random()*1200);
-  }
-
-  const title = document.querySelector('.company-name');
-  if(title){
-    title.addEventListener('click', ()=>{
-      const on = band.classList.toggle('active');
-      if(on){
-        spawnSparks();
-        sparkBright();
-      }
-    });
-  }
-
-  activate();
-  window.addEventListener('resize', ()=>{ t0 = performance.now(); });
-})();
-</script>
+  document.addEventListener('DOMContentLoaded', init);
+  window.addEventListener('resize', ()=> computeAll());
+  </script>
 </body>
 </html>
