@@ -10,7 +10,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <style>
 :root{
@@ -25,11 +24,11 @@
   --muted:#e6f7ea;
   --gold:#d4af37;
   --gold-base:#d4af37;
+  --electric-yellow:#ffd600;
   --card-radius:12px;
   --font:'Poppins',Arial,sans-serif;
   --max-width:1180px;
   --shadow:0 10px 22px rgba(0,0,0,0.35);
-  --electric-yellow:#ffd600;
 }
 
 *{box-sizing:border-box}
@@ -315,7 +314,6 @@ nav a.active{
   font-weight:700;
   color:#dfffe6;
 }
-
 .menu-links{
   flex:1;
   display:flex;
@@ -354,7 +352,6 @@ nav a.active{
   color:var(--accent-2);
   border:1px solid rgba(212,175,55,0.28);
 }
-
 .mobile-nav .submenu{
   display:none;
   flex-direction:column;
@@ -551,7 +548,6 @@ nav a.active{
 
 .hero{
   margin-top:calc(var(--topbar-h) + var(--header-h));
-  height:calc(72vh - (var(--topbar-h) + var(--header-h)));
   min-height:calc(72vh - (var(--topbar-h) + var(--header-h)));
   position:relative;
   display:flex;
@@ -569,7 +565,7 @@ nav a.active{
   object-fit:cover;
   object-position:center 85%;
   transform:scale(1.07) translateY(24px);
-  filter:brightness(1.03) contrast(1.03) saturate(1.02);
+  filter:brightness(1.04) contrast(1.03) saturate(1.02);
 }
 .hero-overlay{
   position:absolute;
@@ -579,46 +575,87 @@ nav a.active{
 }
 .hero-content{
   position:relative;
-  z-index:2;
-  max-width:950px;
+  z-index:4;
+  max-width:920px;
   padding:0 20px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
 }
-.hero-content h1{
-  font-size:36px;
-  margin:0 0 12px;
-  font-weight:700;
-  text-shadow:0 3px 10px rgba(0,0,0,0.45)
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(10px);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  color:#eefdf0;
+  box-shadow:0 12px 26px rgba(0,0,0,.18);
 }
-.hero-content p{
-  font-size:18px;
-  margin:0 0 18px;
-  text-shadow:0 2px 8px rgba(0,0,0,0.45)
+.hero h1{
+  margin:18px 0 14px;
+  font-size:clamp(28px,4.5vw,54px);
+  line-height:1.08;
+  text-wrap:balance;
+  max-width:720px;
+  text-shadow:0 10px 24px rgba(0,0,0,.35);
 }
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.hero h1 span{color:var(--accent-2)}
+.hero p{
+  max-width:850px;
+  margin:0 auto 26px;
+  font-size:clamp(16px,1.5vw,19px);
+  line-height:1.8;
+  color:#eefaf0;
+  text-shadow:0 2px 8px rgba(0,0,0,.28);
+}
+.hero-actions{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
 .btn-primary,.btn-secondary{
-  padding:14px 26px;
-  border-radius:10px;
+  padding:14px 24px;
+  border-radius:12px;
   border:0;
-  font-weight:700;
   cursor:pointer;
-  font-size:16px;
+  font-weight:800;
+  font-size:15px;
+  transition:transform .18s ease, background .18s ease, border-color .18s ease;
 }
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{background:var(--accent-2)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),#9be15f);
+  color:#062113;
+  box-shadow:0 16px 30px rgba(124,179,66,.16);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  background:linear-gradient(135deg,var(--accent-2),#d0ffca);
+}
 .btn-secondary{
-  background:transparent;
+  background:rgba(255,255,255,.04);
   color:#fff;
-  border:1px solid rgba(255,255,255,0.32);
+  border:1px solid rgba(255,255,255,.20);
+  backdrop-filter:blur(10px);
 }
-.btn-secondary:hover{background:rgba(255,255,255,0.08)}
+.btn-secondary:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.08);
+}
 
 .section{
   padding:60px 5vw;
   scroll-margin-top:140px;
+  position:relative;
+  z-index:1;
 }
 .section h2{
   font-size:32px;
@@ -626,7 +663,6 @@ nav a.active{
   color:var(--accent-2);
   text-align:center
 }
-
 .study-intro,.agri-intro,.note-intro{
   max-width:1000px;
   margin:0 auto 24px;
@@ -937,7 +973,7 @@ footer::before{
 
 @media (max-width:1100px){
   nav{display:none}
-  .burger{display:flex}
+  .burger{display:flex !important}
   .form-grid{grid-template-columns:1fr}
   .consumer-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -951,8 +987,15 @@ footer::before{
     height:auto;
     min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
   }
+  .hero-bg{
+    object-position:center 30%;
+    transform:scale(1.10) translateY(0);
+  }
   .hero-content{max-width:88vw;padding:24px 14px}
-  .hero-content h1{font-size:clamp(24px, 5.2vw, 34px)}
+  .hero-content h1{
+    font-size:clamp(24px, 5.2vw, 34px);
+    max-width:92vw;
+  }
   .hero-content p{font-size:16px}
   .section{padding:52px 4vw}
   .consumer{font-size:14px}
@@ -999,12 +1042,11 @@ footer::before{
     padding:18px 12px;
   }
   .hero-content h1{
-    font-size:28px;
+    font-size:24px;
     font-weight:700;
     margin:0 0 8px;
-    white-space:nowrap;
-    overflow-x:hidden;
-    text-overflow:ellipsis;
+    white-space:normal;
+    line-height:1.18;
   }
   .hero-content p{
     font-size:16px;
@@ -1163,8 +1205,9 @@ footer::before{
     <img class="hero-bg" src="milieu_agricole.png" alt="Illustration dimensionnement agricole">
     <div class="hero-overlay"></div>
     <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-seedling"></i> étude agricole</div>
       <h1>Dimensionnement agricole</h1>
-      <p>Évaluez vos besoins en eau, les charges utiles et la puissance nécessaire pour un système fiable en agriculture et élevage.</p>
+      <p>Évaluez clairement vos besoins en eau, la puissance de pompage, le stockage batterie et l’onduleur adapté à votre site.</p>
       <div class="hero-actions">
         <a class="btn-primary" href="#dimensionnement">Commencer l'étude</a>
       </div>
@@ -1174,13 +1217,14 @@ footer::before{
   <section id="dimensionnement" class="section" aria-label="Étude de dimensionnement">
     <h2>Étude de dimensionnement</h2>
     <p class="study-intro">
-      Cette page est dédiée au dimensionnement agricole : vous renseignez la culture, la surface, la fréquence d’irrigation et les charges utiles pour obtenir une base sérieuse de puissance, de stockage et de pompage.
+      Ici, l’essentiel est simple : vous choisissez la culture, la surface, la zone et le type de batterie, puis vous obtenez un résultat utile pour l’agriculture et l’élevage.
+      L’objectif est de savoir combien d’eau il faut pomper, quelle puissance électrique prévoir, quelle capacité batterie choisir, et quel onduleur standard convient.
     </p>
 
     <div class="card-soft">
       <div class="calc" id="calcCard">
         <h3><span class="badge">Calculateur</span> Besoin de pompage et de stockage</h3>
-        <div class="small-note">Les calculs sont indicatifs et servent à orienter le dimensionnement. Les valeurs d’ensoleillement sont ajustées automatiquement selon la ville.</div>
+        <div class="small-note">Les valeurs d’ensoleillement sont ajustées automatiquement selon la ville. L’utilisateur ne voit que l’essentiel.</div>
 
         <div class="top-controls">
           <label for="zone">Pays :</label>
@@ -1192,7 +1236,7 @@ footer::before{
           <label for="city">Ville :</label>
           <select id="city" aria-label="Ville"></select>
 
-          <span class="badge-zone" id="zoneBadge"><i class="fas fa-building"></i> Zone agricole</span>
+          <span class="badge-zone" id="zoneBadge"><i class="fas fa-seedling"></i> Zone agricole</span>
 
           <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
           <button id="exportBtn" class="btn-link" type="button">Résumé texte</button>
@@ -1307,7 +1351,7 @@ footer::before{
 
         <div style="margin-top:14px" class="form-panel">
           <h4>Charges additionnelles agricoles</h4>
-          <div class="small-note">Ajoute les équipements du site : hangar, chambre froide, ventilation, pompe annexe, clôture électrique, etc.</div>
+          <div class="small-note">Ajoute les équipements du site : éclairage, chambre froide, ventilation, pompe annexe, clôture électrique, recharge, etc.</div>
 
           <div class="suggests" id="suggestList"></div>
 
@@ -1424,1036 +1468,1033 @@ footer::before{
     </div>
   </footer>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+(function(){
+  const phoneNumbers = {
+    abidjan: { display: '+225 07 07 07 07 07', tel: '+2250707070707' },
+    dakar:   { display: '+221 77 00 00 00 00', tel: '+2217700000000' }
+  };
 
-  <script>
-  (function(){
-    const phoneNumbers = {
-      abidjan: { display: '+225 07 07 07 07 07', tel: '+2250707070707' },
-      dakar:   { display: '+221 77 00 00 00 00', tel: '+2217700000000' }
-    };
+  const burger = document.getElementById('burgerBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  const mobileBackdrop = document.getElementById('mobileBackdrop');
+  const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+  const topPhoneLink = document.getElementById('topPhoneLink');
+  const topPhoneText = document.getElementById('topPhoneText');
+  const mobilePhoneLink = document.getElementById('mobilePhoneLink');
+  const footerPhoneText = document.getElementById('footerPhoneText');
 
-    const burger = document.getElementById('burgerBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    const mobileBackdrop = document.getElementById('mobileBackdrop');
-    const mobileCloseBtn = document.getElementById('mobileCloseBtn');
-    const topPhoneLink = document.getElementById('topPhoneLink');
-    const topPhoneText = document.getElementById('topPhoneText');
-    const mobilePhoneLink = document.getElementById('mobilePhoneLink');
-    const footerPhoneText = document.getElementById('footerPhoneText');
-
-    let currentPhone = 'abidjan';
-    function updatePhone(country){
-      const info = phoneNumbers[country] || phoneNumbers.abidjan;
-      if (topPhoneLink) topPhoneLink.href = 'tel:' + info.tel;
-      if (topPhoneText) topPhoneText.textContent = info.display;
-      if (mobilePhoneLink) {
-        mobilePhoneLink.href = 'tel:' + info.tel;
-        mobilePhoneLink.textContent = info.display;
-      }
-      if (footerPhoneText) footerPhoneText.textContent = info.display;
+  let currentPhone = 'abidjan';
+  function updatePhone(country){
+    const info = phoneNumbers[country] || phoneNumbers.abidjan;
+    if (topPhoneLink) topPhoneLink.href = 'tel:' + info.tel;
+    if (topPhoneText) topPhoneText.textContent = info.display;
+    if (mobilePhoneLink) {
+      mobilePhoneLink.href = 'tel:' + info.tel;
+      mobilePhoneLink.textContent = info.display;
     }
+    if (footerPhoneText) footerPhoneText.textContent = info.display;
+  }
+  updatePhone(currentPhone);
+  setInterval(() => {
+    currentPhone = currentPhone === 'abidjan' ? 'dakar' : 'abidjan';
     updatePhone(currentPhone);
-    setInterval(() => {
-      currentPhone = currentPhone === 'abidjan' ? 'dakar' : 'abidjan';
-      updatePhone(currentPhone);
-    }, 10000);
+  }, 10000);
 
-    function openMenu(){
-      if (!mobileNav || !burger) return;
-      mobileNav.classList.add('open');
-      if (mobileBackdrop) mobileBackdrop.classList.add('open');
-      burger.classList.add('open');
-      mobileNav.setAttribute('aria-hidden', 'false');
-      burger.setAttribute('aria-expanded', 'true');
-      document.body.classList.add('menu-open');
-      const activeToggle = document.getElementById('mobileEnergieToggle');
-      const activeSub = document.getElementById('mobileEnergieSub');
-      if (activeToggle && activeSub) {
-        activeSub.style.display = 'flex';
-        activeToggle.setAttribute('aria-expanded','true');
-      }
+  function openMenu(){
+    if (!mobileNav || !burger) return;
+    mobileNav.classList.add('open');
+    if (mobileBackdrop) mobileBackdrop.classList.add('open');
+    burger.classList.add('open');
+    mobileNav.setAttribute('aria-hidden', 'false');
+    burger.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('menu-open');
+
+    const activeToggle = document.getElementById('mobileEnergieToggle');
+    const activeSub = document.getElementById('mobileEnergieSub');
+    if (activeToggle && activeSub) {
+      activeSub.style.display = 'flex';
+      activeToggle.setAttribute('aria-expanded','true');
     }
+  }
 
-    function closeMenu(){
-      if (!mobileNav || !burger) return;
-      mobileNav.classList.remove('open');
-      if (mobileBackdrop) mobileBackdrop.classList.remove('open');
-      burger.classList.remove('open');
-      mobileNav.setAttribute('aria-hidden', 'true');
-      burger.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('menu-open');
-    }
+  function closeMenu(){
+    if (!mobileNav || !burger) return;
+    mobileNav.classList.remove('open');
+    if (mobileBackdrop) mobileBackdrop.classList.remove('open');
+    burger.classList.remove('open');
+    mobileNav.setAttribute('aria-hidden', 'true');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
+  }
 
-    if (burger && mobileNav) {
-      burger.addEventListener('click', () => {
-        const opened = mobileNav.classList.contains('open');
-        if (opened) closeMenu();
-        else openMenu();
-      });
-      if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
-      if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
+  if (burger && mobileNav) {
+    burger.addEventListener('click', () => {
+      const opened = mobileNav.classList.contains('open');
+      if (opened) closeMenu();
+      else openMenu();
+    });
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
+    if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
-      mobileNav.querySelectorAll('.mobile-link').forEach(a => {
-        if(a.id === 'mobileEnergieToggle' || a.id === 'mobileProduitsToggle') return;
-        a.addEventListener('click', () => closeMenu());
-      });
+    mobileNav.querySelectorAll('.mobile-link').forEach(a => {
+      if(a.id === 'mobileEnergieToggle' || a.id === 'mobileProduitsToggle') return;
+      a.addEventListener('click', () => closeMenu());
+    });
 
-      function bindExpandable(toggleEl, subEl){
-        if(!toggleEl || !subEl) return;
-        toggleEl.addEventListener('click', function(e){
-          if(e.target.closest('.caret')){
-            e.preventDefault();
-            e.stopPropagation();
+    function bindExpandable(toggleEl, subEl){
+      if(!toggleEl || !subEl) return;
+      toggleEl.addEventListener('click', function(e){
+        if(e.target.closest('.caret')){
+          e.preventDefault();
+          e.stopPropagation();
 
-            const opening = subEl.style.display !== 'flex';
-            document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
-              if(s !== subEl) s.style.display = 'none';
-            });
+          const opening = subEl.style.display !== 'flex';
+          document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
+            if(s !== subEl) s.style.display = 'none';
+          });
 
-            subEl.style.display = opening ? 'flex' : 'none';
-            toggleEl.setAttribute('aria-expanded', String(opening));
-            toggleEl.classList.toggle('active', opening);
+          subEl.style.display = opening ? 'flex' : 'none';
+          toggleEl.setAttribute('aria-expanded', String(opening));
+          toggleEl.classList.toggle('active', opening);
 
-            mobileNav.classList.add('open');
-            if (mobileBackdrop) mobileBackdrop.classList.add('open');
-            burger.classList.add('open');
-            mobileNav.setAttribute('aria-hidden','false');
-            burger.setAttribute('aria-expanded','true');
-            document.body.classList.add('menu-open');
-          } else {
-            closeMenu();
-          }
-        });
-      }
-
-      bindExpandable(
-        document.getElementById('mobileEnergieToggle'),
-        document.getElementById('mobileEnergieSub')
-      );
-      bindExpandable(
-        document.getElementById('mobileProduitsToggle'),
-        document.getElementById('mobileProduitsSub')
-      );
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeMenu();
-      });
-    }
-
-    function setActiveNav(){
-      const raw = window.location.pathname.split('/').pop().toLowerCase();
-      const path = raw || 'zone_agricole.html';
-      const mapping = {
-        'greenbrigde technologies.html':'a[href="GreenBrigde technologies.html"]',
-        'energie.html':'a[href="energie.html"]',
-        'zone_urbaine.html':'a[href="zone_urbaine.html"]',
-        'zone_agricole.html':'a[href="zone_agricole.html"]',
-        'produits.html':'a[href="produits.html"]',
-        'projets.html':'a[href="Projets.html"]',
-        'maintenance.html':'a[href="maintenance.html"]',
-        'panneaux.html':'a[href="panneaux.html"]',
-        'batteries.html':'a[href="batteries.html"]',
-        'onduleurs.html':'a[href="onduleurs.html"]',
-        'groupes.html':'a[href="groupes.html"]'
-      };
-      const sel = mapping[path];
-      if(!sel) return;
-      const el = document.querySelector(sel);
-      if(!el) return;
-
-      el.classList.add('active');
-      const inDropdown = el.closest('.dropdown-content');
-      if(inDropdown){
-        const dropdown = document.querySelector('.dropdown');
-        const energieLink = dropdown && dropdown.querySelector('a[href="energie.html"], a[data-current]');
-        if(energieLink){
-          energieLink.classList.add('active');
-          const subBadge = energieLink.querySelector('.sub-badge');
-          if(subBadge){
-            const label = el.textContent ? el.textContent.trim() : subBadge.textContent.trim();
-            subBadge.textContent = label;
-          }
+          mobileNav.classList.add('open');
+          if (mobileBackdrop) mobileBackdrop.classList.add('open');
+          burger.classList.add('open');
+          mobileNav.setAttribute('aria-hidden','false');
+          burger.setAttribute('aria-expanded','true');
+          document.body.classList.add('menu-open');
+        } else {
+          closeMenu();
         }
-        el.classList.add('active-item');
-      }
+      });
+    }
 
-      document.querySelectorAll('.mobile-nav a').forEach(a => {
-        try{
-          if(a.getAttribute('href') === el.getAttribute('href')){
-            a.classList.add('active');
-            const parentSub = a.closest('.submenu');
-            if(parentSub){
-              parentSub.style.display = 'flex';
-              const toggle = parentSub.previousElementSibling;
-              if(toggle && toggle.classList.contains('mobile-link')){
-                toggle.classList.add('active');
-                toggle.setAttribute('aria-expanded','true');
-              }
+    bindExpandable(
+      document.getElementById('mobileEnergieToggle'),
+      document.getElementById('mobileEnergieSub')
+    );
+    bindExpandable(
+      document.getElementById('mobileProduitsToggle'),
+      document.getElementById('mobileProduitsSub')
+    );
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+  }
+
+  function setActiveNav(){
+    const raw = window.location.pathname.split('/').pop().toLowerCase();
+    const path = raw || 'zone_agricole.html';
+    const mapping = {
+      'greenbrigde technologies.html':'a[href="GreenBrigde technologies.html"]',
+      'energie.html':'a[href="energie.html"]',
+      'zone_urbaine.html':'a[href="zone_urbaine.html"]',
+      'zone_agricole.html':'a[href="zone_agricole.html"]',
+      'produits.html':'a[href="produits.html"]',
+      'projets.html':'a[href="Projets.html"]',
+      'maintenance.html':'a[href="maintenance.html"]',
+      'panneaux.html':'a[href="panneaux.html"]',
+      'batteries.html':'a[href="batteries.html"]',
+      'onduleurs.html':'a[href="onduleurs.html"]',
+      'groupes.html':'a[href="groupes.html"]'
+    };
+    const sel = mapping[path];
+    if(!sel) return;
+    const el = document.querySelector(sel);
+    if(!el) return;
+
+    el.classList.add('active');
+    const inDropdown = el.closest('.dropdown-content');
+    if(inDropdown){
+      const dropdown = document.querySelector('.dropdown');
+      const energieLink = dropdown && dropdown.querySelector('a[href="energie.html"], a[data-current]');
+      if(energieLink){
+        energieLink.classList.add('active');
+        const subBadge = energieLink.querySelector('.sub-badge');
+        if(subBadge){
+          const label = el.textContent ? el.textContent.trim() : subBadge.textContent.trim();
+          subBadge.textContent = label;
+        }
+      }
+      el.classList.add('active-item');
+    }
+
+    document.querySelectorAll('.mobile-nav a').forEach(a => {
+      try{
+        if(a.getAttribute('href') === el.getAttribute('href')){
+          a.classList.add('active');
+          const parentSub = a.closest('.submenu');
+          if(parentSub){
+            parentSub.style.display = 'flex';
+            const toggle = parentSub.previousElementSibling;
+            if(toggle && toggle.classList.contains('mobile-link')){
+              toggle.classList.add('active');
+              toggle.setAttribute('aria-expanded','true');
             }
           }
-        }catch(e){}
-      });
-    }
-    setActiveNav();
-
-    (function(){
-      const band = document.getElementById('energyBand');
-      if(!band) return;
-      const orbA = document.getElementById('eOrbA');
-      const orbB = document.getElementById('eOrbB');
-      const orbC = document.getElementById('eOrbC');
-      const orbs = [orbA, orbB, orbC];
-      const bright = document.getElementById('zapBright');
-
-      const params = [
-        {rxRatio:0.50, ry:8, speed:0.06, phase:0},
-        {rxRatio:0.33, ry:6, speed:0.08, phase:Math.PI/2},
-        {rxRatio:0.42, ry:10, speed:0.05, phase:Math.PI}
-      ];
-
-      orbs.forEach((o,i)=>{
-        if(o){
-          o.classList.add('buzz');
-          o.style.animationDelay = (i*140)+'ms';
-          o.style.opacity='1';
         }
-      });
+      }catch(e){}
+    });
+  }
+  setActiveNav();
 
-      let t0 = performance.now();
-      function tick(now){
-        const time = (now - t0)/1000;
-        const cont = band.querySelector('.container');
-        if(!cont){ requestAnimationFrame(tick); return; }
-        const rect = cont.getBoundingClientRect();
-        const cx = rect.width/2;
-        const cy = rect.height/2;
-        for(let i=0;i<orbs.length;i++){
-          const o = orbs[i]; if(!o) continue;
-          const p = params[i];
-          const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
-          const ry = p.ry;
-          const angle = (time * p.speed * Math.PI * 2) + p.phase;
-          const x = cx + Math.cos(angle) * rx;
-          const y = cy + Math.sin(angle) * ry;
-          o.style.left = x + 'px';
-          o.style.top = y + 'px';
-          o.style.transform = 'translate(-50%,-50%)';
-        }
-        requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
+  (function(){
+    const band = document.getElementById('energyBand');
+    if(!band) return;
+    const orbA = document.getElementById('eOrbA');
+    const orbB = document.getElementById('eOrbB');
+    const orbC = document.getElementById('eOrbC');
+    const orbs = [orbA, orbB, orbC];
+    const bright = document.getElementById('zapBright');
 
-      function sparkBright(){
-        if(!bright) return;
-        bright.style.transition = 'none';
-        try{
-          const len = bright.getTotalLength ? bright.getTotalLength() : 520;
-          bright.setAttribute('stroke-dasharray', String(len));
-          bright.setAttribute('stroke-dashoffset', String(len));
-          setTimeout(()=>{
-            bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms';
-            bright.setAttribute('stroke-dashoffset','0');
-            setTimeout(()=>{
-              bright.setAttribute('stroke-dashoffset', String(len));
-            }, 420);
-          }, 80);
-        }catch(e){
-          bright.setAttribute('stroke-dasharray','520');
-          bright.setAttribute('stroke-dashoffset','520');
-          setTimeout(()=>{
-            bright.style.transition = 'stroke-dashoffset 420ms ease-out';
-            bright.setAttribute('stroke-dashoffset','0');
-          }, 80);
-        }
-      }
-
-      function spawnSparks(){
-        const cont = band.querySelector('.container');
-        if(!cont) return;
-        for(let i=0;i<8;i++){
-          const s = document.createElement('div');
-          s.style.position='absolute';
-          s.style.left = (3 + Math.random()*94) + '%';
-          s.style.top = (20 + Math.random()*50) + '%';
-          s.style.width = '2px';
-          s.style.height = (8 + Math.random()*18) + 'px';
-          s.style.borderRadius = '2px';
-          s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
-          s.style.filter = 'blur(6px)';
-          s.style.opacity = '0';
-          s.style.transform = 'translateY(6px)';
-          s.style.pointerEvents = 'none';
-          cont.appendChild(s);
-          setTimeout(()=> {
-            s.style.transition = 'all 260ms ease-out';
-            s.style.opacity='1';
-            s.style.transform='translateY(-6px)';
-          }, 20 + i*30);
-          setTimeout(()=> {
-            s.style.transition = 'all 520ms ease-in';
-            s.style.opacity='0';
-            s.style.transform='translateY(-20px)';
-          }, 300 + i*40);
-          setTimeout(()=> {
-            if(s.parentNode) s.parentNode.removeChild(s);
-          }, 820 + i*40);
-        }
-      }
-
-      function activate(){
-        band.classList.add('active');
-        spawnSparks();
-        sparkBright();
-        setInterval(()=>{
-          spawnSparks();
-          if(Math.random() > 0.45) sparkBright();
-        }, 1200 + Math.random()*1200);
-      }
-
-      const title = document.querySelector('.company-name');
-      if(title){
-        title.addEventListener('click', ()=>{
-          const on = band.classList.toggle('active');
-          if(on){ spawnSparks(); sparkBright(); }
-        });
-      }
-
-      activate();
-      window.addEventListener('resize', ()=>{ t0 = performance.now(); });
-    })();
-
-    const zoneSelect = document.getElementById('zone');
-    const citySelect = document.getElementById('city');
-    const cropEl = document.getElementById('crop');
-    const areaHaEl = document.getElementById('areaHa');
-    const needMmEl = document.getElementById('needMmPerDay');
-    const irrigDaysEl = document.getElementById('irrigDays');
-    const pumpHoursEl = document.getElementById('pumpHours');
-    const headEl = document.getElementById('head');
-    const pumpEffEl = document.getElementById('pumpEff');
-
-    const batteryTypeEl = document.getElementById('batteryType');
-    const batteryPackKwhEl = document.getElementById('batteryPackKwh');
-    const batteryCountEl = document.getElementById('batteryCount');
-
-    const sunHoursDisplay = document.getElementById('sunHoursDisplay');
-    const pvDerateDisplay = document.getElementById('pvDerateDisplay');
-
-    const suggestListEl = document.getElementById('suggestList');
-    const consListEl = document.getElementById('consumerList');
-    const addManualBtn = document.getElementById('addManual');
-    const consNameInput = document.getElementById('consName');
-    const consPowerInput = document.getElementById('consPower');
-    const consHoursInput = document.getElementById('consHours');
-
-    const volDayEl = document.getElementById('volDay');
-    const flowQEl = document.getElementById('flowQ');
-    const pumpKwEl = document.getElementById('pumpKw');
-    const pumpKwhEl = document.getElementById('pumpKwh');
-    const othersKwhEl = document.getElementById('othersKwh');
-    const totalKwhDayEl = document.getElementById('totalKwhDay');
-    const pvKwEl = document.getElementById('pvKw');
-    const panelsCountEl = document.getElementById('panelsCount');
-    const reservoirEl = document.getElementById('reservoir');
-    const batteryKwhEl = document.getElementById('batteryKwh');
-
-    const availableBatteryKwhEl = document.getElementById('availableBatteryKwh');
-    const autonomyEstEl = document.getElementById('autonomyEst');
-    const batteryLifeEstEl = document.getElementById('batteryLifeEst');
-    const inverterRecEl = document.getElementById('inverterRec');
-    const inverterStdEl = document.getElementById('inverterStd');
-
-    const summaryNoteEl = document.getElementById('summaryNote');
-    const resetBtn = document.getElementById('resetBtn');
-    const exportBtn = document.getElementById('exportBtn');
-    const exportPdfBtn = document.getElementById('exportPdfBtn');
-
-    const CROP_DEFAULTS_BY_COUNTRY = {
-      ci: { tomate:5.0, mais:4.5, riz:6.5, mangue:3.5, legume:5.5, palmier:4.0, fourrage:4.2 },
-      sn: { tomate:6.0, mais:5.0, riz:7.5, mangue:3.8, legume:6.0, palmier:4.5, fourrage:4.8 }
-    };
-
-    const CITY_CONFIG = {
-      ci: [
-        {label:"Abidjan", value:"abidjan", sun:4.5},
-        {label:"Yamoussoukro", value:"yamoussoukro", sun:5.5}
-      ],
-      sn: [
-        {label:"Dakar", value:"dakar", sun:6.5}
-      ]
-    };
-
-    const SUGGESTED = [
-      { id:'lighting', label:'Éclairage hangar / serre', power:100, hours:6 },
-      { id:'fridge', label:'Réfrigérateur / chambre froide', power:200, hours:8 },
-      { id:'vent', label:'Ventilation', power:120, hours:6 },
-      { id:'pump_secondary', label:'Pompe annexe', power:1500, hours:0.5 },
-      { id:'aerator', label:'Aérateur bassin', power:250, hours:6 },
-      { id:'fence', label:'Clôture électrique', power:100, hours:24 },
-      { id:'charger', label:'Recharge téléphones', power:50, hours:6 }
+    const params = [
+      {rxRatio:0.50, ry:8, speed:0.06, phase:0},
+      {rxRatio:0.33, ry:6, speed:0.08, phase:Math.PI/2},
+      {rxRatio:0.42, ry:10, speed:0.05, phase:Math.PI}
     ];
 
-    let consumers = [];
-    let lastCalcSnapshot = null;
-    let map = null;
-
-    function fmt(n,dec=2){
-      return Number(n||0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
-    }
-
-    function batteryUsableFactor(type){
-      if(type === 'lifepo4') return 0.90;
-      if(type === 'lithium') return 0.80;
-      if(type === 'gel') return 0.55;
-      if(type === 'plomb') return 0.50;
-      return 0.80;
-    }
-
-    function batteryLifeYears(type){
-      const ranges = {
-        lifepo4:[5,8],
-        lithium:[4,6],
-        gel:[2,4],
-        plomb:[1,3]
-      };
-      return ranges[type] || [3,5];
-    }
-
-    function standardInverterSize(requiredW){
-      const standards = [300, 500, 800, 1000, 1200, 1500, 2000, 3000, 4000, 5000, 6000, 8000];
-      return standards.find(v => v >= requiredW) || 8000;
-    }
-
-    function populateCities(country){
-      citySelect.innerHTML = '';
-      (CITY_CONFIG[country] || CITY_CONFIG.ci).forEach(c => {
-        citySelect.appendChild(new Option(c.label, c.value));
-      });
-      citySelect.value = country === 'sn' ? 'dakar' : 'abidjan';
-      updateCityDefaults();
-    }
-
-    function updateCityDefaults(){
-      const country = zoneSelect.value;
-      const selected = citySelect.value;
-      const city = (CITY_CONFIG[country] || []).find(c => c.value === selected) || (CITY_CONFIG[country] || [])[0];
-      const sun = city ? city.sun : (country === 'sn' ? 6.5 : 4.5);
-      sunHoursDisplay.textContent = sun.toFixed(1) + ' h';
-      pvDerateDisplay.textContent = '85 %';
-
-      if(cropEl.value !== 'custom') updateNeedMmForCrop();
-    }
-
-    function updateNeedMmForCrop(){
-      const country = zoneSelect.value;
-      const crop = cropEl.value;
-      if(crop === 'custom') return;
-      const val = (CROP_DEFAULTS_BY_COUNTRY[country] || {})[crop];
-      needMmEl.value = typeof val === 'number' ? val : 5.0;
-    }
-
-    function renderSuggested(){
-      suggestListEl.innerHTML = '';
-      SUGGESTED.forEach(s => {
-        const btn = document.createElement('button');
-        btn.className = 'suggest';
-        btn.innerText = `${s.label} — ${s.power}W`;
-        btn.addEventListener('click', () => {
-          consumers.push({ name:s.label, power:s.power, hours:s.hours });
-          renderConsumers();
-          recalc();
-        });
-        suggestListEl.appendChild(btn);
-      });
-    }
-
-    function renderConsumers(){
-      consListEl.innerHTML = '';
-      if(consumers.length === 0){
-        consListEl.innerHTML = '<div class="muted" style="color:#6b7f6b;padding:8px">Aucun consommateur additionnel</div>';
-        return;
+    orbs.forEach((o,i)=>{
+      if(o){
+        o.classList.add('buzz');
+        o.style.animationDelay = (i*140)+'ms';
+        o.style.opacity='1';
       }
+    });
 
-      consumers.forEach((c, idx) => {
-        const div = document.createElement('div');
-        div.className = 'consumer';
-        div.innerHTML = `
-          <div>
-            <strong>${c.name}</strong>
-            <div class="mini">${c.power} W × ${c.hours} h/j</div>
-          </div>
-          <div class="consumer-fields">
-            <label>Nom
-              <input data-idx="${idx}" data-field="name" class="load-field" type="text" value="${c.name}">
-            </label>
-            <label>Puissance (W)
-              <input data-idx="${idx}" data-field="power" class="load-field" type="number" min="0" value="${c.power}">
-            </label>
-            <label>Heures/j
-              <input data-idx="${idx}" data-field="hours" class="load-field" type="number" min="0" step="0.1" value="${c.hours}">
-            </label>
-            <div class="consumer-actions">
-              <button data-idx="${idx}" class="btn-reset del-load" type="button">Suppr</button>
-            </div>
-          </div>
-        `;
-        consListEl.appendChild(div);
-      });
-
-      consListEl.querySelectorAll('.del-load').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const i = Number(e.currentTarget.dataset.idx);
-          consumers.splice(i, 1);
-          renderConsumers();
-          recalc();
-        });
-      });
-
-      consListEl.querySelectorAll('.load-field').forEach(inp => {
-        inp.addEventListener('input', (e) => {
-          const i = Number(e.currentTarget.dataset.idx);
-          const field = e.currentTarget.dataset.field;
-          const val = field === 'name' ? e.currentTarget.value : Number(e.currentTarget.value || 0);
-          consumers[i][field] = val;
-          recalc();
-        });
-      });
-    }
-
-    function addManualConsumer(){
-      const name = (consNameInput.value || '').trim();
-      const power = Number(consPowerInput.value || 0);
-      const hours = Number(consHoursInput.value || 0);
-      if(!name || power <= 0 || hours <= 0){
-        alert('Nom, puissance et heures/j sont obligatoires.');
-        return;
+    let t0 = performance.now();
+    function tick(now){
+      const time = (now - t0)/1000;
+      const cont = band.querySelector('.container');
+      if(!cont){ requestAnimationFrame(tick); return; }
+      const rect = cont.getBoundingClientRect();
+      const cx = rect.width/2;
+      const cy = rect.height/2;
+      for(let i=0;i<orbs.length;i++){
+        const o = orbs[i]; if(!o) continue;
+        const p = params[i];
+        const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
+        const ry = p.ry;
+        const angle = (time * p.speed * Math.PI * 2) + p.phase;
+        const x = cx + Math.cos(angle) * rx;
+        const y = cy + Math.sin(angle) * ry;
+        o.style.left = x + 'px';
+        o.style.top = y + 'px';
+        o.style.transform = 'translate(-50%,-50%)';
       }
-      consumers.push({ name, power, hours });
-      consNameInput.value = '';
-      consPowerInput.value = '';
-      consHoursInput.value = '';
-      renderConsumers();
-      recalc();
+      requestAnimationFrame(tick);
     }
+    requestAnimationFrame(tick);
 
-    function compute(){
-      const country = zoneSelect.value || 'ci';
-      const city = citySelect.value || (country === 'sn' ? 'dakar' : 'abidjan');
-      const sun = (CITY_CONFIG[country] || []).find(c => c.value === city)?.sun || (country === 'sn' ? 6.5 : 4.5);
-      const derate = 0.85;
-
-      const areaHa = Math.max(0, Number(areaHaEl.value || 0));
-      const areaM2 = areaHa * 10000;
-      const mmPerDay = Math.max(0, Number(needMmEl.value || 0));
-      const irrigDays = Math.max(1, Number(irrigDaysEl.value || 1));
-      const pumpHours = Math.max(0.1, Number(pumpHoursEl.value || 1));
-      const head = Math.max(0, Number(headEl.value || 0));
-      const pumpEff = Math.max(0.01, Number(pumpEffEl.value || 55)) / 100;
-
-      const batteryType = batteryTypeEl.value;
-      const packKwh = Math.max(0.01, Number(batteryPackKwhEl.value || 1.28));
-      const batteryCount = Math.max(1, Math.floor(Number(batteryCountEl.value || 1)));
-      const usableFactor = batteryUsableFactor(batteryType);
-      const batteryLife = batteryLifeYears(batteryType);
-
-      const volDay_m3 = (areaM2 * mmPerDay) / 1000;
-      const weeklyVol = volDay_m3 * 7;
-      const volPerPumpingDay = weeklyVol / irrigDays;
-      const q_m3h = volPerPumpingDay / pumpHours;
-
-      const phyd_W = 2.725 * q_m3h * head;
-      const pInput_W = pumpEff > 0 ? phyd_W / pumpEff : 0;
-      const pInput_kW = pInput_W / 1000;
-      const energyPumpDailyAvg_kWh = (pInput_kW * pumpHours * irrigDays) / 7;
-
-      let others_kwh = 0;
-      let peakOtherW = 0;
-      consumers.forEach(c => {
-        const pw = Math.max(0, Number(c.power || 0));
-        const h = Math.max(0, Number(c.hours || 0));
-        others_kwh += (pw * h) / 1000;
-        peakOtherW += pw;
-      });
-
-      const systemEff = 0.95;
-      const totalDaily_kWh = (energyPumpDailyAvg_kWh + others_kwh) / systemEff;
-      const totalMonthly_kWh = totalDaily_kWh * 30;
-
-      const pvKw = totalDaily_kWh / (sun * derate);
-      const panels = Math.max(0, Math.ceil((pvKw * 1000) / 350));
-
-      const batteryNominalKwh = batteryCount * packKwh;
-      const batteryUsableKwh = batteryNominalKwh * usableFactor;
-      const autonomyDays = totalDaily_kWh > 0 ? batteryUsableKwh / totalDaily_kWh : 0;
-
-      const reservoir_m3 = 2 * volDay_m3;
-
-      const peakDemandW = pInput_W + peakOtherW;
-      const inverterNeededW = Math.max(peakDemandW * 1.35, totalDaily_kWh * 250);
-      const inverterStdW = standardInverterSize(inverterNeededW);
-
-      return {
-        country,
-        city,
-        sun,
-        derate,
-        volDay_m3,
-        q_m3h,
-        pInput_W,
-        pInput_kW,
-        energyPumpDailyAvg_kWh,
-        others_kwh,
-        totalDaily_kWh,
-        totalMonthly_kWh,
-        pvKw,
-        panels,
-        batteryNominalKwh,
-        batteryUsableKwh,
-        autonomyDays,
-        batteryType,
-        batteryCount,
-        batteryLife,
-        reservoir_m3,
-        inverterNeededW,
-        inverterStdW,
-        peakDemandW,
-        loads: consumers.map(c => ({...c}))
-      };
-    }
-
-    function updateChart(r){
-      const canvas = document.getElementById('batteryChart');
-      if(!canvas) return;
-      const ctx = canvas.getContext('2d');
-      const dpr = window.devicePixelRatio || 1;
-      const w = canvas.clientWidth || 900;
-      const h = canvas.clientHeight || 280;
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-
-      ctx.clearRect(0,0,w,h);
-      ctx.fillStyle = '#fff';
-      ctx.fillRect(0,0,w,h);
-
-      const base = Math.max(0.2, r.totalDaily_kWh / 24);
-      const points = Array.from({length:24}, (_,hh) => {
-        let load = base * 0.65;
-        if(hh >= 5 && hh <= 8) load += base * 1.7;
-        if(hh >= 10 && hh <= 14) load += base * 0.8;
-        if(hh >= 18 && hh <= 22) load += base * 2.0;
-        if(hh >= 0 && hh <= 4) load += base * 0.35;
-        return load;
-      });
-
-      const maxY = Math.max(...points) * 1.25;
-      const pad = 24;
-      const chartW = w - pad*2;
-      const chartH = h - pad*2;
-
-      ctx.strokeStyle = '#dfeadf';
-      ctx.lineWidth = 1;
-      for(let i=0;i<=4;i++){
-        const y = pad + (chartH/4)*i;
-        ctx.beginPath();
-        ctx.moveTo(pad,y);
-        ctx.lineTo(w-pad,y);
-        ctx.stroke();
-      }
-
-      ctx.fillStyle = 'rgba(124,179,66,0.22)';
-      ctx.beginPath();
-      points.forEach((p,i)=>{
-        const x = pad + (chartW/23)*i;
-        const y = pad + chartH - (p/maxY)*chartH;
-        if(i===0) ctx.moveTo(x, h-pad);
-        ctx.lineTo(x,y);
-      });
-      ctx.lineTo(w-pad, h-pad);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.strokeStyle = '#04462e';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      points.forEach((p,i)=>{
-        const x = pad + (chartW/23)*i;
-        const y = pad + chartH - (p/maxY)*chartH;
-        if(i===0) ctx.moveTo(x,y);
-        else ctx.lineTo(x,y);
-      });
-      ctx.stroke();
-
-      ctx.fillStyle = '#04462e';
-      ctx.font = '12px Arial';
-      for(let i=0;i<24;i+=3){
-        const x = pad + (chartW/23)*i;
-        ctx.fillText(String(i).padStart(2,'0') + 'h', x-8, h-8);
-      }
-
-      ctx.fillStyle = '#6b7f6b';
-      ctx.font = '12px Arial';
-      ctx.fillText('Charge estimée 24h liée à l’utilisation agricole', pad, 14);
-    }
-
-    function recalc(){
-      const r = compute();
-
-      volDayEl.textContent = fmt(r.volDay_m3,3) + ' m³';
-      flowQEl.textContent = fmt(r.q_m3h,3) + ' m³/h';
-      pumpKwEl.textContent = fmt(r.pInput_kW,3) + ' kW';
-      pumpKwhEl.textContent = fmt(r.energyPumpDailyAvg_kWh,3) + ' kWh/j';
-      othersKwhEl.textContent = fmt(r.others_kwh,3) + ' kWh/j';
-      totalKwhDayEl.textContent = fmt(r.totalDaily_kWh,3) + ' kWh/j';
-      pvKwEl.textContent = fmt(r.pvKw,3) + ' kWc';
-      panelsCountEl.textContent = r.panels;
-      reservoirEl.textContent = fmt(r.reservoir_m3,3) + ' m³';
-      batteryKwhEl.textContent = fmt(r.batteryUsableKwh,3) + ' kWh';
-      availableBatteryKwhEl.textContent = fmt(r.batteryUsableKwh,2) + ' kWh utiles';
-      autonomyEstEl.textContent = fmt(r.autonomyDays,2) + ' j';
-      batteryLifeEstEl.textContent = `${r.batteryLife[0]} à ${r.batteryLife[1]} ans`;
-      inverterRecEl.textContent = Math.round(r.inverterNeededW) + ' W';
-      inverterStdEl.textContent = r.inverterStdW + ' W';
-
-      summaryNoteEl.textContent = `Dimensionnement calculé à partir de ${consumers.length} charge(s). Les besoins réels dépendent des usages, des pics simultanés et des marges de sécurité souhaitées.`;
-
-      document.getElementById('r_pumpkw').classList.toggle('highlight', r.pInput_W >= 5000);
-      document.getElementById('r_batt').classList.toggle('highlight', r.batteryUsableKwh > 0);
-      document.getElementById('r_panels').classList.toggle('highlight', r.panels > 0);
-
-      lastCalcSnapshot = {
-        timestamp: new Date().toLocaleString('fr-FR'),
-        country: r.country,
-        city: r.city,
-        sun: r.sun,
-        areaHa: Number(areaHaEl.value || 0),
-        crop: cropEl.value,
-        mmPerDay: Number(needMmEl.value || 0),
-        volDay_m3: r.volDay_m3,
-        q_m3h: r.q_m3h,
-        pInput_W: r.pInput_W,
-        pInput_kW: r.pInput_kW,
-        energyPumpDailyAvg_kWh: r.energyPumpDailyAvg_kWh,
-        others_kwh: r.others_kwh,
-        totalDaily_kWh: r.totalDaily_kWh,
-        totalMonthly_kWh: r.totalMonthly_kWh,
-        pvKw: r.pvKw,
-        panels: r.panels,
-        batteryNominalKwh: r.batteryNominalKwh,
-        batteryUsableKwh: r.batteryUsableKwh,
-        batteryType: r.batteryType,
-        batteryCount: r.batteryCount,
-        batteryLife: r.batteryLife,
-        autonomyDays: r.autonomyDays,
-        reservoir_m3: r.reservoir_m3,
-        inverterNeededW: r.inverterNeededW,
-        inverterStdW: r.inverterStdW,
-        peakDemandW: r.peakDemandW,
-        consumers: JSON.parse(JSON.stringify(consumers))
-      };
-
-      updateChart(r);
-    }
-
-    function addInitialConsumers(){
-      consumers = [
-        {name:'Pompe annexe', power:1500, hours:0.5},
-        {name:'Éclairage hangar', power:120, hours:6}
-      ];
-    }
-
-    function resetAll(){
-      if(!confirm('Réinitialiser les paramètres et les consommations ?')) return;
-      zoneSelect.value='ci';
-      populateCities('ci');
-      cropEl.value='tomate';
-      areaHaEl.value='0.5';
-      needMmEl.value='5.0';
-      irrigDaysEl.value='3';
-      pumpHoursEl.value='4';
-      headEl.value='15';
-      pumpEffEl.value='55';
-      batteryTypeEl.value='lifepo4';
-      batteryPackKwhEl.value='1.28';
-      batteryCountEl.value='2';
-      consNameInput.value='';
-      consPowerInput.value='';
-      consHoursInput.value='';
-      consumers = [];
-      addInitialConsumers();
-      renderConsumers();
-      updateNeedMmForCrop();
-      updateCityDefaults();
-      recalc();
-    }
-
-    async function generatePDF(){
+    function sparkBright(){
+      if(!bright) return;
+      bright.style.transition = 'none';
       try{
-        if(!lastCalcSnapshot){
-          alert("Veuillez effectuer un calcul avant d'exporter le PDF.");
-          return;
-        }
+        const len = bright.getTotalLength ? bright.getTotalLength() : 520;
+        bright.setAttribute('stroke-dasharray', String(len));
+        bright.setAttribute('stroke-dashoffset', String(len));
+        setTimeout(()=>{
+          bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms';
+          bright.setAttribute('stroke-dashoffset','0');
+          setTimeout(()=>{
+            bright.setAttribute('stroke-dashoffset', String(len));
+          }, 420);
+        }, 80);
+      }catch(e){
+        bright.setAttribute('stroke-dasharray','520');
+        bright.setAttribute('stroke-dashoffset','520');
+        setTimeout(()=>{
+          bright.style.transition = 'stroke-dashoffset 420ms ease-out';
+          bright.setAttribute('stroke-dashoffset','0');
+        }, 80);
+      }
+    }
 
-        const s = lastCalcSnapshot;
-        function esc(t){
-          return String(t||'').replace(/[&<>"']/g, m => ({
-            '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-          }[m]));
-        }
+    function spawnSparks(){
+      const cont = band.querySelector('.container');
+      if(!cont) return;
+      for(let i=0;i<8;i++){
+        const s = document.createElement('div');
+        s.style.position='absolute';
+        s.style.left = (3 + Math.random()*94) + '%';
+        s.style.top = (20 + Math.random()*50) + '%';
+        s.style.width = '2px';
+        s.style.height = (8 + Math.random()*18) + 'px';
+        s.style.borderRadius = '2px';
+        s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
+        s.style.filter = 'blur(6px)';
+        s.style.opacity = '0';
+        s.style.transform = 'translateY(6px)';
+        s.style.pointerEvents = 'none';
+        cont.appendChild(s);
+        setTimeout(()=> {
+          s.style.transition = 'all 260ms ease-out';
+          s.style.opacity='1';
+          s.style.transform='translateY(-6px)';
+        }, 20 + i*30);
+        setTimeout(()=> {
+          s.style.transition = 'all 520ms ease-in';
+          s.style.opacity='0';
+          s.style.transform='translateY(-20px)';
+        }, 300 + i*40);
+        setTimeout(()=> {
+          if(s.parentNode) s.parentNode.removeChild(s);
+        }, 820 + i*40);
+      }
+    }
 
-        let consumersHtml = '';
-        if((s.consumers || []).length === 0){
-          consumersHtml = `<tr><td colspan="4" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucun consommateur ajouté</td></tr>`;
-        }else{
-          s.consumers.forEach(c=>{
-            const kwhj = ((c.power*c.hours)/1000).toFixed(3);
-            consumersHtml += `<tr>
-              <td style="padding:8px;border:1px solid #eee">${esc(c.name)}</td>
-              <td style="padding:8px;border:1px solid #eee;text-align:center">${esc(c.power)} W</td>
-              <td style="padding:8px;border:1px solid #eee;text-align:center">${esc(c.hours)} h/j</td>
-              <td style="padding:8px;border:1px solid #eee;text-align:center">${esc(kwhj)} kWh/j</td>
-            </tr>`;
-          });
-        }
+    function activate(){
+      band.classList.add('active');
+      spawnSparks();
+      sparkBright();
+      setInterval(()=>{
+        spawnSparks();
+        if(Math.random() > 0.45) sparkBright();
+      }, 1200 + Math.random()*1200);
+    }
 
-        const chartCanvas = document.getElementById('batteryChart');
-        const chartData = chartCanvas ? chartCanvas.toDataURL('image/png') : null;
+    const title = document.querySelector('.company-name');
+    if(title){
+      title.addEventListener('click', ()=>{
+        const on = band.classList.toggle('active');
+        if(on){ spawnSparks(); sparkBright(); }
+      });
+    }
 
-        const flagSVG = (s.country === 'sn') ? `
-          <svg width="84" height="56" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
-            <rect width="1" height="2" x="0" fill="#00a551"></rect>
-            <rect width="1" height="2" x="1" fill="#fcd116"></rect>
-            <rect width="1" height="2" x="2" fill="#0066cc"></rect>
-            <g transform="translate(1.5,1)">
-              <path d="M0 -0.45 L0.11 -0.15 L0.45 -0.15 L0.17 0.03 L0.28 0.33 L0 0.15 L-0.28 0.33 L-0.17 0.03 L-0.45 -0.15 L-0.11 -0.15 Z" fill="#006400" transform="scale(0.6)"/>
-            </g>
-          </svg>
-        ` : `
-          <svg width="84" height="56" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
-            <rect width="1" height="2" x="0" fill="#009e60"></rect>
-            <rect width="1" height="2" x="1" fill="#ffffff"></rect>
-            <rect width="1" height="2" x="2" fill="#f77f00"></rect>
-          </svg>
-        `;
+    activate();
+    window.addEventListener('resize', ()=>{ t0 = performance.now(); });
+  })();
 
-        const html = `
-          <div id="pdfWrapper" style="position:relative;width:820px;padding:20px;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;">
-            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">
-              GREENBRIDGE — À TITRE INDICATIF
+  const zoneSelect = document.getElementById('zone');
+  const citySelect = document.getElementById('city');
+  const cropEl = document.getElementById('crop');
+  const areaHaEl = document.getElementById('areaHa');
+  const needMmEl = document.getElementById('needMmPerDay');
+  const irrigDaysEl = document.getElementById('irrigDays');
+  const pumpHoursEl = document.getElementById('pumpHours');
+  const headEl = document.getElementById('head');
+  const pumpEffEl = document.getElementById('pumpEff');
+
+  const batteryTypeEl = document.getElementById('batteryType');
+  const batteryPackKwhEl = document.getElementById('batteryPackKwh');
+  const batteryCountEl = document.getElementById('batteryCount');
+
+  const sunHoursDisplay = document.getElementById('sunHoursDisplay');
+  const pvDerateDisplay = document.getElementById('pvDerateDisplay');
+
+  const suggestListEl = document.getElementById('suggestList');
+  const consListEl = document.getElementById('consumerList');
+  const addManualBtn = document.getElementById('addManual');
+  const consNameInput = document.getElementById('consName');
+  const consPowerInput = document.getElementById('consPower');
+  const consHoursInput = document.getElementById('consHours');
+
+  const volDayEl = document.getElementById('volDay');
+  const flowQEl = document.getElementById('flowQ');
+  const pumpKwEl = document.getElementById('pumpKw');
+  const pumpKwhEl = document.getElementById('pumpKwh');
+  const othersKwhEl = document.getElementById('othersKwh');
+  const totalKwhDayEl = document.getElementById('totalKwhDay');
+  const pvKwEl = document.getElementById('pvKw');
+  const panelsCountEl = document.getElementById('panelsCount');
+  const reservoirEl = document.getElementById('reservoir');
+  const batteryKwhEl = document.getElementById('batteryKwh');
+
+  const availableBatteryKwhEl = document.getElementById('availableBatteryKwh');
+  const autonomyEstEl = document.getElementById('autonomyEst');
+  const batteryLifeEstEl = document.getElementById('batteryLifeEst');
+  const inverterRecEl = document.getElementById('inverterRec');
+  const inverterStdEl = document.getElementById('inverterStd');
+
+  const summaryNoteEl = document.getElementById('summaryNote');
+  const resetBtn = document.getElementById('resetBtn');
+  const exportBtn = document.getElementById('exportBtn');
+  const exportPdfBtn = document.getElementById('exportPdfBtn');
+
+  const CROP_DEFAULTS_BY_COUNTRY = {
+    ci: { tomate:5.0, mais:4.5, riz:6.5, mangue:3.5, legume:5.5, palmier:4.0, fourrage:4.2 },
+    sn: { tomate:6.0, mais:5.0, riz:7.5, mangue:3.8, legume:6.0, palmier:4.5, fourrage:4.8 }
+  };
+
+  const CITY_CONFIG = {
+    ci: [
+      {label:"Abidjan", value:"abidjan", sun:4.5},
+      {label:"Yamoussoukro", value:"yamoussoukro", sun:5.5}
+    ],
+    sn: [
+      {label:"Dakar", value:"dakar", sun:6.5}
+    ]
+  };
+
+  const SUGGESTED = [
+    { id:'lighting', label:'Éclairage hangar / serre', power:100, hours:6 },
+    { id:'fridge', label:'Réfrigérateur / chambre froide', power:200, hours:8 },
+    { id:'vent', label:'Ventilation', power:120, hours:6 },
+    { id:'pump_secondary', label:'Pompe annexe', power:1500, hours:0.5 },
+    { id:'aerator', label:'Aérateur bassin', power:250, hours:6 },
+    { id:'fence', label:'Clôture électrique', power:100, hours:24 },
+    { id:'charger', label:'Recharge téléphones', power:50, hours:6 }
+  ];
+
+  let consumers = [];
+  let lastCalcSnapshot = null;
+  let map = null;
+
+  function fmt(n,dec=2){
+    return Number(n||0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+  }
+
+  function batteryUsableFactor(type){
+    if(type === 'lifepo4') return 0.90;
+    if(type === 'lithium') return 0.80;
+    if(type === 'gel') return 0.55;
+    if(type === 'plomb') return 0.50;
+    return 0.80;
+  }
+
+  function batteryLifeYears(type){
+    const ranges = {
+      lifepo4:[5,8],
+      lithium:[4,6],
+      gel:[2,4],
+      plomb:[1,3]
+    };
+    return ranges[type] || [3,5];
+  }
+
+  function standardInverterSize(requiredW){
+    const standards = [300,500,800,1000,1200,1500,2000,3000,4000,5000,6000,8000];
+    return standards.find(v => v >= requiredW) || 8000;
+  }
+
+  function populateCities(country){
+    citySelect.innerHTML = '';
+    (CITY_CONFIG[country] || CITY_CONFIG.ci).forEach(c => {
+      citySelect.appendChild(new Option(c.label, c.value));
+    });
+    citySelect.value = country === 'sn' ? 'dakar' : 'abidjan';
+    updateCityDefaults();
+  }
+
+  function updateCityDefaults(){
+    const country = zoneSelect.value;
+    const selected = citySelect.value;
+    const city = (CITY_CONFIG[country] || []).find(c => c.value === selected) || (CITY_CONFIG[country] || [])[0];
+    const sun = city ? city.sun : (country === 'sn' ? 6.5 : 4.5);
+    sunHoursDisplay.textContent = sun.toFixed(1) + ' h';
+    pvDerateDisplay.textContent = '85 %';
+    if(cropEl.value !== 'custom') updateNeedMmForCrop();
+  }
+
+  function updateNeedMmForCrop(){
+    const country = zoneSelect.value;
+    const crop = cropEl.value;
+    if(crop === 'custom') return;
+    const val = (CROP_DEFAULTS_BY_COUNTRY[country] || {})[crop];
+    needMmEl.value = typeof val === 'number' ? val : 5.0;
+  }
+
+  function renderSuggested(){
+    suggestListEl.innerHTML = '';
+    SUGGESTED.forEach(s => {
+      const btn = document.createElement('button');
+      btn.className = 'suggest';
+      btn.innerText = `${s.label} — ${s.power}W`;
+      btn.addEventListener('click', () => {
+        consumers.push({ name:s.label, power:s.power, hours:s.hours });
+        renderConsumers();
+        recalc();
+      });
+      suggestListEl.appendChild(btn);
+    });
+  }
+
+  function renderConsumers(){
+    consListEl.innerHTML = '';
+    if(consumers.length === 0){
+      consListEl.innerHTML = '<div class="muted" style="color:#6b7f6b;padding:8px">Aucun consommateur additionnel</div>';
+      return;
+    }
+
+    consumers.forEach((c, idx) => {
+      const div = document.createElement('div');
+      div.className = 'consumer';
+      div.innerHTML = `
+        <div>
+          <strong>${c.name}</strong>
+          <div class="mini">${c.power} W × ${c.hours} h/j</div>
+        </div>
+        <div class="consumer-fields">
+          <label>Nom
+            <input data-idx="${idx}" data-field="name" class="load-field" type="text" value="${c.name}">
+          </label>
+          <label>Puissance (W)
+            <input data-idx="${idx}" data-field="power" class="load-field" type="number" min="0" value="${c.power}">
+          </label>
+          <label>Heures/j
+            <input data-idx="${idx}" data-field="hours" class="load-field" type="number" min="0" step="0.1" value="${c.hours}">
+          </label>
+          <div class="consumer-actions">
+            <button data-idx="${idx}" class="btn-reset del-load" type="button">Suppr</button>
+          </div>
+        </div>
+      `;
+      consListEl.appendChild(div);
+    });
+
+    consListEl.querySelectorAll('.del-load').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const i = Number(e.currentTarget.dataset.idx);
+        consumers.splice(i, 1);
+        renderConsumers();
+        recalc();
+      });
+    });
+
+    consListEl.querySelectorAll('.load-field').forEach(inp => {
+      inp.addEventListener('input', (e) => {
+        const i = Number(e.currentTarget.dataset.idx);
+        const field = e.currentTarget.dataset.field;
+        const val = field === 'name' ? e.currentTarget.value : Number(e.currentTarget.value || 0);
+        consumers[i][field] = val;
+        recalc();
+      });
+    });
+  }
+
+  function addManualConsumer(){
+    const name = (consNameInput.value || '').trim();
+    const power = Number(consPowerInput.value || 0);
+    const hours = Number(consHoursInput.value || 0);
+    if(!name || power <= 0 || hours <= 0){
+      alert('Nom, puissance et heures/j sont obligatoires.');
+      return;
+    }
+    consumers.push({ name, power, hours });
+    consNameInput.value = '';
+    consPowerInput.value = '';
+    consHoursInput.value = '';
+    renderConsumers();
+    recalc();
+  }
+
+  function compute(){
+    const country = zoneSelect.value || 'ci';
+    const city = citySelect.value || (country === 'sn' ? 'dakar' : 'abidjan');
+    const sun = (CITY_CONFIG[country] || []).find(c => c.value === city)?.sun || (country === 'sn' ? 6.5 : 4.5);
+    const derate = 0.85;
+
+    const areaHa = Math.max(0, Number(areaHaEl.value || 0));
+    const areaM2 = areaHa * 10000;
+    const mmPerDay = Math.max(0, Number(needMmEl.value || 0));
+    const irrigDays = Math.max(1, Number(irrigDaysEl.value || 1));
+    const pumpHours = Math.max(0.1, Number(pumpHoursEl.value || 1));
+    const head = Math.max(0, Number(headEl.value || 0));
+    const pumpEff = Math.max(0.01, Number(pumpEffEl.value || 55)) / 100;
+
+    const batteryType = batteryTypeEl.value;
+    const packKwh = Math.max(0.01, Number(batteryPackKwhEl.value || 1.28));
+    const batteryCount = Math.max(1, Math.floor(Number(batteryCountEl.value || 1)));
+    const usableFactor = batteryUsableFactor(batteryType);
+    const batteryLife = batteryLifeYears(batteryType);
+
+    const volDay_m3 = (areaM2 * mmPerDay) / 1000;
+    const weeklyVol = volDay_m3 * 7;
+    const volPerPumpingDay = weeklyVol / irrigDays;
+    const q_m3h = volPerPumpingDay / pumpHours;
+
+    const phyd_W = 2.725 * q_m3h * head;
+    const pInput_W = pumpEff > 0 ? phyd_W / pumpEff : 0;
+    const pInput_kW = pInput_W / 1000;
+    const energyPumpDailyAvg_kWh = (pInput_kW * pumpHours * irrigDays) / 7;
+
+    let others_kwh = 0;
+    let peakOtherW = 0;
+    consumers.forEach(c => {
+      const pw = Math.max(0, Number(c.power || 0));
+      const h = Math.max(0, Number(c.hours || 0));
+      others_kwh += (pw * h) / 1000;
+      peakOtherW += pw;
+    });
+
+    const systemEff = 0.95;
+    const totalDaily_kWh = (energyPumpDailyAvg_kWh + others_kwh) / systemEff;
+    const totalMonthly_kWh = totalDaily_kWh * 30;
+
+    const pvKw = totalDaily_kWh / (sun * derate);
+    const panels = Math.max(0, Math.ceil((pvKw * 1000) / 350));
+
+    const batteryNominalKwh = batteryCount * packKwh;
+    const batteryUsableKwh = batteryNominalKwh * usableFactor;
+    const autonomyDays = totalDaily_kWh > 0 ? batteryUsableKwh / totalDaily_kWh : 0;
+
+    const reservoir_m3 = 2 * volDay_m3;
+
+    const peakDemandW = pInput_W + peakOtherW;
+    const inverterNeededW = Math.max(peakDemandW * 1.35, totalDaily_kWh * 250);
+    const inverterStdW = standardInverterSize(inverterNeededW);
+
+    return {
+      country,
+      city,
+      sun,
+      derate,
+      volDay_m3,
+      q_m3h,
+      pInput_W,
+      pInput_kW,
+      energyPumpDailyAvg_kWh,
+      others_kwh,
+      totalDaily_kWh,
+      totalMonthly_kWh,
+      pvKw,
+      panels,
+      batteryNominalKwh,
+      batteryUsableKwh,
+      autonomyDays,
+      batteryType,
+      batteryCount,
+      batteryLife,
+      reservoir_m3,
+      inverterNeededW,
+      inverterStdW,
+      peakDemandW,
+      loads: consumers.map(c => ({...c}))
+    };
+  }
+
+  function updateChart(r){
+    const canvas = document.getElementById('batteryChart');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth || 900;
+    const h = canvas.clientHeight || 280;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0,0,w,h);
+
+    const base = Math.max(0.2, r.totalDaily_kWh / 24);
+    const points = Array.from({length:24}, (_,hh) => {
+      let load = base * 0.60;
+      if(hh >= 5 && hh <= 8) load += base * 1.6;
+      if(hh >= 10 && hh <= 14) load += base * 0.8;
+      if(hh >= 18 && hh <= 22) load += base * 1.9;
+      if(hh >= 0 && hh <= 4) load += base * 0.35;
+      return load;
+    });
+
+    const maxY = Math.max(...points) * 1.25;
+    const pad = 24;
+    const chartW = w - pad*2;
+    const chartH = h - pad*2;
+
+    ctx.strokeStyle = '#dfeadf';
+    ctx.lineWidth = 1;
+    for(let i=0;i<=4;i++){
+      const y = pad + (chartH/4)*i;
+      ctx.beginPath();
+      ctx.moveTo(pad,y);
+      ctx.lineTo(w-pad,y);
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = 'rgba(124,179,66,0.22)';
+    ctx.beginPath();
+    points.forEach((p,i)=>{
+      const x = pad + (chartW/23)*i;
+      const y = pad + chartH - (p/maxY)*chartH;
+      if(i===0) ctx.moveTo(x, h-pad);
+      ctx.lineTo(x,y);
+    });
+    ctx.lineTo(w-pad, h-pad);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.strokeStyle = '#04462e';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    points.forEach((p,i)=>{
+      const x = pad + (chartW/23)*i;
+      const y = pad + chartH - (p/maxY)*chartH;
+      if(i===0) ctx.moveTo(x,y);
+      else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+
+    ctx.fillStyle = '#04462e';
+    ctx.font = '12px Arial';
+    for(let i=0;i<24;i+=3){
+      const x = pad + (chartW/23)*i;
+      ctx.fillText(String(i).padStart(2,'0') + 'h', x-8, h-8);
+    }
+
+    ctx.fillStyle = '#6b7f6b';
+    ctx.font = '12px Arial';
+    ctx.fillText('Charge estimée sur 24h liée à l’usage agricole', pad, 14);
+  }
+
+  function recalc(){
+    const r = compute();
+
+    volDayEl.textContent = fmt(r.volDay_m3,3) + ' m³';
+    flowQEl.textContent = fmt(r.q_m3h,3) + ' m³/h';
+    pumpKwEl.textContent = fmt(r.pInput_kW,3) + ' kW';
+    pumpKwhEl.textContent = fmt(r.energyPumpDailyAvg_kWh,3) + ' kWh/j';
+    othersKwhEl.textContent = fmt(r.others_kwh,3) + ' kWh/j';
+    totalKwhDayEl.textContent = fmt(r.totalDaily_kWh,3) + ' kWh/j';
+    pvKwEl.textContent = fmt(r.pvKw,3) + ' kWc';
+    panelsCountEl.textContent = r.panels;
+    reservoirEl.textContent = fmt(r.reservoir_m3,3) + ' m³';
+    batteryKwhEl.textContent = fmt(r.batteryUsableKwh,3) + ' kWh';
+    availableBatteryKwhEl.textContent = fmt(r.batteryUsableKwh,2) + ' kWh utiles';
+    autonomyEstEl.textContent = fmt(r.autonomyDays,2) + ' j';
+    batteryLifeEstEl.textContent = `${r.batteryLife[0]} à ${r.batteryLife[1]} ans`;
+    inverterRecEl.textContent = Math.round(r.inverterNeededW) + ' W';
+    inverterStdEl.textContent = r.inverterStdW + ' W';
+
+    summaryNoteEl.textContent = `Dimensionnement calculé à partir de ${consumers.length} charge(s). Les besoins réels dépendent des usages, des pics simultanés et des marges de sécurité souhaitées.`;
+
+    document.getElementById('r_pumpkw').classList.toggle('highlight', r.pInput_W >= 5000);
+    document.getElementById('r_batt').classList.toggle('highlight', r.batteryUsableKwh > 0);
+    document.getElementById('r_panels').classList.toggle('highlight', r.panels > 0);
+
+    lastCalcSnapshot = {
+      timestamp: new Date().toLocaleString('fr-FR'),
+      country: r.country,
+      city: r.city,
+      sun: r.sun,
+      areaHa: Number(areaHaEl.value || 0),
+      crop: cropEl.value,
+      mmPerDay: Number(needMmEl.value || 0),
+      volDay_m3: r.volDay_m3,
+      q_m3h: r.q_m3h,
+      pInput_W: r.pInput_W,
+      pInput_kW: r.pInput_kW,
+      energyPumpDailyAvg_kWh: r.energyPumpDailyAvg_kWh,
+      others_kwh: r.others_kwh,
+      totalDaily_kWh: r.totalDaily_kWh,
+      totalMonthly_kWh: r.totalMonthly_kWh,
+      pvKw: r.pvKw,
+      panels: r.panels,
+      batteryNominalKwh: r.batteryNominalKwh,
+      batteryUsableKwh: r.batteryUsableKwh,
+      batteryType: r.batteryType,
+      batteryCount: r.batteryCount,
+      batteryLife: r.batteryLife,
+      autonomyDays: r.autonomyDays,
+      reservoir_m3: r.reservoir_m3,
+      inverterNeededW: r.inverterNeededW,
+      inverterStdW: r.inverterStdW,
+      peakDemandW: r.peakDemandW,
+      consumers: JSON.parse(JSON.stringify(consumers))
+    };
+
+    updateChart(r);
+  }
+
+  function addInitialConsumers(){
+    consumers = [
+      {name:'Pompe annexe', power:1500, hours:0.5},
+      {name:'Éclairage hangar', power:120, hours:6}
+    ];
+  }
+
+  function resetAll(){
+    if(!confirm('Réinitialiser les paramètres et les consommations ?')) return;
+    zoneSelect.value='ci';
+    populateCities('ci');
+    cropEl.value='tomate';
+    areaHaEl.value='0.5';
+    needMmEl.value='5.0';
+    irrigDaysEl.value='3';
+    pumpHoursEl.value='4';
+    headEl.value='15';
+    pumpEffEl.value='55';
+    batteryTypeEl.value='lifepo4';
+    batteryPackKwhEl.value='1.28';
+    batteryCountEl.value='2';
+    consNameInput.value='';
+    consPowerInput.value='';
+    consHoursInput.value='';
+    consumers = [];
+    addInitialConsumers();
+    renderConsumers();
+    updateNeedMmForCrop();
+    updateCityDefaults();
+    recalc();
+  }
+
+  async function generatePDF(){
+    try{
+      if(!lastCalcSnapshot){
+        alert("Veuillez effectuer un calcul avant d'exporter le PDF.");
+        return;
+      }
+
+      const s = lastCalcSnapshot;
+      function esc(t){
+        return String(t||'').replace(/[&<>"']/g, m => ({
+          '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+        }[m]));
+      }
+
+      let consumersHtml = '';
+      if((s.consumers || []).length === 0){
+        consumersHtml = `<tr><td colspan="4" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucun consommateur ajouté</td></tr>`;
+      }else{
+        s.consumers.forEach(c=>{
+          const kwhj = ((c.power*c.hours)/1000).toFixed(3);
+          consumersHtml += `<tr>
+            <td style="padding:8px;border:1px solid #eee">${esc(c.name)}</td>
+            <td style="padding:8px;border:1px solid #eee;text-align:center">${esc(c.power)} W</td>
+            <td style="padding:8px;border:1px solid #eee;text-align:center">${esc(c.hours)} h/j</td>
+            <td style="padding:8px;border:1px solid #eee;text-align:center">${esc(kwhj)} kWh/j</td>
+          </tr>`;
+        });
+      }
+
+      const chartCanvas = document.getElementById('batteryChart');
+      const chartData = chartCanvas ? chartCanvas.toDataURL('image/png') : null;
+
+      const flagSVG = (s.country === 'sn') ? `
+        <svg width="84" height="56" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1" height="2" x="0" fill="#00a551"></rect>
+          <rect width="1" height="2" x="1" fill="#fcd116"></rect>
+          <rect width="1" height="2" x="2" fill="#0066cc"></rect>
+          <g transform="translate(1.5,1)">
+            <path d="M0 -0.45 L0.11 -0.15 L0.45 -0.15 L0.17 0.03 L0.28 0.33 L0 0.15 L-0.28 0.33 L-0.17 0.03 L-0.45 -0.15 L-0.11 -0.15 Z" fill="#006400" transform="scale(0.6)"/>
+          </g>
+        </svg>
+      ` : `
+        <svg width="84" height="56" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1" height="2" x="0" fill="#009e60"></rect>
+          <rect width="1" height="2" x="1" fill="#ffffff"></rect>
+          <rect width="1" height="2" x="2" fill="#f77f00"></rect>
+        </svg>
+      `;
+
+      const html = `
+        <div id="pdfWrapper" style="position:relative;width:820px;padding:20px;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;">
+          <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">
+            GREENBRIDGE — À TITRE INDICATIF
+          </div>
+
+          <div style="position:relative;z-index:1;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;flex-wrap:wrap">
+              <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
+                  <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
+                  <div style="font-size:11px;color:#556b56">Étude agricole</div>
+                </div>
+                <div>
+                  <div style="font-size:16px;font-weight:700;color:#062d1b">Dimensionnement agricole</div>
+                  <div style="font-size:12px;color:#666;margin-top:4px">${esc(s.timestamp)} — ${esc(s.areaHa)} ha</div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <div style="width:84px;height:56px">${flagSVG}</div>
+                <div style="font-size:11px;color:#666;margin-top:6px">${esc(s.country)}</div>
+              </div>
             </div>
 
-            <div style="position:relative;z-index:1;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;flex-wrap:wrap">
-                <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-                  <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
-                    <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
-                    <div style="font-size:11px;color:#556b56">Étude agricole</div>
-                  </div>
-                  <div>
-                    <div style="font-size:16px;font-weight:700;color:#062d1b">Dimensionnement agricole</div>
-                    <div style="font-size:12px;color:#666;margin-top:4px">${esc(s.timestamp)} — ${esc(s.areaHa)} ha</div>
-                  </div>
+            <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div>
+                  <div style="font-weight:700">Consommation (kWh / jour)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.totalDaily_kWh,3))} kWh/j</div>
                 </div>
-                <div style="text-align:right">
-                  <div style="width:84px;height:56px">${flagSVG}</div>
-                  <div style="font-size:11px;color:#666;margin-top:6px">${esc(s.country)}</div>
+                <div>
+                  <div style="font-weight:700">PV requis (kWc)</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.pvKw,3))} kWc</div>
                 </div>
-              </div>
-
-              <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                  <div>
-                    <div style="font-weight:700">Consommation (kWh / jour)</div>
-                    <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.totalDaily_kWh,3))} kWh/j</div>
-                  </div>
-                  <div>
-                    <div style="font-weight:700">PV requis (kWc)</div>
-                    <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.pvKw,3))} kWc</div>
-                  </div>
-                  <div>
-                    <div style="font-weight:700">Batterie disponible</div>
-                    <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.batteryUsableKwh,3))} kWh utiles</div>
-                  </div>
-                  <div>
-                    <div style="font-weight:700">Onduleur conseillé</div>
-                    <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(Math.round(s.inverterStdW))} W</div>
-                  </div>
+                <div>
+                  <div style="font-weight:700">Batterie disponible</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(fmt(s.batteryUsableKwh,3))} kWh utiles</div>
+                </div>
+                <div>
+                  <div style="font-weight:700">Onduleur conseillé</div>
+                  <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${esc(Math.round(s.inverterStdW))} W</div>
                 </div>
               </div>
+            </div>
 
-              <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fff">
-                <div style="font-weight:700;margin-bottom:8px">Lecture graphique — consommation estimée sur 24h</div>
-                ${chartData ? `<img src="${chartData}" alt="Graphique 24h" style="width:100%;height:auto;border-radius:8px;border:1px solid #eee">` : ''}
-                <div style="font-size:12px;color:#666;margin-top:8px">Le profil ci-dessus montre une consommation indicative sur 24h liée à l’utilisation agricole.</div>
-              </div>
+            <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fff">
+              <div style="font-weight:700;margin-bottom:8px">Lecture graphique — consommation estimée sur 24h</div>
+              ${chartData ? `<img src="${chartData}" alt="Graphique 24h" style="width:100%;height:auto;border-radius:8px;border:1px solid #eee">` : ''}
+              <div style="font-size:12px;color:#666;margin-top:8px">Le profil ci-dessus montre une consommation indicative sur 24h liée à l’utilisation agricole.</div>
+            </div>
 
-              <div style="font-weight:700;margin-bottom:8px">Détail Consommateurs</div>
-              <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
-                <thead>
-                  <tr>
-                    <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
-                    <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
-                    <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
-                    <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">kWh / j</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${consumersHtml}
-                </tbody>
-              </table>
+            <div style="font-weight:700;margin-bottom:8px">Détail Consommateurs</div>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
+              <thead>
+                <tr>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">kWh / j</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${consumersHtml}
+              </tbody>
+            </table>
 
-              <div style="border:1px solid #eee;padding:10px;border-radius:8px;margin-bottom:12px;background:#fbfff7">
-                <div style="font-weight:700;margin-bottom:6px">Sécurité à prévoir</div>
-                <ul style="margin:0;padding-left:18px;font-size:12px;color:#444;line-height:1.6">
-                  <li>Ventilation du local batteries</li>
-                  <li>Protections fusibles et sectionnement</li>
-                  <li>Câbles protégés et bien dimensionnés</li>
-                  <li>Réservoir éloigné des sources de chaleur</li>
-                  <li>Contrôle niveau d’eau et entretien régulier</li>
-                </ul>
-              </div>
+            <div style="border:1px solid #eee;padding:10px;border-radius:8px;margin-bottom:12px;background:#fbfff7">
+              <div style="font-weight:700;margin-bottom:6px">Sécurité à prévoir</div>
+              <ul style="margin:0;padding-left:18px;font-size:12px;color:#444;line-height:1.6">
+                <li>Ventilation du local batteries</li>
+                <li>Protections fusibles et sectionnement</li>
+                <li>Câbles protégés et bien dimensionnés</li>
+                <li>Réservoir éloigné des sources de chaleur</li>
+                <li>Contrôle niveau d’eau et entretien régulier</li>
+              </ul>
+            </div>
 
-              <div style="font-weight:700;margin-bottom:6px">Avertissement</div>
-              <div style="font-size:12px;color:#444;line-height:1.6;margin-bottom:10px">
-                Ce document reste indicatif. Pour une étude plus fine, un dimensionnement complet et un choix final de matériel, il est recommandé de se rapprocher de GreenBridge avec les données terrain exactes.
-              </div>
+            <div style="font-weight:700;margin-bottom:6px">Avertissement</div>
+            <div style="font-size:12px;color:#444;line-height:1.6;margin-bottom:10px">
+              Ce document reste indicatif. Pour une étude plus fine, un dimensionnement complet et un choix final de matériel, il est recommandé de se rapprocher de GreenBridge avec les données terrain exactes.
+            </div>
 
-              <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
-                <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
-                <div>Export : ${esc(s.timestamp)}</div>
-              </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
+              <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
+              <div>Export : ${esc(s.timestamp)}</div>
             </div>
           </div>
-        `;
+        </div>
+      `;
 
-        const wrapper = document.createElement('div');
-        wrapper.style.position = 'fixed';
-        wrapper.style.left = '-5000px';
-        wrapper.style.top = '0';
-        wrapper.innerHTML = html;
-        document.body.appendChild(wrapper);
+      const wrapper = document.createElement('div');
+      wrapper.style.position = 'fixed';
+      wrapper.style.left = '-5000px';
+      wrapper.style.top = '0';
+      wrapper.innerHTML = html;
+      document.body.appendChild(wrapper);
 
-        const element = wrapper.firstElementChild;
-        const canvas = await html2canvas(element, { scale:2, useCORS:true, backgroundColor:'#ffffff' });
-        const imgData = canvas.toDataURL('image/png');
+      const element = wrapper.firstElementChild;
+      const canvas = await html2canvas(element, { scale:2, useCORS:true, backgroundColor:'#ffffff' });
+      const imgData = canvas.toDataURL('image/png');
 
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF('p','mm','a4');
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-        const margin = 10;
-        const imgProps = pdf.getImageProperties(imgData);
-        const pdfImgWidth = pageWidth - margin*2;
-        const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p','mm','a4');
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 10;
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfImgWidth = pageWidth - margin*2;
+      const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
 
-        if(pdfImgHeight <= pageHeight - margin*2){
-          pdf.addImage(imgData,'PNG', margin, margin, pdfImgWidth, pdfImgHeight);
-        } else {
-          const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
-          let rendered = 0;
-          while(rendered < canvas.height){
-            const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
-            const sliceCanvas = document.createElement('canvas');
-            sliceCanvas.width = canvas.width;
-            sliceCanvas.height = sliceH;
-            const ctx = sliceCanvas.getContext('2d');
-            ctx.fillStyle = '#fff';
-            ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
-            ctx.drawImage(canvas, 0, rendered, sliceCanvas.width, sliceCanvas.height, 0, 0, sliceCanvas.width, sliceCanvas.height);
-            const sliceData = sliceCanvas.toDataURL('image/png');
-            const sliceImgProps = pdf.getImageProperties(sliceData);
-            const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
-            if(rendered > 0) pdf.addPage();
-            pdf.addImage(sliceData, 'PNG', margin, margin, pdfImgWidth, sliceImgHeight);
-            rendered += sliceH;
-          }
+      if(pdfImgHeight <= pageHeight - margin*2){
+        pdf.addImage(imgData,'PNG', margin, margin, pdfImgWidth, pdfImgHeight);
+      } else {
+        const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
+        let rendered = 0;
+        while(rendered < canvas.height){
+          const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
+          const sliceCanvas = document.createElement('canvas');
+          sliceCanvas.width = canvas.width;
+          sliceCanvas.height = sliceH;
+          const ctx = sliceCanvas.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
+          ctx.drawImage(canvas, 0, rendered, sliceCanvas.width, sliceCanvas.height, 0, 0, sliceCanvas.width, sliceCanvas.height);
+          const sliceData = sliceCanvas.toDataURL('image/png');
+          const sliceImgProps = pdf.getImageProperties(sliceData);
+          const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
+          if(rendered > 0) pdf.addPage();
+          pdf.addImage(sliceData, 'PNG', margin, margin, pdfImgWidth, sliceImgHeight);
+          rendered += sliceH;
         }
-
-        pdf.setFontSize(9);
-        pdf.setTextColor(120);
-        pdf.text('GreenBridge — Synthèse indicative', margin, pageHeight - 6);
-
-        const filename = `GreenBridge_zone_agricole_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
-        pdf.save(filename);
-
-        document.body.removeChild(wrapper);
-      } catch(err){
-        console.error(err);
-        alert('Erreur lors de la génération du PDF. Voir console pour détails.');
       }
+
+      pdf.setFontSize(9);
+      pdf.setTextColor(120);
+      pdf.text('GreenBridge — Synthèse indicative', margin, pageHeight - 6);
+
+      const filename = `GreenBridge_zone_agricole_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
+      pdf.save(filename);
+
+      document.body.removeChild(wrapper);
+    } catch(err){
+      console.error(err);
+      alert('Erreur lors de la génération du PDF. Voir console pour détails.');
     }
+  }
 
-    zoneSelect.addEventListener('change', () => {
-      populateCities(zoneSelect.value);
-      updateNeedMmForCrop();
-      recalc();
-    });
+  zoneSelect.addEventListener('change', () => {
+    populateCities(zoneSelect.value);
+    updateNeedMmForCrop();
+    recalc();
+  });
 
-    citySelect.addEventListener('change', () => {
-      updateCityDefaults();
-      recalc();
-    });
+  citySelect.addEventListener('change', () => {
+    updateCityDefaults();
+    recalc();
+  });
 
-    cropEl.addEventListener('change', () => {
-      updateNeedMmForCrop();
-      recalc();
-    });
+  cropEl.addEventListener('change', () => {
+    updateNeedMmForCrop();
+    recalc();
+  });
 
-    [areaHaEl, needMmEl, irrigDaysEl, pumpHoursEl, headEl, pumpEffEl, batteryPackKwhEl, batteryCountEl].forEach(el => {
-      el.addEventListener('input', recalc);
-      el.addEventListener('change', recalc);
-    });
+  [areaHaEl, needMmEl, irrigDaysEl, pumpHoursEl, headEl, pumpEffEl, batteryPackKwhEl, batteryCountEl].forEach(el => {
+    el.addEventListener('input', recalc);
+    el.addEventListener('change', recalc);
+  });
 
-    batteryTypeEl.addEventListener('change', recalc);
+  batteryTypeEl.addEventListener('change', recalc);
 
-    addManualBtn.addEventListener('click', addManualConsumer);
-    consNameInput.addEventListener('keydown', e => { if(e.key === 'Enter') addManualConsumer(); });
-    consPowerInput.addEventListener('keydown', e => { if(e.key === 'Enter') addManualConsumer(); });
-    consHoursInput.addEventListener('keydown', e => { if(e.key === 'Enter') addManualConsumer(); });
+  addManualBtn.addEventListener('click', addManualConsumer);
+  consNameInput.addEventListener('keydown', e => { if(e.key === 'Enter') addManualConsumer(); });
+  consPowerInput.addEventListener('keydown', e => { if(e.key === 'Enter') addManualConsumer(); });
+  consHoursInput.addEventListener('keydown', e => { if(e.key === 'Enter') addManualConsumer(); });
 
-    resetBtn.addEventListener('click', resetAll);
-    exportBtn.addEventListener('click', () => {
-      const r = compute();
-      const text = [
-        'GREENBRIDGE TECHNOLOGIES — DIMENSIONNEMENT AGRICOLE',
-        `Pays : ${zoneSelect.value === 'sn' ? 'Sénégal' : 'Côte d’Ivoire'}`,
-        `Ville : ${citySelect.options[citySelect.selectedIndex]?.text || ''}`,
-        `Surface : ${fmt(Number(areaHaEl.value||0),2)} ha`,
-        `Consommation jour : ${fmt(r.totalDaily_kWh,2)} kWh`,
-        `PV requis : ${fmt(r.pvKw,2)} kWc`,
-        `Batterie disponible : ${fmt(r.batteryUsableKwh,2)} kWh`,
-        `Autonomie estimée : ${fmt(r.autonomyDays,2)} jour(s)`,
-        `Onduleur standard : ${r.inverterStdW} W`
-      ].join('\n');
-      alert(text);
-    });
+  resetBtn.addEventListener('click', resetAll);
+  exportBtn.addEventListener('click', () => {
+    const r = compute();
+    const text = [
+      'GREENBRIDGE TECHNOLOGIES — DIMENSIONNEMENT AGRICOLE',
+      `Pays : ${zoneSelect.value === 'sn' ? 'Sénégal' : 'Côte d’Ivoire'}`,
+      `Ville : ${citySelect.options[citySelect.selectedIndex]?.text || ''}`,
+      `Surface : ${fmt(Number(areaHaEl.value||0),2)} ha`,
+      `Consommation jour : ${fmt(r.totalDaily_kWh,2)} kWh`,
+      `PV requis : ${fmt(r.pvKw,2)} kWc`,
+      `Batterie disponible : ${fmt(r.batteryUsableKwh,2)} kWh`,
+      `Autonomie estimée : ${fmt(r.autonomyDays,2)} jour(s)`,
+      `Onduleur standard : ${r.inverterStdW} W`
+    ].join('\n');
+    alert(text);
+  });
 
-    document.getElementById('exportPdfBtn').addEventListener('click', generatePDF);
+  document.getElementById('exportPdfBtn').addEventListener('click', generatePDF);
 
-    function initMap(){
-      try {
-        map = L.map('map', { dragging:true, zoomControl:true, attributionControl:false }).setView([6.5, -5.0], 6.5);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19 }).addTo(map);
-      } catch(e){
-        console.warn('Leaflet init failed', e);
-      }
+  function initMap(){
+    try {
+      map = null;
+    } catch(e){
+      console.warn('Leaflet init failed', e);
     }
+  }
 
-    function init(){
-      initMap();
-      populateCities(zoneSelect.value);
-      renderSuggested();
-      addInitialConsumers();
-      renderConsumers();
-      updateNeedMmForCrop();
-      updateCityDefaults();
-      recalc();
-    }
+  function init(){
+    initMap();
+    populateCities(zoneSelect.value);
+    renderSuggested();
+    addInitialConsumers();
+    renderConsumers();
+    updateNeedMmForCrop();
+    updateCityDefaults();
+    recalc();
+  }
 
-    document.addEventListener('DOMContentLoaded', init);
-    window.addEventListener('resize', () => recalc());
-  })();
-  </script>
+  document.addEventListener('DOMContentLoaded', init);
+  window.addEventListener('resize', () => recalc());
+})();
+</script>
 </body>
 </html>
