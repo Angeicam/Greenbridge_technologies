@@ -3,15 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>GreenBridge — Zone urbaine</title>
+<title>GreenBridge — Étude zone urbaine</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <style>
 :root{
@@ -43,7 +41,7 @@ html,body{
   scroll-behavior:smooth;
 }
 a{color:inherit;text-decoration:none}
-button,input,select{font:inherit}
+button,input,select,textarea{font:inherit}
 
 .topbar{
   position:fixed;
@@ -548,26 +546,14 @@ nav a.active{
   object-fit:cover;
   object-position:center center;
   z-index:0;
-  filter:brightness(.78) contrast(1.06) saturate(1.05);
+  filter:brightness(.80) contrast(1.05) saturate(1.02);
 }
 .hero-overlay{
   position:absolute;
   inset:0;
   z-index:1;
   background:
-    linear-gradient(180deg, rgba(4,10,8,.28) 0%, rgba(4,10,8,.52) 40%, rgba(4,10,8,.78) 100%);
-}
-.hero-grid{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  background-image:
-    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size:64px 64px;
-  opacity:.18;
-  mask-image:linear-gradient(to bottom, transparent, rgba(0,0,0,.95) 22%, rgba(0,0,0,.95) 80%, transparent);
+    linear-gradient(180deg, rgba(4,10,8,.26) 0%, rgba(4,10,8,.52) 40%, rgba(4,10,8,.78) 100%);
 }
 .hero-content{
   position:relative;
@@ -613,14 +599,14 @@ nav a.active{
   justify-content:center;
   flex-wrap:wrap;
 }
-.btn-primary,.btn-secondary{
+.btn-primary,.btn-secondary,.btn-link,.btn-reset,.btn-add{
   padding:14px 24px;
   border-radius:12px;
   border:0;
   cursor:pointer;
   font-weight:800;
   font-size:15px;
-  transition:transform .18s ease, background .18s ease, border-color .18s ease;
+  transition:transform .18s ease, background .18s ease, border-color .18s ease, filter .18s ease;
 }
 .btn-primary{
   background:linear-gradient(135deg,var(--accent),#9be15f);
@@ -641,6 +627,20 @@ nav a.active{
   transform:translateY(-2px);
   background:rgba(255,255,255,.08);
 }
+.btn-link{
+  background:rgba(124,179,66,.12);
+  color:#04462e;
+  border:1px solid rgba(124,179,66,.18);
+}
+.btn-reset{background:#ececec;color:#072012}
+.btn-add{background:var(--gold-base);color:#072012}
+.btn-link:hover,.btn-reset:hover,.btn-add:hover{filter:brightness(.98)}
+.btn-export{
+  background:linear-gradient(135deg,var(--gold-base),var(--gold-hover));
+  color:#072012;
+  box-shadow:0 10px 18px rgba(212,175,55,.14);
+}
+.btn-export:hover{transform:translateY(-2px)}
 
 .section{
   padding:74px 0;
@@ -718,22 +718,8 @@ nav a.active{
   min-width:120px;
   max-width:100%;
   border:1px solid #e6e6e6;
-}
-.btn-reset,.btn-export,.btn-add,.btn-link{
-  padding:9px 12px;
-  border-radius:10px;
-  border:0;
-  cursor:pointer;
-  font-weight:700;
-}
-.btn-reset{background:#ececec;color:#072012}
-.btn-export{background:var(--accent);color:#072012}
-.btn-add{background:var(--gold-base);color:#072012}
-.btn-add:hover,.btn-export:hover,.btn-reset:hover,.btn-link:hover{filter:brightness(.98)}
-.btn-link{
-  background:rgba(124,179,66,.12);
-  color:#04462e;
-  border:1px solid rgba(124,179,66,.18)
+  background:#fff;
+  color:#072012;
 }
 
 .generator{
@@ -767,6 +753,7 @@ nav a.active{
   align-items:center;
   flex-wrap:wrap;
 }
+
 .room{
   background:#f7f7f7;
   padding:12px;
@@ -776,7 +763,6 @@ nav a.active{
   color:#072012;
   overflow:hidden;
 }
-.room.highlight{outline:2px solid rgba(124,179,66,.35)}
 .room-head{
   display:flex;
   justify-content:space-between;
@@ -853,6 +839,11 @@ nav a.active{
   align-items:end;
   justify-content:flex-end;
 }
+.note{
+  font-size:12px;
+  color:#6b7f6b;
+  margin-top:10px;
+}
 
 .results{
   display:grid;
@@ -885,17 +876,25 @@ nav a.active{
 }
 .result-card .small{font-size:13px;color:#6c7d6f;margin-top:6px}
 
-/* Important cards */
 #r_power .value,
 #r_inv .value,
 #r_batt .value,
-#r_autonomy .value{
+#r_autonomy .value,
+#r_life .value{
   color:#04462e;
   font-size:24px;
   background:linear-gradient(90deg,rgba(124,179,66,.08),rgba(181,134,0,.04));
   padding:6px 10px;
   border-radius:999px;
   box-shadow:0 8px 20px rgba(124,179,66,.06);
+}
+#r_safety .value{
+  font-size:15px;
+  line-height:1.5;
+  color:#04462e;
+  background:linear-gradient(90deg,rgba(124,179,66,.08),rgba(181,134,0,.04));
+  padding:10px 12px;
+  border-radius:14px;
 }
 
 .summary{
@@ -915,16 +914,29 @@ nav a.active{
   box-shadow:var(--shadow);
 }
 .big h2{margin:0;color:#04462e}
-.big .kpi{display:flex;gap:12px;align-items:center;margin-top:12px}
+.big .kpi{display:flex;gap:12px;align-items:stretch;margin-top:12px;flex-wrap:wrap}
 .kpi .num{font-weight:900;font-size:22px;color:#0b4d26}
 .kpi .muted{font-size:13px;color:#6b7f6b}
-.note{font-size:12px;color:#6b7f6b;margin-top:10px}
-.highlight{border:2px solid var(--accent);box-shadow:0 8px 30px rgba(124,179,66,.12)}
-input:focus,select:focus,button:focus{outline:none;box-shadow:0 0 0 4px rgba(124,179,66,.12)}
-
-#mapCard{padding:0;overflow:hidden}
-#map{height:260px;border-radius:8px}
-
+.muted{color:#6b7f6b}
+.summary-list{
+  margin:10px 0 0;
+  padding:0;
+  list-style:none;
+  display:grid;
+  gap:8px;
+}
+.summary-list li{
+  padding:10px 12px;
+  border-radius:12px;
+  background:#f7fff7;
+  border:1px solid #e7f1e4;
+  color:#2b3c2d;
+  line-height:1.45;
+}
+input:focus,select:focus,button:focus,textarea:focus{
+  outline:none;
+  box-shadow:0 0 0 4px rgba(124,179,66,.12);
+}
 footer{
   background:var(--green-dark);
   color:#fff;
@@ -961,6 +973,12 @@ footer::before{
   color:#e6f7ea;
   line-height:1.6;
   text-align:center;
+}
+
+.pdf-zone{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
 }
 
 @media (max-width:1100px){
@@ -1017,7 +1035,7 @@ footer::before{
   }
   .hero-bg{
     object-position:center 28%;
-    transform:scale(1.18) translateY(0);
+    transform:scale(1.08) translateY(0);
   }
   .hero-content{
     max-width:92vw;
@@ -1059,7 +1077,9 @@ footer::before{
     <a href="#" aria-label="Localisation"><i class="fas fa-map-marker-alt" aria-hidden="true"></i>&nbsp; Abidjan, Côte d’Ivoire</a>
   </div>
   <div class="right">
-    <a href="tel:+22507070707"><i class="fas fa-phone" aria-hidden="true"></i>&nbsp;+225 07 07 07 07 07</a>
+    <a href="tel:+2250707070707" id="topPhoneLink">
+      <i class="fas fa-phone" aria-hidden="true"></i>&nbsp;+225 07 07 07 07 07
+    </a>
   </div>
 </div>
 
@@ -1187,76 +1207,62 @@ footer::before{
 <section class="hero" id="top" aria-label="Hero">
   <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration zone urbaine">
   <div class="hero-overlay"></div>
-  <div class="hero-grid"></div>
 
   <div class="hero-content">
     <div class="hero-badge"><i class="fas fa-sparkles"></i> vision 2026 · dimensionnement urbain</div>
-    <h1>Étude <span>zone urbaine</span> simple, claire et utile</h1>
+    <h1>Étude <span>zone urbaine</span></h1>
     <p>
-      Génère tes pièces, ajoute les charges, puis obtiens les résultats essentiels pour un dimensionnement sérieux :
-      puissance, batterie, autonomie, onduleur standard et panneaux.
+      Une étude simple à utiliser, mais structurée comme un vrai pré-dimensionnement :
+      charges, panneaux, batteries, autonomie, onduleur standard et sécurité.
     </p>
     <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('dimensionnement').scrollIntoView({behavior:'smooth'})">Commencer l’étude</button>
-      <button class="btn-secondary" onclick="generatePDF()">Exporter PDF</button>
+      <button class="btn-primary" onclick="document.getElementById('study').scrollIntoView({behavior:'smooth'})">Commencer étude</button>
     </div>
   </div>
 </section>
 
 <div class="page-center" role="main">
-
-  <section id="mapSection" class="section" aria-label="Carte">
-    <h2>Carte & zone</h2>
-    <p class="section-intro">
-      La carte permet de situer rapidement le projet. Le calcul reste centré sur les charges urbaines, la puissance et le stockage.
-    </p>
-
-    <div class="card-soft" id="mapCard">
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;flex-wrap:wrap;gap:10px">
-        <div style="font-weight:800;color:#072012">Carte & zone</div>
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <label style="font-size:13px;color:#072012;margin-right:6px">Pays / Zone :</label>
-          <select id="zoneSelect" style="padding:6px;border-radius:6px;border:1px solid #e6e6e6">
-            <option value="ci">Côte d'Ivoire</option>
-            <option value="sn">Sénégal</option>
-          </select>
-
-          <label style="font-size:13px;color:#072012;margin-left:8px;margin-right:6px">Ville / Zone :</label>
-          <select id="citySelect" style="padding:6px;border-radius:6px;border:1px solid #e6e6e6"></select>
-        </div>
-      </div>
-      <div id="map"></div>
-    </div>
-  </section>
-
-  <section id="dimensionnement" class="section" aria-label="Étude de dimensionnement">
+  <section id="study" class="section" aria-label="Étude de dimensionnement">
     <h2>Étude de dimensionnement</h2>
     <p class="section-intro">
-      Clique sur <strong>Générer pièces</strong> pour créer la base de l’étude. Ensuite, ajuste les charges pièce par pièce.
-      Les paramètres internes d’ensoleillement et de pertes sont déjà intégrés pour rester simple à l’utilisation.
+      Les paramètres d’ensoleillement et de pertes sont intégrés en interne selon la ville choisie.
+      Le client garde une utilisation simple, tandis que le calcul reste suffisamment sérieux pour un premier chiffrage.
     </p>
 
     <div class="card-soft">
       <div class="calc" id="calcCard">
-        <h3><span class="badge">Calculateur</span> Besoin de puissance — Saisie rapide et rigoureuse</h3>
+        <h3><span class="badge">Calculateur</span> Étude urbaine — pré-dimensionnement rapide et pro</h3>
         <div class="small-note">
-          Les résultats sont indicatifs et servent à orienter le dimensionnement. Ajuste les charges, les heures et les équipements selon le projet.
+          Les pièces ne sont générées qu’au clic sur <strong>Générer pièces</strong>. Les résultats essentiels restent visibles en un coup d’œil.
         </div>
 
         <div class="top-controls">
-          <label for="zone">Zone :</label>
-          <select id="zone" aria-label="Zone">
-            <option value="ci">Côte d'Ivoire</option>
-            <option value="sn">Sénégal</option>
+          <label for="city">Ville :</label>
+          <select id="city" aria-label="Ville">
+            <option value="abidjan">Abidjan</option>
+            <option value="yamoussoukro">Yamoussoukro</option>
+            <option value="dakar">Dakar</option>
           </select>
 
-          <label for="city">Ville :</label>
-          <select id="city" aria-label="Ville"></select>
+          <label for="batteryType">Batterie :</label>
+          <select id="batteryType" aria-label="Type de batterie">
+            <option value="lithium">Lithium</option>
+            <option value="gel">Gel</option>
+            <option value="plomb">Plomb</option>
+          </select>
+
+          <label for="batteryPackCount">Nb packs :</label>
+          <input id="batteryPackCount" type="number" min="0" step="1" value="4" style="width:92px">
+
+          <label for="battPackKwh">Capacité pack (kWh) :</label>
+          <input id="battPackKwh" type="number" min="0.1" step="0.01" value="1.28" style="width:104px">
+
+          <label for="panelW">Panneau (W) :</label>
+          <input id="panelW" type="number" min="50" value="350" style="width:90px">
 
           <span class="badge-zone" id="zoneBadge"><i class="fas fa-building"></i> Zone urbaine</span>
 
           <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
-          <button id="exportBtn" class="btn-link" type="button">Résumé texte</button>
         </div>
 
         <div class="generator" role="group" aria-label="Générateur rapide de pièces">
@@ -1292,23 +1298,22 @@ footer::before{
           </div>
         </div>
 
-        <div style="margin-top:12px" class="note">
-          Les pièces apparaissent uniquement après clic sur « Générer pièces ».
-        </div>
+        <div class="note">Les pièces et leurs charges apparaissent uniquement après génération.</div>
 
         <div id="roomsList" class="room-list"></div>
 
         <div style="margin-top:14px" class="solar-panel">
           <h4 style="margin:0 0 8px 0;color:#04462e">Paramètres du système</h4>
+
           <div class="solar-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;">
             <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
               <div style="font-weight:700;margin-bottom:8px">Panneaux</div>
               <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
                 <label>Puissance d'un panneau (W)</label>
-                <input id="panelW" type="number" value="350" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+                <input id="panelWInput" type="number" value="350" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
               </div>
               <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
-                <label>Puissance des panneaux conseillée</label>
+                <label>Puissance PV conseillée</label>
                 <div id="pvRecommended" class="metric">0 kWc</div>
               </div>
               <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
@@ -1321,19 +1326,23 @@ footer::before{
               <div style="font-weight:700;margin-bottom:8px">Batteries</div>
               <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
                 <label>Capacité utile d'un pack (kWh)</label>
-                <input id="battPackKwh" type="number" step="0.01" value="1.28" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+                <input id="battPackKwhInput" type="number" step="0.01" value="1.28" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
               </div>
               <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
-                <label>Nombre de packs batterie souhaités</label>
-                <input id="batteryPackCount" type="number" min="0" step="1" value="4" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+                <label>Nombre de packs batterie</label>
+                <input id="batteryPackCountInput" type="number" min="0" step="1" value="4" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
               </div>
               <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
                 <label>Capacité batterie utile totale</label>
                 <div id="batteryRec" class="metric">0 kWh</div>
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
                 <label>Autonomie estimée</label>
                 <div id="autonomyRec" class="metric">0 jour</div>
+              </div>
+              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <label>Durée de vie indicative</label>
+                <div id="batteryLifeRec" class="metric">—</div>
               </div>
             </div>
           </div>
@@ -1341,6 +1350,7 @@ footer::before{
 
         <div style="margin-top:14px" class="solar-panel">
           <h4 style="margin:0 0 8px 0;color:#04462e">Synthèse de puissance</h4>
+
           <div class="solar-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;">
             <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
               <div style="font-weight:700;margin-bottom:8px">Puissances</div>
@@ -1349,12 +1359,12 @@ footer::before{
                 <div id="powerInstalled" class="metric">0 W</div>
               </div>
               <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
-                <label>Pointe estimée</label>
-                <div id="powerPeak" class="metric">0 W</div>
-              </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
                 <label>Onduleur standard conseillé</label>
                 <div id="inverterRec" class="metric">0 W</div>
+              </div>
+              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+                <label>Type batterie retenu</label>
+                <div id="batteryTypeOut" class="metric">—</div>
               </div>
             </div>
 
@@ -1374,7 +1384,7 @@ footer::before{
               </div>
               <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
                 <label>Couverture indicative</label>
-                <div id="coverageNote" class="metric">Dimensionnement en attente</div>
+                <div id="coverageNote" class="metric">En attente de génération</div>
               </div>
             </div>
           </div>
@@ -1390,12 +1400,6 @@ footer::before{
             <div class="label">Puissance installée</div>
             <div id="powerInstalledCard" class="value">0 W</div>
             <div class="small">Somme nominale des équipements</div>
-          </div>
-
-          <div class="result-card" id="r_peak">
-            <div class="label">Pointe estimée</div>
-            <div id="powerPeakCard" class="value">0 W</div>
-            <div class="small">Basée sur les coefficients d'usage</div>
           </div>
 
           <div class="result-card" id="r_inv">
@@ -1439,11 +1443,29 @@ footer::before{
             <div id="autonomyCard" class="value">0 jour</div>
             <div class="small">Liée au nombre de packs batterie</div>
           </div>
+
+          <div class="result-card" id="r_life">
+            <div class="label">Durée de vie batterie</div>
+            <div id="batteryLifeCard" class="value">—</div>
+            <div class="small">Estimation selon le type choisi</div>
+          </div>
+
+          <div class="result-card" id="r_safety">
+            <div class="label">Points de sécurité</div>
+            <div id="safetyCard" class="value">—</div>
+            <div class="small">Protections à prévoir pour le projet</div>
+          </div>
         </div>
 
         <div class="note">
-          Les résultats les plus importants pour un dimensionnement sont : la pointe, l’onduleur standard, les packs batterie utiles,
-          l’autonomie obtenue et la puissance PV.
+          Les résultats les plus importants pour un dimensionnement sont : la consommation, l’onduleur standard, la batterie utile,
+          l’autonomie obtenue, la puissance PV et la durée de vie des batteries.
+        </div>
+
+        <div class="pdf-zone">
+          <button id="exportPdfBtn" class="btn-export" type="button">
+            <i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF
+          </button>
         </div>
       </div>
     </div>
@@ -1452,35 +1474,37 @@ footer::before{
   <section class="section">
     <h2>Pourquoi cette étude est utile ?</h2>
     <div class="summary">
-      <div class="big" id="summaryLeft">
+      <div class="big">
         <h2>Synthèse principale</h2>
 
         <div class="kpi" style="margin-top:12px">
-          <div style="flex:1">
+          <div style="flex:1;min-width:180px">
             <div class="muted">Consommation (kWh / mois)</div>
             <div id="consMonthKpi" class="num">0 kWh</div>
             <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
           </div>
 
-          <div style="flex:1">
+          <div style="flex:1;min-width:180px">
             <div class="muted">Puissance PV (kWc)</div>
             <div id="pvReqKwc" class="num">0 kWc</div>
             <div id="pvReqRange" class="muted">incertitude ±15%</div>
           </div>
 
-          <div style="flex:1">
+          <div style="flex:1;min-width:180px">
             <div class="muted">Onduleur standard</div>
             <div id="invStdKpi" class="num">0 W</div>
             <div id="packsNeedKpi" class="muted">packs saisis: 0</div>
           </div>
         </div>
 
-        <div style="margin-top:12px" class="note">
-          <strong>Remarque :</strong> le calcul reste simple à utiliser, mais les valeurs importantes pour un projet réel sont visibles dès la première lecture.
-        </div>
+        <ul class="summary-list">
+          <li><strong>Étude simple :</strong> le client choisit la ville, le type de batterie et le nombre de packs.</li>
+          <li><strong>Étude pro :</strong> les paramètres techniques internes restent masqués pour garder une lecture claire.</li>
+          <li><strong>Zone Afrique :</strong> Abidjan, Yamoussoukro et Dakar sont intégrés avec des hypothèses adaptées.</li>
+        </ul>
       </div>
 
-      <div class="big" id="summaryRight" style="max-width:420px">
+      <div class="big" style="max-width:420px">
         <h2>Détails importants</h2>
 
         <div style="margin-top:10px">
@@ -1498,8 +1522,13 @@ footer::before{
           <div id="summaryBatteries" class="muted">—</div>
         </div>
 
+        <div style="margin-top:8px">
+          <div style="font-weight:800">Sécurité</div>
+          <div id="summarySafety" class="muted">—</div>
+        </div>
+
         <div style="margin-top:12px" class="note">
-          Les paramètres internes d’ensoleillement et de pertes restent masqués pour simplifier l’utilisation.
+          Pour une étude plus fine, une validation terrain reste nécessaire : câbles, protections DC/AC, chute de tension, structure, mise à la terre et réserve d’exploitation.
         </div>
       </div>
     </div>
@@ -1520,23 +1549,37 @@ footer::before{
 <script>
 const CONTACT_NUMBER = { display:'+225 07 07 07 07 07', tel:'+2250707070707' };
 
-const SUN_HOURS = 6;
-const PV_DERATE = 0.85;
-const INV_EFF = 0.95;
-const BATTERY_DOD = 0.90;
-const STD_INVERTERS = [1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000];
+const SUN_HOURS_BY_CITY = {
+  abidjan: 4.5,
+  yamoussoukro: 5.5,
+  dakar: 6.5
+};
 
-const CITY_COORDS = {
-  ci: {
-    ci_all:{ bounds:[[5.345317,-4.024429],[6.818351,-5.276987]], center:[6.05,-4.65], zoom:7 },
-    ci_abidjan:{ lat:5.345317, lng:-4.024429, zoom:12 },
-    ci_yamoussoukro:{ lat:6.818351, lng:-5.276987, zoom:11 }
+const BATTERY_TYPES = {
+  lithium: {
+    label: 'Lithium',
+    dod: 0.90,
+    eff: 0.95,
+    cycles: 3000,
+    lifeLabel: '10 à 15 ans'
   },
-  sn: {
-    sn_all:{ center:[14.0,-14.0], zoom:6 },
-    sn_dakar:{ lat:14.6937, lng:-17.44406, zoom:12 }
+  gel: {
+    label: 'Gel',
+    dod: 0.70,
+    eff: 0.90,
+    cycles: 1200,
+    lifeLabel: '5 à 7 ans'
+  },
+  plomb: {
+    label: 'Plomb',
+    dod: 0.50,
+    eff: 0.82,
+    cycles: 700,
+    lifeLabel: '3 à 5 ans'
   }
 };
+
+const STD_INVERTERS = [300, 500, 1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000];
 
 const ROOM_TEMPLATES = {
   "Chambre":[
@@ -1569,18 +1612,20 @@ const ROOM_TEMPLATES = {
 
 let rooms = [];
 let roomCounter = 0;
-let map = null;
 let lastCalcSnapshot = null;
 
 const burgerBtn = document.getElementById('burgerBtn');
 const mobileNav = document.getElementById('mobileNav');
 const mobileBackdrop = document.getElementById('mobileBackdrop');
 const mobileCloseBtn = document.getElementById('mobileCloseBtn');
-const topPhoneLink = document.querySelector('.topbar a[href^="tel:"]');
+const topPhoneLink = document.getElementById('topPhoneLink');
 const mobilePhoneLink = document.getElementById('mobilePhoneLink');
 
-const zoneSelect = document.getElementById('zoneSelect');
-const citySelect = document.getElementById('citySelect');
+const cityEl = document.getElementById('city');
+const batteryTypeEl = document.getElementById('batteryType');
+const batteryPackCountEl = document.getElementById('batteryPackCount');
+const battPackKwhEl = document.getElementById('battPackKwh');
+const panelWEl = document.getElementById('panelWInput');
 
 const roomListEl = document.getElementById('roomsList');
 const genBedrooms = document.getElementById('genBedrooms');
@@ -1592,34 +1637,33 @@ const genToilets = document.getElementById('genToilets');
 const genAdd = document.getElementById('genAdd');
 const generateBtn = document.getElementById('generateBtn');
 const resetBtn = document.getElementById('resetBtn');
-const exportBtn = document.getElementById('exportBtn');
-
-const panelWEl = document.getElementById('panelW');
-const battPackKwhEl = document.getElementById('battPackKwh');
-const batteryPackCountEl = document.getElementById('batteryPackCount');
+const exportPdfBtn = document.getElementById('exportPdfBtn');
 
 const loadsCountEl = document.getElementById('loadsCount');
 const consDayEl = document.getElementById('consDay');
 const consMonthEl = document.getElementById('consMonth');
 const powerInstalledEl = document.getElementById('powerInstalled');
-const powerPeakEl = document.getElementById('powerPeak');
 const inverterRecEl = document.getElementById('inverterRec');
 const pvRecommendedEl = document.getElementById('pvRecommended');
 const panelCountRecEl = document.getElementById('panelCountRec');
 const batteryRecEl = document.getElementById('batteryRec');
 const autonomyRecEl = document.getElementById('autonomyRec');
+const batteryLifeRecEl = document.getElementById('batteryLifeRec');
+const batteryTypeOutEl = document.getElementById('batteryTypeOut');
 const coverageNoteEl = document.getElementById('coverageNote');
 const summaryNoteEl = document.getElementById('summaryNote');
+const safetyCardEl = document.getElementById('safetyCard');
 
 const consDayCard = document.getElementById('consDayCard');
 const consMonthCard = document.getElementById('consMonthCard');
 const powerInstalledCard = document.getElementById('powerInstalledCard');
-const powerPeakCard = document.getElementById('powerPeakCard');
 const inverterRecCard = document.getElementById('inverterRecCard');
 const pvRecCard = document.getElementById('pvRecCard');
 const panelCountCard = document.getElementById('panelCountCard');
 const batteryRecCard = document.getElementById('batteryRecCard');
 const autonomyCard = document.getElementById('autonomyCard');
+const batteryLifeCard = document.getElementById('batteryLifeCard');
+const summarySafety = document.getElementById('summarySafety');
 
 const consMonthKpi = document.getElementById('consMonthKpi');
 const consMonthRange = document.getElementById('consMonthRange');
@@ -1627,7 +1671,6 @@ const pvReqKwc = document.getElementById('pvReqKwc');
 const pvReqRange = document.getElementById('pvReqRange');
 const invStdKpi = document.getElementById('invStdKpi');
 const packsNeedKpi = document.getElementById('packsNeedKpi');
-
 const summaryRooms = document.getElementById('summaryRooms');
 const summaryAutonomy = document.getElementById('summaryAutonomy');
 const summaryBatteries = document.getElementById('summaryBatteries');
@@ -1638,8 +1681,14 @@ function fmt(n, dec = 2){
 function fcfa(n){
   return Number(Math.round(n || 0)).toLocaleString('fr-FR') + ' FCFA';
 }
+function getSunHours(city){
+  return SUN_HOURS_BY_CITY[city] ?? 4.5;
+}
+function getBatteryProfile(type){
+  return BATTERY_TYPES[type] || BATTERY_TYPES.lithium;
+}
 function pickStandardInverter(targetW){
-  const value = Math.max(1000, Number(targetW || 0));
+  const value = Math.max(300, Number(targetW || 0));
   return STD_INVERTERS.find(v => v >= value) || STD_INVERTERS[STD_INVERTERS.length - 1];
 }
 function cloneLoads(loads){
@@ -1670,7 +1719,6 @@ function createRoom(type, baseName, withTemplate = true){
     loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : []
   };
 }
-
 function addRooms(type, baseName, count = 1, withTemplate = true){
   const c = Math.max(1, Number(count || 1));
   for(let i=0;i<c;i++){
@@ -1680,7 +1728,6 @@ function addRooms(type, baseName, count = 1, withTemplate = true){
   renderRooms();
   recalc();
 }
-
 function generateInitialRooms(){
   const addExisting = genAdd.checked;
   if(!addExisting){
@@ -1792,6 +1839,15 @@ function getAllLoads(){
   });
   return list;
 }
+function getSafetyPoints(){
+  return [
+    'Parafoudre DC/AC et protections contre surtension.',
+    'Disjoncteurs, fusibles et sectionnement accessibles.',
+    'Mise à la terre et câblage dimensionnés correctement.',
+    'Ventilation correcte de l’emplacement batteries.',
+    'Réserve d’exploitation et marge de sécurité recommandées.'
+  ];
+}
 function compute(){
   const loads = getAllLoads();
   let installedPower = 0;
@@ -1810,26 +1866,32 @@ function compute(){
     dailyWh += totalPower * hours * factor;
   });
 
-  const dailyKwh = dailyWh / 1000;
-  const monthlyKwh = dailyKwh * 30;
-
+  const city = cityEl.value;
+  const sunHours = getSunHours(city);
+  const batteryProfile = getBatteryProfile(batteryTypeEl.value);
   const panelW = Math.max(1, Number(panelWEl.value || 350));
   const battPackKwh = Math.max(0.01, Number(battPackKwhEl.value || 1.28));
   const batteryPackCount = Math.max(0, Number(batteryPackCountEl.value || 0));
 
-  const pvKwRec = dailyKwh / (SUN_HOURS * PV_DERATE);
-  const panelCountRec = Math.ceil((pvKwRec * 1000) / panelW);
-  const inverterNeed = pickStandardInverter(Math.max(peakPower * 1.25, installedPower * 0.8, 1000));
+  const dailyKwh = dailyWh / 1000;
+  const monthlyKwh = dailyKwh * 30;
 
-  const batteryUsefulTotal = batteryPackCount * battPackKwh * BATTERY_DOD * INV_EFF;
+  const pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.85) : 0;
+  const panelCountRec = Math.ceil((pvKwRec * 1000) / panelW);
+
+  const inverterNeed = pickStandardInverter(Math.max(peakPower * 1.25, installedPower * 0.8, 300));
+
+  const batteryUsefulTotal = batteryPackCount * battPackKwh * batteryProfile.dod * batteryProfile.eff;
   const autonomyDays = dailyKwh > 0 ? (batteryUsefulTotal / dailyKwh) : 0;
-  const packsForOneDay = dailyKwh > 0
-    ? Math.ceil((dailyKwh / (battPackKwh * BATTERY_DOD * INV_EFF)))
-    : 0;
+
+  const batteryLifeYears = batteryProfile.lifeLabel;
+  const batteryCycles = batteryProfile.cycles;
 
   const coverageNote = pvKwRec > 0
     ? `Base PV : ${fmt(pvKwRec,2)} kWc pour ${fmt(dailyKwh,2)} kWh/j`
     : 'Génère des pièces pour obtenir un dimensionnement';
+
+  const safetyPoints = getSafetyPoints();
 
   return {
     loads,
@@ -1842,10 +1904,14 @@ function compute(){
     inverterNeed,
     batteryUsefulTotal,
     autonomyDays,
-    packsForOneDay,
+    batteryLifeYears,
+    batteryCycles,
     coverageNote,
     batteryPackCount,
-    battPackKwh
+    battPackKwh,
+    batteryProfile,
+    safetyPoints,
+    sunHours
   };
 }
 function recalc(){
@@ -1855,30 +1921,33 @@ function recalc(){
   consDayEl.innerText = `${fmt(r.dailyKwh,2)} kWh`;
   consMonthEl.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
   powerInstalledEl.innerText = `${Math.round(r.installedPower)} W`;
-  powerPeakEl.innerText = `${Math.round(r.peakPower)} W`;
   inverterRecEl.innerText = `${r.inverterNeed} W`;
   pvRecommendedEl.innerText = `${fmt(r.pvKwRec,2)} kWc`;
   panelCountRecEl.innerText = `${r.panelCountRec}`;
   batteryRecEl.innerText = `${fmt(r.batteryUsefulTotal,2)} kWh`;
   autonomyRecEl.innerText = `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''}`;
+  batteryLifeRecEl.innerText = r.batteryLifeYears;
+  batteryTypeOutEl.innerText = r.batteryProfile.label;
   coverageNoteEl.innerText = r.coverageNote;
+  safetyCardEl.innerText = r.safetyPoints.join(' ');
+  summarySafety.innerText = r.safetyPoints[0];
+
   summaryNoteEl.innerText = r.loads.length > 0
-    ? `Dimensionnement calculé à partir de ${r.loads.length} charge(s). Les résultats clés sont la pointe, l’onduleur standard, la batterie utile et l’autonomie.`
+    ? `Dimensionnement calculé à partir de ${r.loads.length} charge(s). Les résultats clés sont la consommation, l’onduleur standard, la batterie utile et l’autonomie.`
     : 'Clique sur « Générer pièces » pour démarrer l’étude.';
 
   consDayCard.innerText = `${fmt(r.dailyKwh,2)} kWh`;
   consMonthCard.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
   powerInstalledCard.innerText = `${Math.round(r.installedPower)} W`;
-  powerPeakCard.innerText = `${Math.round(r.peakPower)} W`;
   inverterRecCard.innerText = `${r.inverterNeed} W`;
   pvRecCard.innerText = `${fmt(r.pvKwRec,2)} kWc`;
   panelCountCard.innerText = `${r.panelCountRec}`;
   batteryRecCard.innerText = `${fmt(r.batteryUsefulTotal,2)} kWh`;
   autonomyCard.innerText = `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''}`;
+  batteryLifeCard.innerText = r.batteryLifeYears;
 
   const lowMonthly = r.monthlyKwh * 0.85;
   const highMonthly = r.monthlyKwh * 1.15;
-
   consMonthKpi.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
   consMonthRange.innerText = `plage: ${fmt(lowMonthly,2)} - ${fmt(highMonthly,2)} kWh`;
   pvReqKwc.innerText = `${fmt(r.pvKwRec,2)} kWc`;
@@ -1891,22 +1960,24 @@ function recalc(){
     : 'Aucune pièce générée pour le moment.';
 
   summaryAutonomy.innerText = r.loads.length > 0
-    ? `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''} d’autonomie avec ${r.batteryPackCount} pack(s) de ${fmt(r.battPackKwh,2)} kWh utile.`
+    ? `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''} d’autonomie avec ${r.batteryPackCount} pack(s) de ${fmt(r.battPackKwh,2)} kWh utile en ${r.batteryProfile.label}.`
     : '—';
+
   summaryBatteries.innerText = r.loads.length > 0
-    ? `${r.batteryPackCount} pack(s) saisis, soit ${fmt(r.batteryUsefulTotal,2)} kWh utile totale. Pour 1 jour d’autonomie, il faudrait environ ${r.packsForOneDay} pack(s).`
+    ? `${r.batteryPackCount} pack(s) saisis, soit ${fmt(r.batteryUsefulTotal,2)} kWh utile totale. Durée de vie indicative : ${r.batteryLifeYears} (${r.batteryCycles} cycles approx.).`
     : '—';
 
   document.getElementById('r_power').classList.toggle('highlight', r.installedPower > 0);
-  document.getElementById('r_peak').classList.toggle('highlight', r.peakPower > 0);
   document.getElementById('r_inv').classList.toggle('highlight', r.inverterNeed > 0);
   document.getElementById('r_batt').classList.toggle('highlight', r.batteryUsefulTotal > 0);
   document.getElementById('r_autonomy').classList.toggle('highlight', r.autonomyDays > 0);
+  document.getElementById('r_life').classList.toggle('highlight', true);
+  document.getElementById('r_safety').classList.toggle('highlight', true);
 
   lastCalcSnapshot = {
     timestamp:new Date().toLocaleString('fr-FR'),
-    country:zoneSelect.value,
-    city:citySelect.value,
+    city:cityEl.value,
+    cityLabel:cityEl.options[cityEl.selectedIndex]?.text || '',
     installedPower:r.installedPower,
     peakPower:r.peakPower,
     dailyKwh:r.dailyKwh,
@@ -1918,59 +1989,21 @@ function recalc(){
     autonomyDays:r.autonomyDays,
     batteryPackCount:r.batteryPackCount,
     battPackKwh:r.battPackKwh,
+    batteryType:r.batteryProfile.label,
+    batteryLifeYears:r.batteryLifeYears,
+    batteryCycles:r.batteryCycles,
     loads:r.loads,
-    roomsCount:rooms.length
+    roomsCount:rooms.length,
+    safetyPoints:r.safetyPoints,
+    sunHours:r.sunHours
   };
 }
-
-function computeRoomTemplatesSummary(){
-  return rooms.length > 0
-    ? `${rooms.length} pièce(s) générée(s)`
-    : 'Aucune pièce générée';
+function populateCities(){
+  cityEl.innerHTML = '';
+  cityEl.appendChild(new Option('Abidjan', 'abidjan'));
+  cityEl.appendChild(new Option('Yamoussoukro', 'yamoussoukro'));
+  cityEl.appendChild(new Option('Dakar', 'dakar'));
 }
-
-function populateCities(country){
-  citySelect.innerHTML = '';
-  if(country === 'ci'){
-    citySelect.appendChild(new Option("Côte d'Ivoire (toutes zones)", 'ci_all'));
-    citySelect.appendChild(new Option("Abidjan", 'ci_abidjan'));
-    citySelect.appendChild(new Option("Yamoussoukro", 'ci_yamoussoukro'));
-    citySelect.value = 'ci_abidjan';
-  }else{
-    citySelect.appendChild(new Option("Sénégal (toutes zones)", 'sn_all'));
-    citySelect.appendChild(new Option("Dakar", 'sn_dakar'));
-    citySelect.value = 'sn_dakar';
-  }
-  zoomToCity(citySelect.value);
-}
-function zoomToCity(key){
-  if(!map) return;
-  const country = zoneSelect.value;
-  const info = (CITY_COORDS[country] || {})[key];
-  if(!info) return;
-  if(info.bounds) map.fitBounds(info.bounds, {padding:[20,20]});
-  else if(info.lat && info.lng) map.setView([info.lat, info.lng], info.zoom || 10);
-  else if(info.center) map.setView(info.center, info.zoom || 7);
-}
-function initMap(){
-  try{
-    map = L.map('map', { dragging:true, zoomControl:true, attributionControl:false }).setView([6.5, -5.0], 6.5);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19 }).addTo(map);
-    const pin = L.icon({
-      iconUrl:'https://cdn-icons-png.flaticon.com/512/684/684908.png',
-      iconSize:[22,22],
-      iconAnchor:[11,22]
-    });
-
-    L.marker([5.345317,-4.024429],{icon:pin}).addTo(map).bindTooltip('Abidjan');
-    L.marker([6.818351,-5.276987],{icon:pin}).addTo(map).bindTooltip('Yamoussoukro');
-    L.marker([14.6937,-17.44406],{icon:pin}).addTo(map).bindTooltip('Dakar');
-    map.fitBounds([[5.345317,-4.024429],[6.818351,-5.276987]], { padding:[20,20] });
-  }catch(e){
-    console.warn('Leaflet init failed', e);
-  }
-}
-
 function openMenu(){
   if(!mobileNav || !burgerBtn) return;
   mobileNav.classList.add('open');
@@ -1987,6 +2020,14 @@ function openMenu(){
     studyToggle.setAttribute('aria-expanded','true');
     studyToggle.classList.add('active');
   }
+
+  const productsSub = document.getElementById('mobileProductsSub');
+  const productsToggle = document.getElementById('mobileProductsToggle');
+  if(productsSub && productsToggle){
+    productsSub.style.display = 'flex';
+    productsToggle.setAttribute('aria-expanded','true');
+    productsToggle.classList.add('active');
+  }
 }
 function closeMenu(){
   if(!mobileNav || !burgerBtn) return;
@@ -1996,7 +2037,6 @@ function closeMenu(){
   mobileNav.setAttribute('aria-hidden','true');
   burgerBtn.setAttribute('aria-expanded','false');
   document.body.style.overflow = '';
-
   document.querySelectorAll('.mobile-nav .submenu').forEach(s => s.style.display = 'none');
 }
 function bindMobileExpandable(toggleEl, subEl){
@@ -2026,359 +2066,15 @@ function bindMobileExpandable(toggleEl, subEl){
     }
   });
 }
-
-function openActiveSubmenusMobile(){
-  const studyToggle = document.getElementById('mobileStudyToggle');
-  const studySub = document.getElementById('mobileStudySub');
-  if(studyToggle && studySub){
-    studySub.style.display = 'flex';
-    studyToggle.setAttribute('aria-expanded','true');
-    studyToggle.classList.add('active');
-  }
-}
-
 function disableActiveLinksInMobile(){
   document.querySelectorAll('.mobile-nav a').forEach(a => {
     if(a.getAttribute('aria-current') === 'page'){
       a.classList.add('mobile-disabled');
       a.setAttribute('aria-disabled','true');
       a.setAttribute('tabindex','-1');
-      const href = a.getAttribute('href');
-      if(href){
-        a.dataset.href = href;
-      }
     }
   });
 }
-
-function updatePhone(){
-  if(topPhoneLink){
-    topPhoneLink.href = 'tel:' + CONTACT_NUMBER.tel;
-    topPhoneLink.innerHTML = '<i class="fas fa-phone" aria-hidden="true"></i>&nbsp;' + CONTACT_NUMBER.display;
-  }
-  if(mobilePhoneLink){
-    mobilePhoneLink.href = 'tel:' + CONTACT_NUMBER.tel;
-    mobilePhoneLink.textContent = CONTACT_NUMBER.display;
-  }
-}
-
-function openDropdown(dropdownId, contentId){
-  const dd = document.getElementById(dropdownId);
-  const content = document.getElementById(contentId);
-  if(!dd || !content) return;
-  dd.addEventListener('mouseenter', () => { if(window.innerWidth > 1100) { content.style.display='block'; dd.setAttribute('aria-expanded','true'); } });
-  dd.addEventListener('mouseleave', () => { if(window.innerWidth > 1100) { content.style.display='none'; dd.setAttribute('aria-expanded','false'); } });
-  const link = dd.querySelector('a');
-  if(link){
-    link.addEventListener('click', (e) => {
-      if(window.innerWidth <= 1100){
-        e.preventDefault();
-        content.style.display = content.style.display === 'block' ? 'none' : 'block';
-        dd.setAttribute('aria-expanded', content.style.display === 'block' ? 'true' : 'false');
-      }
-    });
-  }
-}
-
-function renderSuggestedAndInit(){}
-
-function formatPower(value){
-  return `${Math.round(value)} W`;
-}
-
-async function generatePDF(){
-  try{
-    if(!lastCalcSnapshot){
-      alert("Veuillez effectuer un calcul avant d'exporter le PDF.");
-      return;
-    }
-
-    const s = lastCalcSnapshot;
-    const loadsRows = (s.loads || []).map(l => `
-      <tr>
-        <td style="padding:8px;border:1px solid #eee">${l.name}</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.qty}</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.powerW} W</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.hours} h/j</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.factor}</td>
-      </tr>
-    `).join('');
-
-    const html = `
-      <div id="pdfWrapper" style="position:relative;width:820px;padding:20px;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;">
-        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">
-          GREENBRIDGE — À TITRE INDICATIF
-        </div>
-
-        <div style="position:relative;z-index:1;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
-                <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
-                <div style="font-size:11px;color:#556b56">Énergie & Domotique</div>
-              </div>
-              <div>
-                <div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone urbaine</div>
-                <div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.roomsCount} pièce(s)</div>
-              </div>
-            </div>
-            <div style="text-align:right">
-              <div style="font-size:11px;color:#666;margin-top:6px">${s.country}</div>
-            </div>
-          </div>
-
-          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div>
-                <div style="font-weight:700">Puissance installée</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Pointe estimée</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.peakPower)} W</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Onduleur standard conseillé</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Consommation / jour</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Consommation / mois</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div>
-              </div>
-              <div>
-                <div style="font-weight:700">PV requis</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Nb panneaux</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Batterie utile totale</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Autonomie estimée</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Pack batterie utile</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.battPackKwh,2)} kWh × ${s.batteryPackCount}</div>
-              </div>
-            </div>
-          </div>
-
-          <div style="font-weight:700;margin-bottom:8px">Détail des pièces et charges</div>
-          <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
-            <thead>
-              <tr>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Coef</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${loadsRows || '<tr><td colspan="5" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune pièce générée</td></tr>'}
-            </tbody>
-          </table>
-
-          <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
-            <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
-            <div>Export : ${s.timestamp}</div>
-          </div>
-        </div>
-      </div>
-    `;
-
-    const wrapper = document.createElement('div');
-    wrapper.style.position = 'fixed';
-    wrapper.style.left = '-5000px';
-    wrapper.style.top = '0';
-    wrapper.innerHTML = html;
-    document.body.appendChild(wrapper);
-
-    const element = wrapper.firstElementChild;
-    const scale = 2;
-    const canvas = await html2canvas(element, { scale, useCORS:true, backgroundColor:'#ffffff' });
-    const imgData = canvas.toDataURL('image/png');
-
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p','mm','a4');
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const margin = 10;
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfImgWidth = pageWidth - margin*2;
-    const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
-
-    if(pdfImgHeight <= pageHeight - margin*2){
-      pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight);
-    }else{
-      const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
-      let rendered = 0;
-      while(rendered < canvas.height){
-        const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
-        const sliceCanvas = document.createElement('canvas');
-        sliceCanvas.width = canvas.width;
-        sliceCanvas.height = sliceH;
-        const ctx = sliceCanvas.getContext('2d');
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
-        ctx.drawImage(canvas,0,rendered,sliceCanvas.width,sliceCanvas.height,0,0,sliceCanvas.width,sliceCanvas.height);
-        const sliceData = sliceCanvas.toDataURL('image/png');
-        const sliceImgProps = pdf.getImageProperties(sliceData);
-        const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
-        if(rendered > 0) pdf.addPage();
-        pdf.addImage(sliceData,'PNG',margin,margin,pdfImgWidth,sliceImgHeight);
-        rendered += sliceH;
-      }
-    }
-
-    pdf.setFontSize(9);
-    pdf.setTextColor(120);
-    pdf.text('GreenBridge — Synthèse indicative', margin, pageHeight - 6);
-
-    const filename = `GreenBridge_zone_urbaine_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
-    pdf.save(filename);
-
-    document.body.removeChild(wrapper);
-  }catch(err){
-    console.error(err);
-    alert('Erreur lors de la génération du PDF. Voir console pour détails.');
-  }
-}
-
-/* Events */
-function recalcAfterLoadChange(){
-  recalc();
-}
-
-roomListEl.addEventListener('input', onLoadChange);
-roomListEl.addEventListener('change', onLoadChange);
-roomListEl.addEventListener('click', (e) => {
-  const addLoadBtn = e.target.closest('.btn-add-load');
-  const removeRoomBtn = e.target.closest('.btn-remove-room');
-  const removeLoadBtn = e.target.closest('.btn-remove-load');
-
-  if(addLoadBtn){
-    addLoad(Number(addLoadBtn.dataset.r));
-    return;
-  }
-  if(removeRoomBtn){
-    const roomIndex = Number(removeRoomBtn.dataset.r);
-    if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
-    rooms.splice(roomIndex,1);
-    renderRooms();
-    recalc();
-    return;
-  }
-  if(removeLoadBtn){
-    const consumer = removeLoadBtn.closest('.consumer');
-    const roomIndex = Number(consumer.dataset.r);
-    const loadIndex = Number(consumer.dataset.l);
-    rooms[roomIndex].loads.splice(loadIndex,1);
-    renderRooms();
-    recalc();
-  }
-});
-
-generateBtn.addEventListener('click', generateInitialRooms);
-resetBtn.addEventListener('click', () => {
-  if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
-  zoneSelect.value = 'ci';
-  populateCities('ci');
-  panelWEl.value = 350;
-  battPackKwhEl.value = 1.28;
-  batteryPackCountEl.value = 4;
-  genBedrooms.value = 1;
-  genLiving.value = 1;
-  genKitchens.value = 1;
-  genBaths.value = 1;
-  genOffices.value = 0;
-  genToilets.value = 0;
-  genAdd.checked = false;
-  rooms = [];
-  roomCounter = 0;
-  renderRooms();
-  updateNeedMmUI();
-  recalc();
-});
-exportBtn.addEventListener('click', () => {
-  if(!lastCalcSnapshot){
-    alert('Aucun résultat à exporter pour le moment.');
-    return;
-  }
-  const s = lastCalcSnapshot;
-  const text = [
-    'GREENBRIDGE TECHNOLOGIES — ZONE URBAINE',
-    `Zone : ${s.country}`,
-    `Ville : ${citySelect.options[citySelect.selectedIndex]?.text || ''}`,
-    `Pièces générées : ${s.roomsCount}`,
-    `Puissance installée : ${Math.round(s.installedPower)} W`,
-    `Pointe estimée : ${Math.round(s.peakPower)} W`,
-    `Onduleur standard : ${Math.round(s.inverterNeed)} W`,
-    `Consommation jour : ${fmt(s.dailyKwh,2)} kWh`,
-    `Consommation mois : ${fmt(s.monthlyKwh,2)} kWh`,
-    `PV requis : ${fmt(s.pvKwRec,2)} kWc`,
-    `Panneaux : ${s.panelCountRec}`,
-    `Batterie utile totale : ${fmt(s.batteryUsefulTotal,2)} kWh`,
-    `Autonomie estimée : ${fmt(s.autonomyDays,2)} jour(s)`,
-    `Pack batterie : ${fmt(s.battPackKwh,2)} kWh × ${s.batteryPackCount}`
-  ].join('\n');
-  alert(text);
-});
-
-zoneSelect.addEventListener('change', () => {
-  populateCities(zoneSelect.value);
-  updateNeedMmUI();
-});
-citySelect.addEventListener('change', () => zoomToCity(citySelect.value));
-
-panelWEl.addEventListener('input', recalc);
-battPackKwhEl.addEventListener('input', recalc);
-batteryPackCountEl.addEventListener('input', recalc);
-
-burgerBtn.addEventListener('click', () => {
-  const opened = mobileNav.classList.contains('open');
-  if(opened) closeMenu();
-  else openMenu();
-});
-if(mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
-if(mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
-
-document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => {
-  if(a.id === 'mobileStudyToggle' || a.id === 'mobileProductsToggle') return;
-  a.addEventListener('click', () => closeMenu());
-});
-
-bindMobileExpandable(
-  document.getElementById('mobileStudyToggle'),
-  document.getElementById('mobileStudySub')
-);
-bindMobileExpandable(
-  document.getElementById('mobileProductsToggle'),
-  document.getElementById('mobileProductsSub')
-);
-
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape'){
-    closeMenu();
-  }
-});
-
-function updateNeedMmUI(){
-  const badge = document.getElementById('zoneBadge');
-  if(badge){
-    badge.innerHTML = '<i class="fas fa-building"></i> Zone urbaine';
-  }
-}
-
 function updatePhoneNumbers(){
   if(topPhoneLink){
     topPhoneLink.href = 'tel:' + CONTACT_NUMBER.tel;
@@ -2389,7 +2085,6 @@ function updatePhoneNumbers(){
     mobilePhoneLink.textContent = CONTACT_NUMBER.display;
   }
 }
-
 function activateElectricBand(){
   const band = document.getElementById('energyBand');
   if(!band) return;
@@ -2527,21 +2222,17 @@ function activateElectricBand(){
 function applyCurrentPageState(){
   const path = (window.location.pathname.split('/').pop() || 'zone_urbaine.html').toLowerCase();
 
-  const desktopStudyLink = document.getElementById('studyLink');
   const desktopStudyDropdown = document.getElementById('studyDropdown');
-  const desktopProductsDropdown = document.getElementById('productsDropdown');
+  const desktopStudyLink = document.getElementById('studyLink');
 
-  if(path === 'zone_urbaine.html'){
-    const activeDesktop = document.querySelector('nav a[href="zone_urbaine.html"]');
-    if(activeDesktop) activeDesktop.classList.add('active-item');
-    if(desktopStudyLink){
-      desktopStudyLink.classList.add('active');
-      desktopStudyLink.setAttribute('data-current','🏙️ Zone Urbaine');
-    }
+  if(desktopStudyLink){
+    desktopStudyLink.classList.add('active');
+    desktopStudyLink.setAttribute('data-current','🏙️ Zone Urbaine');
   }
 
   document.querySelectorAll('.dropdown-content a').forEach(a => {
-    if((a.getAttribute('href') || '').toLowerCase() === path){
+    const href = (a.getAttribute('href') || '').toLowerCase();
+    if(href === path){
       a.classList.add('active-item');
       a.setAttribute('aria-current','page');
       const parent = a.closest('.dropdown');
@@ -2570,19 +2261,14 @@ function applyCurrentPageState(){
     }
   });
 
-  openActiveSubmenusMobile();
-  disableActiveLinksInMobile();
-
-  if(desktopStudyDropdown && path === 'zone_urbaine.html'){
+  if(desktopStudyDropdown){
     desktopStudyDropdown.setAttribute('aria-expanded','true');
   }
 
-  if(desktopProductsDropdown){
-    desktopProductsDropdown.setAttribute('aria-expanded','false');
-  }
+  disableActiveLinksInMobile();
 }
 
-function openActiveSubmenusDesktop(){
+function openDesktopDropdowns(){
   const studyDropdown = document.getElementById('studyDropdown');
   const studyContent = document.getElementById('studyDropdownContent');
   const studyLink = document.getElementById('studyLink');
@@ -2636,32 +2322,306 @@ function openActiveSubmenusDesktop(){
   }
 }
 
-window.addEventListener('load', () => {
-  updatePhoneNumbers();
-  initMap();
-  populateCities(zoneSelect.value);
-  updateNeedMmUI();
-  renderRooms();
-  recalc();
-  activateElectricBand();
-  openActiveSubmenusDesktop();
-  applyCurrentPageState();
+function updatePhoneNumbers(){
+  if(topPhoneLink){
+    topPhoneLink.href = 'tel:' + CONTACT_NUMBER.tel;
+    topPhoneLink.innerHTML = '<i class="fas fa-phone" aria-hidden="true"></i>&nbsp;' + CONTACT_NUMBER.display;
+  }
+  if(mobilePhoneLink){
+    mobilePhoneLink.href = 'tel:' + CONTACT_NUMBER.tel;
+    mobilePhoneLink.textContent = CONTACT_NUMBER.display;
+  }
+}
+
+function openMenu(){
+  if(!mobileNav || !burgerBtn) return;
+  mobileNav.classList.add('open');
+  if(mobileBackdrop) mobileBackdrop.classList.add('open');
+  burgerBtn.classList.add('open');
+  mobileNav.setAttribute('aria-hidden','false');
+  burgerBtn.setAttribute('aria-expanded','true');
+  document.body.style.overflow = 'hidden';
+
+  const studySub = document.getElementById('mobileStudySub');
+  const studyToggle = document.getElementById('mobileStudyToggle');
+  if(studySub && studyToggle){
+    studySub.style.display = 'flex';
+    studyToggle.setAttribute('aria-expanded','true');
+    studyToggle.classList.add('active');
+  }
+
+  const productsSub = document.getElementById('mobileProductsSub');
+  const productsToggle = document.getElementById('mobileProductsToggle');
+  if(productsSub && productsToggle){
+    productsSub.style.display = 'flex';
+    productsToggle.setAttribute('aria-expanded','true');
+    productsToggle.classList.add('active');
+  }
+}
+function closeMenu(){
+  if(!mobileNav || !burgerBtn) return;
+  mobileNav.classList.remove('open');
+  if(mobileBackdrop) mobileBackdrop.classList.remove('open');
+  burgerBtn.classList.remove('open');
+  mobileNav.setAttribute('aria-hidden','true');
+  burgerBtn.setAttribute('aria-expanded','false');
+  document.body.style.overflow = '';
+  document.querySelectorAll('.mobile-nav .submenu').forEach(s => s.style.display = 'none');
+}
+function bindMobileExpandable(toggleEl, subEl){
+  if(!toggleEl || !subEl) return;
+  toggleEl.addEventListener('click', function(e){
+    if(e.target.closest('.caret')){
+      e.preventDefault();
+      e.stopPropagation();
+      const opening = subEl.style.display !== 'flex';
+
+      document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
+        if(s !== subEl) s.style.display = 'none';
+      });
+
+      subEl.style.display = opening ? 'flex' : 'none';
+      toggleEl.setAttribute('aria-expanded', String(opening));
+      toggleEl.classList.toggle('active', opening);
+
+      mobileNav.classList.add('open');
+      if(mobileBackdrop) mobileBackdrop.classList.add('open');
+      burgerBtn.classList.add('open');
+      mobileNav.setAttribute('aria-hidden','false');
+      burgerBtn.setAttribute('aria-expanded','true');
+      document.body.style.overflow = 'hidden';
+    }else{
+      closeMenu();
+    }
+  });
+}
+function getBatteryLabel(type){
+  const profile = getBatteryProfile(type);
+  return profile.label;
+}
+
+async function generatePDF(){
+  try{
+    if(!lastCalcSnapshot){
+      alert("Veuillez effectuer un calcul avant d'exporter le PDF.");
+      return;
+    }
+
+    const s = lastCalcSnapshot;
+    const safe = s.safetyPoints || [];
+    const loadsRows = (s.loads || []).map(l => `
+      <tr>
+        <td style="padding:8px;border:1px solid #eee">${l.name}</td>
+        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.qty}</td>
+        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.powerW} W</td>
+        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.hours} h/j</td>
+        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.factor}</td>
+      </tr>
+    `).join('');
+
+    const safetyHtml = safe.map(item => `<li style="margin-bottom:6px">${item}</li>`).join('');
+
+    const html = `
+      <div id="pdfWrapper" style="position:relative;width:820px;padding:20px;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;">
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">
+          GREENBRIDGE — À TITRE INDICATIF
+        </div>
+
+        <div style="position:relative;z-index:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
+                <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
+                <div style="font-size:11px;color:#556b56">Énergie & Domotique</div>
+              </div>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone urbaine</div>
+                <div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.roomsCount} pièce(s) — ${s.cityLabel}</div>
+              </div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:11px;color:#666;margin-top:6px">${s.city}</div>
+            </div>
+          </div>
+
+          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div>
+                <div style="font-weight:700">Puissance installée</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Onduleur standard conseillé</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Consommation / jour</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Consommation / mois</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div>
+              </div>
+              <div>
+                <div style="font-weight:700">PV requis</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Nb panneaux</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Batterie utile totale</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Autonomie estimée</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Pack batterie utile</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.battPackKwh,2)} kWh × ${s.batteryPackCount}</div>
+              </div>
+              <div>
+                <div style="font-weight:700">Type batterie</div>
+                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryType}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+            <div style="font-weight:700;margin-bottom:6px">Points de sécurité</div>
+            <ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">
+              ${safetyHtml}
+            </ul>
+          </div>
+
+          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+            <div style="font-weight:700;margin-bottom:8px">Détail des pièces et charges</div>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
+              <thead>
+                <tr>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
+                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Coef</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${loadsRows || '<tr><td colspan="5" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune pièce générée</td></tr>'}
+              </tbody>
+            </table>
+
+            <div style="font-size:12px;color:#444;line-height:1.6">
+              <strong>Recommandation :</strong> pour une étude plus fine, de sécurité et de mise en œuvre, rapprochez-vous de GreenBridge.
+              Les protections, les câbles, la structure, la ventilation, la mise à la terre et les marges d’exploitation doivent être validés sur site.
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
+            <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
+            <div>Export : ${s.timestamp}</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'fixed';
+    wrapper.style.left = '-5000px';
+    wrapper.style.top = '0';
+    wrapper.innerHTML = html;
+    document.body.appendChild(wrapper);
+
+    const element = wrapper.firstElementChild;
+    const scale = 2;
+    const canvas = await html2canvas(element, { scale, useCORS:true, backgroundColor:'#ffffff' });
+    const imgData = canvas.toDataURL('image/png');
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 10;
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfImgWidth = pageWidth - margin*2;
+    const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
+
+    if(pdfImgHeight <= pageHeight - margin*2){
+      pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight);
+    }else{
+      const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
+      let rendered = 0;
+      while(rendered < canvas.height){
+        const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
+        const sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width = canvas.width;
+        sliceCanvas.height = sliceH;
+        const ctx = sliceCanvas.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
+        ctx.drawImage(canvas,0,rendered,sliceCanvas.width,sliceCanvas.height,0,0,sliceCanvas.width,sliceCanvas.height);
+        const sliceData = sliceCanvas.toDataURL('image/png');
+        const sliceImgProps = pdf.getImageProperties(sliceData);
+        const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
+        if(rendered > 0) pdf.addPage();
+        pdf.addImage(sliceData,'PNG',margin,margin,pdfImgWidth,sliceImgHeight);
+        rendered += sliceH;
+      }
+    }
+
+    pdf.setFontSize(9);
+    pdf.setTextColor(120);
+    pdf.text('GreenBridge — Synthèse indicative', margin, pageHeight - 6);
+
+    const filename = `GreenBridge_zone_urbaine_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
+    pdf.save(filename);
+
+    document.body.removeChild(wrapper);
+  }catch(err){
+    console.error(err);
+    alert('Erreur lors de la génération du PDF. Voir console pour détails.');
+  }
+}
+
+/* Events */
+burgerBtn.addEventListener('click', () => {
+  const opened = mobileNav.classList.contains('open');
+  if(opened) closeMenu();
+  else openMenu();
+});
+if(mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
+if(mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
+
+document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => {
+  if(a.id === 'mobileStudyToggle' || a.id === 'mobileProductsToggle') return;
+  a.addEventListener('click', () => closeMenu());
 });
 
-zoneSelect.addEventListener('change', () => {
-  populateCities(zoneSelect.value);
-  updateNeedMmUI();
+bindMobileExpandable(
+  document.getElementById('mobileStudyToggle'),
+  document.getElementById('mobileStudySub')
+);
+bindMobileExpandable(
+  document.getElementById('mobileProductsToggle'),
+  document.getElementById('mobileProductsSub')
+);
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    closeMenu();
+  }
 });
-citySelect.addEventListener('change', () => zoomToCity(citySelect.value));
 
 generateBtn.addEventListener('click', generateInitialRooms);
 resetBtn.addEventListener('click', () => {
   if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
-  zoneSelect.value = 'ci';
-  populateCities('ci');
-  panelWEl.value = 350;
-  battPackKwhEl.value = 1.28;
+  cityEl.value = 'abidjan';
+  batteryTypeEl.value = 'lithium';
   batteryPackCountEl.value = 4;
+  battPackKwhEl.value = 1.28;
+  panelWEl.value = 350;
   genBedrooms.value = 1;
   genLiving.value = 1;
   genKitchens.value = 1;
@@ -2672,44 +2632,57 @@ resetBtn.addEventListener('click', () => {
   rooms = [];
   roomCounter = 0;
   renderRooms();
-  updateNeedMmUI();
   recalc();
 });
-exportBtn.addEventListener('click', () => {
-  if(!lastCalcSnapshot){
-    alert('Aucun résultat à exporter pour le moment.');
+exportPdfBtn.addEventListener('click', generatePDF);
+
+cityEl.addEventListener('change', recalc);
+batteryTypeEl.addEventListener('change', recalc);
+batteryPackCountEl.addEventListener('input', recalc);
+battPackKwhEl.addEventListener('input', recalc);
+panelWEl.addEventListener('input', recalc);
+
+roomListEl.addEventListener('input', onLoadChange);
+roomListEl.addEventListener('change', onLoadChange);
+roomListEl.addEventListener('click', (e) => {
+  const addLoadBtn = e.target.closest('.btn-add-load');
+  const removeRoomBtn = e.target.closest('.btn-remove-room');
+  const removeLoadBtn = e.target.closest('.btn-remove-load');
+
+  if(addLoadBtn){
+    addLoad(Number(addLoadBtn.dataset.r));
     return;
   }
-  const s = lastCalcSnapshot;
-  const text = [
-    'GREENBRIDGE TECHNOLOGIES — ZONE URBAINE',
-    `Zone : ${s.country}`,
-    `Ville : ${citySelect.options[citySelect.selectedIndex]?.text || ''}`,
-    `Pièces générées : ${s.roomsCount}`,
-    `Puissance installée : ${Math.round(s.installedPower)} W`,
-    `Pointe estimée : ${Math.round(s.peakPower)} W`,
-    `Onduleur standard : ${Math.round(s.inverterNeed)} W`,
-    `Consommation jour : ${fmt(s.dailyKwh,2)} kWh`,
-    `Consommation mois : ${fmt(s.monthlyKwh,2)} kWh`,
-    `PV requis : ${fmt(s.pvKwRec,2)} kWc`,
-    `Panneaux : ${s.panelCountRec}`,
-    `Batterie utile totale : ${fmt(s.batteryUsefulTotal,2)} kWh`,
-    `Autonomie estimée : ${fmt(s.autonomyDays,2)} jour(s)`,
-    `Pack batterie : ${fmt(s.battPackKwh,2)} kWh × ${s.batteryPackCount}`
-  ].join('\n');
-  alert(text);
+  if(removeRoomBtn){
+    const roomIndex = Number(removeRoomBtn.dataset.r);
+    if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
+    rooms.splice(roomIndex,1);
+    renderRooms();
+    recalc();
+    return;
+  }
+  if(removeLoadBtn){
+    const consumer = removeLoadBtn.closest('.consumer');
+    const roomIndex = Number(consumer.dataset.r);
+    const loadIndex = Number(consumer.dataset.l);
+    rooms[roomIndex].loads.splice(loadIndex,1);
+    renderRooms();
+    recalc();
+  }
 });
 
-panelWEl.addEventListener('input', recalc);
-battPackKwhEl.addEventListener('input', recalc);
-batteryPackCountEl.addEventListener('input', recalc);
-
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeMenu();
-});
-
-document.getElementById('roomList')?.addEventListener('input', onLoadChange);
-document.getElementById('roomList')?.addEventListener('change', onLoadChange);
+function initializePage(){
+  updatePhoneNumbers();
+  populateCities();
+  rooms = [];
+  roomCounter = 0;
+  renderRooms();
+  activateElectricBand();
+  openDesktopDropdowns();
+  applyCurrentPageState();
+  recalc();
+}
+initializePage();
 </script>
 </body>
 </html>
