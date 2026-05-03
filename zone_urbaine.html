@@ -546,14 +546,14 @@ nav a.active{
   object-fit:cover;
   object-position:center center;
   z-index:0;
-  filter:brightness(.80) contrast(1.05) saturate(1.02);
+  filter:brightness(1.03) contrast(1.03) saturate(1.02);
 }
 .hero-overlay{
   position:absolute;
   inset:0;
   z-index:1;
   background:
-    linear-gradient(180deg, rgba(4,10,8,.26) 0%, rgba(4,10,8,.52) 40%, rgba(4,10,8,.78) 100%);
+    linear-gradient(180deg, rgba(4,10,8,.10) 0%, rgba(4,10,8,.28) 38%, rgba(4,10,8,.48) 100%);
 }
 .hero-content{
   position:relative;
@@ -599,7 +599,7 @@ nav a.active{
   justify-content:center;
   flex-wrap:wrap;
 }
-.btn-primary,.btn-secondary,.btn-link,.btn-reset,.btn-add{
+.btn-primary,.btn-secondary,.btn-link,.btn-reset,.btn-add,.btn-export{
   padding:14px 24px;
   border-radius:12px;
   border:0;
@@ -720,6 +720,20 @@ nav a.active{
   border:1px solid #e6e6e6;
   background:#fff;
   color:#072012;
+}
+.top-controls .badge-zone{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(168,230,161,.10);
+  border:1px solid rgba(168,230,161,.16);
+  color:#dfffe6;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.5px;
+  text-transform:uppercase;
 }
 
 .generator{
@@ -916,8 +930,8 @@ nav a.active{
 .big h2{margin:0;color:#04462e}
 .big .kpi{display:flex;gap:12px;align-items:stretch;margin-top:12px;flex-wrap:wrap}
 .kpi .num{font-weight:900;font-size:22px;color:#0b4d26}
-.kpi .muted{font-size:13px;color:#6b7f6b}
-.muted{color:#6b7f6b}
+.kpi .muted{font-size:13px;color:#6b7f6f}
+.muted{color:#6b7f6f}
 .summary-list{
   margin:10px 0 0;
   padding:0;
@@ -981,10 +995,39 @@ footer::before{
   justify-content:center;
 }
 
+.solar-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:center;
+  margin-bottom:6px;
+}
+.solar-row label{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.metric{
+  font-weight:900;
+  font-size:18px;
+  color:#04462e;
+  margin-top:0;
+  word-break:break-word;
+  text-align:right;
+  justify-self:end;
+}
+.metric.note{
+  font-size:13px;
+  color:#6c7d6f;
+  font-weight:600;
+  text-align:left;
+  justify-self:start;
+}
+
 @media (max-width:1100px){
   .results{grid-template-columns:repeat(2,1fr)}
   .consumer-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
 @media (max-width:820px){
   nav{display:none}
   .burger{display:flex !important}
@@ -1003,13 +1046,39 @@ footer::before{
   .results{grid-template-columns:1fr}
   .result-card{min-width:0}
   .mobile-panel{padding-bottom:22px}
+  .top-controls > *{
+    width:100%;
+  }
+  .top-controls label{
+    width:100%;
+  }
+  .top-controls select,
+  .top-controls input,
+  .top-controls button,
+  .top-controls .badge-zone{
+    width:100%;
+    min-width:0;
+  }
+  .solar-row{
+    grid-template-columns:1fr;
+  }
+  .metric{
+    justify-self:start;
+    text-align:left;
+    font-size:17px;
+  }
+  .solar-grid{
+    grid-template-columns:1fr !important;
+  }
 }
+
 @media (max-width:768px){
   .topbar .right{gap:10px;font-size:13px}
   .hero-content h1{font-size:28px}
   .hero-content p{font-size:14px}
   .consumer-fields{grid-template-columns:1fr}
 }
+
 @media (max-width:480px){
   :root{
     --topbar-h:40px;
@@ -1067,6 +1136,21 @@ footer::before{
   .mobile-contact .phone-line{font-size:15px;}
   .socials{gap:14px;}
   .socials a{width:40px;height:40px;font-size:18px;}
+
+  .card-soft{padding:12px;}
+  .calc{padding:12px;}
+  .calc h3{font-size:16px}
+  .solar-row label{font-size:13px}
+  .metric{font-size:16px}
+  .result-card .value{font-size:18px}
+  #r_power .value,
+  #r_inv .value,
+  #r_batt .value,
+  #r_autonomy .value,
+  #r_life .value{
+    font-size:20px;
+  }
+  .summary .big{padding:14px}
 }
 </style>
 </head>
@@ -1209,7 +1293,7 @@ footer::before{
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <div class="hero-badge"><i class="fas fa-sparkles"></i> vision 2026 · dimensionnement urbain</div>
+    <div class="hero-badge"><i class="fas fa-sparkles"></i> étude urbaine</div>
     <h1>Étude <span>zone urbaine</span></h1>
     <p>
       Une étude simple à utiliser, mais structurée comme un vrai pré-dimensionnement :
@@ -1225,15 +1309,15 @@ footer::before{
   <section id="study" class="section" aria-label="Étude de dimensionnement">
     <h2>Étude de dimensionnement</h2>
     <p class="section-intro">
-      Les paramètres d’ensoleillement et de pertes sont intégrés en interne selon la ville choisie.
-      Le client garde une utilisation simple, tandis que le calcul reste suffisamment sérieux pour un premier chiffrage.
+      La ville choisie permet d’intégrer automatiquement l’ensoleillement et le rendement interne.
+      Le client garde une utilisation simple, avec des résultats utiles pour un premier dimensionnement.
     </p>
 
     <div class="card-soft">
       <div class="calc" id="calcCard">
-        <h3><span class="badge">Calculateur</span> Étude urbaine — pré-dimensionnement rapide et pro</h3>
+        <h3><span class="badge">Calculateur</span> Étude urbaine — pré-dimensionnement simple et sérieux</h3>
         <div class="small-note">
-          Les pièces ne sont générées qu’au clic sur <strong>Générer pièces</strong>. Les résultats essentiels restent visibles en un coup d’œil.
+          Les pièces ne sont générées qu’au clic sur <strong>Générer pièces</strong>.
         </div>
 
         <div class="top-controls">
@@ -1308,15 +1392,15 @@ footer::before{
           <div class="solar-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;">
             <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
               <div style="font-weight:700;margin-bottom:8px">Panneaux</div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Puissance d'un panneau (W)</label>
                 <input id="panelWInput" type="number" value="350" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Puissance PV conseillée</label>
                 <div id="pvRecommended" class="metric">0 kWc</div>
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div class="solar-row">
                 <label>Nb panneaux estimés</label>
                 <div id="panelCountRec" class="metric">0</div>
               </div>
@@ -1324,23 +1408,23 @@ footer::before{
 
             <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
               <div style="font-weight:700;margin-bottom:8px">Batteries</div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Capacité utile d'un pack (kWh)</label>
                 <input id="battPackKwhInput" type="number" step="0.01" value="1.28" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Nombre de packs batterie</label>
                 <input id="batteryPackCountInput" type="number" min="0" step="1" value="4" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Capacité batterie utile totale</label>
                 <div id="batteryRec" class="metric">0 kWh</div>
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Autonomie estimée</label>
                 <div id="autonomyRec" class="metric">0 jour</div>
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div class="solar-row">
                 <label>Durée de vie indicative</label>
                 <div id="batteryLifeRec" class="metric">—</div>
               </div>
@@ -1354,15 +1438,15 @@ footer::before{
           <div class="solar-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;">
             <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
               <div style="font-weight:700;margin-bottom:8px">Puissances</div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Puissance installée</label>
                 <div id="powerInstalled" class="metric">0 W</div>
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Onduleur standard conseillé</label>
                 <div id="inverterRec" class="metric">0 W</div>
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div class="solar-row">
                 <label>Type batterie retenu</label>
                 <div id="batteryTypeOut" class="metric">—</div>
               </div>
@@ -1370,19 +1454,19 @@ footer::before{
 
             <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
               <div style="font-weight:700;margin-bottom:8px">Énergie</div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Consommation / jour</label>
                 <div id="consDay" class="metric">0 kWh</div>
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Consommation / mois</label>
                 <div id="consMonth" class="metric">0 kWh</div>
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px">
+              <div class="solar-row">
                 <label>Charges actives</label>
                 <div id="loadsCount" class="metric">0</div>
               </div>
-              <div class="solar-row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+              <div class="solar-row">
                 <label>Couverture indicative</label>
                 <div id="coverageNote" class="metric">En attente de génération</div>
               </div>
@@ -1556,27 +1640,9 @@ const SUN_HOURS_BY_CITY = {
 };
 
 const BATTERY_TYPES = {
-  lithium: {
-    label: 'Lithium',
-    dod: 0.90,
-    eff: 0.95,
-    cycles: 3000,
-    lifeLabel: '10 à 15 ans'
-  },
-  gel: {
-    label: 'Gel',
-    dod: 0.70,
-    eff: 0.90,
-    cycles: 1200,
-    lifeLabel: '5 à 7 ans'
-  },
-  plomb: {
-    label: 'Plomb',
-    dod: 0.50,
-    eff: 0.82,
-    cycles: 700,
-    lifeLabel: '3 à 5 ans'
-  }
+  lithium: { label:'Lithium', dod:0.90, eff:0.95, cycles:3000, lifeLabel:'10 à 15 ans' },
+  gel:     { label:'Gel',     dod:0.70, eff:0.90, cycles:1200, lifeLabel:'5 à 7 ans' },
+  plomb:   { label:'Plomb',   dod:0.50, eff:0.82, cycles:700,  lifeLabel:'3 à 5 ans' }
 };
 
 const STD_INVERTERS = [300, 500, 1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000];
@@ -1625,7 +1691,7 @@ const cityEl = document.getElementById('city');
 const batteryTypeEl = document.getElementById('batteryType');
 const batteryPackCountEl = document.getElementById('batteryPackCount');
 const battPackKwhEl = document.getElementById('battPackKwh');
-const panelWEl = document.getElementById('panelWInput');
+const panelWEl = document.getElementById('panelW');
 
 const roomListEl = document.getElementById('roomsList');
 const genBedrooms = document.getElementById('genBedrooms');
@@ -1663,7 +1729,6 @@ const panelCountCard = document.getElementById('panelCountCard');
 const batteryRecCard = document.getElementById('batteryRecCard');
 const autonomyCard = document.getElementById('autonomyCard');
 const batteryLifeCard = document.getElementById('batteryLifeCard');
-const summarySafety = document.getElementById('summarySafety');
 
 const consMonthKpi = document.getElementById('consMonthKpi');
 const consMonthRange = document.getElementById('consMonthRange');
@@ -1674,6 +1739,7 @@ const packsNeedKpi = document.getElementById('packsNeedKpi');
 const summaryRooms = document.getElementById('summaryRooms');
 const summaryAutonomy = document.getElementById('summaryAutonomy');
 const summaryBatteries = document.getElementById('summaryBatteries');
+const summarySafety = document.getElementById('summarySafety');
 
 function fmt(n, dec = 2){
   return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
@@ -1884,12 +1950,9 @@ function compute(){
   const batteryUsefulTotal = batteryPackCount * battPackKwh * batteryProfile.dod * batteryProfile.eff;
   const autonomyDays = dailyKwh > 0 ? (batteryUsefulTotal / dailyKwh) : 0;
 
-  const batteryLifeYears = batteryProfile.lifeLabel;
-  const batteryCycles = batteryProfile.cycles;
-
   const coverageNote = pvKwRec > 0
     ? `Base PV : ${fmt(pvKwRec,2)} kWc pour ${fmt(dailyKwh,2)} kWh/j`
-    : 'Génère des pièces pour obtenir un dimensionnement';
+    : 'Générez des pièces pour obtenir un dimensionnement';
 
   const safetyPoints = getSafetyPoints();
 
@@ -1904,8 +1967,8 @@ function compute(){
     inverterNeed,
     batteryUsefulTotal,
     autonomyDays,
-    batteryLifeYears,
-    batteryCycles,
+    batteryLifeYears: batteryProfile.lifeLabel,
+    batteryCycles: batteryProfile.cycles,
     coverageNote,
     batteryPackCount,
     battPackKwh,
@@ -2085,139 +2148,6 @@ function updatePhoneNumbers(){
     mobilePhoneLink.textContent = CONTACT_NUMBER.display;
   }
 }
-function activateElectricBand(){
-  const band = document.getElementById('energyBand');
-  if(!band) return;
-
-  const orbA = document.getElementById('eOrbA');
-  const orbB = document.getElementById('eOrbB');
-  const orbC = document.getElementById('eOrbC');
-  const orbs = [orbA, orbB, orbC];
-  const bright = document.getElementById('zapBright');
-
-  const params = [
-    {rxRatio:0.50, ry:8, speed:0.06, phase:0},
-    {rxRatio:0.33, ry:6, speed:0.08, phase:Math.PI/2},
-    {rxRatio:0.42, ry:10, speed:0.05, phase:Math.PI}
-  ];
-
-  orbs.forEach((o,i) => {
-    if(o){
-      o.classList.add('buzz');
-      o.style.animationDelay = (i * 140) + 'ms';
-      o.style.opacity = '1';
-    }
-  });
-
-  let t0 = performance.now();
-  function tick(now){
-    const time = (now - t0) / 1000;
-    const cont = band.querySelector('.container');
-    if(!cont){
-      requestAnimationFrame(tick);
-      return;
-    }
-    const rect = cont.getBoundingClientRect();
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
-    for(let i=0;i<orbs.length;i++){
-      const orb = orbs[i];
-      if(!orb) continue;
-      const p = params[i];
-      const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
-      const ry = p.ry;
-      const angle = (time * p.speed * Math.PI * 2) + p.phase;
-      const x = cx + Math.cos(angle) * rx;
-      const y = cy + Math.sin(angle) * ry;
-      orb.style.left = x + 'px';
-      orb.style.top = y + 'px';
-      orb.style.transform = 'translate(-50%,-50%)';
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
-
-  function sparkBright(){
-    if(!bright) return;
-    try{
-      const len = bright.getTotalLength ? bright.getTotalLength() : 520;
-      bright.style.transition = 'none';
-      bright.setAttribute('stroke-dasharray', String(len));
-      bright.setAttribute('stroke-dashoffset', String(len));
-      setTimeout(() => {
-        bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms';
-        bright.setAttribute('stroke-dashoffset','0');
-        setTimeout(() => {
-          bright.setAttribute('stroke-dashoffset', String(len));
-        }, 420);
-      }, 80);
-    }catch(e){
-      bright.setAttribute('stroke-dasharray','520');
-      bright.setAttribute('stroke-dashoffset','520');
-      setTimeout(() => {
-        bright.style.transition = 'stroke-dashoffset 420ms ease-out';
-        bright.setAttribute('stroke-dashoffset','0');
-      }, 80);
-    }
-  }
-
-  function spawnSparks(){
-    const cont = band.querySelector('.container');
-    if(!cont) return;
-    for(let i=0;i<8;i++){
-      const s = document.createElement('div');
-      s.style.position = 'absolute';
-      s.style.left = (3 + Math.random()*94) + '%';
-      s.style.top = (20 + Math.random()*50) + '%';
-      s.style.width = '2px';
-      s.style.height = (8 + Math.random()*18) + 'px';
-      s.style.borderRadius = '2px';
-      s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
-      s.style.filter = 'blur(6px)';
-      s.style.opacity = '0';
-      s.style.transform = 'translateY(6px)';
-      s.style.pointerEvents = 'none';
-      cont.appendChild(s);
-      setTimeout(() => {
-        s.style.transition = 'all 260ms ease-out';
-        s.style.opacity = '1';
-        s.style.transform = 'translateY(-6px)';
-      }, 20 + i*30);
-      setTimeout(() => {
-        s.style.transition = 'all 520ms ease-in';
-        s.style.opacity = '0';
-        s.style.transform = 'translateY(-20px)';
-      }, 300 + i*40);
-      setTimeout(() => {
-        if(s.parentNode) s.parentNode.removeChild(s);
-      }, 820 + i*40);
-    }
-  }
-
-  function activate(){
-    band.classList.add('active');
-    spawnSparks();
-    sparkBright();
-    setInterval(() => {
-      spawnSparks();
-      if(Math.random() > 0.45) sparkBright();
-    }, 1200 + Math.random()*1200);
-  }
-
-  const title = document.querySelector('.company-name');
-  if(title){
-    title.addEventListener('click', () => {
-      const on = band.classList.toggle('active');
-      if(on){
-        spawnSparks();
-        sparkBright();
-      }
-    });
-  }
-
-  activate();
-  window.addEventListener('resize', ()=>{ t0 = performance.now(); });
-}
 
 function applyCurrentPageState(){
   const path = (window.location.pathname.split('/').pop() || 'zone_urbaine.html').toLowerCase();
@@ -2322,82 +2252,96 @@ function openDesktopDropdowns(){
   }
 }
 
-function updatePhoneNumbers(){
-  if(topPhoneLink){
-    topPhoneLink.href = 'tel:' + CONTACT_NUMBER.tel;
-    topPhoneLink.innerHTML = '<i class="fas fa-phone" aria-hidden="true"></i>&nbsp;' + CONTACT_NUMBER.display;
-  }
-  if(mobilePhoneLink){
-    mobilePhoneLink.href = 'tel:' + CONTACT_NUMBER.tel;
-    mobilePhoneLink.textContent = CONTACT_NUMBER.display;
-  }
-}
+function buildHourlyProfile(loads, dailyBatteryUsefulKwh){
+  const profile = new Array(24).fill(0);
+  const getWindow = (name) => {
+    const n = String(name || '').toLowerCase();
+    if(n.includes('éclairage') || n.includes('eclairage') || n.includes('light')) return { start: 18, hours: 6 };
+    if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv') || n.includes('décodeur') || n.includes('decodeur') || n.includes('radio') || n.includes('sono')) return { start: 19, hours: 5 };
+    if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) return { start: 0, hours: 24 };
+    if(n.includes('ventilation') || n.includes('ventilateur')) return { start: 12, hours: 12 };
+    if(n.includes('ordinateur') || n.includes('bureau')) return { start: 8, hours: 8 };
+    if(n.includes('micro') || n.includes('cuisine')) return { start: 12, hours: 4 };
+    if(n.includes('pompe')) return { start: 8, hours: 10 };
+    return { start: 8, hours: 12 };
+  };
 
-function openMenu(){
-  if(!mobileNav || !burgerBtn) return;
-  mobileNav.classList.add('open');
-  if(mobileBackdrop) mobileBackdrop.classList.add('open');
-  burgerBtn.classList.add('open');
-  mobileNav.setAttribute('aria-hidden','false');
-  burgerBtn.setAttribute('aria-expanded','true');
-  document.body.style.overflow = 'hidden';
+  loads.forEach(load => {
+    const qty = Math.max(0, Number(load.qty || 0));
+    const powerW = Math.max(0, Number(load.powerW || 0));
+    const hours = Math.max(1, Math.round(Number(load.hours || 0) || 1));
+    const factor = Math.max(0, Math.min(1, Number(load.factor || 0)));
+    const activePower = qty * powerW * factor;
+    const w = getWindow(load.name);
 
-  const studySub = document.getElementById('mobileStudySub');
-  const studyToggle = document.getElementById('mobileStudyToggle');
-  if(studySub && studyToggle){
-    studySub.style.display = 'flex';
-    studyToggle.setAttribute('aria-expanded','true');
-    studyToggle.classList.add('active');
-  }
-
-  const productsSub = document.getElementById('mobileProductsSub');
-  const productsToggle = document.getElementById('mobileProductsToggle');
-  if(productsSub && productsToggle){
-    productsSub.style.display = 'flex';
-    productsToggle.setAttribute('aria-expanded','true');
-    productsToggle.classList.add('active');
-  }
-}
-function closeMenu(){
-  if(!mobileNav || !burgerBtn) return;
-  mobileNav.classList.remove('open');
-  if(mobileBackdrop) mobileBackdrop.classList.remove('open');
-  burgerBtn.classList.remove('open');
-  mobileNav.setAttribute('aria-hidden','true');
-  burgerBtn.setAttribute('aria-expanded','false');
-  document.body.style.overflow = '';
-  document.querySelectorAll('.mobile-nav .submenu').forEach(s => s.style.display = 'none');
-}
-function bindMobileExpandable(toggleEl, subEl){
-  if(!toggleEl || !subEl) return;
-  toggleEl.addEventListener('click', function(e){
-    if(e.target.closest('.caret')){
-      e.preventDefault();
-      e.stopPropagation();
-      const opening = subEl.style.display !== 'flex';
-
-      document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
-        if(s !== subEl) s.style.display = 'none';
-      });
-
-      subEl.style.display = opening ? 'flex' : 'none';
-      toggleEl.setAttribute('aria-expanded', String(opening));
-      toggleEl.classList.toggle('active', opening);
-
-      mobileNav.classList.add('open');
-      if(mobileBackdrop) mobileBackdrop.classList.add('open');
-      burgerBtn.classList.add('open');
-      mobileNav.setAttribute('aria-hidden','false');
-      burgerBtn.setAttribute('aria-expanded','true');
-      document.body.style.overflow = 'hidden';
-    }else{
-      closeMenu();
+    const span = Math.max(1, Math.min(24, hours));
+    for(let i=0;i<span;i++){
+      const h = (w.start + i) % 24;
+      profile[h] += activePower;
     }
   });
+
+  const maxW = Math.max(...profile, 1);
+  let cumKwh = 0;
+  const batteryLine = profile.map(p => {
+    cumKwh += p / 1000;
+    if(!dailyBatteryUsefulKwh || dailyBatteryUsefulKwh <= 0) return 0;
+    const soc = Math.max(0, 100 - (cumKwh / dailyBatteryUsefulKwh) * 100);
+    return soc;
+  });
+
+  return { profile, maxW, batteryLine };
 }
-function getBatteryLabel(type){
-  const profile = getBatteryProfile(type);
-  return profile.label;
+
+function renderPdfChart(profileData){
+  const { profile, maxW, batteryLine } = profileData;
+  const width = 760;
+  const height = 240;
+  const chartTop = 24;
+  const chartBottom = 170;
+  const chartLeft = 46;
+  const chartRight = 18;
+  const barAreaWidth = width - chartLeft - chartRight;
+  const step = barAreaWidth / 24;
+  const barW = Math.max(10, step * 0.72);
+
+  const bars = profile.map((v, i) => {
+    const x = chartLeft + i * step + (step - barW) / 2;
+    const barH = maxW > 0 ? (v / maxW) * (chartBottom - chartTop) : 0;
+    const y = chartBottom - barH;
+    return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" rx="2" fill="#7cb342"></rect>`;
+  }).join('');
+
+  const batteryPoints = batteryLine.map((v, i) => {
+    const x = chartLeft + i * step + step/2;
+    const y = chartTop + ((100 - v) / 100) * (chartBottom - chartTop);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+
+  const labels = Array.from({length:24}, (_, i) => {
+    if(i % 3 !== 0) return '';
+    const x = chartLeft + i * step + step/2;
+    return `<text x="${x.toFixed(1)}" y="192" font-size="10" text-anchor="middle" fill="#556b56">${i}h</text>`;
+  }).join('');
+
+  return `
+    <div style="margin-top:10px;border:1px solid #e6f3ea;border-radius:10px;background:#fbfffb;padding:10px">
+      <div style="font-weight:700;color:#062d1b;margin-bottom:8px">Profil de charge 24h (indicatif)</div>
+      <svg width="100%" viewBox="0 0 ${width} ${height}" role="img" aria-label="Profil 24h">
+        <rect x="0" y="0" width="${width}" height="${height}" fill="#ffffff"></rect>
+        <line x1="${chartLeft}" y1="${chartTop}" x2="${chartLeft}" y2="${chartBottom}" stroke="#d9e6da" />
+        <line x1="${chartLeft}" y1="${chartBottom}" x2="${width-chartRight}" y2="${chartBottom}" stroke="#d9e6da" />
+        ${bars}
+        <polyline points="${batteryPoints}" fill="none" stroke="#0b4d26" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        ${labels}
+        <text x="${chartLeft}" y="16" font-size="10" fill="#6b7f6b">Puissance (W) + niveau batterie (%)</text>
+      </svg>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:#666;margin-top:6px">
+        <div><span style="display:inline-block;width:10px;height:10px;background:#7cb342;border-radius:2px;margin-right:6px"></span>Consommation horaire</div>
+        <div><span style="display:inline-block;width:10px;height:10px;background:#0b4d26;border-radius:2px;margin-right:6px"></span>Niveau batterie estimé</div>
+      </div>
+    </div>
+  `;
 }
 
 async function generatePDF(){
@@ -2420,6 +2364,7 @@ async function generatePDF(){
     `).join('');
 
     const safetyHtml = safe.map(item => `<li style="margin-bottom:6px">${item}</li>`).join('');
+    const chartHtml = renderPdfChart(buildHourlyProfile(s.loads || [], s.batteryUsefulTotal));
 
     const html = `
       <div id="pdfWrapper" style="position:relative;width:820px;padding:20px;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;">
@@ -2432,7 +2377,7 @@ async function generatePDF(){
             <div style="display:flex;gap:12px;align-items:center">
               <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
                 <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
-                <div style="font-size:11px;color:#556b56">Énergie & Domotique</div>
+                <div style="font-size:11px;color:#556b56">Étude urbaine</div>
               </div>
               <div>
                 <div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone urbaine</div>
@@ -2489,7 +2434,9 @@ async function generatePDF(){
             </div>
           </div>
 
-          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+          ${chartHtml}
+
+          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-top:12px;margin-bottom:12px;background:#fbfffb">
             <div style="font-weight:700;margin-bottom:6px">Points de sécurité</div>
             <ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">
               ${safetyHtml}
