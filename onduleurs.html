@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GreenBridge Technologies - Onduleurs</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -646,7 +646,7 @@ body.menu-open .electric-band{
 .products-intro,.description{
   max-width:1000px;
   margin:0 auto 24px;
-  color:var(--muted-text-color);
+  color:var(--muted);
   text-align:center;
   font-size:15px;
   line-height:1.7;
@@ -1379,33 +1379,33 @@ footer::before{
 </section>
 
 <section class="section">
-  <h2>Pourquoi nos solutions énergie ?</h2>
+  <h2>Pourquoi choisir nos solutions ?</h2>
   <div class="advantages" role="list">
     <div class="advantage" role="listitem">
       <i class="fas fa-bolt" aria-hidden="true"></i>
-      <h3>Efficacité</h3>
-      <p>Maximisez le rendement et l’économie d’énergie</p>
+      <h3>Performance</h3>
+      <p>Des groupes adaptés à chaque besoin, du résidentiel à l’industriel.</p>
     </div>
     <div class="advantage" role="listitem">
       <i class="fas fa-shield-alt" aria-hidden="true"></i>
       <h3>Fiabilité</h3>
-      <p>Installation professionnelle et maintenance garantie</p>
+      <p>Des solutions robustes pour garantir la continuité de service.</p>
     </div>
     <div class="advantage" role="listitem">
-      <i class="fas fa-globe-africa" aria-hidden="true"></i>
-      <h3>Local</h3>
-      <p>Expertise adaptée au marché ivoirien</p>
+      <i class="fas fa-gears" aria-hidden="true"></i>
+      <h3>Adaptation locale</h3>
+      <p>Conçus pour les besoins réels des ménages, commerces et sites ivoiriens.</p>
     </div>
     <div class="advantage" role="listitem">
       <i class="fas fa-award" aria-hidden="true"></i>
-      <h3>5 ans de garantie</h3>
-      <p>Tranquillité, suivi et accompagnement sur la durée</p>
+      <h3>Accompagnement</h3>
+      <p>Conseil, installation et suivi pour un fonctionnement durable.</p>
     </div>
   </div>
 </section>
 
-<div id="productModal" class="modal" aria-hidden="true">
-  <div class="modal-card" role="dialog" aria-modal="true">
+<div id="productModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-card">
     <button class="modal-close" onclick="closeModal()" aria-label="Fermer">&times;</button>
     <img id="modalImg" src="" alt="">
     <div class="modal-body">
@@ -1418,13 +1418,13 @@ footer::before{
 <section id="devis" class="section">
   <h2>Demandez votre devis personnalisé</h2>
   <form>
-    <input type="text" placeholder="Nom complet" required>
+    <input type="text" placeholder="Nom" required>
     <input type="email" placeholder="Email" required>
     <select required>
       <option value="">Type de projet</option>
-      <option value="residence">Résidentiel</option>
-      <option value="hybride">Hybride / Off-grid</option>
-      <option value="industriel">Industriel</option>
+      <option value="energie" selected>Énergie</option>
+      <option value="domotique">Domotique</option>
+      <option value="securite">Sécurité</option>
     </select>
     <textarea placeholder="Message ou détails du projet" rows="5" required></textarea>
     <button type="submit">Envoyer</button>
@@ -1464,7 +1464,6 @@ function updatePhone(){
 
   phoneIndex = (phoneIndex + 1) % contactNumbers.length;
 }
-
 updatePhone();
 setInterval(updatePhone, 10000);
 
