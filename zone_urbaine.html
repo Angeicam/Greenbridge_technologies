@@ -24,6 +24,7 @@
   --muted:#e6f7ea;
   --gold:#d4af37;
   --gold-base:#d4af37;
+  --gold-hover:#e6c95a;
   --card-radius:12px;
   --font:'Poppins',Arial,sans-serif;
   --max-width:1160px;
@@ -1598,7 +1599,7 @@ const QUICK_LOADS = [
   { key:'fridge', label:'Réfrigérateur', name:'Réfrigérateur', qty:1, powerW:70, hours:24 },
   { key:'phone', label:'Recharge téléphone', name:'Recharge téléphone', qty:1, powerW:10, hours:2 },
   { key:'computer', label:'Ordinateur', name:'Ordinateur', qty:1, powerW:90, hours:6 },
-  { key:'microwave', label:'Micro-ondes', name:'Micro-ondes', qty:1, powerW:900, hours:0.15 }
+  { key:'fan', label:'Ventilation légère', name:'Ventilation légère', qty:1, powerW:35, hours:6 }
 ];
 
 let rooms = [];
@@ -1697,14 +1698,12 @@ function createRoom(type, baseName, withTemplate = true){
     loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : []
   };
 }
-function addRooms(type, baseName, count = 1, withTemplate = true){
-  const c = Math.max(1, Number(count || 1));
+function addRooms(type, baseName, count = 0, withTemplate = true){
+  const c = Math.max(0, Number(count || 0));
   for(let i=0;i<c;i++){
     const roomBase = c === 1 ? (baseName || type) : `${baseName || type} ${i+1}`;
     rooms.push(createRoom(type, roomBase, withTemplate));
   }
-  renderRooms();
-  recalc();
 }
 function generateInitialRooms(){
   const addExisting = genAdd.checked;
@@ -1712,12 +1711,27 @@ function generateInitialRooms(){
     rooms = [];
     roomCounter = 0;
   }
-  addRooms('Chambre', 'Chambre', Number(genBedrooms.value || 0), true);
-  addRooms('Salon', 'Salon', Number(genLiving.value || 0), true);
-  addRooms('Cuisine', 'Cuisine', Number(genKitchens.value || 0), true);
-  addRooms("Salle d'eau", "Salle d'eau", Number(genBaths.value || 0), true);
-  addRooms('Bureau', 'Bureau', Number(genOffices.value || 0), true);
-  addRooms('Toilette', 'Toilette', Number(genToilets.value || 0), true);
+
+  const items = [
+    ['Chambre', genBedrooms.value],
+    ['Salon', genLiving.value],
+    ['Cuisine', genKitchens.value],
+    ["Salle d'eau", genBaths.value],
+    ['Bureau', genOffices.value],
+    ['Toilette', genToilets.value]
+  ];
+
+  items.forEach(([type, val]) => {
+    const c = Math.max(0, Number(val || 0));
+    if(c <= 0) return;
+    for(let i=0;i<c;i++){
+      const base = c === 1 ? type : `${type} ${i+1}`;
+      rooms.push(createRoom(type, base, true));
+    }
+  });
+
+  renderRooms();
+  recalc();
 }
 function addQuickLoad(roomIndex, templateKey){
   const tpl = QUICK_LOADS.find(q => q.key === templateKey) || QUICK_LOADS[0];
@@ -2320,54 +2334,18 @@ async function generatePDF(){
 
           <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div>
-                <div style="font-weight:700">Puissance installée</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Onduleur standard conseillé</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Consommation / jour</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Consommation / mois</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div>
-              </div>
-              <div>
-                <div style="font-weight:700">PV requis</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Nb panneaux</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Batterie utile totale</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Autonomie estimée</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Pack batterie utile</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.battPackKwh,2)} kWh × ${s.batteryPackCount}</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Type batterie</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryType}</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Durée de vie batterie</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryLifeYears}</div>
-              </div>
-              <div>
-                <div style="font-weight:700">Ville</div>
-                <div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.cityLabel}</div>
-              </div>
+              <div><div style="font-weight:700">Puissance installée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div></div>
+              <div><div style="font-weight:700">Onduleur standard conseillé</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div></div>
+              <div><div style="font-weight:700">Consommation / jour</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div></div>
+              <div><div style="font-weight:700">Consommation / mois</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div></div>
+              <div><div style="font-weight:700">PV requis</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div></div>
+              <div><div style="font-weight:700">Nb panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div></div>
+              <div><div style="font-weight:700">Batterie utile totale</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div></div>
+              <div><div style="font-weight:700">Autonomie estimée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div></div>
+              <div><div style="font-weight:700">Pack batterie utile</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.battPackKwh,2)} kWh × ${s.batteryPackCount}</div></div>
+              <div><div style="font-weight:700">Type batterie</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryType}</div></div>
+              <div><div style="font-weight:700">Durée de vie batterie</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryLifeYears}</div></div>
+              <div><div style="font-weight:700">Ville</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.cityLabel}</div></div>
             </div>
           </div>
 
