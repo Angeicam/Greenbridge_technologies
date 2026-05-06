@@ -74,8 +74,16 @@ nav a:hover{color:var(--accent-2)} nav a.active{color:var(--accent-2);background
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}.field label{font-size:13px;color:#eaf9ea;font-weight:700;line-height:1.3;overflow-wrap:anywhere}.field small{color:#bed8bf;font-size:12px;line-height:1.35;overflow-wrap:anywhere}
 .field input[type="number"],.field input[type="text"],.field select,.field textarea{width:100%;min-width:0;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;outline:none;transition:box-shadow .18s,border-color .18s}.field input::placeholder,.field textarea::placeholder{color:#d9ecd9}.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(124,179,66,.55);box-shadow:0 0 0 4px rgba(124,179,66,.12)}
 details{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 12px 4px;margin-top:12px}details summary{cursor:pointer;font-weight:800;color:#fff;list-style:none}details summary::-webkit-details-marker{display:none}details summary::after{content:"\25BC";float:right;color:var(--accent-2);font-size:12px;transition:transform .2s}details[open] summary::after{transform:rotate(180deg)}.details-body{padding:12px 0 10px}
-.consumer-list{display:flex;flex-direction:column;gap:10px;margin-top:10px}.consumer{background:#fff;color:#072012;border-radius:12px;border:1px solid #e8efe8;padding:10px;box-shadow:0 8px 18px rgba(0,0,0,.08);overflow:hidden}.consumer-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.consumer-title{font-weight:800;color:#04462e;word-break:break-word}.consumer-meta{color:#6c7d6f;font-size:12px;margin-top:2px}
-.consumer-fields{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;margin-top:10px}.consumer-fields label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:#072012}.consumer-fields input{width:100%;min-width:0;padding:8px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#072012}
+.consumer-list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.consumer{background:#fff;color:#072012;border-radius:12px;border:1px solid #e8efe8;padding:10px;box-shadow:0 8px 18px rgba(0,0,0,.08);overflow:hidden}
+.consumer summary{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;list-style:none}
+.consumer summary::-webkit-details-marker{display:none}
+.consumer-summary-main{display:flex;flex-direction:column;gap:2px;min-width:0}
+.consumer-title{font-weight:800;color:#04462e;word-break:break-word}
+.consumer-meta{color:#6c7d6f;font-size:12px;margin-top:2px}
+.consumer-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#f2f7f2;border:1px solid #e2ece2;color:#04462e;font-weight:800;font-size:12px;white-space:nowrap}
+.consumer-body{margin-top:10px;border-top:1px solid #eef3ee;padding-top:10px}
+.consumer-fields{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;margin-top:8px}.consumer-fields label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:#072012}.consumer-fields input{width:100%;min-width:0;padding:8px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#072012}
 .consumer-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px}
 .btn-reset,.btn-export,.btn-add,.btn-link,.btn-danger{padding:9px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}.btn-reset{background:#ececec;color:#072012}.btn-export{background:var(--accent);color:#072012}.btn-add{background:var(--gold-base);color:#072012}.btn-link{background:rgba(124,179,66,.12);color:#e8ffe8;border:1px solid rgba(124,179,66,.18)}.btn-danger{background:#e9e9e9;color:#072012;border:1px solid #ddd}.btn-reset:hover,.btn-export:hover,.btn-add:hover,.btn-link:hover,.btn-danger:hover{filter:brightness(.98)}
 .presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.preset{padding:9px 12px;border-radius:999px;border:1px solid rgba(212,175,55,.16);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;font-weight:700;font-size:13px}.preset:hover{background:rgba(168,230,161,.08)}
@@ -90,6 +98,10 @@ footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:re
 .print-block{position:fixed;left:-99999px;top:0;width:1200px;background:#fff;color:#072012;padding:24px;font-family:'Poppins',Arial,sans-serif}
 .muted-note{color:#6b7f6b;font-size:12px;line-height:1.45;overflow-wrap:anywhere}
 .battery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
+.import-box{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.import-box .left{display:flex;flex-direction:column;gap:3px}
+.import-box .left strong{color:#fff}
+.import-box .left span{color:#bed8bf;font-size:12px}
 @media (max-width:1100px){nav{display:none}.burger{display:flex}.company-name{font-size:30px}.mobile-nav.open{max-height:none}.hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}.section{padding:52px 4vw}.card-soft{padding:14px}.big .kpi{grid-template-columns:1fr}.battery-grid{grid-template-columns:1fr}.summary{flex-direction:column}}
 @media (max-width:768px){.company-name{font-size:26px}.topbar .right{gap:10px;font-size:13px}.hero-content h1{font-size:28px}.hero-content p{font-size:14px}.mobile-nav.open{max-height:85vh}.hero-bg{object-position:center 34%;transform:scale(1.12)}.study-top{gap:8px}}
 @media (max-width:480px){:root{--topbar-h:40px;--header-h:76px}.topbar{font-size:11px;padding:0 3.5vw}header{padding:0 3.5vw}.logo-text img{height:46px}.company-name{font-size:30px;letter-spacing:.08px}.company-tagline{font-size:10px;letter-spacing:2px}.burger{width:48px;height:48px}.hero-bg{object-position:center 28%;transform:scale(1.18)}.hero-content{max-width:92vw;padding:18px 12px}.hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px;white-space:normal;overflow:visible;text-overflow:clip}.hero-content p{font-size:15px;line-height:1.45;white-space:normal;overflow:visible;text-overflow:clip}.btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}.mobile-panel{padding:16px 4.5vw 20px}.mobile-brand{padding:22px 4px 10px}.mobile-brand .company-name{font-size:28px}.mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}.mobile-nav a.mobile-link{font-size:20px;min-height:62px;padding:16px 16px}.mobile-contact .phone-line{font-size:15px}.socials{gap:14px}.socials a{width:40px;height:40px;font-size:18px}.section h2{font-size:26px}.chart-head h3{font-size:16px}.big h2{font-size:20px}.result-card .value{font-size:22px}.result-card .label{font-size:11px}.result-card .small{font-size:12px}}
@@ -188,9 +200,17 @@ footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:re
         <div class="pdf-actions"><button id="calcBtn" class="btn-export" type="button"><i class="fas fa-calculator" style="margin-right:8px"></i>Calculer</button><button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button></div>
       </div>
     </div>
+
     <div id="energyMode" style="display:none">
       <div class="section-block">
         <h3>Énergie pour élevage, transformation et services</h3>
+        <div class="import-box" style="margin-bottom:12px;padding:12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)">
+          <div class="left">
+            <strong>Reprendre une étude de pompage</strong>
+            <span>Importe la pompe déjà dimensionnée dans l’étude énergie comme consommateur.</span>
+          </div>
+          <button id="importPumpStudyBtn" class="btn-link" type="button">Importer la pompe étudiée</button>
+        </div>
         <div class="grid">
           <div class="field"><label for="batteryTech">Type de batterie</label><select id="batteryTech"><option value="lifepo4">Lithium-ion LiFePO4</option><option value="gel">GEL</option><option value="plomb">Plomb ouvert</option></select></div>
           <div class="field"><label for="autonomyDays">Autonomie souhaitée (jours)</label><input id="autonomyDays" type="number" min="0" step="0.5" value="1"></div>
@@ -198,18 +218,24 @@ footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:re
           <div class="field"><label for="inverterSize">Onduleur standard</label><select id="inverterSize"><option>300</option><option>500</option><option>800</option><option>1000</option><option>1200</option><option>1500</option><option>2000</option><option>3000</option><option>5000</option></select></div>
         </div>
         <div class="presets">
-          <button class="preset" data-name="Éclairage LED (hangar/serre)" data-power="100" data-hours="6">Éclairage LED</button>
-          <button class="preset" data-name="Réfrigérateur / chambre froide" data-power="200" data-hours="8">Réfrigérateur</button>
-          <button class="preset" data-name="Ventilateurs / aération" data-power="150" data-hours="8">Ventilateurs</button>
-          <button class="preset" data-name="Pompe annexe" data-power="1500" data-hours="1">Pompe annexe</button>
-          <button class="preset" data-name="Transformateur / atelier" data-power="1200" data-hours="4">Atelier</button>
-          <button class="preset" data-name="Chargement téléphones" data-power="80" data-hours="6">Téléphones</button>
+          <button class="preset" data-name="Éclairage LED d’élevage" data-power="100" data-hours="6">Éclairage</button>
+          <button class="preset" data-name="Couveuse / incubateur" data-power="90" data-hours="12">Couveuse</button>
+          <button class="preset" data-name="Ventilateurs poulailler" data-power="150" data-hours="8">Ventilation</button>
+          <button class="preset" data-name="Abreuvoir automatique" data-power="60" data-hours="4">Abreuvoir</button>
+          <button class="preset" data-name="Machine à traire" data-power="750" data-hours="2">Traite</button>
+          <button class="preset" data-name="Pompe d’abreuvement" data-power="500" data-hours="2">Pompe eau</button>
+          <button class="preset" data-name="Réfrigérateur lait" data-power="200" data-hours="8">Lait</button>
+          <button class="preset" data-name="Broyeur alimentaire" data-power="1200" data-hours="1">Broyeur</button>
+          <button class="preset" data-name="Moulin / décortiqueuse" data-power="1500" data-hours="1">Moulin</button>
+          <button class="preset" data-name="Atelier / transformation" data-power="1200" data-hours="4">Atelier</button>
+          <button class="preset" data-name="Pompe agricole secondaire" data-power="1500" data-hours="1">Irrigation</button>
+          <button class="preset" data-name="Charge téléphones" data-power="80" data-hours="6">Téléphones</button>
         </div>
-        <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><input id="consName" type="text" placeholder="Nom consommateur" style="flex:1 1 240px;min-width:0;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff"><input id="consPower" type="number" placeholder="Puissance W" style="width:140px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff"><input id="consHours" type="number" placeholder="h/j" style="width:110px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff"><button id="addManual" class="btn-add" type="button">Ajouter</button></div>
         <div class="consumer-list" id="consumerList"></div>
         <div class="pdf-note">La logique de batterie tient compte du climat chaud, du type de batterie, et d’une durée de vie réaliste pour l’Afrique de l’Ouest.</div>
       </div>
     </div>
+
     <div class="outputs-intro">Les résultats les plus utiles sont mis en avant pour un dimensionnement terrain : pompage, panneaux, diamètre de tuyauterie, section de câble, batterie tampon et onduleur standard.</div>
     <div class="outputs" aria-live="polite">
       <div class="result-card" id="r_volume"><div class="label">Volume à fournir (m³ / jour)</div><div id="volDay" class="value">0 m³</div><div class="small">Base d’irrigation ou de service</div></div>
@@ -225,11 +251,13 @@ footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:re
       <div class="result-card" id="r_buffer"><div class="label">Batterie tampon / stockage</div><div id="batteryRec" class="value">0 kWh</div><div class="small">Selon le besoin et le type choisi</div></div>
       <div class="result-card" id="r_inv"><div class="label">Onduleur standard conseillé</div><div id="invRec" class="value">0 W</div><div class="small">Valeurs standard 300 à 5000 W</div></div>
     </div>
+
     <div class="chart-card">
       <div class="chart-head"><h3>Profil journalier 24 h</h3><div class="legend"><span class="lg"><span class="dot solar"></span>Production solaire</span><span class="lg"><span class="dot load"></span>Consommation / pompage</span><span class="lg"><span class="dot batt"></span>État batterie</span></div></div>
       <div class="chart-wrap"><canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas></div>
       <div class="muted-note" style="margin-top:8px">Le soleil est pris en compte de 06h à 18h. La courbe aide à visualiser la charge réelle et l’intérêt éventuel d’une batterie tampon.</div>
     </div>
+
     <div class="pdf-actions"><button id="exportPdfBtn" class="btn-export" type="button"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF</button></div>
     <div class="summary">
       <div class="big">
@@ -289,7 +317,7 @@ const tabPump=document.getElementById('tabPump'),tabEnergy=document.getElementBy
 const countryEl=document.getElementById('country'),cityEl=document.getElementById('city'),cropEl=document.getElementById('crop'),environmentTypeEl=document.getElementById('environmentType'),seasonTypeEl=document.getElementById('seasonType'),areaHaEl=document.getElementById('areaHa'),needMmEl=document.getElementById('needMmPerDay'),irrigDaysEl=document.getElementById('irrigDays'),pumpHoursEl=document.getElementById('pumpHours'),sourceTypeEl=document.getElementById('sourceType'),staticHeadEl=document.getElementById('staticHead'),staticHeadLabel=document.getElementById('staticHeadLabel'),staticHeadNote=document.getElementById('staticHeadNote'),elevationEl=document.getElementById('elevation'),pipeDistanceEl=document.getElementById('pipeDistance'),electricalDistanceEl=document.getElementById('electricalDistance'),pipeMaterialEl=document.getElementById('pipeMaterial'),panelWEl=document.getElementById('panelW'),pumpEffEl=document.getElementById('pumpEff'),pvDerateEl=document.getElementById('pvDerate'),reservoirDaysEl=document.getElementById('reservoirDays'),pumpBatteryKwhEl=document.getElementById('pumpBatteryKwh');
 const batteryTechEl=document.getElementById('batteryTech'),autonomyDaysEl=document.getElementById('autonomyDays'),batteryPackKwhEl=document.getElementById('batteryPackKwh'),inverterSizeEl=document.getElementById('inverterSize');
 const consName=document.getElementById('consName'),consPower=document.getElementById('consPower'),consHours=document.getElementById('consHours'),addManual=document.getElementById('addManual'),consumerList=document.getElementById('consumerList');
-const calcBtn=document.getElementById('calcBtn'),resetBtn=document.getElementById('resetBtn'),exportPdfBtn=document.getElementById('exportPdfBtn');
+const calcBtn=document.getElementById('calcBtn'),resetBtn=document.getElementById('resetBtn'),exportPdfBtn=document.getElementById('exportPdfBtn'),importPumpStudyBtn=document.getElementById('importPumpStudyBtn');
 const volDayEl=document.getElementById('volDay'),flowQEl=document.getElementById('flowQ'),tdhEl=document.getElementById('tdh'),travelTimeEl=document.getElementById('travelTime'),pumpKwEl=document.getElementById('pumpKw'),pumpRuntimeEl=document.getElementById('pumpRuntime'),pvKwEl=document.getElementById('pvKw'),panelsCountEl=document.getElementById('panelsCount'),pipeRecEl=document.getElementById('pipeRec'),cableRecEl=document.getElementById('cableRec'),batteryRecEl=document.getElementById('batteryRec'),invRecEl=document.getElementById('invRec'),reservoirRecEl=document.getElementById('reservoirRec'),wireNoteEl=document.getElementById('wireNote'),safeNoteEl=document.getElementById('safeNote');
 const consDayKpi=document.getElementById('consDayKpi'),autonomyKpi=document.getElementById('autonomyKpi'),lifeKpi=document.getElementById('lifeKpi');
 const pumpPresetEl=document.getElementById('pumpPreset');
@@ -404,13 +432,31 @@ function renderConsumers(){
   consumerList.innerHTML='';
   if(consumers.length===0){consumerList.innerHTML='<div class="muted-note" style="padding:6px 2px">Aucun consommateur additionnel.</div>';return}
   consumers.forEach((c,idx)=>{
-    const el=document.createElement('div');
+    const el=document.createElement('details');
     el.className='consumer';
-    el.innerHTML=`<div class="consumer-head"><div><div class="consumer-title">${c.name}</div><div class="consumer-meta">${c.power} W × ${c.hours} h/j</div></div><div class="consumer-actions"><button class="btn-danger edit" data-idx="${idx}" type="button">Éditer</button><button class="btn-danger del" data-idx="${idx}" type="button">Suppr</button></div></div><div class="consumer-fields"><label>Nom<input class="load-field" data-idx="${idx}" data-field="name" type="text" value="${c.name}"></label><label>Puissance (W)<input class="load-field" data-idx="${idx}" data-field="power" type="number" min="0" value="${c.power}"></label><label>h/j<input class="load-field" data-idx="${idx}" data-field="hours" type="number" min="0" step="0.1" value="${c.hours}"></label><label>Qté<input type="number" value="1" disabled></label><label>Remarque<input type="text" value="Charge active" disabled></label></div>`;
+    el.innerHTML=`
+      <summary>
+        <div class="consumer-summary-main">
+          <div class="consumer-title">${c.name}</div>
+          <div class="consumer-meta">${c.power} W × ${c.hours} h/j</div>
+        </div>
+        <span class="consumer-chip">${fmt((Number(c.power||0)*Number(c.hours||0))/1000,2)} kWh/j</span>
+      </summary>
+      <div class="consumer-body">
+        <div class="consumer-fields">
+          <label>Nom<input class="load-field" data-idx="${idx}" data-field="name" type="text" value="${c.name}"></label>
+          <label>Puissance (W)<input class="load-field" data-idx="${idx}" data-field="power" type="number" min="0" value="${c.power}"></label>
+          <label>h/j<input class="load-field" data-idx="${idx}" data-field="hours" type="number" min="0" step="0.1" value="${c.hours}"></label>
+          <label>Qté<input type="number" value="1" disabled></label>
+          <label>Remarque<input type="text" value="Charge active" disabled></label>
+        </div>
+        <div class="consumer-actions">
+          <button class="btn-danger del" data-idx="${idx}" type="button">Supprimer</button>
+        </div>
+      </div>`;
     consumerList.appendChild(el)
   });
   consumerList.querySelectorAll('.del').forEach(btn=>btn.addEventListener('click',e=>{const i=Number(e.target.dataset.idx);consumers.splice(i,1);renderConsumers();computeAll()}));
-  consumerList.querySelectorAll('.edit').forEach(btn=>btn.addEventListener('click',e=>{const i=Number(e.target.dataset.idx),c=consumers[i];const name=prompt('Nom',c.name);if(name===null)return;const power=Number(prompt('Puissance (W)',c.power));if(!isFinite(power)||power<=0)return alert('Puissance invalide');const hours=Number(prompt('Heures/j',c.hours));if(!isFinite(hours)||hours<=0)return alert('Heures invalides');consumers[i]={name,power,hours};renderConsumers();computeAll()}));
   consumerList.querySelectorAll('.load-field').forEach(input=>input.addEventListener('input',e=>{const idx=Number(e.target.dataset.idx),field=e.target.dataset.field;if(field==='name')consumers[idx].name=e.target.value;if(field==='power')consumers[idx].power=Number(e.target.value||0);if(field==='hours')consumers[idx].hours=Number(e.target.value||0);renderConsumers();computeAll()}))
 }
 function toggleMode(mode){activeMode=mode;tabPump.classList.toggle('active',mode==='pump');tabEnergy.classList.toggle('active',mode==='energy');pumpMode.style.display=mode==='pump'?'block':'none';energyMode.style.display=mode==='energy'?'block':'none';computeAll()}
@@ -418,7 +464,19 @@ function solarDerateForCity(city){const loc=contactNumbers[city]||contactNumbers
 function solarHoursForCity(city){return (contactNumbers[city]||contactNumbers.abidjan).sun}
 function dailySolarCurve(city,pvKw){const curve=[];for(let h=0;h<24;h++){let solar=0;if(h>=6&&h<=18){const x=(h-6)/12*Math.PI;solar=Math.max(0,Math.sin(x))*pvKw}curve.push(solar)}return curve}
 function loadCurvePump(totalDailyKwh,pumpHours,start=8){const curve=Array(24).fill(0);const hourly=pumpHours>0?totalDailyKwh/pumpHours:0;const s=clamp(Math.round(start),0,23),e=clamp(Math.round(start+pumpHours),0,24);for(let h=s;h<e;h++)curve[h]=hourly;return curve}
-function loadCurveEnergy(loads){const curve=Array(24).fill(0);loads.forEach(l=>{const powerKw=Number(l.power||0)/1000,hours=Math.max(0,Number(l.hours||0));let start=7;if(powerKw>=1||/pompe|atelier|moulin/i.test(l.name))start=9;if(/éclairage|light/i.test(l.name))start=18;const end=clamp(start+Math.round(hours),0,24);for(let h=start;h<end;h++)curve[h]+=powerKw});return curve}
+function loadCurveEnergy(loads){
+  const curve=Array(24).fill(0);
+  loads.forEach(l=>{
+    const powerKw=Number(l.power||0)/1000,hours=Math.max(0,Number(l.hours||0));
+    let start=7;
+    if(powerKw>=1||/pompe|atelier|moulin|broyeur|traite/i.test(l.name))start=9;
+    if(/éclairage|light|lumière/i.test(l.name))start=18;
+    if(/couveuse|incubateur/i.test(l.name))start=0;
+    const end=clamp(start+Math.round(hours),0,24);
+    for(let h=start;h<end;h++)curve[h]+=powerKw
+  });
+  return curve
+}
 function batteryCurve(solar,load,capacityKwh,initialPct=0.6){const arr=[];let soc=capacityKwh*initialPct;for(let h=0;h<24;h++){const net=solar[h]-load[h];soc=clamp(soc+net,0,capacityKwh);arr.push(soc)}return arr}
 function drawChart(city,solarCurve,loadCurve,batterySoc,yMax,extraLabel){
   const canvas=document.getElementById('dailyChart');if(!canvas)return;
@@ -624,11 +682,12 @@ function computeAll(){
 
   lastSnapshot={
     mode:activeMode,city:cityEl.value,country:countryEl.value,crop:cropEl.value,env:environmentTypeEl.value,season:seasonTypeEl.value,source:source,timestamp:new Date().toLocaleString('fr-FR'),
-    sunH,temp:loc.temp,volumeDaily_m3,q_m3h,tdh,travelHours,pumpKwRec,pvKw,panelsMin,panelsMax,panelsLabel,panelW,pipeD,batteryKwh,batteryPacks,inverterRec,reservoirM3,dailyKwhTotal,
+    sunH,temp:loc.temp,volumeDaily_m3,q_m3h,tdh,travelHours,pumpKwRec,pumpInputW,pumpInputKw,pvKw,panelsMin,panelsMax,panelsLabel,panelW,pipeD,batteryKwh,batteryPacks,inverterRec,reservoirM3,dailyKwhTotal,
     batteryTech:batteryTechEl?batteryTechEl.value:'lifepo4',batteryTechName:batteryPack.name,batteryLife,loads:getAllLoads(),solar,load,battery,totalMonthKwh:dailyKwhTotal*30,
     pumpHours,irrigDays,pipeDistance,electricalDistance,pumpNote,pumpBatteryTarget,wellRiskNote,pumpUnderSizedNote,needMm,envLabel:(environmentTypeEl.value||'plein_air'),seasonLabel:(seasonTypeEl.value||'normale'),
-    panelsMin,panelsMax,pumpRuntimeHours
+    pumpRuntimeHours
   }
+  if(importPumpStudyBtn) importPumpStudyBtn.disabled = !(lastSnapshot && lastSnapshot.mode==='pump');
 }
 function renderPdfBlock(){
   const s=lastSnapshot;if(!s)return'';
@@ -681,6 +740,18 @@ function setupBrilliance(){
   if(title){title.addEventListener('click',()=>{const on=electricBand.classList.toggle('connected');if(on){spawnSparks();sparkSVG()}})}
   activate();window.addEventListener('resize',()=>{t0=performance.now()})
 }
+function syncImportButton(){if(importPumpStudyBtn)importPumpStudyBtn.disabled=!(lastSnapshot&&lastSnapshot.mode==='pump')}
+function importPumpStudyToEnergy(){
+  if(!lastSnapshot||lastSnapshot.mode!=='pump'){alert('Faites d’abord une étude de pompage pour pouvoir l’importer.');return}
+  toggleMode('energy');
+  const name=`Pompe agricole importée (${sourceName(lastSnapshot.source)})`;
+  const power=Number(lastSnapshot.pumpInputW||Math.max(100,Math.round((lastSnapshot.pumpKwRec||1)*1000)));
+  const hours=Number(lastSnapshot.pumpHours||1);
+  const idx=consumers.findIndex(c=>c.name===name);
+  if(idx>=0) consumers[idx]={name,power,hours}; else consumers.push({name,power,hours});
+  renderConsumers();
+  computeAll();
+}
 function setupEvents(){
   countryEl.addEventListener('change',()=>{populateCities(countryEl.value);updateNeedMmForCountryAndCrop();computeAll()});
   cityEl.addEventListener('change',()=>{updateLocationPills();computeAll()});
@@ -692,6 +763,7 @@ function setupEvents(){
   if(pumpPresetEl)pumpPresetEl.addEventListener('change',computeAll);
   if(tabPump)tabPump.addEventListener('click',()=>toggleMode('pump'));
   if(tabEnergy)tabEnergy.addEventListener('click',()=>toggleMode('energy'));
+  if(importPumpStudyBtn)importPumpStudyBtn.addEventListener('click',importPumpStudyToEnergy);
   addManual.addEventListener('click',()=>{const name=(consName.value||'').trim(),power=Number(consPower.value||0),hours=Number(consHours.value||0);if(!name||power<=0||hours<=0){alert('Nom, puissance et heures/j sont obligatoires.');return}consumers.push({name,power,hours});consName.value='';consPower.value='';consHours.value='';renderConsumers();computeAll()});
   consumerList.addEventListener('click',e=>{const del=e.target.closest('.del');if(del){const i=Number(del.dataset.idx);consumers.splice(i,1);renderConsumers();computeAll()}});
   calcBtn.addEventListener('click',computeAll);
@@ -720,6 +792,7 @@ function init(){
   toggleMode('pump');
   updateNeedMmForCountryAndCrop();
   computeAll();
+  syncImportButton();
   document.querySelectorAll('.dropdown .dropdown-content').forEach(m=>m.style.display='none');
   const mobileEtudeSub=document.getElementById('mobileEtudeSub');if(mobileEtudeSub)mobileEtudeSub.style.display='flex';
 }
