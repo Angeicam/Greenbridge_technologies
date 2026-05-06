@@ -144,9 +144,7 @@ nav a.active{
   align-items:center;
   box-shadow:0 6px 18px rgba(0,0,0,.32);
 }
-@media (max-width:1100px){
-  .dropdown > a .sub-badge{display:none}
-}
+@media (max-width:1100px){.dropdown > a .sub-badge{display:none}}
 .dropdown-content{
   display:none;
   position:absolute;
@@ -431,7 +429,7 @@ nav a.active{
   top:calc(var(--topbar-h) + var(--header-h) - 6px);
   left:0;right:0;
   height:16px;
-  z-index:2000;
+  z-index:1000;
   pointer-events:none;
   overflow:visible;
 }
@@ -1074,6 +1072,10 @@ footer::before{
   .consumer-fields{grid-template-columns:1fr}
   .panel{padding:12px}
   .calc{padding:12px}
+  .room summary{flex-direction:column;align-items:flex-start}
+  .room-head{flex-direction:column;align-items:stretch}
+  .room-actions{width:100%}
+  .quick-load-select{width:100%}
 }
 @media (max-width:480px){
   :root{--topbar-h:40px;--header-h:76px}
@@ -1099,6 +1101,8 @@ footer::before{
   .panel{padding:12px}
   .section{padding:38px 0}
   .summary .big{padding:14px}
+  .result-card .value{font-size:18px}
+  .summary-list li{font-size:13px}
 }
 </style>
 </head>
@@ -1217,12 +1221,12 @@ footer::before{
       <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.10"/>
       <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
     </svg>
-    <div class="orbs" id="energyOrbs">
+    <div class="orbs">
       <div class="orb" id="eOrbA"></div>
       <div class="orb" id="eOrbB"></div>
       <div class="orb" id="eOrbC"></div>
     </div>
-    <div class="glowline" id="eGlowline"></div>
+    <div class="glowline"></div>
   </div>
 </div>
 
