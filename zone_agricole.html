@@ -192,6 +192,7 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
 .print-block{position:fixed;left:-99999px;top:0;width:1200px;background:#fff;color:#072012;padding:24px;font-family:'Poppins',Arial,sans-serif}
 .muted-note{color:#6b7f6b;font-size:12px;line-height:1.45;overflow-wrap:anywhere}
 .battery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
+.hidden-result{display:block}
 @media (max-width:1100px){
   nav{display:none}
   .burger{display:flex}
@@ -241,7 +242,6 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
   .result-card .label{font-size:11px}
   .result-card .small{font-size:12px}
 }
-.hidden-result{display:block}
 </style>
 </head>
 <body>
@@ -294,7 +294,11 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
       <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
       <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
     </svg>
-    <div class="orbs" id="orbs"><div class="orb" id="orbA"></div><div class="orb" id="orbB"></div><div class="orb" id="orbC"></div></div>
+    <div class="orbs" id="orbs">
+      <div class="orb" id="orbA"></div>
+      <div class="orb" id="orbB"></div>
+      <div class="orb" id="orbC"></div>
+    </div>
     <div class="glowline" id="glowline"></div>
   </div>
 </div>
@@ -559,9 +563,7 @@ const batteryTechMap={
   gel:{name:'GEL',usableDoD:0.50,packKwh:4.80,lifeYearsHot:'3 à 5 ans'},
   plomb:{name:'Plomb ouvert',usableDoD:0.40,packKwh:4.80,lifeYearsHot:'2 à 3 ans'}
 };
-const ANIMAL_WATER_L={
-  bovins:50,vaches_laitieres:70,ovins:4,caprins:5,porcs:12,poules:0.25,poulets:0.20,dindes:0.35,lapins:0.30,canards:0.50
-};
+const ANIMAL_WATER_L={bovins:50,vaches_laitieres:70,ovins:4,caprins:5,porcs:12,poules:0.25,poulets:0.20,dindes:0.35,lapins:0.30,canards:0.50};
 const ANIMAL_OPTIONS=[
   {key:'bovins',label:'Bovins',liters:ANIMAL_WATER_L.bovins},
   {key:'vaches_laitieres',label:'Vaches laitières',liters:ANIMAL_WATER_L.vaches_laitieres},
@@ -586,7 +588,7 @@ const locationPill=document.getElementById('locationPill'),sourcePill=document.g
 const tabPump=document.getElementById('tabPump'),tabEnergy=document.getElementById('tabEnergy'),pumpMode=document.getElementById('pumpMode'),energyMode=document.getElementById('energyMode');
 const countryEl=document.getElementById('country'),cityEl=document.getElementById('city'),cropEl=document.getElementById('crop'),environmentTypeEl=document.getElementById('environmentType'),seasonTypeEl=document.getElementById('seasonType'),areaHaEl=document.getElementById('areaHa'),needMmEl=document.getElementById('needMmPerDay'),irrigDaysEl=document.getElementById('irrigDays'),pumpHoursEl=document.getElementById('pumpHours'),sourceTypeEl=document.getElementById('sourceType'),staticHeadEl=document.getElementById('staticHead'),staticHeadLabel=document.getElementById('staticHeadLabel'),staticHeadNote=document.getElementById('staticHeadNote'),elevationEl=document.getElementById('elevation'),pipeDistanceEl=document.getElementById('pipeDistance'),electricalDistanceEl=document.getElementById('electricalDistance'),pipeMaterialEl=document.getElementById('pipeMaterial'),panelWEl=document.getElementById('panelW'),pumpEffEl=document.getElementById('pumpEff'),pvDerateEl=document.getElementById('pvDerate'),reservoirDaysEl=document.getElementById('reservoirDays'),pumpBatteryKwhEl=document.getElementById('pumpBatteryKwh');
 const batteryTechEl=document.getElementById('batteryTech'),autonomyDaysEl=document.getElementById('autonomyDays'),batteryPackKwhEl=document.getElementById('batteryPackKwh'),inverterSizeEl=document.getElementById('inverterSize');
-const waterAnimalSelectEl=document.getElementById('waterAnimalSelect'),waterAnimalQtyEl=document.getElementById('waterAnimalQty'),waterAnimalAddBtn=document.getElementById('waterAnimalAdd'),waterAnimalListEl=document.getElementById('waterAnimalList');
+const waterStudyBlock=document.getElementById('waterStudyBlock'),waterAnimalSelectEl=document.getElementById('waterAnimalSelect'),waterAnimalQtyEl=document.getElementById('waterAnimalQty'),waterAnimalAddBtn=document.getElementById('waterAnimalAdd'),waterAnimalListEl=document.getElementById('waterAnimalList');
 const waterSupplyTypeEl=document.getElementById('waterSupplyType'),waterClimateEl=document.getElementById('waterClimate'),waterReserveDaysEl=document.getElementById('waterReserveDays'),animalModeEl=document.getElementById('animalMode'),waterNetworkNote=document.getElementById('waterNetworkNote');
 const consName=document.getElementById('consName'),consPower=document.getElementById('consPower'),consHours=document.getElementById('consHours'),addManual=document.getElementById('addManual'),consumerList=document.getElementById('consumerList');
 const calcBtn=document.getElementById('calcBtn'),resetBtn=document.getElementById('resetBtn'),calcEnergyBtn=document.getElementById('calcEnergyBtn'),resetEnergyBtn=document.getElementById('resetEnergyBtn'),exportPdfBtn=document.getElementById('exportPdfBtn');
@@ -606,6 +608,10 @@ function formatDurationMixed(hours){
   const d=Math.floor(h/24);
   const rh=h%24;
   return rh?`${d} j ${rh} h ${m} min`:`${d} j ${m} min`;
+}
+function batteryText(kwh,packs){
+  if(!kwh) return '0 kWh';
+  return packs>0 ? `${fmt(kwh,2)} kWh (${packs} pack${packs>1?'s':''})` : `${fmt(kwh,2)} kWh`;
 }
 function populateCities(zone){
   cityEl.innerHTML='';
@@ -660,7 +666,6 @@ function standardPumpSize(kw){let chosen=STANDARD_PUMP_KW[STANDARD_PUMP_KW.lengt
 function standardInverterSize(w){let chosen=STANDARD_INVERTERS[STANDARD_INVERTERS.length-1];for(const s of STANDARD_INVERTERS){if(s>=w){chosen=s;break}}return chosen}
 function batteryPackForTech(tech){return batteryTechMap[tech]||batteryTechMap.lifepo4}
 function getAllLoads(){return consumers.map(c=>({name:c.name||'',power:Number(c.power||0),hours:Number(c.hours||0)}))}
-
 function populateCrops(){
   const crops={tomate:"Tomate",oignon:"Oignon",piment:"Piment",gombo:"Gombo",aubergine:"Aubergine",laitue:"Laitue",chou:"Chou",carotte:"Carotte",manioc:"Manioc",mais:"Maïs",riz:"Riz",haricot:"Haricot",arachide:"Arachide",banane:"Banane plantain",patate_douce:"Patate douce"};
   cropEl.innerHTML=Object.entries(crops).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')
@@ -699,7 +704,6 @@ function getPumpPreset(){
   };
   return map[key]||map.auto;
 }
-
 function renderSuggestedPresets(){
   document.querySelectorAll('.preset').forEach(btn=>{
     btn.addEventListener('click',()=>{
@@ -709,7 +713,6 @@ function renderSuggestedPresets(){
     });
   });
 }
-
 function renderConsumers(){
   if(!consumerList)return;
   consumerList.innerHTML='';
@@ -844,8 +847,25 @@ function toggleMode(mode){
 }
 function solarDerateForCity(city){const loc=contactNumbers[city]||contactNumbers.abidjan;return sourceThermalFactor(loc.temp)}
 function solarHoursForCity(city){return (contactNumbers[city]||contactNumbers.abidjan).sun}
-function dailySolarCurve(city,pvKw){const curve=[];for(let h=0;h<24;h++){let solar=0;if(h>=6&&h<=18){const x=(h-6)/12*Math.PI;solar=Math.max(0,Math.sin(x))*pvKw}curve.push(solar)}return curve}
-function loadCurvePump(totalDailyKwh,pumpHours,start=8){const curve=Array(24).fill(0);const hourly=pumpHours>0?totalDailyKwh/pumpHours:0;const s=clamp(Math.round(start),0,23),e=clamp(Math.round(start+pumpHours),0,24);for(let h=s;h<e;h++)curve[h]=hourly;return curve}
+function dailySolarCurve(city,pvKw){
+  const curve=[];
+  for(let h=0;h<24;h++){
+    let solar=0;
+    if(h>=6&&h<=18){
+      const x=(h-6)/12*Math.PI;
+      solar=Math.max(0,Math.sin(x))*pvKw
+    }
+    curve.push(solar)
+  }
+  return curve
+}
+function loadCurvePump(totalDailyKwh,pumpHours,start=8){
+  const curve=Array(24).fill(0);
+  const hourly=pumpHours>0?totalDailyKwh/pumpHours:0;
+  const s=clamp(Math.round(start),0,23),e=clamp(Math.round(start+pumpHours),0,24);
+  for(let h=s;h<e;h++)curve[h]=hourly;
+  return curve
+}
 function loadCurveEnergy(loads){
   const curve=Array(24).fill(0);
   loads.forEach(l=>{
@@ -859,7 +879,11 @@ function loadCurveEnergy(loads){
   });
   return curve;
 }
-function batteryCurve(solar,load,capacityKwh,initialPct=0.6){const arr=[];let soc=capacityKwh*initialPct;for(let h=0;h<24;h++){const net=solar[h]-load[h];soc=clamp(soc+net,0,capacityKwh);arr.push(soc)}return arr}
+function batteryCurve(solar,load,capacityKwh,initialPct=0.6){
+  const arr=[];let soc=capacityKwh*initialPct;
+  for(let h=0;h<24;h++){const net=solar[h]-load[h];soc=clamp(soc+net,0,capacityKwh);arr.push(soc)}
+  return arr
+}
 function drawChart(city,solarCurve,loadCurve,batterySoc,yMax,extraLabel){
   const canvas=document.getElementById('dailyChart');if(!canvas)return;
   const dpr=window.devicePixelRatio||1,cssWidth=canvas.parentElement.clientWidth,cssHeight=Math.max(280,Math.round(cssWidth*0.34));
@@ -909,7 +933,6 @@ function transportTimeHours(distanceM,q_m3h,material,source,env,season,temp){
   return (distanceM/v)/3600;
 }
 function pipeDisplay(material,d){return material==='sans'?'Écoulement libre':pipeLabel(d)}
-
 function computeWaterStudy(){
   const supply=waterSupplyTypeEl.value||'reseau';
   if(supply==='reseau'){
@@ -968,7 +991,6 @@ function panelCountRange(pvKw,panelW){
   const max=Math.max(min,Math.ceil(need*1.08));
   return {min,max,label:min===max?`${min}`:`${min} à ${max}`};
 }
-
 function setPumpUI(o){
   volDayEl.innerText=`${fmt(o.volumeDaily_m3,2)} m³`;
   flowQEl.innerText=`${fmt(o.q_m3h,2)} m³/h`;
@@ -981,11 +1003,11 @@ function setPumpUI(o){
   panelsCountEl.innerText=panels.label;
   pipeRecEl.innerText=pipeDisplay(o.pipeMaterial,o.pipeD);
   cableRecEl.innerText=`${standardCableSection(Math.max(1,o.pumpInputW/550),Math.max(5,Number(electricalDistanceEl.value||0)),550,3)} mm²`;
-  batteryRecEl.innerText=`${fmt(o.batteryKwh,2)} kWh`;
+  batteryRecEl.innerText=batteryText(o.batteryKwh,o.batteryPacks);
   invRecEl.innerText=`${o.inverterRec} W`;
   reservoirRecEl.innerText=`${fmt(o.reservoirM3,2)} m³`;
   wireNoteEl.innerText=`Câble cuivre ${standardCableSection(Math.max(1,o.pumpInputW/550),Math.max(5,Number(electricalDistanceEl.value||0)),550,3)} mm² pour ${Number(electricalDistanceEl.value||0)} m`;
-  safeNoteEl.innerText=(o.pumpUnderSizedNote || o.wellRiskNote || 'Pompage direct prioritaire pour réduire les coûts et les pertes.') + ' ' + (o.pipeMaterial==='sans' ? 'Sans tuyauterie : écoulement libre, attention aux pertes et à la faisabilité terrain.' : 'Conduite sous pression : pertes de charge intégrées.') + ' ' + (o.travelHours>24 ? 'Le trajet d’eau dépasse une journée : prévoir un bassin tampon.' : 'Le temps d’acheminement reste compatible avec un service journalier.');
+  safeNoteEl.innerText=(o.pumpUnderSizedNote || o.wellRiskNote || 'Pompage direct prioritaire pour réduire les coûts et les pertes.') + ' ' + (o.pipeMaterial==='sans' ? 'Sans tuyauterie : écoulement libre, attention aux pertes et à la faisabilité terrain.' : 'Conduite sous pression : pertes de charge intégrées.') + ' ' + (o.travelHours>24 ? 'Le trajet d’eau dépasse une journée : prévoir un bassin tampon.' : 'Le temps d’acheminement reste compatible avec un service journalier.') + ' ' + `Onduleur recommandé : ${o.inverterRec} W minimum.`;
   consDayKpi.innerText=`${fmt(o.dailyKwhPump,2)} kWh`;
   autonomyKpi.innerText = o.pumpBatteryTarget>0 ? formatDurationMixed(o.pumpRuntimeHours) : 'sans batterie';
   lifeKpi.innerText=batteryPackForTech(batteryTechEl.value).lifeYearsHot;
@@ -1009,10 +1031,10 @@ function setEnergyUI(o){
   panelsCountEl.innerText=panels.label;
   pipeRecEl.innerText='—';
   cableRecEl.innerText='—';
-  batteryRecEl.innerText=`${fmt(o.batteryKwh,2)} kWh`;
+  batteryRecEl.innerText=batteryText(o.batteryKwh,o.batteryPacks);
   invRecEl.innerText=`${o.inverterRec} W`;
   wireNoteEl.innerText='—';
-  safeNoteEl.innerText = waterSupply==='reseau' ? 'Réseau d’eau : pas d’étude hydraulique à ce stade.' : (o.waterNote || 'Étude d’eau basée sur les animaux.');
+  safeNoteEl.innerText = waterSupply==='reseau' ? 'Réseau d’eau : pas d’étude hydraulique à ce stade.' : (o.waterNote || 'Étude d’eau basée sur les animaux.') + ` Onduleur recommandé : ${o.inverterRec} W.`;
   consDayKpi.innerText=`${fmt(o.loadDaily,2)} kWh`;
   autonomyKpi.innerText=`${fmt(Number(autonomyDaysEl.value||0),1)} j`;
   lifeKpi.innerText=batteryPackForTech(batteryTechEl.value).lifeYearsHot;
@@ -1028,7 +1050,6 @@ function updateSnapshotOutputs(){
   }
   updateResultModeUI();
 }
-
 function setEmptyWaterAnimals(){ waterAnimals=[]; renderWaterAnimals(); }
 
 function computeAll(){
@@ -1037,7 +1058,7 @@ function computeAll(){
   const panelW=Math.max(10,Number(panelWEl.value||350));
   const batteryPack=batteryPackForTech(activeMode==='energy' ? batteryTechEl.value : 'lifepo4');
 
-  let pvKw=0,batteryKwh=0,batteryPacks=0,inverterRec=0;
+  let pvKw=0,batteryKwh=0,batteryPacks=0,inverterRec=0,inverterNeed=0,inverterWarning='';
   let volumeDaily_m3=0,q_m3h=0,tdh=0,travelHours=0,pumpInputW=0,pumpInputKw=0,pumpKwRec=0,pumpRuntimeHours=0,pipeD=null,reservoirM3=0,dailyKwhPump=0;
   let pumpNote='Calcul automatique',wellRiskNote='',pumpUnderSizedNote='',pipeMaterial=pipeMaterialEl.value||'pehd',source=sourceTypeEl.value||'bassin';
   let waterDailyM3=0,waterReserveM3=0,waterNote='';
@@ -1096,9 +1117,10 @@ function computeAll(){
     tdh=sourceLift+sourceExtra+elev+friction;
     const hydraulicW=2.725*q_m3h*tdh;
     const pumpPreset=getPumpPreset();
-    const autoPumpKwRec=standardPumpSize((hydraulicW/pumpEff/1000)*1.05);
+    const autoPumpKwRec=standardPumpSize((hydraulicW/pumpEff/1000)*1.02);
     pumpInputW=hydraulicW/pumpEff;
     pumpInputKw=pumpInputW/1000;
+
     pumpKwRec=autoPumpKwRec;
     pumpNote='Calcul automatique';
     if(pumpPreset.powerKw){
@@ -1114,11 +1136,12 @@ function computeAll(){
 
     travelHours=transportTimeHours(pipeDistance,q_m3h,pipeMaterial,source,env,season,loc.temp);
     dailyKwhPump=pumpInputKw*pumpHours;
-    const directPv=Math.max(pumpInputKw*1.02, dailyKwhPump/Math.max(0.1, sunH*pvDerate));
-    pvKw = pumpBatteryTarget>0 ? Math.max(directPv*1.06, pumpInputKw*1.03) : directPv;
+    const directPv=Math.max(pumpInputKw*1.01, dailyKwhPump/Math.max(0.1, sunH*pvDerate));
+    pvKw = pumpBatteryTarget>0 ? Math.max(directPv*1.03, pumpInputKw*1.02) : directPv;
     batteryKwh = pumpBatteryTarget>0 ? pumpBatteryTarget : 0;
     batteryPacks = batteryKwh>0 ? Math.max(1, Math.ceil(batteryKwh/batteryPack.packKwh)) : 0;
-    inverterRec = standardInverterSize(Math.max(300, pumpKwRec*1000*1.08));
+    inverterNeed = Math.max(300, pumpInputW*1.35);
+    inverterRec = standardInverterSize(inverterNeed);
     pumpRuntimeHours = pumpBatteryTarget>0 ? pumpBatteryTarget/Math.max(0.1,pumpInputKw) : 0;
     reservoirM3=volumeDaily_m3*reservoirDays;
 
@@ -1129,7 +1152,7 @@ function computeAll(){
     const yMax=Math.max(1,...solar,...load,...battery);
     drawChart(cityEl.value,solar,load,battery,yMax,'Pompage + solaire — '+sourceName(source));
     setPumpUI({volumeDaily_m3,q_m3h,tdh,pumpKwRec,pvKw,pumpInputW,pumpInputKw,panelW,pipeD,batteryKwh,batteryPacks,inverterRec,reservoirM3,dailyKwhPump,pumpRuntimeHours,travelHours,pumpUnderSizedNote,wellRiskNote,pumpNote,pipeMaterial,source,pumpBatteryTarget});
-    lastSnapshot={mode:'pump',city:cityEl.value,country:countryEl.value,crop:cropEl.value,env:environmentTypeEl.value,season:seasonTypeEl.value,source,timestamp:new Date().toLocaleString('fr-FR'),sunH,temp:loc.temp,volumeDaily_m3,q_m3h,tdh,travelHours,pumpKwRec,pumpInputW,pumpInputKw,pvKw,panelsLabel:panels.label,panelW,pipeD,batteryKwh:pumpBatteryTarget,batteryPacks,inverterRec,reservoirM3,dailyKwhTotal:dailyKwhPump,batteryTech:batteryTechEl?batteryTechEl.value:'lifepo4',batteryTechName:batteryPack.name,batteryLife:batteryPack.lifeYearsHot,loads:getAllLoads(),solar,load,battery,totalMonthKwh:dailyKwhPump*30,pumpHours,irigDays:Math.max(1,Number(irrigDaysEl.value||1)),pipeDistance:Number(pipeDistanceEl.value||0),electricalDistance:Number(electricalDistanceEl.value||0),pumpNote,pumpBatteryTarget,wellRiskNote,pumpUnderSizedNote,needMm:needMmEl.value,envLabel:environmentTypeEl.value||'plein_air',seasonLabel:seasonTypeEl.value||'normale',pumpRuntimeHours,pipeMaterial};
+    lastSnapshot={mode:'pump',city:cityEl.value,country:countryEl.value,crop:cropEl.value,env:environmentTypeEl.value,season:seasonTypeEl.value,source,timestamp:new Date().toLocaleString('fr-FR'),sunH,temp:loc.temp,volumeDaily_m3,q_m3h,tdh,travelHours,pumpKwRec,pumpInputW,pumpInputKw,pvKw,panelsLabel:panels.label,panelW,pipeD,batteryKwh:pumpBatteryTarget,batteryPacks,inverterRec,inverterNeed,dailyKwhTotal:dailyKwhPump,batteryTech:batteryTechEl?batteryTechEl.value:'lifepo4',batteryTechName:batteryPack.name,batteryLife:batteryPack.lifeYearsHot,loads:getAllLoads(),solar,load,battery,totalMonthKwh:dailyKwhPump*30,pumpHours,irigDays:Math.max(1,Number(irrigDaysEl.value||1)),pipeDistance:Number(pipeDistanceEl.value||0),electricalDistance:Number(electricalDistanceEl.value||0),pumpNote,pumpBatteryTarget,wellRiskNote,pumpUnderSizedNote,needMm:needMmEl.value,envLabel:environmentTypeEl.value||'plein_air',seasonLabel:seasonTypeEl.value||'normale',pumpRuntimeHours,pipeMaterial};
   }else{
     const waterStudy=computeWaterStudy();
     waterDailyM3=waterStudy.enabled ? waterStudy.dailyM3 : 0;
@@ -1139,10 +1162,17 @@ function computeAll(){
     const loads=getAllLoads();
     const loadDaily=loads.reduce((s,l)=>s+((Number(l.power||0)*Number(l.hours||0))/1000),0);
     const autonomyDays=Math.max(0,Number(autonomyDaysEl.value||0));
+    const peakLoadW=Math.max(0,...loads.map(l=>Number(l.power||0)));
+    const manualInv=Number(inverterSizeEl.value||0);
+    inverterNeed = Math.max(300, peakLoadW*1.35);
+    inverterRec = manualInv>0 ? Math.max(manualInv, standardInverterSize(inverterNeed)) : standardInverterSize(inverterNeed);
+    if(manualInv>0 && manualInv<inverterNeed){
+      inverterWarning=`Onduleur choisi trop petit par rapport au pic estimé (${fmt(inverterNeed,0)} W).`;
+    }
+
     pvKw=Math.max(0.1,loadDaily/Math.max(0.1,sunH*0.90));
     batteryKwh=autonomyDays>0?(loadDaily*autonomyDays)/batteryPack.usableDoD:0;
     batteryPacks=batteryPack.packKwh>0?Math.max(0,Math.ceil(batteryKwh/batteryPack.packKwh)):0;
-    inverterRec=standardInverterSize(Math.max(300,Math.ceil(Math.max(1,loadDaily*1000*1.25))));
 
     const solar=dailySolarCurve(cityEl.value,pvKw);
     const load=loadCurveEnergy(loads);
@@ -1152,12 +1182,68 @@ function computeAll(){
     drawChart(cityEl.value,solar,load,battery,yMax,'Énergie autonome — élevage / transformation');
 
     setEnergyUI({waterDailyM3,waterReserveM3,waterNote,pvKw,batteryKwh,batteryPacks,inverterRec,loadDaily});
-    lastSnapshot={mode:'energy',city:cityEl.value,country:countryEl.value,crop:cropEl.value,timestamp:new Date().toLocaleString('fr-FR'),sunH,temp:loc.temp,waterSupplyType:waterSupplyTypeEl.value,waterClimate:waterClimateEl.value,waterReserveDays:Number(waterReserveDaysEl.value||0),animalMode:animalModeEl.value,waterDailyM3,waterReserveM3,waterNote,loads,solar,load,battery,totalMonthKwh:loadDaily*30,batteryTech:batteryTechEl.value,batteryTechName:batteryPack.name,batteryLife:batteryPack.lifeYearsHot,pvKw,batteryKwh,batteryPacks,inverterRec,dailyKwhTotal:loadDaily,reservoirM3:waterReserveM3};
+    lastSnapshot={mode:'energy',city:cityEl.value,country:countryEl.value,crop:cropEl.value,timestamp:new Date().toLocaleString('fr-FR'),sunH,temp:loc.temp,waterSupplyType:waterSupplyTypeEl.value,waterClimate:waterClimateEl.value,waterReserveDays:Number(waterReserveDaysEl.value||0),animalMode:animalModeEl.value,waterDailyM3,waterReserveM3,waterNote,loads,solar,load,battery,totalMonthKwh:loadDaily*30,batteryTech:batteryTechEl.value,batteryTechName:batteryPack.name,batteryLife:batteryPack.lifeYearsHot,pvKw,batteryKwh,batteryPacks,inverterRec,inverterNeed,inverterWarning,dailyKwhTotal:loadDaily,reservoirM3:waterReserveM3};
   }
 
   updateResultModeUI();
   updateEnergyWaterUI();
   updateSnapshotOutputs();
+}
+
+function renderPdfBlock(){
+  const s=lastSnapshot;if(!s)return'';
+  const tech=batteryPackForTech(s.batteryTech);
+  const loadsHtml=s.loads.length?s.loads.map(l=>`<tr><td style="padding:8px;border:1px solid #e6e6e6">${l.name}</td><td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.power} W</td><td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.hours} h/j</td><td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${fmt((l.power*l.hours)/1000,2)} kWh/j</td></tr>`).join(''):`<tr><td colspan="4" style="padding:8px;border:1px solid #e6e6e6;text-align:center;color:#666">Aucun consommateur additionnel</td></tr>`;
+  const safety=['Protection manque d’eau, marche à sec et surintensité.','Sectionneur DC, fusibles, parafoudre type II et mise à la terre.','Clapet anti-retour et contrôle des pertes de charge sur la conduite.','Batterie : ventilation, câbles protégés et charge adaptée à la technologie.','Bassins et stockage d’eau recommandés avant stockage électrique.'];
+  return `<div style="position:relative;width:1120px;padding:22px;background:#fff;color:#222;font-family:Poppins,Arial,sans-serif;"><div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">GREENBRIDGE — À TITRE INDICATIF</div><div style="position:relative;z-index:1;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px"><div style="display:flex;gap:12px;align-items:center"><div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px 10px;border-radius:8px;border:1px solid #dfeedf"><div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div><div style="font-size:11px;color:#556b56">Étude agricole</div></div><div><div style="font-size:16px;font-weight:700;color:#062d1b">Résumé de dimensionnement</div><div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.city}</div></div></div><div style="text-align:right;font-size:12px;color:#666"><div><strong>Pays :</strong> ${s.country==='sn'?'Sénégal':'Côte d’Ivoire'}</div><div><strong>Mode :</strong> ${s.mode==='pump'?'Pompage agricole':'Énergie autonome'}</div></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border:1px solid #eee;padding:12px;border-radius:12px;background:#fbfffb"><div><div style="font-weight:700">Volume / jour</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?fmt(s.volumeDaily_m3,2):fmt(s.waterDailyM3,2)} m³</div></div><div><div style="font-weight:700">Débit / TDH</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?`${fmt(s.q_m3h,2)} m³/h — ${fmt(s.tdh,1)} m`:'—'}</div></div><div><div style="font-weight:700">Temps d’acheminement</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?formatDurationMixed(s.travelHours):'—'}</div></div><div><div style="font-weight:700">Pompe conseillée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?fmt(s.pumpKwRec,1)+' kW':'—'}</div></div><div><div style="font-weight:700">Autonomie pompe</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump' ? (s.pumpBatteryTarget>0 ? formatDurationMixed(s.pumpRuntimeHours) : 'sans batterie') : '—'}</div></div><div><div style="font-weight:700">PV requis</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKw,2)} kWc</div></div><div><div style="font-weight:700">Panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump' ? s.panelsLabel : panelCountRange(s.pvKw,350).label}</div></div><div><div style="font-weight:700">Tuyauterie</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?(s.pipeD||'—'):'—'}</div></div><div><div style="font-weight:700">Câble</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?standardCableSection(Math.max(1,((s.pumpInputW||100))/550),Math.max(5,Number(electricalDistanceEl.value||0)),550,3)+' mm²':'—'}</div></div><div><div style="font-weight:700">Batterie tampon</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${batteryText(s.mode==='pump'?s.pumpBatteryTarget:s.batteryKwh,s.mode==='pump'?s.batteryPacks:s.batteryPacks)}</div></div><div><div style="font-weight:700">Onduleur standard</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.inverterRec} W</div></div></div><div style="margin-top:12px;display:grid;grid-template-columns:1.15fr .85fr;gap:12px"><div style="border:1px solid #eee;border-radius:12px;padding:12px;background:#fff"><div style="font-weight:800;margin-bottom:8px">Profil journalier 24 h</div><img src="${document.getElementById('dailyChart').toDataURL('image/png')}" style="width:100%;height:auto;border:1px solid #f0f0f0;border-radius:10px" /><div style="font-size:12px;color:#666;margin-top:8px">Le soleil est pris en compte de 06h à 18h. La courbe illustre la charge, la production solaire et l’effet de la batterie.</div></div><div style="border:1px solid #eee;border-radius:12px;padding:12px;background:#fbfffb"><div style="font-weight:800;margin-bottom:8px">Sécurité et lecture rapide</div><ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">${safety.map(x=>`<li>${x}</li>`).join('')}</ul><div style="margin-top:10px;font-size:12px;color:#666"><strong>Conseil :</strong> pour une étude plus fine, un relevé terrain et une validation de la pompe sont recommandés.</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Rappel :</strong> cette synthèse est indicative et ne constitue pas un dimensionnement contractuel. Veuillez contacter GreenBridge pour une étude précise.</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Batterie :</strong> ${tech.name} — durée de vie réaliste en climat chaud : ${tech.lifeYearsHot}.</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Consommateurs :</strong> ${s.loads.length} équipement(s) ajouté(s).</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Transport eau :</strong> ${s.mode==='pump'?formatDurationMixed(s.travelHours):'—'}</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Étude eau élevage :</strong> ${s.mode==='energy' && s.waterSupplyType!=='reseau' ? `${fmt(s.waterDailyM3,2)} m³/j` : 'Réseau d’eau ou non applicable'}</div></div></div><div style="margin-top:12px;font-size:11px;color:#666;display:flex;justify-content:space-between;gap:10px"><div>Synthèse générée par GREENBRIDGE — à titre indicatif</div><div>${s.city}</div></div><table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:12px"><thead><tr><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">kWh/j</th></tr></thead><tbody>${loadsHtml}</tbody></table></div></div>`;
+}
+async function generatePDF(){
+  try{
+    if(!lastSnapshot)computeAll();
+    const wrapper=document.getElementById('printBlock');
+    wrapper.innerHTML=renderPdfBlock();
+    const element=wrapper.firstElementChild;
+    const canvas=await html2canvas(element,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
+    const imgData=canvas.toDataURL('image/png');
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF('p','mm','a4');
+    const pageWidth=pdf.internal.pageSize.getWidth();
+    const pageHeight=pdf.internal.pageSize.getHeight();
+    const margin=10;
+    const imgProps=pdf.getImageProperties(imgData);
+    const pdfImgWidth=pageWidth-margin*2;
+    const pdfImgHeight=(imgProps.height*pdfImgWidth)/imgProps.width;
+    if(pdfImgHeight<=pageHeight-margin*2){
+      pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight)
+    }else{
+      const sliceHeightPx=Math.floor((pageHeight-margin*2)/pdfImgHeight*canvas.height);
+      let rendered=0;
+      while(rendered<canvas.height){
+        const sliceH=Math.min(canvas.height-rendered,sliceHeightPx);
+        const sliceCanvas=document.createElement('canvas');
+        sliceCanvas.width=canvas.width;
+        sliceCanvas.height=sliceH;
+        const ctx=sliceCanvas.getContext('2d');
+        ctx.fillStyle='#fff';
+        ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
+        ctx.drawImage(canvas,0,rendered,sliceCanvas.width,sliceCanvas.height,0,0,sliceCanvas.width,sliceCanvas.height);
+        const sliceData=sliceCanvas.toDataURL('image/png');
+        const sliceImgProps=pdf.getImageProperties(sliceData);
+        const sliceImgHeight=(sliceImgProps.height*pdfImgWidth)/sliceImgProps.width;
+        if(rendered>0)pdf.addPage();
+        pdf.addImage(sliceData,'PNG',margin,margin,pdfImgWidth,sliceImgHeight);
+        rendered+=sliceH;
+      }
+    }
+    pdf.setFontSize(9);
+    pdf.setTextColor(120);
+    pdf.text('GreenBridge — Synthèse indicative',margin,pageHeight-6);
+    const filename=`GreenBridge_zone_agricole_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
+    pdf.save(filename);
+  }catch(err){
+    console.error(err);
+    alert('Erreur lors de la génération du PDF. Voir console pour détails.');
+  }
 }
 
 function resetPumpDefaults(){
@@ -1170,12 +1256,6 @@ function resetEnergyDefaults(){
   setEmptyWaterAnimals();
   consumers=[];renderConsumers();updateEnergyWaterUI();computeAll();
 }
-
-function updateModeUIState(){
-  updateEnergyWaterUI();
-  updateResultModeUI();
-}
-
 function setupEvents(){
   countryEl.addEventListener('change',()=>{populateCities(countryEl.value);updateNeedMmForCountryAndCrop();computeAll()});
   cityEl.addEventListener('change',()=>{updateLocationPills();computeAll()});
@@ -1204,7 +1284,6 @@ function setupEvents(){
   window.addEventListener('load',computeAll);
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()})
 }
-
 function openMenu(){if(!mobileNav||!burgerBtn)return;mobileNav.classList.add('open');if(mobileBackdrop)mobileBackdrop.classList.add('open');burgerBtn.classList.add('open');mobileNav.setAttribute('aria-hidden','false');burgerBtn.setAttribute('aria-expanded','true');document.body.classList.add('menu-open');document.body.style.overflow='hidden';const activeSub=document.getElementById('mobileEtudeSub'),activeToggle=document.getElementById('mobileEtudeToggle');if(activeSub&&activeToggle){activeSub.style.display='flex';activeToggle.setAttribute('aria-expanded','true');activeToggle.classList.add('active')}const prodSub=document.getElementById('mobileProduitsSub'),prodToggle=document.getElementById('mobileProduitsToggle');if(prodSub)prodSub.style.display='none';if(prodToggle){prodToggle.setAttribute('aria-expanded','false');prodToggle.classList.remove('active')}}
 function closeMenu(){if(!mobileNav||!burgerBtn)return;mobileNav.classList.remove('open');if(mobileBackdrop)mobileBackdrop.classList.remove('open');burgerBtn.classList.remove('open');mobileNav.setAttribute('aria-hidden','true');burgerBtn.setAttribute('aria-expanded','false');document.body.classList.remove('menu-open');document.body.style.overflow=''}
 function setupBurger(){
@@ -1258,61 +1337,6 @@ function setupBrilliance(){
   const title=document.querySelector('.company-name');
   if(title){title.addEventListener('click',()=>{const on=electricBand.classList.toggle('connected');if(on){spawnSparks();sparkSVG()}})}
   activate();window.addEventListener('resize',()=>{t0=performance.now()})
-}
-function renderPdfBlock(){
-  const s=lastSnapshot;if(!s)return'';
-  const tech=batteryPackForTech(s.batteryTech);
-  const loadsHtml=s.loads.length?s.loads.map(l=>`<tr><td style="padding:8px;border:1px solid #e6e6e6">${l.name}</td><td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.power} W</td><td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.hours} h/j</td><td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${fmt((l.power*l.hours)/1000,2)} kWh/j</td></tr>`).join(''):`<tr><td colspan="4" style="padding:8px;border:1px solid #e6e6e6;text-align:center;color:#666">Aucun consommateur additionnel</td></tr>`;
-  const safety=['Protection manque d’eau, marche à sec et surintensité.','Sectionneur DC, fusibles, parafoudre type II et mise à la terre.','Clapet anti-retour et contrôle des pertes de charge sur la conduite.','Batterie : ventilation, câbles protégés et charge adaptée à la technologie.','Bassins et stockage d’eau recommandés avant stockage électrique.'];
-  return `<div style="position:relative;width:1120px;padding:22px;background:#fff;color:#222;font-family:Poppins,Arial,sans-serif;"><div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">GREENBRIDGE — À TITRE INDICATIF</div><div style="position:relative;z-index:1;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px"><div style="display:flex;gap:12px;align-items:center"><div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px 10px;border-radius:8px;border:1px solid #dfeedf"><div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div><div style="font-size:11px;color:#556b56">Étude agricole</div></div><div><div style="font-size:16px;font-weight:700;color:#062d1b">Résumé de dimensionnement</div><div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.city}</div></div></div><div style="text-align:right;font-size:12px;color:#666"><div><strong>Pays :</strong> ${s.country==='sn'?'Sénégal':'Côte d’Ivoire'}</div><div><strong>Mode :</strong> ${s.mode==='pump'?'Pompage agricole':'Énergie autonome'}</div></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;border:1px solid #eee;padding:12px;border-radius:12px;background:#fbfffb"><div><div style="font-weight:700">Volume / jour</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?fmt(s.volumeDaily_m3,2):fmt(s.waterDailyM3,2)} m³</div></div><div><div style="font-weight:700">Débit / TDH</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?`${fmt(s.q_m3h,2)} m³/h — ${fmt(s.tdh,1)} m`:'—'}</div></div><div><div style="font-weight:700">Temps d’acheminement</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?formatDurationMixed(s.travelHours):'—'}</div></div><div><div style="font-weight:700">Pompe conseillée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?fmt(s.pumpKwRec,1)+' kW':'—'}</div></div><div><div style="font-weight:700">Autonomie pompe</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump' ? (s.pumpBatteryTarget>0 ? formatDurationMixed(s.pumpRuntimeHours) : 'sans batterie') : '—'}</div></div><div><div style="font-weight:700">PV requis</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKw,2)} kWc</div></div><div><div style="font-weight:700">Panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump' ? s.panelsLabel : panelCountRange(s.pvKw,350).label}</div></div><div><div style="font-weight:700">Tuyauterie</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?(s.pipeD||'—'):'—'}</div></div><div><div style="font-weight:700">Câble</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.mode==='pump'?standardCableSection(Math.max(1,(s.pumpInputW*1||100)/550),Math.max(5,Number(electricalDistanceEl.value||0)),550,3)+' mm²':'—'}</div></div><div><div style="font-weight:700">Batterie tampon</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.mode==='pump' ? s.pumpBatteryTarget : s.batteryKwh,2)} kWh</div></div><div><div style="font-weight:700">Onduleur standard</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.inverterRec} W</div></div></div><div style="margin-top:12px;display:grid;grid-template-columns:1.15fr .85fr;gap:12px"><div style="border:1px solid #eee;border-radius:12px;padding:12px;background:#fff"><div style="font-weight:800;margin-bottom:8px">Profil journalier 24 h</div><img src="${document.getElementById('dailyChart').toDataURL('image/png')}" style="width:100%;height:auto;border:1px solid #f0f0f0;border-radius:10px" /><div style="font-size:12px;color:#666;margin-top:8px">Le soleil est pris en compte de 06h à 18h. La courbe illustre la charge, la production solaire et l’effet de la batterie.</div></div><div style="border:1px solid #eee;border-radius:12px;padding:12px;background:#fbfffb"><div style="font-weight:800;margin-bottom:8px">Sécurité et lecture rapide</div><ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">${safety.map(x=>`<li>${x}</li>`).join('')}</ul><div style="margin-top:10px;font-size:12px;color:#666"><strong>Conseil :</strong> pour une étude plus fine, un relevé terrain et une validation de la pompe sont recommandés.</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Rappel :</strong> cette synthèse est indicative et ne constitue pas un dimensionnement contractuel. Veuillez contacter GreenBridge pour une étude précise.</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Batterie :</strong> ${tech.name} — durée de vie réaliste en climat chaud : ${tech.lifeYearsHot}.</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Consommateurs :</strong> ${s.loads.length} équipement(s) ajouté(s).</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Transport eau :</strong> ${s.mode==='pump'?formatDurationMixed(s.travelHours):'—'}</div><div style="margin-top:10px;font-size:12px;color:#666"><strong>Étude eau élevage :</strong> ${s.mode==='energy' && s.waterSupplyType!=='reseau' ? `${fmt(s.waterDailyM3,2)} m³/j` : 'Réseau d’eau ou non applicable'}</div></div></div><div style="margin-top:12px;font-size:11px;color:#666;display:flex;justify-content:space-between;gap:10px"><div>Synthèse générée par GREENBRIDGE — à titre indicatif</div><div>${s.city}</div></div><table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:12px"><thead><tr><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">kWh/j</th></tr></thead><tbody>${loadsHtml}</tbody></table></div></div>`;
-}
-async function generatePDF(){
-  try{
-    if(!lastSnapshot)computeAll();
-    const wrapper=document.getElementById('printBlock');
-    wrapper.innerHTML=renderPdfBlock();
-    const element=wrapper.firstElementChild;
-    const canvas=await html2canvas(element,{scale:2,useCORS:true,backgroundColor:'#ffffff'});
-    const imgData=canvas.toDataURL('image/png');
-    const {jsPDF}=window.jspdf;
-    const pdf=new jsPDF('p','mm','a4');
-    const pageWidth=pdf.internal.pageSize.getWidth();
-    const pageHeight=pdf.internal.pageSize.getHeight();
-    const margin=10;
-    const imgProps=pdf.getImageProperties(imgData);
-    const pdfImgWidth=pageWidth-margin*2;
-    const pdfImgHeight=(imgProps.height*pdfImgWidth)/imgProps.width;
-    if(pdfImgHeight<=pageHeight-margin*2){
-      pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight)
-    }else{
-      const sliceHeightPx=Math.floor((pageHeight-margin*2)/pdfImgHeight*canvas.height);
-      let rendered=0;
-      while(rendered<canvas.height){
-        const sliceH=Math.min(canvas.height-rendered,sliceHeightPx);
-        const sliceCanvas=document.createElement('canvas');
-        sliceCanvas.width=canvas.width;
-        sliceCanvas.height=sliceH;
-        const ctx=sliceCanvas.getContext('2d');
-        ctx.fillStyle='#fff';
-        ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
-        ctx.drawImage(canvas,0,rendered,sliceCanvas.width,sliceCanvas.height,0,0,sliceCanvas.width,sliceCanvas.height);
-        const sliceData=sliceCanvas.toDataURL('image/png');
-        const sliceImgProps=pdf.getImageProperties(sliceData);
-        const sliceImgHeight=(sliceImgProps.height*pdfImgWidth)/sliceImgProps.width;
-        if(rendered>0)pdf.addPage();
-        pdf.addImage(sliceData,'PNG',margin,margin,pdfImgWidth,sliceImgHeight);
-        rendered+=sliceH;
-      }
-    }
-    pdf.setFontSize(9);
-    pdf.setTextColor(120);
-    pdf.text('GreenBridge — Synthèse indicative',margin,pageHeight-6);
-    const filename=`GreenBridge_zone_agricole_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
-    pdf.save(filename);
-  }catch(err){
-    console.error(err);
-    alert('Erreur lors de la génération du PDF. Voir console pour détails.');
-  }
 }
 
 function init(){
