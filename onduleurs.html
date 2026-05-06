@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>GreenBridge Technologies - Onduleurs</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>GreenBridge Technologies - Batteries & Stockage</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --topbar-h:48px;
@@ -646,7 +646,7 @@ body.menu-open .electric-band{
 .products-intro,.description{
   max-width:1000px;
   margin:0 auto 24px;
-  color:var(--muted-text-color);
+  color:var(--muted);
   text-align:center;
   font-size:15px;
   line-height:1.7;
@@ -728,13 +728,7 @@ body.menu-open .electric-band{
   font-size:15px;
   line-height:1.6;
 }
-.price{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  justify-content:center;
-  flex-wrap:wrap;
-}
+.price{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
 .old-price{text-decoration:line-through;color:#b9c7bb;font-size:13px}
 .new-price{
   font-weight:800;
@@ -772,20 +766,9 @@ body.menu-open .electric-band{
   text-align:center;
   border:1px solid rgba(255,255,255,0.05);
 }
-.advantage i{
-  font-size:34px;
-  color:var(--accent);
-  margin-bottom:8px;
-}
-.advantage h3{
-  color:#dfffe6;
-  margin:6px 0;
-}
-.advantage p{
-  color:#e6f7ea;
-  line-height:1.6;
-  margin:0;
-}
+.advantage i{font-size:34px;color:var(--accent);margin-bottom:8px}
+.advantage h3{color:#dfffe6;margin:6px 0}
+.advantage p{color:#e6f7ea;line-height:1.6;margin:0}
 
 /* Devis */
 #devis form{
@@ -1123,9 +1106,9 @@ footer::before{
     <a href="GreenBrigde technologies.html">Accueil</a>
 
     <div class="dropdown" aria-haspopup="true" aria-expanded="false">
-      <a href="etude_dimensionnement_2.html" data-current="🔌 Onduleurs" id="etudeLink" aria-controls="dropdownEtude">
+      <a href="etude_dimensionnement_2.html" data-current="🔋 Batteries & stockage" id="etudeLink" aria-controls="dropdownEtude">
         Étude
-        <span class="sub-badge">🔌 Onduleurs</span>
+        <span class="sub-badge">🔋 Batteries & stockage</span>
       </a>
       <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="dropdownEtude">
         <li><a href="zone_urbaine.html" role="menuitem">🏙️ Zone Urbaine</a></li>
@@ -1134,14 +1117,14 @@ footer::before{
     </div>
 
     <div class="dropdown" aria-haspopup="true" aria-expanded="false">
-      <a href="energie.html" data-current="🔌 Onduleurs" id="energieLink" aria-controls="dropdownEnergie">
+      <a href="energie.html" data-current="🔋 Batteries & stockage" id="energieLink" aria-controls="dropdownEnergie">
         Nos Produits
-        <span class="sub-badge">🔌 Onduleurs</span>
+        <span class="sub-badge">🔋 Batteries & stockage</span>
       </a>
       <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="dropdownEnergie">
         <li><a href="panneaux.html">⚡ Panneaux solaires</a></li>
-        <li><a href="batteries.html">🔋 Batteries & stockage</a></li>
-        <li><a href="onduleurs.html" class="active-item" aria-current="page">🔌 Onduleurs</a></li>
+        <li><a href="batteries.html" class="active-item" aria-current="page">🔋 Batteries & stockage</a></li>
+        <li><a href="onduleurs.html">🔌 Onduleurs</a></li>
         <li><a href="groupes.html">⚙️ Groupes électrogènes</a></li>
       </ul>
     </div>
@@ -1177,14 +1160,14 @@ footer::before{
       </div>
 
       <div>
-        <a href="energie.html" id="mobileEnergieToggle" class="mobile-link active" data-current="🔌 Onduleurs" aria-expanded="true">
+        <a href="energie.html" id="mobileEnergieToggle" class="mobile-link active" data-current="🔋 Batteries & stockage" aria-expanded="true">
           Nos Produits
           <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
         </a>
         <div class="submenu" id="mobileEnergieSub" style="display:flex;flex-direction:column;">
           <a href="panneaux.html">⚡ Panneaux solaires</a>
-          <a href="batteries.html">🔋 Batteries & stockage</a>
-          <a href="onduleurs.html" class="active-item" aria-current="page">🔌 Onduleurs</a>
+          <a href="batteries.html" class="active-item" aria-current="page">🔋 Batteries & stockage</a>
+          <a href="onduleurs.html">🔌 Onduleurs</a>
           <a href="groupes.html">⚙️ Groupes électrogènes</a>
         </div>
       </div>
@@ -1204,36 +1187,36 @@ footer::before{
     <div class="socials">
       <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
       <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-      <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+      <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
       <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
     </div>
   </div>
 </div>
 
-<div class="electric-band" id="electricBand" aria-hidden="true">
+<div class="electric-band" id="energyBand" aria-hidden="true">
   <div class="container" aria-hidden="true">
     <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
-      <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
-      <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
+      <path class="zap" d="M10,22 C260,6 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.14"/>
+      <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.10"/>
       <path class="bright" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
     </svg>
 
-    <div class="orbs" id="orbs">
-      <div class="orb" id="orbA"></div>
-      <div class="orb" id="orbB"></div>
-      <div class="orb" id="orbC"></div>
+    <div class="orbs" id="energyOrbs">
+      <div class="orb" id="eOrbA"></div>
+      <div class="orb" id="eOrbB"></div>
+      <div class="orb" id="eOrbC"></div>
     </div>
 
-    <div class="glowline" id="glowline"></div>
+    <div class="glowline" id="eGlowline"></div>
   </div>
 </div>
 
 <section class="hero" id="top" aria-label="Hero">
-  <img class="hero-bg" src="onduleur_tech.png" alt="Illustration GreenBridge Technologies">
+  <img class="hero-bg" src="BATTERIE_install.png" alt="Illustration GreenBridge Technologies">
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1>Onduleurs</h1>
-    <p>Convertissez et optimisez votre énergie grâce à nos onduleurs performants.</p>
+    <h1>Batteries & stockage</h1>
+    <p>Stockez votre énergie efficacement et durablement grâce à nos solutions avancées.</p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="document.getElementById('devis').scrollIntoView({behavior:'smooth'})">Demander un devis</button>
     </div>
@@ -1241,198 +1224,173 @@ footer::before{
 </section>
 
 <section class="section">
-  <h2><i class="fas fa-house"></i> Résidentiels</h2>
-  <p class="description">Onduleurs compacts et silencieux, spécialement conçus pour les habitations : mise en service simple, rendement optimisé et compatibilité avec batteries domestiques.</p>
+  <h2><i class="fas fa-battery-full"></i> Power Bank</h2>
+  <p class="description">Solutions de charge nomade — capacités de 10 000 mAh à 30 000 mAh pour smartphones, tablettes et petits appareils.</p>
+
   <div class="grid-4" role="list">
     <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_resi_3k.png" alt="Onduleur Résidentiel 3kW"></div>
+      <div class="image-wrap"><img src="powerbank_10000.png" alt="Powerbank 10 000 mAh"></div>
       <div class="card-content">
-        <h3>Onduleur Résidentiel 3kW</h3>
-        <p>Solution compacte pour maisons individuelles (monophasé).</p>
-        <div class="price"><span class="old-price">240 000 FCFA</span> <span class="new-price">210 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_resi_3k.png','Onduleur Résidentiel 3kW','Compact, silencieux, idéal pour installation résidentielle monophasée.')">Détails</button>
+        <h3>Power Bank 10 000 mAh</h3>
+        <p>Compacte, chargement USB-C rapide — idéale pour smartphone et petites tablettes.</p>
+        <div class="price"><span class="old-price">28 000 FCFA</span> <span class="new-price">22 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('powerbank_10000.png','Power Bank 10 000 mAh','Compacte, sortie USB-C, charge rapide.')">Détails</button>
       </div>
     </article>
 
     <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_resi_5k.png" alt="Onduleur Résidentiel 5kW"></div>
+      <div class="image-wrap"><img src="powerbank_15000.png" alt="Powerbank 15 000 mAh"></div>
       <div class="card-content">
-        <h3>Onduleur Résidentiel 5kW</h3>
-        <p>Plus de puissance pour maisons avec besoins énergétiques supérieurs.</p>
+        <h3>Power Bank 15 000 mAh</h3>
+        <p>Bon compromis entre portabilité et autonomie.</p>
+        <div class="price"><span class="old-price">36 000 FCFA</span> <span class="new-price">30 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('powerbank_15000.png','Power Bank 15 000 mAh','Autonomie renforcée pour usage quotidien.')">Détails</button>
+      </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="powerbank_20000.png" alt="Powerbank 20 000 mAh"></div>
+      <div class="card-content">
+        <h3>Power Bank 20 000 mAh</h3>
+        <p>Grande capacité pour plusieurs charges, double sortie USB + USB-C.</p>
+        <div class="price"><span class="old-price">48 000 FCFA</span> <span class="new-price">38 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('powerbank_20000.png','Power Bank 20 000 mAh','Haute capacité, 2 sorties, recharge rapide.')">Détails</button>
+      </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="powerbank_30000.png" alt="Powerbank 30 000 mAh"></div>
+      <div class="card-content">
+        <h3>Power Bank 30 000 mAh</h3>
+        <p>Puissante — jusqu’à 30 000 mAh pour usages prolongés.</p>
+        <div class="price"><span class="old-price">85 000 FCFA</span> <span class="new-price">72 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('powerbank_30000.png','Power Bank 30 000 mAh','Puissante, multi-ports, grande autonomie.')">Détails</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <h2><i class="fas fa-solar-panel"></i> Station solaire</h2>
+  <p class="description">Stations solaires de 500 W à 2 500 W, adaptées aux besoins résidentiels, mobiles et professionnels légers.</p>
+
+  <div class="grid-4" role="list">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="station_500w.png" alt="Station solaire 500W"></div>
+      <div class="card-content">
+        <h3>Station solaire 500W</h3>
+        <p>Entrée de gamme pour petits besoins et secours léger.</p>
+        <div class="price"><span class="old-price">185 000 FCFA</span> <span class="new-price">160 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('station_500w.png','Station solaire 500W','Station compacte 500W, pratique et évolutive.')">Détails</button>
+      </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="station_1000w.png" alt="Station solaire 1000W"></div>
+      <div class="card-content">
+        <h3>Station solaire 1 000W</h3>
+        <p>Bon compromis pour maison ou petit commerce.</p>
         <div class="price"><span class="old-price">320 000 FCFA</span> <span class="new-price">285 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_resi_5k.png','Onduleur Résidentiel 5kW','Puissance accrue, compatible stockage batterie et gestion intelligente.')">Détails</button>
+        <button class="btn-card" onclick="openModal('station_1000w.png','Station solaire 1000W','Station 1 000W, autonomie équilibrée.')">Détails</button>
       </div>
     </article>
 
     <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_resi_hybrid.png" alt="Onduleur Résidentiel Hybride"></div>
+      <div class="image-wrap"><img src="station_2000w.png" alt="Station solaire 2000W"></div>
       <div class="card-content">
-        <h3>Onduleur Hybride Résidentiel</h3>
-        <p>Charge / décharge batterie + injection réseau selon configuration.</p>
-        <div class="price"><span class="old-price">450 000 FCFA</span> <span class="new-price">395 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_resi_hybrid.png','Onduleur Hybride Résidentiel','Gère solaire + batterie, bascule automatique en cas de coupure.')">Détails</button>
+        <h3>Station solaire 2 000W</h3>
+        <p>Pour des besoins plus soutenus et une meilleure autonomie.</p>
+        <div class="price"><span class="old-price">540 000 FCFA</span> <span class="new-price">480 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('station_2000w.png','Station solaire 2000W','Station 2 000W, performante et robuste.')">Détails</button>
       </div>
     </article>
 
     <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_resi_8k.png" alt="Onduleur Résidentiel 8kW"></div>
+      <div class="image-wrap"><img src="station_2500w.png" alt="Station solaire 2500W"></div>
       <div class="card-content">
-        <h3>Onduleur Résidentiel 8kW</h3>
-        <p>Parfait pour foyers avec équipements gourmands et forte autonomie.</p>
+        <h3>Station solaire 2 500W</h3>
+        <p>Le haut de gamme de la catégorie station solaire.</p>
+        <div class="price"><span class="old-price">1 050 000 FCFA</span> <span class="new-price">920 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('station_2500w.png','Station solaire 2500W','Station 2 500W, adaptée aux charges plus importantes.')">Détails</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <h2><i class="fas fa-bolt"></i> Batterie LiFePO4</h2>
+  <p class="description">Solutions LiFePO4 de 500 Ah en 12 V jusqu’à 200 Ah en 24 V pour le stockage durable et la sécurité énergétique.</p>
+
+  <div class="grid-4" role="list">
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_500ah_12v.png" alt="Batterie LiFePO4 500Ah 12V"></div>
+      <div class="card-content">
+        <h3>LiFePO4 500Ah - 12V</h3>
+        <p>Grosse capacité pour installations autonomes et secours prolongé.</p>
+        <div class="price"><span class="old-price">1 250 000 FCFA</span> <span class="new-price">1 120 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('lifepo4_500ah_12v.png','LiFePO4 500Ah 12V','Batterie LiFePO4 500Ah 12V, forte capacité de stockage.')">Détails</button>
+      </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_300ah_12v.png" alt="Batterie LiFePO4 300Ah 12V"></div>
+      <div class="card-content">
+        <h3>LiFePO4 300Ah - 12V</h3>
+        <p>Capacité intermédiaire pour sites résidentiels et petits commerces.</p>
+        <div class="price"><span class="old-price">920 000 FCFA</span> <span class="new-price">810 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('lifepo4_300ah_12v.png','LiFePO4 300Ah 12V','Batterie intermédiaire, fiable et durable.')">Détails</button>
+      </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_200ah_24v.png" alt="Batterie LiFePO4 200Ah 24V"></div>
+      <div class="card-content">
+        <h3>LiFePO4 200Ah - 24V</h3>
+        <p>Solution compacte pour systèmes performants en 24V.</p>
+        <div class="price"><span class="old-price">780 000 FCFA</span> <span class="new-price">690 000 FCFA</span></div>
+        <button class="btn-card" onclick="openModal('lifepo4_200ah_24v.png','LiFePO4 200Ah 24V','Batterie LiFePO4 200Ah 24V pour systèmes compacts.')">Détails</button>
+      </div>
+    </article>
+
+    <article class="card" role="listitem">
+      <div class="image-wrap"><img src="lifepo4_150ah_24v.png" alt="Batterie LiFePO4 150Ah 24V"></div>
+      <div class="card-content">
+        <h3>LiFePO4 150Ah - 24V</h3>
+        <p>Adaptée aux besoins de stockage légers en 24V.</p>
         <div class="price"><span class="old-price">610 000 FCFA</span> <span class="new-price">540 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_resi_8k.png','Onduleur Résidentiel 8kW','Puissance renforcée pour maison premium et stockage avancé.')">Détails</button>
+        <button class="btn-card" onclick="openModal('lifepo4_150ah_24v.png','LiFePO4 150Ah 24V','Batterie LiFePO4 150Ah 24V, compacte et efficace.')">Détails</button>
       </div>
     </article>
   </div>
 </section>
 
-<section class="section">
-  <h2><i class="fas fa-arrows-rotate"></i> Hybrides (On-grid / Off-grid)</h2>
-  <p class="description">Onduleurs hybrides capables d’opérer en mode connecté au réseau (on-grid) ou isolé (off-grid). Idéals pour sites avec stockage et besoin de résilience.</p>
-  <div class="grid-4" role="list">
-    <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_hybrid_5k.png" alt="Onduleur Hybride 5kW"></div>
-      <div class="card-content">
-        <h3>Hybride 5kW</h3>
-        <p>Parfait pour maisons avec batterie et petites structures commerciales.</p>
-        <div class="price"><span class="old-price">560 000 FCFA</span> <span class="new-price">499 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_hybrid_5k.png','Hybride 5kW','Mode on-grid/off-grid, gestion batterie intelligente.')">Détails</button>
-      </div>
-    </article>
-
-    <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_hybrid_10k.png" alt="Onduleur Hybride 10kW"></div>
-      <div class="card-content">
-        <h3>Hybride 10kW</h3>
-        <p>Capacité pour PME et installations mixtes.</p>
-        <div class="price"><span class="old-price">920 000 FCFA</span> <span class="new-price">820 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_hybrid_10k.png','Hybride 10kW','Scalable, supporte plusieurs strings et batteries modulaires.')">Détails</button>
-      </div>
-    </article>
-
-    <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_hybrid_15k.png" alt="Onduleur Hybride 15kW"></div>
-      <div class="card-content">
-        <h3>Hybride 15kW</h3>
-        <p>Solution robuste pour sites à forte variabilité de charge.</p>
-        <div class="price"><span class="old-price">1 350 000 FCFA</span> <span class="new-price">1 150 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_hybrid_15k.png','Hybride 15kW','Haute fiabilité, parfait pour micro-grid ou sites critiques.')">Détails</button>
-      </div>
-    </article>
-
-    <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_hybrid_20k.png" alt="Onduleur Hybride 20kW"></div>
-      <div class="card-content">
-        <h3>Hybride 20kW</h3>
-        <p>Solution renforcée pour installations plus exigeantes.</p>
-        <div class="price"><span class="old-price">1 900 000 FCFA</span> <span class="new-price">1 620 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_hybrid_20k.png','Hybride 20kW','Gestion avancée du stockage, monitoring et redondance.')">Détails</button>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section class="section">
-  <h2><i class="fas fa-industry"></i> Industriels & Grande Puissance</h2>
-  <p class="description">Onduleurs haute puissance, conçus pour centrales, sites industriels et applications commerciales lourdes — rendement élevé, redondance et supervision avancée.</p>
-  <div class="grid-4" role="list">
-    <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_indus_20k.png" alt="Onduleur Industriel 20kW"></div>
-      <div class="card-content">
-        <h3>Industriel 20kW</h3>
-        <p>Solution modulaire pour petites unités industrielles.</p>
-        <div class="price"><span class="old-price">2 300 000 FCFA</span> <span class="new-price">1 950 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_indus_20k.png','Industriel 20kW','Architecture redondante, monitoring avancé.')">Détails</button>
-      </div>
-    </article>
-
-    <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_indus_50k.png" alt="Onduleur Industriel 50kW"></div>
-      <div class="card-content">
-        <h3>Industriel 50kW</h3>
-        <p>Convient aux sites industriels moyens et toitures commerciales.</p>
-        <div class="price"><span class="old-price">4 800 000 FCFA</span> <span class="new-price">3 950 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_indus_50k.png','Industriel 50kW','Haute performance, gestion multi-MPPT et refroidissement optimisé.')">Détails</button>
-      </div>
-    </article>
-
-    <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_indus_100k.png" alt="Onduleur Industriel 100kW"></div>
-      <div class="card-content">
-        <h3>Industriel 100kW+</h3>
-        <p>Plateforme évolutive pour centrales ou grandes installations.</p>
-        <div class="price"><span class="old-price">8 500 000 FCFA</span> <span class="new-price">7 500 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_indus_100k.png','Industriel 100kW+','Scalable, supervision SCADA, maintenance aisée.')">Détails</button>
-      </div>
-    </article>
-
-    <article class="card" role="listitem">
-      <div class="image-wrap"><img src="onduleur_indus_250k.png" alt="Onduleur Industriel 250kW"></div>
-      <div class="card-content">
-        <h3>Industriel 250kW</h3>
-        <p>Conçu pour les besoins lourds et continus des grands sites.</p>
-        <div class="price"><span class="old-price">17 000 000 FCFA</span> <span class="new-price">15 300 000 FCFA</span></div>
-        <button class="btn-card" onclick="openModal('onduleur_indus_250k.png','Industriel 250kW','Gestion de charge avancée, forte disponibilité, supervision centralisée.')">Détails</button>
-      </div>
-    </article>
-  </div>
-</section>
-
-<section class="section">
-  <h2>Pourquoi nos solutions énergie ?</h2>
-  <div class="advantages" role="list">
-    <div class="advantage" role="listitem">
-      <i class="fas fa-bolt" aria-hidden="true"></i>
-      <h3>Efficacité</h3>
-      <p>Maximisez le rendement et l’économie d’énergie</p>
-    </div>
-    <div class="advantage" role="listitem">
-      <i class="fas fa-shield-alt" aria-hidden="true"></i>
-      <h3>Fiabilité</h3>
-      <p>Installation professionnelle et maintenance garantie</p>
-    </div>
-    <div class="advantage" role="listitem">
-      <i class="fas fa-globe-africa" aria-hidden="true"></i>
-      <h3>Local</h3>
-      <p>Expertise adaptée au marché ivoirien</p>
-    </div>
-    <div class="advantage" role="listitem">
-      <i class="fas fa-award" aria-hidden="true"></i>
-      <h3>5 ans de garantie</h3>
-      <p>Tranquillité, suivi et accompagnement sur la durée</p>
-    </div>
-  </div>
-</section>
-
-<div id="productModal" class="modal" aria-hidden="true">
-  <div class="modal-card" role="dialog" aria-modal="true">
-    <button class="modal-close" onclick="closeModal()" aria-label="Fermer">&times;</button>
-    <img id="modalImg" src="" alt="">
-    <div class="modal-body">
-      <h3 id="modalTitle"></h3>
-      <p id="modalDesc"></p>
-    </div>
+<div id="productModal" style="display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);">
+  <div style="background:#fff;color:#072012;margin:6% auto;padding:18px;border-radius:12px;max-width:520px;position:relative;text-align:center;">
+    <button onclick="closeModal()" style="position:absolute;right:12px;top:8px;background:transparent;border:0;font-size:22px;cursor:pointer;color:#072012">&times;</button>
+    <img id="modalImg" src="" alt="" style="width:100%;height:220px;object-fit:contain;margin-bottom:12px">
+    <h3 id="modalTitle" style="margin:0 0 8px;"></h3>
+    <p id="modalDesc" style="color:#333;margin:0 0 8px"></p>
   </div>
 </div>
 
 <section id="devis" class="section">
   <h2>Demandez votre devis personnalisé</h2>
   <form>
-    <input type="text" placeholder="Nom complet" required>
+    <input type="text" placeholder="Nom" required>
     <input type="email" placeholder="Email" required>
     <select required>
       <option value="">Type de projet</option>
-      <option value="residence">Résidentiel</option>
-      <option value="hybride">Hybride / Off-grid</option>
-      <option value="industriel">Industriel</option>
+      <option value="energie">Énergie</option>
+      <option value="domotique">Domotique</option>
+      <option value="securite">Sécurité</option>
     </select>
     <textarea placeholder="Message ou détails du projet" rows="5" required></textarea>
-    <button type="submit">Envoyer</button>
+    <button type="submit">Envoyer le devis</button>
   </form>
 </section>
 
 <footer>
-  <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
+  <div class="footer-company" aria-hidden="false">GREENBRIDGE</div>
   <div class="footer-contact" aria-label="Coordonnées">
     <div>© 2025 GreenBridge Technologies. Tous droits réservés.</div>
     <div>Abidjan, Côte d’Ivoire</div>
@@ -1464,7 +1422,6 @@ function updatePhone(){
 
   phoneIndex = (phoneIndex + 1) % contactNumbers.length;
 }
-
 updatePhone();
 setInterval(updatePhone, 10000);
 
@@ -1475,18 +1432,12 @@ function openModal(img, title, desc){
   document.getElementById('modalDesc').innerText = desc;
   const modal = document.getElementById('productModal');
   if(modal){
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
+    modal.style.display = 'block';
   }
 }
 function closeModal(){
   const el = document.getElementById('productModal');
-  if(el){
-    el.classList.remove('open');
-    el.setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
-  }
+  if(el) el.style.display = 'none';
 }
 document.getElementById('productModal').addEventListener('click', function(e){
   if(e.target === this) closeModal();
@@ -1495,7 +1446,6 @@ document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') closeModal();
 });
 
-/* desktop dropdown hover */
 document.querySelectorAll('.dropdown').forEach(drop => {
   let timer;
   const menu = drop.querySelector('.dropdown-content');
@@ -1525,7 +1475,6 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   });
 });
 
-/* mobile menu */
 (function(){
   const burger = document.getElementById('burgerBtn');
   const mobileNav = document.getElementById('mobileNav');
@@ -1603,14 +1552,19 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   bindExpandable(mobileEnergieToggle, mobileEnergieSub);
 
   document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') closeMenu();
+    if(e.key === 'Escape' && mobileNav.classList.contains('open')){
+      closeMenu();
+    }
   });
 
   function openActiveSubmenusOnSmall(){
     if(window.innerWidth <= 1100){
-      if(mobileEnergieSub){
-        mobileEnergieSub.style.display = 'flex';
-        if(mobileEnergieToggle) mobileEnergieToggle.setAttribute('aria-expanded','true');
+      const activeToggle = document.getElementById('mobileEnergieToggle');
+      const activeSub = document.getElementById('mobileEnergieSub');
+      if(activeToggle && activeSub){
+        activeSub.style.display = 'flex';
+        activeToggle.setAttribute('aria-expanded','true');
+        activeToggle.classList.add('active');
       }
       const path = window.location.pathname.split('/').pop().toLowerCase();
       const etudePage = (path === 'zone_urbaine.html' || path === 'zone_agricole.html');
@@ -1621,93 +1575,96 @@ document.querySelectorAll('.dropdown').forEach(drop => {
         mobileEtudeToggle.setAttribute('aria-expanded', String(etudePage));
       }
     } else {
-      if(mobileEtudeSub) mobileEtudeSub.style.display = 'none';
-      if(mobileEnergieSub) mobileEnergieSub.style.display = 'none';
+      const activeSub = document.getElementById('mobileEnergieSub');
+      if(activeSub) activeSub.style.display = 'none';
     }
   }
   window.addEventListener('resize', openActiveSubmenusOnSmall);
   openActiveSubmenusOnSmall();
 })();
 
-/* electric band */
 (function(){
-  const electricBand = document.getElementById('electricBand');
-  if (!electricBand) return;
-  const orbA = document.getElementById('orbA');
-  const orbB = document.getElementById('orbB');
-  const orbC = document.getElementById('orbC');
+  const band = document.getElementById('energyBand');
+  if(!band) return;
+
+  const orbA = document.getElementById('eOrbA');
+  const orbB = document.getElementById('eOrbB');
+  const orbC = document.getElementById('eOrbC');
   const orbs = [orbA, orbB, orbC];
-  const zapBright = document.getElementById('zapBright');
+  const bright = document.getElementById('zapBright');
+
   const params = [
-    {rxRatio:0.50, ry:8, speed:0.22, phase:0},
-    {rxRatio:0.33, ry:6, speed:0.36, phase:Math.PI/2},
-    {rxRatio:0.42, ry:10, speed:0.18, phase:Math.PI}
+    {rxRatio:0.50, ry:8, speed:0.06, phase:0},
+    {rxRatio:0.33, ry:6, speed:0.08, phase:Math.PI/2},
+    {rxRatio:0.42, ry:10, speed:0.05, phase:Math.PI}
   ];
 
   orbs.forEach((o,i)=>{
     if(o){
       o.classList.add('buzz');
-      o.style.animationDelay = (i*120) + 'ms';
+      o.style.animationDelay = (i*140)+'ms';
+      o.style.opacity='1';
     }
   });
 
   let t0 = performance.now();
   function tick(now){
-    const time = (now - t0) / 1000;
-    const cont = electricBand.querySelector('.container');
-    if(!cont) { requestAnimationFrame(tick); return; }
+    const time = (now - t0)/1000;
+    const cont = band.querySelector('.container');
+    if(!cont){ requestAnimationFrame(tick); return; }
     const rect = cont.getBoundingClientRect();
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
+    const cx = rect.width/2;
+    const cy = rect.height/2;
+
     for(let i=0;i<orbs.length;i++){
-      const orb = orbs[i];
-      if(!orb) continue;
+      const o = orbs[i];
+      if(!o) continue;
       const p = params[i];
       const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
       const ry = p.ry;
       const angle = (time * p.speed * Math.PI * 2) + p.phase;
       const x = cx + Math.cos(angle) * rx;
       const y = cy + Math.sin(angle) * ry;
-      orb.style.left = x + 'px';
-      orb.style.top = y + 'px';
-      orb.style.transform = 'translate(-50%,-50%)';
+      o.style.left = x + 'px';
+      o.style.top = y + 'px';
+      o.style.transform = 'translate(-50%,-50%)';
     }
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
 
-  function sparkSVG(){
-    if(!zapBright) return;
+  function sparkBright(){
+    if(!bright) return;
+    bright.style.transition = 'none';
     try{
-      const len = zapBright.getTotalLength ? zapBright.getTotalLength() : 520;
-      zapBright.style.transition = 'none';
-      zapBright.setAttribute('stroke-dasharray', String(len));
-      zapBright.setAttribute('stroke-dashoffset', String(len));
+      const len = bright.getTotalLength ? bright.getTotalLength() : 520;
+      bright.setAttribute('stroke-dasharray', String(len));
+      bright.setAttribute('stroke-dashoffset', String(len));
       setTimeout(()=>{
-        zapBright.style.transition = 'stroke-dashoffset 380ms ease-out, opacity 160ms';
-        zapBright.setAttribute('stroke-dashoffset','0');
-        setTimeout(()=>{ zapBright.setAttribute('stroke-dashoffset', String(len)); }, 320);
-      }, 60);
+        bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms';
+        bright.setAttribute('stroke-dashoffset','0');
+        setTimeout(()=>{ bright.setAttribute('stroke-dashoffset', String(len)); }, 420);
+      }, 80);
     }catch(e){
-      zapBright.setAttribute('stroke-dasharray','520');
-      zapBright.setAttribute('stroke-dashoffset','520');
+      bright.setAttribute('stroke-dasharray','520');
+      bright.setAttribute('stroke-dashoffset','520');
       setTimeout(()=>{
-        zapBright.style.transition = 'stroke-dashoffset 360ms ease-out';
-        zapBright.setAttribute('stroke-dashoffset','0');
+        bright.style.transition = 'stroke-dashoffset 360ms ease-out';
+        bright.setAttribute('stroke-dashoffset','0');
       }, 80);
     }
   }
 
   function spawnSparks(){
-    const cont = electricBand.querySelector('.container');
+    const cont = band.querySelector('.container');
     if(!cont) return;
-    for(let i=0;i<10;i++){
+    for(let i=0;i<8;i++){
       const s = document.createElement('div');
-      s.style.position = 'absolute';
+      s.style.position='absolute';
       s.style.left = (3 + Math.random()*94) + '%';
       s.style.top = (20 + Math.random()*50) + '%';
       s.style.width = '2px';
-      s.style.height = (8 + Math.random()*22) + 'px';
+      s.style.height = (8 + Math.random()*18) + 'px';
       s.style.borderRadius = '2px';
       s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
       s.style.filter = 'blur(6px)';
@@ -1720,35 +1677,35 @@ document.querySelectorAll('.dropdown').forEach(drop => {
         s.style.transition = 'all 260ms ease-out';
         s.style.opacity='1';
         s.style.transform='translateY(-6px)';
-      }, 20 + i*25);
+      }, 20 + i*30);
       setTimeout(()=>{
-        s.style.transition = 'all 420ms ease-in';
+        s.style.transition = 'all 520ms ease-in';
         s.style.opacity='0';
         s.style.transform='translateY(-20px)';
-      }, 280 + i*40);
+      }, 300 + i*40);
       setTimeout(()=>{
         if(s.parentNode) s.parentNode.removeChild(s);
-      }, 760 + i*40);
+      }, 820 + i*40);
     }
   }
 
   function activate(){
-    electricBand.classList.add('connected');
+    band.classList.add('connected');
     spawnSparks();
-    sparkSVG();
+    sparkBright();
     setInterval(()=>{
       spawnSparks();
-      if(Math.random() > 0.45) sparkSVG();
+      if(Math.random() > 0.45) sparkBright();
     }, 1200 + Math.random()*1200);
   }
 
   const title = document.querySelector('.company-name');
   if(title){
     title.addEventListener('click', ()=>{
-      const on = electricBand.classList.toggle('connected');
+      const on = band.classList.toggle('connected');
       if(on){
         spawnSparks();
-        sparkSVG();
+        sparkBright();
       }
     });
   }
@@ -1757,10 +1714,9 @@ document.querySelectorAll('.dropdown').forEach(drop => {
   window.addEventListener('resize', ()=>{ t0 = performance.now(); });
 })();
 
-/* Active page logic */
 (function(){
   const raw = window.location.pathname.split('/').pop().toLowerCase();
-  const path = raw || 'onduleurs.html';
+  const path = raw || 'batteries.html';
   const mapping = {
     'GreenBrigde technologies.html':'a[href="GreenBrigde technologies.html"]',
     'etude_dimensionnement_2.html':'a[href="etude_dimensionnement_2.html"]',
