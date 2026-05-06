@@ -17,9 +17,15 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;font-family:'Poppins',Arial,sans-serif;background:var(--bg);color:#fff;scroll-behavior:smooth;overflow-x:hidden}
-body.menu-open{overflow:hidden} a{color:inherit;text-decoration:none} img{max-width:100%;display:block} button,input,select,textarea{font:inherit}
+body.menu-open{overflow:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit}
 .topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar-h);background:var(--green-dark);display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:0 5vw;z-index:1500;font-size:14px;border-bottom:1px solid rgba(255,255,255,.04)}
-.topbar .right{display:flex;align-items:center;gap:12px;min-width:0}.topbar a{color:#fff;transition:color .18s;white-space:nowrap;font-weight:700}.topbar a:hover{color:var(--accent-2)} .phone-label{font-weight:800;margin-right:4px}
+.topbar .right{display:flex;align-items:center;gap:12px;min-width:0}
+.topbar a{color:#fff;transition:color .18s;white-space:nowrap;font-weight:700}
+.topbar a:hover{color:var(--accent-2)}
+.phone-label{font-weight:800;margin-right:4px}
 header{position:fixed;top:var(--topbar-h);left:0;right:0;height:var(--header-h);background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));display:flex;align-items:center;justify-content:space-between;padding:0 5vw;z-index:1490;box-shadow:0 4px 12px rgba(0,0,0,.25);gap:12px}
 .logo-text{display:flex;align-items:flex-start;gap:12px;min-width:0;flex:1 1 auto;overflow:hidden}
 .logo-text img{height:66px;width:auto;display:block;flex:0 0 auto;object-fit:contain}
@@ -28,71 +34,207 @@ header{position:fixed;top:var(--topbar-h);left:0;right:0;height:var(--header-h);
 .company-tagline{font-size:18px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#dfffe6;padding:0;margin:2px 0 0 0;text-shadow:0 2px 6px rgba(0,0,0,0.45);-webkit-text-stroke:0.4px rgba(212,175,55,0.55);white-space:nowrap;line-height:1;text-align:center;width:100%;display:block}
 nav{display:flex;gap:18px;align-items:center}
 nav a{color:#fff;font-size:17px;font-weight:600;padding:8px 10px;border-radius:8px;transition:all .18s}
-nav a:hover{color:var(--accent-2)} nav a.active{color:var(--accent-2);background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));border:1px solid rgba(212,175,55,0.12);padding:10px 14px;font-weight:800;border-radius:10px}
-.dropdown{position:relative} .dropdown>a::after{content:"\25BC";font-size:12px;margin-left:6px;opacity:1;color:var(--accent-2);transition:transform .2s}
+nav a:hover{color:var(--accent-2)}
+nav a.active{color:var(--accent-2);background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));border:1px solid rgba(212,175,55,0.12);padding:10px 14px;font-weight:800;border-radius:10px}
+.dropdown{position:relative}
+.dropdown>a::after{content:"\25BC";font-size:12px;margin-left:6px;opacity:1;color:var(--accent-2);transition:transform .2s}
 .dropdown[aria-expanded="true"]>a::after{transform:rotate(180deg)}
 .dropdown>a .sub-badge{margin-left:8px;padding:6px 10px;border-radius:10px;background:rgba(255,214,0,0.08);color:var(--electric-yellow);font-weight:800;font-size:13px;box-shadow:0 6px 18px rgba(0,0,0,0.32);white-space:nowrap;display:inline-flex;align-items:center}
 .dropdown-content{display:none;position:absolute;top:calc(100% + 8px);left:0;background:rgba(0,0,0,0.85);padding:8px 0;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.5);min-width:220px;z-index:2000}
-.dropdown-content li{list-style:none}.dropdown-content a{display:block;padding:10px 16px;color:#fff;font-weight:600;border-radius:8px}.dropdown-content a:hover{background:rgba(168,230,161,0.12);color:var(--accent-2);padding-left:24px}
+.dropdown-content li{list-style:none}
+.dropdown-content a{display:block;padding:10px 16px;color:#fff;font-weight:600;border-radius:8px}
+.dropdown-content a:hover{background:rgba(168,230,161,0.12);color:var(--accent-2);padding-left:24px}
 .dropdown-content .active-item{color:var(--accent-2);background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));border:1px solid rgba(212,175,55,0.12);padding:10px 16px;font-weight:800;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,0.28);margin:4px 8px}
 .burger{display:none;width:52px;height:52px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.18);-webkit-tap-highlight-color:transparent;touch-action:manipulation;flex:0 0 auto}
-.burger .icon{display:block;position:relative;width:28px;height:20px}.burger .icon span{position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s}.burger .icon span:nth-child(1){top:0}.burger .icon span:nth-child(2){top:8.5px}.burger .icon span:nth-child(3){top:17px}.burger.open .icon span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}.burger.open .icon span:nth-child(2){opacity:0}.burger.open .icon span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
-.mobile-backdrop{display:none;position:fixed;inset:0;background:rgba(6,31,20,.98);z-index:1970;opacity:0;transition:opacity .2s ease}.mobile-backdrop.open{display:block;opacity:1}
-.mobile-nav{display:none;position:fixed;inset:0;z-index:1980;background:linear-gradient(180deg,#0a4d2e 0%,#061f14 100%);opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;transform:scale(0.985);overflow:auto}.mobile-nav.open{display:flex;opacity:1;pointer-events:auto;transform:scale(1)}
+.burger .icon{display:block;position:relative;width:28px;height:20px}
+.burger .icon span{position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s}
+.burger .icon span:nth-child(1){top:0}.burger .icon span:nth-child(2){top:8.5px}.burger .icon span:nth-child(3){top:17px}
+.burger.open .icon span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
+.burger.open .icon span:nth-child(2){opacity:0}
+.burger.open .icon span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
+.mobile-backdrop{display:none;position:fixed;inset:0;background:rgba(6,31,20,.98);z-index:1970;opacity:0;transition:opacity .2s ease}
+.mobile-backdrop.open{display:block;opacity:1}
+.mobile-nav{display:none;position:fixed;inset:0;z-index:1980;background:linear-gradient(180deg,#0a4d2e 0%,#061f14 100%);opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;transform:scale(0.985);overflow:auto}
+.mobile-nav.open{display:flex;opacity:1;pointer-events:auto;transform:scale(1)}
 .mobile-panel{position:relative;width:100%;min-height:100vh;padding:18px 5vw 22px;display:flex;flex-direction:column;gap:14px}
 .mobile-close{position:absolute;top:14px;right:14px;width:48px;height:48px;border:none;border-radius:12px;background:rgba(255,255,255,0.07);color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.22)}
-.mobile-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:54px 4px 12px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:2px;text-align:center}.mobile-brand .company-name{font-size:34px;line-height:1;text-align:center;width:100%}.mobile-brand .company-tagline{font-size:14px;letter-spacing:4px;text-align:center;width:100%}
+.mobile-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:54px 4px 12px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:2px;text-align:center}
+.mobile-brand .company-name{font-size:34px;line-height:1;text-align:center;width:100%}
+.mobile-brand .company-tagline{font-size:14px;letter-spacing:4px;text-align:center;width:100%}
 .menu-links{flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;max-width:560px;width:100%;margin:0 auto;padding:10px 0}
-.mobile-nav a.mobile-link{padding:18px 18px;color:#fff;width:100%;text-align:left;border-radius:14px;font-weight:900;display:flex;justify-content:flex-start;align-items:center;gap:10px;font-size:clamp(20px, 5vw, 26px);border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);min-height:64px;line-height:1.1;white-space:normal}.mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.12);color:var(--accent-2)}.mobile-nav .mobile-link.active{background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));color:var(--accent-2);border:1px solid rgba(212,175,55,0.28)}
+.mobile-nav a.mobile-link{padding:18px 18px;color:#fff;width:100%;text-align:left;border-radius:14px;font-weight:900;display:flex;justify-content:flex-start;align-items:center;gap:10px;font-size:clamp(20px, 5vw, 26px);border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);min-height:64px;line-height:1.1;white-space:normal}
+.mobile-nav .mobile-link:hover{background:rgba(124,179,66,0.12);color:var(--accent-2)}
+.mobile-nav .mobile-link.active{background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));color:var(--accent-2);border:1px solid rgba(212,175,55,0.28)}
 .mobile-nav .submenu{display:none;flex-direction:column;gap:8px;padding-left:10px;margin-top:6px;margin-bottom:6px;max-width:560px;width:100%;margin-left:auto;margin-right:auto}
-.mobile-nav .submenu a{font-family:'Trebuchet MS',Arial,sans-serif;font-style:italic;font-size:15px;font-weight:700;min-height:48px;padding:12px 14px;border-radius:10px;white-space:nowrap;justify-content:flex-start;text-align:left;letter-spacing:.2px;display:flex;align-items:center;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)}.mobile-nav .submenu a:hover{background:rgba(168,230,161,0.08);padding-left:18px}.mobile-nav .submenu a.active-item,.mobile-nav .submenu a[aria-current="page"]{background:transparent;color:rgba(255,255,255,0.30);border:none;box-shadow:none;font-weight:700;font-style:italic}
-.mobile-contact{display:flex;flex-direction:column;gap:12px;padding:16px 14px;border-radius:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:var(--muted-text-color);max-width:560px;width:100%;margin:0 auto;text-align:center}.mobile-contact strong{color:#fff;font-size:15px;letter-spacing:1px}.mobile-contact .phone-line{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:800;flex-wrap:wrap;font-size:16px}
-.socials{margin-top:auto;border-top:1px solid rgba(255,255,255,0.05);padding-top:14px;display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;width:100%}.socials a{width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;font-size:20px;border:none;background:rgba(255,255,255,0.04);border-radius:50%;min-height:44px}
+.mobile-nav .submenu a{font-family:'Trebuchet MS',Arial,sans-serif;font-style:italic;font-size:15px;font-weight:700;min-height:48px;padding:12px 14px;border-radius:10px;white-space:nowrap;justify-content:flex-start;text-align:left;letter-spacing:.2px;display:flex;align-items:center;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02)}
+.mobile-nav .submenu a:hover{background:rgba(168,230,161,0.08);padding-left:18px}
+.mobile-nav .submenu a.active-item,.mobile-nav .submenu a[aria-current="page"]{background:transparent;color:rgba(255,255,255,0.30);border:none;box-shadow:none;font-weight:700;font-style:italic}
+.mobile-contact{display:flex;flex-direction:column;gap:12px;padding:16px 14px;border-radius:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:var(--muted-text-color);max-width:560px;width:100%;margin:0 auto;text-align:center}
+.mobile-contact strong{color:#fff;font-size:15px;letter-spacing:1px}
+.mobile-contact .phone-line{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:800;flex-wrap:wrap;font-size:16px}
+.socials{margin-top:auto;border-top:1px solid rgba(255,255,255,0.05);padding-top:14px;display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;width:100%}
+.socials a{width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;font-size:20px;border:none;background:rgba(255,255,255,0.04);border-radius:50%;min-height:44px}
 .electric-band{position:fixed;top:calc(var(--topbar-h) + var(--header-h) - 6px);left:0;right:0;height:14px;z-index:1600;pointer-events:none;overflow:visible;transform:translateZ(0)}
 .electric-band .container{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100vw;max-width:none;padding:0;height:100%;pointer-events:none;box-sizing:border-box}
 .lightning-svg{width:100vw;height:100%;display:block;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:screen}
-.electric-band.connected .lightning-svg{opacity:1}.lightning-svg path.zap{stroke:var(--electric-yellow);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.98}
-.orbs{position:absolute;left:0;top:0;width:100vw;height:100%;pointer-events:none;overflow:visible}.orb{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff8b0,var(--electric-yellow));box-shadow:0 0 12px rgba(255,214,0,0.95),0 0 30px rgba(255,214,0,0.22);transform:translate(-50%,-50%);opacity:0;transition:opacity .18s linear}.electric-band.connected .orb{opacity:1}
-@keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}} .orb.buzz{animation:buzz .9s linear infinite}
-.glowline{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:3px;width:0;background:linear-gradient(90deg,rgba(255,238,170,0),rgba(255,214,0,0.98),rgba(255,238,170,0));border-radius:8px;box-shadow:0 6px 20px rgba(255,214,0,0.12);opacity:0;transition:opacity .22s ease}.electric-band.connected .glowline{width:100vw;opacity:1;animation:pulse 2s ease-in-out infinite}
+.electric-band.connected .lightning-svg{opacity:1}
+.lightning-svg path.zap{stroke:var(--electric-yellow);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.98}
+.orbs{position:absolute;left:0;top:0;width:100vw;height:100%;pointer-events:none;overflow:visible}
+.orb{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff8b0,var(--electric-yellow));box-shadow:0 0 12px rgba(255,214,0,0.95),0 0 30px rgba(255,214,0,0.22);transform:translate(-50%,-50%);opacity:0;transition:opacity .18s linear}
+.electric-band.connected .orb{opacity:1}
+@keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}}
+.orb.buzz{animation:buzz .9s linear infinite}
+.glowline{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:3px;width:0;background:linear-gradient(90deg,rgba(255,238,170,0),rgba(255,214,0,0.98),rgba(255,238,170,0));border-radius:8px;box-shadow:0 6px 20px rgba(255,214,0,0.12);opacity:0;transition:opacity .22s ease}
+.electric-band.connected .glowline{width:100vw;opacity:1;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}}
 .hero{margin-top:calc(var(--topbar-h) + var(--header-h));min-height:calc(72vh - (var(--topbar-h) + var(--header-h)));position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#0a4d2e}
 .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.10);filter:brightness(1.02) contrast(1.03) saturate(1.04)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.06) 0%,rgba(0,0,0,0.16) 48%,rgba(0,0,0,0.28) 100%);z-index:1}
-.hero-content{position:relative;z-index:2;max-width:950px;padding:0 20px;display:flex;flex-direction:column;align-items:center;justify-content:center}.hero-content h1{font-size:36px;margin:0 0 12px;font-weight:700;text-shadow:0 3px 10px rgba(0,0,0,0.45)}.hero-content p{font-size:18px;margin:0 0 18px;text-shadow:0 2px 8px rgba(0,0,0,0.45);max-width:900px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}.btn-primary,.btn-secondary{padding:14px 26px;border-radius:10px;border:0;font-weight:700;cursor:pointer;font-size:16px}.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-2)}.btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}.btn-secondary:hover{background:rgba(255,255,255,0.08)}
-.section{padding:60px 5vw;scroll-margin-top:140px}.section h2{font-size:32px;margin-bottom:18px;color:var(--accent-2);text-align:center}
+.hero-content{position:relative;z-index:2;max-width:950px;padding:0 20px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hero-content h1{font-size:36px;margin:0 0 12px;font-weight:700;text-shadow:0 3px 10px rgba(0,0,0,0.45)}
+.hero-content p{font-size:18px;margin:0 0 18px;text-shadow:0 2px 8px rgba(0,0,0,0.45);max-width:900px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn-primary,.btn-secondary{padding:14px 26px;border-radius:10px;border:0;font-weight:700;cursor:pointer;font-size:16px}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-2)}
+.btn-secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.32)}
+.btn-secondary:hover{background:rgba(255,255,255,0.08)}
+.section{padding:60px 5vw;scroll-margin-top:140px}
+.section h2{font-size:32px;margin-bottom:18px;color:var(--accent-2);text-align:center}
 .study-intro,.outputs-intro,.pdf-note{max-width:1080px;margin:0 auto 24px;color:var(--muted-text-color);text-align:center;font-size:var(--muted-text-size);line-height:1.7;opacity:0.95}
 .card-soft{background:rgba(6,31,20,0.60);border:1px solid rgba(212,175,55,.12);border-radius:18px;padding:18px;box-shadow:0 12px 30px rgba(0,0,0,0.18);max-width:var(--max-width);margin:0 auto}
-.study-top{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}.study-top .group{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.study-top{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}
+.study-top .group{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .badge-zone{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(168,230,161,.10);border:1px solid rgba(168,230,161,.16);color:#dfffe6;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
 .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);color:#fff;font-size:12px;font-weight:800;letter-spacing:.3px}
-.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px}.tab{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:#fff;font-weight:800;cursor:pointer}.tab.active{background:linear-gradient(135deg,var(--accent),#9be15f);color:#072012;border-color:transparent}
-.section-block{background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.12);border-radius:18px;padding:16px;margin-top:14px;box-shadow:0 10px 24px rgba(0,0,0,.15)}.section-block h3{margin:0 0 10px;color:var(--accent-2);font-size:20px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-@media (max-width:1100px){.grid,.grid-2,.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}} @media (max-width:700px){.grid,.grid-2,.grid-4{grid-template-columns:1fr}}
-.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field label{font-size:13px;color:#eaf9ea;font-weight:700;line-height:1.3;overflow-wrap:anywhere}.field small{color:#bed8bf;font-size:12px;line-height:1.35;overflow-wrap:anywhere}
-.field input[type="number"],.field input[type="text"],.field select,.field textarea{width:100%;min-width:0;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;outline:none;transition:box-shadow .18s,border-color .18s}.field input::placeholder,.field textarea::placeholder{color:#d9ecd9}.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(124,179,66,.55);box-shadow:0 0 0 4px rgba(124,179,66,.12)}
-details{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 12px 4px;margin-top:12px}details summary{cursor:pointer;font-weight:800;color:#fff;list-style:none}details summary::-webkit-details-marker{display:none}details summary::after{content:"\25BC";float:right;color:var(--accent-2);font-size:12px;transition:transform .2s}details[open] summary::after{transform:rotate(180deg)}.details-body{padding:12px 0 10px}
-.consumer-list{display:flex;flex-direction:column;gap:10px;margin-top:10px}.consumer{background:#fff;color:#072012;border-radius:12px;border:1px solid #e8efe8;padding:10px;box-shadow:0 8px 18px rgba(0,0,0,.08);overflow:hidden}.consumer-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.consumer-title{font-weight:800;color:#04462e;word-break:break-word}.consumer-meta{color:#6c7d6f;font-size:12px;margin-top:2px}
-.consumer-fields{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;margin-top:10px}.consumer-fields label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:#072012}.consumer-fields input{width:100%;min-width:0;padding:8px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#072012}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px}
+.tab{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:#fff;font-weight:800;cursor:pointer}
+.tab.active{background:linear-gradient(135deg,var(--accent),#9be15f);color:#072012;border-color:transparent}
+.section-block{background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.12);border-radius:18px;padding:16px;margin-top:14px;box-shadow:0 10px 24px rgba(0,0,0,.15)}
+.section-block h3{margin:0 0 10px;color:var(--accent-2);font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:1100px){.grid,.grid-2,.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.grid,.grid-2,.grid-4{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:13px;color:#eaf9ea;font-weight:700;line-height:1.3;overflow-wrap:anywhere}
+.field small{color:#bed8bf;font-size:12px;line-height:1.35;overflow-wrap:anywhere}
+.field input[type="number"],.field input[type="text"],.field select,.field textarea{width:100%;min-width:0;padding:10px 11px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;outline:none;transition:box-shadow .18s,border-color .18s}
+.field input::placeholder,.field textarea::placeholder{color:#d9ecd9}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(124,179,66,.55);box-shadow:0 0 0 4px rgba(124,179,66,.12)}
+details{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 12px 4px;margin-top:12px}
+details summary{cursor:pointer;font-weight:800;color:#fff;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"\25BC";float:right;color:var(--accent-2);font-size:12px;transition:transform .2s}
+details[open] summary::after{transform:rotate(180deg)}
+.details-body{padding:12px 0 10px}
+.consumer-list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.consumer{background:#fff;color:#072012;border-radius:12px;border:1px solid #e8efe8;padding:10px;box-shadow:0 8px 18px rgba(0,0,0,.08);overflow:hidden}
+.consumer-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.consumer-title{font-weight:800;color:#04462e;word-break:break-word}
+.consumer-meta{color:#6c7d6f;font-size:12px;margin-top:2px}
+.consumer-fields{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;margin-top:10px}
+.consumer-fields label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:#072012}
+.consumer-fields input{width:100%;min-width:0;padding:8px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#072012}
 .consumer-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px}
-.btn-reset,.btn-export,.btn-add,.btn-link,.btn-danger{padding:9px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}.btn-reset{background:#ececec;color:#072012}.btn-export{background:var(--accent);color:#072012}.btn-add{background:var(--gold-base);color:#072012}.btn-link{background:rgba(124,179,66,.12);color:#e8ffe8;border:1px solid rgba(124,179,66,.18)}.btn-danger{background:#e9e9e9;color:#072012;border:1px solid #ddd}.btn-reset:hover,.btn-export:hover,.btn-add:hover,.btn-link:hover,.btn-danger:hover{filter:brightness(.98)}
-.presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.preset{padding:9px 12px;border-radius:999px;border:1px solid rgba(212,175,55,.16);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;font-weight:700;font-size:13px}.preset:hover{background:rgba(168,230,161,.08)}
-.outputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}@media (max-width:1100px){.outputs{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:700px){.outputs{grid-template-columns:1fr}}
-.result-card{background:linear-gradient(180deg,#fbfffb,#f3fff2);padding:14px;border-radius:14px;min-width:170px;border:1px solid rgba(3,50,26,0.06);box-shadow:0 14px 36px rgba(2,22,12,0.12);color:#072012;overflow:hidden}.result-card .label{font-size:12px;color:#6b7f6b;text-transform:uppercase;letter-spacing:0.6px;line-height:1.4}.result-card .value{font-weight:900;font-size:24px;color:var(--green-mid-2);margin-top:6px;display:block;overflow-wrap:anywhere}.result-card .small{font-size:13px;color:#6b7f6b;margin-top:6px;line-height:1.45}.highlight{border:2px solid var(--accent);box-shadow:0 8px 30px rgba(124,179,66,0.12)}
-.chart-card{margin-top:16px;background:#fff;color:#072012;border-radius:18px;padding:14px;box-shadow:var(--shadow);border:1px solid #e7f1e8;overflow:hidden}.chart-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}.chart-head h3{margin:0;color:#04462e;font-size:18px}.chart-head .legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:#6c7d6f;font-weight:700}.lg{display:inline-flex;align-items:center;gap:6px}.dot{width:12px;height:12px;border-radius:50%}.dot.solar{background:#7cb342}.dot.load{background:#d4af37}.dot.batt{background:#0b4d26}
+.btn-reset,.btn-export,.btn-add,.btn-link,.btn-danger{padding:9px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+.btn-reset{background:#ececec;color:#072012}
+.btn-export{background:var(--accent);color:#072012}
+.btn-add{background:var(--gold-base);color:#072012}
+.btn-link{background:rgba(124,179,66,.12);color:#e8ffe8;border:1px solid rgba(124,179,66,.18)}
+.btn-danger{background:#e9e9e9;color:#072012;border:1px solid #ddd}
+.btn-reset:hover,.btn-export:hover,.btn-add:hover,.btn-link:hover,.btn-danger:hover{filter:brightness(.98)}
+.presets{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.preset{padding:9px 12px;border-radius:999px;border:1px solid rgba(212,175,55,.16);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;font-weight:700;font-size:13px}
+.preset:hover{background:rgba(168,230,161,.08)}
+.outputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+@media (max-width:1100px){.outputs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.outputs{grid-template-columns:1fr}}
+.result-card{background:linear-gradient(180deg,#fbfffb,#f3fff2);padding:14px;border-radius:14px;min-width:170px;border:1px solid rgba(3,50,26,0.06);box-shadow:0 14px 36px rgba(2,22,12,0.12);color:#072012;overflow:hidden}
+.result-card .label{font-size:12px;color:#6b7f6b;text-transform:uppercase;letter-spacing:0.6px;line-height:1.4}
+.result-card .value{font-weight:900;font-size:24px;color:var(--green-mid-2);margin-top:6px;display:block;overflow-wrap:anywhere}
+.result-card .small{font-size:13px;color:#6b7f6b;margin-top:6px;line-height:1.45}
+.highlight{border:2px solid var(--accent);box-shadow:0 8px 30px rgba(124,179,66,0.12)}
+.chart-card{margin-top:16px;background:#fff;color:#072012;border-radius:18px;padding:14px;box-shadow:var(--shadow);border:1px solid #e7f1e8;overflow:hidden}
+.chart-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.chart-head h3{margin:0;color:#04462e;font-size:18px}
+.chart-head .legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:#6c7d6f;font-weight:700}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.dot{width:12px;height:12px;border-radius:50%}
+.dot.solar{background:#7cb342}
+.dot.load{background:#d4af37}
+.dot.batt{background:#0b4d26}
 .chart-wrap{width:100%;overflow:hidden;border-radius:14px;background:linear-gradient(180deg,#fbfffb,#f5fff5);border:1px solid #e9f2ea;padding:8px 8px 2px}
 canvas{display:block;width:100%;height:auto}
-.summary{display:flex;gap:12px;margin-top:18px;align-items:stretch;flex-wrap:wrap}.summary .big{flex:1 1 520px;padding:16px;border-radius:14px;background:#fff;border:1px solid #e6f3ea;color:#072012;box-shadow:var(--shadow);overflow:hidden}.big h2{margin:0;color:#04462e;text-align:left;font-size:22px}.big .kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}.kpi .k{background:linear-gradient(180deg,#fbfffb,#f3fff2);border:1px solid #e7f1e8;border-radius:12px;padding:12px;box-shadow:0 10px 24px rgba(0,0,0,.06);min-width:0}.k .muted{font-size:12px;color:#6b7f6b;line-height:1.4}.k .num{font-weight:900;font-size:22px;color:#0b4d26;margin-top:6px;word-break:break-word}.summary .small-panel{flex:1 1 350px;padding:16px;border-radius:14px;background:#fff;border:1px solid #e6f3ea;color:#072012;box-shadow:var(--shadow);overflow:hidden}.small-panel h3{margin:0 0 12px;color:#04462e;font-size:20px}.safety-list{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}.safety-list li{background:#fbfffb;border:1px solid #e8f1e8;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.45}
+.summary{display:flex;gap:12px;margin-top:18px;align-items:stretch;flex-wrap:wrap}
+.summary .big{flex:1 1 520px;padding:16px;border-radius:14px;background:#fff;border:1px solid #e6f3ea;color:#072012;box-shadow:var(--shadow);overflow:hidden}
+.big h2{margin:0;color:#04462e;text-align:left;font-size:22px}
+.big .kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.kpi .k{background:linear-gradient(180deg,#fbfffb,#f3fff2);border:1px solid #e7f1e8;border-radius:12px;padding:12px;box-shadow:0 10px 24px rgba(0,0,0,.06);min-width:0}
+.k .muted{font-size:12px;color:#6b7f6b;line-height:1.4}
+.k .num{font-weight:900;font-size:22px;color:#0b4d26;margin-top:6px;word-break:break-word}
+.summary .small-panel{flex:1 1 350px;padding:16px;border-radius:14px;background:#fff;border:1px solid #e6f3ea;color:#072012;box-shadow:var(--shadow);overflow:hidden}
+.small-panel h3{margin:0 0 12px;color:#04462e;font-size:20px}
+.safety-list{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.safety-list li{background:#fbfffb;border:1px solid #e8f1e8;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.45}
 .pdf-actions{display:flex;justify-content:flex-end;margin-top:12px;flex-wrap:wrap;gap:10px}
-footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:relative;margin-top:40px;text-align:center}footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold-base)}.footer-company{display:block;margin:0 auto 8px;font-size:18px;font-weight:800;color:#04462e;-webkit-text-stroke:0.7px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,0.6);padding:4px 8px;border-radius:6px;width:max-content;background:linear-gradient(90deg,rgba(212,175,55,0.02),rgba(255,255,255,0) 40%)}.footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
+footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:relative;margin-top:40px;text-align:center}
+footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold-base)}
+.footer-company{display:block;margin:0 auto 8px;font-size:18px;font-weight:800;color:#04462e;-webkit-text-stroke:0.7px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,0.6);padding:4px 8px;border-radius:6px;width:max-content;background:linear-gradient(90deg,rgba(212,175,55,0.02),rgba(255,255,255,0) 40%)}
+.footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
 .print-block{position:fixed;left:-99999px;top:0;width:1200px;background:#fff;color:#072012;padding:24px;font-family:'Poppins',Arial,sans-serif}
 .muted-note{color:#6b7f6b;font-size:12px;line-height:1.45;overflow-wrap:anywhere}
 .battery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
-@media (max-width:1100px){nav{display:none}.burger{display:flex}.company-name{font-size:30px}.mobile-nav.open{max-height:none}.hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}.section{padding:52px 4vw}.card-soft{padding:14px}.big .kpi{grid-template-columns:1fr}.battery-grid{grid-template-columns:1fr}.summary{flex-direction:column}}
-@media (max-width:768px){.company-name{font-size:26px}.topbar .right{gap:10px;font-size:13px}.hero-content h1{font-size:28px}.hero-content p{font-size:14px}.mobile-nav.open{max-height:85vh}.hero-bg{object-position:center 34%;transform:scale(1.12)}.study-top{gap:8px}}
-@media (max-width:480px){:root{--topbar-h:40px;--header-h:76px}.topbar{font-size:11px;padding:0 3.5vw}header{padding:0 3.5vw}.logo-text img{height:46px}.company-name{font-size:30px;letter-spacing:.08px}.company-tagline{font-size:10px;letter-spacing:2px}.burger{width:48px;height:48px}.hero-bg{object-position:center 28%;transform:scale(1.18)}.hero-content{max-width:92vw;padding:18px 12px}.hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px;white-space:normal;overflow:visible;text-overflow:clip}.hero-content p{font-size:15px;line-height:1.45;white-space:normal;overflow:visible;text-overflow:clip}.btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}.mobile-panel{padding:16px 4.5vw 20px}.mobile-brand{padding:22px 4px 10px}.mobile-brand .company-name{font-size:28px}.mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}.mobile-nav a.mobile-link{font-size:20px;min-height:62px;padding:16px 16px}.mobile-contact .phone-line{font-size:15px}.socials{gap:14px}.socials a{width:40px;height:40px;font-size:18px}.section h2{font-size:26px}.chart-head h3{font-size:16px}.big h2{font-size:20px}.result-card .value{font-size:22px}.result-card .label{font-size:11px}.result-card .small{font-size:12px}}
+@media (max-width:1100px){
+  nav{display:none}
+  .burger{display:flex}
+  .company-name{font-size:30px}
+  .mobile-nav.open{max-height:none}
+  .hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
+  .section{padding:52px 4vw}
+  .card-soft{padding:14px}
+  .big .kpi{grid-template-columns:1fr}
+  .battery-grid{grid-template-columns:1fr}
+  .summary{flex-direction:column}
+}
+@media (max-width:768px){
+  .company-name{font-size:26px}
+  .topbar .right{gap:10px;font-size:13px}
+  .hero-content h1{font-size:28px}
+  .hero-content p{font-size:14px}
+  .mobile-nav.open{max-height:85vh}
+  .hero-bg{object-position:center 34%;transform:scale(1.12)}
+  .study-top{gap:8px}
+}
+@media (max-width:480px){
+  :root{--topbar-h:40px;--header-h:76px}
+  .topbar{font-size:11px;padding:0 3.5vw}
+  header{padding:0 3.5vw}
+  .logo-text img{height:46px}
+  .company-name{font-size:30px;letter-spacing:.08px}
+  .company-tagline{font-size:10px;letter-spacing:2px}
+  .burger{width:48px;height:48px}
+  .hero-bg{object-position:center 28%;transform:scale(1.18)}
+  .hero-content{max-width:92vw;padding:18px 12px}
+  .hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px;white-space:normal;overflow:visible;text-overflow:clip}
+  .hero-content p{font-size:15px;line-height:1.45;white-space:normal;overflow:visible;text-overflow:clip}
+  .btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}
+  .mobile-panel{padding:16px 4.5vw 20px}
+  .mobile-brand{padding:22px 4px 10px}
+  .mobile-brand .company-name{font-size:28px}
+  .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}
+  .mobile-nav a.mobile-link{font-size:20px;min-height:62px;padding:16px 16px}
+  .mobile-contact .phone-line{font-size:15px}
+  .socials{gap:14px}
+  .socials a{width:40px;height:40px;font-size:18px}
+  .section h2{font-size:26px}
+  .chart-head h3{font-size:16px}
+  .big h2{font-size:20px}
+  .result-card .value{font-size:22px}
+  .result-card .label{font-size:11px}
+  .result-card .small{font-size:12px}
+}
 </style>
 </head>
 <body>
@@ -123,13 +265,38 @@ footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:re
     <div class="socials"><a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a><a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a><a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a><a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></div>
   </div>
 </div>
-<section class="hero" id="top" aria-label="Hero"><img class="hero-bg" src="milieu_agricole.png" alt="Illustration zone agricole"><div class="hero-overlay"></div><div class="hero-content"><h1>Étude zone agricole</h1><p>Dimensionnement de pompage, panneaux solaires, batteries tampon et énergie autonome pour l’agriculture, l’élevage et la transformation.</p><div class="hero-actions"><a class="btn-primary" href="#etude">Commencer l’étude</a></div></div></section>
+
+<section class="hero" id="top" aria-label="Hero">
+  <img class="hero-bg" src="milieu_agricole.png" alt="Illustration zone agricole">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Étude zone agricole</h1>
+    <p>Dimensionnement de pompage, panneaux solaires, batteries tampon et énergie autonome pour l’agriculture, l’élevage et la transformation.</p>
+    <div class="hero-actions"><a class="btn-primary" href="#etude">Commencer l’étude</a></div>
+  </div>
+</section>
+
 <section id="etude" class="section">
   <h2>Étude de dimensionnement agricole</h2>
   <p class="study-intro">Cette page combine deux logiques : le pompage agricole vers bassin ou réseau, et l’énergie autonome pour l’élevage, l’éclairage et la transformation. Les hypothèses climatiques et techniques sont adaptées à l’Afrique de l’Ouest.</p>
   <div class="card-soft" id="studyCard">
-    <div class="study-top"><div class="group"><span class="badge-zone"><i class="fas fa-seedling"></i> Zone agricole</span><span class="pill" id="locationPill"><i class="fas fa-sun"></i> Abidjan</span><span class="pill" id="sourcePill"><i class="fas fa-water"></i> Bassin de réserve</span></div><div class="group"><span class="pill" id="sunPill"><i class="fas fa-cloud-sun"></i> 4.5 h équiv.</span><span class="pill" id="tempPill"><i class="fas fa-temperature-high"></i> 25 °C</span></div></div>
-    <div class="tabs" role="tablist" aria-label="Modes d'étude"><button class="tab active" id="tabPump" type="button">Pompage agricole</button><button class="tab" id="tabEnergy" type="button">Énergie élevage / transformation</button></div>
+    <div class="study-top">
+      <div class="group">
+        <span class="badge-zone"><i class="fas fa-seedling"></i> Zone agricole</span>
+        <span class="pill" id="locationPill"><i class="fas fa-sun"></i> Abidjan</span>
+        <span class="pill" id="sourcePill"><i class="fas fa-water"></i> Bassin de réserve</span>
+      </div>
+      <div class="group">
+        <span class="pill" id="sunPill"><i class="fas fa-cloud-sun"></i> 4.5 h équiv.</span>
+        <span class="pill" id="tempPill"><i class="fas fa-temperature-high"></i> 25 °C</span>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Modes d'étude">
+      <button class="tab active" id="tabPump" type="button">Pompage agricole</button>
+      <button class="tab" id="tabEnergy" type="button">Énergie élevage / transformation</button>
+    </div>
+
     <div id="pumpMode">
       <div class="section-block">
         <h3>Paramètres de culture et d’irrigation</h3>
@@ -150,10 +317,25 @@ footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:re
           <div class="field"><label for="pipeMaterial">Tuyauterie</label><select id="pipeMaterial"><option value="pehd">PEHD / HDPE</option><option value="pvc">PVC pression</option><option value="acier">Acier galvanisé</option></select></div>
           <div class="field"><label for="panelW">Panneau utilisé (W)</label><select id="panelW"><option>300</option><option>350</option><option>405</option><option>450</option><option>500</option><option>550</option></select></div>
         </div>
-        <details><summary>Paramètres avancés</summary><div class="details-body"><div class="grid-2"><div class="field"><label for="pumpEff">Rendement pompe (%)</label><input id="pumpEff" type="number" min="10" max="90" value="55"></div><div class="field"><label for="pvDerate">Facteur PV global (%)</label><input id="pvDerate" type="number" min="10" max="100" value="85"></div><div class="field"><label for="reservoirDays">Réservoir / autonomie eau (jours)</label><input id="reservoirDays" type="number" min="0" step="0.5" value="2"></div></div></div></details>
-        <div class="pdf-actions"><button id="calcBtn" class="btn-export" type="button"><i class="fas fa-calculator" style="margin-right:8px"></i>Calculer</button><button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button></div>
+
+        <details>
+          <summary>Paramètres avancés</summary>
+          <div class="details-body">
+            <div class="grid-2">
+              <div class="field"><label for="pumpEff">Rendement pompe (%)</label><input id="pumpEff" type="number" min="10" max="90" value="55"></div>
+              <div class="field"><label for="pvDerate">Facteur PV global (%)</label><input id="pvDerate" type="number" min="10" max="100" value="85"></div>
+              <div class="field"><label for="reservoirDays">Réservoir / autonomie eau (jours)</label><input id="reservoirDays" type="number" min="0" step="0.5" value="2"></div>
+            </div>
+          </div>
+        </details>
+
+        <div class="pdf-actions">
+          <button id="calcBtn" class="btn-export" type="button"><i class="fas fa-calculator" style="margin-right:8px"></i>Calculer</button>
+          <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
+        </div>
       </div>
     </div>
+
     <div id="energyMode" style="display:none">
       <div class="section-block">
         <h3>Énergie pour élevage, transformation et services</h3>
@@ -171,11 +353,17 @@ footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:re
           <button class="preset" data-name="Transformateur / atelier" data-power="1200" data-hours="4">Atelier</button>
           <button class="preset" data-name="Chargement téléphones" data-power="80" data-hours="6">Téléphones</button>
         </div>
-        <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><input id="consName" type="text" placeholder="Nom consommateur" style="flex:1 1 240px;min-width:0;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff"><input id="consPower" type="number" placeholder="Puissance W" style="width:140px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff"><input id="consHours" type="number" placeholder="h/j" style="width:110px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff"><button id="addManual" class="btn-add" type="button">Ajouter</button></div>
+        <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <input id="consName" type="text" placeholder="Nom consommateur" style="flex:1 1 240px;min-width:0;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff">
+          <input id="consPower" type="number" placeholder="Puissance W" style="width:140px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff">
+          <input id="consHours" type="number" placeholder="h/j" style="width:110px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff">
+          <button id="addManual" class="btn-add" type="button">Ajouter</button>
+        </div>
         <div class="consumer-list" id="consumerList"></div>
         <div class="pdf-note">La logique de batterie tient compte du climat chaud, du type de batterie, et d’une durée de vie réaliste pour l’Afrique de l’Ouest.</div>
       </div>
     </div>
+
     <div class="outputs-intro">Les résultats les plus utiles sont mis en avant pour un dimensionnement terrain : pompage, panneaux, diamètre de tuyauterie, section de câble, batterie tampon et onduleur standard.</div>
     <div class="outputs" aria-live="polite">
       <div class="result-card" id="r_volume"><div class="label">Volume à fournir (m³ / jour)</div><div id="volDay" class="value">0 m³</div><div class="small">Base d’irrigation ou de service</div></div>
@@ -189,16 +377,23 @@ footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:re
       <div class="result-card" id="r_buffer"><div class="label">Batterie tampon / stockage</div><div id="batteryRec" class="value">0 kWh</div><div class="small">Selon le besoin et le type choisi</div></div>
       <div class="result-card" id="r_inv"><div class="label">Onduleur standard conseillé</div><div id="invRec" class="value">0 W</div><div class="small">Valeurs standard 300 à 5000 W</div></div>
     </div>
+
     <div class="chart-card">
       <div class="chart-head"><h3>Profil journalier 24 h</h3><div class="legend"><span class="lg"><span class="dot solar"></span>Production solaire</span><span class="lg"><span class="dot load"></span>Consommation / pompage</span><span class="lg"><span class="dot batt"></span>État batterie</span></div></div>
       <div class="chart-wrap"><canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas></div>
       <div class="muted-note" style="margin-top:8px">Le soleil est pris en compte de 06h à 18h. La courbe aide à visualiser la charge réelle et l’intérêt éventuel d’une batterie tampon.</div>
     </div>
+
     <div class="pdf-actions"><button id="exportPdfBtn" class="btn-export" type="button"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF</button></div>
+
     <div class="summary">
       <div class="big">
         <h2>Synthèse principale</h2>
-        <div class="kpi"><div class="k"><div class="muted">Énergie totale / jour</div><div id="consDayKpi" class="num">0 kWh</div><div class="muted">dimensionnement terrain</div></div><div class="k"><div class="muted">Autonomie / stockage</div><div id="autonomyKpi" class="num">0</div><div class="muted">jours ou heures tampon</div></div><div class="k"><div class="muted">Durée de vie batterie</div><div id="lifeKpi" class="num">—</div><div class="muted">estimation réaliste chaud</div></div></div>
+        <div class="kpi">
+          <div class="k"><div class="muted">Énergie totale / jour</div><div id="consDayKpi" class="num">0 kWh</div><div class="muted">dimensionnement terrain</div></div>
+          <div class="k"><div class="muted">Autonomie / stockage</div><div id="autonomyKpi" class="num">0</div><div class="muted">jours ou heures tampon</div></div>
+          <div class="k"><div class="muted">Durée de vie batterie</div><div id="lifeKpi" class="num">—</div><div class="muted">estimation réaliste chaud</div></div>
+        </div>
         <div style="margin-top:12px" class="battery-grid">
           <div class="result-card"><div class="label">Réservoir conseillé</div><div id="reservoirRec" class="value">0 m³</div><div class="small">Pour sécuriser l’irrigation</div></div>
           <div class="result-card"><div class="label">Diamètre câble PV / pompe</div><div id="wireNote" class="value">—</div><div class="small">Du champ solaire vers la pompe</div></div>
@@ -206,20 +401,54 @@ footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:re
         </div>
         <div class="pdf-note" style="margin-top:12px">Pour une étude plus fine, un relevé terrain, une vérification de la pompe et une validation du schéma hydraulique sont recommandés.</div>
       </div>
-      <div class="small-panel"><h3>Points de sécurité</h3><ul class="safety-list"><li><strong>Pompe :</strong> protection contre manque d’eau, surintensité et marche à sec.</li><li><strong>Électrique :</strong> sectionneur, fusibles, parafoudre et mise à la terre obligatoires.</li><li><strong>Hydraulique :</strong> clapet anti-retour, purge et contrôle des pertes de charge.</li><li><strong>Batterie :</strong> ventilation, bornes protégées et gestion de charge adaptée à la technologie.</li><li><strong>Exploitation :</strong> un bassin de réserve reste plus fiable qu’un stockage électrique seul.</li></ul></div>
+      <div class="small-panel">
+        <h3>Points de sécurité</h3>
+        <ul class="safety-list">
+          <li><strong>Pompe :</strong> protection contre manque d’eau, surintensité et marche à sec.</li>
+          <li><strong>Électrique :</strong> sectionneur, fusibles, parafoudre et mise à la terre obligatoires.</li>
+          <li><strong>Hydraulique :</strong> clapet anti-retour, purge et contrôle des pertes de charge.</li>
+          <li><strong>Batterie :</strong> ventilation, bornes protégées et gestion de charge adaptée à la technologie.</li>
+          <li><strong>Exploitation :</strong> un bassin de réserve reste plus fiable qu’un stockage électrique seul.</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
-<footer><div class="footer-company">GREENBRIDGE TECHNOLOGIES</div><div class="footer-contact"><div>© 2025 GreenBridge. Tous droits réservés.</div><div>Abidjan / Dakar — Afrique de l’Ouest</div><div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div></div></footer>
+
+<footer>
+  <div class="footer-company">GREENBRIDGE TECHNOLOGIES</div>
+  <div class="footer-contact">
+    <div>© 2025 GreenBridge. Tous droits réservés.</div>
+    <div>Abidjan / Dakar — Afrique de l’Ouest</div>
+    <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
+  </div>
+</footer>
+
 <div class="print-block" id="printBlock"></div>
+
 <script>
-const contactNumbers={abidjan:{display:'+225 07 07 07 07 07',tel:'+2250707070707',sun:4.5,temp:25},yamoussoukro:{display:'+225 07 07 07 07 07',tel:'+2250707070707',sun:5.5,temp:28},dakar:{display:'+221 77 00 00 00 00',tel:'+2217700000000',sun:6.5,temp:29}};
-const CROP_DEFAULTS_BY_COUNTRY={ci:{tomate:5.0,mais:4.5,riz:6.5,mangue:3.5,legume:5.5,palmier:4.0},sn:{tomate:6.0,mais:5.0,riz:7.5,mangue:3.8,legume:6.0,palmier:4.5}},CROP_GENERIC_DEFAULT=5.0;
+const contactNumbers={
+  abidjan:{display:'+225 07 07 07 07 07',tel:'+2250707070707',sun:4.5,temp:25},
+  yamoussoukro:{display:'+225 07 07 07 07 07',tel:'+2250707070707',sun:5.5,temp:28},
+  dakar:{display:'+221 77 00 00 00 00',tel:'+2217700000000',sun:6.5,temp:29}
+};
+const CROP_DEFAULTS_BY_COUNTRY={
+  ci:{tomate:5.0,oignon:4.2,piment:4.8,gombo:4.0,aubergine:4.4,laitue:3.5,chou:4.0,carotte:4.0,manioc:3.5,mais:5.0,riz:6.5,haricot:4.0,arachide:4.0,banane:6.0,patate_douce:4.5},
+  sn:{tomate:5.8,oignon:4.5,piment:5.0,gombo:4.2,aubergine:4.5,laitue:3.8,chou:4.2,carotte:4.2,manioc:3.8,mais:5.5,riz:7.2,haricot:4.2,arachide:4.2,banane:6.2,patate_douce:4.8}
+};
+const CROP_GENERIC_DEFAULT=5.0;
 const SOURCE_HEAD_BONUS={bassin:0,puits:3,forage:6,riviere:2};
-const STANDARD_PUMP_KW=[0.3,0.5,0.75,1.1,1.5,2.2,3,4,5.5,7.5,10],STANDARD_INVERTERS=[300,500,1000,1200,1500,2000,3000,5000],STANDARD_CABLES=[4,6,10,16,25,35,50,70],STANDARD_PIPES=[{d:32,maxQ:3.5},{d:40,maxQ:6},{d:50,maxQ:12},{d:63,maxQ:20},{d:75,maxQ:35},{d:90,maxQ:55},{d:110,maxQ:90}];
-const batteryTechMap={lifepo4:{name:'LiFePO4',usableDoD:0.90,packKwh:5.12,lifeYearsHot:'6 à 8 ans'},gel:{name:'GEL',usableDoD:0.50,packKwh:4.80,lifeYearsHot:'3 à 5 ans'},plomb:{name:'Plomb ouvert',usableDoD:0.40,packKwh:4.80,lifeYearsHot:'2 à 3 ans'}};
-const SUGGESTED=[{label:'Éclairage LED (hangar/serre)',power:100,hours:6},{label:'Réfrigérateur / chambre froide',power:200,hours:8},{label:'Recharge téléphones (borne)',power:80,hours:6},{label:'Ventilateurs / aération',power:150,hours:8},{label:'Pompe annexe',power:1500,hours:1},{label:'Atelier / transformation',power:1200,hours:4},{label:'Moulin / broyeur',power:1500,hours:1}];
+const STANDARD_PUMP_KW=[0.3,0.37,0.5,0.55,0.75,1.1,1.5,2.2,3,4,5,5.5,7];
+const STANDARD_INVERTERS=[300,500,800,1000,1200,1500,2000,3000,5000];
+const STANDARD_CABLES=[4,6,10,16,25,35,50,70];
+const STANDARD_PIPES=[{d:32,maxQ:3.5},{d:40,maxQ:6},{d:50,maxQ:12},{d:63,maxQ:20},{d:75,maxQ:35},{d:90,maxQ:55},{d:110,maxQ:90}];
+const batteryTechMap={
+  lifepo4:{name:'LiFePO4',usableDoD:0.90,packKwh:5.12,lifeYearsHot:'6 à 8 ans'},
+  gel:{name:'GEL',usableDoD:0.50,packKwh:4.80,lifeYearsHot:'3 à 5 ans'},
+  plomb:{name:'Plomb ouvert',usableDoD:0.40,packKwh:4.80,lifeYearsHot:'2 à 3 ans'}
+};
 let consumers=[],lastSnapshot=null,activeMode='pump';
+
 const topPhoneLink=document.getElementById('topPhoneLink'),topPhoneText=document.getElementById('topPhoneText'),mobilePhoneLink=document.getElementById('mobilePhoneLink'),footerPhoneText=document.getElementById('footerPhoneText');
 const burgerBtn=document.getElementById('burgerBtn'),mobileNav=document.getElementById('mobileNav'),mobileBackdrop=document.getElementById('mobileBackdrop'),mobileCloseBtn=document.getElementById('mobileCloseBtn');
 const locationPill=document.getElementById('locationPill'),sourcePill=document.getElementById('sourcePill'),sunPill=document.getElementById('sunPill'),tempPill=document.getElementById('tempPill');
@@ -240,9 +469,18 @@ function populateCities(zone){
   if(zone==='ci'){
     cityEl.appendChild(new Option("Abidjan",'abidjan'));
     cityEl.appendChild(new Option("Yamoussoukro",'yamoussoukro'));
+    cityEl.appendChild(new Option("Bouaké",'bouake'));
+    cityEl.appendChild(new Option("Korhogo",'korhogo'));
+    cityEl.appendChild(new Option("San Pedro",'san_pedro'));
+    cityEl.appendChild(new Option("Daloa",'daloa'));
     cityEl.value='abidjan';
   }else{
     cityEl.appendChild(new Option("Dakar",'dakar'));
+    cityEl.appendChild(new Option("Thiès",'thies'));
+    cityEl.appendChild(new Option("Saint-Louis",'saint_louis'));
+    cityEl.appendChild(new Option("Kaolack",'kaolack'));
+    cityEl.appendChild(new Option("Touba",'touba'));
+    cityEl.appendChild(new Option("Ziguinchor",'ziguinchor'));
     cityEl.value='dakar';
   }
   updateLocationPills();
@@ -251,7 +489,8 @@ function populateCities(zone){
 
 function updateLocationPills(){
   const loc=contactNumbers[cityEl.value]||contactNumbers.abidjan;
-  locationPill.innerHTML='<i class="fas fa-sun"></i> '+(cityEl.value==='dakar'?'Dakar':cityEl.value==='yamoussoukro'?'Yamoussoukro':'Abidjan');
+  const nameMap={dakar:'Dakar',yamoussoukro:'Yamoussoukro',abidjan:'Abidjan',bouake:'Bouaké',korhogo:'Korhogo',san_pedro:'San Pedro',daloa:'Daloa',thies:'Thiès',saint_louis:'Saint-Louis',kaolack:'Kaolack',touba:'Touba',ziguinchor:'Ziguinchor'};
+  locationPill.innerHTML='<i class="fas fa-sun"></i> '+(nameMap[cityEl.value]||'Abidjan');
   sunPill.innerHTML='<i class="fas fa-cloud-sun"></i> '+loc.sun+' h équiv.';
   tempPill.innerHTML='<i class="fas fa-temperature-high"></i> '+loc.temp+' °C';
   if(topPhoneLink)topPhoneLink.href='tel:'+loc.tel;
@@ -261,10 +500,11 @@ function updateLocationPills(){
 }
 
 function updateNeedMmForCountryAndCrop(){
-  const country=countryEl.value||'ci',crop=cropEl.value||'tomate';
+  const country=countryEl.value||'ci';
+  const crop=cropEl.value||'tomate';
   if(crop==='custom')return;
   const d=CROP_DEFAULTS_BY_COUNTRY[country]||{};
-  needMmEl.value=(typeof d[crop]==='number')?d[crop]:CROP_GENERIC_DEFAULT;
+  needMmEl.value=(typeof d[crop]==='number')?d[crop]:CROP_GENERIC_DEFAULT
 }
 
 function sourceName(v){return({bassin:'Bassin de réserve',puits:'Puits',forage:'Forage',riviere:'Rivière / canal'})[v]||'Bassin de réserve'}
@@ -286,16 +526,49 @@ function populateCrops(){
 
 function populatePumpPresets(){
   if(!pumpPresetEl)return;
-  pumpPresetEl.innerHTML=`<option value="auto">Choix automatique</option><option value="p037">0,37 kW — petit débit</option><option value="p055">0,55 kW — petit/moyen débit</option><option value="p075">0,75 kW — moyen débit</option><option value="p11">1,1 kW — standard agricole</option><option value="p15">1,5 kW — standard renforcé</option><option value="p22">2,2 kW — débit élevé</option><option value="p30">3,0 kW — forte demande</option>`
+  pumpPresetEl.innerHTML=`<option value="auto">Choix automatique</option>
+  <option value="p037">0,37 kW — petit débit</option>
+  <option value="p055">0,55 kW — petit/moyen débit</option>
+  <option value="p075">0,75 kW — moyen débit</option>
+  <option value="p11">1,1 kW — standard agricole</option>
+  <option value="p15">1,5 kW — standard renforcé</option>
+  <option value="p22">2,2 kW — débit élevé</option>
+  <option value="p30">3,0 kW — forte demande</option>
+  <option value="p40">4,0 kW — fort débit</option>
+  <option value="p50">5,0 kW — très fort débit</option>
+  <option value="p60">6,0 kW — grande installation</option>
+  <option value="p70">7,0 kW — très grande installation</option>`
 }
 
 function getPumpPreset(){
-  if(!pumpPresetEl) return PUMP_PRESETS.auto;
+  if(!pumpPresetEl) return {name:'Choix automatique',powerKw:null,eff:null};
   const key=pumpPresetEl.value||'auto';
-  return PUMP_PRESETS[key]||PUMP_PRESETS.auto;
+  const map={
+    auto:{name:'Choix automatique',powerKw:null,eff:null},
+    p037:{name:'0,37 kW — petit débit',powerKw:0.37,eff:0.42},
+    p055:{name:'0,55 kW — petit/moyen débit',powerKw:0.55,eff:0.45},
+    p075:{name:'0,75 kW — moyen débit',powerKw:0.75,eff:0.48},
+    p11:{name:'1,1 kW — standard agricole',powerKw:1.1,eff:0.50},
+    p15:{name:'1,5 kW — standard renforcé',powerKw:1.5,eff:0.52},
+    p22:{name:'2,2 kW — débit élevé',powerKw:2.2,eff:0.55},
+    p30:{name:'3,0 kW — forte demande',powerKw:3.0,eff:0.56},
+    p40:{name:'4,0 kW — fort débit',powerKw:4.0,eff:0.58},
+    p50:{name:'5,0 kW — très fort débit',powerKw:5.0,eff:0.60},
+    p60:{name:'6,0 kW — grande installation',powerKw:6.0,eff:0.62},
+    p70:{name:'7,0 kW — très grande installation',powerKw:7.0,eff:0.63}
+  };
+  return map[key]||map.auto
 }
 
-function renderSuggestedPresets(){document.querySelectorAll('.preset').forEach(btn=>{btn.addEventListener('click',()=>{consumers.push({name:btn.dataset.name,power:Number(btn.dataset.power||0),hours:Number(btn.dataset.hours||0)});renderConsumers();computeAll()})})}
+function renderSuggestedPresets(){
+  document.querySelectorAll('.preset').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      consumers.push({name:btn.dataset.name,power:Number(btn.dataset.power||0),hours:Number(btn.dataset.hours||0)});
+      renderConsumers();
+      computeAll();
+    })
+  })
+}
 
 function renderConsumers(){
   if(!consumerList)return;
@@ -311,11 +584,32 @@ function renderConsumers(){
     consumerList.appendChild(el)
   });
   consumerList.querySelectorAll('.del').forEach(btn=>btn.addEventListener('click',e=>{const i=Number(e.target.dataset.idx);consumers.splice(i,1);renderConsumers();computeAll()}));
-  consumerList.querySelectorAll('.edit').forEach(btn=>btn.addEventListener('click',e=>{const i=Number(e.target.dataset.idx),c=consumers[i];const name=prompt('Nom',c.name);if(name===null)return;const power=Number(prompt('Puissance (W)',c.power));if(!isFinite(power)||power<=0)return alert('Puissance invalide');const hours=Number(prompt('Heures/j',c.hours));if(!isFinite(hours)||hours<=0)return alert('Heures invalides');consumers[i]={name,power,hours};renderConsumers();computeAll()}));
-  consumerList.querySelectorAll('.load-field').forEach(input=>input.addEventListener('input',e=>{const idx=Number(e.target.dataset.idx),field=e.target.dataset.field;if(field==='name')consumers[idx].name=e.target.value;if(field==='power')consumers[idx].power=Number(e.target.value||0);if(field==='hours')consumers[idx].hours=Number(e.target.value||0);renderConsumers();computeAll()}))
+  consumerList.querySelectorAll('.edit').forEach(btn=>btn.addEventListener('click',e=>{
+    const i=Number(e.target.dataset.idx),c=consumers[i];
+    const name=prompt('Nom',c.name);if(name===null)return;
+    const power=Number(prompt('Puissance (W)',c.power));if(!isFinite(power)||power<=0)return alert('Puissance invalide');
+    const hours=Number(prompt('Heures/j',c.hours));if(!isFinite(hours)||hours<=0)return alert('Heures invalides');
+    consumers[i]={name,power,hours};renderConsumers();computeAll()
+  }));
+  consumerList.querySelectorAll('.load-field').forEach(input=>input.addEventListener('input',e=>{
+    const idx=Number(e.target.dataset.idx),field=e.target.dataset.field;
+    if(field==='name')consumers[idx].name=e.target.value;
+    if(field==='power')consumers[idx].power=Number(e.target.value||0);
+    if(field==='hours')consumers[idx].hours=Number(e.target.value||0);
+    renderConsumers();
+    computeAll()
+  }))
 }
 
-function toggleMode(mode){activeMode=mode;tabPump.classList.toggle('active',mode==='pump');tabEnergy.classList.toggle('active',mode==='energy');pumpMode.style.display=mode==='pump'?'block':'none';energyMode.style.display=mode==='energy'?'block':'none';computeAll()}
+function toggleMode(mode){
+  activeMode=mode;
+  tabPump.classList.toggle('active',mode==='pump');
+  tabEnergy.classList.toggle('active',mode==='energy');
+  pumpMode.style.display=mode==='pump'?'block':'none';
+  energyMode.style.display=mode==='energy'?'block':'none';
+  computeAll()
+}
+
 function solarDerateForCity(city){const loc=contactNumbers[city]||contactNumbers.abidjan;return sourceThermalFactor(loc.temp)}
 function solarHoursForCity(city){return (contactNumbers[city]||contactNumbers.abidjan).sun}
 
@@ -391,9 +685,10 @@ function drawChart(city,solarCurve,loadCurve,batterySoc,yMax,extraLabel){
   ctx.beginPath();for(let h=0;h<24;h++){const x=xForHour(h),y=yForVal(solarCurve[h]||0);if(h===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.strokeStyle='#7cb342';ctx.lineWidth=3;ctx.stroke();
   ctx.beginPath();for(let h=0;h<24;h++){const x=xForHour(h),y=yForVal(loadCurve[h]||0);if(h===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.strokeStyle='#d4af37';ctx.lineWidth=3;ctx.stroke();
   if(batterySoc&&batterySoc.length){
+    const battMax=Math.max(...batterySoc,1);
     ctx.beginPath();
     for(let h=0;h<24;h++){
-      const x=xForHour(h),y=yForVal((batterySoc[h]/Math.max(...batterySoc,1))*maxVal);
+      const x=xForHour(h),y=yForVal((batterySoc[h]/battMax)*maxVal);
       if(h===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)
     }
     ctx.strokeStyle='#0b4d26';ctx.setLineDash([6,5]);ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([])
@@ -402,20 +697,27 @@ function drawChart(city,solarCurve,loadCurve,batterySoc,yMax,extraLabel){
 }
 
 function computeAll(){
+  if(!countryEl||!cityEl||!cropEl)return;
   const loc=contactNumbers[cityEl.value]||contactNumbers.abidjan;
   const sunH=solarHoursForCity(cityEl.value);
   const derate=solarDerateForCity(cityEl.value)*(Number(pvDerateEl.value||85)/100);
 
   const cropKey=String(cropEl.value||'tomate');
   if(cropKey!=='custom') updateNeedMmForCountryAndCrop();
-  const cropCfg=CROP_DB[cropKey] || CROP_DB.tomate;
+  const cropCfg=CROP_DEFAULTS_BY_COUNTRY[countryEl.value||'ci']?.[cropKey];
+  const needMm = cropKey==='custom' ? Number(needMmEl.value||0) : Number(needMmEl.value||cropCfg||CROP_GENERIC_DEFAULT);
 
   const areaHa=Number(areaHaEl.value||0);
-  const needMm=Number(needMmEl.value||cropCfg.needMm||0);
   const irrigDays=Math.max(1,Number(irrigDaysEl.value||1));
   const pumpHours=Math.max(0.1,Number(pumpHoursEl.value||1));
   const source=sourceTypeEl.value||'bassin';
-  const staticHead=Math.max(0,Number(staticHeadEl.value||0)),elev=Math.max(0,Number(elevationEl.value||0)),pipeDistance=Math.max(0,Number(pipeDistanceEl.value||0)),electricalDistance=Math.max(0,Number(electricalDistanceEl.value||0)),pumpEff=clamp(Number(pumpEffEl.value||55)/100,0.1,0.9),panelW=Math.max(10,Number(panelWEl.value||350)),reservoirDays=Math.max(0,Number(reservoirDaysEl.value||0));
+  const staticHead=Math.max(0,Number(staticHeadEl.value||0));
+  const elev=Math.max(0,Number(elevationEl.value||0));
+  const pipeDistance=Math.max(0,Number(pipeDistanceEl.value||0));
+  const electricalDistance=Math.max(0,Number(electricalDistanceEl.value||0));
+  const pumpEff=clamp(Number(pumpEffEl.value||55)/100,0.1,0.9);
+  const panelW=Math.max(10,Number(panelWEl.value||350));
+  const reservoirDays=Math.max(0,Number(reservoirDaysEl.value||0));
 
   const volumeDaily_m3=(areaHa*10000*needMm)/1000;
   const q_m3h=volumeDaily_m3/pumpHours;
@@ -439,12 +741,16 @@ function computeAll(){
   }
 
   const dailyKwhPump=pumpInputKw*pumpHours;
-  const dailyKwhTotal=activeMode==='pump'?dailyKwhPump:getAllLoads().reduce((s,l)=>s+((Number(l.power||0)*Number(l.hours||0))/1000),0);
+  const dailyKwhTotal=activeMode==='pump'
+    ? dailyKwhPump
+    : getAllLoads().reduce((s,l)=>s+((Number(l.power||0)*Number(l.hours||0))/1000),0);
+
   const pvKw=Math.max(0.1,dailyKwhTotal/Math.max(0.1,sunH*derate));
   const panels=Math.max(1,Math.ceil((pvKw*1000)/panelW));
 
   const batteryPack=batteryPackForTech(batteryTechEl.value);
   let batteryKwh=0,batteryPacks=0,inverterRec=0,batteryLife=batteryPack.lifeYearsHot;
+
   if(activeMode==='pump'){
     const bufferH=Math.max(0,Number(autonomyDaysEl.value||0));
     batteryKwh=bufferH>0?(pumpInputKw*bufferH)/batteryPack.usableDoD:0;
@@ -545,14 +851,6 @@ async function generatePDF(){
   }
 }
 
-/* =========================
-   IMPORTANT : garder tes fonctions UI existantes
-   openMenu, closeMenu, setupBurger, setupDesktopDropdowns,
-   updateActiveNav, setupBrilliance.
-   Si elles sont déjà dans ton fichier, ne les duplique pas.
-========================= */
-
-/* Si elles ne sont pas déjà présentes chez toi, garde seulement ces versions */
 function openMenu(){
   if(!mobileNav||!burgerBtn)return;
   mobileNav.classList.add('open');
@@ -619,8 +917,28 @@ function updateActiveNav(){
   const el=document.querySelector(sel);if(!el)return;
   el.classList.add('active');
   const inDropdown=el.closest('.dropdown-content');
-  if(inDropdown){const dropdown=el.closest('.dropdown');const parentLink=dropdown&&dropdown.querySelector('a[href="etude_dimensionnement_2.html"], a[href="produits.html"]');if(parentLink)parentLink.classList.add('active');el.classList.add('active-item')}
-  document.querySelectorAll('.mobile-nav a').forEach(a=>{try{if(a.getAttribute('href')===el.getAttribute('href')){a.classList.add('active');const parentSub=a.closest('.submenu');if(parentSub){parentSub.style.display='flex';const toggle=parentSub.previousElementSibling;if(toggle&&toggle.classList.contains('mobile-link')){toggle.classList.add('active');toggle.setAttribute('aria-expanded','true')}}}}catch(e){}})
+  if(inDropdown){
+    const dropdown=el.closest('.dropdown');
+    const parentLink=dropdown&&dropdown.querySelector('a[href="etude_dimensionnement_2.html"], a[href="produits.html"]');
+    if(parentLink)parentLink.classList.add('active');
+    el.classList.add('active-item')
+  }
+  document.querySelectorAll('.mobile-nav a').forEach(a=>{
+    try{
+      if(a.getAttribute('href')===el.getAttribute('href')){
+        a.classList.add('active');
+        const parentSub=a.closest('.submenu');
+        if(parentSub){
+          parentSub.style.display='flex';
+          const toggle=parentSub.previousElementSibling;
+          if(toggle&&toggle.classList.contains('mobile-link')){
+            toggle.classList.add('active');
+            toggle.setAttribute('aria-expanded','true')
+          }
+        }
+      }
+    }catch(e){}
+  })
 }
 function setupBrilliance(){
   const electricBand=document.getElementById('electricBand');if(!electricBand)return;
@@ -634,7 +952,11 @@ function setupBrilliance(){
     const time=(now-t0)/1000;
     const cont=electricBand.querySelector('.container');if(!cont){requestAnimationFrame(tick);return}
     const rect=cont.getBoundingClientRect(),cx=rect.width/2,cy=rect.height/2;
-    for(let i=0;i<orbs.length;i++){const orb=orbs[i];if(!orb)continue;const p=params[i],rx=Math.max(Math.min(rect.width*p.rxRatio,4000),120),ry=p.ry,angle=(time*p.speed*Math.PI*2)+p.phase,x=cx+Math.cos(angle)*rx,y=cy+Math.sin(angle)*ry;orb.style.left=x+'px';orb.style.top=y+'px';orb.style.transform='translate(-50%,-50%)'}
+    for(let i=0;i<orbs.length;i++){
+      const orb=orbs[i];if(!orb)continue;
+      const p=params[i],rx=Math.max(Math.min(rect.width*p.rxRatio,4000),120),ry=p.ry,angle=(time*p.speed*Math.PI*2)+p.phase,x=cx+Math.cos(angle)*rx,y=cy+Math.sin(angle)*ry;
+      orb.style.left=x+'px';orb.style.top=y+'px';orb.style.transform='translate(-50%,-50%)'
+    }
     requestAnimationFrame(tick)
   }
   requestAnimationFrame(tick);
@@ -680,6 +1002,7 @@ function setupBrilliance(){
   activate();
   window.addEventListener('resize',()=>{t0=performance.now()})
 }
+
 function setupEvents(){
   countryEl.addEventListener('change',()=>{populateCities(countryEl.value);updateNeedMmForCountryAndCrop();computeAll()});
   cityEl.addEventListener('change',()=>{updateLocationPills();computeAll()});
@@ -688,10 +1011,17 @@ function setupEvents(){
   if(pumpPresetEl)pumpPresetEl.addEventListener('change',computeAll);
   if(tabPump)tabPump.addEventListener('click',()=>toggleMode('pump'));
   if(tabEnergy)tabEnergy.addEventListener('click',()=>toggleMode('energy'));
-  addManual.addEventListener('click',()=>{const name=(consName.value||'').trim(),power=Number(consPower.value||0),hours=Number(consHours.value||0);if(!name||power<=0||hours<=0){alert('Nom, puissance et heures/j sont obligatoires.');return}consumers.push({name,power,hours});consName.value='';consPower.value='';consHours.value='';renderConsumers();computeAll()});
+  addManual.addEventListener('click',()=>{
+    const name=(consName.value||'').trim(),power=Number(consPower.value||0),hours=Number(consHours.value||0);
+    if(!name||power<=0||hours<=0){alert('Nom, puissance et heures/j sont obligatoires.');return}
+    consumers.push({name,power,hours});consName.value='';consPower.value='';consHours.value='';renderConsumers();computeAll()
+  });
   consumerList.addEventListener('click',e=>{const del=e.target.closest('.del');if(del){const i=Number(del.dataset.idx);consumers.splice(i,1);renderConsumers();computeAll()}});
   calcBtn.addEventListener('click',computeAll);
-  resetBtn.addEventListener('click',()=>{if(!confirm('Réinitialiser les champs aux valeurs par défaut ?'))return;countryEl.value='ci';populateCities('ci');cityEl.value='abidjan';cropEl.value='tomate';areaHaEl.value='0.5';needMmEl.value='5.5';irrigDaysEl.value='3';pumpHoursEl.value='4';sourceTypeEl.value='bassin';staticHeadEl.value='8';elevationEl.value='4';pipeDistanceEl.value='120';electricalDistanceEl.value='20';pipeMaterialEl.value='pehd';panelWEl.value='350';pumpEffEl.value='55';pvDerateEl.value='85';reservoirDaysEl.value='2';batteryTechEl.value='lifepo4';autonomyDaysEl.value='1';batteryPackKwhEl.value='5.12';inverterSizeEl.value='1000';if(pumpPresetEl)pumpPresetEl.value='auto';consumers=[];renderConsumers();toggleMode('pump');updateLocationPills();updateNeedMmForCountryAndCrop();computeAll()});
+  resetBtn.addEventListener('click',()=>{
+    if(!confirm('Réinitialiser les champs aux valeurs par défaut ?'))return;
+    countryEl.value='ci';populateCities('ci');cityEl.value='abidjan';cropEl.value='tomate';areaHaEl.value='0.5';needMmEl.value='5.0';irrigDaysEl.value='3';pumpHoursEl.value='4';sourceTypeEl.value='bassin';staticHeadEl.value='8';elevationEl.value='4';pipeDistanceEl.value='120';electricalDistanceEl.value='20';pipeMaterialEl.value='pehd';panelWEl.value='350';pumpEffEl.value='55';pvDerateEl.value='85';reservoirDaysEl.value='2';batteryTechEl.value='lifepo4';autonomyDaysEl.value='1';batteryPackKwhEl.value='5.12';inverterSizeEl.value='1000';if(pumpPresetEl)pumpPresetEl.value='auto';consumers=[];renderConsumers();toggleMode('pump');updateLocationPills();updateNeedMmForCountryAndCrop();computeAll()
+  });
   exportPdfBtn.addEventListener('click',generatePDF);
   sourceTypeEl.addEventListener('change',()=>{sourcePill.innerHTML='<i class="fas fa-water"></i> '+sourceName(sourceTypeEl.value);computeAll()});
   batteryTechEl.addEventListener('change',()=>{const tech=batteryPackForTech(batteryTechEl.value);batteryPackKwhEl.value=tech.packKwh;computeAll()});
@@ -700,7 +1030,6 @@ function setupEvents(){
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()})
 }
 
-/* init */
 updateLocationPills();
 populateCities('ci');
 populateCrops();
