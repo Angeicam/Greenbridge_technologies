@@ -832,7 +832,7 @@ nav a.active{
 }
 .consumer-fields{
   display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:8px;
   align-items:end;
 }
@@ -856,6 +856,7 @@ nav a.active{
   display:flex;
   align-items:end;
   justify-content:flex-end;
+  flex-wrap:wrap;
 }
 .note{
   font-size:12px;
@@ -1304,24 +1305,26 @@ footer::before{
   <section id="study" class="section" aria-label="Étude de dimensionnement">
     <h2>Étude de dimensionnement</h2>
     <p class="section-intro">
-      La ville choisie permet d’intégrer automatiquement l’ensoleillement interne.
-      Le client garde une utilisation simple, avec des résultats utiles pour un premier dimensionnement.
+      Le pays est sélectionné avant la ville pour adapter l’ensoleillement et les hypothèses de calcul.
+      Les charges de pièces restent réalistes et les ajouts d’équipements se font sans replier la fiche.
     </p>
 
     <div class="card-soft">
       <div class="calc" id="calcCard">
         <h3><span class="badge">Calculateur</span> Pré-dimensionnement simple et sérieux</h3>
         <div class="small-note">
-          Les pièces ne sont générées qu’au clic sur <strong>Générer pièces</strong>.
+          Les pièces sont générées uniquement au clic sur <strong>Générer pièces</strong>.
         </div>
 
         <div class="top-controls">
-          <label for="city">Ville :</label>
-          <select id="city" aria-label="Ville">
-            <option value="abidjan">Abidjan</option>
-            <option value="yamoussoukro">Yamoussoukro</option>
-            <option value="dakar">Dakar</option>
+          <label for="country">Pays :</label>
+          <select id="country" aria-label="Pays">
+            <option value="ci">Côte d’Ivoire</option>
+            <option value="sn">Sénégal</option>
           </select>
+
+          <label for="city">Ville :</label>
+          <select id="city" aria-label="Ville"></select>
 
           <label for="batteryType">Batterie :</label>
           <select id="batteryType" aria-label="Type de batterie">
@@ -1578,9 +1581,9 @@ footer::before{
         </div>
 
         <ul class="summary-list">
-          <li><strong>Étude simple :</strong> le client choisit la ville, le type de batterie et le nombre de packs.</li>
+          <li><strong>Étude simple :</strong> le client choisit le pays, la ville, le type de batterie et le nombre de packs.</li>
           <li><strong>Étude pro :</strong> les paramètres techniques internes restent masqués pour garder une lecture claire.</li>
-          <li><strong>Zone Afrique :</strong> Abidjan, Yamoussoukro et Dakar sont intégrés avec des hypothèses adaptées.</li>
+          <li><strong>Afrique de l’Ouest :</strong> Côte d’Ivoire et Sénégal sont intégrés avec des hypothèses adaptées par ville.</li>
         </ul>
       </div>
 
@@ -1632,10 +1635,38 @@ const CONTACT_NUMBER = {
   dakar: { display:'+221 77 00 00 00 00', tel:'+2217700000000' }
 };
 
-const SUN_HOURS_BY_CITY = {
-  abidjan: 4.5,
-  yamoussoukro: 5.5,
-  dakar: 6.5
+const COUNTRY_CITIES = {
+  ci: [
+    { value:'abidjan', label:'Abidjan', sun:4.5 },
+    { value:'yamoussoukro', label:'Yamoussoukro', sun:5.5 },
+    { value:'bouake', label:'Bouaké', sun:5.3 },
+    { value:'korhogo', label:'Korhogo', sun:5.7 },
+    { value:'san_pedro', label:'San Pedro', sun:4.8 },
+    { value:'daloa', label:'Daloa', sun:5.1 }
+  ],
+  sn: [
+    { value:'dakar', label:'Dakar', sun:6.5 },
+    { value:'thies', label:'Thiès', sun:6.2 },
+    { value:'saint_louis', label:'Saint-Louis', sun:6.7 },
+    { value:'kaolack', label:'Kaolack', sun:6.3 },
+    { value:'touba', label:'Touba', sun:6.4 },
+    { value:'ziguinchor', label:'Ziguinchor', sun:5.8 }
+  ]
+};
+
+const CITY_META = {
+  abidjan: { country:'ci', display:'Abidjan', sun:4.5, temp:27 },
+  yamoussoukro: { country:'ci', display:'Yamoussoukro', sun:5.5, temp:28 },
+  bouake: { country:'ci', display:'Bouaké', sun:5.3, temp:29 },
+  korhogo: { country:'ci', display:'Korhogo', sun:5.7, temp:31 },
+  san_pedro: { country:'ci', display:'San Pedro', sun:4.8, temp:27 },
+  daloa: { country:'ci', display:'Daloa', sun:5.1, temp:28 },
+  dakar: { country:'sn', display:'Dakar', sun:6.5, temp:29 },
+  thies: { country:'sn', display:'Thiès', sun:6.2, temp:30 },
+  saint_louis: { country:'sn', display:'Saint-Louis', sun:6.7, temp:28 },
+  kaolack: { country:'sn', display:'Kaolack', sun:6.3, temp:31 },
+  touba: { country:'sn', display:'Touba', sun:6.4, temp:30 },
+  ziguinchor: { country:'sn', display:'Ziguinchor', sun:5.8, temp:28 }
 };
 
 const BATTERY_TYPES = {
@@ -1649,30 +1680,32 @@ const STD_INVERTERS = [300, 500, 1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000
 
 const ROOM_TEMPLATES = {
   "Chambre":[
-    { name:"Éclairage LED", qty:4, powerW:12, hours:5, factor:1 },
-    { name:"Ventilation", qty:1, powerW:45, hours:8, factor:1 },
-    { name:"Prises", qty:2, powerW:100, hours:3, factor:0.6 }
+    { name:"Éclairage LED", qty:1, powerW:12, hours:5 },
+    { name:"Ventilation", qty:1, powerW:45, hours:8 },
+    { name:"Recharge téléphone", qty:1, powerW:10, hours:2 }
   ],
   "Salon":[
-    { name:"Éclairage LED", qty:3, powerW:12, hours:6, factor:1 },
-    { name:"Téléviseur", qty:1, powerW:120, hours:4, factor:1 },
-    { name:"Décodeur", qty:1, powerW:10, hours:24, factor:1 }
+    { name:"Éclairage LED", qty:2, powerW:12, hours:6 },
+    { name:"Téléviseur", qty:1, powerW:120, hours:4 },
+    { name:"Décodeur", qty:1, powerW:10, hours:6 },
+    { name:"Ventilation", qty:1, powerW:45, hours:6 }
   ],
   "Cuisine":[
-    { name:"Éclairage LED", qty:2, powerW:12, hours:5, factor:1 },
-    { name:"Réfrigérateur", qty:1, powerW:150, hours:24, factor:0.35 },
-    { name:"Micro-ondes", qty:1, powerW:900, hours:0.2, factor:0.3 }
+    { name:"Éclairage LED", qty:1, powerW:12, hours:5 },
+    { name:"Réfrigérateur", qty:1, powerW:70, hours:24 },
+    { name:"Micro-ondes", qty:1, powerW:900, hours:0.15 },
+    { name:"Blender", qty:1, powerW:300, hours:0.1 }
   ],
   "Salle d'eau":[
-    { name:"Éclairage LED", qty:1, powerW:12, hours:4, factor:1 },
-    { name:"Ventilation", qty:1, powerW:50, hours:3, factor:1 }
+    { name:"Éclairage LED", qty:1, powerW:12, hours:4 },
+    { name:"Ventilation", qty:1, powerW:50, hours:3 }
   ],
   "Bureau":[
-    { name:"Éclairage LED", qty:2, powerW:12, hours:8, factor:1 },
-    { name:"Ordinateur", qty:1, powerW:90, hours:6, factor:1 }
+    { name:"Éclairage LED", qty:2, powerW:12, hours:8 },
+    { name:"Ordinateur", qty:1, powerW:90, hours:6 }
   ],
   "Toilette":[
-    { name:"Éclairage LED", qty:1, powerW:12, hours:3, factor:1 }
+    { name:"Éclairage LED", qty:1, powerW:12, hours:3 }
   ]
 };
 
@@ -1687,6 +1720,7 @@ const mobileCloseBtn = document.getElementById('mobileCloseBtn');
 const topPhoneLink = document.getElementById('topPhoneLink');
 const mobilePhoneLink = document.getElementById('mobilePhoneLink');
 
+const countryEl = document.getElementById('country');
 const cityEl = document.getElementById('city');
 const batteryTypeEl = document.getElementById('batteryType');
 const batteryPackCountEl = document.getElementById('batteryPackCount');
@@ -1744,11 +1778,13 @@ const summarySafety = document.getElementById('summarySafety');
 function fmt(n, dec = 2){
   return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 }
-function fcfa(n){
-  return Number(Math.round(n || 0)).toLocaleString('fr-FR') + ' FCFA';
-}
-function getSunHours(city){ return SUN_HOURS_BY_CITY[city] ?? 4.5; }
 function getBatteryProfile(type){ return BATTERY_TYPES[type] || BATTERY_TYPES.lithium_ion; }
+function getCityInfo(){
+  return CITY_META[cityEl.value] || CITY_META.abidjan;
+}
+function getSunHours(city){
+  return (CITY_META[city] && CITY_META[city].sun) || 4.5;
+}
 function pickStandardInverter(targetW){
   const value = Math.max(300, Number(targetW || 0));
   return STD_INVERTERS.find(v => v >= value) || STD_INVERTERS[STD_INVERTERS.length - 1];
@@ -1758,8 +1794,7 @@ function cloneLoads(loads){
     name:l.name || '',
     qty:Number(l.qty ?? 1),
     powerW:Number(l.powerW ?? 0),
-    hours:Number(l.hours ?? 0),
-    factor:Number(l.factor ?? 1)
+    hours:Number(l.hours ?? 0)
   }));
 }
 function uniqueRoomName(base){
@@ -1804,11 +1839,22 @@ function generateInitialRooms(){
   addRooms('Toilette', 'Toilette', Number(genToilets.value || 0), true);
 }
 function addLoad(roomIndex){
-  rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0, factor:1 });
+  rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0 });
   renderRooms();
+  const block = document.getElementById(`room-block-${roomIndex}`);
+  if(block) block.open = true;
   recalc();
 }
+function captureRoomOpenState(){
+  const state = {};
+  roomListEl.querySelectorAll('details.room').forEach((d, idx) => {
+    const room = rooms[idx];
+    if(room) state[room.id] = d.open;
+  });
+  return state;
+}
 function renderRooms(){
+  const openState = captureRoomOpenState();
   roomListEl.innerHTML = '';
   if(rooms.length === 0){
     roomListEl.innerHTML = '<div class="note" style="margin-top:10px;color:#6c7d6f">Aucune pièce générée pour le moment.</div>';
@@ -1816,15 +1862,19 @@ function renderRooms(){
   }
 
   rooms.forEach((room, roomIndex) => {
+    const roomTotalW = room.loads.reduce((s,l)=>s + Math.max(0, Number(l.qty||0)) * Math.max(0, Number(l.powerW||0)), 0);
+    const roomTotalKwh = room.loads.reduce((s,l)=>s + Math.max(0, Number(l.qty||0)) * Math.max(0, Number(l.powerW||0)) * Math.max(0, Number(l.hours||0)) / 1000, 0);
+
     const box = document.createElement('details');
     box.className = 'room';
     box.id = `room-block-${roomIndex}`;
+    box.open = openState[room.id] ?? (roomIndex === 0);
 
     const loadsHtml = room.loads.map((load, loadIndex) => `
       <div class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
         <div>
-          <strong>${room.type === 'Autre' ? 'Charge' : load.name || 'Charge'}</strong>
-          <div class="mini">Saisissez le nom, la puissance, la durée et le coefficient d’usage</div>
+          <strong>${load.name || 'Charge'}</strong>
+          <div class="mini">Saisissez le nom, la puissance et la durée d’utilisation réelle</div>
         </div>
 
         <div class="consumer-fields">
@@ -1840,9 +1890,6 @@ function renderRooms(){
           <label>h/j
             <input class="load-field" data-field="hours" type="number" min="0" step="0.1" value="${load.hours}">
           </label>
-          <label>Coef
-            <input class="load-field" data-field="factor" type="number" min="0" max="1" step="0.05" value="${load.factor}">
-          </label>
         </div>
 
         <div class="consumer-actions">
@@ -1856,6 +1903,7 @@ function renderRooms(){
         <div class="room-summary-title">
           ${room.name}
           <span>(${room.type})</span>
+          <span style="font-weight:800;color:#0b4d26">— ${fmt(roomTotalKwh,2)} kWh/j</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;color:#6c7d6f;font-size:12px;">
           <i class="fas fa-chevron-down"></i>
@@ -1868,6 +1916,9 @@ function renderRooms(){
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn-link btn-add-load" data-r="${roomIndex}" type="button">+ charge</button>
             <button class="btn-reset btn-remove-room" data-r="${roomIndex}" type="button">Suppr pièce</button>
+          </div>
+          <div class="badge-zone" style="color:#04462e;background:rgba(124,179,66,.08);border:1px solid rgba(124,179,66,.12)">
+            <i class="fas fa-bolt"></i> ${fmt(roomTotalW,0)} W — ${fmt(roomTotalKwh,2)} kWh/j
           </div>
         </div>
 
@@ -1895,7 +1946,7 @@ function onLoadChange(e){
   const field = target.dataset.field;
   let value = target.value;
 
-  if(['qty','powerW','hours','factor'].includes(field)){
+  if(['qty','powerW','hours'].includes(field)){
     value = Number(value || 0);
   }
   rooms[roomIndex].loads[loadIndex][field] = value;
@@ -1919,6 +1970,18 @@ function getSafetyPoints(){
     '5) Réserve d’exploitation et marge de sécurité recommandées.'
   ];
 }
+function roomDiversity(name){
+  const n = String(name || '').toLowerCase();
+  if(n.includes('éclairage') || n.includes('eclairage')) return 1.0;
+  if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv')) return 0.85;
+  if(n.includes('décodeur') || n.includes('decodeur') || n.includes('recharge')) return 1.0;
+  if(n.includes('ventilation') || n.includes('ventilateur')) return 0.95;
+  if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) return 0.35;
+  if(n.includes('micro')) return 0.30;
+  if(n.includes('blender')) return 0.30;
+  if(n.includes('ordinateur')) return 1.0;
+  return 1.0;
+}
 function compute(){
   const loads = getAllLoads();
   let installedPower = 0;
@@ -1929,12 +1992,11 @@ function compute(){
     const qty = Math.max(0, Number(load.qty || 0));
     const powerW = Math.max(0, Number(load.powerW || 0));
     const hours = Math.max(0, Number(load.hours || 0));
-    const factor = Math.max(0, Math.min(1, Number(load.factor || 0)));
-
     const totalPower = qty * powerW;
+
     installedPower += totalPower;
-    peakPower += totalPower * factor;
-    dailyWh += totalPower * hours * factor;
+    peakPower += totalPower * roomDiversity(load.name);
+    dailyWh += totalPower * hours;
   });
 
   const city = cityEl.value;
@@ -1947,10 +2009,10 @@ function compute(){
   const dailyKwh = dailyWh / 1000;
   const monthlyKwh = dailyKwh * 30;
 
-  const pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.85) : 0;
+  const pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
   const panelCountRec = Math.ceil((pvKwRec * 1000) / panelW);
 
-  const inverterNeed = pickStandardInverter(Math.max(peakPower * 1.25, installedPower * 0.8, 300));
+  const inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
 
   const batteryUsefulTotal = batteryPackCount * battPackKwh * batteryProfile.dod * batteryProfile.eff;
   const autonomyDays = dailyKwh > 0 ? (batteryUsefulTotal / dailyKwh) : 0;
@@ -2044,6 +2106,8 @@ function recalc(){
 
   lastCalcSnapshot = {
     timestamp:new Date().toLocaleString('fr-FR'),
+    country:countryEl.value,
+    countryLabel:countryEl.options[countryEl.selectedIndex]?.text || '',
     city:cityEl.value,
     cityLabel:cityEl.options[cityEl.selectedIndex]?.text || '',
     installedPower:r.installedPower,
@@ -2067,13 +2131,12 @@ function recalc(){
   };
 }
 
-function populateCities(){
+function populateCities(country){
   cityEl.innerHTML = '';
-  cityEl.appendChild(new Option('Abidjan', 'abidjan'));
-  cityEl.appendChild(new Option('Yamoussoukro', 'yamoussoukro'));
-  cityEl.appendChild(new Option('Dakar', 'dakar'));
+  const list = COUNTRY_CITIES[country] || COUNTRY_CITIES.ci;
+  list.forEach(c => cityEl.appendChild(new Option(c.label, c.value)));
+  cityEl.value = list[0].value;
 }
-
 function openMenu(){
   if(!mobileNav || !burgerBtn) return;
   mobileNav.classList.add('open');
@@ -2278,7 +2341,6 @@ function buildHourlyProfile(loads, dailyBatteryUsefulKwh){
     if(n.includes('ventilation') || n.includes('ventilateur')) return { start:12, hours:12 };
     if(n.includes('ordinateur') || n.includes('bureau')) return { start:8, hours:8 };
     if(n.includes('micro') || n.includes('cuisine')) return { start:12, hours:4 };
-    if(n.includes('pompe')) return { start:8, hours:10 };
     return { start:8, hours:12 };
   };
 
@@ -2286,8 +2348,7 @@ function buildHourlyProfile(loads, dailyBatteryUsefulKwh){
     const qty = Math.max(0, Number(load.qty || 0));
     const powerW = Math.max(0, Number(load.powerW || 0));
     const hours = Math.max(1, Math.round(Number(load.hours || 0) || 1));
-    const factor = Math.max(0, Math.min(1, Number(load.factor || 0)));
-    const activePower = qty * powerW * factor;
+    const activePower = qty * powerW;
     const w = getWindow(load.name);
 
     const span = Math.max(1, Math.min(24, hours));
@@ -2375,7 +2436,6 @@ async function generatePDF(){
         <td style="padding:8px;border:1px solid #eee;text-align:center">${l.qty}</td>
         <td style="padding:8px;border:1px solid #eee;text-align:center">${l.powerW} W</td>
         <td style="padding:8px;border:1px solid #eee;text-align:center">${l.hours} h/j</td>
-        <td style="padding:8px;border:1px solid #eee;text-align:center">${l.factor}</td>
       </tr>
     `).join('');
 
@@ -2401,7 +2461,7 @@ async function generatePDF(){
               </div>
             </div>
             <div style="text-align:right">
-              <div style="font-size:11px;color:#666;margin-top:6px">${s.cityLabel}</div>
+              <div style="font-size:11px;color:#666;margin-top:6px">${s.countryLabel} — ${s.cityLabel}</div>
             </div>
           </div>
 
@@ -2476,11 +2536,10 @@ async function generatePDF(){
                   <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th>
                   <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
                   <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
-                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Coef</th>
                 </tr>
               </thead>
               <tbody>
-                ${loadsRows || '<tr><td colspan="5" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune pièce générée</td></tr>'}
+                ${loadsRows || '<tr><td colspan="4" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune pièce générée</td></tr>'}
               </tbody>
             </table>
 
@@ -2585,6 +2644,8 @@ document.addEventListener('keydown', e => {
 generateBtn.addEventListener('click', generateInitialRooms);
 resetBtn.addEventListener('click', () => {
   if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
+  countryEl.value = 'ci';
+  populateCities('ci');
   cityEl.value = 'abidjan';
   batteryTypeEl.value = 'lithium_ion';
   batteryPackCountEl.value = 4;
@@ -2604,6 +2665,12 @@ resetBtn.addEventListener('click', () => {
 });
 exportPdfBtn.addEventListener('click', generatePDF);
 
+countryEl.addEventListener('change', () => {
+  populateCities(countryEl.value);
+  updatePhoneNumbers.state = countryEl.value === 'sn' ? 'dakar' : 'abidjan';
+  updatePhoneNumbers();
+  recalc();
+});
 cityEl.addEventListener('change', recalc);
 batteryTypeEl.addEventListener('change', recalc);
 batteryPackCountEl.addEventListener('input', recalc);
@@ -2618,7 +2685,12 @@ roomListEl.addEventListener('click', (e) => {
   const removeLoadBtn = e.target.closest('.btn-remove-load');
 
   if(addLoadBtn){
-    addLoad(Number(addLoadBtn.dataset.r));
+    e.preventDefault();
+    e.stopPropagation();
+    const roomIndex = Number(addLoadBtn.dataset.r);
+    addLoad(roomIndex);
+    const block = document.getElementById(`room-block-${roomIndex}`);
+    if(block) block.open = true;
     return;
   }
   if(removeRoomBtn){
@@ -2641,7 +2713,7 @@ roomListEl.addEventListener('click', (e) => {
 
 function initializePage(){
   updatePhoneNumbers();
-  populateCities();
+  populateCities(countryEl.value);
   rooms = [];
   roomCounter = 0;
   renderRooms();
