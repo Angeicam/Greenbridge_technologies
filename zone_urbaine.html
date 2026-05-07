@@ -7,7 +7,6 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -131,7 +130,6 @@ header{
   -webkit-text-stroke:0.4px rgba(212,175,55,.55);
   white-space:nowrap;
 }
-
 nav{display:flex;gap:18px;align-items:center}
 nav a{
   color:#fff;
@@ -420,7 +418,7 @@ nav a.active{
   min-height:44px;
 }
 
-/* Boules d’énergie */
+/* énergie */
 .electric-band{
   position:fixed;
   top:calc(var(--topbar-h) + var(--header-h) - 6px);
@@ -749,6 +747,165 @@ nav a.active{
   .mode-hint{margin-left:0}
 }
 
+.beginner-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+@media (max-width:1100px){.beginner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.beginner-grid{grid-template-columns:1fr}}
+
+.beginner-profile{
+  margin-top:12px;
+  padding:14px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#f7fff6,#f0fff1);
+  border:1px solid #e6f7ea;
+}
+.beginner-profile .profile-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-bottom:10px;
+}
+.beginner-profile .profile-head strong{
+  color:#04462e;
+  font-size:14px;
+}
+.beginner-profile .profile-head span{
+  color:#6c7d6f;
+  font-size:12px;
+}
+.quick-card{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:#fff;
+  border:1px solid #e3efe4;
+  border-radius:14px;
+  padding:12px;
+  box-shadow:0 8px 18px rgba(0,0,0,.05);
+}
+.quick-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:flex-start;
+}
+.quick-left{
+  display:flex;
+  gap:10px;
+  min-width:0;
+  align-items:flex-start;
+}
+.quick-check{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:800;
+  color:#04462e;
+  min-width:0;
+}
+.quick-check input{transform:scale(1.1)}
+.quick-icon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:#f2f7f2;
+  border:1px solid #e2ece2;
+  color:#04462e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+}
+.quick-icon i{font-size:14px}
+.quick-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#f2f7f2;
+  border:1px solid #e2ece2;
+  color:#04462e;
+  font-weight:800;
+  font-size:12px;
+  white-space:nowrap;
+}
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+.quick-field{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.quick-field label{
+  font-size:12px;
+  font-weight:700;
+  color:#6b7f6b;
+}
+.quick-field input{
+  width:100%;
+  padding:9px 10px;
+  border-radius:10px;
+  border:1px solid #dfe7df;
+  background:#fff;
+  color:#072012;
+}
+.quick-field small{
+  font-size:11px;
+  color:#6b7f6b;
+}
+.quick-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.quick-custom{
+  margin-top:12px;
+  padding:12px;
+  border-radius:14px;
+  border:1px dashed #d8e8d8;
+  background:#fbfffb;
+}
+.quick-custom-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr auto;
+  gap:8px;
+  align-items:end;
+}
+.quick-custom-grid .control-field label{
+  font-size:12px;
+}
+@media (max-width:1100px){
+  .quick-custom-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .quick-custom-grid{grid-template-columns:1fr}
+  .quick-grid{grid-template-columns:1fr}
+}
+
+.expert-panel{
+  margin-top:12px;
+  padding:12px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#f7fff6,#f0fff1);
+  border:1px solid #e6f7ea;
+}
+.expert-toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:end;
+}
+.expert-toolbar .control-field{min-width:180px}
 .generator{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
@@ -793,37 +950,6 @@ nav a.active{
 }
 @media (max-width:900px){.generator{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.generator{grid-template-columns:1fr}}
-
-.beginner-profile{
-  margin-top:12px;
-  padding:14px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#f7fff6,#f0fff1);
-  border:1px solid #e6f7ea;
-}
-.beginner-profile .profile-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-  margin-bottom:10px;
-}
-.beginner-profile .profile-head strong{
-  color:#04462e;
-  font-size:14px;
-}
-.beginner-profile .profile-head span{
-  color:#6c7d6f;
-  font-size:12px;
-}
-.beginner-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-}
-@media (max-width:1100px){.beginner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.beginner-grid{grid-template-columns:1fr}}
 
 .room-list{
   display:flex;
@@ -1296,34 +1422,13 @@ footer::before{
 
   <nav aria-label="Menu principal">
     <a href="Code1.html">Accueil</a>
-
-    <div class="dropdown" aria-haspopup="true" aria-expanded="true" id="studyDropdown">
-      <a href="etude_dimensionnement_2.html" id="studyLink" class="active" data-current="🏙️ Zone urbaine">
-        Étude <span class="sub-badge">🏙️ Zone urbaine</span>
-      </a>
-      <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="studyDropdownContent">
-        <li><a href="zone_urbaine.html" role="menuitem" class="active-item" aria-current="page">🏙️ Zone Urbaine</a></li>
-        <li><a href="zone_agricole.html" role="menuitem">🌾 Zone Agricole</a></li>
-      </ul>
-    </div>
-
-    <div class="dropdown" aria-haspopup="true" aria-expanded="false" id="productsDropdown">
-      <a href="produits.html" id="productsLink">Nos Produits</a>
-      <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="productsDropdownContent">
-        <li><a href="panneaux.html" role="menuitem">⚡ Panneaux solaires</a></li>
-        <li><a href="batteries.html" role="menuitem">🔋 Batteries & stockage</a></li>
-        <li><a href="onduleurs.html" role="menuitem">🔌 Onduleurs</a></li>
-        <li><a href="groupes.html" role="menuitem">⚙️ Groupes électrogènes</a></li>
-      </ul>
-    </div>
-
+    <a href="#study" class="active">Étude</a>
     <a href="Projets.html">Projets futurs</a>
     <a href="maintenance.html">Maintenance</a>
   </nav>
 </header>
 
 <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
-
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="mobile-panel">
     <button class="mobile-close" id="mobileCloseBtn" aria-label="Fermer le menu">×</button>
@@ -1334,29 +1439,7 @@ footer::before{
 
     <div class="menu-links">
       <a href="Code1.html" class="mobile-link">Accueil</a>
-
-      <div>
-        <a href="etude_dimensionnement_2.html" id="mobileStudyToggle" class="mobile-link active" data-current="🏙️ Zone urbaine" aria-expanded="true">
-          Étude <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-        </a>
-        <div class="submenu" id="mobileStudySub" style="display:flex;">
-          <a href="zone_urbaine.html" class="active-item" aria-current="page">🏙️ Zone Urbaine</a>
-          <a href="zone_agricole.html">🌾 Zone Agricole</a>
-        </div>
-      </div>
-
-      <div>
-        <a href="produits.html" id="mobileProductsToggle" class="mobile-link" aria-expanded="false">
-          Nos Produits <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-        </a>
-        <div class="submenu" id="mobileProductsSub">
-          <a href="panneaux.html">⚡ Panneaux solaires</a>
-          <a href="batteries.html">🔋 Batteries & stockage</a>
-          <a href="onduleurs.html">🔌 Onduleurs</a>
-          <a href="groupes.html">⚙️ Groupes électrogènes</a>
-        </div>
-      </div>
-
+      <a href="#study" class="mobile-link">Étude</a>
       <a href="Projets.html" class="mobile-link">Projets futurs</a>
       <a href="maintenance.html" class="mobile-link">Maintenance</a>
     </div>
@@ -1415,15 +1498,15 @@ footer::before{
   <section id="study" class="section" aria-label="Étude de dimensionnement">
     <h2>Étude de dimensionnement</h2>
     <p class="section-intro">
-      Deux parcours sont proposés : le mode <strong>Débutant</strong> pour entrer simplement les équipements d’une maison,
-      et le mode <strong>Expert</strong> pour régler chaque détail technique.
+      Deux parcours sont proposés : le mode <strong>Débutant</strong> pour aller très vite avec des cases simples,
+      et le mode <strong>Expert</strong> pour une étude technique plus poussée.
     </p>
 
     <div class="card-soft">
       <div class="calc" id="calcCard">
-        <h3><span class="badge">Calculateur</span> Dimensionnement solaire simple et clair</h3>
+        <h3><span class="badge">Calculateur</span> Dimensionnement solaire clair</h3>
         <div class="small-note">
-          En mode débutant, vous entrez seulement les équipements. En mode expert, vous gardez le contrôle sur les panneaux, batteries et onduleur.
+          En mode débutant, l’interface est simplifiée. En mode expert, chaque paramètre redevient détaillé.
         </div>
 
         <div class="mode-switch">
@@ -1455,56 +1538,43 @@ footer::before{
         <div class="beginner-only beginner-profile" id="beginnerProfile">
           <div class="profile-head">
             <strong><i class="fas fa-bolt"></i> Profil rapide de la maison</strong>
-            <span>Les résultats se calculent automatiquement</span>
+            <span>Vous cochez, vous ajustez, le résultat sort tout de suite</span>
           </div>
 
-          <div class="beginner-grid">
-            <div class="control-field">
-              <label for="bPhones">Téléphones</label>
-              <input id="bPhones" class="beginner-input" type="number" min="0" value="4">
-            </div>
-            <div class="control-field">
-              <label for="bTV">Téléviseurs</label>
-              <input id="bTV" class="beginner-input" type="number" min="0" value="1">
-            </div>
-            <div class="control-field">
-              <label for="bTVHours">Heures TV / jour</label>
-              <input id="bTVHours" class="beginner-input" type="number" min="0" step="0.1" value="4">
-            </div>
-            <div class="control-field">
-              <label for="bFans">Ventilateurs</label>
-              <input id="bFans" class="beginner-input" type="number" min="0" value="2">
-            </div>
-            <div class="control-field">
-              <label for="bFanHours">Heures ventilation / jour</label>
-              <input id="bFanHours" class="beginner-input" type="number" min="0" step="0.1" value="8">
-            </div>
-            <div class="control-field">
-              <label for="bLights">Lampes LED</label>
-              <input id="bLights" class="beginner-input" type="number" min="0" value="6">
-            </div>
-            <div class="control-field">
-              <label for="bLightHours">Heures éclairage / jour</label>
-              <input id="bLightHours" class="beginner-input" type="number" min="0" step="0.1" value="5">
-            </div>
-            <div class="control-field">
-              <label for="bFridges">Réfrigérateurs</label>
-              <input id="bFridges" class="beginner-input" type="number" min="0" value="1">
-            </div>
-            <div class="control-field">
-              <label for="bPCs">Ordinateurs</label>
-              <input id="bPCs" class="beginner-input" type="number" min="0" value="0">
+          <div id="beginnerList"></div>
+
+          <div class="quick-custom">
+            <div class="section-title" style="margin-bottom:10px"><i class="fas fa-plus"></i> Ajouter un équipement</div>
+            <div class="quick-custom-grid">
+              <div class="control-field">
+                <label for="customName">Nom</label>
+                <input id="customName" type="text" placeholder="Ex. Aspirateur">
+              </div>
+              <div class="control-field">
+                <label for="customPower">Puissance (W)</label>
+                <input id="customPower" type="number" min="0" value="500">
+              </div>
+              <div class="control-field">
+                <label for="customQty">Quantité</label>
+                <input id="customQty" type="number" min="0" value="1">
+              </div>
+              <div class="control-field">
+                <label for="customHours">Heures / jour</label>
+                <input id="customHours" type="number" min="0" step="0.1" value="1">
+              </div>
+              <button id="addCustomBeginnerBtn" class="btn-add" type="button">Ajouter</button>
             </div>
           </div>
 
           <div class="control-note">
-            Les valeurs sont des nombres d’équipements. Exemple : si vous avez 5 téléphones dans la maison, vous mettez 5.
+            Exemple : cochez “Téléphones”, mettez 5, puis ajustez les heures d’utilisation.
           </div>
         </div>
 
-        <div class="expert-only controls-section">
+        <div class="expert-only expert-panel" id="expertPanel">
           <div class="section-title"><i class="fas fa-sliders"></i> Réglages techniques</div>
-          <div class="control-grid">
+
+          <div class="expert-toolbar">
             <div class="control-field">
               <label for="batteryType">Batterie</label>
               <select id="batteryType" aria-label="Type de batterie">
@@ -1578,12 +1648,9 @@ footer::before{
               </select>
             </div>
           </div>
-          <div class="control-note">
-            Ces réglages apparaissent seulement en mode expert.
-          </div>
         </div>
 
-        <div class="expert-only generator" role="group" aria-label="Générateur rapide de pièces">
+        <div class="expert-only generator" id="expertGenerator" role="group" aria-label="Générateur rapide de pièces">
           <div class="gfield">
             <label>Chambres</label>
             <input type="number" id="genBedrooms" min="0" value="1">
@@ -1616,7 +1683,7 @@ footer::before{
             <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
           </div>
           <div class="hint">
-            Les pièces sont générées uniquement en mode expert.
+            L’étude expert permet d’ajouter des pièces, puis de détailler chaque charge pièce par pièce.
           </div>
         </div>
 
@@ -1628,7 +1695,6 @@ footer::before{
 
         <div style="margin-top:14px">
           <h4 style="margin:0 0 8px 0;color:#04462e">Résumé technique</h4>
-
           <div class="summary-grid">
             <div class="summary-card">
               <div class="label">Puissance installée</div>
@@ -1720,7 +1786,6 @@ footer::before{
 
   <section class="section">
     <h2>Pourquoi cette étude est utile ?</h2>
-
     <div class="two-cols">
       <div class="panel">
         <h3>Synthèse principale</h3>
@@ -1730,7 +1795,7 @@ footer::before{
 
         <div class="summary-grid">
           <div class="summary-card">
-            <div class="label">Pièces / profil</div>
+            <div class="label">Profil / pièces</div>
             <div id="summaryRooms" class="value">—</div>
             <div class="small">Maison rapide ou pièces détaillées.</div>
           </div>
@@ -1771,7 +1836,6 @@ footer::before{
         <div class="muted-note" style="margin-top:12px" id="summarySafety">—</div>
       </div>
     </div>
-
     <div style="height:24px"></div>
   </section>
 </div>
@@ -1819,6 +1883,16 @@ const STANDARD_PANEL_W = 350;
 const STANDARD_PACK_WH = 5000;
 const BEGINNER_TARGET_AUTONOMY_DAYS = 1.5;
 
+const BEGINNER_ITEMS = [
+  { id:'phones',  name:'Téléphones',   icon:'fa-mobile-screen-button', powerW:10,  qty:4, hours:2,  checked:true },
+  { id:'tv',      name:'Téléviseur',   icon:'fa-tv',                   powerW:120, qty:1, hours:4,  checked:true },
+  { id:'fans',    name:'Ventilateurs', icon:'fa-fan',                  powerW:45,  qty:2, hours:8,  checked:true },
+  { id:'lights',  name:'Lampes LED',   icon:'fa-lightbulb',            powerW:12,  qty:6, hours:5,  checked:true },
+  { id:'fridge',  name:'Réfrigérateur',icon:'fa-refrigerator',         powerW:70,  qty:1, hours:24, checked:true },
+  { id:'pc',      name:'Ordinateurs',  icon:'fa-laptop',               powerW:90,  qty:0, hours:6,  checked:false },
+  { id:'router',  name:'Wi-Fi / Box',  icon:'fa-wifi',                 powerW:12,  qty:1, hours:24, checked:true }
+];
+
 const ROOM_TEMPLATES = {
   "Chambre":[
     { name:"Téléphones", countLabel:"Téléphones", qty:1, powerW:10, hours:2, icon:"fa-mobile-screen-button" },
@@ -1859,10 +1933,22 @@ const ROOM_ICONS = {
   "Toilette":"fa-toilet"
 };
 
+const QUICK_ICONS = {
+  phones:'fa-mobile-screen-button',
+  tv:'fa-tv',
+  fans:'fa-fan',
+  lights:'fa-lightbulb',
+  fridge:'fa-refrigerator',
+  pc:'fa-laptop',
+  router:'fa-wifi'
+};
+
 function getRoomIcon(type){ return ROOM_ICONS[type] || "fa-house"; }
+function getQuickIconById(id){ return QUICK_ICONS[id] || "fa-plug"; }
 function getLoadIcon(load){ return load.icon || "fa-plug"; }
 
 let rooms = [];
+let beginnerItems = structuredClone(BEGINNER_ITEMS);
 let roomCounter = 0;
 let lastCalcSnapshot = null;
 
@@ -1887,17 +1973,13 @@ const battPackKwhEl = document.getElementById('battPackKwh');
 const panelWEl = document.getElementById('panelW');
 const cableSectionEl = document.getElementById('cableSection');
 
-const bPhones = document.getElementById('bPhones');
-const bTV = document.getElementById('bTV');
-const bTVHours = document.getElementById('bTVHours');
-const bFans = document.getElementById('bFans');
-const bFanHours = document.getElementById('bFanHours');
-const bLights = document.getElementById('bLights');
-const bLightHours = document.getElementById('bLightHours');
-const bFridges = document.getElementById('bFridges');
-const bPCs = document.getElementById('bPCs');
+const bListEl = document.getElementById('beginnerList');
+const customNameEl = document.getElementById('customName');
+const customPowerEl = document.getElementById('customPower');
+const customQtyEl = document.getElementById('customQty');
+const customHoursEl = document.getElementById('customHours');
+const addCustomBeginnerBtn = document.getElementById('addCustomBeginnerBtn');
 
-const roomListEl = document.getElementById('roomsList');
 const genBedrooms = document.getElementById('genBedrooms');
 const genLiving = document.getElementById('genLiving');
 const genKitchens = document.getElementById('genKitchens');
@@ -1924,6 +2006,10 @@ const summaryAutonomy = document.getElementById('summaryAutonomy');
 const summaryBatteries = document.getElementById('summaryBatteries');
 const summaryCable = document.getElementById('summaryCable');
 const safetyCard = document.getElementById('summarySafety');
+
+const expertPanel = document.getElementById('expertPanel');
+const expertGenerator = document.getElementById('expertGenerator');
+const beginnerProfile = document.getElementById('beginnerProfile');
 
 function fmt(n, dec = 2){
   const num = Number(n || 0);
@@ -1972,7 +2058,7 @@ function createRoom(type, baseName, withTemplate = true){
 }
 function captureRoomOpenState(){
   const state = {};
-  roomListEl.querySelectorAll('details.room-card').forEach((d, idx) => {
+  document.querySelectorAll('.room-card').forEach((d, idx) => {
     const room = rooms[idx];
     if(room) state[room.id] = d.open;
   });
@@ -2024,84 +2110,74 @@ function formatCableChoice(value, suggested){
 }
 function isBeginner(){ return studyModeEl.value === 'beginner'; }
 
-function buildBeginnerLoads(){
-  const phones = Math.max(0, Number(bPhones.value || 0));
-  const tvs = Math.max(0, Number(bTV.value || 0));
-  const tvHours = Math.max(0, Number(bTVHours.value || 0));
-  const fans = Math.max(0, Number(bFans.value || 0));
-  const fanHours = Math.max(0, Number(bFanHours.value || 0));
-  const lights = Math.max(0, Number(bLights.value || 0));
-  const lightHours = Math.max(0, Number(bLightHours.value || 0));
-  const fridges = Math.max(0, Number(bFridges.value || 0));
-  const pcs = Math.max(0, Number(bPCs.value || 0));
+function renderBeginnerItems(){
+  bListEl.innerHTML = '';
+  beginnerItems.forEach((item, idx) => {
+    const card = document.createElement('article');
+    card.className = 'quick-card';
+    card.innerHTML = `
+      <div class="quick-top">
+        <div class="quick-left">
+          <label class="quick-check">
+            <input type="checkbox" class="b-active" data-idx="${idx}" ${item.checked ? 'checked' : ''}>
+            <span>${escapeHtml(item.name)}</span>
+          </label>
+        </div>
+        <span class="quick-chip"><i class="fas ${getQuickIconById(item.id)}"></i> ${item.powerW} W</span>
+      </div>
 
-  const loads = [
-    { name:"Téléphones", countLabel:"Téléphones", qty:phones, powerW:10, hours:2, icon:"fa-mobile-screen-button" },
-    { name:"Téléviseurs", countLabel:"Téléviseurs", qty:tvs, powerW:120, hours:tvHours, icon:"fa-tv" },
-    { name:"Ventilateurs", countLabel:"Ventilateurs", qty:fans, powerW:45, hours:fanHours, icon:"fa-fan" },
-    { name:"Lampes LED", countLabel:"Lampes", qty:lights, powerW:12, hours:lightHours, icon:"fa-lightbulb" },
-    { name:"Réfrigérateurs", countLabel:"Réfrigérateurs", qty:fridges, powerW:70, hours:24, icon:"fa-refrigerator" },
-    { name:"Ordinateurs", countLabel:"Ordinateurs", qty:pcs, powerW:90, hours:6, icon:"fa-laptop" }
-  ];
-
-  return loads.filter(l => Number(l.qty || 0) > 0);
+      <div class="quick-grid">
+        <div class="quick-field">
+          <label>Quantité</label>
+          <input type="number" min="0" class="b-qty" data-idx="${idx}" value="${item.qty}">
+          <small>Nombre d’appareils</small>
+        </div>
+        <div class="quick-field">
+          <label>Temps / jour</label>
+          <input type="number" min="0" step="0.1" class="b-hours" data-idx="${idx}" value="${item.hours}">
+          <small>Heures d’utilisation</small>
+        </div>
+        <div class="quick-field">
+          <label>État</label>
+          <input type="text" value="${item.checked ? 'Pris en compte' : 'Ignoré'}" disabled>
+          <small>Cocher / décocher</small>
+        </div>
+      </div>
+      <div class="quick-actions">
+        <button type="button" class="btn-danger b-remove" data-idx="${idx}">Supprimer</button>
+      </div>
+    `;
+    bListEl.appendChild(card);
+  });
 }
 
 function renderBeginnerRoom(){
-  const loads = buildBeginnerLoads();
+  const loads = beginnerItems.filter(i => i.checked && Number(i.qty || 0) > 0);
   if(!loads.length){
-    roomListEl.innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Ajoutez des équipements dans le profil rapide pour voir l’estimation.</div>';
+    bListEl.innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Cochez un équipement pour commencer l’estimation.</div>';
     return;
   }
-  const totalW = loads.reduce((s,l)=>s + Number(l.qty||0) * Number(l.powerW||0), 0);
-  const totalKwh = loads.reduce((s,l)=>s + Number(l.qty||0) * Number(l.powerW||0) * Number(l.hours||0) / 1000, 0);
+  renderBeginnerItems();
+}
 
-  const lines = loads.map(l => {
-    const kwh = Number(l.qty||0) * Number(l.powerW||0) * Number(l.hours||0) / 1000;
-    return `
-      <div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #eef3ee;flex-wrap:wrap">
-        <div style="display:flex;gap:10px;min-width:0;align-items:flex-start">
-          <span class="room-icon" style="width:36px;height:36px;border-radius:12px"><i class="fas ${getLoadIcon(l)}"></i></span>
-          <div>
-            <div style="font-weight:800;color:#04462e;white-space:normal;word-break:break-word">${escapeHtml(l.name)}</div>
-            <div style="font-size:12px;color:#6c7d6f">${l.qty} × ${l.powerW} W × ${l.hours} h/j</div>
-          </div>
-        </div>
-        <div class="room-chip">${fmt(kwh,2)} kWh/j</div>
-      </div>
-    `;
-  }).join('');
-
-  roomListEl.innerHTML = `
-    <details class="room-card" open>
-      <summary>
-        <div class="room-main">
-          <span class="room-icon"><i class="fas fa-house" aria-hidden="true"></i></span>
-          <div class="room-title-stack">
-            <div class="room-name">Maison — estimation rapide</div>
-            <div class="room-sub">${loads.length} équipement(s) pris en compte</div>
-          </div>
-        </div>
-        <div class="room-head-right">
-          <span class="room-chip">${fmt(totalW,0)} W</span>
-          <span class="room-chip">${fmt(totalKwh,2)} kWh/j</span>
-          <i class="fas fa-chevron-down" aria-hidden="true"></i>
-        </div>
-      </summary>
-      <div class="room-body">
-        <div class="consumer-list">
-          ${lines}
-        </div>
-      </div>
-    </details>
-  `;
+function beginnerToLoads(){
+  return beginnerItems
+    .filter(i => i.checked && Number(i.qty || 0) > 0)
+    .map(i => ({
+      name:i.name,
+      countLabel:i.name,
+      icon:i.icon,
+      qty:Number(i.qty || 0),
+      powerW:Number(i.powerW || 0),
+      hours:Number(i.hours || 0)
+    }));
 }
 
 function renderExpertRooms(){
   const openState = captureRoomOpenState();
-  roomListEl.innerHTML = '';
+  document.getElementById('roomsList').innerHTML = '';
   if(rooms.length === 0){
-    roomListEl.innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Aucune pièce générée pour le moment.</div>';
+    document.getElementById('roomsList').innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Aucune pièce générée pour le moment.</div>';
     return;
   }
 
@@ -2181,43 +2257,17 @@ function renderExpertRooms(){
         </div>
       </div>
     `;
-    roomListEl.appendChild(box);
+    document.getElementById('roomsList').appendChild(box);
   });
 }
 
 function renderRooms(){
-  if(isBeginner()) renderBeginnerRoom();
+  if(isBeginner()) renderBeginnerItems();
   else renderExpertRooms();
 }
 
-function onLoadChange(e){
-  const target = e.target;
-  if(!target.classList.contains('load-field')) return;
-  const consumer = target.closest('.consumer');
-  if(!consumer) return;
-
-  const roomIndex = Number(consumer.dataset.r);
-  const loadIndex = Number(consumer.dataset.l);
-  const field = target.dataset.field;
-  let value = target.value;
-
-  if(['qty','powerW','hours'].includes(field)) value = Number(value || 0);
-  rooms[roomIndex].loads[loadIndex][field] = value;
-  recalc();
-}
-
-function getExpertLoads(){
-  const list = [];
-  rooms.forEach((room, roomIndex) => {
-    room.loads.forEach((load, loadIndex) => {
-      list.push({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type });
-    });
-  });
-  return list;
-}
-
 function getCurrentLoads(){
-  return isBeginner() ? buildBeginnerLoads() : getExpertLoads();
+  return isBeginner() ? beginnerToLoads() : rooms.flatMap((room, roomIndex) => room.loads.map((load, loadIndex) => ({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type })));
 }
 
 function getSafetyPoints(){
@@ -2389,7 +2439,6 @@ function drawChart(solarCurve, loadCurveArr, batterySoc, yMax, extraLabel){
 
 function chooseBatteryTypeForBeginner(dailyKwh){
   if(dailyKwh <= 1.2) return BATTERY_TYPES.lithium_ion;
-  if(dailyKwh <= 4.0) return BATTERY_TYPES.lifepo4;
   return BATTERY_TYPES.lifepo4;
 }
 
@@ -2413,31 +2462,17 @@ function recalc(){
 
   const city = cityEl.value;
   const sunHours = getSunHours(city);
-
   const dailyKwh = dailyWh / 1000;
   const monthlyKwh = dailyKwh * 30;
 
-  let batteryProfile;
-  let batteryPackCount;
-  let battPackWh;
-  let panelW;
-  let selectedCable;
-  let pvKwRec;
-  let panelCountRec;
-  let inverterNeed;
-  let batteryUsefulTotal;
-  let autonomyDays;
-  let cableSuggested;
-  let cableFinal;
-  let batteryLabel;
+  let batteryProfile, batteryPackCount, battPackWh, panelW, selectedCable, pvKwRec, panelCountRec, inverterNeed, batteryUsefulTotal, autonomyDays, cableSuggested, cableFinal, batteryLabel;
 
   if(isBeginner()){
     batteryProfile = chooseBatteryTypeForBeginner(dailyKwh);
-    batteryPackCount = Math.max(1, Math.ceil((dailyKwh * BEGINNER_TARGET_AUTONOMY_DAYS) / (STANDARD_PACK_WH/1000 * batteryProfile.dod * batteryProfile.eff)));
     battPackWh = STANDARD_PACK_WH;
+    batteryPackCount = Math.max(1, Math.ceil((dailyKwh * BEGINNER_TARGET_AUTONOMY_DAYS) / ((battPackWh/1000) * batteryProfile.dod * batteryProfile.eff)));
     panelW = STANDARD_PANEL_W;
     selectedCable = 'auto';
-
     pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
     panelCountRec = Math.max(0, Math.ceil((pvKwRec * 1000) / panelW));
     inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
@@ -2452,7 +2487,6 @@ function recalc(){
     battPackWh = Math.max(500, Number(battPackKwhEl.value || 5000));
     panelW = Math.max(50, Number(panelWEl.value || 350));
     selectedCable = cableSectionEl.value;
-
     pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
     panelCountRec = Math.max(0, Math.ceil((pvKwRec * 1000) / panelW));
     inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
@@ -2463,16 +2497,12 @@ function recalc(){
     batteryLabel = batteryProfile.label;
   }
 
+  powerInstalledCard.innerText = hasLoads ? `${Math.round(installedPower)} W` : '—';
   consDayCard.innerText = hasLoads ? `${fmt(dailyKwh,2)} kWh` : '—';
   consMonthCard.innerText = hasLoads ? `${fmt(monthlyKwh,2)} kWh` : '—';
-  powerInstalledCard.innerText = hasLoads ? `${Math.round(installedPower)} W` : '—';
   inverterRecCard.innerText = hasLoads ? `${inverterNeed} W` : '—';
   pvRecCard.innerText = hasLoads ? `${fmt(pvKwRec,2)} kWc` : '—';
-  batteryRecCard.innerText = hasLoads
-    ? isBeginner()
-      ? `${fmt(batteryUsefulTotal,2)} kWh`
-      : `${fmt(batteryUsefulTotal,2)} kWh`
-    : '—';
+  batteryRecCard.innerText = hasLoads ? `${fmt(batteryUsefulTotal,2)} kWh` : '—';
   autonomyCard.innerText = hasLoads ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''}` : '—';
   panelCountCard.innerText = hasLoads ? `${panelCountRec}` : '—';
   batteryTypeOutEl.innerText = batteryLabel;
@@ -2492,18 +2522,10 @@ function recalc(){
     summaryBatteries.innerText = hasLoads ? `${batteryPackCount} pack(s) de 5 kWh environ` : '—';
     summaryCable.innerText = hasLoads ? `${fmt(cableSuggested,1)} mm² conseillé` : '—';
   }else{
-    summaryRooms.innerText = hasLoads
-      ? `${rooms.length} pièce(s) avec ${loads.length} charge(s).`
-      : 'Aucune pièce générée pour le moment.';
-    summaryAutonomy.innerText = hasLoads
-      ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''} avec ${batteryPackCount} pack(s).`
-      : '—';
-    summaryBatteries.innerText = hasLoads
-      ? `${batteryPackCount} pack(s), soit ${fmt(batteryUsefulTotal,2)} kWh utile totale. Durée de vie : ${batteryProfile.lifeLabel}.`
-      : '—';
-    summaryCable.innerText = hasLoads
-      ? `${isBeginner() ? 'Auto' : (cableSectionEl.value === 'auto' ? 'Auto' : `${fmt(Number(cableSectionEl.value),1)} mm²`)} → ${fmt(cableSuggested,1)} mm² conseillé`
-      : '—';
+    summaryRooms.innerText = hasLoads ? `${rooms.length} pièce(s) avec ${loads.length} charge(s).` : 'Aucune pièce générée pour le moment.';
+    summaryAutonomy.innerText = hasLoads ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''} avec ${batteryPackCount} pack(s).` : '—';
+    summaryBatteries.innerText = hasLoads ? `${batteryPackCount} pack(s), soit ${fmt(batteryUsefulTotal,2)} kWh utile totale. Durée de vie : ${batteryProfile.lifeLabel}.` : '—';
+    summaryCable.innerText = hasLoads ? `${isBeginner() ? 'Auto' : (cableSectionEl.value === 'auto' ? 'Auto' : `${fmt(Number(cableSectionEl.value),1)} mm²`)} → ${fmt(cableSuggested,1)} mm² conseillé` : '—';
   }
 
   lastCalcSnapshot = {
@@ -2535,7 +2557,6 @@ function recalc(){
     safetyPoints:getSafetyPoints(),
     sunHours
   };
-
   return lastCalcSnapshot;
 }
 
@@ -2677,22 +2698,6 @@ function openMenu(){
   mobileNav.setAttribute('aria-hidden','false');
   burgerBtn.setAttribute('aria-expanded','true');
   document.body.classList.add('menu-open');
-
-  const studySub = document.getElementById('mobileStudySub');
-  const studyToggle = document.getElementById('mobileStudyToggle');
-  if(studySub && studyToggle){
-    studySub.style.display = 'flex';
-    studyToggle.setAttribute('aria-expanded','true');
-    studyToggle.classList.add('active');
-  }
-
-  const productsSub = document.getElementById('mobileProductsSub');
-  const productsToggle = document.getElementById('mobileProductsToggle');
-  if(productsSub && productsToggle){
-    productsSub.style.display = 'none';
-    productsToggle.setAttribute('aria-expanded','false');
-    productsToggle.classList.remove('active');
-  }
 }
 function closeMenu(){
   mobileNav.classList.remove('open');
@@ -2701,99 +2706,6 @@ function closeMenu(){
   mobileNav.setAttribute('aria-hidden','true');
   burgerBtn.setAttribute('aria-expanded','false');
   document.body.classList.remove('menu-open');
-  document.querySelectorAll('.mobile-nav .submenu').forEach(s => s.style.display = 'none');
-}
-function bindMobileExpandable(toggleEl, subEl){
-  if(!toggleEl || !subEl) return;
-  toggleEl.addEventListener('click', function(e){
-    if(e.target.closest('.caret')){
-      e.preventDefault();
-      e.stopPropagation();
-      const opening = subEl.style.display !== 'flex';
-      document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
-        if(s !== subEl) s.style.display = 'none';
-      });
-      subEl.style.display = opening ? 'flex' : 'none';
-      toggleEl.setAttribute('aria-expanded', String(opening));
-      toggleEl.classList.toggle('active', opening);
-      openMenu();
-    }else{
-      closeMenu();
-    }
-  });
-}
-function setupDesktopDropdowns(){
-  document.querySelectorAll('.dropdown').forEach(drop => {
-    const menu = drop.querySelector('.dropdown-content');
-    const trigger = drop.querySelector('a');
-    if(!menu || !trigger) return;
-
-    let timer;
-    drop.addEventListener('mouseenter', () => {
-      clearTimeout(timer);
-      if(window.innerWidth > 1100){
-        menu.style.display = 'block';
-        drop.setAttribute('aria-expanded','true');
-      }
-    });
-    drop.addEventListener('mouseleave', () => {
-      timer = setTimeout(() => {
-        if(window.innerWidth > 1100){
-          menu.style.display = 'none';
-          drop.setAttribute('aria-expanded','false');
-        }
-      }, 180);
-    });
-    trigger.addEventListener('click', (e) => {
-      if(window.innerWidth <= 1100){
-        e.preventDefault();
-        if(menu.style.display === 'block'){
-          menu.style.display = 'none';
-          drop.setAttribute('aria-expanded','false');
-        }else{
-          menu.style.display = 'block';
-          drop.setAttribute('aria-expanded','true');
-        }
-      }
-    });
-  });
-}
-function applyCurrentPageState(){
-  const path = (window.location.pathname.split('/').pop() || 'zone_urbaine.html').toLowerCase();
-
-  document.querySelectorAll('.dropdown-content a').forEach(a => {
-    const href = (a.getAttribute('href') || '').toLowerCase();
-    if(href === path){
-      a.classList.add('active-item');
-      a.setAttribute('aria-current','page');
-      const parent = a.closest('.dropdown');
-      if(parent){
-        parent.setAttribute('aria-expanded','true');
-        const parentLink = parent.querySelector('a');
-        if(parentLink) parentLink.classList.add('active');
-      }
-    }
-  });
-
-  document.querySelectorAll('.mobile-nav a').forEach(a => {
-    const href = (a.getAttribute('href') || '').toLowerCase();
-    if(href === path){
-      a.classList.add('active');
-      a.setAttribute('aria-current','page');
-      const parentSub = a.closest('.submenu');
-      if(parentSub){
-        parentSub.style.display = 'flex';
-        const toggle = parentSub.previousElementSibling;
-        if(toggle && toggle.classList.contains('mobile-link')){
-          toggle.classList.add('active');
-          toggle.setAttribute('aria-expanded','true');
-        }
-      }
-    }
-  });
-
-  const desktopStudyDropdown = document.getElementById('studyDropdown');
-  if(desktopStudyDropdown) desktopStudyDropdown.setAttribute('aria-expanded','true');
 }
 
 function setupBrilliance(){
@@ -2914,31 +2826,346 @@ function setupBrilliance(){
   window.addEventListener('resize', ()=>{ t0 = performance.now(); });
 }
 
+function renderBeginnerItems(){
+  bListEl.innerHTML = '';
+  beginnerItems.forEach((item, idx) => {
+    const card = document.createElement('article');
+    card.className = 'quick-card';
+    card.innerHTML = `
+      <div class="quick-top">
+        <div class="quick-left">
+          <label class="quick-check">
+            <input type="checkbox" class="b-active" data-idx="${idx}" ${item.checked ? 'checked' : ''}>
+            <span>${escapeHtml(item.name)}</span>
+          </label>
+        </div>
+        <span class="quick-chip"><i class="fas ${getQuickIconById(item.id)}"></i> ${item.powerW} W</span>
+      </div>
+
+      <div class="quick-grid">
+        <div class="quick-field">
+          <label>Quantité</label>
+          <input type="number" min="0" class="b-qty" data-idx="${idx}" value="${item.qty}">
+          <small>Nombre d’appareils</small>
+        </div>
+        <div class="quick-field">
+          <label>Temps / jour</label>
+          <input type="number" min="0" step="0.1" class="b-hours" data-idx="${idx}" value="${item.hours}">
+          <small>Heures d’utilisation</small>
+        </div>
+        <div class="quick-field">
+          <label>État</label>
+          <input type="text" value="${item.checked ? 'Pris en compte' : 'Ignoré'}" disabled>
+          <small>Cocher / décocher</small>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <button type="button" class="btn-danger b-remove" data-idx="${idx}">Supprimer</button>
+      </div>
+    `;
+    bListEl.appendChild(card);
+  });
+}
+
+function beginnerToLoads(){
+  return beginnerItems
+    .filter(i => i.checked && Number(i.qty || 0) > 0)
+    .map(i => ({
+      name:i.name,
+      countLabel:i.name,
+      icon:i.icon,
+      qty:Number(i.qty || 0),
+      powerW:Number(i.powerW || 0),
+      hours:Number(i.hours || 0)
+    }));
+}
+
 function updateModeUI(){
   document.body.classList.toggle('mode-beginner', isBeginner());
   document.body.classList.toggle('mode-expert', !isBeginner());
 
+  beginnerProfile.style.display = isBeginner() ? 'block' : 'none';
+  expertPanel.style.display = isBeginner() ? 'none' : 'block';
+  expertGenerator.style.display = isBeginner() ? 'none' : 'grid';
+
   modeHint.textContent = isBeginner()
-    ? 'Débutant : vous saisissez seulement les équipements de la maison et les résultats se calculent tout de suite.'
-    : 'Expert : vous pouvez régler les batteries, les panneaux, la section câble et les pièces détaillées.';
+    ? 'Débutant : vous cochez les équipements, vous ajustez les quantités et le temps d’utilisation. Rien de plus.'
+    : 'Expert : vous ajustez les batteries, panneaux, câbles et chaque pièce séparément.';
 
-  if(isBeginner()){
-    genAdd.checked = false;
-  }
-
-  renderRooms();
+  renderView();
   recalc();
 }
 
-function generateInitialRooms(){
-  if(isBeginner()) return;
+function renderView(){
+  if(isBeginner()){
+    renderBeginnerItems();
+  }else{
+    renderExpertRooms();
+  }
+}
 
-  const addExisting = genAdd.checked;
-  if(!addExisting){
+function getCurrentLoads(){
+  return isBeginner() ? beginnerToLoads() : rooms.flatMap((room, roomIndex) => room.loads.map((load, loadIndex) => ({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type })));
+}
+
+function recalc(){
+  const loads = getCurrentLoads();
+  const hasLoads = loads.length > 0;
+
+  let installedPower = 0;
+  let peakPower = 0;
+  let dailyWh = 0;
+
+  loads.forEach(load => {
+    const qty = Math.max(0, Number(load.qty || 0));
+    const powerW = Math.max(0, Number(load.powerW || 0));
+    const hours = Math.max(0, Number(load.hours || 0));
+    const totalPower = qty * powerW;
+    installedPower += totalPower;
+    peakPower += totalPower * roomDiversity(load.name);
+    dailyWh += totalPower * hours;
+  });
+
+  const city = cityEl.value;
+  const sunHours = getSunHours(city);
+  const dailyKwh = dailyWh / 1000;
+  const monthlyKwh = dailyKwh * 30;
+
+  let batteryProfile, batteryPackCount, battPackWh, panelW, selectedCable, pvKwRec, panelCountRec, inverterNeed, batteryUsefulTotal, autonomyDays, cableSuggested, cableFinal, batteryLabel;
+
+  if(isBeginner()){
+    batteryProfile = chooseBatteryTypeForBeginner(dailyKwh);
+    battPackWh = STANDARD_PACK_WH;
+    batteryPackCount = Math.max(1, Math.ceil((dailyKwh * BEGINNER_TARGET_AUTONOMY_DAYS) / ((battPackWh/1000) * batteryProfile.dod * batteryProfile.eff)));
+    panelW = STANDARD_PANEL_W;
+    selectedCable = 'auto';
+
+    pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
+    panelCountRec = Math.max(0, Math.ceil((pvKwRec * 1000) / panelW));
+    inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
+    batteryUsefulTotal = batteryPackCount * (battPackWh/1000) * batteryProfile.dod * batteryProfile.eff;
+    autonomyDays = dailyKwh > 0 ? batteryUsefulTotal / dailyKwh : 0;
+    cableSuggested = recommendCableSection(inverterNeed, 230);
+    cableFinal = cableSuggested;
+    batteryLabel = `${batteryProfile.label} conseillé`;
+  }else{
+    batteryProfile = getBatteryProfile(batteryTypeEl.value);
+    batteryPackCount = Math.max(1, Number(batteryPackCountEl.value || 4));
+    battPackWh = Math.max(500, Number(battPackKwhEl.value || 5000));
+    panelW = Math.max(50, Number(panelWEl.value || 350));
+    selectedCable = cableSectionEl.value;
+
+    pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
+    panelCountRec = Math.max(0, Math.ceil((pvKwRec * 1000) / panelW));
+    inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
+    batteryUsefulTotal = batteryPackCount * (battPackWh/1000) * batteryProfile.dod * batteryProfile.eff;
+    autonomyDays = dailyKwh > 0 ? batteryUsefulTotal / dailyKwh : 0;
+    cableSuggested = recommendCableSection(inverterNeed, 230);
+    cableFinal = selectedCable === 'auto' ? cableSuggested : Number(selectedCable);
+    batteryLabel = batteryProfile.label;
+  }
+
+  powerInstalledCard.innerText = hasLoads ? `${Math.round(installedPower)} W` : '—';
+  consDayCard.innerText = hasLoads ? `${fmt(dailyKwh,2)} kWh` : '—';
+  consMonthCard.innerText = hasLoads ? `${fmt(monthlyKwh,2)} kWh` : '—';
+  inverterRecCard.innerText = hasLoads ? `${inverterNeed} W` : '—';
+  pvRecCard.innerText = hasLoads ? `${fmt(pvKwRec,2)} kWc` : '—';
+  batteryRecCard.innerText = hasLoads ? `${fmt(batteryUsefulTotal,2)} kWh` : '—';
+  autonomyCard.innerText = hasLoads ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''}` : '—';
+  panelCountCard.innerText = hasLoads ? `${panelCountRec}` : '—';
+  batteryTypeOutEl.innerText = batteryLabel;
+  cableRecCard.innerText = hasLoads ? formatCableChoice(isBeginner() ? 'auto' : selectedCable, cableSuggested) : '—';
+
+  const solar = dailySolarCurve(pvKwRec);
+  const load = loadCurve(loads);
+  const battery = batteryCurve(solar, load, Math.max(1, batteryUsefulTotal || 1), 0.45);
+  const yMax = Math.max(1, ...solar, ...load, ...battery);
+  drawChart(solar, load, battery, yMax, hasLoads ? 'Zone urbaine — profil 24 h' : 'Zone urbaine');
+
+  safetyCard.innerText = getSafetyPoints().join(' · ');
+
+  if(isBeginner()){
+    summaryRooms.innerText = hasLoads ? `Maison simple · ${loads.length} équipement(s)` : 'Maison simple';
+    summaryAutonomy.innerText = hasLoads ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''}` : '—';
+    summaryBatteries.innerText = hasLoads ? `${batteryPackCount} pack(s) de 5 kWh environ` : '—';
+    summaryCable.innerText = hasLoads ? `${fmt(cableSuggested,1)} mm² conseillé` : '—';
+  }else{
+    summaryRooms.innerText = hasLoads ? `${rooms.length} pièce(s) avec ${loads.length} charge(s).` : 'Aucune pièce générée pour le moment.';
+    summaryAutonomy.innerText = hasLoads ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''} avec ${batteryPackCount} pack(s).` : '—';
+    summaryBatteries.innerText = hasLoads ? `${batteryPackCount} pack(s), soit ${fmt(batteryUsefulTotal,2)} kWh utile totale. Durée de vie : ${batteryProfile.lifeLabel}.` : '—';
+    summaryCable.innerText = hasLoads ? `${isBeginner() ? 'Auto' : (cableSectionEl.value === 'auto' ? 'Auto' : `${fmt(Number(cableSectionEl.value),1)} mm²`)} → ${fmt(cableSuggested,1)} mm² conseillé` : '—';
+  }
+
+  lastCalcSnapshot = {
+    timestamp:new Date().toLocaleString('fr-FR'),
+    mode:studyModeEl.value,
+    country:countryEl.value,
+    countryLabel:countryEl.options[countryEl.selectedIndex]?.text || '',
+    city:cityEl.value,
+    cityLabel:cityEl.options[cityEl.selectedIndex]?.text || '',
+    installedPower,
+    peakPower,
+    dailyKwh,
+    monthlyKwh,
+    pvKwRec,
+    panelCountRec,
+    inverterNeed,
+    batteryUsefulTotal,
+    autonomyDays,
+    batteryPackCount,
+    battPackKwh,
+    batteryType:batteryLabel,
+    batteryLifeYears:batteryProfile.lifeLabel,
+    batteryCycles:batteryProfile.cycles,
+    cableSelected:isBeginner() ? 'auto' : selectedCable,
+    cableSuggested,
+    cableFinal,
+    loads,
+    roomsCount:isBeginner() ? 1 : rooms.length,
+    safetyPoints:getSafetyPoints(),
+    sunHours
+  };
+  return lastCalcSnapshot;
+}
+
+function renderPdfBlock(){
+  const s = lastCalcSnapshot;
+  if(!s) return '';
+  const loadsRows = (s.loads || []).map(l => `
+    <tr>
+      <td style="padding:8px;border:1px solid #e6e6e6">${escapeHtml(l.name)}</td>
+      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.qty}</td>
+      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.powerW} W</td>
+      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.hours} h/j</td>
+      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${fmt((l.qty*l.powerW*l.hours)/1000,2)} kWh/j</td>
+    </tr>
+  `).join('');
+  const safety = (s.safetyPoints || []).map(item => `<li style="margin-bottom:6px">${item}</li>`).join('');
+  return `
+    <div style="position:relative;width:1120px;padding:22px;background:#fff;color:#222;font-family:Poppins,Arial,sans-serif;">
+      <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">GREENBRIDGE — À TITRE INDICATIF</div>
+      <div style="position:relative;z-index:1;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px 10px;border-radius:8px;border:1px solid #dfeedf">
+              <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
+              <div style="font-size:11px;color:#556b56">Étude zone urbaine</div>
+            </div>
+            <div>
+              <div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone urbaine</div>
+              <div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.roomsCount} élément(s) — ${s.cityLabel}</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:11px;color:#666;margin-top:6px">${s.countryLabel} — ${s.cityLabel}</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <div><div style="font-weight:700">Puissance installée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div></div>
+            <div><div style="font-weight:700">Onduleur standard conseillé</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div></div>
+            <div><div style="font-weight:700">Consommation / jour</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div></div>
+            <div><div style="font-weight:700">Consommation / mois</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div></div>
+            <div><div style="font-weight:700">PV requis</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div></div>
+            <div><div style="font-weight:700">Nb panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div></div>
+            <div><div style="font-weight:700">Batterie utile totale</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div></div>
+            <div><div style="font-weight:700">Autonomie estimée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div></div>
+            <div><div style="font-weight:700">Section câble</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.cableFinal,1)} mm²</div></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+          <div style="font-weight:700;margin-bottom:6px">Points de sécurité</div>
+          <ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">${safety}</ul>
+        </div>
+
+        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+          <div style="font-weight:700;margin-bottom:8px">Détail des charges</div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
+            <thead>
+              <tr>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">kWh/j</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${loadsRows || '<tr><td colspan="5" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune donnée</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
+          <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
+          <div>Export : ${s.timestamp}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function generatePDF(){
+  try{
+    if(!lastCalcSnapshot) recalc();
+    const wrapper = document.getElementById('printBlock');
+    wrapper.innerHTML = renderPdfBlock();
+    const element = wrapper.firstElementChild;
+    const canvas = await html2canvas(element, { scale: 2, useCORS:true, backgroundColor:'#ffffff' });
+    const imgData = canvas.toDataURL('image/png');
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 10;
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfImgWidth = pageWidth - margin*2;
+    const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
+
+    if(pdfImgHeight <= pageHeight - margin*2){
+      pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight);
+    }else{
+      const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
+      let rendered = 0;
+      while(rendered < canvas.height){
+        const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
+        const sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width = canvas.width;
+        sliceCanvas.height = sliceH;
+        const ctx = sliceCanvas.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
+        ctx.drawImage(canvas,0,rendered,sliceCanvas.width,sliceCanvas.height,0,0,sliceCanvas.width,sliceCanvas.height);
+        const sliceData = sliceCanvas.toDataURL('image/png');
+        const sliceImgProps = pdf.getImageProperties(sliceData);
+        const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
+        if(rendered > 0) pdf.addPage();
+        pdf.addImage(sliceData,'PNG',margin,margin,pdfImgWidth,sliceImgHeight);
+        rendered += sliceH;
+      }
+    }
+
+    pdf.setFontSize(9);
+    pdf.setTextColor(120);
+    pdf.text('GreenBridge — Synthèse indicative',margin,pageHeight-6);
+    const filename = `GreenBridge_zone_urbaine_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
+    pdf.save(filename);
+  }catch(err){
+    console.error(err);
+    alert('Erreur lors de la génération du PDF. Voir console pour détails.');
+  }
+}
+
+function generateExpertRooms(){
+  if(isBeginner()) return;
+  if(!genAdd.checked){
     rooms = [];
     roomCounter = 0;
   }
-
   const push = (type, base, count) => {
     const n = Math.max(0, Number(count || 0));
     for(let i=0;i<n;i++){
@@ -2946,15 +3173,13 @@ function generateInitialRooms(){
       rooms.push(createRoom(type, name, true));
     }
   };
-
   push('Chambre','Chambre', genBedrooms.value);
   push('Salon','Salon', genLiving.value);
   push('Cuisine','Cuisine', genKitchens.value);
   push("Salle d'eau","Salle d'eau", genBaths.value);
   push('Bureau','Bureau', genOffices.value);
   push('Toilette','Toilette', genToilets.value);
-
-  renderRooms();
+  renderView();
   recalc();
 }
 
@@ -2964,20 +3189,17 @@ function resetDefaults(){
   populateCities('ci');
   updateContacts('ci');
   cityEl.value = 'abidjan';
+
   batteryTypeEl.value = 'lithium_ion';
   batteryPackCountEl.value = '4';
   battPackKwhEl.value = '5000';
   panelWEl.value = '350';
   cableSectionEl.value = 'auto';
-  bPhones.value = 4;
-  bTV.value = 1;
-  bTVHours.value = 4;
-  bFans.value = 2;
-  bFanHours.value = 8;
-  bLights.value = 6;
-  bLightHours.value = 5;
-  bFridges.value = 1;
-  bPCs.value = 0;
+
+  beginnerItems = structuredClone(BEGINNER_ITEMS);
+  rooms = [];
+  roomCounter = 0;
+
   genBedrooms.value = 1;
   genLiving.value = 1;
   genKitchens.value = 1;
@@ -2985,29 +3207,155 @@ function resetDefaults(){
   genOffices.value = 0;
   genToilets.value = 0;
   genAdd.checked = false;
-  rooms = [];
-  roomCounter = 0;
+
+  customNameEl.value = '';
+  customPowerEl.value = 500;
+  customQtyEl.value = 1;
+  customHoursEl.value = 1;
+
   updateModeUI();
+}
+
+function addCustomBeginnerItem(){
+  const name = String(customNameEl.value || '').trim();
+  const powerW = Math.max(0, Number(customPowerEl.value || 0));
+  const qty = Math.max(0, Number(customQtyEl.value || 0));
+  const hours = Math.max(0, Number(customHoursEl.value || 0));
+  if(!name) return alert('Donne un nom à l’équipement.');
+  beginnerItems.push({
+    id:`custom_${Date.now()}`,
+    name,
+    icon:'fa-plug',
+    powerW,
+    qty,
+    hours,
+    checked:true
+  });
+  customNameEl.value = '';
+  customPowerEl.value = 500;
+  customQtyEl.value = 1;
+  customHoursEl.value = 1;
+  renderView();
+  recalc();
+}
+
+function bindBeginnerEvents(){
+  bListEl.addEventListener('input', e => {
+    const idx = Number(e.target.dataset.idx);
+    if(Number.isNaN(idx)) return;
+    const item = beginnerItems[idx];
+    if(!item) return;
+
+    if(e.target.classList.contains('b-qty')) item.qty = Number(e.target.value || 0);
+    if(e.target.classList.contains('b-hours')) item.hours = Number(e.target.value || 0);
+    recalc();
+  });
+
+  bListEl.addEventListener('change', e => {
+    const idx = Number(e.target.dataset.idx);
+    if(Number.isNaN(idx)) return;
+    const item = beginnerItems[idx];
+    if(!item) return;
+    if(e.target.classList.contains('b-active')) item.checked = e.target.checked;
+    recalc();
+    renderBeginnerItems();
+  });
+
+  bListEl.addEventListener('click', e => {
+    const btn = e.target.closest('.b-remove');
+    if(!btn) return;
+    const idx = Number(btn.dataset.idx);
+    if(Number.isNaN(idx)) return;
+    beginnerItems.splice(idx,1);
+    renderBeginnerItems();
+    recalc();
+  });
+}
+
+function bindExpertEvents(){
+  document.getElementById('roomsList').addEventListener('input', onExpertLoadInput);
+  document.getElementById('roomsList').addEventListener('change', onExpertLoadInput);
+  document.getElementById('roomsList').addEventListener('click', onExpertClicks);
+}
+
+function onExpertLoadInput(e){
+  const target = e.target;
+  if(!target.classList.contains('load-field')) return;
+  const consumer = target.closest('.consumer');
+  if(!consumer) return;
+  const roomIndex = Number(consumer.dataset.r);
+  const loadIndex = Number(consumer.dataset.l);
+  const field = target.dataset.field;
+  let value = target.value;
+  if(['qty','powerW','hours'].includes(field)) value = Number(value || 0);
+  rooms[roomIndex].loads[loadIndex][field] = value;
+  recalc();
+}
+
+function onExpertClicks(e){
+  const addLoadBtn = e.target.closest('.btn-add-load');
+  const removeRoomBtn = e.target.closest('.btn-remove-room');
+  const removeLoadBtn = e.target.closest('.btn-remove-load');
+
+  if(addLoadBtn){
+    e.preventDefault();
+    e.stopPropagation();
+    const roomIndex = Number(addLoadBtn.dataset.r);
+    rooms[roomIndex].loads.push({
+      name:'Nouvelle charge',
+      countLabel:'Qté',
+      icon:'fa-plug',
+      qty:1,
+      powerW:0,
+      hours:0
+    });
+    rooms[roomIndex].open = true;
+    renderExpertRooms();
+    const block = document.getElementById(`room-block-${roomIndex}`);
+    if(block) block.open = true;
+    recalc();
+    return;
+  }
+
+  if(removeRoomBtn){
+    const roomIndex = Number(removeRoomBtn.dataset.r);
+    if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
+    rooms.splice(roomIndex,1);
+    renderExpertRooms();
+    recalc();
+    return;
+  }
+
+  if(removeLoadBtn){
+    const consumer = removeLoadBtn.closest('.consumer');
+    const roomIndex = Number(consumer.dataset.r);
+    const loadIndex = Number(consumer.dataset.l);
+    rooms[roomIndex].loads.splice(loadIndex,1);
+    renderExpertRooms();
+    recalc();
+  }
+}
+
+function renderView(){
+  if(isBeginner()) renderBeginnerItems();
+  else renderExpertRooms();
+}
+
+function chooseBatteryTypeForBeginner(dailyKwh){
+  if(dailyKwh <= 1.2) return BATTERY_TYPES.lithium_ion;
+  return BATTERY_TYPES.lifepo4;
 }
 
 function init(){
   updateContacts('ci');
   populateCities('ci');
-  renderRooms();
-  setupDesktopDropdowns();
-  applyCurrentPageState();
   setupBrilliance();
-  updateModeUI();
-
-  generateBtn.addEventListener('click', generateInitialRooms);
-  resetBtn.addEventListener('click', () => {
-    if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
-    resetDefaults();
-  });
-  exportPdfBtn.addEventListener('click', generatePDF);
+  bindBeginnerEvents();
+  bindExpertEvents();
+  renderView();
+  recalc();
 
   studyModeEl.addEventListener('change', updateModeUI);
-
   countryEl.addEventListener('change', () => {
     populateCities(countryEl.value);
     updateContacts(countryEl.value);
@@ -3016,78 +3364,34 @@ function init(){
   cityEl.addEventListener('change', recalc);
 
   [
-    bPhones,bTV,bTVHours,bFans,bFanHours,bLights,bLightHours,bFridges,bPCs,
     batteryTypeEl,batteryPackCountEl,battPackKwhEl,panelWEl,cableSectionEl
   ].forEach(el => {
-    if(el) el.addEventListener('input', recalc);
-    if(el) el.addEventListener('change', recalc);
+    el.addEventListener('change', recalc);
   });
 
-  roomListEl.addEventListener('input', onLoadChange);
-  roomListEl.addEventListener('change', onLoadChange);
-  roomListEl.addEventListener('click', (e) => {
-    const addLoadBtn = e.target.closest('.btn-add-load');
-    const removeRoomBtn = e.target.closest('.btn-remove-room');
-    const removeLoadBtn = e.target.closest('.btn-remove-load');
-
-    if(addLoadBtn){
-      e.preventDefault();
-      e.stopPropagation();
-      const roomIndex = Number(addLoadBtn.dataset.r);
-      rooms[roomIndex].loads.push({
-        name:'Nouvelle charge',
-        countLabel:'Quantité',
-        icon:'fa-plug',
-        qty:1,
-        powerW:0,
-        hours:0
-      });
-      rooms[roomIndex].open = true;
-      renderRooms();
-      const block = document.getElementById(`room-block-${roomIndex}`);
-      if(block) block.open = true;
-      recalc();
-      return;
-    }
-
-    if(removeRoomBtn){
-      const roomIndex = Number(removeRoomBtn.dataset.r);
-      if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
-      rooms.splice(roomIndex,1);
-      renderRooms();
-      recalc();
-      return;
-    }
-
-    if(removeLoadBtn){
-      const consumer = removeLoadBtn.closest('.consumer');
-      const roomIndex = Number(consumer.dataset.r);
-      const loadIndex = Number(consumer.dataset.l);
-      rooms[roomIndex].loads.splice(loadIndex,1);
-      renderRooms();
-      recalc();
-    }
+  [
+    genBedrooms,genLiving,genKitchens,genBaths,genOffices,genToilets,genAdd
+  ].forEach(el => {
+    el.addEventListener('change', recalc);
   });
+
+  addCustomBeginnerBtn.addEventListener('click', addCustomBeginnerItem);
+  generateBtn.addEventListener('click', generateExpertRooms);
+  resetBtn.addEventListener('click', () => {
+    if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
+    resetDefaults();
+  });
+  exportPdfBtn.addEventListener('click', generatePDF);
 
   burgerBtn.addEventListener('click', () => {
     const opened = mobileNav.classList.contains('open');
-    if(opened) closeMenu();
-    else openMenu();
+    if(opened) closeMenu(); else openMenu();
   });
   mobileBackdrop.addEventListener('click', closeMenu);
   mobileCloseBtn.addEventListener('click', closeMenu);
-
-  document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => {
-    if(a.id === 'mobileStudyToggle' || a.id === 'mobileProductsToggle') return;
-    a.addEventListener('click', () => closeMenu());
-  });
-
-  bindMobileExpandable(document.getElementById('mobileStudyToggle'), document.getElementById('mobileStudySub'));
-  bindMobileExpandable(document.getElementById('mobileProductsToggle'), document.getElementById('mobileProductsSub'));
-
+  document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => a.addEventListener('click', closeMenu));
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
 
-  recalc();
   window.addEventListener('resize', recalc);
 }
 init();
