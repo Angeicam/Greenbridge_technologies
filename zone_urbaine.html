@@ -26,9 +26,8 @@
   --muted-text-color:#e6f7ea;
   --muted-text-size:15px;
   --electric-yellow:#ffd600;
-  --panel:#061f14;
-  --card-border:rgba(212,175,55,.18);
   --shadow:0 10px 22px rgba(0,0,0,0.35);
+  --card-border:rgba(212,175,55,.18);
   --max-width:1240px;
 }
 *{box-sizing:border-box}
@@ -149,6 +148,7 @@ header{
   width:100%;
   display:block;
 }
+
 nav{display:flex;gap:18px;align-items:center}
 nav a{
   color:#fff;
@@ -746,11 +746,6 @@ nav a.active{
   color:var(--accent-2);
   font-size:20px;
 }
-.section-block h4{
-  margin:0 0 10px;
-  color:var(--accent-2);
-  font-size:18px;
-}
 
 .grid{
   display:grid;
@@ -837,29 +832,12 @@ nav a.active{
   border-color:transparent;
 }
 
-.presets{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-.preset{
-  padding:9px 12px;
-  border-radius:999px;
-  border:1px solid rgba(212,175,55,.16);
-  background:rgba(255,255,255,.04);
-  color:#fff;
-  cursor:pointer;
-  font-weight:700;
-  font-size:13px;
-}
-.preset:hover{background:rgba(168,230,161,.08)}
-
 .room-list{
   display:flex;
   flex-direction:column;
   gap:10px;
   margin-top:10px;
+  min-height:44px;
 }
 details.room{
   background:rgba(255,255,255,.03);
@@ -1019,7 +997,7 @@ details.room[open] summary::after{transform:rotate(180deg)}
 }
 .result-card .label{
   font-size:12px;
-  color:#6b7f6b;
+  color:#6c7d6f;
   text-transform:uppercase;
   letter-spacing:0.6px;
   line-height:1.4;
@@ -1034,7 +1012,7 @@ details.room[open] summary::after{transform:rotate(180deg)}
 }
 .result-card .small{
   font-size:13px;
-  color:#6b7f6b;
+  color:#6b7f6f;
   margin-top:6px;
   line-height:1.45;
 }
@@ -1425,7 +1403,7 @@ footer::before{
     Les chambres sont fermées par défaut, les listes sont plus simples à utiliser et les résultats vont à l’essentiel.
   </p>
 
-  <div class="card-soft" id="studyCard">
+  <div class="card-soft">
     <div class="study-top">
       <div class="group">
         <span class="badge-zone"><i class="fas fa-building"></i> Zone urbaine</span>
@@ -1515,16 +1493,6 @@ footer::before{
             Les pièces sont générées seulement au clic. Chaque bloc reste fermé par défaut pour garder une page plus lisible.
           </div>
           <div id="roomsList" class="room-list"></div>
-        </div>
-
-        <div class="section-block" style="margin-top:14px">
-          <h3>Paramètres techniques</h3>
-          <div class="grid">
-            <div class="field"><label for="panelW">Panneau utilisé</label><small>Déjà défini en haut, ici juste pour rappel visuel.</small></div>
-            <div class="field"><label for="batteryPackKwh">Capacité utile pack</label><small>Déjà définie en haut, ici pour cohérence de lecture.</small></div>
-            <div class="field"><label for="batteryType">Technologie</label><small>Choisis la technologie batterie selon le budget et la durée de vie.</small></div>
-            <div class="field"><label>Astuce</label><small>Ajoute d’abord les pièces, puis ajuste les puissances seulement si besoin.</small></div>
-          </div>
         </div>
 
         <div class="pdf-actions">
@@ -1778,15 +1746,14 @@ const pvReqKwc = document.getElementById('pvReqKwc');
 const pvReqRange = document.getElementById('pvReqRange');
 const invStdKpi = document.getElementById('invStdKpi');
 const packsNeedKpi = document.getElementById('packsNeedKpi');
-
 const loadsCountEl = document.getElementById('loadsCount');
 
 function fmt(n, dec = 2){
   return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 }
 function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
-function getCityInfo(){ return CITY_META[cityEl.value] || CITY_META.abidjan; }
 function getBatteryProfile(type){ return BATTERY_TYPES[type] || BATTERY_TYPES.lithium_ion; }
+function getCityInfo(){ return CITY_META[cityEl.value] || CITY_META.abidjan; }
 function getSunHours(city){ return (CITY_META[city] && CITY_META[city].sun) || 4.5; }
 function pickStandardInverter(targetW){
   const value = Math.max(300, Number(targetW || 0));
@@ -1823,7 +1790,7 @@ function createRoom(type, baseName, withTemplate = true){
   };
 }
 function addRooms(type, baseName, count = 1, withTemplate = true){
-  const c = Math.max(1, Number(count || 1));
+  const c = Math.max(0, Number(count || 0));
   for(let i=0;i<c;i++){
     const roomBase = c === 1 ? (baseName || type) : `${baseName || type} ${i+1}`;
     rooms.push(createRoom(type, roomBase, withTemplate));
@@ -1843,6 +1810,15 @@ function generateInitialRooms(){
   addRooms("Salle d'eau", "Salle d'eau", Number(genBaths.value || 0), true);
   addRooms('Bureau', 'Bureau', Number(genOffices.value || 0), true);
   addRooms('Toilette', 'Toilette', Number(genToilets.value || 0), true);
+
+  renderRooms();
+  recalc();
+
+  if(roomListEl){
+    setTimeout(() => {
+      roomListEl.scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 80);
+  }
 }
 function addLoad(roomIndex){
   rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0 });
@@ -1988,177 +1964,6 @@ function roomDiversity(name){
   if(n.includes('ordinateur')) return 1.0;
   return 1.0;
 }
-function compute(){
-  const loads = getAllLoads();
-  let installedPower = 0;
-  let peakPower = 0;
-  let dailyWh = 0;
-
-  loads.forEach(load => {
-    const qty = Math.max(0, Number(load.qty || 0));
-    const powerW = Math.max(0, Number(load.powerW || 0));
-    const hours = Math.max(0, Number(load.hours || 0));
-    const totalPower = qty * powerW;
-
-    installedPower += totalPower;
-    peakPower += totalPower * roomDiversity(load.name);
-    dailyWh += totalPower * hours;
-  });
-
-  const city = cityEl.value;
-  const sunHours = getSunHours(city);
-  const batteryProfile = getBatteryProfile(batteryTypeEl.value);
-  const panelW = Math.max(50, Number(panelWEl.value || 350));
-  const battPackWh = Math.max(500, Number(battPackKwhEl.value || 1280));
-  const batteryPackCount = Math.max(1, Number(batteryPackCountEl.value || 4));
-
-  const dailyKwh = dailyWh / 1000;
-  const monthlyKwh = dailyKwh * 30;
-
-  const pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
-  const panelCountRec = Math.ceil((pvKwRec * 1000) / panelW);
-
-  const inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
-
-  const battPackKwh = battPackWh / 1000;
-  const batteryUsefulTotal = batteryPackCount * battPackKwh * batteryProfile.dod * batteryProfile.eff;
-  const autonomyDays = dailyKwh > 0 ? (batteryUsefulTotal / dailyKwh) : 0;
-
-  const coverageNote = pvKwRec > 0
-    ? `Base PV : ${fmt(pvKwRec,2)} kWc pour ${fmt(dailyKwh,2)} kWh/j`
-    : 'Générez des pièces pour obtenir un dimensionnement';
-
-  return {
-    loads,
-    installedPower,
-    peakPower,
-    dailyKwh,
-    monthlyKwh,
-    pvKwRec,
-    panelCountRec,
-    inverterNeed,
-    batteryUsefulTotal,
-    autonomyDays,
-    batteryLifeYears: batteryProfile.lifeLabel,
-    batteryCycles: batteryProfile.cycles,
-    coverageNote,
-    batteryPackCount,
-    battPackKwh,
-    batteryProfile,
-    safetyPoints: getSafetyPoints(),
-    sunHours,
-    battPackWh,
-    panelW
-  };
-}
-function drawChart(city, solarCurve, loadCurve, batterySoc, yMax, extraLabel){
-  const canvas = document.getElementById('dailyChart');
-  if(!canvas) return;
-  const dpr = window.devicePixelRatio || 1;
-  const cssWidth = canvas.parentElement.clientWidth;
-  const cssHeight = Math.max(280, Math.round(cssWidth * 0.34));
-  canvas.width = Math.round(cssWidth * dpr);
-  canvas.height = Math.round(cssHeight * dpr);
-  canvas.style.height = cssHeight + 'px';
-
-  const ctx = canvas.getContext('2d');
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.clearRect(0,0,cssWidth,cssHeight);
-
-  const padL = 56, padR = 20, padT = 18, padB = 44;
-  const w = cssWidth, h = cssHeight;
-  const chartW = w - padL - padR;
-  const chartH = h - padT - padB;
-  const maxVal = Math.max(1, yMax || 1);
-
-  ctx.fillStyle = '#fbfffb';
-  ctx.fillRect(0,0,w,h);
-
-  ctx.strokeStyle = '#e6f1e6';
-  ctx.lineWidth = 1;
-  ctx.font = '12px Poppins, Arial';
-  ctx.fillStyle = '#6b7f6b';
-
-  for(let i=0;i<=5;i++){
-    const y = padT + chartH * i/5;
-    ctx.beginPath();
-    ctx.moveTo(padL, y);
-    ctx.lineTo(w-padR, y);
-    ctx.stroke();
-    ctx.fillText((maxVal*(1-i/5)).toFixed(1), 10, y+4);
-  }
-  for(let i=0;i<=6;i++){
-    const x = padL + chartW * i/6;
-    ctx.beginPath();
-    ctx.moveTo(x, padT);
-    ctx.lineTo(x, padT+chartH);
-    ctx.stroke();
-    ctx.fillText(String(i*4).padStart(2,'0')+'h', x-10, h-16);
-  }
-
-  const xForHour = hour => padL + (hour/23) * chartW;
-  const yForVal = val => padT + chartH - (val / maxVal) * chartH;
-
-  ctx.beginPath();
-  ctx.moveTo(xForHour(0), yForVal(0));
-  for(let h=0;h<24;h++) ctx.lineTo(xForHour(h), yForVal(solarCurve[h] || 0));
-  ctx.lineTo(xForHour(23), yForVal(0));
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(124,179,66,.18)';
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.moveTo(xForHour(0), yForVal(0));
-  for(let h=0;h<24;h++) ctx.lineTo(xForHour(h), yForVal(loadCurve[h] || 0));
-  ctx.lineTo(xForHour(23), yForVal(0));
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(212,175,55,.18)';
-  ctx.fill();
-
-  ctx.beginPath();
-  for(let h=0;h<24;h++){
-    const x = xForHour(h);
-    const y = yForVal(solarCurve[h] || 0);
-    if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  }
-  ctx.strokeStyle = '#7cb342';
-  ctx.lineWidth = 3;
-  ctx.stroke();
-
-  ctx.beginPath();
-  for(let h=0;h<24;h++){
-    const x = xForHour(h);
-    const y = yForVal(loadCurve[h] || 0);
-    if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  }
-  ctx.strokeStyle = '#d4af37';
-  ctx.lineWidth = 3;
-  ctx.stroke();
-
-  if(batterySoc && batterySoc.length){
-    const battMax = Math.max(...batterySoc,1);
-    ctx.beginPath();
-    for(let h=0;h<24;h++){
-      const x = xForHour(h);
-      const y = yForVal((batterySoc[h]/battMax) * maxVal);
-      if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    }
-    ctx.strokeStyle = '#0b4d26';
-    ctx.setLineDash([6,5]);
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.setLineDash([]);
-  }
-
-  ctx.fillStyle = '#04462e';
-  ctx.font = '700 13px Poppins, Arial';
-  ctx.fillText(extraLabel || '', padL, 16);
-  ctx.fillText('06h', xForHour(6)-8, padT+chartH+18);
-  ctx.fillText('12h', xForHour(12)-8, padT+chartH+18);
-  ctx.fillText('18h', xForHour(18)-8, padT+chartH+18);
-  ctx.fillText('24h', xForHour(23)-8, padT+chartH+18);
-}
-
 function dailySolarCurve(pvKw){
   const curve = [];
   for(let h=0; h<24; h++){
@@ -2272,7 +2077,7 @@ function fillSelect(selectEl, values, formatter = (v) => v, selectedValue = null
 }
 function setupStudySelects() {
   fillSelect(batteryPackCountEl, PACK_COUNT_OPTIONS, (v) => `${v}`, 4);
-  fillSelect(battPackKwhEl, PACK_CAPACITY_OPTIONS_WH, (v) => `${v} Wh`, 1280);
+  fillSelect(battPackKwhEl, PACK_CAPACITY_OPTIONS_WH, (v) => `${v} Wh`, 1500);
   fillSelect(panelWEl, PANEL_POWER_OPTIONS_W, (v) => `${v} W`, 350);
 }
 function updatePillsAndPhones(){
@@ -2294,12 +2099,121 @@ function updatePillsAndPhones(){
   }
   if(footerPhoneText) footerPhoneText.textContent = info.display || '+225 07 07 07 07 07';
 }
+function updateSnapshotUI(r){
+  document.querySelector('#r_power').classList.toggle('highlight', r.installedPower > 0);
+  document.querySelector('#r_inv').classList.toggle('highlight', r.inverterNeed > 0);
+  document.querySelector('#r_batt').classList.toggle('highlight', r.batteryUsefulTotal > 0);
+  document.querySelector('#r_autonomy').classList.toggle('highlight', r.autonomyDays > 0);
+  document.querySelector('#r_pv').classList.toggle('highlight', r.pvKwRec > 0);
+  document.querySelector('#r_safety').classList.toggle('highlight', true);
+}
 
-function computeDailyProfile(r){
-  const solar = dailySolarCurve(r.pvKwRec);
-  const load = loadCurve(r.loads);
-  const battery = batteryCurve(solar, load, Math.max(1, r.batteryUsefulTotal || 1), 0.45);
-  return { solar, load, battery };
+function drawChart(city, solarCurve, loadCurve, batterySoc, yMax, extraLabel){
+  const canvas = document.getElementById('dailyChart');
+  if(!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+  const cssWidth = canvas.parentElement.clientWidth;
+  const cssHeight = Math.max(280, Math.round(cssWidth * 0.34));
+  canvas.width = Math.round(cssWidth * dpr);
+  canvas.height = Math.round(cssHeight * dpr);
+  canvas.style.height = cssHeight + 'px';
+
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,cssWidth,cssHeight);
+
+  const padL = 56, padR = 20, padT = 18, padB = 44;
+  const w = cssWidth, h = cssHeight;
+  const chartW = w - padL - padR;
+  const chartH = h - padT - padB;
+  const maxVal = Math.max(1, yMax || 1);
+
+  ctx.fillStyle = '#fbfffb';
+  ctx.fillRect(0,0,w,h);
+
+  ctx.strokeStyle = '#e6f1e6';
+  ctx.lineWidth = 1;
+  ctx.font = '12px Poppins, Arial';
+  ctx.fillStyle = '#6b7f6b';
+
+  for(let i=0;i<=5;i++){
+    const y = padT + chartH * i/5;
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(w-padR, y);
+    ctx.stroke();
+    ctx.fillText((maxVal*(1-i/5)).toFixed(1), 10, y+4);
+  }
+  for(let i=0;i<=6;i++){
+    const x = padL + chartW * i/6;
+    ctx.beginPath();
+    ctx.moveTo(x, padT);
+    ctx.lineTo(x, padT+chartH);
+    ctx.stroke();
+    ctx.fillText(String(i*4).padStart(2,'0')+'h', x-10, h-16);
+  }
+
+  const xForHour = hour => padL + (hour/23) * chartW;
+  const yForVal = val => padT + chartH - (val / maxVal) * chartH;
+
+  ctx.beginPath();
+  ctx.moveTo(xForHour(0), yForVal(0));
+  for(let h=0;h<24;h++) ctx.lineTo(xForHour(h), yForVal(solarCurve[h] || 0));
+  ctx.lineTo(xForHour(23), yForVal(0));
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(124,179,66,.18)';
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.moveTo(xForHour(0), yForVal(0));
+  for(let h=0;h<24;h++) ctx.lineTo(xForHour(h), yForVal(loadCurve[h] || 0));
+  ctx.lineTo(xForHour(23), yForVal(0));
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(212,175,55,.18)';
+  ctx.fill();
+
+  ctx.beginPath();
+  for(let h=0;h<24;h++){
+    const x = xForHour(h);
+    const y = yForVal(solarCurve[h] || 0);
+    if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle = '#7cb342';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.beginPath();
+  for(let h=0;h<24;h++){
+    const x = xForHour(h);
+    const y = yForVal(loadCurve[h] || 0);
+    if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle = '#d4af37';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  if(batterySoc && batterySoc.length){
+    const battMax = Math.max(...batterySoc,1);
+    ctx.beginPath();
+    for(let h=0;h<24;h++){
+      const x = xForHour(h);
+      const y = yForVal((batterySoc[h]/battMax) * maxVal);
+      if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = '#0b4d26';
+    ctx.setLineDash([6,5]);
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  ctx.fillStyle = '#04462e';
+  ctx.font = '700 13px Poppins, Arial';
+  ctx.fillText(extraLabel || '', padL, 16);
+  ctx.fillText('06h', xForHour(6)-8, padT+chartH+18);
+  ctx.fillText('12h', xForHour(12)-8, padT+chartH+18);
+  ctx.fillText('18h', xForHour(18)-8, padT+chartH+18);
+  ctx.fillText('24h', xForHour(23)-8, padT+chartH+18);
 }
 
 function recalc(){
@@ -2322,7 +2236,7 @@ function recalc(){
   const sunHours = getSunHours(city);
   const batteryProfile = getBatteryProfile(batteryTypeEl.value);
   const panelW = Math.max(50, Number(panelWEl.value || 350));
-  const battPackWh = Math.max(500, Number(battPackKwhEl.value || 1280));
+  const battPackWh = Math.max(500, Number(battPackKwhEl.value || 1500));
   const batteryPackCount = Math.max(1, Number(batteryPackCountEl.value || 4));
 
   const dailyKwh = dailyWh / 1000;
@@ -2418,15 +2332,6 @@ function recalc(){
   };
 
   updateSnapshotUI(r);
-}
-
-function updateSnapshotUI(r){
-  document.querySelector('#r_power').classList.toggle('highlight', r.installedPower > 0);
-  document.querySelector('#r_inv').classList.toggle('highlight', r.inverterNeed > 0);
-  document.querySelector('#r_batt').classList.toggle('highlight', r.batteryUsefulTotal > 0);
-  document.querySelector('#r_autonomy').classList.toggle('highlight', r.autonomyDays > 0);
-  document.querySelector('#r_pv').classList.toggle('highlight', r.pvKwRec > 0);
-  document.querySelector('#r_safety').classList.toggle('highlight', true);
 }
 
 function updatePhoneNumbers(){
@@ -2862,7 +2767,7 @@ function resetDefaults(){
   batteryTypeEl.value = 'lithium_ion';
   setupStudySelects();
   batteryPackCountEl.value = '4';
-  battPackKwhEl.value = '1280';
+  battPackKwhEl.value = '1500';
   panelWEl.value = '350';
   genBedrooms.value = 1;
   genLiving.value = 1;
@@ -2965,17 +2870,6 @@ function setupEvents(){
     document.getElementById('mobileProduitsToggle'),
     document.getElementById('mobileProduitsSub')
   );
-
-  const desktopStudyDropdown = document.querySelector('#desktopEtudeToggle')?.closest('.dropdown');
-  if(desktopStudyDropdown){
-    desktopStudyDropdown.addEventListener('mouseleave', () => {
-      if(window.innerWidth > 1100){
-        const menu = desktopStudyDropdown.querySelector('.dropdown-content');
-        if(menu) menu.style.display = 'none';
-        desktopStudyDropdown.setAttribute('aria-expanded','false');
-      }
-    });
-  }
 }
 function init(){
   updatePhoneNumbers();
