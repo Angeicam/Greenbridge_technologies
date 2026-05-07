@@ -63,11 +63,7 @@ body.mode-expert .beginner-only{display:none !important}
   font-size:14px;
   border-bottom:1px solid rgba(255,255,255,.04);
 }
-.topbar a{
-  color:#fff;
-  font-weight:700;
-  white-space:nowrap;
-}
+.topbar a{color:#fff;font-weight:700;white-space:nowrap}
 .topbar a:hover{color:var(--accent-2)}
 .phone-label{font-weight:800;margin-right:4px}
 
@@ -147,61 +143,6 @@ nav a.active{
   padding:10px 14px;
   font-weight:800;
   border-radius:10px;
-}
-.dropdown{position:relative}
-.dropdown>a::after{
-  content:"\25BC";
-  font-size:12px;
-  margin-left:6px;
-  color:var(--accent-2);
-  transition:transform .2s;
-}
-.dropdown[aria-expanded="true"]>a::after{transform:rotate(180deg)}
-.dropdown>a .sub-badge{
-  margin-left:8px;
-  padding:6px 10px;
-  border-radius:10px;
-  background:rgba(255,214,0,.08);
-  color:#ffd600;
-  font-weight:800;
-  font-size:13px;
-  white-space:nowrap;
-  display:inline-flex;
-  align-items:center;
-}
-.dropdown-content{
-  display:none;
-  position:absolute;
-  top:calc(100% + 8px);
-  left:0;
-  background:rgba(0,0,0,.88);
-  padding:8px 0;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
-  min-width:220px;
-  z-index:2000;
-}
-.dropdown-content li{list-style:none}
-.dropdown-content a{
-  display:block;
-  padding:10px 16px;
-  color:#fff;
-  font-weight:600;
-  border-radius:8px;
-}
-.dropdown-content a:hover{
-  background:rgba(168,230,161,0.12);
-  color:var(--accent-2);
-  padding-left:24px;
-}
-.dropdown-content .active-item{
-  color:var(--accent-2);
-  background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));
-  border:1px solid rgba(212,175,55,0.12);
-  padding:10px 16px;
-  font-weight:800;
-  border-radius:8px;
-  margin:4px 8px;
 }
 
 .burger{
@@ -331,43 +272,6 @@ nav a.active{
   background:rgba(124,179,66,0.12);
   color:var(--accent-2);
 }
-.mobile-nav .mobile-link.active{
-  background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));
-  color:var(--accent-2);
-  border:1px solid rgba(212,175,55,0.28);
-}
-.mobile-nav .submenu{
-  display:none;
-  flex-direction:column;
-  gap:8px;
-  padding-left:10px;
-  margin-top:6px;
-  margin-bottom:6px;
-  max-width:560px;
-  width:100%;
-  margin-left:auto;
-  margin-right:auto;
-}
-.mobile-nav .submenu a{
-  font-family:'Trebuchet MS',Arial,sans-serif;
-  font-style:italic;
-  font-size:15px;
-  font-weight:700;
-  min-height:48px;
-  padding:12px 14px;
-  border-radius:10px;
-  white-space:normal;
-  justify-content:flex-start;
-  text-align:left;
-  display:flex;
-  align-items:center;
-  border:1px solid rgba(255,255,255,0.06);
-  background:rgba(255,255,255,0.02);
-}
-.mobile-nav .submenu a:hover{
-  background:rgba(168,230,161,0.08);
-  padding-left:18px;
-}
 .mobile-contact{
   display:flex;
   flex-direction:column;
@@ -418,7 +322,7 @@ nav a.active{
   min-height:44px;
 }
 
-/* énergie */
+/* Energie */
 .electric-band{
   position:fixed;
   top:calc(var(--topbar-h) + var(--header-h) - 6px);
@@ -747,14 +651,6 @@ nav a.active{
   .mode-hint{margin-left:0}
 }
 
-.beginner-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-}
-@media (max-width:1100px){.beginner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.beginner-grid{grid-template-columns:1fr}}
-
 .beginner-profile{
   margin-top:12px;
   padding:14px;
@@ -778,6 +674,27 @@ nav a.active{
   color:#6c7d6f;
   font-size:12px;
 }
+.beginner-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+@media (max-width:1100px){.beginner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.beginner-grid{grid-template-columns:1fr}}
+
+.quick-addbar{
+  display:grid;
+  grid-template-columns:1.2fr .8fr .7fr .7fr auto;
+  gap:8px;
+  align-items:end;
+  margin-top:10px;
+}
+.quick-addbar .control-field label{
+  font-size:12px;
+}
+@media (max-width:900px){.quick-addbar{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.quick-addbar{grid-template-columns:1fr}}
+
 .quick-card{
   display:flex;
   flex-direction:column;
@@ -787,6 +704,7 @@ nav a.active{
   border-radius:14px;
   padding:12px;
   box-shadow:0 8px 18px rgba(0,0,0,.05);
+  margin-bottom:10px;
 }
 .quick-top{
   display:flex;
@@ -1167,7 +1085,7 @@ nav a.active{
 
 .summary-grid{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(5,minmax(0,1fr));
   gap:12px;
   margin-top:14px;
 }
@@ -1203,6 +1121,43 @@ nav a.active{
 }
 @media (max-width:1100px){.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:700px){.summary-grid{grid-template-columns:1fr}}
+
+.result-banner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#fbfffb,#f4fff5);
+  border:1px solid #e6f3ea;
+  color:#072012;
+}
+.result-banner strong{color:#04462e}
+.adv-toggle{
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid #dfe9df;
+  background:#fff;
+  color:#04462e;
+  font-weight:800;
+}
+.advanced-panel{
+  margin-top:12px;
+  padding:14px;
+  border-radius:16px;
+  background:linear-gradient(180deg,#f7fff6,#f0fff1);
+  border:1px solid #e6f7ea;
+}
+.advanced-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+@media (max-width:1100px){.advanced-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.advanced-grid{grid-template-columns:1fr}}
 
 .chart-card{
   margin-top:16px;
@@ -1367,6 +1322,8 @@ footer::before{
   .consumer summary,.room-card summary{flex-direction:column;align-items:flex-start}
   .consumer-chip,.room-head-right{white-space:normal}
   .consumer-leading,.room-main{width:100%}
+  .summary-grid{grid-template-columns:1fr}
+  .advanced-grid{grid-template-columns:1fr}
 }
 @media (max-width:480px){
   :root{--topbar-h:40px;--header-h:76px}
@@ -1392,8 +1349,8 @@ footer::before{
   .section h2{font-size:26px}
   .chart-head h3{font-size:16px}
   .summary-card .value{font-size:22px}
-  .summary-grid{grid-template-columns:1fr}
   .consumer-fields{grid-template-columns:1fr}
+  .quick-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -1498,7 +1455,7 @@ footer::before{
   <section id="study" class="section" aria-label="Étude de dimensionnement">
     <h2>Étude de dimensionnement</h2>
     <p class="section-intro">
-      Deux parcours sont proposés : le mode <strong>Débutant</strong> pour aller très vite avec des cases simples,
+      Deux parcours sont proposés : le mode <strong>Débutant</strong> pour aller très vite avec des cases simples et une liste d’équipements,
       et le mode <strong>Expert</strong> pour une étude technique plus poussée.
     </p>
 
@@ -1541,10 +1498,28 @@ footer::before{
             <span>Vous cochez, vous ajustez, le résultat sort tout de suite</span>
           </div>
 
-          <div id="beginnerList"></div>
+          <div class="quick-addbar">
+            <div class="control-field">
+              <label for="beginnerItemSelect">Ajouter un équipement depuis la liste</label>
+              <select id="beginnerItemSelect"></select>
+            </div>
+            <div class="control-field">
+              <label for="beginnerItemQty">Quantité</label>
+              <input id="beginnerItemQty" type="number" min="0" value="1">
+            </div>
+            <div class="control-field">
+              <label for="beginnerItemHours">Heures / jour</label>
+              <input id="beginnerItemHours" type="number" min="0" step="0.1" value="2">
+            </div>
+            <div class="control-field">
+              <label for="beginnerItemPower">Puissance (W)</label>
+              <input id="beginnerItemPower" type="number" min="0" value="0">
+            </div>
+            <button id="addCatalogItemBtn" class="btn-add" type="button">Ajouter</button>
+          </div>
 
           <div class="quick-custom">
-            <div class="section-title" style="margin-bottom:10px"><i class="fas fa-plus"></i> Ajouter un équipement</div>
+            <div class="section-title" style="margin-bottom:10px"><i class="fas fa-plus"></i> Ajouter un équipement libre</div>
             <div class="quick-custom-grid">
               <div class="control-field">
                 <label for="customName">Nom</label>
@@ -1567,8 +1542,10 @@ footer::before{
           </div>
 
           <div class="control-note">
-            Exemple : cochez “Téléphones”, mettez 5, puis ajustez les heures d’utilisation.
+            Exemple : choisissez “Téléphones”, mettez 5, puis indiquez les heures d’utilisation. Vous pouvez aussi cocher ou décocher un équipement.
           </div>
+
+          <div id="beginnerList" style="margin-top:12px"></div>
         </div>
 
         <div class="expert-only expert-panel" id="expertPanel">
@@ -1694,24 +1671,25 @@ footer::before{
         <div id="roomsList" class="room-list"></div>
 
         <div style="margin-top:14px">
-          <h4 style="margin:0 0 8px 0;color:#04462e">Résumé technique</h4>
+          <h4 style="margin:0 0 8px 0;color:#04462e">Résultats essentiels</h4>
+
           <div class="summary-grid">
             <div class="summary-card">
-              <div class="label">Puissance installée</div>
-              <div id="powerInstalledCard" class="value">—</div>
-              <div class="small">Somme nominale de toutes les charges.</div>
+              <div class="label">Type de batterie</div>
+              <div id="batteryTypeOut" class="value">—</div>
+              <div class="small">À installer ou conseillé.</div>
             </div>
 
             <div class="summary-card">
-              <div class="label">Consommation / jour</div>
-              <div id="consDayCard" class="value">—</div>
-              <div class="small">Base de calcul du dimensionnement.</div>
+              <div class="label">Batterie utile totale</div>
+              <div id="batteryRecCard" class="value">—</div>
+              <div class="small">À garder le plus bas possible.</div>
             </div>
 
             <div class="summary-card">
-              <div class="label">Consommation / mois</div>
-              <div id="consMonthCard" class="value">—</div>
-              <div class="small">Référence sur 30 jours.</div>
+              <div class="label">Panneaux estimés</div>
+              <div id="panelCountCard" class="value">—</div>
+              <div class="small">Avec la puissance d’un panneau.</div>
             </div>
 
             <div class="summary-card">
@@ -1721,39 +1699,62 @@ footer::before{
             </div>
 
             <div class="summary-card">
+              <div class="label">Puissance d’un panneau</div>
+              <div id="panelUnitCard" class="value">—</div>
+              <div class="small">Réglage choisi.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-banner">
+          <div>
+            <strong>Résultat rapide :</strong> les éléments essentiels sont d’abord affichés ici.
+          </div>
+          <button id="toggleAdvancedBtn" class="adv-toggle" type="button">Résultats avancés</button>
+        </div>
+
+        <div id="advancedResults" class="advanced-panel" hidden>
+          <div class="section-title" style="margin-bottom:10px"><i class="fas fa-chart-line"></i> Résultats avancés</div>
+          <div class="advanced-grid">
+            <div class="summary-card">
+              <div class="label">Consommation / jour</div>
+              <div id="consDayCard" class="value">—</div>
+              <div class="small">Base de calcul.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Consommation / mois</div>
+              <div id="consMonthCard" class="value">—</div>
+              <div class="small">30 jours de référence.</div>
+            </div>
+            <div class="summary-card">
               <div class="label">Puissance PV</div>
               <div id="pvRecCard" class="value">—</div>
-              <div class="small">Puissance solaire recommandée.</div>
+              <div class="small">Champ solaire associé.</div>
             </div>
-
-            <div class="summary-card">
-              <div class="label">Nombre de panneaux</div>
-              <div id="panelCountCard" class="value">—</div>
-              <div class="small">Arrondi au panneau entier.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Batterie utile totale</div>
-              <div id="batteryRecCard" class="value">—</div>
-              <div class="small">Selon le mode et le réglage.</div>
-            </div>
-
             <div class="summary-card">
               <div class="label">Autonomie estimée</div>
               <div id="autonomyCard" class="value">—</div>
-              <div class="small">Lecture rapide de l’autonomie.</div>
+              <div class="small">Lecture rapide.</div>
             </div>
-
             <div class="summary-card">
-              <div class="label">Section câble conseillée</div>
+              <div class="label">Section câble</div>
               <div id="cableRecCard" class="value">—</div>
-              <div class="small">Basée sur l’intensité et une marge de sécurité.</div>
+              <div class="small">Auto ou sélectionnée.</div>
             </div>
-
             <div class="summary-card">
-              <div class="label">Type batterie</div>
-              <div id="batteryTypeOut" class="value">—</div>
-              <div class="small">Recommandation ou sélection.</div>
+              <div class="label">Puissance installée</div>
+              <div id="powerInstalledCard" class="value">—</div>
+              <div class="small">Somme nominale de toutes les charges.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Infos batterie</div>
+              <div id="batteryInfoCard" class="value">—</div>
+              <div class="small">Cycles et durée de vie.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Infos panneaux</div>
+              <div id="panelInfoCard" class="value">—</div>
+              <div class="small">Marge de calcul.</div>
             </div>
           </div>
         </div>
@@ -1771,7 +1772,7 @@ footer::before{
             <canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas>
           </div>
           <div class="muted-note" style="margin-top:8px">
-            Le soleil est pris en compte de 06h à 18h.
+            Courbe verte = production solaire, courbe jaune = consommation, courbe bleue = niveau de batterie. Sur téléphone, faites défiler horizontalement la page si besoin pour mieux voir le graphique.
           </div>
         </div>
 
@@ -1793,7 +1794,7 @@ footer::before{
           La synthèse vous donne l’essentiel pour décider du matériel à installer chez vous.
         </div>
 
-        <div class="summary-grid">
+        <div class="summary-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">
           <div class="summary-card">
             <div class="label">Profil / pièces</div>
             <div id="summaryRooms" class="value">—</div>
@@ -1881,16 +1882,18 @@ const BATTERY_TYPES = {
 const STD_INVERTERS = [300, 500, 1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000];
 const STANDARD_PANEL_W = 350;
 const STANDARD_PACK_WH = 5000;
-const BEGINNER_TARGET_AUTONOMY_DAYS = 1.5;
+const BEGINNER_TARGET_AUTONOMY_DAYS = 1.0;
 
-const BEGINNER_ITEMS = [
-  { id:'phones',  name:'Téléphones',   icon:'fa-mobile-screen-button', powerW:10,  qty:4, hours:2,  checked:true },
-  { id:'tv',      name:'Téléviseur',   icon:'fa-tv',                   powerW:120, qty:1, hours:4,  checked:true },
-  { id:'fans',    name:'Ventilateurs', icon:'fa-fan',                  powerW:45,  qty:2, hours:8,  checked:true },
-  { id:'lights',  name:'Lampes LED',   icon:'fa-lightbulb',            powerW:12,  qty:6, hours:5,  checked:true },
-  { id:'fridge',  name:'Réfrigérateur',icon:'fa-refrigerator',         powerW:70,  qty:1, hours:24, checked:true },
-  { id:'pc',      name:'Ordinateurs',  icon:'fa-laptop',               powerW:90,  qty:0, hours:6,  checked:false },
-  { id:'router',  name:'Wi-Fi / Box',  icon:'fa-wifi',                 powerW:12,  qty:1, hours:24, checked:true }
+const BEGINNER_CATALOG = [
+  { id:'phones', label:'Téléphones', icon:'fa-mobile-screen-button', powerW:10, hours:2, qty:4 },
+  { id:'tv', label:'Téléviseur', icon:'fa-tv', powerW:120, hours:4, qty:1 },
+  { id:'fans', label:'Ventilateur', icon:'fa-fan', powerW:45, hours:8, qty:2 },
+  { id:'lights', label:'Lampe LED', icon:'fa-lightbulb', powerW:12, hours:5, qty:6 },
+  { id:'fridge', label:'Réfrigérateur', icon:'fa-refrigerator', powerW:70, hours:24, qty:1 },
+  { id:'pc', label:'Ordinateur', icon:'fa-laptop', powerW:90, hours:6, qty:0 },
+  { id:'decoder', label:'Décodeur', icon:'fa-satellite-dish', powerW:10, hours:6, qty:1 },
+  { id:'wifi', label:'Wi-Fi / Box', icon:'fa-wifi', powerW:12, hours:24, qty:1 },
+  { id:'other', label:'Autre équipement', icon:'fa-circle-plus', powerW:100, hours:1, qty:1 }
 ];
 
 const ROOM_TEMPLATES = {
@@ -1933,22 +1936,19 @@ const ROOM_ICONS = {
   "Toilette":"fa-toilet"
 };
 
-const QUICK_ICONS = {
-  phones:'fa-mobile-screen-button',
-  tv:'fa-tv',
-  fans:'fa-fan',
-  lights:'fa-lightbulb',
-  fridge:'fa-refrigerator',
-  pc:'fa-laptop',
-  router:'fa-wifi'
-};
-
 function getRoomIcon(type){ return ROOM_ICONS[type] || "fa-house"; }
-function getQuickIconById(id){ return QUICK_ICONS[id] || "fa-plug"; }
 function getLoadIcon(load){ return load.icon || "fa-plug"; }
 
 let rooms = [];
-let beginnerItems = structuredClone(BEGINNER_ITEMS);
+let beginnerItems = BEGINNER_CATALOG.map((x, i) => ({
+  id:x.id + '_' + i,
+  name:x.label,
+  icon:x.icon,
+  powerW:x.powerW,
+  hours:x.hours,
+  qty:x.qty,
+  checked: i < 4
+}));
 let roomCounter = 0;
 let lastCalcSnapshot = null;
 
@@ -1967,19 +1967,25 @@ const modeHint = document.getElementById('modeHint');
 const countryEl = document.getElementById('country');
 const cityEl = document.getElementById('city');
 
+const beginnerItemSelect = document.getElementById('beginnerItemSelect');
+const beginnerItemQty = document.getElementById('beginnerItemQty');
+const beginnerItemHours = document.getElementById('beginnerItemHours');
+const beginnerItemPower = document.getElementById('beginnerItemPower');
+const addCatalogItemBtn = document.getElementById('addCatalogItemBtn');
+
 const batteryTypeEl = document.getElementById('batteryType');
 const batteryPackCountEl = document.getElementById('batteryPackCount');
 const battPackKwhEl = document.getElementById('battPackKwh');
 const panelWEl = document.getElementById('panelW');
 const cableSectionEl = document.getElementById('cableSection');
 
-const bListEl = document.getElementById('beginnerList');
 const customNameEl = document.getElementById('customName');
 const customPowerEl = document.getElementById('customPower');
 const customQtyEl = document.getElementById('customQty');
 const customHoursEl = document.getElementById('customHours');
 const addCustomBeginnerBtn = document.getElementById('addCustomBeginnerBtn');
 
+const roomListEl = document.getElementById('roomsList');
 const genBedrooms = document.getElementById('genBedrooms');
 const genLiving = document.getElementById('genLiving');
 const genKitchens = document.getElementById('genKitchens');
@@ -1990,6 +1996,8 @@ const genAdd = document.getElementById('genAdd');
 const generateBtn = document.getElementById('generateBtn');
 const resetBtn = document.getElementById('resetBtn');
 const exportPdfBtn = document.getElementById('exportPdfBtn');
+const toggleAdvancedBtn = document.getElementById('toggleAdvancedBtn');
+const advancedResults = document.getElementById('advancedResults');
 
 const consDayCard = document.getElementById('consDayCard');
 const consMonthCard = document.getElementById('consMonthCard');
@@ -2006,10 +2014,9 @@ const summaryAutonomy = document.getElementById('summaryAutonomy');
 const summaryBatteries = document.getElementById('summaryBatteries');
 const summaryCable = document.getElementById('summaryCable');
 const safetyCard = document.getElementById('summarySafety');
-
-const expertPanel = document.getElementById('expertPanel');
-const expertGenerator = document.getElementById('expertGenerator');
-const beginnerProfile = document.getElementById('beginnerProfile');
+const batteryInfoCard = document.getElementById('batteryInfoCard');
+const panelInfoCard = document.getElementById('panelInfoCard');
+const panelUnitCard = document.getElementById('panelUnitCard');
 
 function fmt(n, dec = 2){
   const num = Number(n || 0);
@@ -2024,7 +2031,7 @@ function pickStandardInverter(targetW){
   return STD_INVERTERS.find(v => v >= value) || STD_INVERTERS[STD_INVERTERS.length - 1];
 }
 function escapeHtml(str){
-  return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[s]));
 }
 function cloneLoads(loads){
   return (loads || []).map(l => ({
@@ -2064,6 +2071,7 @@ function captureRoomOpenState(){
   });
   return state;
 }
+
 function populateCities(country){
   cityEl.innerHTML = '';
   const list = country === 'sn'
@@ -2110,8 +2118,63 @@ function formatCableChoice(value, suggested){
 }
 function isBeginner(){ return studyModeEl.value === 'beginner'; }
 
+function fillBeginnerCatalog(){
+  beginnerItemSelect.innerHTML = '';
+  BEGINNER_CATALOG.forEach((item, idx) => {
+    const opt = document.createElement('option');
+    opt.value = item.id;
+    opt.textContent = item.label;
+    beginnerItemSelect.appendChild(opt);
+    if(idx === 0){
+      beginnerItemQty.value = item.qty;
+      beginnerItemHours.value = item.hours;
+      beginnerItemPower.value = item.powerW;
+    }
+  });
+}
+function getCatalogItem(id){
+  return BEGINNER_CATALOG.find(x => x.id === id) || BEGINNER_CATALOG[0];
+}
+function addBeginnerItemFromCatalog(){
+  const catalog = getCatalogItem(beginnerItemSelect.value);
+  const powerW = Number(beginnerItemPower.value || catalog.powerW || 0);
+  beginnerItems.push({
+    id:`${catalog.id}_${Date.now()}`,
+    name:catalog.label,
+    icon:catalog.icon,
+    powerW:powerW > 0 ? powerW : catalog.powerW,
+    hours:Number(beginnerItemHours.value || catalog.hours || 0),
+    qty:Number(beginnerItemQty.value || catalog.qty || 1),
+    checked:true
+  });
+  renderView();
+  recalc();
+}
+function addCustomBeginnerItem(){
+  const name = String(customNameEl.value || '').trim();
+  const powerW = Math.max(0, Number(customPowerEl.value || 0));
+  const qty = Math.max(0, Number(customQtyEl.value || 0));
+  const hours = Math.max(0, Number(customHoursEl.value || 0));
+  if(!name) return alert('Donne un nom à l’équipement.');
+  beginnerItems.push({
+    id:`custom_${Date.now()}`,
+    name,
+    icon:'fa-plug',
+    powerW,
+    qty,
+    hours,
+    checked:true
+  });
+  customNameEl.value = '';
+  customPowerEl.value = 500;
+  customQtyEl.value = 1;
+  customHoursEl.value = 1;
+  renderView();
+  recalc();
+}
+
 function renderBeginnerItems(){
-  bListEl.innerHTML = '';
+  roomListEl.innerHTML = '';
   beginnerItems.forEach((item, idx) => {
     const card = document.createElement('article');
     card.className = 'quick-card';
@@ -2123,7 +2186,7 @@ function renderBeginnerItems(){
             <span>${escapeHtml(item.name)}</span>
           </label>
         </div>
-        <span class="quick-chip"><i class="fas ${getQuickIconById(item.id)}"></i> ${item.powerW} W</span>
+        <span class="quick-chip"><i class="fas ${item.icon}"></i> ${fmt(item.powerW,0)} W</span>
       </div>
 
       <div class="quick-grid">
@@ -2138,26 +2201,17 @@ function renderBeginnerItems(){
           <small>Heures d’utilisation</small>
         </div>
         <div class="quick-field">
-          <label>État</label>
-          <input type="text" value="${item.checked ? 'Pris en compte' : 'Ignoré'}" disabled>
-          <small>Cocher / décocher</small>
+          <label>Puissance (W)</label>
+          <input type="number" min="0" class="b-power" data-idx="${idx}" value="${item.powerW}">
+          <small>Réglable si besoin</small>
         </div>
       </div>
       <div class="quick-actions">
         <button type="button" class="btn-danger b-remove" data-idx="${idx}">Supprimer</button>
       </div>
     `;
-    bListEl.appendChild(card);
+    roomListEl.appendChild(card);
   });
-}
-
-function renderBeginnerRoom(){
-  const loads = beginnerItems.filter(i => i.checked && Number(i.qty || 0) > 0);
-  if(!loads.length){
-    bListEl.innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Cochez un équipement pour commencer l’estimation.</div>';
-    return;
-  }
-  renderBeginnerItems();
 }
 
 function beginnerToLoads(){
@@ -2175,9 +2229,9 @@ function beginnerToLoads(){
 
 function renderExpertRooms(){
   const openState = captureRoomOpenState();
-  document.getElementById('roomsList').innerHTML = '';
+  roomListEl.innerHTML = '';
   if(rooms.length === 0){
-    document.getElementById('roomsList').innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Aucune pièce générée pour le moment.</div>';
+    roomListEl.innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Aucune pièce générée pour le moment.</div>';
     return;
   }
 
@@ -2257,7 +2311,7 @@ function renderExpertRooms(){
         </div>
       </div>
     `;
-    document.getElementById('roomsList').appendChild(box);
+    roomListEl.appendChild(box);
   });
 }
 
@@ -2266,8 +2320,34 @@ function renderRooms(){
   else renderExpertRooms();
 }
 
+function onLoadChange(e){
+  const target = e.target;
+  if(!target.classList.contains('load-field')) return;
+  const consumer = target.closest('.consumer');
+  if(!consumer) return;
+
+  const roomIndex = Number(consumer.dataset.r);
+  const loadIndex = Number(consumer.dataset.l);
+  const field = target.dataset.field;
+  let value = target.value;
+
+  if(['qty','powerW','hours'].includes(field)) value = Number(value || 0);
+  rooms[roomIndex].loads[loadIndex][field] = value;
+  recalc();
+}
+
+function getExpertLoads(){
+  const list = [];
+  rooms.forEach((room, roomIndex) => {
+    room.loads.forEach((load, loadIndex) => {
+      list.push({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type });
+    });
+  });
+  return list;
+}
+
 function getCurrentLoads(){
-  return isBeginner() ? beginnerToLoads() : rooms.flatMap((room, roomIndex) => room.loads.map((load, loadIndex) => ({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type })));
+  return isBeginner() ? beginnerToLoads() : getExpertLoads();
 }
 
 function getSafetyPoints(){
@@ -2473,6 +2553,7 @@ function recalc(){
     batteryPackCount = Math.max(1, Math.ceil((dailyKwh * BEGINNER_TARGET_AUTONOMY_DAYS) / ((battPackWh/1000) * batteryProfile.dod * batteryProfile.eff)));
     panelW = STANDARD_PANEL_W;
     selectedCable = 'auto';
+
     pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
     panelCountRec = Math.max(0, Math.ceil((pvKwRec * 1000) / panelW));
     inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
@@ -2487,6 +2568,7 @@ function recalc(){
     battPackWh = Math.max(500, Number(battPackKwhEl.value || 5000));
     panelW = Math.max(50, Number(panelWEl.value || 350));
     selectedCable = cableSectionEl.value;
+
     pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
     panelCountRec = Math.max(0, Math.ceil((pvKwRec * 1000) / panelW));
     inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
@@ -2507,6 +2589,14 @@ function recalc(){
   panelCountCard.innerText = hasLoads ? `${panelCountRec}` : '—';
   batteryTypeOutEl.innerText = batteryLabel;
   cableRecCard.innerText = hasLoads ? formatCableChoice(isBeginner() ? 'auto' : selectedCable, cableSuggested) : '—';
+
+  panelUnitCard.innerText = hasLoads ? `${fmt(panelW,0)} W` : '—';
+  batteryInfoCard.innerText = hasLoads
+    ? `${batteryPackCount} pack(s) · ${batteryProfile.cycles} cycles`
+    : '—';
+  panelInfoCard.innerText = hasLoads
+    ? `${panelCountRec} panneau(x) estimé(s)`
+    : '—';
 
   const solar = dailySolarCurve(pvKwRec);
   const load = loadCurve(loads);
@@ -2545,8 +2635,8 @@ function recalc(){
     batteryUsefulTotal,
     autonomyDays,
     batteryPackCount,
-    battPackKwh,
-    batteryType:batteryProfile.label,
+    battPackWh,
+    batteryType:batteryLabel,
     batteryLifeYears:batteryProfile.lifeLabel,
     batteryCycles:batteryProfile.cycles,
     cableSelected:isBeginner() ? 'auto' : selectedCable,
@@ -2555,7 +2645,8 @@ function recalc(){
     loads,
     roomsCount:isBeginner() ? 1 : rooms.length,
     safetyPoints:getSafetyPoints(),
-    sunHours
+    sunHours,
+    panelW
   };
   return lastCalcSnapshot;
 }
@@ -2827,7 +2918,7 @@ function setupBrilliance(){
 }
 
 function renderBeginnerItems(){
-  bListEl.innerHTML = '';
+  roomListEl.innerHTML = '';
   beginnerItems.forEach((item, idx) => {
     const card = document.createElement('article');
     card.className = 'quick-card';
@@ -2839,7 +2930,7 @@ function renderBeginnerItems(){
             <span>${escapeHtml(item.name)}</span>
           </label>
         </div>
-        <span class="quick-chip"><i class="fas ${getQuickIconById(item.id)}"></i> ${item.powerW} W</span>
+        <span class="quick-chip"><i class="fas ${item.icon}"></i> ${fmt(item.powerW,0)} W</span>
       </div>
 
       <div class="quick-grid">
@@ -2854,59 +2945,144 @@ function renderBeginnerItems(){
           <small>Heures d’utilisation</small>
         </div>
         <div class="quick-field">
-          <label>État</label>
-          <input type="text" value="${item.checked ? 'Pris en compte' : 'Ignoré'}" disabled>
-          <small>Cocher / décocher</small>
+          <label>Puissance (W)</label>
+          <input type="number" min="0" class="b-power" data-idx="${idx}" value="${item.powerW}">
+          <small>Réglable si besoin</small>
         </div>
       </div>
-
       <div class="quick-actions">
         <button type="button" class="btn-danger b-remove" data-idx="${idx}">Supprimer</button>
       </div>
     `;
-    bListEl.appendChild(card);
+    roomListEl.appendChild(card);
   });
 }
 
-function beginnerToLoads(){
-  return beginnerItems
-    .filter(i => i.checked && Number(i.qty || 0) > 0)
-    .map(i => ({
-      name:i.name,
-      countLabel:i.name,
-      icon:i.icon,
-      qty:Number(i.qty || 0),
-      powerW:Number(i.powerW || 0),
-      hours:Number(i.hours || 0)
-    }));
-}
+function renderExpertRooms(){
+  const openState = captureRoomOpenState();
+  roomListEl.innerHTML = '';
+  if(rooms.length === 0){
+    roomListEl.innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Aucune pièce générée pour le moment.</div>';
+    return;
+  }
 
-function updateModeUI(){
-  document.body.classList.toggle('mode-beginner', isBeginner());
-  document.body.classList.toggle('mode-expert', !isBeginner());
+  rooms.forEach((room, roomIndex) => {
+    const roomTotalW = room.loads.reduce((s,l)=>s + Math.max(0, Number(l.qty||0)) * Math.max(0, Number(l.powerW||0)), 0);
+    const roomTotalKwh = room.loads.reduce((s,l)=>s + Math.max(0, Number(l.qty||0)) * Math.max(0, Number(l.powerW||0)) * Math.max(0, Number(l.hours||0)) / 1000, 0);
+    const loadsCount = room.loads.length;
 
-  beginnerProfile.style.display = isBeginner() ? 'block' : 'none';
-  expertPanel.style.display = isBeginner() ? 'none' : 'block';
-  expertGenerator.style.display = isBeginner() ? 'none' : 'grid';
+    const box = document.createElement('details');
+    box.className = 'room-card';
+    box.id = `room-block-${roomIndex}`;
+    box.open = openState[room.id] ?? room.open ?? false;
 
-  modeHint.textContent = isBeginner()
-    ? 'Débutant : vous cochez les équipements, vous ajustez les quantités et le temps d’utilisation. Rien de plus.'
-    : 'Expert : vous ajustez les batteries, panneaux, câbles et chaque pièce séparément.';
+    const loadsHtml = room.loads.map((load, loadIndex) => `
+      <details class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
+        <summary>
+          <div class="consumer-leading">
+            <span class="consumer-icon"><i class="fas ${getLoadIcon(load)}" aria-hidden="true"></i></span>
+            <div class="consumer-summary-main">
+              <div class="consumer-title">${escapeHtml(load.name || 'Charge')}</div>
+              <div class="consumer-meta">${Number(load.qty||0)} × ${Number(load.powerW||0)} W × ${Number(load.hours||0)} h/j</div>
+            </div>
+          </div>
+          <span class="consumer-chip">${fmt((Number(load.qty||0)*Number(load.powerW||0)*Number(load.hours||0))/1000,2)} kWh/j</span>
+        </summary>
 
-  renderView();
-  recalc();
+        <div class="consumer-body">
+          <div class="consumer-fields">
+            <label>Nom
+              <input class="load-field" data-field="name" type="text" value="${escapeHtml(load.name)}">
+            </label>
+            <label>${load.countLabel || 'Qté'}
+              <input class="load-field" data-field="qty" type="number" min="0" value="${load.qty}">
+            </label>
+            <label>W
+              <input class="load-field" data-field="powerW" type="number" min="0" value="${load.powerW}">
+            </label>
+            <label>h/j
+              <input class="load-field" data-field="hours" type="number" min="0" step="0.1" value="${load.hours}">
+            </label>
+          </div>
+
+          <div class="consumer-actions">
+            <button class="btn-danger btn-remove-load" type="button">Supprimer</button>
+          </div>
+        </div>
+      </details>
+    `).join('');
+
+    box.innerHTML = `
+      <summary>
+        <div class="room-main">
+          <span class="room-icon"><i class="fas ${getRoomIcon(room.type)}" aria-hidden="true"></i></span>
+          <div class="room-title-stack">
+            <div class="room-name">${escapeHtml(room.name)}</div>
+            <div class="room-sub">${escapeHtml(room.type)} · ${loadsCount} charge${loadsCount > 1 ? 's' : ''}</div>
+          </div>
+        </div>
+        <div class="room-head-right">
+          <span class="room-chip">${fmt(roomTotalW,0)} W</span>
+          <span class="room-chip">${fmt(roomTotalKwh,2)} kWh/j</span>
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </div>
+      </summary>
+
+      <div class="room-body">
+        <div class="room-actions">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-link btn-add-load" data-r="${roomIndex}" type="button">+ charge</button>
+            <button class="btn-reset btn-remove-room" data-r="${roomIndex}" type="button">Suppr pièce</button>
+          </div>
+          <span class="room-chip"><i class="fas fa-bolt" aria-hidden="true"></i> ${fmt(roomTotalW,0)} W</span>
+        </div>
+
+        <div class="consumer-list">
+          ${loadsHtml || '<div class="muted-note" style="padding:6px 0;color:#6c7d6f">Aucune charge ajoutée</div>'}
+        </div>
+      </div>
+    `;
+    roomListEl.appendChild(box);
+  });
 }
 
 function renderView(){
-  if(isBeginner()){
-    renderBeginnerItems();
-  }else{
-    renderExpertRooms();
-  }
+  if(isBeginner()) renderBeginnerItems();
+  else renderExpertRooms();
+}
+
+function getExpertLoads(){
+  const list = [];
+  rooms.forEach((room, roomIndex) => {
+    room.loads.forEach((load, loadIndex) => {
+      list.push({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type });
+    });
+  });
+  return list;
 }
 
 function getCurrentLoads(){
-  return isBeginner() ? beginnerToLoads() : rooms.flatMap((room, roomIndex) => room.loads.map((load, loadIndex) => ({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type })));
+  return isBeginner() ? beginnerItems.filter(i => i.checked && Number(i.qty || 0) > 0).map(i => ({
+    name:i.name, countLabel:i.name, icon:i.icon, qty:Number(i.qty || 0), powerW:Number(i.powerW || 0), hours:Number(i.hours || 0)
+  })) : getExpertLoads();
+}
+
+function roomDiversity(name){
+  const n = String(name || '').toLowerCase();
+  if(n.includes('éclairage') || n.includes('eclairage')) return 1.0;
+  if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv')) return 0.85;
+  if(n.includes('décodeur') || n.includes('decodeur') || n.includes('recharge')) return 1.0;
+  if(n.includes('ventilation') || n.includes('ventilateur')) return 0.95;
+  if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) return 0.35;
+  if(n.includes('micro')) return 0.30;
+  if(n.includes('blender')) return 0.30;
+  if(n.includes('ordinateur')) return 1.0;
+  return 1.0;
+}
+
+function chooseBatteryTypeForBeginner(dailyKwh){
+  if(dailyKwh <= 1.2) return BATTERY_TYPES.lithium_ion;
+  return BATTERY_TYPES.lifepo4;
 }
 
 function recalc(){
@@ -2977,6 +3153,10 @@ function recalc(){
   batteryTypeOutEl.innerText = batteryLabel;
   cableRecCard.innerText = hasLoads ? formatCableChoice(isBeginner() ? 'auto' : selectedCable, cableSuggested) : '—';
 
+  panelUnitCard.innerText = hasLoads ? `${fmt(panelW,0)} W` : '—';
+  batteryInfoCard.innerText = hasLoads ? `${batteryPackCount} pack(s) · ${batteryProfile.cycles} cycles` : '—';
+  panelInfoCard.innerText = hasLoads ? `${panelCountRec} panneau(x) estimé(s)` : '—';
+
   const solar = dailySolarCurve(pvKwRec);
   const load = loadCurve(loads);
   const battery = batteryCurve(solar, load, Math.max(1, batteryUsefulTotal || 1), 0.45);
@@ -3014,7 +3194,7 @@ function recalc(){
     batteryUsefulTotal,
     autonomyDays,
     batteryPackCount,
-    battPackKwh,
+    battPackWh,
     batteryType:batteryLabel,
     batteryLifeYears:batteryProfile.lifeLabel,
     batteryCycles:batteryProfile.cycles,
@@ -3024,140 +3204,22 @@ function recalc(){
     loads,
     roomsCount:isBeginner() ? 1 : rooms.length,
     safetyPoints:getSafetyPoints(),
-    sunHours
+    sunHours,
+    panelW
   };
   return lastCalcSnapshot;
 }
 
-function renderPdfBlock(){
-  const s = lastCalcSnapshot;
-  if(!s) return '';
-  const loadsRows = (s.loads || []).map(l => `
-    <tr>
-      <td style="padding:8px;border:1px solid #e6e6e6">${escapeHtml(l.name)}</td>
-      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.qty}</td>
-      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.powerW} W</td>
-      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.hours} h/j</td>
-      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${fmt((l.qty*l.powerW*l.hours)/1000,2)} kWh/j</td>
-    </tr>
-  `).join('');
-  const safety = (s.safetyPoints || []).map(item => `<li style="margin-bottom:6px">${item}</li>`).join('');
-  return `
-    <div style="position:relative;width:1120px;padding:22px;background:#fff;color:#222;font-family:Poppins,Arial,sans-serif;">
-      <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">GREENBRIDGE — À TITRE INDICATIF</div>
-      <div style="position:relative;z-index:1;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px">
-          <div style="display:flex;gap:12px;align-items:center">
-            <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px 10px;border-radius:8px;border:1px solid #dfeedf">
-              <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
-              <div style="font-size:11px;color:#556b56">Étude zone urbaine</div>
-            </div>
-            <div>
-              <div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone urbaine</div>
-              <div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.roomsCount} élément(s) — ${s.cityLabel}</div>
-            </div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-size:11px;color:#666;margin-top:6px">${s.countryLabel} — ${s.cityLabel}</div>
-          </div>
-        </div>
+function updateModeUI(){
+  document.body.classList.toggle('mode-beginner', isBeginner());
+  document.body.classList.toggle('mode-expert', !isBeginner());
 
-        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
-            <div><div style="font-weight:700">Puissance installée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div></div>
-            <div><div style="font-weight:700">Onduleur standard conseillé</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div></div>
-            <div><div style="font-weight:700">Consommation / jour</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div></div>
-            <div><div style="font-weight:700">Consommation / mois</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div></div>
-            <div><div style="font-weight:700">PV requis</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div></div>
-            <div><div style="font-weight:700">Nb panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div></div>
-            <div><div style="font-weight:700">Batterie utile totale</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div></div>
-            <div><div style="font-weight:700">Autonomie estimée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div></div>
-            <div><div style="font-weight:700">Section câble</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.cableFinal,1)} mm²</div></div>
-          </div>
-        </div>
+  modeHint.textContent = isBeginner()
+    ? 'Débutant : vous cochez les équipements, vous ajustez les quantités et le temps d’utilisation. Rien de plus.'
+    : 'Expert : vous ajustez les batteries, panneaux, câbles et chaque pièce séparément.';
 
-        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
-          <div style="font-weight:700;margin-bottom:6px">Points de sécurité</div>
-          <ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">${safety}</ul>
-        </div>
-
-        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
-          <div style="font-weight:700;margin-bottom:8px">Détail des charges</div>
-          <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
-            <thead>
-              <tr>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
-                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">kWh/j</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${loadsRows || '<tr><td colspan="5" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune donnée</td></tr>'}
-            </tbody>
-          </table>
-        </div>
-
-        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
-          <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
-          <div>Export : ${s.timestamp}</div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-async function generatePDF(){
-  try{
-    if(!lastCalcSnapshot) recalc();
-    const wrapper = document.getElementById('printBlock');
-    wrapper.innerHTML = renderPdfBlock();
-    const element = wrapper.firstElementChild;
-    const canvas = await html2canvas(element, { scale: 2, useCORS:true, backgroundColor:'#ffffff' });
-    const imgData = canvas.toDataURL('image/png');
-
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p','mm','a4');
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const margin = 10;
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfImgWidth = pageWidth - margin*2;
-    const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
-
-    if(pdfImgHeight <= pageHeight - margin*2){
-      pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight);
-    }else{
-      const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
-      let rendered = 0;
-      while(rendered < canvas.height){
-        const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
-        const sliceCanvas = document.createElement('canvas');
-        sliceCanvas.width = canvas.width;
-        sliceCanvas.height = sliceH;
-        const ctx = sliceCanvas.getContext('2d');
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
-        ctx.drawImage(canvas,0,rendered,sliceCanvas.width,sliceCanvas.height,0,0,sliceCanvas.width,sliceCanvas.height);
-        const sliceData = sliceCanvas.toDataURL('image/png');
-        const sliceImgProps = pdf.getImageProperties(sliceData);
-        const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
-        if(rendered > 0) pdf.addPage();
-        pdf.addImage(sliceData,'PNG',margin,margin,pdfImgWidth,sliceImgHeight);
-        rendered += sliceH;
-      }
-    }
-
-    pdf.setFontSize(9);
-    pdf.setTextColor(120);
-    pdf.text('GreenBridge — Synthèse indicative',margin,pageHeight-6);
-    const filename = `GreenBridge_zone_urbaine_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
-    pdf.save(filename);
-  }catch(err){
-    console.error(err);
-    alert('Erreur lors de la génération du PDF. Voir console pour détails.');
-  }
+  renderView();
+  recalc();
 }
 
 function generateExpertRooms(){
@@ -3196,7 +3258,16 @@ function resetDefaults(){
   panelWEl.value = '350';
   cableSectionEl.value = 'auto';
 
-  beginnerItems = structuredClone(BEGINNER_ITEMS);
+  beginnerItems = BEGINNER_CATALOG.map((x, i) => ({
+    id:x.id + '_' + i,
+    name:x.label,
+    icon:x.icon,
+    powerW:x.powerW,
+    hours:x.hours,
+    qty:x.qty,
+    checked: i < 4
+  }));
+
   rooms = [];
   roomCounter = 0;
 
@@ -3213,34 +3284,19 @@ function resetDefaults(){
   customQtyEl.value = 1;
   customHoursEl.value = 1;
 
+  beginnerItemSelect.value = BEGINNER_CATALOG[0].id;
+  beginnerItemQty.value = BEGINNER_CATALOG[0].qty;
+  beginnerItemHours.value = BEGINNER_CATALOG[0].hours;
+  beginnerItemPower.value = BEGINNER_CATALOG[0].powerW;
+
+  advancedResults.hidden = true;
+  toggleAdvancedBtn.textContent = 'Résultats avancés';
+
   updateModeUI();
 }
 
-function addCustomBeginnerItem(){
-  const name = String(customNameEl.value || '').trim();
-  const powerW = Math.max(0, Number(customPowerEl.value || 0));
-  const qty = Math.max(0, Number(customQtyEl.value || 0));
-  const hours = Math.max(0, Number(customHoursEl.value || 0));
-  if(!name) return alert('Donne un nom à l’équipement.');
-  beginnerItems.push({
-    id:`custom_${Date.now()}`,
-    name,
-    icon:'fa-plug',
-    powerW,
-    qty,
-    hours,
-    checked:true
-  });
-  customNameEl.value = '';
-  customPowerEl.value = 500;
-  customQtyEl.value = 1;
-  customHoursEl.value = 1;
-  renderView();
-  recalc();
-}
-
 function bindBeginnerEvents(){
-  bListEl.addEventListener('input', e => {
+  roomListEl.addEventListener('input', e => {
     const idx = Number(e.target.dataset.idx);
     if(Number.isNaN(idx)) return;
     const item = beginnerItems[idx];
@@ -3248,10 +3304,11 @@ function bindBeginnerEvents(){
 
     if(e.target.classList.contains('b-qty')) item.qty = Number(e.target.value || 0);
     if(e.target.classList.contains('b-hours')) item.hours = Number(e.target.value || 0);
+    if(e.target.classList.contains('b-power')) item.powerW = Number(e.target.value || 0);
     recalc();
   });
 
-  bListEl.addEventListener('change', e => {
+  roomListEl.addEventListener('change', e => {
     const idx = Number(e.target.dataset.idx);
     if(Number.isNaN(idx)) return;
     const item = beginnerItems[idx];
@@ -3261,7 +3318,7 @@ function bindBeginnerEvents(){
     renderBeginnerItems();
   });
 
-  bListEl.addEventListener('click', e => {
+  roomListEl.addEventListener('click', e => {
     const btn = e.target.closest('.b-remove');
     if(!btn) return;
     const idx = Number(btn.dataset.idx);
@@ -3270,90 +3327,92 @@ function bindBeginnerEvents(){
     renderBeginnerItems();
     recalc();
   });
+
+  beginnerItemSelect.addEventListener('change', () => {
+    const c = getCatalogItem(beginnerItemSelect.value);
+    beginnerItemQty.value = c.qty;
+    beginnerItemHours.value = c.hours;
+    beginnerItemPower.value = c.powerW;
+  });
+
+  addCatalogItemBtn.addEventListener('click', addBeginnerItemFromCatalog);
+  addCustomBeginnerBtn.addEventListener('click', addCustomBeginnerItem);
 }
 
 function bindExpertEvents(){
-  document.getElementById('roomsList').addEventListener('input', onExpertLoadInput);
-  document.getElementById('roomsList').addEventListener('change', onExpertLoadInput);
-  document.getElementById('roomsList').addEventListener('click', onExpertClicks);
+  roomListEl.addEventListener('input', onLoadChange);
+  roomListEl.addEventListener('change', onLoadChange);
+  roomListEl.addEventListener('click', e => {
+    const addLoadBtn = e.target.closest('.btn-add-load');
+    const removeRoomBtn = e.target.closest('.btn-remove-room');
+    const removeLoadBtn = e.target.closest('.btn-remove-load');
+
+    if(addLoadBtn){
+      e.preventDefault();
+      e.stopPropagation();
+      const roomIndex = Number(addLoadBtn.dataset.r);
+      rooms[roomIndex].loads.push({
+        name:'Nouvelle charge',
+        countLabel:'Qté',
+        icon:'fa-plug',
+        qty:1,
+        powerW:0,
+        hours:0
+      });
+      rooms[roomIndex].open = true;
+      renderExpertRooms();
+      const block = document.getElementById(`room-block-${roomIndex}`);
+      if(block) block.open = true;
+      recalc();
+      return;
+    }
+
+    if(removeRoomBtn){
+      const roomIndex = Number(removeRoomBtn.dataset.r);
+      if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
+      rooms.splice(roomIndex,1);
+      renderExpertRooms();
+      recalc();
+      return;
+    }
+
+    if(removeLoadBtn){
+      const consumer = removeLoadBtn.closest('.consumer');
+      const roomIndex = Number(consumer.dataset.r);
+      const loadIndex = Number(consumer.dataset.l);
+      rooms[roomIndex].loads.splice(loadIndex,1);
+      renderExpertRooms();
+      recalc();
+    }
+  });
 }
 
-function onExpertLoadInput(e){
-  const target = e.target;
-  if(!target.classList.contains('load-field')) return;
-  const consumer = target.closest('.consumer');
-  if(!consumer) return;
-  const roomIndex = Number(consumer.dataset.r);
-  const loadIndex = Number(consumer.dataset.l);
-  const field = target.dataset.field;
-  let value = target.value;
-  if(['qty','powerW','hours'].includes(field)) value = Number(value || 0);
-  rooms[roomIndex].loads[loadIndex][field] = value;
-  recalc();
-}
-
-function onExpertClicks(e){
-  const addLoadBtn = e.target.closest('.btn-add-load');
-  const removeRoomBtn = e.target.closest('.btn-remove-room');
-  const removeLoadBtn = e.target.closest('.btn-remove-load');
-
-  if(addLoadBtn){
-    e.preventDefault();
-    e.stopPropagation();
-    const roomIndex = Number(addLoadBtn.dataset.r);
-    rooms[roomIndex].loads.push({
-      name:'Nouvelle charge',
-      countLabel:'Qté',
-      icon:'fa-plug',
-      qty:1,
-      powerW:0,
-      hours:0
-    });
-    rooms[roomIndex].open = true;
-    renderExpertRooms();
-    const block = document.getElementById(`room-block-${roomIndex}`);
-    if(block) block.open = true;
-    recalc();
-    return;
-  }
-
-  if(removeRoomBtn){
-    const roomIndex = Number(removeRoomBtn.dataset.r);
-    if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
-    rooms.splice(roomIndex,1);
-    renderExpertRooms();
-    recalc();
-    return;
-  }
-
-  if(removeLoadBtn){
-    const consumer = removeLoadBtn.closest('.consumer');
-    const roomIndex = Number(consumer.dataset.r);
-    const loadIndex = Number(consumer.dataset.l);
-    rooms[roomIndex].loads.splice(loadIndex,1);
-    renderExpertRooms();
-    recalc();
-  }
-}
-
-function renderView(){
-  if(isBeginner()) renderBeginnerItems();
-  else renderExpertRooms();
-}
-
-function chooseBatteryTypeForBeginner(dailyKwh){
-  if(dailyKwh <= 1.2) return BATTERY_TYPES.lithium_ion;
-  return BATTERY_TYPES.lifepo4;
+function addMenuListeners(){
+  burgerBtn.addEventListener('click', () => {
+    const opened = mobileNav.classList.contains('open');
+    if(opened) closeMenu(); else openMenu();
+  });
+  mobileBackdrop.addEventListener('click', closeMenu);
+  mobileCloseBtn.addEventListener('click', closeMenu);
+  document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
 }
 
 function init(){
   updateContacts('ci');
   populateCities('ci');
+  fillBeginnerCatalog();
+  beginnerItemSelect.value = BEGINNER_CATALOG[0].id;
+  beginnerItemQty.value = BEGINNER_CATALOG[0].qty;
+  beginnerItemHours.value = BEGINNER_CATALOG[0].hours;
+  beginnerItemPower.value = BEGINNER_CATALOG[0].powerW;
+
   setupBrilliance();
   bindBeginnerEvents();
   bindExpertEvents();
+  addMenuListeners();
   renderView();
-  recalc();
+  updateModeUI();
 
   studyModeEl.addEventListener('change', updateModeUI);
   countryEl.addEventListener('change', () => {
@@ -3369,13 +3428,10 @@ function init(){
     el.addEventListener('change', recalc);
   });
 
-  [
-    genBedrooms,genLiving,genKitchens,genBaths,genOffices,genToilets,genAdd
-  ].forEach(el => {
+  [genBedrooms,genLiving,genKitchens,genBaths,genOffices,genToilets,genAdd].forEach(el => {
     el.addEventListener('change', recalc);
   });
 
-  addCustomBeginnerBtn.addEventListener('click', addCustomBeginnerItem);
   generateBtn.addEventListener('click', generateExpertRooms);
   resetBtn.addEventListener('click', () => {
     if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
@@ -3383,15 +3439,12 @@ function init(){
   });
   exportPdfBtn.addEventListener('click', generatePDF);
 
-  burgerBtn.addEventListener('click', () => {
-    const opened = mobileNav.classList.contains('open');
-    if(opened) closeMenu(); else openMenu();
+  toggleAdvancedBtn.addEventListener('click', () => {
+    advancedResults.hidden = !advancedResults.hidden;
+    toggleAdvancedBtn.textContent = advancedResults.hidden ? 'Résultats avancés' : 'Masquer résultats avancés';
   });
-  mobileBackdrop.addEventListener('click', closeMenu);
-  mobileCloseBtn.addEventListener('click', closeMenu);
-  document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => a.addEventListener('click', closeMenu));
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
 
+  recalc();
   window.addEventListener('resize', recalc);
 }
 init();
