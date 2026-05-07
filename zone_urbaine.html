@@ -15,20 +15,22 @@
 :root{
   --topbar-h:46px;
   --header-h:86px;
+  --bg:#0a4d2e;
   --green-dark:#061f14;
   --green-mid:#073217;
   --green-mid-2:#0b4d26;
   --accent:#7cb342;
   --accent-2:#a8e6a1;
-  --bg:#0a4d2e;
-  --gold-base:#d4af37;
-  --gold-hover:#e6c95a;
-  --muted-text-color:#e6f7ea;
-  --muted-text-size:15px;
-  --electric-yellow:#ffd600;
-  --panel:#061f14;
-  --card-border:rgba(212,175,55,.18);
-  --shadow:0 10px 22px rgba(0,0,0,0.35);
+  --gold:#d4af37;
+  --gold-2:#e6c95a;
+  --text:#fff;
+  --muted:#dfffe6;
+  --card-bg:#ffffff;
+  --soft:#f5fff5;
+  --soft-2:#fbfffb;
+  --border:#e6f2e8;
+  --shadow:0 12px 28px rgba(0,0,0,.18);
+  --shadow-2:0 14px 36px rgba(2,22,12,.12);
   --max-width:1240px;
 }
 *{box-sizing:border-box}
@@ -37,15 +39,15 @@ html,body{
   padding:0;
   font-family:'Poppins',Arial,sans-serif;
   background:var(--bg);
-  color:#fff;
+  color:var(--text);
   scroll-behavior:smooth;
   overflow-x:hidden;
 }
-body.menu-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
+body.menu-open{overflow:hidden}
 
 .topbar{
   position:fixed;
@@ -55,23 +57,15 @@ button{cursor:pointer}
   display:flex;
   align-items:center;
   justify-content:flex-end;
-  gap:12px;
   padding:0 5vw;
   z-index:1500;
   font-size:14px;
   border-bottom:1px solid rgba(255,255,255,.04);
 }
-.topbar .right{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
-}
 .topbar a{
   color:#fff;
-  transition:color .18s;
-  white-space:nowrap;
   font-weight:700;
+  white-space:nowrap;
 }
 .topbar a:hover{color:var(--accent-2)}
 .phone-label{font-weight:800;margin-right:4px}
@@ -101,8 +95,6 @@ header{
 .logo-text img{
   height:66px;
   width:auto;
-  display:block;
-  flex:0 0 auto;
   object-fit:contain;
 }
 .brand-stack{
@@ -119,19 +111,12 @@ header{
   font-size:44px;
   font-weight:800;
   letter-spacing:.4px;
-  padding:0;
   margin:0;
-  border-radius:8px;
   color:#04462e;
-  -webkit-text-stroke:0.95px var(--gold-base);
-  text-shadow:0 3px 6px rgba(0,0,0,0.6);
-  position:relative;
-  top:2px;
+  -webkit-text-stroke:0.95px var(--gold);
+  text-shadow:0 3px 6px rgba(0,0,0,.6);
   white-space:nowrap;
   line-height:1;
-  text-align:center;
-  width:100%;
-  display:block;
 }
 .company-tagline{
   font-size:18px;
@@ -139,16 +124,12 @@ header{
   letter-spacing:4px;
   text-transform:uppercase;
   color:#dfffe6;
-  padding:0;
-  margin:2px 0 0 0;
-  text-shadow:0 2px 6px rgba(0,0,0,0.45);
-  -webkit-text-stroke:0.4px rgba(212,175,55,0.55);
+  margin:2px 0 0;
+  text-shadow:0 2px 6px rgba(0,0,0,.45);
+  -webkit-text-stroke:0.4px rgba(212,175,55,.55);
   white-space:nowrap;
-  line-height:1;
-  text-align:center;
-  width:100%;
-  display:block;
 }
+
 nav{display:flex;gap:18px;align-items:center}
 nav a{
   color:#fff;
@@ -181,10 +162,9 @@ nav a.active{
   padding:6px 10px;
   border-radius:10px;
   background:rgba(255,214,0,.08);
-  color:var(--electric-yellow);
+  color:#ffd600;
   font-weight:800;
   font-size:13px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.32);
   white-space:nowrap;
   display:inline-flex;
   align-items:center;
@@ -194,7 +174,7 @@ nav a.active{
   position:absolute;
   top:calc(100% + 8px);
   left:0;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,.88);
   padding:8px 0;
   border-radius:10px;
   box-shadow:0 10px 30px rgba(0,0,0,.5);
@@ -221,9 +201,9 @@ nav a.active{
   padding:10px 16px;
   font-weight:800;
   border-radius:8px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.28);
   margin:4px 8px;
 }
+
 .burger{
   display:none;
   width:52px;
@@ -233,7 +213,6 @@ nav a.active{
   background:rgba(255,255,255,0.05);
   align-items:center;
   justify-content:center;
-  cursor:pointer;
   box-shadow:0 6px 18px rgba(0,0,0,.18);
   -webkit-tap-highlight-color:transparent;
   touch-action:manipulation;
@@ -265,7 +244,6 @@ nav a.active{
   transition:opacity .2s ease;
 }
 .mobile-backdrop.open{display:block;opacity:1}
-
 .mobile-nav{
   display:none;
   position:fixed;
@@ -275,7 +253,7 @@ nav a.active{
   opacity:0;
   pointer-events:none;
   transition:opacity .2s ease, transform .2s ease;
-  transform:scale(0.985);
+  transform:scale(.985);
   overflow:auto;
 }
 .mobile-nav.open{
@@ -307,8 +285,6 @@ nav a.active{
   display:flex;
   align-items:center;
   justify-content:center;
-  cursor:pointer;
-  box-shadow:0 8px 18px rgba(0,0,0,.22);
 }
 .mobile-brand{
   display:flex;
@@ -321,18 +297,8 @@ nav a.active{
   margin-bottom:2px;
   text-align:center;
 }
-.mobile-brand .company-name{
-  font-size:34px;
-  line-height:1;
-  text-align:center;
-  width:100%;
-}
-.mobile-brand .company-tagline{
-  font-size:14px;
-  letter-spacing:4px;
-  text-align:center;
-  width:100%;
-}
+.mobile-brand .company-name{font-size:34px;line-height:1}
+.mobile-brand .company-tagline{font-size:14px;letter-spacing:4px}
 .menu-links{
   flex:1;
   display:flex;
@@ -360,7 +326,6 @@ nav a.active{
   background:rgba(255,255,255,0.03);
   min-height:64px;
   line-height:1.1;
-  white-space:normal;
 }
 .mobile-nav .mobile-link:hover{
   background:rgba(124,179,66,0.12);
@@ -394,7 +359,6 @@ nav a.active{
   white-space:nowrap;
   justify-content:flex-start;
   text-align:left;
-  letter-spacing:.2px;
   display:flex;
   align-items:center;
   border:1px solid rgba(255,255,255,0.06);
@@ -404,15 +368,6 @@ nav a.active{
   background:rgba(168,230,161,0.08);
   padding-left:18px;
 }
-.mobile-nav .submenu a.active-item,
-.mobile-nav .submenu a[aria-current="page"]{
-  background:transparent;
-  color:rgba(255,255,255,0.30);
-  border:none;
-  box-shadow:none;
-  font-weight:700;
-  font-style:italic;
-}
 .mobile-contact{
   display:flex;
   flex-direction:column;
@@ -421,7 +376,7 @@ nav a.active{
   border-radius:16px;
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,0.06);
-  color:var(--muted-text-color);
+  color:var(--muted);
   max-width:560px;
   width:100%;
   margin:0 auto;
@@ -463,99 +418,9 @@ nav a.active{
   min-height:44px;
 }
 
-.electric-band{
-  position:fixed;
-  top:calc(var(--topbar-h) + var(--header-h) - 6px);
-  left:0;right:0;
-  height:14px;
-  z-index:1600;
-  pointer-events:none;
-  overflow:visible;
-  transform:translateZ(0);
-}
-.electric-band .container{
-  position:absolute;
-  left:0;
-  top:50%;
-  transform:translateY(-50%);
-  width:100vw;
-  max-width:none;
-  padding:0;
-  height:100%;
-  pointer-events:none;
-  box-sizing:border-box;
-}
-.lightning-svg{
-  width:100vw;
-  height:100%;
-  display:block;
-  pointer-events:none;
-  opacity:0;
-  transition:opacity .22s ease;
-  mix-blend-mode:screen;
-}
-.electric-band.connected .lightning-svg{opacity:1}
-.lightning-svg path.zap{
-  stroke:var(--electric-yellow);
-  stroke-width:2.2;
-  fill:none;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  opacity:.98;
-}
-.orbs{
-  position:absolute;
-  left:0;top:0;
-  width:100vw;
-  height:100%;
-  pointer-events:none;
-  overflow:visible;
-}
-.orb{
-  position:absolute;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,#fff8b0,var(--electric-yellow));
-  box-shadow:0 0 12px rgba(255,214,0,0.95),0 0 30px rgba(255,214,0,0.22);
-  transform:translate(-50%,-50%);
-  opacity:0;
-  transition:opacity .18s linear;
-}
-.electric-band.connected .orb{opacity:1}
-@keyframes buzz{
-  0%{transform:translate(-50%,-50%) translateX(-2px)}
-  50%{transform:translate(-50%,-50%) translateX(2px)}
-  100%{transform:translate(-50%,-50%) translateX(-2px)}
-}
-.orb.buzz{animation:buzz .9s linear infinite}
-.glowline{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  height:3px;
-  width:0;
-  background:linear-gradient(90deg,rgba(255,238,170,0),rgba(255,214,0,0.98),rgba(255,238,170,0));
-  border-radius:8px;
-  box-shadow:0 6px 20px rgba(255,214,0,0.12);
-  opacity:0;
-  transition:opacity .22s ease;
-}
-.electric-band.connected .glowline{
-  width:100vw;
-  opacity:1;
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{
-  0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
-  50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}
-  100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
-}
-
 .hero{
   margin-top:calc(var(--topbar-h) + var(--header-h));
-  min-height:calc(72vh - (var(--topbar-h) + var(--header-h)));
+  min-height:68vh;
   position:relative;
   display:flex;
   align-items:center;
@@ -570,8 +435,8 @@ nav a.active{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center 42%;
-  transform:scale(1.10);
+  object-position:center 40%;
+  transform:scale(1.08);
   filter:brightness(1.02) contrast(1.03) saturate(1.04);
 }
 .hero-overlay{
@@ -610,19 +475,17 @@ nav a.active{
   flex-wrap:wrap;
   justify-content:center;
 }
-.btn-primary,.btn-secondary,.btn-reset,.btn-add,.btn-link,.btn-export,.btn-danger{
-  padding:14px 24px;
+
+.btn-primary,.btn-secondary,.btn-reset,.btn-add,.btn-link,.btn-export,.btn-danger,.btn-soft{
+  padding:14px 22px;
   border-radius:10px;
   border:0;
   font-weight:700;
   cursor:pointer;
-  font-size:16px;
+  font-size:15px;
   transition:transform .18s ease, background .18s ease, border-color .18s ease, filter .18s ease;
 }
-.btn-primary{
-  background:var(--accent);
-  color:#072012;
-}
+.btn-primary{background:var(--accent);color:#072012}
 .btn-primary:hover{background:var(--accent-2);transform:translateY(-2px)}
 .btn-secondary{
   background:transparent;
@@ -631,23 +494,24 @@ nav a.active{
 }
 .btn-secondary:hover{background:rgba(255,255,255,0.08);transform:translateY(-2px)}
 .btn-export{
-  background:linear-gradient(135deg,var(--gold-base),var(--gold-hover));
+  background:linear-gradient(135deg,var(--gold),var(--gold-2));
   color:#072012;
   box-shadow:0 10px 18px rgba(212,175,55,0.14);
 }
 .btn-export:hover{transform:translateY(-2px)}
 .btn-reset{background:#ececec;color:#072012}
-.btn-add{background:var(--gold-base);color:#072012}
+.btn-add{background:var(--gold);color:#072012}
 .btn-link{background:rgba(124,179,66,.12);color:#072012;border:1px solid rgba(124,179,66,.18)}
-.btn-danger{background:#e9e9e9;color:#072012;border:1px solid #ddd}
+.btn-danger{background:#ececec;color:#072012;border:1px solid #ddd}
+.btn-soft{background:var(--soft);color:#072012;border:1px solid var(--border)}
 
 .page-center{
   max-width:var(--max-width);
-  margin:calc(var(--topbar-h) + var(--header-h) + 18px) auto 80px;
+  margin:28px auto 80px;
   padding:0 18px;
 }
 .section{
-  padding:74px 0;
+  padding:56px 0;
   position:relative;
   z-index:1;
 }
@@ -660,16 +524,15 @@ nav a.active{
 }
 .section-intro{
   max-width:980px;
-  margin:0 auto 28px;
+  margin:0 auto 24px;
   text-align:center;
-  color:var(--muted-text-color);
+  color:var(--muted);
   line-height:1.78;
   font-size:15px;
-  opacity:.96;
 }
 
 .card-soft{
-  background:rgba(6,31,20,.60);
+  background:rgba(6,31,20,.56);
   border:1px solid rgba(212,175,55,.12);
   border-radius:18px;
   padding:18px;
@@ -782,46 +645,36 @@ nav a.active{
   line-height:1.4;
   grid-column:1 / -1;
 }
-@media (max-width:900px){
-  .generator{grid-template-columns:1fr 1fr}
-}
-@media (max-width:520px){
-  .generator{grid-template-columns:1fr}
-}
+@media (max-width:900px){.generator{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.generator{grid-template-columns:1fr}}
 
 .room-list{
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:12px;
   margin-top:10px;
   min-height:44px;
 }
-details.room{
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;
-  padding:12px 12px 4px;
+.room-card{
+  background:linear-gradient(180deg,#fbfffb,#f4fff5);
+  color:#072012;
+  border:1px solid #e6f3ea;
+  border-radius:16px;
+  box-shadow:var(--shadow-2);
   overflow:hidden;
 }
-details.room summary{
+.room-card summary{
   cursor:pointer;
-  font-weight:800;
-  color:#fff;
   list-style:none;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:10px;
+  gap:12px;
+  padding:14px 14px;
+  font-weight:800;
 }
-details.room summary::-webkit-details-marker{display:none}
-details.room summary::after{
-  content:"\25BC";
-  color:var(--accent-2);
-  font-size:12px;
-  transition:transform .2s;
-}
-details.room[open] summary::after{transform:rotate(180deg)}
-.room-headline{
+.room-card summary::-webkit-details-marker{display:none}
+.room-title{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
@@ -833,19 +686,36 @@ details.room[open] summary::after{transform:rotate(180deg)}
   gap:8px;
   padding:6px 10px;
   border-radius:999px;
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.10);
-  color:#fff;
+  background:#f2f7f2;
+  border:1px solid #e2ece2;
+  color:#04462e;
   font-weight:800;
   font-size:12px;
 }
-.room-body{padding:12px 0 10px}
-
+.room-head-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#6c7d6f;
+  font-size:12px;
+  white-space:nowrap;
+}
+.room-body{
+  border-top:1px solid #eef3ee;
+  padding:14px;
+}
+.room-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
 .consumer-list{
   display:flex;
   flex-direction:column;
   gap:10px;
-  margin-top:10px;
 }
 .consumer{
   background:#fff;
@@ -853,7 +723,7 @@ details.room[open] summary::after{transform:rotate(180deg)}
   border-radius:12px;
   border:1px solid #e8efe8;
   padding:10px;
-  box-shadow:0 8px 18px rgba(0,0,0,.08);
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
   overflow:hidden;
 }
 .consumer summary{
@@ -930,114 +800,29 @@ details.room[open] summary::after{transform:rotate(180deg)}
   margin-top:10px;
 }
 
-.summary{
-  display:flex;
-  gap:12px;
-  margin-top:18px;
-  align-items:stretch;
-  flex-wrap:wrap;
-}
-.summary .big{
-  flex:1 1 520px;
-  padding:16px;
-  border-radius:14px;
-  background:#fff;
-  border:1px solid #e6f3ea;
-  color:#072012;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-.big h2{
-  margin:0;
-  color:#04462e;
-  text-align:left;
-  font-size:22px;
-}
-.big .kpi{
+.summary-grid{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:12px;
-  margin-top:12px;
+  margin-top:14px;
 }
-.kpi .k{
-  background:linear-gradient(180deg,#fbfffb,#f3fff2);
-  border:1px solid #e7f1e8;
-  border-radius:12px;
-  padding:12px;
-  box-shadow:0 10px 24px rgba(0,0,0,.06);
-  min-width:0;
-}
-.k .muted{
-  font-size:12px;
-  color:#6b7f6b;
-  line-height:1.4;
-}
-.k .num{
-  font-weight:900;
-  font-size:22px;
-  color:#0b4d26;
-  margin-top:6px;
-  word-break:break-word;
-}
-.summary .small-panel{
-  flex:1 1 350px;
-  padding:16px;
-  border-radius:14px;
-  background:#fff;
-  border:1px solid #e6f3ea;
-  color:#072012;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-.small-panel h3{
-  margin:0 0 12px;
-  color:#04462e;
-  font-size:20px;
-}
-.safety-list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  margin:0;
-  padding:0;
-  list-style:none;
-}
-.safety-list li{
-  background:#fbfffb;
-  border:1px solid #e8f1e8;
-  border-radius:12px;
-  padding:10px 12px;
-  font-size:13px;
-  line-height:1.45;
-}
-
-.result-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-  margin-top:12px;
-}
-@media (max-width:1100px){.result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:700px){.result-grid{grid-template-columns:1fr}}
-
-.result-card{
+.summary-card{
   background:linear-gradient(180deg,#fbfffb,#f3fff2);
   padding:14px;
   border-radius:14px;
-  min-width:0;
   border:1px solid rgba(3,50,26,0.06);
   box-shadow:0 14px 36px rgba(2,22,12,0.12);
   color:#072012;
   overflow:hidden;
 }
-.result-card .label{
+.summary-card .label{
   font-size:12px;
   color:#6c7d6f;
   text-transform:uppercase;
-  letter-spacing:0.6px;
+  letter-spacing:.6px;
   line-height:1.4;
 }
-.result-card .value{
+.summary-card .value{
   font-weight:900;
   font-size:24px;
   color:var(--green-mid-2);
@@ -1045,16 +830,14 @@ details.room[open] summary::after{transform:rotate(180deg)}
   display:block;
   overflow-wrap:anywhere;
 }
-.result-card .small{
+.summary-card .small{
   font-size:13px;
   color:#6b7f6f;
   margin-top:6px;
   line-height:1.45;
 }
-.highlight{
-  border:2px solid var(--accent);
-  box-shadow:0 8px 30px rgba(124,179,66,0.12);
-}
+@media (max-width:1100px){.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.summary-grid{grid-template-columns:1fr}}
 
 .chart-card{
   margin-top:16px;
@@ -1109,6 +892,43 @@ canvas{display:block;width:100%;height:auto}
   overflow-wrap:anywhere;
 }
 
+.two-cols{
+  display:grid;
+  grid-template-columns:1.6fr .9fr;
+  gap:16px;
+  align-items:start;
+  margin-top:18px;
+}
+.panel{
+  background:#fff;
+  color:#072012;
+  border-radius:16px;
+  border:1px solid #e6f3ea;
+  box-shadow:var(--shadow);
+  padding:16px;
+}
+.panel h3{
+  margin:0 0 12px;
+  color:#04462e;
+  font-size:20px;
+}
+.safety-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.safety-list li{
+  background:#fbfffb;
+  border:1px solid #e8f1e8;
+  border-radius:12px;
+  padding:10px 12px;
+  font-size:13px;
+  line-height:1.45;
+}
+
 .pdf-actions{
   display:flex;
   justify-content:flex-end;
@@ -1130,7 +950,7 @@ footer::before{
   position:absolute;
   left:0;right:0;top:0;
   height:2px;
-  background:var(--gold-base);
+  background:var(--gold);
 }
 .footer-company{
   display:block;
@@ -1138,7 +958,7 @@ footer::before{
   font-size:18px;
   font-weight:800;
   color:#04462e;
-  -webkit-text-stroke:0.7px var(--gold-base);
+  -webkit-text-stroke:0.7px var(--gold);
   text-shadow:0 3px 6px rgba(0,0,0,0.6);
   padding:4px 8px;
   border-radius:6px;
@@ -1162,53 +982,15 @@ footer::before{
   font-family:'Poppins',Arial,sans-serif;
 }
 
-/* Mobile summary strip */
-.mobile-summary-strip{
-  display:none;
-  margin:12px 0 0;
-  padding:10px;
-  border-radius:14px;
-  background:rgba(255,255,255,.94);
-  color:#072012;
-  box-shadow:0 10px 28px rgba(0,0,0,.18);
-  border:1px solid rgba(0,0,0,.06);
-}
-.mobile-summary-strip .row{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-}
-.mobile-summary-strip .cell{
-  border-radius:12px;
-  background:linear-gradient(180deg,#fbfffb,#f3fff2);
-  border:1px solid #e7f1e8;
-  padding:8px 10px;
-  min-width:0;
-}
-.mobile-summary-strip .cell .l{
-  font-size:10px;
-  text-transform:uppercase;
-  color:#6b7f7f;
-  font-weight:800;
-}
-.mobile-summary-strip .cell .v{
-  font-size:14px;
-  font-weight:900;
-  color:#0b4d26;
-  margin-top:4px;
-}
-
 @media (max-width:1100px){
   nav{display:none}
   .burger{display:flex}
   .company-name{font-size:30px}
   .hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
-  .section{padding:52px 4vw}
+  .section{padding:46px 4vw}
   .card-soft{padding:14px}
-  .big .kpi{grid-template-columns:1fr}
-  .summary{flex-direction:column}
+  .two-cols{grid-template-columns:1fr}
   .hero-content{padding:24px 14px}
-  .mobile-summary-strip{display:block}
 }
 @media (max-width:768px){
   .company-name{font-size:26px}
@@ -1217,6 +999,7 @@ footer::before{
   .hero-content p{font-size:14px}
   .hero-bg{object-position:center 34%;transform:scale(1.12)}
   .generator{grid-template-columns:1fr 1fr}
+  .consumer-fields{grid-template-columns:1fr 1fr}
 }
 @media (max-width:480px){
   :root{--topbar-h:40px;--header-h:76px}
@@ -1228,8 +1011,8 @@ footer::before{
   .burger{width:48px;height:48px}
   .hero-bg{object-position:center 28%;transform:scale(1.18)}
   .hero-content{max-width:92vw;padding:18px 12px}
-  .hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px;white-space:normal;overflow:visible;text-overflow:clip}
-  .hero-content p{font-size:15px;line-height:1.45;white-space:normal;overflow:visible;text-overflow:clip}
+  .hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px}
+  .hero-content p{font-size:15px;line-height:1.45}
   .btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}
   .mobile-panel{padding:16px 4.5vw 20px}
   .mobile-brand{padding:22px 4px 10px}
@@ -1241,12 +1024,10 @@ footer::before{
   .socials a{width:40px;height:40px;font-size:18px}
   .section h2{font-size:26px}
   .chart-head h3{font-size:16px}
-  .big h2{font-size:20px}
-  .result-card .value{font-size:22px}
-  .result-card .label{font-size:11px}
-  .result-card .small{font-size:12px}
-  .mobile-summary-strip .row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .summary-card .value{font-size:22px}
+  .summary-grid{grid-template-columns:1fr}
   .generator{grid-template-columns:1fr}
+  .consumer-fields{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -1357,24 +1138,6 @@ footer::before{
   </div>
 </div>
 
-<div class="electric-band" id="electricBand" aria-hidden="true">
-  <div class="container" aria-hidden="true">
-    <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
-      <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
-      <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
-      <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
-    </svg>
-
-    <div class="orbs" id="orbs">
-      <div class="orb" id="orbA"></div>
-      <div class="orb" id="orbB"></div>
-      <div class="orb" id="orbC"></div>
-    </div>
-
-    <div class="glowline" id="glowline"></div>
-  </div>
-</div>
-
 <section class="hero" id="top" aria-label="Hero">
   <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration zone urbaine">
   <div class="hero-overlay"></div>
@@ -1396,7 +1159,7 @@ footer::before{
     <h2>Étude de dimensionnement</h2>
     <p class="section-intro">
       Le pays est sélectionné avant la ville pour adapter l’ensoleillement et les hypothèses de calcul.
-      Les chambres restent fermées par défaut et les résultats se mettent à jour en direct après génération.
+      Les pièces générées s’affichent clairement, ouvertes par défaut.
     </p>
 
     <div class="card-soft">
@@ -1468,7 +1231,6 @@ footer::before{
           </select>
 
           <span class="badge-zone" id="zoneBadge"><i class="fas fa-building"></i> Zone urbaine</span>
-
           <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
         </div>
 
@@ -1510,85 +1272,66 @@ footer::before{
         </div>
 
         <div class="muted-note" style="margin-top:2px;margin-bottom:8px;color:#6c7d6f">
-          Les pièces et leurs charges restent pliées par défaut pour garder l’écran lisible.
+          Les pièces et leurs charges restent ouvertes par défaut pour mieux voir le résultat généré.
         </div>
 
         <div id="roomsList" class="room-list"></div>
 
-        <div style="margin-top:14px" class="solar-panel">
-          <h4 style="margin:0 0 8px 0;color:#04462e">Paramètres du système</h4>
+        <div style="margin-top:14px">
+          <h4 style="margin:0 0 8px 0;color:#04462e">Résumé technique</h4>
 
-          <div class="summary-topline" style="margin-top:10px">
-            <span class="mini"><i class="fas fa-solar-panel"></i> Panneaux</span>
-            <span class="mini"><i class="fas fa-battery-full"></i> Batteries</span>
-            <span class="mini"><i class="fas fa-plug"></i> Onduleur</span>
-          </div>
-
-          <div class="result-grid" style="margin-top:10px">
-            <div class="result-card">
+          <div class="summary-grid">
+            <div class="summary-card">
               <div class="label">Puissance installée</div>
-              <div id="powerInstalled" class="value">0 W</div>
-              <div class="small">Somme nominale des équipements</div>
+              <div id="powerInstalledCard" class="value">0 W</div>
+              <div class="small">Somme nominale de toutes les charges.</div>
             </div>
 
-            <div class="result-card">
-              <div class="label">Onduleur standard conseillé</div>
-              <div id="inverterRec" class="value">0 W</div>
-              <div class="small">Valeur standard supérieure</div>
-            </div>
-
-            <div class="result-card">
-              <div class="label">Type batterie retenu</div>
-              <div id="batteryTypeOut" class="value">—</div>
-              <div class="small">Technologie sélectionnée</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:14px" class="solar-panel">
-          <h4 style="margin:0 0 8px 0;color:#04462e">Énergie et couverture</h4>
-
-          <div class="result-grid">
-            <div class="result-card">
+            <div class="summary-card">
               <div class="label">Consommation / jour</div>
-              <div id="consDay" class="value">0 kWh</div>
-              <div class="small">Base du calcul</div>
+              <div id="consDayCard" class="value">0 kWh</div>
+              <div class="small">Base de calcul du dimensionnement.</div>
             </div>
 
-            <div class="result-card">
+            <div class="summary-card">
               <div class="label">Consommation / mois</div>
-              <div id="consMonth" class="value">0 kWh</div>
-              <div class="small">30 jours de référence</div>
+              <div id="consMonthCard" class="value">0 kWh</div>
+              <div class="small">Référence sur 30 jours.</div>
             </div>
 
-            <div class="result-card">
-              <div class="label">Puissance PV recommandée</div>
-              <div id="pvRecommended" class="value">0 kWc</div>
-              <div class="small">Champ solaire associé</div>
+            <div class="summary-card">
+              <div class="label">Onduleur conseillé</div>
+              <div id="inverterRecCard" class="value">0 W</div>
+              <div class="small">Valeur standard supérieure.</div>
             </div>
 
-            <div class="result-card">
-              <div class="label">Nb panneaux estimés</div>
-              <div id="panelCountRec" class="value">0</div>
-              <div class="small">Arrondi au panneau entier</div>
+            <div class="summary-card">
+              <div class="label">Puissance PV</div>
+              <div id="pvRecCard" class="value">0 kWc</div>
+              <div class="small">Puissance solaire recommandée.</div>
             </div>
 
-            <div class="result-card">
+            <div class="summary-card">
+              <div class="label">Nombre de panneaux</div>
+              <div id="panelCountCard" class="value">0</div>
+              <div class="small">Arrondi au panneau entier.</div>
+            </div>
+
+            <div class="summary-card">
               <div class="label">Batterie utile totale</div>
-              <div id="batteryRec" class="value">0 kWh</div>
-              <div class="small">Selon le nombre de packs</div>
+              <div id="batteryRecCard" class="value">0 kWh</div>
+              <div class="small">Selon le nombre de packs sélectionnés.</div>
             </div>
 
-            <div class="result-card">
+            <div class="summary-card">
               <div class="label">Autonomie estimée</div>
-              <div id="autonomyRec" class="value">0 jour</div>
-              <div class="small">Liée aux packs sélectionnés</div>
+              <div id="autonomyCard" class="value">0 jour</div>
+              <div class="small">Lecture rapide de l’autonomie.</div>
             </div>
           </div>
 
           <div class="muted-note" style="margin-top:12px;color:#6c7d6f">
-            Les résultats les plus importants pour un dimensionnement sont : la consommation, l’onduleur standard, la batterie utile,
-            l’autonomie obtenue, la puissance PV et le nombre de panneaux.
+            Les résultats utiles sont la consommation, l’onduleur standard, la puissance PV, le nombre de panneaux, la batterie utile et l’autonomie.
           </div>
         </div>
 
@@ -1609,67 +1352,6 @@ footer::before{
           </div>
         </div>
 
-        <div class="result-grid" aria-live="polite" style="margin-top:14px">
-          <div class="result-card">
-            <div class="label">Consommation du jour</div>
-            <div id="consDayCard" class="value">0 kWh</div>
-            <div class="small">Mise à jour dynamique</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Consommation du mois</div>
-            <div id="consMonthCard" class="value">0 kWh</div>
-            <div class="small">30 jours</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Nombre de panneaux</div>
-            <div id="panelCountCard" class="value">0</div>
-            <div class="small">Arrondi entier</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Synthèse</div>
-            <div id="summaryNoteCard" class="value" style="font-size:16px;line-height:1.45">Clique sur « Générer pièces »</div>
-            <div class="small">Résumé dynamique</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Puissance installée</div>
-            <div id="powerInstalledCard" class="value">0 W</div>
-            <div class="small">Somme nominale</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Onduleur conseillé</div>
-            <div id="inverterRecCard" class="value">0 W</div>
-            <div class="small">Valeur standard supérieure</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Puissance PV</div>
-            <div id="pvRecCard" class="value">0 kWc</div>
-            <div class="small">Dimensionnement solaire</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Batterie utile totale</div>
-            <div id="batteryRecCard" class="value">0 kWh</div>
-            <div class="small">Selon les packs choisis</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Autonomie estimée</div>
-            <div id="autonomyCard" class="value">0 jour</div>
-            <div class="small">Lecture rapide</div>
-          </div>
-        </div>
-
-        <div class="note" style="margin-top:12px;color:#6c7d6f">
-          Les résultats les plus importants pour un dimensionnement sont : la consommation, l’onduleur standard, la batterie utile,
-          l’autonomie obtenue, la puissance PV et la durée de vie des batteries.
-        </div>
-
         <div class="pdf-actions">
           <button id="exportPdfBtn" class="btn-export" type="button">
             <i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF
@@ -1681,77 +1363,53 @@ footer::before{
 
   <section class="section">
     <h2>Pourquoi cette étude est utile ?</h2>
-    <div class="summary">
-      <div class="big">
-        <h2>Synthèse principale</h2>
 
-        <div class="kpi" style="margin-top:12px">
-          <div class="k">
-            <div class="muted">Consommation (kWh / mois)</div>
-            <div id="consMonthKpi" class="num">0 kWh</div>
-            <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
-          </div>
-
-          <div class="k">
-            <div class="muted">Puissance PV (kWc)</div>
-            <div id="pvReqKwc" class="num">0 kWc</div>
-            <div id="pvReqRange" class="muted">incertitude ±15%</div>
-          </div>
-
-          <div class="k">
-            <div class="muted">Onduleur standard</div>
-            <div id="invStdKpi" class="num">0 W</div>
-            <div id="packsNeedKpi" class="muted">packs saisis: 0</div>
-          </div>
+    <div class="two-cols">
+      <div class="panel">
+        <h3>Synthèse principale</h3>
+        <div class="muted-note" style="margin-bottom:12px">
+          La synthèse ne répète plus les mêmes valeurs partout. Elle met seulement en avant les indicateurs qui servent vraiment au pré-dimensionnement.
         </div>
 
-        <ul class="safety-list" style="margin-top:12px">
+        <ul class="safety-list" style="margin-top:0">
           <li><strong>Étude simple :</strong> le client choisit le pays, la ville, le type de batterie et le nombre de packs.</li>
-          <li><strong>Étude pro :</strong> les paramètres techniques internes restent masqués pour garder une lecture claire.</li>
+          <li><strong>Étude claire :</strong> les pièces générées sont affichées immédiatement et restent visibles.</li>
           <li><strong>Afrique de l’Ouest :</strong> Côte d’Ivoire et Sénégal sont intégrés avec des hypothèses adaptées par ville.</li>
+          <li><strong>Lecture rapide :</strong> un seul regard suffit pour comprendre la taille du système.</li>
         </ul>
 
-        <div style="margin-top:12px" class="result-grid">
-          <div class="result-card">
+        <div style="margin-top:12px" class="summary-grid">
+          <div class="summary-card">
             <div class="label">Pièces générées</div>
             <div id="summaryRooms" class="value">—</div>
-            <div class="small">Nombre de pièces et charges</div>
+            <div class="small">Nombre de pièces et charges.</div>
           </div>
 
-          <div class="result-card">
+          <div class="summary-card">
+            <div class="label">Type batterie</div>
+            <div id="batteryTypeOut" class="value">—</div>
+            <div class="small">Technologie sélectionnée.</div>
+          </div>
+
+          <div class="summary-card">
             <div class="label">Autonomie liée</div>
             <div id="summaryAutonomy" class="value">—</div>
-            <div class="small">Pack et consommation</div>
+            <div class="small">Pack et consommation.</div>
           </div>
 
-          <div class="result-card">
+          <div class="summary-card">
             <div class="label">Batteries</div>
             <div id="summaryBatteries" class="value">—</div>
-            <div class="small">Pack total et cycles</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Sécurité</div>
-            <div id="summarySafety" class="value">—</div>
-            <div class="small">Protections à prévoir</div>
+            <div class="small">Pack total et cycles.</div>
           </div>
         </div>
 
         <div class="muted-note" style="margin-top:12px">
           Pour une étude plus fine, une validation terrain reste nécessaire : câbles, protections DC/AC, chute de tension, structure, mise à la terre et réserve d’exploitation.
         </div>
-
-        <div class="mobile-summary-strip" aria-label="Résumé mobile">
-          <div class="row">
-            <div class="cell"><div class="l">Jour</div><div id="mConsDay" class="v">0 kWh</div></div>
-            <div class="cell"><div class="l">PV</div><div id="mPv" class="v">0 kWc</div></div>
-            <div class="cell"><div class="l">Batterie</div><div id="mBatt" class="v">0 kWh</div></div>
-            <div class="cell"><div class="l">Onduleur</div><div id="mInv" class="v">0 W</div></div>
-          </div>
-        </div>
       </div>
 
-      <div class="small-panel">
+      <div class="panel">
         <h3>Points de sécurité</h3>
         <ul class="safety-list">
           <li><strong>Protection :</strong> sectionneur, fusibles, parafoudre et mise à la terre.</li>
@@ -1760,11 +1418,12 @@ footer::before{
           <li><strong>Exploitation :</strong> garder une marge d’exploitation raisonnable.</li>
           <li><strong>Terrain :</strong> vérifier les longueurs, les pertes et les conditions réelles.</li>
         </ul>
+        <div class="muted-note" style="margin-top:12px" id="summarySafety">—</div>
       </div>
     </div>
-  </section>
 
-  <div style="height:32px"></div>
+    <div style="height:24px"></div>
+  </section>
 </div>
 
 <footer>
@@ -1777,25 +1436,26 @@ footer::before{
 </footer>
 
 <div class="print-block" id="printBlock"></div>
+
 <script>
-const CONTACT_NUMBER = {
-  abidjan: { display:'+225 07 07 07 07 07', tel:'+2250707070707' },
-  dakar: { display:'+221 77 00 00 00 00', tel:'+2217700000000' }
+  const CONTACT_NUMBER = {
+  ci: { display:'+225 07 07 07 07 07', tel:'+2250707070707' },
+  sn: { display:'+221 77 00 00 00 00', tel:'+2217700000000' }
 };
 
 const CITY_META = {
-  abidjan: { country:'ci', display:'Abidjan', sun:4.5, temp:25 },
-  yamoussoukro: { country:'ci', display:'Yamoussoukro', sun:5.5, temp:28 },
-  bouake: { country:'ci', display:'Bouaké', sun:5.3, temp:29 },
-  korhogo: { country:'ci', display:'Korhogo', sun:5.7, temp:31 },
-  san_pedro: { country:'ci', display:'San Pedro', sun:4.8, temp:27 },
-  daloa: { country:'ci', display:'Daloa', sun:5.1, temp:28 },
-  dakar: { country:'sn', display:'Dakar', sun:6.5, temp:29 },
-  thies: { country:'sn', display:'Thiès', sun:6.2, temp:30 },
-  saint_louis: { country:'sn', display:'Saint-Louis', sun:6.7, temp:28 },
-  kaolack: { country:'sn', display:'Kaolack', sun:6.3, temp:31 },
-  touba: { country:'sn', display:'Touba', sun:6.4, temp:30 },
-  ziguinchor: { country:'sn', display:'Ziguinchor', sun:5.8, temp:28 }
+  abidjan: { country:'ci', display:'Abidjan', sun:4.5 },
+  yamoussoukro: { country:'ci', display:'Yamoussoukro', sun:5.5 },
+  bouake: { country:'ci', display:'Bouaké', sun:5.3 },
+  korhogo: { country:'ci', display:'Korhogo', sun:5.7 },
+  san_pedro: { country:'ci', display:'San Pedro', sun:4.8 },
+  daloa: { country:'ci', display:'Daloa', sun:5.1 },
+  dakar: { country:'sn', display:'Dakar', sun:6.5 },
+  thies: { country:'sn', display:'Thiès', sun:6.2 },
+  saint_louis: { country:'sn', display:'Saint-Louis', sun:6.7 },
+  kaolack: { country:'sn', display:'Kaolack', sun:6.3 },
+  touba: { country:'sn', display:'Touba', sun:6.4 },
+  ziguinchor: { country:'sn', display:'Ziguinchor', sun:5.8 }
 };
 
 const BATTERY_TYPES = {
@@ -1841,7 +1501,6 @@ const ROOM_TEMPLATES = {
 let rooms = [];
 let roomCounter = 0;
 let lastCalcSnapshot = null;
-let phoneState = 'abidjan';
 
 const burgerBtn = document.getElementById('burgerBtn');
 const mobileNav = document.getElementById('mobileNav');
@@ -1882,20 +1541,6 @@ const autonomyCard = document.getElementById('autonomyCard');
 const panelCountCard = document.getElementById('panelCountCard');
 const batteryTypeOutEl = document.getElementById('batteryTypeOut');
 const safetyCard = document.getElementById('summarySafety');
-const summaryNoteCard = document.getElementById('summaryNoteCard');
-
-const consMonthKpi = document.getElementById('consMonthKpi');
-const consMonthRange = document.getElementById('consMonthRange');
-const pvReqKwc = document.getElementById('pvReqKwc');
-const pvReqRange = document.getElementById('pvReqRange');
-const invStdKpi = document.getElementById('invStdKpi');
-const packsNeedKpi = document.getElementById('packsNeedKpi');
-
-const mConsDay = document.getElementById('mConsDay');
-const mPv = document.getElementById('mPv');
-const mBatt = document.getElementById('mBatt');
-const mInv = document.getElementById('mInv');
-
 const summaryRooms = document.getElementById('summaryRooms');
 const summaryAutonomy = document.getElementById('summaryAutonomy');
 const summaryBatteries = document.getElementById('summaryBatteries');
@@ -1905,7 +1550,6 @@ function fmt(n, dec = 2){
 }
 function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
 function getBatteryProfile(type){ return BATTERY_TYPES[type] || BATTERY_TYPES.lithium_ion; }
-function getCityInfo(){ return CITY_META[cityEl.value] || CITY_META.abidjan; }
 function getSunHours(city){ return (CITY_META[city] && CITY_META[city].sun) || 4.5; }
 function pickStandardInverter(targetW){
   const value = Math.max(300, Number(targetW || 0));
@@ -1938,34 +1582,18 @@ function createRoom(type, baseName, withTemplate = true){
     id: roomCounter,
     type,
     name,
+    open: true,
     loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : []
   };
 }
-function addRooms(type, baseName, count = 1, withTemplate = true){
-  const c = Math.max(0, Number(count || 0));
-  for(let i=0;i<c;i++){
-    const roomBase = c === 1 ? (baseName || type) : `${baseName || type} ${i+1}`;
-    rooms.push(createRoom(type, roomBase, withTemplate));
-  }
-  renderRooms();
-  recalc();
-}
-function addLoad(roomIndex){
-  rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0 });
-  renderRooms();
-  const block = document.getElementById(`room-block-${roomIndex}`);
-  if(block) block.open = true;
-  recalc();
-}
 function captureRoomOpenState(){
   const state = {};
-  roomListEl.querySelectorAll('details.room').forEach((d, idx) => {
+  roomListEl.querySelectorAll('details.room-card').forEach((d, idx) => {
     const room = rooms[idx];
     if(room) state[room.id] = d.open;
   });
   return state;
 }
-
 function populateCities(country){
   cityEl.innerHTML = '';
   const list = country === 'sn'
@@ -1988,10 +1616,18 @@ function populateCities(country){
   list.forEach(c => cityEl.appendChild(new Option(c.label, c.value)));
   cityEl.value = list[0].value;
 }
-
+function updateContacts(country){
+  const info = CONTACT_NUMBER[country === 'sn' ? 'sn' : 'ci'];
+  topPhoneLink.href = 'tel:' + info.tel;
+  topPhoneText.textContent = info.display;
+  mobilePhoneLink.href = 'tel:' + info.tel;
+  mobilePhoneLink.textContent = info.display;
+  footerPhoneText.textContent = info.display;
+}
 function renderRooms(){
   const openState = captureRoomOpenState();
   roomListEl.innerHTML = '';
+
   if(rooms.length === 0){
     roomListEl.innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Aucune pièce générée pour le moment.</div>';
     return;
@@ -2002,9 +1638,9 @@ function renderRooms(){
     const roomTotalKwh = room.loads.reduce((s,l)=>s + Math.max(0, Number(l.qty||0)) * Math.max(0, Number(l.powerW||0)) * Math.max(0, Number(l.hours||0)) / 1000, 0);
 
     const box = document.createElement('details');
-    box.className = 'room';
+    box.className = 'room-card';
     box.id = `room-block-${roomIndex}`;
-    box.open = openState[room.id] ?? false;
+    box.open = openState[room.id] ?? room.open ?? true;
 
     const loadsHtml = room.loads.map((load, loadIndex) => `
       <details class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
@@ -2044,19 +1680,19 @@ function renderRooms(){
 
     box.innerHTML = `
       <summary>
-        <div class="room-headline">
-          ${escapeHtml(room.name)}
-          <span class="room-chip">(${escapeHtml(room.type)})</span>
-          <span class="room-chip">— ${fmt(roomTotalKwh,2)} kWh/j</span>
+        <div class="room-title">
+          <span>${escapeHtml(room.name)}</span>
+          <span class="room-chip">${escapeHtml(room.type)}</span>
+          <span class="room-chip">${fmt(roomTotalKwh,2)} kWh/j</span>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;color:#bed8bf;font-size:12px;">
+        <div class="room-head-right">
           <i class="fas fa-chevron-down"></i>
           <span>Développer / réduire</span>
         </div>
       </summary>
 
       <div class="room-body">
-        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:space-between;align-items:center">
+        <div class="room-actions">
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn-link btn-add-load" data-r="${roomIndex}" type="button">+ charge</button>
             <button class="btn-reset btn-remove-room" data-r="${roomIndex}" type="button">Suppr pièce</button>
@@ -2072,24 +1708,21 @@ function renderRooms(){
     roomListEl.appendChild(box);
   });
 }
-
 function onLoadChange(e){
   const target = e.target;
   if(!target.classList.contains('load-field')) return;
   const consumer = target.closest('.consumer');
   if(!consumer) return;
+
   const roomIndex = Number(consumer.dataset.r);
   const loadIndex = Number(consumer.dataset.l);
   const field = target.dataset.field;
   let value = target.value;
 
-  if(['qty','powerW','hours'].includes(field)){
-    value = Number(value || 0);
-  }
+  if(['qty','powerW','hours'].includes(field)) value = Number(value || 0);
   rooms[roomIndex].loads[loadIndex][field] = value;
   recalc();
 }
-
 function getAllLoads(){
   const list = [];
   rooms.forEach((room, roomIndex) => {
@@ -2099,7 +1732,6 @@ function getAllLoads(){
   });
   return list;
 }
-
 function getSafetyPoints(){
   return [
     '1) Parafoudre DC/AC et protections contre surtension.',
@@ -2109,7 +1741,6 @@ function getSafetyPoints(){
     '5) Réserve d’exploitation et marge de sécurité recommandées.'
   ];
 }
-
 function roomDiversity(name){
   const n = String(name || '').toLowerCase();
   if(n.includes('éclairage') || n.includes('eclairage')) return 1.0;
@@ -2122,7 +1753,6 @@ function roomDiversity(name){
   if(n.includes('ordinateur')) return 1.0;
   return 1.0;
 }
-
 function dailySolarCurve(pvKw){
   const curve = [];
   for(let h=0; h<24; h++){
@@ -2138,7 +1768,7 @@ function dailySolarCurve(pvKw){
 function loadCurve(loads){
   const curve = Array(24).fill(0);
   loads.forEach(l => {
-    const powerKw = Number(l.power || 0) / 1000;
+    const powerKw = Number(l.powerW || 0) / 1000;
     const hours = Math.max(0, Number(l.hours || 0));
     let start = 8;
     if(/éclairage|eclairage|lumière|light/i.test(l.name)) start = 18;
@@ -2147,7 +1777,7 @@ function loadCurve(loads){
     if(/ventilation|ventilateur/i.test(l.name)) start = 12;
     if(/ordinateur|bureau/i.test(l.name)) start = 8;
     if(/micro|cuisine|blender/i.test(l.name)) start = 12;
-    const end = clamp(start + Math.round(hours), 0, 24);
+    const end = clamp(start + Math.max(1, Math.round(hours)), 0, 24);
     for(let h=start; h<end; h++) curve[h] += powerKw;
   });
   return curve;
@@ -2162,31 +1792,10 @@ function batteryCurve(solar, load, capacityKwh, initialPct=0.6){
   }
   return arr;
 }
-function panelCountRange(pvKw, panelW){
-  const need = (pvKw * 1000) / panelW;
-  const min = Math.max(1, Math.ceil(need * 0.92));
-  const max = Math.max(min, Math.ceil(need * 1.08));
-  return { min, max, label: min === max ? `${min}` : `${min} à ${max}` };
-}
-function batteryText(kwh, packs){
-  if(!kwh) return '0 kWh';
-  return packs > 0 ? `${fmt(kwh,2)} kWh (${packs} pack${packs>1?'s':''})` : `${fmt(kwh,2)} kWh`;
-}
-function formatDurationMixed(hours){
-  if(!isFinite(hours) || hours <= 0) return '0 min';
-  const totalMinutes = Math.round(hours * 60);
-  if(totalMinutes < 60) return `${totalMinutes} min`;
-  const h = Math.floor(totalMinutes / 60);
-  const m = totalMinutes % 60;
-  if(h < 24) return m ? `${h} h ${m} min` : `${h} h`;
-  const d = Math.floor(h / 24);
-  const rh = h % 24;
-  return rh ? `${d} j ${rh} h ${m} min` : `${d} j ${m} min`;
-}
-
-function drawChart(city, solarCurve, loadCurveArr, batterySoc, yMax, extraLabel){
+function drawChart(solarCurve, loadCurveArr, batterySoc, yMax, extraLabel){
   const canvas = document.getElementById('dailyChart');
   if(!canvas) return;
+
   const dpr = window.devicePixelRatio || 1;
   const cssWidth = canvas.parentElement.clientWidth;
   const cssHeight = Math.max(280, Math.round(cssWidth * 0.34));
@@ -2287,7 +1896,6 @@ function drawChart(city, solarCurve, loadCurveArr, batterySoc, yMax, extraLabel)
   ctx.font = '700 13px Poppins, Arial';
   ctx.fillText(extraLabel || '', padL, 16);
 }
-
 function recalc(){
   const loads = getAllLoads();
   let installedPower = 0;
@@ -2315,7 +1923,7 @@ function recalc(){
   const monthlyKwh = dailyKwh * 30;
 
   const pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
-  const panelCountRec = Math.ceil((pvKwRec * 1000) / panelW);
+  const panelCountRec = Math.max(0, Math.ceil((pvKwRec * 1000) / panelW));
   const inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
   const battPackKwh = battPackWh / 1000;
   const batteryUsefulTotal = batteryPackCount * battPackKwh * batteryProfile.dod * batteryProfile.eff;
@@ -2327,45 +1935,28 @@ function recalc(){
   inverterRecCard.innerText = `${inverterNeed} W`;
   pvRecCard.innerText = `${fmt(pvKwRec,2)} kWc`;
   batteryRecCard.innerText = `${fmt(batteryUsefulTotal,2)} kWh`;
-  autonomyCard.innerText = `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''}`;
+  autonomyCard.innerText = dailyKwh > 0 ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''}` : '—';
   panelCountCard.innerText = `${panelCountRec}`;
+  batteryTypeOutEl.innerText = batteryProfile.label;
 
   const solar = dailySolarCurve(pvKwRec);
   const load = loadCurve(loads);
   const battery = batteryCurve(solar, load, Math.max(1, batteryUsefulTotal || 1), 0.45);
   const yMax = Math.max(1, ...solar, ...load, ...battery);
-  drawChart(cityEl.value, solar, load, battery, yMax, 'Zone urbaine — profil 24 h');
+  drawChart(solar, load, battery, yMax, 'Zone urbaine — profil 24 h');
 
-  const lowMonthly = monthlyKwh * 0.85;
-  const highMonthly = monthlyKwh * 1.15;
-  consMonthKpi.innerText = `${fmt(monthlyKwh,2)} kWh`;
-  consMonthRange.innerText = `plage: ${fmt(lowMonthly,2)} - ${fmt(highMonthly,2)} kWh`;
-  pvReqKwc.innerText = `${fmt(pvKwRec,2)} kWc`;
-  pvReqRange.innerText = `incertitude ±15% → ${fmt(pvKwRec*0.85,2)} - ${fmt(pvKwRec*1.15,2)} kWc`;
-  invStdKpi.innerText = `${inverterNeed} W`;
-  packsNeedKpi.innerText = `packs saisis: ${batteryPackCount}`;
   safetyCard.innerText = getSafetyPoints().join('\n');
-  summaryNoteCard.innerText = loads.length > 0
-    ? `Calcul basé sur ${loads.length} charge(s) répartie(s) dans ${rooms.length} pièce(s).`
-    : 'Clique sur « Générer pièces » pour démarrer l’étude.';
-
-  mConsDay.innerText = `${fmt(dailyKwh,2)} kWh`;
-  mPv.innerText = `${fmt(pvKwRec,2)} kWc`;
-  mBatt.innerText = `${fmt(batteryUsefulTotal,2)} kWh`;
-  mInv.innerText = `${inverterNeed} W`;
-
-  batteryTypeOutEl.innerText = batteryProfile.label;
 
   summaryRooms.innerText = loads.length > 0
-    ? `${rooms.length} pièce(s) générée(s) avec ${loads.length} charge(s) détaillée(s).`
+    ? `${rooms.length} pièce(s) avec ${loads.length} charge(s) détaillée(s).`
     : 'Aucune pièce générée pour le moment.';
 
   summaryAutonomy.innerText = loads.length > 0
-    ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''} d’autonomie avec ${batteryPackCount} pack(s) de ${fmt(battPackWh,0)} Wh en ${batteryProfile.label}.`
+    ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''} d’autonomie avec ${batteryPackCount} pack(s) de ${fmt(battPackWh,0)} Wh.`
     : '—';
 
   summaryBatteries.innerText = loads.length > 0
-    ? `${batteryPackCount} pack(s) saisis, soit ${fmt(batteryUsefulTotal,2)} kWh utile totale. Durée de vie indicative : ${batteryProfile.lifeLabel} (${batteryProfile.cycles} cycles approx.).`
+    ? `${batteryPackCount} pack(s), soit ${fmt(batteryUsefulTotal,2)} kWh utile totale. Durée de vie indicative : ${batteryProfile.lifeLabel} (${batteryProfile.cycles} cycles approx.).`
     : '—';
 
   lastCalcSnapshot = {
@@ -2394,62 +1985,6 @@ function recalc(){
     sunHours
   };
 }
-
-function updatePhoneNumbers(){
-  const info = CONTACT_NUMBER[phoneState];
-  if(topPhoneLink){
-    topPhoneLink.href = 'tel:' + info.tel;
-    topPhoneText.textContent = info.display;
-  }
-  if(mobilePhoneLink){
-    mobilePhoneLink.href = 'tel:' + info.tel;
-    mobilePhoneLink.textContent = info.display;
-  }
-  if(footerPhoneText) footerPhoneText.textContent = info.display;
-}
-function cyclePhone(){
-  phoneState = phoneState === 'abidjan' ? 'dakar' : 'abidjan';
-  updatePhoneNumbers();
-}
-
-function generateInitialRooms(){
-  const addExisting = genAdd.checked;
-  if(!addExisting){
-    rooms = [];
-    roomCounter = 0;
-  }
-  addRooms('Chambre', 'Chambre', Number(genBedrooms.value || 0), true);
-  addRooms('Salon', 'Salon', Number(genLiving.value || 0), true);
-  addRooms('Cuisine', 'Cuisine', Number(genKitchens.value || 0), true);
-  addRooms("Salle d'eau", "Salle d'eau", Number(genBaths.value || 0), true);
-  addRooms('Bureau', 'Bureau', Number(genOffices.value || 0), true);
-  addRooms('Toilette', 'Toilette', Number(genToilets.value || 0), true);
-  renderRooms();
-  recalc();
-}
-
-function resetDefaults(){
-  countryEl.value = 'ci';
-  populateCities('ci');
-  cityEl.value = 'abidjan';
-  batteryTypeEl.value = 'lithium_ion';
-  batteryPackCountEl.value = '4';
-  battPackKwhEl.value = '5000';
-  panelWEl.value = '350';
-  genBedrooms.value = 1;
-  genLiving.value = 1;
-  genKitchens.value = 1;
-  genBaths.value = 1;
-  genOffices.value = 0;
-  genToilets.value = 0;
-  genAdd.checked = false;
-  rooms = [];
-  roomCounter = 0;
-  renderRooms();
-  updatePhoneNumbers();
-  recalc();
-}
-
 function renderPdfBlock(){
   const s = lastCalcSnapshot;
   if(!s) return '';
@@ -2568,6 +2103,7 @@ async function generatePDF(){
         rendered += sliceH;
       }
     }
+
     pdf.setFontSize(9);
     pdf.setTextColor(120);
     pdf.text('GreenBridge — Synthèse indicative',margin,pageHeight-6);
@@ -2580,14 +2116,12 @@ async function generatePDF(){
 }
 
 function openMenu(){
-  if(!mobileNav || !burgerBtn) return;
   mobileNav.classList.add('open');
-  if(mobileBackdrop) mobileBackdrop.classList.add('open');
+  mobileBackdrop.classList.add('open');
   burgerBtn.classList.add('open');
   mobileNav.setAttribute('aria-hidden','false');
   burgerBtn.setAttribute('aria-expanded','true');
   document.body.classList.add('menu-open');
-  document.body.style.overflow = 'hidden';
 
   const studySub = document.getElementById('mobileStudySub');
   const studyToggle = document.getElementById('mobileStudyToggle');
@@ -2606,14 +2140,12 @@ function openMenu(){
   }
 }
 function closeMenu(){
-  if(!mobileNav || !burgerBtn) return;
   mobileNav.classList.remove('open');
-  if(mobileBackdrop) mobileBackdrop.classList.remove('open');
+  mobileBackdrop.classList.remove('open');
   burgerBtn.classList.remove('open');
   mobileNav.setAttribute('aria-hidden','true');
   burgerBtn.setAttribute('aria-expanded','false');
   document.body.classList.remove('menu-open');
-  document.body.style.overflow = '';
   document.querySelectorAll('.mobile-nav .submenu').forEach(s => s.style.display = 'none');
 }
 function bindMobileExpandable(toggleEl, subEl){
@@ -2673,13 +2205,6 @@ function setupDesktopDropdowns(){
 }
 function applyCurrentPageState(){
   const path = (window.location.pathname.split('/').pop() || 'zone_urbaine.html').toLowerCase();
-  const desktopStudyDropdown = document.getElementById('studyDropdown');
-  const desktopStudyLink = document.getElementById('studyLink');
-
-  if(desktopStudyLink){
-    desktopStudyLink.classList.add('active');
-    desktopStudyLink.setAttribute('data-current','🏙️ Zone urbaine');
-  }
 
   document.querySelectorAll('.dropdown-content a').forEach(a => {
     const href = (a.getAttribute('href') || '').toLowerCase();
@@ -2712,135 +2237,61 @@ function applyCurrentPageState(){
     }
   });
 
-  if(desktopStudyDropdown){
-    desktopStudyDropdown.setAttribute('aria-expanded','true');
-  }
+  const desktopStudyDropdown = document.getElementById('studyDropdown');
+  if(desktopStudyDropdown) desktopStudyDropdown.setAttribute('aria-expanded','true');
 }
-function setupBrilliance(){
-  const electricBand = document.getElementById('electricBand');
-  if(!electricBand) return;
-  const orbA = document.getElementById('orbA');
-  const orbB = document.getElementById('orbB');
-  const orbC = document.getElementById('orbC');
-  const orbs = [orbA, orbB, orbC];
-  const zapBright = document.getElementById('zapBright');
+function generateInitialRooms(){
+  const addExisting = genAdd.checked;
+  if(!addExisting){
+    rooms = [];
+    roomCounter = 0;
+  }
 
-  const params = [
-    {rxRatio:0.50, ry:8, speed:0.22, phase:0},
-    {rxRatio:0.33, ry:6, speed:0.36, phase:Math.PI/2},
-    {rxRatio:0.42, ry:10, speed:0.18, phase:Math.PI}
-  ];
-
-  orbs.forEach((o,i)=>{
-    if(o){
-      o.classList.add('buzz');
-      o.style.animationDelay = (i*120)+'ms';
+  const push = (type, base, count) => {
+    const n = Math.max(0, Number(count || 0));
+    for(let i=0;i<n;i++){
+      const name = n === 1 ? base : `${base} ${i+1}`;
+      rooms.push(createRoom(type, name, true));
     }
-  });
+  };
 
-  let t0 = performance.now();
-  function tick(now){
-    const time = (now - t0)/1000;
-    const cont = electricBand.querySelector('.container');
-    if(!cont){ requestAnimationFrame(tick); return; }
-    const rect = cont.getBoundingClientRect();
-    const cx = rect.width/2;
-    const cy = rect.height/2;
-    for(let i=0;i<orbs.length;i++){
-      const orb = orbs[i];
-      if(!orb) continue;
-      const p = params[i];
-      const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
-      const ry = p.ry;
-      const angle = (time * p.speed * Math.PI * 2) + p.phase;
-      const x = cx + Math.cos(angle) * rx;
-      const y = cy + Math.sin(angle) * ry;
-      orb.style.left = x + 'px';
-      orb.style.top = y + 'px';
-      orb.style.transform = 'translate(-50%,-50%)';
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
+  push('Chambre','Chambre', genBedrooms.value);
+  push('Salon','Salon', genLiving.value);
+  push('Cuisine','Cuisine', genKitchens.value);
+  push("Salle d'eau","Salle d'eau", genBaths.value);
+  push('Bureau','Bureau', genOffices.value);
+  push('Toilette','Toilette', genToilets.value);
 
-  function sparkSVG(){
-    if(!zapBright) return;
-    try{
-      const len = zapBright.getTotalLength ? zapBright.getTotalLength() : 520;
-      zapBright.style.transition = 'none';
-      zapBright.setAttribute('stroke-dasharray', String(len));
-      zapBright.setAttribute('stroke-dashoffset', String(len));
-      setTimeout(()=>{
-        zapBright.style.transition = 'stroke-dashoffset 380ms ease-out, opacity 160ms';
-        zapBright.setAttribute('stroke-dashoffset','0');
-        setTimeout(()=>{ zapBright.setAttribute('stroke-dashoffset', String(len)); }, 320);
-      }, 60);
-    }catch(e){
-      zapBright.setAttribute('stroke-dasharray','520');
-      zapBright.setAttribute('stroke-dashoffset','520');
-      setTimeout(()=>{
-        zapBright.style.transition = 'stroke-dashoffset 360ms ease-out';
-        zapBright.setAttribute('stroke-dashoffset','0');
-      }, 80);
-    }
-  }
-
-  function spawnSparks(){
-    const cont = electricBand.querySelector('.container');
-    if(!cont) return;
-    for(let i=0;i<10;i++){
-      const s = document.createElement('div');
-      s.style.position = 'absolute';
-      s.style.left = (3 + Math.random()*94) + '%';
-      s.style.top = (20 + Math.random()*50) + '%';
-      s.style.width = '2px';
-      s.style.height = (8 + Math.random()*22) + 'px';
-      s.style.borderRadius = '2px';
-      s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
-      s.style.filter = 'blur(6px)';
-      s.style.opacity = '0';
-      s.style.transform = 'translateY(6px)';
-      s.style.pointerEvents = 'none';
-      s.style.zIndex = '1';
-      cont.appendChild(s);
-      setTimeout(()=>{ s.style.transition = 'all 260ms ease-out'; s.style.opacity='1'; s.style.transform='translateY(-6px)'; }, 20 + i*25);
-      setTimeout(()=>{ s.style.transition = 'all 420ms ease-in'; s.style.opacity='0'; s.style.transform='translateY(-20px)'; }, 280 + i*40);
-      setTimeout(()=>{ if(s.parentNode) s.parentNode.removeChild(s); }, 760 + i*40);
-    }
-  }
-
-  function activate(){
-    electricBand.classList.add('connected');
-    spawnSparks();
-    sparkSVG();
-    setInterval(()=>{
-      spawnSparks();
-      if(Math.random() > 0.45) sparkSVG();
-    }, 900 + Math.random()*900);
-  }
-
-  const title = document.querySelector('.company-name');
-  if(title){
-    title.addEventListener('click', ()=>{
-      const on = electricBand.classList.toggle('connected');
-      if(on){
-        spawnSparks();
-        sparkSVG();
-      }
-    });
-  }
-
-  activate();
-  window.addEventListener('resize', ()=>{ t0 = performance.now(); });
+  renderRooms();
+  recalc();
 }
-
+function resetDefaults(){
+  countryEl.value = 'ci';
+  populateCities('ci');
+  updateContacts('ci');
+  cityEl.value = 'abidjan';
+  batteryTypeEl.value = 'lithium_ion';
+  batteryPackCountEl.value = '4';
+  battPackKwhEl.value = '5000';
+  panelWEl.value = '350';
+  genBedrooms.value = 1;
+  genLiving.value = 1;
+  genKitchens.value = 1;
+  genBaths.value = 1;
+  genOffices.value = 0;
+  genToilets.value = 0;
+  genAdd.checked = false;
+  rooms = [];
+  roomCounter = 0;
+  renderRooms();
+  recalc();
+}
 function init(){
-  updatePhoneNumbers();
+  updateContacts('ci');
   populateCities('ci');
   renderRooms();
   setupDesktopDropdowns();
   applyCurrentPageState();
-  setupBrilliance();
 
   generateBtn.addEventListener('click', generateInitialRooms);
   resetBtn.addEventListener('click', () => {
@@ -2851,8 +2302,7 @@ function init(){
 
   countryEl.addEventListener('change', () => {
     populateCities(countryEl.value);
-    phoneState = countryEl.value === 'sn' ? 'dakar' : 'abidjan';
-    updatePhoneNumbers();
+    updateContacts(countryEl.value);
     recalc();
   });
   cityEl.addEventListener('change', recalc);
@@ -2872,9 +2322,11 @@ function init(){
       e.preventDefault();
       e.stopPropagation();
       const roomIndex = Number(addLoadBtn.dataset.r);
-      addLoad(roomIndex);
+      rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0 });
+      renderRooms();
       const block = document.getElementById(`room-block-${roomIndex}`);
       if(block) block.open = true;
+      recalc();
       return;
     }
 
@@ -2897,15 +2349,13 @@ function init(){
     }
   });
 
-  if(burgerBtn){
-    burgerBtn.addEventListener('click', () => {
-      const opened = mobileNav.classList.contains('open');
-      if(opened) closeMenu();
-      else openMenu();
-    });
-  }
-  if(mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
-  if(mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
+  burgerBtn.addEventListener('click', () => {
+    const opened = mobileNav.classList.contains('open');
+    if(opened) closeMenu();
+    else openMenu();
+  });
+  mobileBackdrop.addEventListener('click', closeMenu);
+  mobileCloseBtn.addEventListener('click', closeMenu);
 
   document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => {
     if(a.id === 'mobileStudyToggle' || a.id === 'mobileProductsToggle') return;
@@ -2918,7 +2368,7 @@ function init(){
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
 
   recalc();
-  setInterval(cyclePhone, 10000);
+  window.addEventListener('resize', recalc);
 }
 init();
 </script>
