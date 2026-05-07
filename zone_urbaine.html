@@ -26,6 +26,8 @@
   --muted-text-color:#e6f7ea;
   --muted-text-size:15px;
   --electric-yellow:#ffd600;
+  --panel:#061f14;
+  --card-border:rgba(212,175,55,.18);
   --shadow:0 10px 22px rgba(0,0,0,0.35);
   --max-width:1240px;
 }
@@ -159,8 +161,8 @@ nav a{
 nav a:hover{color:var(--accent-2)}
 nav a.active{
   color:var(--accent-2);
-  background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));
-  border:1px solid rgba(212,175,55,0.12);
+  background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));
+  border:1px solid rgba(212,175,55,.12);
   padding:10px 14px;
   font-weight:800;
   border-radius:10px;
@@ -609,7 +611,7 @@ nav a.active{
   flex-wrap:wrap;
   justify-content:center;
 }
-.btn-primary,.btn-secondary,.btn-reset,.btn-add,.btn-link,.btn-export,.btn-danger,.btn-tab{
+.btn-primary,.btn-secondary,.btn-reset,.btn-add,.btn-link,.btn-export,.btn-danger{
   padding:14px 24px;
   border-radius:10px;
   border:0;
@@ -639,16 +641,6 @@ nav a.active{
 .btn-add{background:var(--gold-base);color:#072012}
 .btn-link{background:rgba(124,179,66,.12);color:#072012;border:1px solid rgba(124,179,66,.18)}
 .btn-danger{background:#e9e9e9;color:#072012;border:1px solid #ddd}
-.btn-tab{
-  background:rgba(255,255,255,.05);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.10);
-}
-.btn-tab.active{
-  background:linear-gradient(135deg,var(--accent),#9be15f);
-  color:#072012;
-  border-color:transparent;
-}
 
 .section{
   padding:60px 5vw;
@@ -737,9 +729,9 @@ nav a.active{
   .study-layout{grid-template-columns:1fr}
   .study-right{
     position:static;
-    order:-1;
   }
 }
+
 .section-block{
   background:rgba(255,255,255,.03);
   border:1px solid rgba(212,175,55,.12);
@@ -855,7 +847,7 @@ nav a.active{
 }
 .result-card .label{
   font-size:12px;
-  color:#6b7f6b;
+  color:#6c7d6f;
   text-transform:uppercase;
   letter-spacing:0.6px;
   line-height:1.4;
@@ -870,34 +862,13 @@ nav a.active{
 }
 .result-card .small{
   font-size:13px;
-  color:#6b7f6b;
+  color:#6b7f6f;
   margin-top:6px;
   line-height:1.45;
 }
 .highlight{
   border:2px solid var(--accent);
   box-shadow:0 8px 30px rgba(124,179,66,0.12);
-}
-
-.tabs{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin:10px 0 14px;
-}
-.tab{
-  padding:10px 14px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
-  color:#fff;
-  font-weight:800;
-  cursor:pointer;
-}
-.tab.active{
-  background:linear-gradient(135deg,var(--accent),#9be15f);
-  color:#072012;
-  border-color:transparent;
 }
 
 .generator{
@@ -940,6 +911,7 @@ nav a.active{
   font-size:12px;
   color:#5f7263;
   line-height:1.4;
+  grid-column:1 / -1;
 }
 @media (max-width:900px){
   .generator{grid-template-columns:1fr 1fr}
@@ -1276,6 +1248,44 @@ footer::before{
   font-family:'Poppins',Arial,sans-serif;
 }
 
+/* Mobile summary strip */
+.mobile-summary-strip{
+  display:none;
+  position:sticky;
+  top:calc(var(--topbar-h) + var(--header-h) + 8px);
+  z-index:1200;
+  margin:12px 5vw 0;
+  padding:10px;
+  border-radius:14px;
+  background:rgba(255,255,255,.94);
+  color:#072012;
+  box-shadow:0 10px 28px rgba(0,0,0,.18);
+  border:1px solid rgba(0,0,0,.06);
+}
+.mobile-summary-strip .row{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+}
+.mobile-summary-strip .cell{
+  border-radius:12px;
+  background:linear-gradient(180deg,#fbfffb,#f3fff2);
+  border:1px solid #e7f1e8;
+  padding:8px 10px;
+  min-width:0;
+}
+.mobile-summary-strip .cell .l{
+  font-size:10px;
+  text-transform:uppercase;
+  color:#6b7f6b;
+  font-weight:800;
+}
+.mobile-summary-strip .cell .v{
+  font-size:14px;
+  font-weight:900;
+  color:#0b4d26;
+  margin-top:4px;
+}
 @media (max-width:1100px){
   nav{display:none}
   .burger{display:flex}
@@ -1286,6 +1296,9 @@ footer::before{
   .big .kpi{grid-template-columns:1fr}
   .summary{flex-direction:column}
   .hero-content{padding:24px 14px}
+  .mobile-summary-strip{display:block}
+  .study-layout{display:grid}
+  .study-right{order:-1}
 }
 @media (max-width:768px){
   .company-name{font-size:26px}
@@ -1322,44 +1335,49 @@ footer::before{
   .result-card .value{font-size:22px}
   .result-card .label{font-size:11px}
   .result-card .small{font-size:12px}
+  .mobile-summary-strip .row{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 </style>
 </head>
 <body>
 
-<div class="topbar" role="banner" aria-hidden="false">
+<div class="topbar" role="banner">
   <div class="right">
     <a href="tel:+2250707070707" id="topPhoneLink">
-      <i class="fas fa-phone" aria-hidden="true"></i><span class="phone-label">Tel:</span><span id="topPhoneText">+225 07 07 07 07 07</span>
+      <i class="fas fa-phone" aria-hidden="true"></i>&nbsp;<span class="phone-label">Tel:</span><span id="topPhoneText">+225 07 07 07 07 07</span>
     </a>
   </div>
 </div>
 
 <header role="navigation" aria-label="Main">
   <div class="logo-text">
-    <a href="GreenBrigde technologies.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
+    <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
     <div class="brand-stack">
       <div class="company-name">GREENBRIDGE</div>
       <div class="company-tagline">TECHNOLOGIES</div>
     </div>
   </div>
 
-  <nav aria-label="Menu principal">
-    <a href="GreenBrigde technologies.html">Accueil</a>
+  <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
+    <span class="icon"><span></span><span></span><span></span></span>
+  </button>
 
-    <div class="dropdown" aria-haspopup="true" aria-expanded="true">
-      <a href="etude_dimensionnement_2.html" id="desktopEtudeToggle" class="active" data-current="🏙️ Zone urbaine">
+  <nav aria-label="Menu principal">
+    <a href="Code1.html">Accueil</a>
+
+    <div class="dropdown" aria-haspopup="true" aria-expanded="true" id="studyDropdown">
+      <a href="etude_dimensionnement_2.html" id="studyLink" class="active" data-current="🏙️ Zone urbaine">
         Étude <span class="sub-badge">🏙️ Zone urbaine</span>
       </a>
-      <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="dropdownEtude">
+      <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="studyDropdownContent">
         <li><a href="zone_urbaine.html" role="menuitem" class="active-item" aria-current="page">🏙️ Zone Urbaine</a></li>
         <li><a href="zone_agricole.html" role="menuitem">🌾 Zone Agricole</a></li>
       </ul>
     </div>
 
-    <div class="dropdown" aria-haspopup="true" aria-expanded="false">
-      <a href="produits.html" id="desktopProduitsToggle">Nos Produits</a>
-      <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="dropdownProduits">
+    <div class="dropdown" aria-haspopup="true" aria-expanded="false" id="productsDropdown">
+      <a href="produits.html" id="productsLink">Nos Produits</a>
+      <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="productsDropdownContent">
         <li><a href="panneaux.html" role="menuitem">⚡ Panneaux solaires</a></li>
         <li><a href="batteries.html" role="menuitem">🔋 Batteries & stockage</a></li>
         <li><a href="onduleurs.html" role="menuitem">🔌 Onduleurs</a></li>
@@ -1370,29 +1388,9 @@ footer::before{
     <a href="Projets.html">Projets futurs</a>
     <a href="maintenance.html">Maintenance</a>
   </nav>
-
-  <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false" aria-controls="mobileNav">
-    <span class="icon"><span></span><span></span><span></span></span>
-  </button>
 </header>
 
 <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
-
-<div class="electric-band" id="electricBand" aria-hidden="true">
-  <div class="container" aria-hidden="true">
-    <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
-      <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
-      <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
-      <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
-    </svg>
-    <div class="orbs" id="orbs">
-      <div class="orb" id="orbA"></div>
-      <div class="orb" id="orbB"></div>
-      <div class="orb" id="orbC"></div>
-    </div>
-    <div class="glowline" id="glowline"></div>
-  </div>
-</div>
 
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="mobile-panel">
@@ -1403,23 +1401,23 @@ footer::before{
     </div>
 
     <div class="menu-links">
-      <a href="GreenBrigde technologies.html" class="mobile-link">Accueil</a>
+      <a href="Code1.html" class="mobile-link">Accueil</a>
 
       <div>
-        <a href="etude_dimensionnement_2.html" id="mobileEtudeToggle" class="mobile-link active" aria-expanded="true" data-current="🏙️ Zone urbaine">
+        <a href="etude_dimensionnement_2.html" id="mobileStudyToggle" class="mobile-link active" data-current="🏙️ Zone urbaine" aria-expanded="true">
           Étude <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
         </a>
-        <div class="submenu" id="mobileEtudeSub">
+        <div class="submenu" id="mobileStudySub" style="display:flex;">
           <a href="zone_urbaine.html" class="active-item" aria-current="page">🏙️ Zone Urbaine</a>
           <a href="zone_agricole.html">🌾 Zone Agricole</a>
         </div>
       </div>
 
       <div>
-        <a href="produits.html" id="mobileProduitsToggle" class="mobile-link" aria-expanded="false">
+        <a href="produits.html" id="mobileProductsToggle" class="mobile-link" aria-expanded="false">
           Nos Produits <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
         </a>
-        <div class="submenu" id="mobileProduitsSub">
+        <div class="submenu" id="mobileProductsSub">
           <a href="panneaux.html">⚡ Panneaux solaires</a>
           <a href="batteries.html">🔋 Batteries & stockage</a>
           <a href="onduleurs.html">🔌 Onduleurs</a>
@@ -1448,6 +1446,33 @@ footer::before{
   </div>
 </div>
 
+<div class="electric-band" id="electricBand" aria-hidden="true">
+  <div class="container" aria-hidden="true">
+    <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
+      <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
+      <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
+      <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
+    </svg>
+
+    <div class="orbs" id="orbs">
+      <div class="orb" id="orbA"></div>
+      <div class="orb" id="orbB"></div>
+      <div class="orb" id="orbC"></div>
+    </div>
+
+    <div class="glowline" id="glowline"></div>
+  </div>
+</div>
+
+<div class="mobile-summary-strip" aria-label="Résumé mobile">
+  <div class="row">
+    <div class="cell"><div class="l">Jour</div><div id="mConsDay" class="v">0 kWh</div></div>
+    <div class="cell"><div class="l">PV</div><div id="mPv" class="v">0 kWc</div></div>
+    <div class="cell"><div class="l">Batterie</div><div id="mBatt" class="v">0 kWh</div></div>
+    <div class="cell"><div class="l">Onduleur</div><div id="mInv" class="v">0 W</div></div>
+  </div>
+</div>
+
 <section class="hero" id="top" aria-label="Hero">
   <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration zone urbaine">
   <div class="hero-overlay"></div>
@@ -1455,7 +1480,7 @@ footer::before{
   <div class="hero-content">
     <h1>Étude <span>zone urbaine</span></h1>
     <p>
-      Une étude simple à saisir et claire à lire :
+      Une étude simple à utiliser, mais structurée comme un vrai pré-dimensionnement :
       charges, panneaux, batteries, autonomie, onduleur standard et sécurité.
     </p>
     <div class="hero-actions">
@@ -1464,244 +1489,246 @@ footer::before{
   </div>
 </section>
 
-<section id="study" class="section">
-  <h2>Étude de dimensionnement</h2>
-  <p class="section-intro">
-    Le pays est sélectionné avant la ville pour adapter l’ensoleillement et les hypothèses de calcul.
-    Les chambres sont fermées par défaut, les listes sont plus simples à utiliser et les résultats vont à l’essentiel.
-  </p>
+<div class="page-center">
+  <section id="study" class="section" aria-label="Étude de dimensionnement">
+    <h2>Étude de dimensionnement</h2>
+    <p class="section-intro">
+      Le pays est sélectionné avant la ville pour adapter l’ensoleillement et les hypothèses de calcul.
+      Les chambres sont fermées par défaut, et les résultats se mettent à jour en direct après génération.
+    </p>
 
-  <div class="card-soft" id="studyCard">
-    <div class="study-top">
-      <div class="group">
-        <span class="badge-zone"><i class="fas fa-building"></i> Zone urbaine</span>
-        <span class="pill" id="locationPill"><i class="fas fa-sun"></i> Abidjan</span>
-        <span class="pill" id="sunPill"><i class="fas fa-cloud-sun"></i> 4.5 h équiv.</span>
-        <span class="pill" id="tempPill"><i class="fas fa-temperature-high"></i> 25 °C</span>
+    <div class="card-soft">
+      <div class="study-top">
+        <div class="group">
+          <span class="badge-zone"><i class="fas fa-building"></i> Zone urbaine</span>
+          <span class="pill" id="locationPill"><i class="fas fa-sun"></i> Abidjan</span>
+          <span class="pill" id="sunPill"><i class="fas fa-cloud-sun"></i> 4.5 h équiv.</span>
+          <span class="pill" id="tempPill"><i class="fas fa-temperature-high"></i> 25 °C</span>
+        </div>
+        <div class="group">
+          <span class="pill" id="batteryTypePill"><i class="fas fa-battery-full"></i> Lithium ion</span>
+          <span class="pill" id="systemPill"><i class="fas fa-sliders-h"></i> Pré-dimensionnement</span>
+        </div>
       </div>
-      <div class="group">
-        <span class="pill" id="batteryTypePill"><i class="fas fa-battery-full"></i> Lithium ion</span>
-        <span class="pill" id="systemPill"><i class="fas fa-sliders-h"></i> Pré-dimensionnement</span>
+
+      <div class="study-layout">
+        <div>
+          <div class="section-block">
+            <h3>Paramètres principaux</h3>
+            <div class="grid">
+              <div class="field">
+                <label for="country">Pays</label>
+                <select id="country">
+                  <option value="ci">Côte d'Ivoire</option>
+                  <option value="sn">Sénégal</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="city">Ville / zone</label>
+                <select id="city"></select>
+              </div>
+
+              <div class="field">
+                <label for="batteryType">Type de batterie</label>
+                <select id="batteryType">
+                  <option value="lithium_ion">Lithium ion</option>
+                  <option value="lifepo4">LiFePO4</option>
+                  <option value="gel">Gel</option>
+                  <option value="plomb">Plomb</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="batteryPackCount">Nb packs</label>
+                <select id="batteryPackCount"></select>
+              </div>
+
+              <div class="field">
+                <label for="battPackKwh">Capacité pack</label>
+                <select id="battPackKwh"></select>
+                <small>Valeurs de 500 Wh à 5 000 Wh.</small>
+              </div>
+
+              <div class="field">
+                <label for="panelW">Panneau</label>
+                <select id="panelW"></select>
+                <small>Valeurs de 50 W à 550 W.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block" style="margin-top:14px">
+            <h3>Générateur rapide de pièces</h3>
+            <div class="generator">
+              <div class="gfield"><label>Chambres</label><input type="number" id="genBedrooms" min="0" value="1"></div>
+              <div class="gfield"><label>Salons</label><input type="number" id="genLiving" min="0" value="1"></div>
+              <div class="gfield"><label>Cuisines</label><input type="number" id="genKitchens" min="0" value="1"></div>
+              <div class="gfield"><label>Salles d'eau</label><input type="number" id="genBaths" min="0" value="1"></div>
+              <div class="gfield"><label>Bureaux</label><input type="number" id="genOffices" min="0" value="0"></div>
+              <div class="gfield"><label>Toilettes</label><input type="number" id="genToilets" min="0" value="0"></div>
+              <div class="gwide">
+                <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:#072012;font-weight:700">
+                  <input type="checkbox" id="genAdd" />
+                  Ajouter aux pièces existantes
+                </label>
+                <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
+              </div>
+              <div class="hint">
+                Les pièces sont créées au clic. Ensuite, toute modification des charges met la synthèse à jour automatiquement.
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block" style="margin-top:14px">
+            <h3>Pièces et charges</h3>
+            <div class="muted-note" style="margin-bottom:8px">
+              Les pièces restent fermées par défaut pour garder une lecture simple.
+            </div>
+            <div id="roomsList" class="room-list"></div>
+          </div>
+
+          <div class="pdf-actions">
+            <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
+            <button id="exportPdfBtn" class="btn-export" type="button"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF</button>
+          </div>
+        </div>
+
+        <div class="study-right">
+          <div class="section-block">
+            <h3>Synthèse principale</h3>
+            <div class="summary-topline">
+              <span class="mini"><i class="fas fa-bolt"></i> Mise à jour dynamique</span>
+              <span class="mini"><i class="fas fa-mobile-alt"></i> Lisible sur téléphone</span>
+            </div>
+
+            <div class="summary-grid">
+              <div class="result-card" id="r_day">
+                <div class="label">Consommation / jour</div>
+                <div id="consDayCard" class="value">0 kWh</div>
+                <div class="small">Base du calcul</div>
+              </div>
+
+              <div class="result-card" id="r_month">
+                <div class="label">Consommation / mois</div>
+                <div id="consMonthCard" class="value">0 kWh</div>
+                <div class="small">Sur 30 jours</div>
+              </div>
+
+              <div class="result-card" id="r_power">
+                <div class="label">Puissance installée</div>
+                <div id="powerInstalledCard" class="value">0 W</div>
+                <div class="small">Somme nominale</div>
+              </div>
+
+              <div class="result-card" id="r_inv">
+                <div class="label">Onduleur conseillé</div>
+                <div id="inverterRecCard" class="value">0 W</div>
+                <div class="small">Valeur standard supérieure</div>
+              </div>
+
+              <div class="result-card" id="r_pv">
+                <div class="label">Puissance PV</div>
+                <div id="pvRecCard" class="value">0 kWc</div>
+                <div class="small">Dimensionnement solaire</div>
+              </div>
+
+              <div class="result-card" id="r_batt">
+                <div class="label">Batterie utile totale</div>
+                <div id="batteryRecCard" class="value">0 kWh</div>
+                <div class="small">Selon les packs choisis</div>
+              </div>
+
+              <div class="result-card" id="r_autonomy">
+                <div class="label">Autonomie estimée</div>
+                <div id="autonomyCard" class="value">0 jour</div>
+                <div class="small">Lecture rapide</div>
+              </div>
+
+              <div class="result-card" id="r_panels">
+                <div class="label">Nb panneaux</div>
+                <div id="panelCountCard" class="value">0</div>
+                <div class="small">Arrondi entier</div>
+              </div>
+            </div>
+
+            <div class="muted-note" style="margin-top:12px">
+              Le calcul se met à jour dès que tu génères les pièces ou que tu modifies une charge, un pack batterie ou un panneau.
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-head">
+              <h3>Profil journalier 24 h</h3>
+              <div class="legend">
+                <span class="lg"><span class="dot solar"></span>Production solaire</span>
+                <span class="lg"><span class="dot load"></span>Consommation</span>
+                <span class="lg"><span class="dot batt"></span>Batterie</span>
+              </div>
+            </div>
+            <div class="chart-wrap">
+              <canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas>
+            </div>
+            <div class="muted-note" style="margin-top:8px">
+              Le soleil est pris en compte de 06h à 18h. La courbe aide à visualiser l’intérêt éventuel d’une batterie.
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="big">
+              <h2>Lecture rapide</h2>
+              <div class="kpi">
+                <div class="k">
+                  <div class="muted">Consommation / mois</div>
+                  <div id="consMonthKpi" class="num">0 kWh</div>
+                  <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
+                </div>
+                <div class="k">
+                  <div class="muted">Puissance PV</div>
+                  <div id="pvReqKwc" class="num">0 kWc</div>
+                  <div id="pvReqRange" class="muted">incertitude ±15%</div>
+                </div>
+                <div class="k">
+                  <div class="muted">Onduleur standard</div>
+                  <div id="invStdKpi" class="num">0 W</div>
+                  <div id="packsNeedKpi" class="muted">packs saisis: 0</div>
+                </div>
+              </div>
+
+              <div class="grid-2" style="margin-top:12px">
+                <div class="result-card">
+                  <div class="label">Points de sécurité</div>
+                  <div id="safetyCard" class="value" style="font-size:15px;line-height:1.45;white-space:pre-line">—</div>
+                  <div class="small">Protections essentielles</div>
+                </div>
+                <div class="result-card">
+                  <div class="label">Note</div>
+                  <div id="summaryNoteCard" class="value" style="font-size:16px;line-height:1.45">Clique sur « Générer pièces »</div>
+                  <div class="small">Résumé dynamique</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="small-panel">
+              <h3>Points de sécurité</h3>
+              <ul class="safety-list">
+                <li><strong>Protection :</strong> sectionneur, fusibles, parafoudre et mise à la terre.</li>
+                <li><strong>Charges :</strong> ne pas sous-dimensionner l’onduleur et les câbles.</li>
+                <li><strong>Batterie :</strong> ventilation, câbles protégés et bornes sécurisées.</li>
+                <li><strong>Exploitation :</strong> garder une marge d’exploitation raisonnable.</li>
+                <li><strong>Terrain :</strong> vérifier les longueurs, les pertes et les conditions réelles.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="study-layout">
-      <div>
-        <div class="section-block">
-          <h3>Paramètres principaux</h3>
-          <div class="grid">
-            <div class="field">
-              <label for="country">Pays</label>
-              <select id="country">
-                <option value="ci">Côte d'Ivoire</option>
-                <option value="sn">Sénégal</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="city">Ville / zone</label>
-              <select id="city"></select>
-            </div>
-
-            <div class="field">
-              <label for="batteryType">Type de batterie</label>
-              <select id="batteryType">
-                <option value="lithium_ion">Lithium ion</option>
-                <option value="lifepo4">LiFePO4</option>
-                <option value="gel">Gel</option>
-                <option value="plomb">Plomb</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="batteryPackCount">Nb packs</label>
-              <select id="batteryPackCount"></select>
-            </div>
-
-            <div class="field">
-              <label for="battPackKwh">Capacité pack</label>
-              <select id="battPackKwh"></select>
-              <small>Valeurs de 500 Wh à 5 000 Wh.</small>
-            </div>
-
-            <div class="field">
-              <label for="panelW">Panneau</label>
-              <select id="panelW"></select>
-              <small>Valeurs de 50 W à 550 W.</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="section-block" style="margin-top:14px">
-          <h3>Générateur rapide de pièces</h3>
-          <div class="generator">
-            <div class="gfield"><label>Chambres</label><input type="number" id="genBedrooms" min="0" value="1"></div>
-            <div class="gfield"><label>Salons</label><input type="number" id="genLiving" min="0" value="1"></div>
-            <div class="gfield"><label>Cuisines</label><input type="number" id="genKitchens" min="0" value="1"></div>
-            <div class="gfield"><label>Salles d'eau</label><input type="number" id="genBaths" min="0" value="1"></div>
-            <div class="gfield"><label>Bureaux</label><input type="number" id="genOffices" min="0" value="0"></div>
-            <div class="gfield"><label>Toilettes</label><input type="number" id="genToilets" min="0" value="0"></div>
-            <div class="gwide">
-              <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:#072012;font-weight:700">
-                <input type="checkbox" id="genAdd" />
-                Ajouter aux pièces existantes
-              </label>
-              <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
-            </div>
-            <div class="hint">
-              Les pièces sont créées au clic. Ensuite, toute modification des charges met la synthèse à jour automatiquement.
-            </div>
-          </div>
-        </div>
-
-        <div class="section-block" style="margin-top:14px">
-          <h3>Pièces et charges</h3>
-          <div class="muted-note" style="margin-bottom:8px">
-            Les pièces restent fermées par défaut pour garder une lecture simple.
-          </div>
-          <div id="roomsList" class="room-list"></div>
-        </div>
-
-        <div class="pdf-actions">
-          <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
-          <button id="exportPdfBtn" class="btn-export" type="button"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF</button>
-        </div>
-      </div>
-
-      <div class="study-right">
-        <div class="section-block">
-          <h3>Synthèse principale</h3>
-          <div class="summary-topline">
-            <span class="mini"><i class="fas fa-bolt"></i> Mise à jour dynamique</span>
-            <span class="mini"><i class="fas fa-mobile-alt"></i> Lisible sur téléphone</span>
-          </div>
-
-          <div class="summary-grid">
-            <div class="result-card">
-              <div class="label">Consommation / jour</div>
-              <div id="consDayCard" class="value">0 kWh</div>
-              <div class="small">Base du calcul</div>
-            </div>
-
-            <div class="result-card">
-              <div class="label">Consommation / mois</div>
-              <div id="consMonthCard" class="value">0 kWh</div>
-              <div class="small">Sur 30 jours</div>
-            </div>
-
-            <div class="result-card">
-              <div class="label">Puissance installée</div>
-              <div id="powerInstalledCard" class="value">0 W</div>
-              <div class="small">Somme nominale</div>
-            </div>
-
-            <div class="result-card">
-              <div class="label">Onduleur conseillé</div>
-              <div id="inverterRecCard" class="value">0 W</div>
-              <div class="small">Valeur standard supérieure</div>
-            </div>
-
-            <div class="result-card">
-              <div class="label">Puissance PV</div>
-              <div id="pvRecCard" class="value">0 kWc</div>
-              <div class="small">Dimensionnement solaire</div>
-            </div>
-
-            <div class="result-card">
-              <div class="label">Batterie utile totale</div>
-              <div id="batteryRecCard" class="value">0 kWh</div>
-              <div class="small">Selon les packs choisis</div>
-            </div>
-
-            <div class="result-card">
-              <div class="label">Autonomie estimée</div>
-              <div id="autonomyCard" class="value">0 jour</div>
-              <div class="small">Lecture rapide</div>
-            </div>
-
-            <div class="result-card">
-              <div class="label">Nb panneaux</div>
-              <div id="panelCountCard" class="value">0</div>
-              <div class="small">Arrondi entier</div>
-            </div>
-          </div>
-
-          <div class="muted-note" style="margin-top:12px">
-            Le calcul se met à jour dès que tu génères les pièces ou que tu modifies une charge, un pack batterie ou un panneau.
-          </div>
-        </div>
-
-        <div class="chart-card">
-          <div class="chart-head">
-            <h3>Profil journalier 24 h</h3>
-            <div class="legend">
-              <span class="lg"><span class="dot solar"></span>Production solaire</span>
-              <span class="lg"><span class="dot load"></span>Consommation</span>
-              <span class="lg"><span class="dot batt"></span>Batterie</span>
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas>
-          </div>
-          <div class="muted-note" style="margin-top:8px">
-            Le soleil est pris en compte de 06h à 18h. La courbe sert à visualiser l’intérêt d’une batterie.
-          </div>
-        </div>
-
-        <div class="summary">
-          <div class="big">
-            <h2>Lecture rapide</h2>
-            <div class="kpi">
-              <div class="k">
-                <div class="muted">Consommation / mois</div>
-                <div id="consMonthKpi" class="num">0 kWh</div>
-                <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
-              </div>
-              <div class="k">
-                <div class="muted">Puissance PV</div>
-                <div id="pvReqKwc" class="num">0 kWc</div>
-                <div id="pvReqRange" class="muted">incertitude ±15%</div>
-              </div>
-              <div class="k">
-                <div class="muted">Onduleur standard</div>
-                <div id="invStdKpi" class="num">0 W</div>
-                <div id="packsNeedKpi" class="muted">packs saisis: 0</div>
-              </div>
-            </div>
-
-            <div class="grid-2" style="margin-top:12px">
-              <div class="result-card">
-                <div class="label">Points de sécurité</div>
-                <div id="safetyCard" class="value" style="font-size:15px;line-height:1.45;white-space:pre-line">—</div>
-                <div class="small">Protections essentielles</div>
-              </div>
-              <div class="result-card">
-                <div class="label">Note</div>
-                <div id="summaryNoteCard" class="value" style="font-size:16px;line-height:1.45">Clique sur « Générer pièces »</div>
-                <div class="small">Résumé dynamique</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="small-panel">
-            <h3>Points de sécurité</h3>
-            <ul class="safety-list">
-              <li><strong>Protection :</strong> sectionneur, fusibles, parafoudre et mise à la terre.</li>
-              <li><strong>Charges :</strong> ne pas sous-dimensionner l’onduleur et les câbles.</li>
-              <li><strong>Batterie :</strong> ventilation, câbles protégés et bornes sécurisées.</li>
-              <li><strong>Exploitation :</strong> garder une marge d’exploitation raisonnable.</li>
-              <li><strong>Terrain :</strong> vérifier les longueurs, les pertes et les conditions réelles.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
+</div>
 
 <footer>
-  <div class="footer-company">GREENBRIDGE TECHNOLOGIES</div>
-  <div class="footer-contact">
+  <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
+  <div class="footer-contact" aria-label="Coordonnées">
     <div>© 2025 GreenBridge. Tous droits réservés.</div>
     <div>Abidjan, Côte d’Ivoire</div>
     <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
@@ -1712,8 +1739,8 @@ footer::before{
 
 <script>
 const CONTACT_NUMBER = {
-  abidjan: { display:'+225 07 07 07 07 07', tel:'+2250707070707', sun:4.5, temp:25 },
-  dakar: { display:'+221 77 00 00 00 00', tel:'+2217700000000', sun:6.5, temp:29 }
+  abidjan: { display:'+225 07 07 07 07 07', tel:'+2250707070707' },
+  dakar: { display:'+221 77 00 00 00 00', tel:'+2217700000000' }
 };
 
 const CITY_META = {
@@ -1827,6 +1854,11 @@ const pvReqRange = document.getElementById('pvReqRange');
 const invStdKpi = document.getElementById('invStdKpi');
 const packsNeedKpi = document.getElementById('packsNeedKpi');
 const loadsCountEl = document.getElementById('loadsCount');
+
+const mConsDay = document.getElementById('mConsDay');
+const mPv = document.getElementById('mPv');
+const mBatt = document.getElementById('mBatt');
+const mInv = document.getElementById('mInv');
 
 function fmt(n, dec = 2){
   return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
@@ -2169,7 +2201,7 @@ function updatePillsAndPhones(){
 
   if(topPhoneLink){
     topPhoneLink.href = 'tel:' + (info.tel || '+2250707070707');
-    topPhoneLink.innerHTML = '<i class="fas fa-phone" aria-hidden="true"></i><span class="phone-label">Tel:</span><span id="topPhoneText">' + (info.display || '+225 07 07 07 07 07') + '</span>';
+    topPhoneLink.innerHTML = '<i class="fas fa-phone" aria-hidden="true"></i>&nbsp;<span class="phone-label">Tel:</span><span id="topPhoneText">' + (info.display || '+225 07 07 07 07 07') + '</span>';
   }
   const topPhoneText = document.getElementById('topPhoneText');
   if(topPhoneText) topPhoneText.textContent = info.display || '+225 07 07 07 07 07';
@@ -2180,12 +2212,14 @@ function updatePillsAndPhones(){
   if(footerPhoneText) footerPhoneText.textContent = info.display || '+225 07 07 07 07 07';
 }
 function updateSnapshotUI(r){
+  document.querySelector('#r_day')?.classList.toggle('highlight', r.dailyKwh > 0);
+  document.querySelector('#r_month')?.classList.toggle('highlight', r.monthlyKwh > 0);
   document.querySelector('#r_power')?.classList.toggle('highlight', r.installedPower > 0);
   document.querySelector('#r_inv')?.classList.toggle('highlight', r.inverterNeed > 0);
+  document.querySelector('#r_pv')?.classList.toggle('highlight', r.pvKwRec > 0);
   document.querySelector('#r_batt')?.classList.toggle('highlight', r.batteryUsefulTotal > 0);
   document.querySelector('#r_autonomy')?.classList.toggle('highlight', r.autonomyDays > 0);
-  document.querySelector('#r_pv')?.classList.toggle('highlight', r.pvKwRec > 0);
-  document.querySelector('#r_safety')?.classList.toggle('highlight', true);
+  document.querySelector('#r_panels')?.classList.toggle('highlight', r.panelCountRec > 0);
 }
 
 function drawChart(city, solarCurve, loadCurveArr, batterySoc, yMax, extraLabel){
@@ -2360,6 +2394,7 @@ function recalc(){
   pvRecCard.innerText = `${fmt(r.pvKwRec,2)} kWc`;
   batteryRecCard.innerText = `${fmt(r.batteryUsefulTotal,2)} kWh`;
   autonomyCard.innerText = `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''}`;
+  panelCountCard.innerText = `${r.panelCountRec}`;
 
   const solar = dailySolarCurve(r.pvKwRec);
   const load = loadCurve(r.loads);
@@ -2379,6 +2414,11 @@ function recalc(){
   summaryNoteCard.innerText = r.loads.length > 0
     ? `Calcul basé sur ${r.loads.length} charge(s) répartie(s) dans ${rooms.length} pièce(s).`
     : 'Clique sur « Générer pièces » pour démarrer l’étude.';
+
+  mConsDay.innerText = `${fmt(r.dailyKwh,2)} kWh`;
+  mPv.innerText = `${fmt(r.pvKwRec,2)} kWc`;
+  mBatt.innerText = `${fmt(r.batteryUsefulTotal,2)} kWh`;
+  mInv.innerText = `${r.inverterNeed} W`;
 
   batteryTypePill.innerHTML = '<i class="fas fa-battery-full"></i> ' + r.batteryProfile.label;
 
@@ -2418,7 +2458,7 @@ function updatePhoneNumbers(){
   const info = CONTACT_NUMBER[state];
   if(topPhoneLink){
     topPhoneLink.href = 'tel:' + info.tel;
-    topPhoneLink.innerHTML = '<i class="fas fa-phone" aria-hidden="true"></i><span class="phone-label">Tel:</span><span id="topPhoneText">' + info.display + '</span>';
+    topPhoneLink.innerHTML = '<i class="fas fa-phone" aria-hidden="true"></i>&nbsp;<span class="phone-label">Tel:</span><span id="topPhoneText">' + info.display + '</span>';
   }
   const topPhoneText = document.getElementById('topPhoneText');
   if(topPhoneText) topPhoneText.textContent = info.display;
@@ -2430,6 +2470,11 @@ function updatePhoneNumbers(){
 }
 updatePhoneNumbers.state = 'abidjan';
 
+function cyclePhone(){
+  updatePhoneNumbers.state = updatePhoneNumbers.state === 'abidjan' ? 'dakar' : 'abidjan';
+  updatePhoneNumbers();
+}
+
 function openMenu(){
   if(!mobileNav || !burgerBtn) return;
   mobileNav.classList.add('open');
@@ -2440,16 +2485,16 @@ function openMenu(){
   document.body.classList.add('menu-open');
   document.body.style.overflow = 'hidden';
 
-  const studySub = document.getElementById('mobileEtudeSub');
-  const studyToggle = document.getElementById('mobileEtudeToggle');
+  const studySub = document.getElementById('mobileStudySub');
+  const studyToggle = document.getElementById('mobileStudyToggle');
   if(studySub && studyToggle){
     studySub.style.display = 'flex';
     studyToggle.setAttribute('aria-expanded','true');
     studyToggle.classList.add('active');
   }
 
-  const productsSub = document.getElementById('mobileProduitsSub');
-  const productsToggle = document.getElementById('mobileProduitsToggle');
+  const productsSub = document.getElementById('mobileProductsSub');
+  const productsToggle = document.getElementById('mobileProductsToggle');
   if(productsSub && productsToggle){
     productsSub.style.display = 'none';
     productsToggle.setAttribute('aria-expanded','false');
@@ -2495,8 +2540,8 @@ function disableActiveLinksInMobile(){
 }
 function applyCurrentPageState(){
   const path = (window.location.pathname.split('/').pop() || 'zone_urbaine.html').toLowerCase();
-  const desktopStudyDropdown = document.querySelector('#desktopEtudeToggle')?.closest('.dropdown');
-  const desktopStudyLink = document.getElementById('desktopEtudeToggle');
+  const desktopStudyDropdown = document.getElementById('studyDropdown');
+  const desktopStudyLink = document.getElementById('studyLink');
 
   if(desktopStudyLink){
     desktopStudyLink.classList.add('active');
@@ -2929,17 +2974,17 @@ function setupEvents(){
   if(mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMenu);
 
   document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => {
-    if(a.id === 'mobileEtudeToggle' || a.id === 'mobileProduitsToggle') return;
+    if(a.id === 'mobileStudyToggle' || a.id === 'mobileProductsToggle') return;
     a.addEventListener('click', () => closeMenu());
   });
 
   bindMobileExpandable(
-    document.getElementById('mobileEtudeToggle'),
-    document.getElementById('mobileEtudeSub')
+    document.getElementById('mobileStudyToggle'),
+    document.getElementById('mobileStudySub')
   );
   bindMobileExpandable(
-    document.getElementById('mobileProduitsToggle'),
-    document.getElementById('mobileProduitsSub')
+    document.getElementById('mobileProductsToggle'),
+    document.getElementById('mobileProductsSub')
   );
 }
 function init(){
@@ -2953,6 +2998,7 @@ function init(){
   setupBrilliance();
   updatePillsAndPhones();
   recalc();
+  setInterval(cyclePhone, 10000);
 }
 init();
 </script>
