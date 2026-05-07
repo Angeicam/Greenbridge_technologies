@@ -821,8 +821,19 @@ function recalc(){
 
   const solar = new Array(24).fill(0).map((_,h)=>{ if(h < 6 || h > 18) return 0; const x = (h - 6) / 12 * Math.PI; return Math.max(0, Math.sin(x)) * r.pvKwRec; });
   const load = new Array(24).fill(0);
-  r.loads.forEach(l=>{ const qty = Math.max(0, Number(l.qty||0)); const pw = Math.max(0, Number(l.powerW||0))/1000; const duration = Math.max(1, Math.min(24, Math.round(Number(l.hours||0) || 1))); let start = 8; const n = String(l.name||'').toLowerCase(); if(n.includes('éclairage') || n.includes('eclairage')) start = 18; else if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv')) start = 19; else if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) start = 0; for(let i=0;i<duration;i++) load[(start+i)%24] += qty*pw; });
-  const battery = []; let soc = r.batteryUsefulTotal * 0.6; for(let i=0;i<24;i++){ soc = Math.max(0, Math.min(r.batteryUsefulTotal || 1, soc + solar[i] - load[i])); battery.push(soc); }
+  r.loads.forEach(l=>{
+    const qty = Math.max(0, Number(l.qty||0));
+    const pw = Math.max(0, Number(l.powerW||0))/1000;
+    const duration = Math.max(1, Math.min(24, Math.round(Number(l.hours||0) || 1)));
+    let start = 8;
+    const n = String(l.name||'').toLowerCase();
+    if(n.includes('éclairage') || n.includes('eclairage')) start = 18;
+    else if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv')) start = 19;
+    else if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) start = 0;
+    for(let i=0;i<duration;i++) load[(start+i)%24] += qty*pw;
+  });
+  const battery = []; let soc = r.batteryUsefulTotal * 0.6;
+  for(let i=0;i<24;i++){ soc = Math.max(0, Math.min(r.batteryUsefulTotal || 1, soc + solar[i] - load[i])); battery.push(soc); }
   drawChart(solar, load, battery, Math.max(1, ...solar, ...load, r.batteryUsefulTotal || 1), 'Étude urbaine');
 
   lastCalcSnapshot = {
@@ -976,8 +987,7 @@ function openDesktopDropdowns(){
     });
   }
 }
-
-function buildHourlyProfile(loads, dailyBatteryUsefulKwh){
+  function buildHourlyProfile(loads, dailyBatteryUsefulKwh){
   const profile = new Array(24).fill(0);
   const getWindow = (name) => {
     const n = String(name || '').toLowerCase();
