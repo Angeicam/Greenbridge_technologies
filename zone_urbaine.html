@@ -356,7 +356,7 @@ nav a.active{
   min-height:48px;
   padding:12px 14px;
   border-radius:10px;
-  white-space:nowrap;
+  white-space:normal;
   justify-content:flex-start;
   text-align:left;
   display:flex;
@@ -416,6 +416,97 @@ nav a.active{
   background:rgba(255,255,255,0.04);
   border-radius:50%;
   min-height:44px;
+}
+
+/* Boules d’énergie */
+.electric-band{
+  position:fixed;
+  top:calc(var(--topbar-h) + var(--header-h) - 6px);
+  left:0;right:0;
+  height:14px;
+  z-index:1600;
+  pointer-events:none;
+  overflow:visible;
+  transform:translateZ(0);
+}
+.electric-band .container{
+  position:absolute;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+  width:100vw;
+  max-width:none;
+  padding:0;
+  height:100%;
+  pointer-events:none;
+  box-sizing:border-box;
+}
+.lightning-svg{
+  width:100vw;
+  height:100%;
+  display:block;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .22s ease;
+  mix-blend-mode:screen;
+}
+.electric-band.connected .lightning-svg{opacity:1}
+.lightning-svg path.zap{
+  stroke:var(--gold-2);
+  stroke-width:2.2;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.98;
+}
+.orbs{
+  position:absolute;
+  left:0;top:0;
+  width:100vw;
+  height:100%;
+  pointer-events:none;
+  overflow:visible;
+}
+.orb{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#fff8b0,#ffd600);
+  box-shadow:0 0 12px rgba(255,214,0,0.95),0 0 30px rgba(255,214,0,0.22);
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:opacity .18s linear;
+}
+.electric-band.connected .orb{opacity:1}
+@keyframes buzz{
+  0%{transform:translate(-50%,-50%) translateX(-2px)}
+  50%{transform:translate(-50%,-50%) translateX(2px)}
+  100%{transform:translate(-50%,-50%) translateX(-2px)}
+}
+.orb.buzz{animation:buzz .9s linear infinite}
+.glowline{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  height:3px;
+  width:0;
+  background:linear-gradient(90deg,rgba(255,238,170,0),rgba(255,214,0,0.98),rgba(255,238,170,0));
+  border-radius:8px;
+  box-shadow:0 6px 20px rgba(255,214,0,0.12);
+  opacity:0;
+  transition:opacity .22s ease;
+}
+.electric-band.connected .glowline{
+  width:100vw;
+  opacity:1;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
+  50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}
+  100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
 }
 
 .hero{
@@ -679,6 +770,7 @@ nav a.active{
   flex-wrap:wrap;
   gap:8px;
   align-items:center;
+  min-width:0;
 }
 .room-chip{
   display:inline-flex;
@@ -691,6 +783,8 @@ nav a.active{
   color:#04462e;
   font-weight:800;
   font-size:12px;
+  white-space:normal;
+  word-break:break-word;
 }
 .room-head-right{
   display:flex;
@@ -699,6 +793,7 @@ nav a.active{
   color:#6c7d6f;
   font-size:12px;
   white-space:nowrap;
+  flex:0 0 auto;
 }
 .room-body{
   border-top:1px solid #eef3ee;
@@ -750,6 +845,7 @@ nav a.active{
   color:#6c7d6f;
   font-size:12px;
   margin-top:2px;
+  word-break:break-word;
 }
 .consumer-chip{
   display:inline-flex;
@@ -782,6 +878,7 @@ nav a.active{
   font-size:12px;
   font-weight:700;
   color:#072012;
+  min-width:0;
 }
 .consumer-fields input,.consumer-fields select{
   width:100%;
@@ -1000,6 +1097,20 @@ footer::before{
   .hero-bg{object-position:center 34%;transform:scale(1.12)}
   .generator{grid-template-columns:1fr 1fr}
   .consumer-fields{grid-template-columns:1fr 1fr}
+  .consumer summary{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .consumer-chip{
+    white-space:normal;
+  }
+  .room-card summary{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .room-head-right{
+    white-space:normal;
+  }
 }
 @media (max-width:480px){
   :root{--topbar-h:40px;--header-h:76px}
@@ -1138,6 +1249,24 @@ footer::before{
   </div>
 </div>
 
+<div class="electric-band" id="electricBand" aria-hidden="true">
+  <div class="container" aria-hidden="true">
+    <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
+      <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
+      <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
+      <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
+    </svg>
+
+    <div class="orbs" id="orbs">
+      <div class="orb" id="orbA"></div>
+      <div class="orb" id="orbB"></div>
+      <div class="orb" id="orbC"></div>
+    </div>
+
+    <div class="glowline" id="glowline"></div>
+  </div>
+</div>
+
 <section class="hero" id="top" aria-label="Hero">
   <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration zone urbaine">
   <div class="hero-overlay"></div>
@@ -1159,7 +1288,7 @@ footer::before{
     <h2>Étude de dimensionnement</h2>
     <p class="section-intro">
       Le pays est sélectionné avant la ville pour adapter l’ensoleillement et les hypothèses de calcul.
-      Les pièces générées s’affichent clairement, ouvertes par défaut.
+      Les pièces générées s’affichent clairement et restent fermées par défaut.
     </p>
 
     <div class="card-soft">
@@ -1230,6 +1359,18 @@ footer::before{
             <option value="550">550 W</option>
           </select>
 
+          <label for="cableSection">Section câble :</label>
+          <select id="cableSection" aria-label="Section câble">
+            <option value="auto" selected>Auto</option>
+            <option value="1.5">1.5 mm²</option>
+            <option value="2.5">2.5 mm²</option>
+            <option value="4">4 mm²</option>
+            <option value="6">6 mm²</option>
+            <option value="10">10 mm²</option>
+            <option value="16">16 mm²</option>
+            <option value="25">25 mm²</option>
+          </select>
+
           <span class="badge-zone" id="zoneBadge"><i class="fas fa-building"></i> Zone urbaine</span>
           <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
         </div>
@@ -1272,7 +1413,7 @@ footer::before{
         </div>
 
         <div class="muted-note" style="margin-top:2px;margin-bottom:8px;color:#6c7d6f">
-          Les pièces et leurs charges restent ouvertes par défaut pour mieux voir le résultat généré.
+          Les pièces et leurs charges restent fermées par défaut pour mieux voir le résultat généré.
         </div>
 
         <div id="roomsList" class="room-list"></div>
@@ -1283,55 +1424,67 @@ footer::before{
           <div class="summary-grid">
             <div class="summary-card">
               <div class="label">Puissance installée</div>
-              <div id="powerInstalledCard" class="value">0 W</div>
+              <div id="powerInstalledCard" class="value">—</div>
               <div class="small">Somme nominale de toutes les charges.</div>
             </div>
 
             <div class="summary-card">
               <div class="label">Consommation / jour</div>
-              <div id="consDayCard" class="value">0 kWh</div>
+              <div id="consDayCard" class="value">—</div>
               <div class="small">Base de calcul du dimensionnement.</div>
             </div>
 
             <div class="summary-card">
               <div class="label">Consommation / mois</div>
-              <div id="consMonthCard" class="value">0 kWh</div>
+              <div id="consMonthCard" class="value">—</div>
               <div class="small">Référence sur 30 jours.</div>
             </div>
 
             <div class="summary-card">
               <div class="label">Onduleur conseillé</div>
-              <div id="inverterRecCard" class="value">0 W</div>
+              <div id="inverterRecCard" class="value">—</div>
               <div class="small">Valeur standard supérieure.</div>
             </div>
 
             <div class="summary-card">
               <div class="label">Puissance PV</div>
-              <div id="pvRecCard" class="value">0 kWc</div>
+              <div id="pvRecCard" class="value">—</div>
               <div class="small">Puissance solaire recommandée.</div>
             </div>
 
             <div class="summary-card">
               <div class="label">Nombre de panneaux</div>
-              <div id="panelCountCard" class="value">0</div>
+              <div id="panelCountCard" class="value">—</div>
               <div class="small">Arrondi au panneau entier.</div>
             </div>
 
             <div class="summary-card">
               <div class="label">Batterie utile totale</div>
-              <div id="batteryRecCard" class="value">0 kWh</div>
+              <div id="batteryRecCard" class="value">—</div>
               <div class="small">Selon le nombre de packs sélectionnés.</div>
             </div>
 
             <div class="summary-card">
               <div class="label">Autonomie estimée</div>
-              <div id="autonomyCard" class="value">0 jour</div>
+              <div id="autonomyCard" class="value">—</div>
               <div class="small">Lecture rapide de l’autonomie.</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="label">Section câble conseillée</div>
+              <div id="cableRecCard" class="value">—</div>
+              <div class="small">Basée sur l’intensité et une marge de sécurité.</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="label">Type batterie</div>
+              <div id="batteryTypeOut" class="value">—</div>
+              <div class="small">Technologie sélectionnée.</div>
             </div>
           </div>
 
           <div class="muted-note" style="margin-top:12px;color:#6c7d6f">
-            Les résultats utiles sont la consommation, l’onduleur standard, la puissance PV, le nombre de panneaux, la batterie utile et l’autonomie.
+            Les résultats utiles sont la consommation, l’onduleur, la puissance PV, le nombre de panneaux, la batterie utile, l’autonomie et la section de câble.
           </div>
         </div>
 
@@ -1368,27 +1521,14 @@ footer::before{
       <div class="panel">
         <h3>Synthèse principale</h3>
         <div class="muted-note" style="margin-bottom:12px">
-          La synthèse ne répète plus les mêmes valeurs partout. Elle met seulement en avant les indicateurs qui servent vraiment au pré-dimensionnement.
+          La synthèse met seulement en avant les indicateurs techniques qui servent vraiment au pré-dimensionnement.
         </div>
 
-        <ul class="safety-list" style="margin-top:0">
-          <li><strong>Étude simple :</strong> le client choisit le pays, la ville, le type de batterie et le nombre de packs.</li>
-          <li><strong>Étude claire :</strong> les pièces générées sont affichées immédiatement et restent visibles.</li>
-          <li><strong>Afrique de l’Ouest :</strong> Côte d’Ivoire et Sénégal sont intégrés avec des hypothèses adaptées par ville.</li>
-          <li><strong>Lecture rapide :</strong> un seul regard suffit pour comprendre la taille du système.</li>
-        </ul>
-
-        <div style="margin-top:12px" class="summary-grid">
+        <div class="summary-grid">
           <div class="summary-card">
             <div class="label">Pièces générées</div>
             <div id="summaryRooms" class="value">—</div>
             <div class="small">Nombre de pièces et charges.</div>
-          </div>
-
-          <div class="summary-card">
-            <div class="label">Type batterie</div>
-            <div id="batteryTypeOut" class="value">—</div>
-            <div class="small">Technologie sélectionnée.</div>
           </div>
 
           <div class="summary-card">
@@ -1401,6 +1541,12 @@ footer::before{
             <div class="label">Batteries</div>
             <div id="summaryBatteries" class="value">—</div>
             <div class="small">Pack total et cycles.</div>
+          </div>
+
+          <div class="summary-card">
+            <div class="label">Section câble</div>
+            <div id="summaryCable" class="value">—</div>
+            <div class="small">Choix recommandé / sélectionné.</div>
           </div>
         </div>
 
@@ -1436,9 +1582,8 @@ footer::before{
 </footer>
 
 <div class="print-block" id="printBlock"></div>
-
 <script>
-  const CONTACT_NUMBER = {
+const CONTACT_NUMBER = {
   ci: { display:'+225 07 07 07 07 07', tel:'+2250707070707' },
   sn: { display:'+221 77 00 00 00 00', tel:'+2217700000000' }
 };
@@ -1518,6 +1663,7 @@ const batteryTypeEl = document.getElementById('batteryType');
 const batteryPackCountEl = document.getElementById('batteryPackCount');
 const battPackKwhEl = document.getElementById('battPackKwh');
 const panelWEl = document.getElementById('panelW');
+const cableSectionEl = document.getElementById('cableSection');
 
 const roomListEl = document.getElementById('roomsList');
 const genBedrooms = document.getElementById('genBedrooms');
@@ -1540,13 +1686,18 @@ const batteryRecCard = document.getElementById('batteryRecCard');
 const autonomyCard = document.getElementById('autonomyCard');
 const panelCountCard = document.getElementById('panelCountCard');
 const batteryTypeOutEl = document.getElementById('batteryTypeOut');
+const cableRecCard = document.getElementById('cableRecCard');
 const safetyCard = document.getElementById('summarySafety');
+
 const summaryRooms = document.getElementById('summaryRooms');
 const summaryAutonomy = document.getElementById('summaryAutonomy');
 const summaryBatteries = document.getElementById('summaryBatteries');
+const summaryCable = document.getElementById('summaryCable');
 
 function fmt(n, dec = 2){
-  return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+  const num = Number(n || 0);
+  if(!isFinite(num)) return '—';
+  return num.toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 }
 function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
 function getBatteryProfile(type){ return BATTERY_TYPES[type] || BATTERY_TYPES.lithium_ion; }
@@ -1582,7 +1733,7 @@ function createRoom(type, baseName, withTemplate = true){
     id: roomCounter,
     type,
     name,
-    open: true,
+    open: false,
     loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : []
   };
 }
@@ -1624,6 +1775,28 @@ function updateContacts(country){
   mobilePhoneLink.textContent = info.display;
   footerPhoneText.textContent = info.display;
 }
+function getSectionOptions(){
+  return [1.5, 2.5, 4, 6, 10, 16, 25];
+}
+function recommendCableSection(powerW, voltage = 230){
+  const current = Math.max(0, Number(powerW || 0)) / voltage;
+  if(current <= 10) return 1.5;
+  if(current <= 16) return 2.5;
+  if(current <= 25) return 4;
+  if(current <= 32) return 6;
+  if(current <= 40) return 10;
+  if(current <= 63) return 16;
+  return 25;
+}
+function formatCableChoice(value, suggested){
+  const v = value === 'auto' ? suggested : Number(value);
+  return `${fmt(v,1)} mm²`;
+}
+
+function roomToText(room){
+  return `${room.name} (${room.type})`;
+}
+
 function renderRooms(){
   const openState = captureRoomOpenState();
   roomListEl.innerHTML = '';
@@ -1640,7 +1813,7 @@ function renderRooms(){
     const box = document.createElement('details');
     box.className = 'room-card';
     box.id = `room-block-${roomIndex}`;
-    box.open = openState[room.id] ?? room.open ?? true;
+    box.open = openState[room.id] ?? room.open ?? false;
 
     const loadsHtml = room.loads.map((load, loadIndex) => `
       <details class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
@@ -1708,6 +1881,7 @@ function renderRooms(){
     roomListEl.appendChild(box);
   });
 }
+
 function onLoadChange(e){
   const target = e.target;
   if(!target.classList.contains('load-field')) return;
@@ -1723,6 +1897,7 @@ function onLoadChange(e){
   rooms[roomIndex].loads[loadIndex][field] = value;
   recalc();
 }
+
 function getAllLoads(){
   const list = [];
   rooms.forEach((room, roomIndex) => {
@@ -1732,15 +1907,17 @@ function getAllLoads(){
   });
   return list;
 }
+
 function getSafetyPoints(){
   return [
-    '1) Parafoudre DC/AC et protections contre surtension.',
-    '2) Disjoncteurs, fusibles et sectionnement accessibles.',
-    '3) Mise à la terre et câblage dimensionnés correctement.',
-    '4) Ventilation correcte de l’emplacement batteries.',
-    '5) Réserve d’exploitation et marge de sécurité recommandées.'
+    'Parafoudre DC/AC et protections contre surtension.',
+    'Disjoncteurs, fusibles et sectionnement accessibles.',
+    'Mise à la terre et câblage dimensionnés correctement.',
+    'Ventilation correcte de l’emplacement batteries.',
+    'Réserve d’exploitation et marge de sécurité recommandées.'
   ];
 }
+
 function roomDiversity(name){
   const n = String(name || '').toLowerCase();
   if(n.includes('éclairage') || n.includes('eclairage')) return 1.0;
@@ -1753,6 +1930,7 @@ function roomDiversity(name){
   if(n.includes('ordinateur')) return 1.0;
   return 1.0;
 }
+
 function dailySolarCurve(pvKw){
   const curve = [];
   for(let h=0; h<24; h++){
@@ -1896,8 +2074,11 @@ function drawChart(solarCurve, loadCurveArr, batterySoc, yMax, extraLabel){
   ctx.font = '700 13px Poppins, Arial';
   ctx.fillText(extraLabel || '', padL, 16);
 }
+
 function recalc(){
   const loads = getAllLoads();
+  const hasLoads = loads.length > 0;
+
   let installedPower = 0;
   let peakPower = 0;
   let dailyWh = 0;
@@ -1918,7 +2099,7 @@ function recalc(){
   const panelW = Math.max(50, Number(panelWEl.value || 350));
   const battPackWh = Math.max(500, Number(battPackKwhEl.value || 5000));
   const batteryPackCount = Math.max(1, Number(batteryPackCountEl.value || 4));
-
+  const selectedCable = cableSectionEl.value;
   const dailyKwh = dailyWh / 1000;
   const monthlyKwh = dailyKwh * 30;
 
@@ -1929,34 +2110,48 @@ function recalc(){
   const batteryUsefulTotal = batteryPackCount * battPackKwh * batteryProfile.dod * batteryProfile.eff;
   const autonomyDays = dailyKwh > 0 ? batteryUsefulTotal / dailyKwh : 0;
 
-  consDayCard.innerText = `${fmt(dailyKwh,2)} kWh`;
-  consMonthCard.innerText = `${fmt(monthlyKwh,2)} kWh`;
-  powerInstalledCard.innerText = `${Math.round(installedPower)} W`;
-  inverterRecCard.innerText = `${inverterNeed} W`;
-  pvRecCard.innerText = `${fmt(pvKwRec,2)} kWc`;
-  batteryRecCard.innerText = `${fmt(batteryUsefulTotal,2)} kWh`;
-  autonomyCard.innerText = dailyKwh > 0 ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''}` : '—';
-  panelCountCard.innerText = `${panelCountRec}`;
+  const cableSuggested = recommendCableSection(inverterNeed, 230);
+  const cableFinal = selectedCable === 'auto' ? cableSuggested : Number(selectedCable);
+
+  const formatEnergy = v => hasLoads ? `${fmt(v,2)}${v >= 1000 ? ' kWh' : ' kWh'}` : '—';
+  const formatPower = v => hasLoads ? `${Math.round(v)} W` : '—';
+  const formatKwc = v => hasLoads ? `${fmt(v,2)} kWc` : '—';
+  const formatCount = v => hasLoads ? `${v}` : '—';
+  const formatAutonomy = v => hasLoads ? `${fmt(v,2)} jour${v > 1 ? 's' : ''}` : '—';
+
+  consDayCard.innerText = hasLoads ? `${fmt(dailyKwh,2)} kWh` : '—';
+  consMonthCard.innerText = hasLoads ? `${fmt(monthlyKwh,2)} kWh` : '—';
+  powerInstalledCard.innerText = formatPower(installedPower);
+  inverterRecCard.innerText = formatPower(inverterNeed);
+  pvRecCard.innerText = formatKwc(pvKwRec);
+  batteryRecCard.innerText = hasLoads ? `${fmt(batteryUsefulTotal,2)} kWh` : '—';
+  autonomyCard.innerText = formatAutonomy(autonomyDays);
+  panelCountCard.innerText = formatCount(panelCountRec);
   batteryTypeOutEl.innerText = batteryProfile.label;
+  cableRecCard.innerText = hasLoads ? formatCableChoice(selectedCable, cableSuggested) : '—';
 
   const solar = dailySolarCurve(pvKwRec);
   const load = loadCurve(loads);
   const battery = batteryCurve(solar, load, Math.max(1, batteryUsefulTotal || 1), 0.45);
   const yMax = Math.max(1, ...solar, ...load, ...battery);
-  drawChart(solar, load, battery, yMax, 'Zone urbaine — profil 24 h');
+  drawChart(solar, load, battery, yMax, hasLoads ? 'Zone urbaine — profil 24 h' : 'Zone urbaine');
 
-  safetyCard.innerText = getSafetyPoints().join('\n');
+  safetyCard.innerText = getSafetyPoints().join(' · ');
 
-  summaryRooms.innerText = loads.length > 0
-    ? `${rooms.length} pièce(s) avec ${loads.length} charge(s) détaillée(s).`
+  summaryRooms.innerText = hasLoads
+    ? `${rooms.length} pièce(s) avec ${loads.length} charge(s).`
     : 'Aucune pièce générée pour le moment.';
 
-  summaryAutonomy.innerText = loads.length > 0
-    ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''} d’autonomie avec ${batteryPackCount} pack(s) de ${fmt(battPackWh,0)} Wh.`
+  summaryAutonomy.innerText = hasLoads
+    ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''} avec ${batteryPackCount} pack(s).`
     : '—';
 
-  summaryBatteries.innerText = loads.length > 0
-    ? `${batteryPackCount} pack(s), soit ${fmt(batteryUsefulTotal,2)} kWh utile totale. Durée de vie indicative : ${batteryProfile.lifeLabel} (${batteryProfile.cycles} cycles approx.).`
+  summaryBatteries.innerText = hasLoads
+    ? `${batteryPackCount} pack(s), soit ${fmt(batteryUsefulTotal,2)} kWh utile totale. Durée de vie : ${batteryProfile.lifeLabel}.`
+    : '—';
+
+  summaryCable.innerText = hasLoads
+    ? `${selectedCable === 'auto' ? 'Auto' : `${fmt(Number(selectedCable),1)} mm²`} → ${fmt(cableSuggested,1)} mm² conseillé`
     : '—';
 
   lastCalcSnapshot = {
@@ -1979,12 +2174,18 @@ function recalc(){
     batteryType:batteryProfile.label,
     batteryLifeYears:batteryProfile.lifeLabel,
     batteryCycles:batteryProfile.cycles,
+    cableSelected:selectedCable,
+    cableSuggested,
+    cableFinal,
     loads,
     roomsCount:rooms.length,
     safetyPoints:getSafetyPoints(),
     sunHours
   };
+
+  return lastCalcSnapshot;
 }
+
 function renderPdfBlock(){
   const s = lastCalcSnapshot;
   if(!s) return '';
@@ -2028,7 +2229,7 @@ function renderPdfBlock(){
             <div><div style="font-weight:700">Nb panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div></div>
             <div><div style="font-weight:700">Batterie utile totale</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div></div>
             <div><div style="font-weight:700">Autonomie estimée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div></div>
-            <div><div style="font-weight:700">Pack batterie utile</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.battPackKwh,2)} kWh × ${s.batteryPackCount}</div></div>
+            <div><div style="font-weight:700">Section câble</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.cableFinal,1)} mm²</div></div>
           </div>
         </div>
 
@@ -2063,6 +2264,7 @@ function renderPdfBlock(){
     </div>
   `;
 }
+
 async function generatePDF(){
   try{
     if(!lastCalcSnapshot) recalc();
@@ -2240,6 +2442,125 @@ function applyCurrentPageState(){
   const desktopStudyDropdown = document.getElementById('studyDropdown');
   if(desktopStudyDropdown) desktopStudyDropdown.setAttribute('aria-expanded','true');
 }
+
+function setupBrilliance(){
+  const electricBand = document.getElementById('electricBand');
+  if(!electricBand) return;
+  const orbA = document.getElementById('orbA');
+  const orbB = document.getElementById('orbB');
+  const orbC = document.getElementById('orbC');
+  const orbs = [orbA, orbB, orbC];
+  const zapBright = document.getElementById('zapBright');
+
+  const params = [
+    {rxRatio:0.50, ry:8, speed:0.22, phase:0},
+    {rxRatio:0.33, ry:6, speed:0.36, phase:Math.PI/2},
+    {rxRatio:0.42, ry:10, speed:0.18, phase:Math.PI}
+  ];
+
+  orbs.forEach((o,i)=>{
+    if(o){
+      o.classList.add('buzz');
+      o.style.animationDelay = (i*120)+'ms';
+    }
+  });
+
+  let t0 = performance.now();
+  function tick(now){
+    const time = (now - t0)/1000;
+    const cont = electricBand.querySelector('.container');
+    if(!cont){ requestAnimationFrame(tick); return; }
+    const rect = cont.getBoundingClientRect();
+    const cx = rect.width/2;
+    const cy = rect.height/2;
+    for(let i=0;i<orbs.length;i++){
+      const orb = orbs[i];
+      if(!orb) continue;
+      const p = params[i];
+      const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
+      const ry = p.ry;
+      const angle = (time * p.speed * Math.PI * 2) + p.phase;
+      const x = cx + Math.cos(angle) * rx;
+      const y = cy + Math.sin(angle) * ry;
+      orb.style.left = x + 'px';
+      orb.style.top = y + 'px';
+      orb.style.transform = 'translate(-50%,-50%)';
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  function sparkSVG(){
+    if(!zapBright) return;
+    try{
+      const len = zapBright.getTotalLength ? zapBright.getTotalLength() : 520;
+      zapBright.style.transition = 'none';
+      zapBright.setAttribute('stroke-dasharray', String(len));
+      zapBright.setAttribute('stroke-dashoffset', String(len));
+      setTimeout(()=>{
+        zapBright.style.transition = 'stroke-dashoffset 380ms ease-out, opacity 160ms';
+        zapBright.setAttribute('stroke-dashoffset','0');
+        setTimeout(()=>{ zapBright.setAttribute('stroke-dashoffset', String(len)); }, 320);
+      }, 60);
+    }catch(e){
+      zapBright.setAttribute('stroke-dasharray','520');
+      zapBright.setAttribute('stroke-dashoffset','520');
+      setTimeout(()=>{
+        zapBright.style.transition = 'stroke-dashoffset 360ms ease-out';
+        zapBright.setAttribute('stroke-dashoffset','0');
+      }, 80);
+    }
+  }
+
+  function spawnSparks(){
+    const cont = electricBand.querySelector('.container');
+    if(!cont) return;
+    for(let i=0;i<10;i++){
+      const s = document.createElement('div');
+      s.style.position = 'absolute';
+      s.style.left = (3 + Math.random()*94) + '%';
+      s.style.top = (20 + Math.random()*50) + '%';
+      s.style.width = '2px';
+      s.style.height = (8 + Math.random()*22) + 'px';
+      s.style.borderRadius = '2px';
+      s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
+      s.style.filter = 'blur(6px)';
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(6px)';
+      s.style.pointerEvents = 'none';
+      s.style.zIndex = '1';
+      cont.appendChild(s);
+      setTimeout(()=>{ s.style.transition = 'all 260ms ease-out'; s.style.opacity='1'; s.style.transform='translateY(-6px)'; }, 20 + i*25);
+      setTimeout(()=>{ s.style.transition = 'all 420ms ease-in'; s.style.opacity='0'; s.style.transform='translateY(-20px)'; }, 280 + i*40);
+      setTimeout(()=>{ if(s.parentNode) s.parentNode.removeChild(s); }, 760 + i*40);
+    }
+  }
+
+  function activate(){
+    electricBand.classList.add('connected');
+    spawnSparks();
+    sparkSVG();
+    setInterval(()=>{
+      spawnSparks();
+      if(Math.random() > 0.45) sparkSVG();
+    }, 900 + Math.random()*900);
+  }
+
+  const title = document.querySelector('.company-name');
+  if(title){
+    title.addEventListener('click', ()=>{
+      const on = electricBand.classList.toggle('connected');
+      if(on){
+        spawnSparks();
+        sparkSVG();
+      }
+    });
+  }
+
+  activate();
+  window.addEventListener('resize', ()=>{ t0 = performance.now(); });
+}
+
 function generateInitialRooms(){
   const addExisting = genAdd.checked;
   if(!addExisting){
@@ -2265,6 +2586,7 @@ function generateInitialRooms(){
   renderRooms();
   recalc();
 }
+
 function resetDefaults(){
   countryEl.value = 'ci';
   populateCities('ci');
@@ -2274,6 +2596,7 @@ function resetDefaults(){
   batteryPackCountEl.value = '4';
   battPackKwhEl.value = '5000';
   panelWEl.value = '350';
+  cableSectionEl.value = 'auto';
   genBedrooms.value = 1;
   genLiving.value = 1;
   genKitchens.value = 1;
@@ -2286,12 +2609,14 @@ function resetDefaults(){
   renderRooms();
   recalc();
 }
+
 function init(){
   updateContacts('ci');
   populateCities('ci');
   renderRooms();
   setupDesktopDropdowns();
   applyCurrentPageState();
+  setupBrilliance();
 
   generateBtn.addEventListener('click', generateInitialRooms);
   resetBtn.addEventListener('click', () => {
@@ -2310,6 +2635,7 @@ function init(){
   batteryPackCountEl.addEventListener('change', recalc);
   battPackKwhEl.addEventListener('change', recalc);
   panelWEl.addEventListener('change', recalc);
+  cableSectionEl.addEventListener('change', recalc);
 
   roomListEl.addEventListener('input', onLoadChange);
   roomListEl.addEventListener('change', onLoadChange);
@@ -2325,7 +2651,7 @@ function init(){
       rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0 });
       renderRooms();
       const block = document.getElementById(`room-block-${roomIndex}`);
-      if(block) block.open = true;
+      if(block) block.open = false;
       recalc();
       return;
     }
