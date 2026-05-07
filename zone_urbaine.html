@@ -50,27 +50,56 @@ body.menu-open{overflow:hidden}
 body.mode-beginner .expert-only{display:none !important}
 body.mode-expert .beginner-only{display:none !important}
 
-/* Mode expert plus sombre */
+/* Mode expert : plus sombre, mais lisible */
 body.mode-expert .card-soft{
-  background:linear-gradient(180deg,rgba(2,13,8,.94),rgba(2,19,12,.94));
-  border-color:rgba(212,175,55,.16);
-  box-shadow:0 16px 34px rgba(0,0,0,.35);
+  background: linear-gradient(180deg, rgba(8,34,20,.88), rgba(4,22,13,.88));
+  border-color: rgba(212,175,55,.14);
 }
-body.mode-expert .calc{
-  box-shadow:0 14px 30px rgba(0,0,0,.28);
-}
+
+body.mode-expert .calc,
 body.mode-expert .controls-section,
+body.mode-expert .beginner-profile,
 body.mode-expert .expert-panel,
-body.mode-expert .generator{
-  background:linear-gradient(180deg,rgba(5,30,18,.92),rgba(4,25,15,.90));
-  border-color:rgba(212,175,55,.12);
+body.mode-expert .generator,
+body.mode-expert .panel,
+body.mode-expert .room-card,
+body.mode-expert .consumer,
+body.mode-expert .summary-card,
+body.mode-expert .result-banner,
+body.mode-expert .advanced-panel,
+body.mode-expert .chart-card{
+  background: #f7fff8;
+  color: #072012;
 }
-body.mode-expert .beginner-profile{
-  background:linear-gradient(180deg,rgba(5,30,18,.92),rgba(4,25,15,.90));
-  border-color:rgba(212,175,55,.12);
+
+body.mode-expert .section h2,
+body.mode-expert .calc h3,
+body.mode-expert .section-title,
+body.mode-expert .panel h3,
+body.mode-expert .room-name,
+body.mode-expert .consumer-title,
+body.mode-expert .summary-card .value{
+  color: #04462e;
 }
-body.mode-expert .section h2{
-  color:#f1fff4;
+
+body.mode-expert .control-field label,
+body.mode-expert .quick-field label,
+body.mode-expert .quick-field small,
+body.mode-expert .muted-note,
+body.mode-expert .mode-hint,
+body.mode-expert .small-note{
+  color: #5f7263;
+}
+
+body.mode-expert .control-field input,
+body.mode-expert .control-field select,
+body.mode-expert .quick-field input,
+body.mode-expert .quick-field select,
+body.mode-expert .consumer-fields input,
+body.mode-expert .consumer-fields select{
+  background: #fff;
+  color: #072012;
+  border-color: #dfe8df;
 }
 
 /* Topbar / header */
@@ -226,8 +255,6 @@ nav a.active{
   box-shadow:0 8px 20px rgba(0,0,0,0.28);
   margin:4px 8px;
 }
-
-/* Burger + mobile menu */
 .burger{
   display:none;
   width:52px;
