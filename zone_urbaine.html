@@ -45,8 +45,10 @@ button{cursor:pointer}
 
 .topbar{
   position:fixed;top:0;left:0;right:0;height:var(--topbar-h);
-  background:var(--green-dark);display:flex;align-items:center;justify-content:flex-end;
-  gap:12px;padding:0 5vw;z-index:1500;font-size:14px;border-bottom:1px solid rgba(255,255,255,.04)
+  background:var(--green-dark);
+  display:flex;align-items:center;justify-content:flex-end;
+  gap:12px;padding:0 5vw;z-index:1500;font-size:14px;
+  border-bottom:1px solid rgba(255,255,255,.04)
 }
 .topbar .right{display:flex;align-items:center;gap:12px;min-width:0}
 .topbar a{color:#fff;transition:color .18s;white-space:nowrap;font-weight:700}
@@ -64,12 +66,14 @@ header{
 .brand-stack{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;text-align:center;min-width:0;overflow:hidden}
 .company-name{
   font-size:44px;font-weight:800;letter-spacing:.4px;margin:0;color:#04462e;
-  -webkit-text-stroke:.95px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,.6);
+  -webkit-text-stroke:.95px var(--gold-base);
+  text-shadow:0 3px 6px rgba(0,0,0,.6);
   white-space:nowrap;line-height:1;width:100%;display:block
 }
 .company-tagline{
   font-size:18px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#dfffe6;
-  text-shadow:0 2px 6px rgba(0,0,0,.45);-webkit-text-stroke:.4px rgba(212,175,55,.55);
+  text-shadow:0 2px 6px rgba(0,0,0,.45);
+  -webkit-text-stroke:.4px rgba(212,175,55,.55);
   white-space:nowrap;line-height:1;width:100%;display:block;margin:2px 0 0
 }
 nav{display:flex;gap:18px;align-items:center}
@@ -82,16 +86,20 @@ nav a.active{
   padding:10px 14px;font-weight:800;border-radius:10px
 }
 .dropdown{position:relative}
-.dropdown>a::after{content:"\25BC";font-size:12px;margin-left:6px;color:var(--accent-2);transition:transform .2s}
+.dropdown>a::after{
+  content:"\25BC";
+  font-size:12px;margin-left:6px;color:var(--accent-2);transition:transform .2s
+}
 .dropdown[aria-expanded="true"]>a::after{transform:rotate(180deg)}
 .dropdown>a .sub-badge{
-  margin-left:8px;padding:6px 10px;border-radius:10px;background:rgba(255,214,0,.08);
-  color:var(--electric-yellow);font-weight:800;font-size:13px;box-shadow:0 6px 18px rgba(0,0,0,.32);
-  white-space:nowrap;display:inline-flex;align-items:center
+  margin-left:8px;padding:6px 10px;border-radius:10px;
+  background:rgba(255,214,0,.08);color:var(--electric-yellow);font-weight:800;font-size:13px;
+  box-shadow:0 6px 18px rgba(0,0,0,.32);white-space:nowrap;display:inline-flex;align-items:center
 }
 .dropdown-content{
   display:none;position:absolute;top:calc(100% + 8px);left:0;background:rgba(0,0,0,.85);
-  padding:8px 0;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.5);min-width:220px;z-index:2000
+  padding:8px 0;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.5);
+  min-width:220px;z-index:2000
 }
 .dropdown-content li{list-style:none}
 .dropdown-content a{display:block;padding:10px 16px;color:#fff;font-weight:600;border-radius:8px}
@@ -100,13 +108,14 @@ nav a.active{
   color:var(--accent-2);
   background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));
   border:1px solid rgba(212,175,55,.12);
-  padding:10px 16px;font-weight:800;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.28);margin:4px 8px
+  padding:10px 16px;font-weight:800;border-radius:8px;
+  box-shadow:0 8px 20px rgba(0,0,0,.28);margin:4px 8px
 }
 
 .burger{
   display:none;width:52px;height:52px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.05);align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.18);
-  touch-action:manipulation;flex:0 0 auto
+  background:rgba(255,255,255,.05);align-items:center;justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);touch-action:manipulation;flex:0 0 auto
 }
 .burger .icon{display:block;position:relative;width:28px;height:20px}
 .burger .icon span{position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s}
@@ -117,7 +126,9 @@ nav a.active{
 .burger.open .icon span:nth-child(2){opacity:0}
 .burger.open .icon span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
 
-.mobile-backdrop{display:none;position:fixed;inset:0;background:rgba(6,31,20,.98);z-index:1970;opacity:0;transition:opacity .2s ease}
+.mobile-backdrop{
+  display:none;position:fixed;inset:0;background:rgba(6,31,20,.98);z-index:1970;opacity:0;transition:opacity .2s ease
+}
 .mobile-backdrop.open{display:block;opacity:1}
 .mobile-nav{
   display:none;position:fixed;inset:0;z-index:1980;background:linear-gradient(180deg,#0a4d2e 0%,#061f14 100%);
@@ -136,8 +147,8 @@ nav a.active{
 .menu-links{flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;max-width:560px;width:100%;margin:0 auto;padding:10px 0}
 .mobile-nav a.mobile-link{
   padding:18px 18px;color:#fff;width:100%;text-align:left;border-radius:14px;font-weight:900;
-  display:flex;align-items:center;gap:10px;font-size:clamp(20px,5vw,26px);border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.03);min-height:64px;line-height:1.1;white-space:normal
+  display:flex;align-items:center;gap:10px;font-size:clamp(20px,5vw,26px);
+  border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);min-height:64px;line-height:1.1;white-space:normal
 }
 .mobile-nav .mobile-link:hover{background:rgba(124,179,66,.12);color:var(--accent-2)}
 .mobile-nav .mobile-link.active{background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));color:var(--accent-2);border:1px solid rgba(212,175,55,.28)}
@@ -146,12 +157,16 @@ nav a.active{
 }
 .mobile-nav .submenu a{
   font-family:'Trebuchet MS',Arial,sans-serif;font-style:italic;font-size:15px;font-weight:700;min-height:48px;
-  padding:12px 14px;border-radius:10px;white-space:nowrap;display:flex;align-items:center;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)
+  padding:12px 14px;border-radius:10px;white-space:nowrap;display:flex;align-items:center;
+  border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)
 }
-.mobile-nav .submenu a.active-item,.mobile-nav .submenu a[aria-current="page"]{background:transparent;color:rgba(255,255,255,.30);border:none;box-shadow:none;font-weight:700;font-style:italic}
+.mobile-nav .submenu a.active-item,.mobile-nav .submenu a[aria-current="page"]{
+  background:transparent;color:rgba(255,255,255,.30);border:none;box-shadow:none;font-weight:700;font-style:italic
+}
 .mobile-contact{
-  display:flex;flex-direction:column;gap:12px;padding:16px 14px;border-radius:16px;background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.06);color:var(--muted-text-color);max-width:560px;width:100%;margin:0 auto;text-align:center
+  display:flex;flex-direction:column;gap:12px;padding:16px 14px;border-radius:16px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);
+  color:var(--muted-text-color);max-width:560px;width:100%;margin:0 auto;text-align:center
 }
 .mobile-contact strong{color:#fff;font-size:15px;letter-spacing:1px}
 .mobile-contact .phone-line{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:800;flex-wrap:wrap;font-size:16px}
@@ -159,12 +174,16 @@ nav a.active{
 .socials a{width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;font-size:20px;border:none;background:rgba(255,255,255,.04);border-radius:50%;min-height:44px}
 
 .electric-band{
-  position:fixed;top:calc(var(--topbar-h) + var(--header-h) - 6px);left:0;right:0;height:14px;z-index:1600;pointer-events:none;overflow:visible
+  position:fixed;top:calc(var(--topbar-h) + var(--header-h) - 6px);left:0;right:0;height:14px;
+  z-index:1600;pointer-events:none;overflow:visible
 }
 .electric-band .container{
-  position:absolute;left:0;top:50%;transform:translateY(-50%);width:100vw;max-width:none;padding:0;height:100%;pointer-events:none
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:100vw;max-width:none;padding:0;height:100%;pointer-events:none
 }
-.lightning-svg{width:100vw;height:100%;display:block;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:screen}
+.lightning-svg{
+  width:100vw;height:100%;display:block;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:screen
+}
 .electric-band.connected .lightning-svg{opacity:1}
 .lightning-svg path.zap{stroke:var(--electric-yellow);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.98}
 .orbs{position:absolute;left:0;top:0;width:100vw;height:100%;pointer-events:none;overflow:visible}
@@ -178,8 +197,8 @@ nav a.active{
 @keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}}
 .orb.buzz{animation:buzz .9s linear infinite}
 .glowline{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:3px;width:0;
-  background:linear-gradient(90deg,rgba(255,238,170,0),rgba(255,214,0,.98),rgba(255,238,170,0));
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  height:3px;width:0;background:linear-gradient(90deg,rgba(255,238,170,0),rgba(255,214,0,.98),rgba(255,238,170,0));
   border-radius:8px;box-shadow:0 6px 20px rgba(255,214,0,.12);opacity:0;transition:opacity .22s ease
 }
 .electric-band.connected .glowline{width:100vw;opacity:1;animation:pulse 2s ease-in-out infinite}
@@ -187,20 +206,30 @@ nav a.active{
 
 .hero{
   margin-top:calc(var(--topbar-h) + var(--header-h));
-  min-height:calc(74vh - (var(--topbar-h) + var(--header-h)));
-  position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#0a4d2e
+  min-height:calc(72vh - (var(--topbar-h) + var(--header-h)));
+  position:relative;display:flex;align-items:center;justify-content:center;text-align:center;
+  overflow:hidden;background:#0a4d2e
 }
 .hero-bg{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;
-  transform:scale(1.10);filter:brightness(1.02) contrast(1.03) saturate(1.04)
+  transform:scale(1.08);filter:brightness(1.02) contrast(1.03) saturate(1.04)
 }
 .hero-overlay{
-  position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.06) 0%,rgba(0,0,0,.16) 48%,rgba(0,0,0,.28) 100%);z-index:1
+  position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.06) 0%,rgba(0,0,0,.16) 48%,rgba(0,0,0,.28) 100%);
+  z-index:1
 }
-.hero-content{position:relative;z-index:2;max-width:950px;padding:0 20px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.hero-content h1{font-size:clamp(34px,5vw,64px);margin:0 0 12px;font-weight:700;text-shadow:0 3px 10px rgba(0,0,0,.45)}
+.hero-content{
+  position:relative;z-index:2;max-width:950px;padding:0 20px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center
+}
+.hero-content h1{
+  font-size:clamp(30px,4vw,56px);margin:0 0 10px;font-weight:700;text-shadow:0 3px 10px rgba(0,0,0,.45)
+}
 .hero-content h1 span{color:var(--accent-2)}
-.hero-content p{font-size:clamp(16px,1.5vw,18px);margin:0 0 18px;text-shadow:0 2px 8px rgba(0,0,0,.45);max-width:900px;line-height:1.75}
+.hero-content p{
+  font-size:clamp(15px,1.4vw,18px);margin:0 0 18px;text-shadow:0 2px 8px rgba(0,0,0,.45);
+  max-width:900px;line-height:1.65
+}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .btn-primary,.btn-secondary,.btn-reset,.btn-add,.btn-link,.btn-export,.btn-danger{
   padding:14px 24px;border-radius:10px;border:0;font-weight:700;cursor:pointer;font-size:16px;
@@ -217,124 +246,207 @@ nav a.active{
 .btn-link{background:rgba(124,179,66,.12);color:#072012;border:1px solid rgba(124,179,66,.18)}
 .btn-danger{background:#e9e9e9;color:#072012;border:1px solid #ddd}
 
-.page-center{max-width:var(--max-width);margin:calc(var(--topbar-h) + var(--header-h) + 18px) auto 80px;padding:0 18px}
-.section{padding:74px 0;position:relative;z-index:1}
-.section h2{margin:0 0 14px;text-align:center;color:var(--accent-2);font-size:clamp(26px,3vw,38px);text-shadow:0 2px 10px rgba(0,0,0,.24)}
-.section-intro{max-width:980px;margin:0 auto 28px;text-align:center;color:var(--muted-text-color);line-height:1.78;font-size:15px;opacity:.96}
+.page-center{max-width:var(--max-width);margin:calc(var(--topbar-h) + var(--header-h) + 18px) auto 90px;padding:0 18px}
+.section{padding:64px 0;position:relative;z-index:1}
+.section h2{
+  margin:0 0 14px;text-align:center;color:var(--accent-2);
+  font-size:clamp(24px,2.7vw,34px);text-shadow:0 2px 10px rgba(0,0,0,.24)
+}
+.section-intro{
+  max-width:980px;margin:0 auto 22px;text-align:center;color:var(--muted-text-color);
+  line-height:1.7;font-size:15px;opacity:.96
+}
 
-.card-soft{background:rgba(6,31,20,.60);border:1px solid rgba(212,175,55,.12);border-radius:18px;padding:18px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
-.calc{background:#fff;color:#072012;border-radius:18px;padding:16px;margin-top:12px;box-shadow:0 10px 22px rgba(0,0,0,.25);overflow:hidden}
-.calc h3{margin:0;color:#04462e;font-size:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.calc h3 .badge{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#072012;font-weight:900;padding:6px 10px;border-radius:999px;font-size:12px}
+.card-soft{
+  background:rgba(6,31,20,.62);
+  border:1px solid rgba(212,175,55,.12);
+  border-radius:18px;padding:16px;
+  box-shadow:0 12px 30px rgba(0,0,0,.18)
+}
+.calc{
+  background:#fff;color:#072012;border-radius:18px;padding:16px;
+  box-shadow:0 10px 22px rgba(0,0,0,.25);overflow:hidden
+}
+.calc h3{
+  margin:0;color:#04462e;font-size:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap
+}
+.calc h3 .badge{
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  color:#072012;font-weight:900;padding:6px 10px;border-radius:999px;font-size:12px
+}
 .small-note{font-size:12px;color:#6c7d6f;margin-top:8px}
 
-.top-controls{display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap}
+.top-controls{
+  display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap
+}
 .top-controls label{white-space:nowrap;font-size:13px;color:#072012}
 .top-controls select,.top-controls input{
-  padding:9px;border-radius:8px;min-width:120px;max-width:100%;border:1px solid #e6e6e6;background:#fff;color:#072012
+  padding:9px;border-radius:8px;min-width:120px;max-width:100%;
+  border:1px solid #e6e6e6;background:#fff;color:#072012
 }
 .top-controls .badge-zone{
-  display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(168,230,161,.10);
-  border:1px solid rgba(168,230,161,.16);color:#dfffe6;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase
+  display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;
+  background:rgba(168,230,161,.10);border:1px solid rgba(168,230,161,.16);
+  color:#04462e;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase
 }
 
 .generator{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0;padding:14px;border-radius:14px;
-  background:linear-gradient(180deg,#f7fff6,#f0fff1);border:1px solid #e6f7ea
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0;padding:14px;
+  border-radius:14px;background:linear-gradient(180deg,#f7fff6,#f0fff1);border:1px solid #e6f7ea
 }
 .generator .gfield{display:flex;flex-direction:column;gap:6px;color:#072012}
 .generator .gfield label{font-size:13px;font-weight:700}
 .generator .gfield input{
   width:100%;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,.08);background:#fff;color:#072012
 }
-.generator .gwide{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.generator .hint{font-size:12px;color:#5f7263;line-height:1.4;grid-column:1 / -1}
+.generator .gwide{
+  grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap
+}
+.generator .hint{
+  font-size:12px;color:#5f7263;line-height:1.4;grid-column:1 / -1
+}
 @media (max-width:900px){.generator{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.generator{grid-template-columns:1fr}}
 
-.room-list{display:flex;flex-direction:column;gap:10px;margin-top:10px;min-height:44px}
-details.room{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 12px 4px;overflow:hidden}
-details.room summary{cursor:pointer;font-weight:800;color:#fff;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.room-list{
+  display:flex;flex-direction:column;gap:10px;margin-top:10px;min-height:44px
+}
+details.room{
+  background:#fff;border:1px solid #e7efe7;border-radius:14px;padding:12px 12px 4px;overflow:hidden;
+  box-shadow:0 10px 24px rgba(0,0,0,.08)
+}
+details.room summary{
+  cursor:pointer;font-weight:800;color:#04462e;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:10px
+}
 details.room summary::-webkit-details-marker{display:none}
-details.room summary::after{content:"\25BC";color:var(--accent-2);font-size:12px;transition:transform .2s}
+details.room summary::after{
+  content:"\25BC";color:#0b4d26;font-size:12px;transition:transform .2s
+}
 details.room[open] summary::after{transform:rotate(180deg)}
 .room-headline{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.room-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);color:#fff;font-weight:800;font-size:12px}
+.room-chip{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#f2f7f2;
+  border:1px solid #e2ece2;color:#04462e;font-weight:800;font-size:12px
+}
 .room-body{padding:12px 0 10px}
 
-.consumer-list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
-.consumer{background:#fff;color:#072012;border-radius:12px;border:1px solid #e8efe8;padding:10px;box-shadow:0 8px 18px rgba(0,0,0,.08);overflow:hidden}
-.consumer summary{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;list-style:none}
+.consumer-list{
+  display:flex;flex-direction:column;gap:10px;margin-top:10px
+}
+.consumer{
+  background:#fff;color:#072012;border-radius:12px;border:1px solid #e8efe8;padding:10px;
+  box-shadow:0 8px 18px rgba(0,0,0,.08);overflow:hidden
+}
+.consumer summary{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;list-style:none
+}
 .consumer summary::-webkit-details-marker{display:none}
 .consumer-summary-main{display:flex;flex-direction:column;gap:2px;min-width:0}
 .consumer-title{font-weight:800;color:#04462e;word-break:break-word}
 .consumer-meta{color:#6c7d6f;font-size:12px;margin-top:2px}
-.consumer-chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#f2f7f2;border:1px solid #e2ece2;color:#04462e;font-weight:800;font-size:12px;white-space:nowrap}
+.consumer-chip{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#f2f7f2;border:1px solid #e2ece2;color:#04462e;font-weight:800;font-size:12px;white-space:nowrap
+}
 .consumer-body{margin-top:10px;border-top:1px solid #eef3ee;padding-top:10px}
-.consumer-fields{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;margin-top:8px}
-.consumer-fields label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:#072012}
+.consumer-fields{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;margin-top:8px
+}
+.consumer-fields label{
+  display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:#072012
+}
 .consumer-fields input,.consumer-fields select{
   width:100%;min-width:0;padding:8px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#072012
 }
-.consumer-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px}
+.consumer-actions{
+  display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px
+}
 
-.summary{display:flex;gap:12px;margin-top:18px;align-items:stretch;flex-wrap:wrap}
-.summary .big{flex:1 1 520px;padding:16px;border-radius:14px;background:#fff;border:1px solid #e6f3ea;color:#072012;box-shadow:var(--shadow);overflow:hidden}
-.big h2{margin:0;color:#04462e;text-align:left;font-size:22px}
-.big .kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
-.kpi .k{background:linear-gradient(180deg,#fbfffb,#f3fff2);border:1px solid #e7f1e8;border-radius:12px;padding:12px;box-shadow:0 10px 24px rgba(0,0,0,.06);min-width:0}
-.k .muted{font-size:12px;color:#6b7f6b;line-height:1.4}
-.k .num{font-weight:900;font-size:22px;color:#0b4d26;margin-top:6px;word-break:break-word}
-.summary .small-panel{flex:1 1 350px;padding:16px;border-radius:14px;background:#fff;border:1px solid #e6f3ea;color:#072012;box-shadow:var(--shadow);overflow:hidden}
-.small-panel h3{margin:0 0 12px;color:#04462e;font-size:20px}
-.safety-list{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
-.safety-list li{background:#fbfffb;border:1px solid #e8f1e8;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.45}
-
-.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.section-block{
+  background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.12);
+  border-radius:18px;padding:16px;margin-top:14px;box-shadow:0 10px 24px rgba(0,0,0,.15)
+}
+.section-block h3{
+  margin:0 0 10px;color:var(--accent-2);font-size:18px
+}
+.result-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px
+}
 .result-card{
   background:linear-gradient(180deg,#fbfffb,#f3fff2);padding:14px;border-radius:14px;min-width:0;
   border:1px solid rgba(3,50,26,.06);box-shadow:0 14px 36px rgba(2,22,12,.12);color:#072012;overflow:hidden
 }
 .result-card .label{font-size:12px;color:#6c7d6f;text-transform:uppercase;letter-spacing:.6px;line-height:1.4}
-.result-card .value{font-weight:900;font-size:24px;color:var(--green-mid-2);margin-top:6px;display:block;overflow-wrap:anywhere}
+.result-card .value{
+  font-weight:900;font-size:22px;color:var(--green-mid-2);margin-top:6px;display:block;overflow-wrap:anywhere
+}
 .result-card .small{font-size:13px;color:#6b7f6f;margin-top:6px;line-height:1.45}
-.highlight{border:2px solid var(--accent);box-shadow:0 8px 30px rgba(124,179,66,.12)}
 
-.chart-card{margin-top:16px;background:#fff;color:#072012;border-radius:18px;padding:14px;box-shadow:var(--shadow);border:1px solid #e7f1e8;overflow:hidden}
-.chart-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.chart-card{
+  margin-top:16px;background:#fff;color:#072012;border-radius:18px;padding:14px;
+  box-shadow:var(--shadow);border:1px solid #e7f1e8;overflow:hidden
+}
+.chart-head{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px
+}
 .chart-head h3{margin:0;color:#04462e;font-size:18px}
-.chart-head .legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:#6c7d6f;font-weight:700}
+.chart-head .legend{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:#6c7d6f;font-weight:700
+}
 .lg{display:inline-flex;align-items:center;gap:6px}
 .dot{width:12px;height:12px;border-radius:50%}
 .dot.solar{background:#7cb342}
 .dot.load{background:#d4af37}
 .dot.batt{background:#0b4d26}
-.chart-wrap{width:100%;overflow:hidden;border-radius:14px;background:linear-gradient(180deg,#fbfffb,#f5fff5);border:1px solid #e9f2ea;padding:8px 8px 2px}
+.chart-wrap{
+  width:100%;overflow:hidden;border-radius:14px;background:linear-gradient(180deg,#fbfffb,#f5fff5);
+  border:1px solid #e9f2ea;padding:8px 8px 2px
+}
 canvas{display:block;width:100%;height:auto}
-.muted-note{color:#6b7f6b;font-size:12px;line-height:1.45;overflow-wrap:anywhere}
-.pdf-actions{display:flex;justify-content:flex-end;margin-top:12px;flex-wrap:wrap;gap:10px}
+.muted-note{
+  color:#6b7f6f;font-size:12px;line-height:1.45;overflow-wrap:anywhere
+}
+.pdf-actions{
+  display:flex;justify-content:flex-end;margin-top:12px;flex-wrap:wrap;gap:10px
+}
 
 footer{
   background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:relative;margin-top:40px;text-align:center
 }
-footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold-base)}
+footer::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold-base)
+}
 .footer-company{
-  display:block;margin:0 auto 8px;font-size:18px;font-weight:800;color:#04462e;-webkit-text-stroke:.7px var(--gold-base);
-  text-shadow:0 3px 6px rgba(0,0,0,.6);padding:4px 8px;border-radius:6px;width:max-content;
+  display:block;margin:0 auto 8px;font-size:18px;font-weight:800;color:#04462e;
+  -webkit-text-stroke:.7px var(--gold-base);text-shadow:0 3px 6px rgba(0,0,0,.6);
+  padding:4px 8px;border-radius:6px;width:max-content;
   background:linear-gradient(90deg,rgba(212,175,55,.02),rgba(255,255,255,0) 40%)
 }
 .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
-.print-block{position:fixed;left:-99999px;top:0;width:1200px;background:#fff;color:#072012;padding:24px;font-family:'Poppins',Arial,sans-serif}
-
-.mobile-summary-strip{
-  display:none;position:sticky;top:calc(var(--topbar-h) + var(--header-h) + 8px);z-index:1200;margin:12px 5vw 0;
-  padding:10px;border-radius:14px;background:rgba(255,255,255,.94);color:#072012;
-  box-shadow:0 10px 28px rgba(0,0,0,.18);border:1px solid rgba(0,0,0,.06)
+.print-block{
+  position:fixed;left:-99999px;top:0;width:1200px;background:#fff;color:#072012;
+  padding:24px;font-family:'Poppins',Arial,sans-serif
 }
-.mobile-summary-strip .row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.mobile-summary-strip .cell{border-radius:12px;background:linear-gradient(180deg,#fbfffb,#f3fff2);border:1px solid #e7f1e8;padding:8px 10px;min-width:0}
-.mobile-summary-strip .cell .l{font-size:10px;text-transform:uppercase;color:#6b7f6b;font-weight:800}
-.mobile-summary-strip .cell .v{font-size:14px;font-weight:900;color:#0b4d26;margin-top:4px}
+
+/* résumé mobile en bas */
+.mobile-summary-strip{
+  display:none;position:fixed;left:0;right:0;bottom:0;top:auto;z-index:1800;
+  margin:0;padding:10px 5vw;border-radius:18px 18px 0 0;background:rgba(255,255,255,.96);
+  color:#072012;box-shadow:0 -10px 28px rgba(0,0,0,.18);border-top:1px solid rgba(0,0,0,.06)
+}
+.mobile-summary-strip .row{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px
+}
+.mobile-summary-strip .cell{
+  border-radius:12px;background:linear-gradient(180deg,#fbfffb,#f3fff2);
+  border:1px solid #e7f1e8;padding:8px 10px;min-width:0
+}
+.mobile-summary-strip .cell .l{
+  font-size:10px;text-transform:uppercase;color:#6b7f6b;font-weight:800
+}
+.mobile-summary-strip .cell .v{
+  font-size:14px;font-weight:900;color:#0b4d26;margin-top:4px
+}
 
 @media (max-width:1100px){
   nav{display:none}
@@ -343,8 +455,6 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
   .hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
   .section{padding:52px 4vw}
   .card-soft{padding:14px}
-  .big .kpi{grid-template-columns:1fr}
-  .summary{flex-direction:column}
   .hero-content{padding:24px 14px}
   .mobile-summary-strip{display:block}
   .result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -380,8 +490,7 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
   .socials a{width:40px;height:40px;font-size:18px}
   .section h2{font-size:26px}
   .chart-head h3{font-size:16px}
-  .big h2{font-size:20px}
-  .result-card .value{font-size:22px}
+  .result-card .value{font-size:21px}
   .result-card .label{font-size:11px}
   .result-card .small{font-size:12px}
   .mobile-summary-strip .row{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -528,13 +637,9 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
 <section class="hero" id="top">
   <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration zone urbaine">
   <div class="hero-overlay"></div>
-
   <div class="hero-content">
     <h1>Étude <span>zone urbaine</span></h1>
-    <p>
-      Une étude simple à utiliser, mais structurée comme un vrai pré-dimensionnement :
-      charges, panneaux, batteries, autonomie, onduleur standard et sécurité.
-    </p>
+    <p>Une étude simple à utiliser, mais structurée comme un vrai pré-dimensionnement : charges, panneaux, batteries, autonomie, onduleur standard et sécurité.</p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="document.getElementById('study').scrollIntoView({behavior:'smooth'})">Commencer étude</button>
     </div>
@@ -546,7 +651,7 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
     <h2>Étude de dimensionnement</h2>
     <p class="section-intro">
       Le pays est sélectionné avant la ville pour adapter l’ensoleillement et les hypothèses de calcul.
-      Les chambres restent fermées par défaut et les résultats se mettent à jour en direct après génération.
+      Les pièces générées restent visibles immédiatement pour faciliter la lecture.
     </p>
 
     <div class="card-soft">
@@ -617,14 +722,14 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
         </div>
 
         <div class="muted-note" style="margin-top:2px;margin-bottom:8px;color:#6c7d6f">
-          Les pièces et leurs charges restent pliées par défaut pour garder l’écran lisible.
+          Les pièces et leurs charges restent ouvertes par défaut pour être visibles immédiatement.
         </div>
 
         <div id="roomsList" class="room-list"></div>
 
         <div style="margin-top:14px" class="section-block">
-          <h4 style="margin:0 0 8px 0;color:#04462e">Paramètres du système</h4>
-          <div class="result-grid" style="margin-top:10px">
+          <h3>Paramètres du système</h3>
+          <div class="result-grid">
             <div class="result-card"><div class="label">Puissance installée</div><div id="powerInstalled" class="value">0 W</div><div class="small">Somme nominale des équipements</div></div>
             <div class="result-card"><div class="label">Onduleur standard conseillé</div><div id="inverterRec" class="value">0 W</div><div class="small">Valeur standard supérieure</div></div>
             <div class="result-card"><div class="label">Type batterie retenu</div><div id="batteryTypeOut" class="value">—</div><div class="small">Technologie sélectionnée</div></div>
@@ -632,7 +737,7 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
         </div>
 
         <div style="margin-top:14px" class="section-block">
-          <h4 style="margin:0 0 8px 0;color:#04462e">Énergie et couverture</h4>
+          <h3>Énergie et couverture</h3>
           <div class="result-grid">
             <div class="result-card"><div class="label">Consommation / jour</div><div id="consDay" class="value">0 kWh</div><div class="small">Base du calcul</div></div>
             <div class="result-card"><div class="label">Consommation / mois</div><div id="consMonth" class="value">0 kWh</div><div class="small">30 jours de référence</div></div>
@@ -661,83 +766,14 @@ footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;back
           <div class="muted-note" style="margin-top:8px">Le soleil est pris en compte de 06h à 18h. La courbe aide à visualiser l’intérêt éventuel d’une batterie.</div>
         </div>
 
-        <div class="result-grid" aria-live="polite" style="margin-top:14px">
-          <div class="result-card"><div class="label">Consommation du jour</div><div id="consDayCard" class="value">0 kWh</div><div class="small">Mise à jour dynamique</div></div>
-          <div class="result-card"><div class="label">Consommation du mois</div><div id="consMonthCard" class="value">0 kWh</div><div class="small">30 jours</div></div>
-          <div class="result-card"><div class="label">Nombre de panneaux</div><div id="panelCountCard" class="value">0</div><div class="small">Arrondi entier</div></div>
-          <div class="result-card"><div class="label">Synthèse</div><div id="summaryNoteCard" class="value" style="font-size:16px;line-height:1.45">Clique sur « Générer pièces »</div><div class="small">Résumé dynamique</div></div>
-          <div class="result-card"><div class="label">Puissance installée</div><div id="powerInstalledCard" class="value">0 W</div><div class="small">Somme nominale</div></div>
-          <div class="result-card"><div class="label">Onduleur conseillé</div><div id="inverterRecCard" class="value">0 W</div><div class="small">Valeur standard supérieure</div></div>
-          <div class="result-card"><div class="label">Puissance PV</div><div id="pvRecCard" class="value">0 kWc</div><div class="small">Dimensionnement solaire</div></div>
-          <div class="result-card"><div class="label">Batterie utile totale</div><div id="batteryRecCard" class="value">0 kWh</div><div class="small">Selon les packs choisis</div></div>
-          <div class="result-card"><div class="label">Autonomie estimée</div><div id="autonomyCard" class="value">0 jour</div><div class="small">Lecture rapide</div></div>
-        </div>
-
-        <div class="muted-note" style="margin-top:12px;color:#6c7d6f">
-          Les résultats les plus importants pour un dimensionnement sont : la consommation, l’onduleur standard, la batterie utile, l’autonomie obtenue, la puissance PV et la durée de vie des batteries.
-        </div>
-
         <div class="pdf-actions">
           <button id="exportPdfBtn" class="btn-export" type="button"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF</button>
         </div>
       </div>
     </div>
   </section>
-    <section class="section">
-    <h2>Pourquoi cette étude est utile ?</h2>
-    <div class="summary">
-      <div class="big">
-        <h2>Synthèse principale</h2>
-        <div class="kpi" style="margin-top:12px">
-          <div class="k">
-            <div class="muted">Consommation (kWh / mois)</div>
-            <div id="consMonthKpi" class="num">0 kWh</div>
-            <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
-          </div>
-          <div class="k">
-            <div class="muted">Puissance PV (kWc)</div>
-            <div id="pvReqKwc" class="num">0 kWc</div>
-            <div id="pvReqRange" class="muted">incertitude ±15%</div>
-          </div>
-          <div class="k">
-            <div class="muted">Onduleur standard</div>
-            <div id="invStdKpi" class="num">0 W</div>
-            <div id="packsNeedKpi" class="muted">packs saisis: 0</div>
-          </div>
-        </div>
 
-        <ul class="safety-list" style="margin-top:12px">
-          <li><strong>Étude simple :</strong> le client choisit le pays, la ville, le type de batterie et le nombre de packs.</li>
-          <li><strong>Étude pro :</strong> les paramètres techniques internes restent masqués pour garder une lecture claire.</li>
-          <li><strong>Afrique de l’Ouest :</strong> Côte d’Ivoire et Sénégal sont intégrés avec des hypothèses adaptées par ville.</li>
-        </ul>
-
-        <div style="margin-top:12px" class="result-grid">
-          <div class="result-card"><div class="label">Pièces générées</div><div id="summaryRooms" class="value">—</div><div class="small">Nombre de pièces et charges</div></div>
-          <div class="result-card"><div class="label">Autonomie liée</div><div id="summaryAutonomy" class="value">—</div><div class="small">Pack et consommation</div></div>
-          <div class="result-card"><div class="label">Batteries</div><div id="summaryBatteries" class="value">—</div><div class="small">Pack total et cycles</div></div>
-          <div class="result-card"><div class="label">Sécurité</div><div id="summarySafety" class="value">—</div><div class="small">Protections à prévoir</div></div>
-        </div>
-
-        <div class="muted-note" style="margin-top:12px">
-          Pour une étude plus fine, une validation terrain reste nécessaire : câbles, protections DC/AC, chute de tension, structure, mise à la terre et réserve d’exploitation.
-        </div>
-      </div>
-
-      <div class="small-panel">
-        <h3>Points de sécurité</h3>
-        <ul class="safety-list">
-          <li><strong>Protection :</strong> sectionneur, fusibles, parafoudre et mise à la terre.</li>
-          <li><strong>Charges :</strong> ne pas sous-dimensionner l’onduleur et les câbles.</li>
-          <li><strong>Batterie :</strong> ventilation, câbles protégés et bornes sécurisées.</li>
-          <li><strong>Exploitation :</strong> garder une marge d’exploitation raisonnable.</li>
-          <li><strong>Terrain :</strong> vérifier les longueurs, les pertes et les conditions réelles.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <div style="height:32px"></div>
+  <div style="height:28px"></div>
 </div>
 
 <footer>
@@ -855,8 +891,6 @@ const batteryRecCard = document.getElementById('batteryRecCard');
 const autonomyCard = document.getElementById('autonomyCard');
 const panelCountCard = document.getElementById('panelCountCard');
 const batteryTypeOutEl = document.getElementById('batteryTypeOut');
-const safetyCard = document.getElementById('summarySafety');
-const summaryNoteCard = document.getElementById('summaryNoteCard');
 
 const consMonthKpi = document.getElementById('consMonthKpi');
 const consMonthRange = document.getElementById('consMonthRange');
@@ -869,10 +903,6 @@ const mConsDay = document.getElementById('mConsDay');
 const mPv = document.getElementById('mPv');
 const mBatt = document.getElementById('mBatt');
 const mInv = document.getElementById('mInv');
-
-const summaryRooms = document.getElementById('summaryRooms');
-const summaryAutonomy = document.getElementById('summaryAutonomy');
-const summaryBatteries = document.getElementById('summaryBatteries');
 
 function fmt(n, d = 2){ return Number(n || 0).toFixed(d).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
 function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
@@ -1017,18 +1047,6 @@ function batteryCurve(solar, load, capacityKwh, initialPct=.6){
   return arr;
 }
 
-function formatDurationMixed(hours){
-  if(!isFinite(hours) || hours <= 0) return '0 min';
-  const totalMinutes = Math.round(hours * 60);
-  if(totalMinutes < 60) return `${totalMinutes} min`;
-  const h = Math.floor(totalMinutes / 60);
-  const m = totalMinutes % 60;
-  if(h < 24) return m ? `${h} h ${m} min` : `${h} h`;
-  const d = Math.floor(h / 24);
-  const rh = h % 24;
-  return rh ? `${d} j ${rh} h ${m} min` : `${d} j ${m} min`;
-}
-
 function drawChart(city, solarCurve, loadCurveArr, batterySoc, yMax, extraLabel){
   const canvas = document.getElementById('dailyChart');
   if(!canvas) return;
@@ -1148,7 +1166,7 @@ function renderRooms(){
     const box = document.createElement('details');
     box.className = 'room';
     box.id = `room-block-${roomIndex}`;
-    box.open = openState[room.id] ?? false;
+    box.open = openState[room.id] ?? true;
 
     const loadsHtml = room.loads.map((load, loadIndex) => `
       <details class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
@@ -1193,7 +1211,7 @@ function renderRooms(){
           <span class="room-chip">(${escapeHtml(room.type)})</span>
           <span class="room-chip">— ${fmt(roomTotalKwh,2)} kWh/j</span>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;color:#bed8bf;font-size:12px;">
+        <div style="display:flex;align-items:center;gap:8px;color:#6b7f6b;font-size:12px;">
           <i class="fas fa-chevron-down"></i>
           <span>Développer / réduire</span>
         </div>
@@ -1216,7 +1234,7 @@ function renderRooms(){
     roomListEl.appendChild(box);
   });
 }
-
+  <script>
 function onLoadChange(e){
   const target = e.target;
   if(!target.classList.contains('load-field')) return;
@@ -1297,10 +1315,6 @@ function recalc(){
   pvReqRange.innerText = `incertitude ±15% → ${fmt(pvKwRec*.85,2)} - ${fmt(pvKwRec*1.15,2)} kWc`;
   invStdKpi.innerText = `${inverterNeed} W`;
   packsNeedKpi.innerText = `packs saisis: ${batteryPackCount}`;
-  safetyCard.innerText = getSafetyPoints().join('\n');
-  summaryNoteCard.innerText = loads.length > 0
-    ? `Calcul basé sur ${loads.length} charge(s) répartie(s) dans ${rooms.length} pièce(s).`
-    : 'Clique sur « Générer pièces » pour démarrer l’étude.';
 
   mConsDay.innerText = `${fmt(dailyKwh,2)} kWh`;
   mPv.innerText = `${fmt(pvKwRec,2)} kWc`;
@@ -1308,17 +1322,6 @@ function recalc(){
   mInv.innerText = `${inverterNeed} W`;
 
   batteryTypeOutEl.innerText = batteryProfile.label;
-  summaryRooms.innerText = loads.length > 0
-    ? `${rooms.length} pièce(s) générée(s) avec ${loads.length} charge(s) détaillée(s).`
-    : 'Aucune pièce générée pour le moment.';
-
-  summaryAutonomy.innerText = loads.length > 0
-    ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''} d’autonomie avec ${batteryPackCount} pack(s) de ${fmt(battPackKwh,0)} Wh en ${batteryProfile.label}.`
-    : '—';
-
-  summaryBatteries.innerText = loads.length > 0
-    ? `${batteryPackCount} pack(s) saisis, soit ${fmt(batteryUsefulTotal,2)} kWh utile totale. Durée de vie indicative : ${batteryProfile.lifeLabel} (${batteryProfile.cycles} cycles approx.).`
-    : '—';
 
   lastCalcSnapshot = {
     timestamp:new Date().toLocaleString('fr-FR'),
@@ -1361,14 +1364,19 @@ function cyclePhone(){
 function generateInitialRooms(){
   const addExisting = genAdd.checked;
   if(!addExisting){ rooms = []; roomCounter = 0; }
+
   addRooms('Chambre', 'Chambre', Number(genBedrooms.value || 0), true);
   addRooms('Salon', 'Salon', Number(genLiving.value || 0), true);
   addRooms('Cuisine', 'Cuisine', Number(genKitchens.value || 0), true);
   addRooms("Salle d'eau", "Salle d'eau", Number(genBaths.value || 0), true);
   addRooms('Bureau', 'Bureau', Number(genOffices.value || 0), true);
   addRooms('Toilette', 'Toilette', Number(genToilets.value || 0), true);
+
   renderRooms();
   recalc();
+
+  const study = document.getElementById('study');
+  if(study) study.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
 function resetDefaults(){
@@ -1405,6 +1413,7 @@ function renderPdfBlock(){
       <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${fmt((l.qty*l.powerW*l.hours)/1000,2)} kWh/j</td>
     </tr>
   `).join('');
+
   const safety = (s.safetyPoints || []).map(item => `<li style="margin-bottom:6px">${item}</li>`).join('');
   return `
     <div style="position:relative;width:1120px;padding:22px;background:#fff;color:#222;font-family:Poppins,Arial,sans-serif;">
@@ -1438,6 +1447,11 @@ function renderPdfBlock(){
             <div><div style="font-weight:700">Autonomie estimée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div></div>
             <div><div style="font-weight:700">Pack batterie utile</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.battPackKwh,2)} kWh × ${s.batteryPackCount}</div></div>
           </div>
+        </div>
+
+        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+          <div style="font-weight:700;margin-bottom:8px">Profil journalier 24 h</div>
+          <img src="${document.getElementById('dailyChart').toDataURL('image/png')}" style="width:100%;height:auto;border:1px solid #f0f0f0;border-radius:10px" />
         </div>
 
         <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
@@ -1586,18 +1600,29 @@ function setupDesktopDropdowns(){
     let timer;
     drop.addEventListener('mouseenter', () => {
       clearTimeout(timer);
-      if(window.innerWidth > 1100){ menu.style.display = 'block'; drop.setAttribute('aria-expanded','true'); }
+      if(window.innerWidth > 1100){
+        menu.style.display = 'block';
+        drop.setAttribute('aria-expanded','true');
+      }
     });
     drop.addEventListener('mouseleave', () => {
       timer = setTimeout(() => {
-        if(window.innerWidth > 1100){ menu.style.display = 'none'; drop.setAttribute('aria-expanded','false'); }
+        if(window.innerWidth > 1100){
+          menu.style.display = 'none';
+          drop.setAttribute('aria-expanded','false');
+        }
       }, 180);
     });
     trigger.addEventListener('click', (e) => {
       if(window.innerWidth <= 1100){
         e.preventDefault();
-        if(menu.style.display === 'block'){ menu.style.display = 'none'; drop.setAttribute('aria-expanded','false'); }
-        else{ menu.style.display = 'block'; drop.setAttribute('aria-expanded','true'); }
+        if(menu.style.display === 'block'){
+          menu.style.display = 'none';
+          drop.setAttribute('aria-expanded','false');
+        }else{
+          menu.style.display = 'block';
+          drop.setAttribute('aria-expanded','true');
+        }
       }
     });
   });
