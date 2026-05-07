@@ -1786,1791 +1786,1311 @@ footer::before{
 </footer>
 
 <div class="print-block" id="printBlock"></div>
-<!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>GreenBridge — Étude zone urbaine</title>
+<script>
+const CONTACT_NUMBER = {
+  ci: { display:'+225 07 07 07 07 07', tel:'+2250707070707' },
+  sn: { display:'+221 77 00 00 00 00', tel:'+2217700000000' }
+};
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+const CITY_META = {
+  abidjan: { country:'ci', display:'Abidjan', sun:4.5 },
+  yamoussoukro: { country:'ci', display:'Yamoussoukro', sun:5.5 },
+  bouake: { country:'ci', display:'Bouaké', sun:5.3 },
+  korhogo: { country:'ci', display:'Korhogo', sun:5.7 },
+  san_pedro: { country:'ci', display:'San Pedro', sun:4.8 },
+  daloa: { country:'ci', display:'Daloa', sun:5.1 },
+  dakar: { country:'sn', display:'Dakar', sun:6.5 },
+  thies: { country:'sn', display:'Thiès', sun:6.2 },
+  saint_louis: { country:'sn', display:'Saint-Louis', sun:6.7 },
+  kaolack: { country:'sn', display:'Kaolack', sun:6.3 },
+  touba: { country:'sn', display:'Touba', sun:6.4 },
+  ziguinchor: { country:'sn', display:'Ziguinchor', sun:5.8 }
+};
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+const BATTERY_TYPES = {
+  lithium_ion: { label:'Lithium ion', dod:0.85, eff:0.93, cycles:1600, lifeLabel:'5 à 7 ans' },
+  lifepo4:     { label:'LiFePO4',     dod:0.90, eff:0.95, cycles:3000, lifeLabel:'7 à 10 ans' },
+  gel:         { label:'Gel',         dod:0.70, eff:0.90, cycles:1000, lifeLabel:'3 à 5 ans' },
+  plomb:       { label:'Plomb',       dod:0.50, eff:0.82, cycles:500,  lifeLabel:'2 à 4 ans' }
+};
 
-<style>
-:root{
-  --topbar-h:46px;
-  --header-h:86px;
-  --bg:#0a4d2e;
-  --green-dark:#061f14;
-  --green-mid:#073217;
-  --green-mid-2:#0b4d26;
-  --accent:#7cb342;
-  --accent-2:#a8e6a1;
-  --gold:#d4af37;
-  --gold-2:#e6c95a;
-  --text:#fff;
-  --muted:#dfffe6;
-  --soft:#f5fff5;
-  --soft-2:#fbfffb;
-  --border:#e6f2e8;
-  --shadow:0 12px 28px rgba(0,0,0,.18);
-  --shadow-2:0 14px 36px rgba(2,22,12,.12);
-  --max-width:1240px;
-}
-*{box-sizing:border-box}
-html,body{
-  margin:0;
-  padding:0;
-  font-family:'Poppins',Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  scroll-behavior:smooth;
-  overflow-x:hidden;
-}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-body.menu-open{overflow:hidden}
+const STD_INVERTERS = [300, 500, 1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000];
+const STANDARD_PANEL_W = 350;
+const STANDARD_PACK_WH = 5000;
+const BEGINNER_TARGET_AUTONOMY_DAYS = 1.5;
 
-body.mode-beginner .expert-only{display:none !important}
-body.mode-expert .beginner-only{display:none !important}
+const ROOM_TEMPLATES = {
+  "Chambre":[
+    { name:"Téléphones", countLabel:"Téléphones", qty:1, powerW:10, hours:2, icon:"fa-mobile-screen-button" },
+    { name:"Ventilation", countLabel:"Ventilateurs", qty:1, powerW:45, hours:8, icon:"fa-fan" },
+    { name:"Éclairage", countLabel:"Lampes", qty:1, powerW:12, hours:5, icon:"fa-lightbulb" }
+  ],
+  "Salon":[
+    { name:"Éclairage", countLabel:"Lampes", qty:2, powerW:12, hours:6, icon:"fa-lightbulb" },
+    { name:"Téléviseur", countLabel:"Téléviseurs", qty:1, powerW:120, hours:4, icon:"fa-tv" },
+    { name:"Décodeur", countLabel:"Décodeurs", qty:1, powerW:10, hours:6, icon:"fa-satellite-dish" },
+    { name:"Ventilation", countLabel:"Ventilateurs", qty:1, powerW:45, hours:6, icon:"fa-fan" }
+  ],
+  "Cuisine":[
+    { name:"Éclairage", countLabel:"Lampes", qty:1, powerW:12, hours:5, icon:"fa-lightbulb" },
+    { name:"Réfrigérateur", countLabel:"Réfrigérateurs", qty:1, powerW:70, hours:24, icon:"fa-refrigerator" },
+    { name:"Micro-ondes", countLabel:"Micro-ondes", qty:1, powerW:900, hours:0.15, icon:"fa-microchip" },
+    { name:"Blender", countLabel:"Blenders", qty:1, powerW:300, hours:0.1, icon:"fa-blender" }
+  ],
+  "Salle d'eau":[
+    { name:"Éclairage", countLabel:"Lampes", qty:1, powerW:12, hours:4, icon:"fa-lightbulb" },
+    { name:"Ventilation", countLabel:"Ventilateurs", qty:1, powerW:50, hours:3, icon:"fa-fan" }
+  ],
+  "Bureau":[
+    { name:"Éclairage", countLabel:"Lampes", qty:2, powerW:12, hours:8, icon:"fa-lightbulb" },
+    { name:"Ordinateur", countLabel:"Ordinateurs", qty:1, powerW:90, hours:6, icon:"fa-laptop" }
+  ],
+  "Toilette":[
+    { name:"Éclairage", countLabel:"Lampes", qty:1, powerW:12, hours:3, icon:"fa-lightbulb" }
+  ]
+};
 
-.topbar{
-  position:fixed;
-  top:0;left:0;right:0;
-  height:var(--topbar-h);
-  background:var(--green-dark);
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  padding:0 5vw;
-  z-index:1500;
-  font-size:14px;
-  border-bottom:1px solid rgba(255,255,255,.04);
-}
-.topbar a{
-  color:#fff;
-  font-weight:700;
-  white-space:nowrap;
-}
-.topbar a:hover{color:var(--accent-2)}
-.phone-label{font-weight:800;margin-right:4px}
+const ROOM_ICONS = {
+  "Chambre":"fa-bed",
+  "Salon":"fa-couch",
+  "Cuisine":"fa-utensils",
+  "Salle d'eau":"fa-shower",
+  "Bureau":"fa-briefcase",
+  "Toilette":"fa-toilet"
+};
 
-header{
-  position:fixed;
-  top:var(--topbar-h);
-  left:0;right:0;
-  height:var(--header-h);
-  background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 5vw;
-  z-index:1490;
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
-  gap:12px;
-}
-.logo-text{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  min-width:0;
-  flex:1 1 auto;
-  overflow:hidden;
-}
-.logo-text img{
-  height:66px;
-  width:auto;
-  object-fit:contain;
-}
-.brand-stack{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  line-height:1;
-  text-align:center;
-  min-width:0;
-  overflow:hidden;
-}
-.company-name{
-  font-size:44px;
-  font-weight:800;
-  letter-spacing:.4px;
-  margin:0;
-  color:#04462e;
-  -webkit-text-stroke:0.95px var(--gold);
-  text-shadow:0 3px 6px rgba(0,0,0,.6);
-  white-space:nowrap;
-  line-height:1;
-}
-.company-tagline{
-  font-size:18px;
-  font-weight:700;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  color:#dfffe6;
-  margin:2px 0 0;
-  text-shadow:0 2px 6px rgba(0,0,0,.45);
-  -webkit-text-stroke:0.4px rgba(212,175,55,.55);
-  white-space:nowrap;
-}
+function getRoomIcon(type){ return ROOM_ICONS[type] || "fa-house"; }
+function getLoadIcon(load){ return load.icon || "fa-plug"; }
 
-nav{display:flex;gap:18px;align-items:center}
-nav a{
-  color:#fff;
-  font-size:17px;
-  font-weight:600;
-  padding:8px 10px;
-  border-radius:8px;
-  transition:all .18s;
-}
-nav a:hover{color:var(--accent-2)}
-nav a.active{
-  color:var(--accent-2);
-  background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));
-  border:1px solid rgba(212,175,55,.12);
-  padding:10px 14px;
-  font-weight:800;
-  border-radius:10px;
-}
-.dropdown{position:relative}
-.dropdown>a::after{
-  content:"\25BC";
-  font-size:12px;
-  margin-left:6px;
-  color:var(--accent-2);
-  transition:transform .2s;
-}
-.dropdown[aria-expanded="true"]>a::after{transform:rotate(180deg)}
-.dropdown>a .sub-badge{
-  margin-left:8px;
-  padding:6px 10px;
-  border-radius:10px;
-  background:rgba(255,214,0,.08);
-  color:#ffd600;
-  font-weight:800;
-  font-size:13px;
-  white-space:nowrap;
-  display:inline-flex;
-  align-items:center;
-}
-.dropdown-content{
-  display:none;
-  position:absolute;
-  top:calc(100% + 8px);
-  left:0;
-  background:rgba(0,0,0,.88);
-  padding:8px 0;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
-  min-width:220px;
-  z-index:2000;
-}
-.dropdown-content li{list-style:none}
-.dropdown-content a{
-  display:block;
-  padding:10px 16px;
-  color:#fff;
-  font-weight:600;
-  border-radius:8px;
-}
-.dropdown-content a:hover{
-  background:rgba(168,230,161,0.12);
-  color:var(--accent-2);
-  padding-left:24px;
-}
-.dropdown-content .active-item{
-  color:var(--accent-2);
-  background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));
-  border:1px solid rgba(212,175,55,0.12);
-  padding:10px 16px;
-  font-weight:800;
-  border-radius:8px;
-  margin:4px 8px;
-}
+let rooms = [];
+let roomCounter = 0;
+let lastCalcSnapshot = null;
 
-.burger{
-  display:none;
-  width:52px;
-  height:52px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.12);
-  background:rgba(255,255,255,0.05);
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 6px 18px rgba(0,0,0,.18);
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
-  flex:0 0 auto;
-}
-.burger .icon{display:block;position:relative;width:28px;height:20px}
-.burger .icon span{
-  position:absolute;
-  left:0;right:0;
-  height:3px;
-  background:#fff;
-  border-radius:2px;
-  transition:all .25s;
-}
-.burger .icon span:nth-child(1){top:0}
-.burger .icon span:nth-child(2){top:8.5px}
-.burger .icon span:nth-child(3){top:17px}
-.burger.open .icon span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
-.burger.open .icon span:nth-child(2){opacity:0}
-.burger.open .icon span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
+const burgerBtn = document.getElementById('burgerBtn');
+const mobileNav = document.getElementById('mobileNav');
+const mobileBackdrop = document.getElementById('mobileBackdrop');
+const mobileCloseBtn = document.getElementById('mobileCloseBtn');
 
-.mobile-backdrop{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(6,31,20,.98);
-  z-index:1970;
-  opacity:0;
-  transition:opacity .2s ease;
+const topPhoneLink = document.getElementById('topPhoneLink');
+const topPhoneText = document.getElementById('topPhoneText');
+const mobilePhoneLink = document.getElementById('mobilePhoneLink');
+const footerPhoneText = document.getElementById('footerPhoneText');
+
+const studyModeEl = document.getElementById('studyMode');
+const modeHint = document.getElementById('modeHint');
+const countryEl = document.getElementById('country');
+const cityEl = document.getElementById('city');
+
+const batteryTypeEl = document.getElementById('batteryType');
+const batteryPackCountEl = document.getElementById('batteryPackCount');
+const battPackKwhEl = document.getElementById('battPackKwh');
+const panelWEl = document.getElementById('panelW');
+const cableSectionEl = document.getElementById('cableSection');
+
+const bPhones = document.getElementById('bPhones');
+const bTV = document.getElementById('bTV');
+const bTVHours = document.getElementById('bTVHours');
+const bFans = document.getElementById('bFans');
+const bFanHours = document.getElementById('bFanHours');
+const bLights = document.getElementById('bLights');
+const bLightHours = document.getElementById('bLightHours');
+const bFridges = document.getElementById('bFridges');
+const bPCs = document.getElementById('bPCs');
+
+const roomListEl = document.getElementById('roomsList');
+const genBedrooms = document.getElementById('genBedrooms');
+const genLiving = document.getElementById('genLiving');
+const genKitchens = document.getElementById('genKitchens');
+const genBaths = document.getElementById('genBaths');
+const genOffices = document.getElementById('genOffices');
+const genToilets = document.getElementById('genToilets');
+const genAdd = document.getElementById('genAdd');
+const generateBtn = document.getElementById('generateBtn');
+const resetBtn = document.getElementById('resetBtn');
+const exportPdfBtn = document.getElementById('exportPdfBtn');
+
+const consDayCard = document.getElementById('consDayCard');
+const consMonthCard = document.getElementById('consMonthCard');
+const powerInstalledCard = document.getElementById('powerInstalledCard');
+const inverterRecCard = document.getElementById('inverterRecCard');
+const pvRecCard = document.getElementById('pvRecCard');
+const batteryRecCard = document.getElementById('batteryRecCard');
+const autonomyCard = document.getElementById('autonomyCard');
+const panelCountCard = document.getElementById('panelCountCard');
+const batteryTypeOutEl = document.getElementById('batteryTypeOut');
+const cableRecCard = document.getElementById('cableRecCard');
+const summaryRooms = document.getElementById('summaryRooms');
+const summaryAutonomy = document.getElementById('summaryAutonomy');
+const summaryBatteries = document.getElementById('summaryBatteries');
+const summaryCable = document.getElementById('summaryCable');
+const safetyCard = document.getElementById('summarySafety');
+
+function fmt(n, dec = 2){
+  const num = Number(n || 0);
+  if(!isFinite(num)) return '—';
+  return num.toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 }
-.mobile-backdrop.open{display:block;opacity:1}
-.mobile-nav{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:1980;
-  background:linear-gradient(180deg,#0a4d2e 0%,#061f14 100%);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s ease, transform .2s ease;
-  transform:scale(.985);
-  overflow:auto;
+function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+function getBatteryProfile(type){ return BATTERY_TYPES[type] || BATTERY_TYPES.lithium_ion; }
+function getSunHours(city){ return (CITY_META[city] && CITY_META[city].sun) || 4.5; }
+function pickStandardInverter(targetW){
+  const value = Math.max(300, Number(targetW || 0));
+  return STD_INVERTERS.find(v => v >= value) || STD_INVERTERS[STD_INVERTERS.length - 1];
 }
-.mobile-nav.open{
-  display:flex;
-  opacity:1;
-  pointer-events:auto;
-  transform:scale(1);
+function escapeHtml(str){
+  return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
 }
-.mobile-panel{
-  position:relative;
-  width:100%;
-  min-height:100vh;
-  padding:18px 5vw 22px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
+function cloneLoads(loads){
+  return (loads || []).map(l => ({
+    name:l.name || '',
+    countLabel:l.countLabel || '',
+    icon:l.icon || 'fa-plug',
+    qty:Number(l.qty ?? 1),
+    powerW:Number(l.powerW ?? 0),
+    hours:Number(l.hours ?? 0)
+  }));
 }
-.mobile-close{
-  position:absolute;
-  top:14px;
-  right:14px;
-  width:48px;
-  height:48px;
-  border:none;
-  border-radius:12px;
-  background:rgba(255,255,255,0.07);
-  color:#fff;
-  font-size:24px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+function uniqueRoomName(base){
+  let name = base;
+  let n = 1;
+  while(rooms.some(r => r.name === name)){
+    n += 1;
+    name = `${base} ${n}`;
+  }
+  return name;
 }
-.mobile-brand{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:2px;
-  padding:54px 4px 12px;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-  margin-bottom:2px;
-  text-align:center;
+function createRoom(type, baseName, withTemplate = true){
+  roomCounter += 1;
+  const name = uniqueRoomName(baseName || `${type} ${roomCounter}`);
+  return {
+    id: roomCounter,
+    type,
+    name,
+    open: false,
+    loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : []
+  };
 }
-.mobile-brand .company-name{font-size:34px;line-height:1}
-.mobile-brand .company-tagline{font-size:14px;letter-spacing:4px}
-.menu-links{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  gap:12px;
-  max-width:560px;
-  width:100%;
-  margin:0 auto;
-  padding:10px 0;
+function captureRoomOpenState(){
+  const state = {};
+  roomListEl.querySelectorAll('details.room-card').forEach((d, idx) => {
+    const room = rooms[idx];
+    if(room) state[room.id] = d.open;
+  });
+  return state;
 }
-.mobile-nav a.mobile-link{
-  padding:18px 18px;
-  color:#fff;
-  width:100%;
-  text-align:left;
-  border-radius:14px;
-  font-weight:900;
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
-  gap:10px;
-  font-size:clamp(20px, 5vw, 26px);
-  border:1px solid rgba(255,255,255,0.08);
-  background:rgba(255,255,255,0.03);
-  min-height:64px;
-  line-height:1.1;
+function populateCities(country){
+  cityEl.innerHTML = '';
+  const list = country === 'sn'
+    ? [
+        { value:'dakar', label:'Dakar' },
+        { value:'thies', label:'Thiès' },
+        { value:'saint_louis', label:'Saint-Louis' },
+        { value:'kaolack', label:'Kaolack' },
+        { value:'touba', label:'Touba' },
+        { value:'ziguinchor', label:'Ziguinchor' }
+      ]
+    : [
+        { value:'abidjan', label:'Abidjan' },
+        { value:'yamoussoukro', label:'Yamoussoukro' },
+        { value:'bouake', label:'Bouaké' },
+        { value:'korhogo', label:'Korhogo' },
+        { value:'san_pedro', label:'San Pedro' },
+        { value:'daloa', label:'Daloa' }
+      ];
+  list.forEach(c => cityEl.appendChild(new Option(c.label, c.value)));
+  cityEl.value = list[0].value;
 }
-.mobile-nav .mobile-link:hover{
-  background:rgba(124,179,66,0.12);
-  color:var(--accent-2);
+function updateContacts(country){
+  const info = CONTACT_NUMBER[country === 'sn' ? 'sn' : 'ci'];
+  topPhoneLink.href = 'tel:' + info.tel;
+  topPhoneText.textContent = info.display;
+  mobilePhoneLink.href = 'tel:' + info.tel;
+  mobilePhoneLink.textContent = info.display;
+  footerPhoneText.textContent = info.display;
 }
-.mobile-nav .mobile-link.active{
-  background:linear-gradient(90deg,rgba(212,175,55,0.06),rgba(212,175,55,0.03));
-  color:var(--accent-2);
-  border:1px solid rgba(212,175,55,0.28);
+function recommendCableSection(powerW, voltage = 230){
+  const current = Math.max(0, Number(powerW || 0)) / voltage;
+  if(current <= 10) return 1.5;
+  if(current <= 16) return 2.5;
+  if(current <= 25) return 4;
+  if(current <= 32) return 6;
+  if(current <= 40) return 10;
+  if(current <= 63) return 16;
+  return 25;
 }
-.mobile-nav .submenu{
-  display:none;
-  flex-direction:column;
-  gap:8px;
-  padding-left:10px;
-  margin-top:6px;
-  margin-bottom:6px;
-  max-width:560px;
-  width:100%;
-  margin-left:auto;
-  margin-right:auto;
+function formatCableChoice(value, suggested){
+  const v = value === 'auto' ? suggested : Number(value);
+  return `${fmt(v,1)} mm²`;
 }
-.mobile-nav .submenu a{
-  font-family:'Trebuchet MS',Arial,sans-serif;
-  font-style:italic;
-  font-size:15px;
-  font-weight:700;
-  min-height:48px;
-  padding:12px 14px;
-  border-radius:10px;
-  white-space:normal;
-  justify-content:flex-start;
-  text-align:left;
-  display:flex;
-  align-items:center;
-  border:1px solid rgba(255,255,255,0.06);
-  background:rgba(255,255,255,0.02);
-}
-.mobile-nav .submenu a:hover{
-  background:rgba(168,230,161,0.08);
-  padding-left:18px;
-}
-.mobile-contact{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  padding:16px 14px;
-  border-radius:16px;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.06);
-  color:var(--muted);
-  max-width:560px;
-  width:100%;
-  margin:0 auto;
-  text-align:center;
-}
-.mobile-contact strong{color:#fff;font-size:15px;letter-spacing:1px}
-.mobile-contact .phone-line{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  color:#fff;
-  font-weight:800;
-  flex-wrap:wrap;
-  font-size:16px;
-}
-.socials{
-  margin-top:auto;
-  border-top:1px solid rgba(255,255,255,0.05);
-  padding-top:14px;
-  display:flex;
-  gap:18px;
-  align-items:center;
-  justify-content:center;
-  flex-wrap:wrap;
-  width:100%;
-}
-.socials a{
-  width:44px;
-  height:44px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-  font-size:20px;
-  border:none;
-  background:rgba(255,255,255,0.04);
-  border-radius:50%;
-  min-height:44px;
+function isBeginner(){ return studyModeEl.value === 'beginner'; }
+
+function buildBeginnerLoads(){
+  const phones = Math.max(0, Number(bPhones.value || 0));
+  const tvs = Math.max(0, Number(bTV.value || 0));
+  const tvHours = Math.max(0, Number(bTVHours.value || 0));
+  const fans = Math.max(0, Number(bFans.value || 0));
+  const fanHours = Math.max(0, Number(bFanHours.value || 0));
+  const lights = Math.max(0, Number(bLights.value || 0));
+  const lightHours = Math.max(0, Number(bLightHours.value || 0));
+  const fridges = Math.max(0, Number(bFridges.value || 0));
+  const pcs = Math.max(0, Number(bPCs.value || 0));
+
+  const loads = [
+    { name:"Téléphones", countLabel:"Téléphones", qty:phones, powerW:10, hours:2, icon:"fa-mobile-screen-button" },
+    { name:"Téléviseurs", countLabel:"Téléviseurs", qty:tvs, powerW:120, hours:tvHours, icon:"fa-tv" },
+    { name:"Ventilateurs", countLabel:"Ventilateurs", qty:fans, powerW:45, hours:fanHours, icon:"fa-fan" },
+    { name:"Lampes LED", countLabel:"Lampes", qty:lights, powerW:12, hours:lightHours, icon:"fa-lightbulb" },
+    { name:"Réfrigérateurs", countLabel:"Réfrigérateurs", qty:fridges, powerW:70, hours:24, icon:"fa-refrigerator" },
+    { name:"Ordinateurs", countLabel:"Ordinateurs", qty:pcs, powerW:90, hours:6, icon:"fa-laptop" }
+  ];
+
+  return loads.filter(l => Number(l.qty || 0) > 0);
 }
 
-/* Boules d’énergie */
-.electric-band{
-  position:fixed;
-  top:calc(var(--topbar-h) + var(--header-h) - 6px);
-  left:0;right:0;
-  height:14px;
-  z-index:1600;
-  pointer-events:none;
-  overflow:visible;
-  transform:translateZ(0);
-}
-.electric-band .container{
-  position:absolute;
-  left:0;
-  top:50%;
-  transform:translateY(-50%);
-  width:100vw;
-  max-width:none;
-  padding:0;
-  height:100%;
-  pointer-events:none;
-  box-sizing:border-box;
-}
-.lightning-svg{
-  width:100vw;
-  height:100%;
-  display:block;
-  pointer-events:none;
-  opacity:0;
-  transition:opacity .22s ease;
-  mix-blend-mode:screen;
-}
-.electric-band.connected .lightning-svg{opacity:1}
-.lightning-svg path.zap{
-  stroke:var(--gold-2);
-  stroke-width:2.2;
-  fill:none;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  opacity:.98;
-}
-.orbs{
-  position:absolute;
-  left:0;top:0;
-  width:100vw;
-  height:100%;
-  pointer-events:none;
-  overflow:visible;
-}
-.orb{
-  position:absolute;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,#fff8b0,#ffd600);
-  box-shadow:0 0 12px rgba(255,214,0,0.95),0 0 30px rgba(255,214,0,0.22);
-  transform:translate(-50%,-50%);
-  opacity:0;
-  transition:opacity .18s linear;
-}
-.electric-band.connected .orb{opacity:1}
-@keyframes buzz{
-  0%{transform:translate(-50%,-50%) translateX(-2px)}
-  50%{transform:translate(-50%,-50%) translateX(2px)}
-  100%{transform:translate(-50%,-50%) translateX(-2px)}
-}
-.orb.buzz{animation:buzz .9s linear infinite}
-.glowline{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  height:3px;
-  width:0;
-  background:linear-gradient(90deg,rgba(255,238,170,0),rgba(255,214,0,0.98),rgba(255,238,170,0));
-  border-radius:8px;
-  box-shadow:0 6px 20px rgba(255,214,0,0.12);
-  opacity:0;
-  transition:opacity .22s ease;
-}
-.electric-band.connected .glowline{
-  width:100vw;
-  opacity:1;
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{
-  0%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
-  50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}
-  100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
-}
+function renderBeginnerRoom(){
+  const loads = buildBeginnerLoads();
+  if(!loads.length){
+    roomListEl.innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Ajoutez des équipements dans le profil rapide pour voir l’estimation.</div>';
+    return;
+  }
+  const totalW = loads.reduce((s,l)=>s + Number(l.qty||0) * Number(l.powerW||0), 0);
+  const totalKwh = loads.reduce((s,l)=>s + Number(l.qty||0) * Number(l.powerW||0) * Number(l.hours||0) / 1000, 0);
 
-.hero{
-  margin-top:calc(var(--topbar-h) + var(--header-h));
-  min-height:68vh;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-  background:#0a4d2e;
-}
-.hero-bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center 40%;
-  transform:scale(1.08);
-  filter:brightness(1.02) contrast(1.03) saturate(1.04);
-}
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to bottom,rgba(0,0,0,0.06) 0%,rgba(0,0,0,0.16) 48%,rgba(0,0,0,0.28) 100%);
-  z-index:1;
-}
-.hero-content{
-  position:relative;
-  z-index:2;
-  max-width:950px;
-  padding:0 20px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-.hero-content h1{
-  font-size:clamp(34px,5vw,64px);
-  margin:0 0 12px;
-  font-weight:700;
-  text-shadow:0 3px 10px rgba(0,0,0,0.45);
-}
-.hero-content h1 span{color:var(--accent-2)}
-.hero-content p{
-  font-size:clamp(16px,1.5vw,18px);
-  margin:0 0 18px;
-  text-shadow:0 2px 8px rgba(0,0,0,0.45);
-  max-width:900px;
-  line-height:1.75;
-}
-.hero-actions{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
+  const lines = loads.map(l => {
+    const kwh = Number(l.qty||0) * Number(l.powerW||0) * Number(l.hours||0) / 1000;
+    return `
+      <div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #eef3ee;flex-wrap:wrap">
+        <div style="display:flex;gap:10px;min-width:0;align-items:flex-start">
+          <span class="room-icon" style="width:36px;height:36px;border-radius:12px"><i class="fas ${getLoadIcon(l)}"></i></span>
+          <div>
+            <div style="font-weight:800;color:#04462e;white-space:normal;word-break:break-word">${escapeHtml(l.name)}</div>
+            <div style="font-size:12px;color:#6c7d6f">${l.qty} × ${l.powerW} W × ${l.hours} h/j</div>
+          </div>
+        </div>
+        <div class="room-chip">${fmt(kwh,2)} kWh/j</div>
+      </div>
+    `;
+  }).join('');
 
-.btn-primary,.btn-secondary,.btn-reset,.btn-add,.btn-link,.btn-export,.btn-danger,.btn-soft{
-  padding:14px 22px;
-  border-radius:10px;
-  border:0;
-  font-weight:700;
-  cursor:pointer;
-  font-size:15px;
-  transition:transform .18s ease, background .18s ease, border-color .18s ease, filter .18s ease;
-}
-.btn-primary{background:var(--accent);color:#072012}
-.btn-primary:hover{background:var(--accent-2);transform:translateY(-2px)}
-.btn-secondary{
-  background:transparent;
-  color:#fff;
-  border:1px solid rgba(255,255,255,0.32);
-}
-.btn-secondary:hover{background:rgba(255,255,255,0.08);transform:translateY(-2px)}
-.btn-export{
-  background:linear-gradient(135deg,var(--gold),var(--gold-2));
-  color:#072012;
-  box-shadow:0 10px 18px rgba(212,175,55,0.14);
-}
-.btn-export:hover{transform:translateY(-2px)}
-.btn-reset{background:#ececec;color:#072012}
-.btn-add{background:var(--gold);color:#072012}
-.btn-link{background:rgba(124,179,66,.12);color:#072012;border:1px solid rgba(124,179,66,.18)}
-.btn-danger{background:#ececec;color:#072012;border:1px solid #ddd}
-.btn-soft{background:var(--soft);color:#072012;border:1px solid var(--border)}
-
-.page-center{
-  max-width:var(--max-width);
-  margin:28px auto 80px;
-  padding:0 18px;
-}
-.section{
-  padding:56px 0;
-  position:relative;
-  z-index:1;
-}
-.section h2{
-  margin:0 0 14px;
-  text-align:center;
-  color:var(--accent-2);
-  font-size:clamp(26px,3vw,38px);
-  text-shadow:0 2px 10px rgba(0,0,0,.24);
-}
-.section-intro{
-  max-width:980px;
-  margin:0 auto 24px;
-  text-align:center;
-  color:var(--muted);
-  line-height:1.78;
-  font-size:15px;
-}
-
-.card-soft{
-  background:rgba(6,31,20,.56);
-  border:1px solid rgba(212,175,55,.12);
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,.18);
-}
-.calc{
-  background:#fff;
-  color:#072012;
-  border-radius:18px;
-  padding:16px;
-  margin-top:12px;
-  box-shadow:0 10px 22px rgba(0,0,0,.25);
-  overflow:hidden;
-}
-.calc h3{
-  margin:0;
-  color:#04462e;
-  font-size:18px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.calc h3 .badge{
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-  color:#072012;
-  font-weight:900;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-}
-.small-note{font-size:12px;color:#6c7d6f;margin-top:8px}
-
-.mode-switch{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  flex-wrap:wrap;
-  margin-top:12px;
-  padding:12px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#f7fff6,#f0fff1);
-  border:1px solid #e6f7ea;
-}
-.mode-switch label{
-  font-size:13px;
-  font-weight:800;
-  color:#072012;
-}
-.mode-switch select{
-  padding:9px;
-  border-radius:8px;
-  min-width:140px;
-  border:1px solid #e6e6e6;
-  background:#fff;
-  color:#072012;
-}
-.mode-hint{
-  font-size:12px;
-  color:#5f7263;
-  margin-left:auto;
-  line-height:1.45;
-}
-
-.controls-section{
-  margin-top:12px;
-  padding:12px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#f7fff6,#f0fff1);
-  border:1px solid #e6f7ea;
-}
-.section-title{
-  margin:0 0 10px;
-  font-size:14px;
-  font-weight:900;
-  color:#04462e;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.control-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-}
-.control-field{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  min-width:0;
-}
-.control-field label{
-  font-size:13px;
-  font-weight:800;
-  color:#072012;
-  line-height:1.25;
-  white-space:normal;
-}
-.control-field select,
-.control-field input{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #e4e7e4;
-  background:#fff;
-  color:#072012;
-  min-width:0;
-}
-.control-note{
-  margin-top:8px;
-  font-size:12px;
-  color:#5f7263;
-  line-height:1.45;
-}
-@media (max-width:1100px){
-  .control-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media (max-width:560px){
-  .control-grid{grid-template-columns:1fr}
-  .mode-switch{align-items:flex-start}
-  .mode-hint{margin-left:0}
-}
-
-.generator{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:10px;
-  margin:14px 0;
-  padding:14px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#f7fff6,#f0fff1);
-  border:1px solid #e6f7ea;
-}
-.generator .gfield{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  color:#072012;
-}
-.generator .gfield label{
-  font-size:13px;
-  font-weight:700;
-}
-.generator .gfield input{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid rgba(0,0,0,.08);
-  background:#fff;
-  color:#072012;
-}
-.generator .gwide{
-  grid-column:1 / -1;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.generator .hint{
-  font-size:12px;
-  color:#5f7263;
-  line-height:1.4;
-  grid-column:1 / -1;
-}
-@media (max-width:900px){.generator{grid-template-columns:1fr 1fr}}
-@media (max-width:520px){.generator{grid-template-columns:1fr}}
-
-.beginner-profile{
-  margin-top:12px;
-  padding:14px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#f7fff6,#f0fff1);
-  border:1px solid #e6f7ea;
-}
-.beginner-profile .profile-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-  margin-bottom:10px;
-}
-.beginner-profile .profile-head strong{
-  color:#04462e;
-  font-size:14px;
-}
-.beginner-profile .profile-head span{
-  color:#6c7d6f;
-  font-size:12px;
-}
-.beginner-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:10px;
-}
-@media (max-width:1100px){.beginner-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.beginner-grid{grid-template-columns:1fr}}
-
-.room-list{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-top:10px;
-  min-height:44px;
-}
-.room-card{
-  background:linear-gradient(180deg,#fbfffb,#f4fff5);
-  color:#072012;
-  border:1px solid #e6f3ea;
-  border-radius:16px;
-  box-shadow:var(--shadow-2);
-  overflow:hidden;
-}
-.room-card summary{
-  cursor:pointer;
-  list-style:none;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  padding:14px 14px;
-  font-weight:800;
-}
-.room-card summary::-webkit-details-marker{display:none}
-.room-main{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
-  flex:1 1 auto;
-}
-.room-icon{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#ffffff,#eaf7ea);
-  border:1px solid #dfeedd;
-  color:#0b4d26;
-  box-shadow:0 8px 18px rgba(0,0,0,.08);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex:0 0 auto;
-}
-.room-icon i{font-size:18px}
-.room-title-stack{
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-}
-.room-name{
-  font-size:16px;
-  font-weight:900;
-  word-break:break-word;
-}
-.room-sub{
-  font-size:12px;
-  color:#6c7d6f;
-  word-break:break-word;
-}
-.room-head-right{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-  color:#6c7d6f;
-  font-size:12px;
-  white-space:nowrap;
-  flex:0 0 auto;
-}
-.room-chip{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 10px;
-  border-radius:999px;
-  background:#f2f7f2;
-  border:1px solid #e2ece2;
-  color:#04462e;
-  font-weight:800;
-  font-size:12px;
-  white-space:normal;
-  word-break:break-word;
-}
-.room-body{
-  border-top:1px solid #eef3ee;
-  padding:14px;
-}
-.room-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px;
-}
-.consumer-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.consumer{
-  background:#fff;
-  color:#072012;
-  border-radius:12px;
-  border:1px solid #e8efe8;
-  padding:10px;
-  box-shadow:0 8px 18px rgba(0,0,0,.06);
-  overflow:hidden;
-}
-.consumer summary{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:10px;
-  cursor:pointer;
-  list-style:none;
-  flex-wrap:wrap;
-}
-.consumer summary::-webkit-details-marker{display:none}
-.consumer-leading{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  min-width:0;
-  flex:1 1 auto;
-}
-.consumer-icon{
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  background:#f2f7f2;
-  border:1px solid #e2ece2;
-  color:#04462e;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex:0 0 auto;
-}
-.consumer-icon i{font-size:14px}
-.consumer-summary-main{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-  min-width:0;
-}
-.consumer-title{
-  font-weight:800;
-  color:#04462e;
-  word-break:break-word;
-  white-space:normal;
-}
-.consumer-meta{
-  color:#6c7d6f;
-  font-size:12px;
-  margin-top:2px;
-  word-break:break-word;
-  white-space:normal;
-}
-.consumer-chip{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:6px 10px;
-  border-radius:999px;
-  background:#f2f7f2;
-  border:1px solid #e2ece2;
-  color:#04462e;
-  font-weight:800;
-  font-size:12px;
-  white-space:nowrap;
-  flex:0 0 auto;
-}
-.consumer-body{
-  margin-top:10px;
-  border-top:1px solid #eef3ee;
-  padding-top:10px;
-}
-.consumer-fields{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr 1fr;
-  gap:8px;
-  margin-top:8px;
-}
-.consumer-fields label{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  font-size:12px;
-  font-weight:700;
-  color:#072012;
-  min-width:0;
-}
-.consumer-fields input,.consumer-fields select{
-  width:100%;
-  min-width:0;
-  padding:8px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  background:#fff;
-  color:#072012;
-}
-.consumer-actions{
-  display:flex;
-  gap:8px;
-  justify-content:flex-end;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
-
-.summary-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px;
-  margin-top:14px;
-}
-.summary-card{
-  background:linear-gradient(180deg,#fbfffb,#f3fff2);
-  padding:14px;
-  border-radius:14px;
-  border:1px solid rgba(3,50,26,0.06);
-  box-shadow:0 14px 36px rgba(2,22,12,.12);
-  color:#072012;
-  overflow:hidden;
-}
-.summary-card .label{
-  font-size:12px;
-  color:#6c7d6f;
-  text-transform:uppercase;
-  letter-spacing:.6px;
-  line-height:1.4;
-}
-.summary-card .value{
-  font-weight:900;
-  font-size:24px;
-  color:var(--green-mid-2);
-  margin-top:6px;
-  display:block;
-  overflow-wrap:anywhere;
-}
-.summary-card .small{
-  font-size:13px;
-  color:#6b7f6f;
-  margin-top:6px;
-  line-height:1.45;
-}
-@media (max-width:1100px){.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:700px){.summary-grid{grid-template-columns:1fr}}
-
-.chart-card{
-  margin-top:16px;
-  background:#fff;
-  color:#072012;
-  border-radius:18px;
-  padding:14px;
-  box-shadow:var(--shadow);
-  border:1px solid #e7f1e8;
-  overflow:hidden;
-}
-.chart-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:12px;
-}
-.chart-head h3{
-  margin:0;
-  color:#04462e;
-  font-size:18px;
-}
-.chart-head .legend{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-  font-size:12px;
-  color:#6c7d6f;
-  font-weight:700;
-}
-.lg{display:inline-flex;align-items:center;gap:6px}
-.dot{width:12px;height:12px;border-radius:50%}
-.dot.solar{background:#7cb342}
-.dot.load{background:#d4af37}
-.dot.batt{background:#0b4d26}
-.chart-wrap{
-  width:100%;
-  overflow:hidden;
-  border-radius:14px;
-  background:linear-gradient(180deg,#fbfffb,#f5fff5);
-  border:1px solid #e9f2ea;
-  padding:8px 8px 2px;
-}
-canvas{display:block;width:100%;height:auto}
-.muted-note{
-  color:#6b7f6f;
-  font-size:12px;
-  line-height:1.45;
-  overflow-wrap:anywhere;
-}
-
-.two-cols{
-  display:grid;
-  grid-template-columns:1.6fr .9fr;
-  gap:16px;
-  align-items:start;
-  margin-top:18px;
-}
-.panel{
-  background:#fff;
-  color:#072012;
-  border-radius:16px;
-  border:1px solid #e6f3ea;
-  box-shadow:var(--shadow);
-  padding:16px;
-}
-.panel h3{
-  margin:0 0 12px;
-  color:#04462e;
-  font-size:20px;
-}
-.safety-list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  margin:0;
-  padding:0;
-  list-style:none;
-}
-.safety-list li{
-  background:#fbfffb;
-  border:1px solid #e8f1e8;
-  border-radius:12px;
-  padding:10px 12px;
-  font-size:13px;
-  line-height:1.45;
-}
-
-.pdf-actions{
-  display:flex;
-  justify-content:flex-end;
-  margin-top:12px;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-footer{
-  background:var(--green-dark);
-  color:#fff;
-  padding:28px 5vw 36px;
-  position:relative;
-  margin-top:40px;
-  text-align:center;
-}
-footer::before{
-  content:"";
-  position:absolute;
-  left:0;right:0;top:0;
-  height:2px;
-  background:var(--gold);
-}
-.footer-company{
-  display:block;
-  margin:0 auto 8px;
-  font-size:18px;
-  font-weight:800;
-  color:#04462e;
-  -webkit-text-stroke:0.7px var(--gold);
-  text-shadow:0 3px 6px rgba(0,0,0,0.6);
-  padding:4px 8px;
-  border-radius:6px;
-  width:max-content;
-  background:linear-gradient(90deg,rgba(212,175,55,0.02),rgba(255,255,255,0) 40%);
-}
-.footer-contact{
-  margin-top:6px;
-  color:#e6f7ea;
-  line-height:1.6;
-}
-
-.print-block{
-  position:fixed;
-  left:-99999px;
-  top:0;
-  width:1200px;
-  background:#fff;
-  color:#072012;
-  padding:24px;
-  font-family:'Poppins',Arial,sans-serif;
-}
-
-@media (max-width:1100px){
-  nav{display:none}
-  .burger{display:flex}
-  .company-name{font-size:30px}
-  .hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
-  .section{padding:46px 4vw}
-  .card-soft{padding:14px}
-  .two-cols{grid-template-columns:1fr}
-  .hero-content{padding:24px 14px}
-}
-@media (max-width:768px){
-  .company-name{font-size:26px}
-  .topbar .right{gap:10px;font-size:13px}
-  .hero-content h1{font-size:28px}
-  .hero-content p{font-size:14px}
-  .hero-bg{object-position:center 34%;transform:scale(1.12)}
-  .consumer-fields{grid-template-columns:1fr 1fr}
-  .consumer summary,.room-card summary{flex-direction:column;align-items:flex-start}
-  .consumer-chip,.room-head-right{white-space:normal}
-  .consumer-leading,.room-main{width:100%}
-}
-@media (max-width:480px){
-  :root{--topbar-h:40px;--header-h:76px}
-  .topbar{font-size:11px;padding:0 3.5vw}
-  header{padding:0 3.5vw}
-  .logo-text img{height:46px}
-  .company-name{font-size:30px;letter-spacing:.08px}
-  .company-tagline{font-size:10px;letter-spacing:2px}
-  .burger{width:48px;height:48px}
-  .hero-bg{object-position:center 28%;transform:scale(1.18)}
-  .hero-content{max-width:92vw;padding:18px 12px}
-  .hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px}
-  .hero-content p{font-size:15px;line-height:1.45}
-  .btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}
-  .mobile-panel{padding:16px 4.5vw 20px}
-  .mobile-brand{padding:22px 4px 10px}
-  .mobile-brand .company-name{font-size:28px}
-  .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}
-  .mobile-nav a.mobile-link{font-size:20px;min-height:62px;padding:16px 16px}
-  .mobile-contact .phone-line{font-size:15px}
-  .socials{gap:14px}
-  .socials a{width:40px;height:40px;font-size:18px}
-  .section h2{font-size:26px}
-  .chart-head h3{font-size:16px}
-  .summary-card .value{font-size:22px}
-  .summary-grid{grid-template-columns:1fr}
-  .consumer-fields{grid-template-columns:1fr}
-}
-</style>
-</head>
-<body class="mode-beginner">
-
-<div class="topbar" role="banner">
-  <div class="right">
-    <a href="tel:+2250707070707" id="topPhoneLink">
-      <i class="fas fa-phone" aria-hidden="true"></i>&nbsp;<span class="phone-label">Tel:</span><span id="topPhoneText">+225 07 07 07 07 07</span>
-    </a>
-  </div>
-</div>
-
-<header role="navigation" aria-label="Main">
-  <div class="logo-text">
-    <a href="Code1.html"><img src="green bridge domo.png" alt="Logo GreenBridge"></a>
-    <div class="brand-stack">
-      <div class="company-name">GREENBRIDGE</div>
-      <div class="company-tagline">TECHNOLOGIES</div>
-    </div>
-  </div>
-
-  <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobileNav">
-    <span class="icon"><span></span><span></span><span></span></span>
-  </button>
-
-  <nav aria-label="Menu principal">
-    <a href="Code1.html">Accueil</a>
-
-    <div class="dropdown" aria-haspopup="true" aria-expanded="true" id="studyDropdown">
-      <a href="etude_dimensionnement_2.html" id="studyLink" class="active" data-current="🏙️ Zone urbaine">
-        Étude <span class="sub-badge">🏙️ Zone urbaine</span>
-      </a>
-      <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="studyDropdownContent">
-        <li><a href="zone_urbaine.html" role="menuitem" class="active-item" aria-current="page">🏙️ Zone Urbaine</a></li>
-        <li><a href="zone_agricole.html" role="menuitem">🌾 Zone Agricole</a></li>
-      </ul>
-    </div>
-
-    <div class="dropdown" aria-haspopup="true" aria-expanded="false" id="productsDropdown">
-      <a href="produits.html" id="productsLink">Nos Produits</a>
-      <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="productsDropdownContent">
-        <li><a href="panneaux.html" role="menuitem">⚡ Panneaux solaires</a></li>
-        <li><a href="batteries.html" role="menuitem">🔋 Batteries & stockage</a></li>
-        <li><a href="onduleurs.html" role="menuitem">🔌 Onduleurs</a></li>
-        <li><a href="groupes.html" role="menuitem">⚙️ Groupes électrogènes</a></li>
-      </ul>
-    </div>
-
-    <a href="Projets.html">Projets futurs</a>
-    <a href="maintenance.html">Maintenance</a>
-  </nav>
-</header>
-
-<div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
-
-<div class="mobile-nav" id="mobileNav" aria-hidden="true">
-  <div class="mobile-panel">
-    <button class="mobile-close" id="mobileCloseBtn" aria-label="Fermer le menu">×</button>
-    <div class="mobile-brand">
-      <div class="company-name">GREENBRIDGE</div>
-      <div class="company-tagline">TECHNOLOGIES</div>
-    </div>
-
-    <div class="menu-links">
-      <a href="Code1.html" class="mobile-link">Accueil</a>
-
-      <div>
-        <a href="etude_dimensionnement_2.html" id="mobileStudyToggle" class="mobile-link active" data-current="🏙️ Zone urbaine" aria-expanded="true">
-          Étude <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-        </a>
-        <div class="submenu" id="mobileStudySub" style="display:flex;">
-          <a href="zone_urbaine.html" class="active-item" aria-current="page">🏙️ Zone Urbaine</a>
-          <a href="zone_agricole.html">🌾 Zone Agricole</a>
+  roomListEl.innerHTML = `
+    <details class="room-card" open>
+      <summary>
+        <div class="room-main">
+          <span class="room-icon"><i class="fas fa-house" aria-hidden="true"></i></span>
+          <div class="room-title-stack">
+            <div class="room-name">Maison — estimation rapide</div>
+            <div class="room-sub">${loads.length} équipement(s) pris en compte</div>
+          </div>
+        </div>
+        <div class="room-head-right">
+          <span class="room-chip">${fmt(totalW,0)} W</span>
+          <span class="room-chip">${fmt(totalKwh,2)} kWh/j</span>
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </div>
+      </summary>
+      <div class="room-body">
+        <div class="consumer-list">
+          ${lines}
         </div>
       </div>
+    </details>
+  `;
+}
 
-      <div>
-        <a href="produits.html" id="mobileProductsToggle" class="mobile-link" aria-expanded="false">
-          Nos Produits <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-        </a>
-        <div class="submenu" id="mobileProductsSub">
-          <a href="panneaux.html">⚡ Panneaux solaires</a>
-          <a href="batteries.html">🔋 Batteries & stockage</a>
-          <a href="onduleurs.html">🔌 Onduleurs</a>
-          <a href="groupes.html">⚙️ Groupes électrogènes</a>
-        </div>
-      </div>
+function renderExpertRooms(){
+  const openState = captureRoomOpenState();
+  roomListEl.innerHTML = '';
+  if(rooms.length === 0){
+    roomListEl.innerHTML = '<div class="muted-note" style="margin-top:10px;color:#cde6ce">Aucune pièce générée pour le moment.</div>';
+    return;
+  }
 
-      <a href="Projets.html" class="mobile-link">Projets futurs</a>
-      <a href="maintenance.html" class="mobile-link">Maintenance</a>
-    </div>
+  rooms.forEach((room, roomIndex) => {
+    const roomTotalW = room.loads.reduce((s,l)=>s + Math.max(0, Number(l.qty||0)) * Math.max(0, Number(l.powerW||0)), 0);
+    const roomTotalKwh = room.loads.reduce((s,l)=>s + Math.max(0, Number(l.qty||0)) * Math.max(0, Number(l.powerW||0)) * Math.max(0, Number(l.hours||0)) / 1000, 0);
+    const loadsCount = room.loads.length;
 
-    <div class="mobile-contact">
-      <strong>CONTACT</strong>
-      <div class="phone-line">
-        <i class="fas fa-phone" aria-hidden="true"></i>
-        <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
-      </div>
-    </div>
+    const box = document.createElement('details');
+    box.className = 'room-card';
+    box.id = `room-block-${roomIndex}`;
+    box.open = openState[room.id] ?? room.open ?? false;
 
-    <div class="socials">
-      <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-      <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-      <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-    </div>
-  </div>
-</div>
-
-<div class="electric-band" id="electricBand" aria-hidden="true">
-  <div class="container" aria-hidden="true">
-    <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
-      <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
-      <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
-      <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
-    </svg>
-
-    <div class="orbs" id="orbs">
-      <div class="orb" id="orbA"></div>
-      <div class="orb" id="orbB"></div>
-      <div class="orb" id="orbC"></div>
-    </div>
-
-    <div class="glowline" id="glowline"></div>
-  </div>
-</div>
-
-<section class="hero" id="top" aria-label="Hero">
-  <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration zone urbaine">
-  <div class="hero-overlay"></div>
-
-  <div class="hero-content">
-    <h1>Étude <span>zone urbaine</span></h1>
-    <p>
-      Un outil simple pour dimensionner vos panneaux, batteries et onduleur à partir des équipements réels de la maison.
-    </p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('study').scrollIntoView({behavior:'smooth'})">Commencer étude</button>
-    </div>
-  </div>
-</section>
-
-<div class="page-center">
-  <section id="study" class="section" aria-label="Étude de dimensionnement">
-    <h2>Étude de dimensionnement</h2>
-    <p class="section-intro">
-      Deux parcours sont proposés : le mode <strong>Débutant</strong> pour entrer simplement les équipements d’une maison,
-      et le mode <strong>Expert</strong> pour régler chaque détail technique.
-    </p>
-
-    <div class="card-soft">
-      <div class="calc" id="calcCard">
-        <h3><span class="badge">Calculateur</span> Dimensionnement solaire simple et clair</h3>
-        <div class="small-note">
-          En mode débutant, vous entrez seulement les équipements. En mode expert, vous gardez le contrôle sur les panneaux, batteries et onduleur.
-        </div>
-
-        <div class="mode-switch">
-          <label for="studyMode">Mode :</label>
-          <select id="studyMode" aria-label="Mode d'étude">
-            <option value="beginner" selected>Débutant</option>
-            <option value="expert">Expert</option>
-          </select>
-          <div class="mode-hint" id="modeHint">Débutant : rapide et facile à prendre en main.</div>
-        </div>
-
-        <div class="controls-section">
-          <div class="section-title"><i class="fas fa-location-dot"></i> Localisation</div>
-          <div class="control-grid">
-            <div class="control-field">
-              <label for="country">Pays</label>
-              <select id="country" aria-label="Pays">
-                <option value="ci">Côte d’Ivoire</option>
-                <option value="sn">Sénégal</option>
-              </select>
-            </div>
-            <div class="control-field">
-              <label for="city">Ville</label>
-              <select id="city" aria-label="Ville"></select>
+    const loadsHtml = room.loads.map((load, loadIndex) => `
+      <details class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
+        <summary>
+          <div class="consumer-leading">
+            <span class="consumer-icon"><i class="fas ${getLoadIcon(load)}" aria-hidden="true"></i></span>
+            <div class="consumer-summary-main">
+              <div class="consumer-title">${escapeHtml(load.name || 'Charge')}</div>
+              <div class="consumer-meta">${Number(load.qty||0)} × ${Number(load.powerW||0)} W × ${Number(load.hours||0)} h/j</div>
             </div>
           </div>
-        </div>
+          <span class="consumer-chip">${fmt((Number(load.qty||0)*Number(load.powerW||0)*Number(load.hours||0))/1000,2)} kWh/j</span>
+        </summary>
 
-        <div class="beginner-only beginner-profile" id="beginnerProfile">
-          <div class="profile-head">
-            <strong><i class="fas fa-bolt"></i> Profil rapide de la maison</strong>
-            <span>Les résultats se calculent automatiquement</span>
-          </div>
-
-          <div class="beginner-grid">
-            <div class="control-field">
-              <label for="bPhones">Téléphones</label>
-              <input id="bPhones" class="beginner-input" type="number" min="0" value="4">
-            </div>
-            <div class="control-field">
-              <label for="bTV">Téléviseurs</label>
-              <input id="bTV" class="beginner-input" type="number" min="0" value="1">
-            </div>
-            <div class="control-field">
-              <label for="bTVHours">Heures TV / jour</label>
-              <input id="bTVHours" class="beginner-input" type="number" min="0" step="0.1" value="4">
-            </div>
-            <div class="control-field">
-              <label for="bFans">Ventilateurs</label>
-              <input id="bFans" class="beginner-input" type="number" min="0" value="2">
-            </div>
-            <div class="control-field">
-              <label for="bFanHours">Heures ventilation / jour</label>
-              <input id="bFanHours" class="beginner-input" type="number" min="0" step="0.1" value="8">
-            </div>
-            <div class="control-field">
-              <label for="bLights">Lampes LED</label>
-              <input id="bLights" class="beginner-input" type="number" min="0" value="6">
-            </div>
-            <div class="control-field">
-              <label for="bLightHours">Heures éclairage / jour</label>
-              <input id="bLightHours" class="beginner-input" type="number" min="0" step="0.1" value="5">
-            </div>
-            <div class="control-field">
-              <label for="bFridges">Réfrigérateurs</label>
-              <input id="bFridges" class="beginner-input" type="number" min="0" value="1">
-            </div>
-            <div class="control-field">
-              <label for="bPCs">Ordinateurs</label>
-              <input id="bPCs" class="beginner-input" type="number" min="0" value="0">
-            </div>
-          </div>
-
-          <div class="control-note">
-            Les valeurs sont des nombres d’équipements. Exemple : si vous avez 5 téléphones dans la maison, vous mettez 5.
-          </div>
-        </div>
-
-        <div class="expert-only controls-section">
-          <div class="section-title"><i class="fas fa-sliders"></i> Réglages techniques</div>
-          <div class="control-grid">
-            <div class="control-field">
-              <label for="batteryType">Batterie</label>
-              <select id="batteryType" aria-label="Type de batterie">
-                <option value="lithium_ion">Lithium ion</option>
-                <option value="lifepo4">LiFePO4</option>
-                <option value="gel">Gel</option>
-                <option value="plomb">Plomb</option>
-              </select>
-            </div>
-
-            <div class="control-field">
-              <label for="batteryPackCount">Nb packs</label>
-              <select id="batteryPackCount" aria-label="Nombre de packs">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4" selected>4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-            </div>
-
-            <div class="control-field">
-              <label for="battPackKwh">Capacité pack</label>
-              <select id="battPackKwh" aria-label="Capacité pack">
-                <option value="500">500 Wh</option>
-                <option value="1000">1000 Wh</option>
-                <option value="1500">1500 Wh</option>
-                <option value="2000">2000 Wh</option>
-                <option value="2500">2500 Wh</option>
-                <option value="3000">3000 Wh</option>
-                <option value="3500">3500 Wh</option>
-                <option value="4000">4000 Wh</option>
-                <option value="4500">4500 Wh</option>
-                <option value="5000" selected>5000 Wh</option>
-              </select>
-            </div>
-
-            <div class="control-field">
-              <label for="panelW">Panneau</label>
-              <select id="panelW" aria-label="Puissance panneau">
-                <option value="50">50 W</option>
-                <option value="100">100 W</option>
-                <option value="150">150 W</option>
-                <option value="200">200 W</option>
-                <option value="250">250 W</option>
-                <option value="300">300 W</option>
-                <option value="350" selected>350 W</option>
-                <option value="400">400 W</option>
-                <option value="450">450 W</option>
-                <option value="500">500 W</option>
-                <option value="550">550 W</option>
-              </select>
-            </div>
-
-            <div class="control-field">
-              <label for="cableSection">Section câble</label>
-              <select id="cableSection" aria-label="Section câble">
-                <option value="auto" selected>Auto</option>
-                <option value="1.5">1.5 mm²</option>
-                <option value="2.5">2.5 mm²</option>
-                <option value="4">4 mm²</option>
-                <option value="6">6 mm²</option>
-                <option value="10">10 mm²</option>
-                <option value="16">16 mm²</option>
-                <option value="25">25 mm²</option>
-              </select>
-            </div>
-          </div>
-          <div class="control-note">
-            Ces réglages apparaissent seulement en mode expert.
-          </div>
-        </div>
-
-        <div class="expert-only generator" role="group" aria-label="Générateur rapide de pièces">
-          <div class="gfield">
-            <label>Chambres</label>
-            <input type="number" id="genBedrooms" min="0" value="1">
-          </div>
-          <div class="gfield">
-            <label>Salons</label>
-            <input type="number" id="genLiving" min="0" value="1">
-          </div>
-          <div class="gfield">
-            <label>Cuisines</label>
-            <input type="number" id="genKitchens" min="0" value="1">
-          </div>
-          <div class="gfield">
-            <label>Salles d'eau</label>
-            <input type="number" id="genBaths" min="0" value="1">
-          </div>
-          <div class="gfield">
-            <label>Bureaux</label>
-            <input type="number" id="genOffices" min="0" value="0">
-          </div>
-          <div class="gfield">
-            <label>Toilettes</label>
-            <input type="number" id="genToilets" min="0" value="0">
-          </div>
-          <div class="gwide">
-            <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:#072012;font-weight:700">
-              <input type="checkbox" id="genAdd">
-              Ajouter aux pièces existantes
+        <div class="consumer-body">
+          <div class="consumer-fields">
+            <label>Nom
+              <input class="load-field" data-field="name" type="text" value="${escapeHtml(load.name)}">
             </label>
-            <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
+            <label>${load.countLabel || 'Qté'}
+              <input class="load-field" data-field="qty" type="number" min="0" value="${load.qty}">
+            </label>
+            <label>W
+              <input class="load-field" data-field="powerW" type="number" min="0" value="${load.powerW}">
+            </label>
+            <label>h/j
+              <input class="load-field" data-field="hours" type="number" min="0" step="0.1" value="${load.hours}">
+            </label>
           </div>
-          <div class="hint">
-            Les pièces sont générées uniquement en mode expert.
+
+          <div class="consumer-actions">
+            <button class="btn-danger btn-remove-load" type="button">Supprimer</button>
+          </div>
+        </div>
+      </details>
+    `).join('');
+
+    box.innerHTML = `
+      <summary>
+        <div class="room-main">
+          <span class="room-icon"><i class="fas ${getRoomIcon(room.type)}" aria-hidden="true"></i></span>
+          <div class="room-title-stack">
+            <div class="room-name">${escapeHtml(room.name)}</div>
+            <div class="room-sub">${escapeHtml(room.type)} · ${loadsCount} charge${loadsCount > 1 ? 's' : ''}</div>
+          </div>
+        </div>
+        <div class="room-head-right">
+          <span class="room-chip">${fmt(roomTotalW,0)} W</span>
+          <span class="room-chip">${fmt(roomTotalKwh,2)} kWh/j</span>
+          <i class="fas fa-chevron-down" aria-hidden="true"></i>
+        </div>
+      </summary>
+
+      <div class="room-body">
+        <div class="room-actions">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn-link btn-add-load" data-r="${roomIndex}" type="button">+ charge</button>
+            <button class="btn-reset btn-remove-room" data-r="${roomIndex}" type="button">Suppr pièce</button>
+          </div>
+          <span class="room-chip"><i class="fas fa-bolt" aria-hidden="true"></i> ${fmt(roomTotalW,0)} W</span>
+        </div>
+
+        <div class="consumer-list">
+          ${loadsHtml || '<div class="muted-note" style="padding:6px 0;color:#6c7d6f">Aucune charge ajoutée</div>'}
+        </div>
+      </div>
+    `;
+    roomListEl.appendChild(box);
+  });
+}
+
+function renderRooms(){
+  if(isBeginner()) renderBeginnerRoom();
+  else renderExpertRooms();
+}
+
+function onLoadChange(e){
+  const target = e.target;
+  if(!target.classList.contains('load-field')) return;
+  const consumer = target.closest('.consumer');
+  if(!consumer) return;
+
+  const roomIndex = Number(consumer.dataset.r);
+  const loadIndex = Number(consumer.dataset.l);
+  const field = target.dataset.field;
+  let value = target.value;
+
+  if(['qty','powerW','hours'].includes(field)) value = Number(value || 0);
+  rooms[roomIndex].loads[loadIndex][field] = value;
+  recalc();
+}
+
+function getExpertLoads(){
+  const list = [];
+  rooms.forEach((room, roomIndex) => {
+    room.loads.forEach((load, loadIndex) => {
+      list.push({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type });
+    });
+  });
+  return list;
+}
+
+function getCurrentLoads(){
+  return isBeginner() ? buildBeginnerLoads() : getExpertLoads();
+}
+
+function getSafetyPoints(){
+  return [
+    'Parafoudre DC/AC et protections contre surtension.',
+    'Disjoncteurs, fusibles et sectionnement accessibles.',
+    'Mise à la terre et câblage dimensionnés correctement.',
+    'Ventilation correcte de l’emplacement batteries.',
+    'Réserve d’exploitation et marge de sécurité recommandées.'
+  ];
+}
+
+function roomDiversity(name){
+  const n = String(name || '').toLowerCase();
+  if(n.includes('éclairage') || n.includes('eclairage')) return 1.0;
+  if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv')) return 0.85;
+  if(n.includes('décodeur') || n.includes('decodeur') || n.includes('recharge')) return 1.0;
+  if(n.includes('ventilation') || n.includes('ventilateur')) return 0.95;
+  if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) return 0.35;
+  if(n.includes('micro')) return 0.30;
+  if(n.includes('blender')) return 0.30;
+  if(n.includes('ordinateur')) return 1.0;
+  return 1.0;
+}
+
+function dailySolarCurve(pvKw){
+  const curve = [];
+  for(let h=0; h<24; h++){
+    let solar = 0;
+    if(h >= 6 && h <= 18){
+      const x = (h - 6) / 12 * Math.PI;
+      solar = Math.max(0, Math.sin(x)) * pvKw;
+    }
+    curve.push(solar);
+  }
+  return curve;
+}
+function loadCurve(loads){
+  const curve = Array(24).fill(0);
+  loads.forEach(l => {
+    const powerKw = Number(l.powerW || 0) / 1000;
+    const hours = Math.max(0, Number(l.hours || 0));
+    let start = 8;
+    if(/éclairage|eclairage|lumière|light/i.test(l.name)) start = 18;
+    if(/téléviseur|televiseur|tv|décodeur|decodeur/i.test(l.name)) start = 19;
+    if(/réfrigérateur|refrigerateur|frigo/i.test(l.name)) start = 0;
+    if(/ventilation|ventilateur/i.test(l.name)) start = 12;
+    if(/ordinateur|bureau/i.test(l.name)) start = 8;
+    if(/micro|cuisine|blender/i.test(l.name)) start = 12;
+    const end = clamp(start + Math.max(1, Math.round(hours)), 0, 24);
+    for(let h=start; h<end; h++) curve[h] += powerKw;
+  });
+  return curve;
+}
+function batteryCurve(solar, load, capacityKwh, initialPct=0.6){
+  const arr = [];
+  let soc = capacityKwh * initialPct;
+  for(let h=0; h<24; h++){
+    const net = solar[h] - load[h];
+    soc = clamp(soc + net, 0, capacityKwh);
+    arr.push(soc);
+  }
+  return arr;
+}
+function drawChart(solarCurve, loadCurveArr, batterySoc, yMax, extraLabel){
+  const canvas = document.getElementById('dailyChart');
+  if(!canvas) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  const cssWidth = canvas.parentElement.clientWidth;
+  const cssHeight = Math.max(280, Math.round(cssWidth * 0.34));
+  canvas.width = Math.round(cssWidth * dpr);
+  canvas.height = Math.round(cssHeight * dpr);
+  canvas.style.height = cssHeight + 'px';
+
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,cssWidth,cssHeight);
+
+  const padL = 56, padR = 20, padT = 18, padB = 44;
+  const w = cssWidth, h = cssHeight;
+  const chartW = w - padL - padR;
+  const chartH = h - padT - padB;
+  const maxVal = Math.max(1, yMax || 1);
+
+  ctx.fillStyle = '#fbfffb';
+  ctx.fillRect(0,0,w,h);
+
+  ctx.strokeStyle = '#e6f1e6';
+  ctx.lineWidth = 1;
+  ctx.font = '12px Poppins, Arial';
+  ctx.fillStyle = '#6b7f6b';
+
+  for(let i=0;i<=5;i++){
+    const y = padT + chartH * i/5;
+    ctx.beginPath();
+    ctx.moveTo(padL, y);
+    ctx.lineTo(w-padR, y);
+    ctx.stroke();
+    ctx.fillText((maxVal*(1-i/5)).toFixed(1), 10, y+4);
+  }
+  for(let i=0;i<=6;i++){
+    const x = padL + chartW * i/6;
+    ctx.beginPath();
+    ctx.moveTo(x, padT);
+    ctx.lineTo(x, padT+chartH);
+    ctx.stroke();
+    ctx.fillText(String(i*4).padStart(2,'0')+'h', x-10, h-16);
+  }
+
+  const xForHour = hour => padL + (hour/23) * chartW;
+  const yForVal = val => padT + chartH - (val / maxVal) * chartH;
+
+  ctx.beginPath();
+  ctx.moveTo(xForHour(0), yForVal(0));
+  for(let h=0;h<24;h++) ctx.lineTo(xForHour(h), yForVal(solarCurve[h] || 0));
+  ctx.lineTo(xForHour(23), yForVal(0));
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(124,179,66,.18)';
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.moveTo(xForHour(0), yForVal(0));
+  for(let h=0;h<24;h++) ctx.lineTo(xForHour(h), yForVal(loadCurveArr[h] || 0));
+  ctx.lineTo(xForHour(23), yForVal(0));
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(212,175,37,.18)';
+  ctx.fill();
+
+  ctx.beginPath();
+  for(let h=0;h<24;h++){
+    const x = xForHour(h);
+    const y = yForVal(solarCurve[h] || 0);
+    if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle = '#7cb342';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.beginPath();
+  for(let h=0;h<24;h++){
+    const x = xForHour(h);
+    const y = yForVal(loadCurveArr[h] || 0);
+    if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.strokeStyle = '#d4af37';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  if(batterySoc && batterySoc.length){
+    const battMax = Math.max(...batterySoc,1);
+    ctx.beginPath();
+    for(let h=0;h<24;h++){
+      const x = xForHour(h);
+      const y = yForVal((batterySoc[h]/battMax) * maxVal);
+      if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = '#0b4d26';
+    ctx.setLineDash([6,5]);
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  ctx.fillStyle = '#04462e';
+  ctx.font = '700 13px Poppins, Arial';
+  ctx.fillText(extraLabel || '', padL, 16);
+}
+
+function chooseBatteryTypeForBeginner(dailyKwh){
+  if(dailyKwh <= 1.2) return BATTERY_TYPES.lithium_ion;
+  if(dailyKwh <= 4.0) return BATTERY_TYPES.lifepo4;
+  return BATTERY_TYPES.lifepo4;
+}
+
+function recalc(){
+  const loads = getCurrentLoads();
+  const hasLoads = loads.length > 0;
+
+  let installedPower = 0;
+  let peakPower = 0;
+  let dailyWh = 0;
+
+  loads.forEach(load => {
+    const qty = Math.max(0, Number(load.qty || 0));
+    const powerW = Math.max(0, Number(load.powerW || 0));
+    const hours = Math.max(0, Number(load.hours || 0));
+    const totalPower = qty * powerW;
+    installedPower += totalPower;
+    peakPower += totalPower * roomDiversity(load.name);
+    dailyWh += totalPower * hours;
+  });
+
+  const city = cityEl.value;
+  const sunHours = getSunHours(city);
+
+  const dailyKwh = dailyWh / 1000;
+  const monthlyKwh = dailyKwh * 30;
+
+  let batteryProfile;
+  let batteryPackCount;
+  let battPackWh;
+  let panelW;
+  let selectedCable;
+  let pvKwRec;
+  let panelCountRec;
+  let inverterNeed;
+  let batteryUsefulTotal;
+  let autonomyDays;
+  let cableSuggested;
+  let cableFinal;
+  let batteryLabel;
+
+  if(isBeginner()){
+    batteryProfile = chooseBatteryTypeForBeginner(dailyKwh);
+    batteryPackCount = Math.max(1, Math.ceil((dailyKwh * BEGINNER_TARGET_AUTONOMY_DAYS) / (STANDARD_PACK_WH/1000 * batteryProfile.dod * batteryProfile.eff)));
+    battPackWh = STANDARD_PACK_WH;
+    panelW = STANDARD_PANEL_W;
+    selectedCable = 'auto';
+
+    pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
+    panelCountRec = Math.max(0, Math.ceil((pvKwRec * 1000) / panelW));
+    inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
+    batteryUsefulTotal = batteryPackCount * (battPackWh/1000) * batteryProfile.dod * batteryProfile.eff;
+    autonomyDays = dailyKwh > 0 ? batteryUsefulTotal / dailyKwh : 0;
+    cableSuggested = recommendCableSection(inverterNeed, 230);
+    cableFinal = cableSuggested;
+    batteryLabel = `${batteryProfile.label} conseillé`;
+  }else{
+    batteryProfile = getBatteryProfile(batteryTypeEl.value);
+    batteryPackCount = Math.max(1, Number(batteryPackCountEl.value || 4));
+    battPackWh = Math.max(500, Number(battPackKwhEl.value || 5000));
+    panelW = Math.max(50, Number(panelWEl.value || 350));
+    selectedCable = cableSectionEl.value;
+
+    pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
+    panelCountRec = Math.max(0, Math.ceil((pvKwRec * 1000) / panelW));
+    inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
+    batteryUsefulTotal = batteryPackCount * (battPackWh/1000) * batteryProfile.dod * batteryProfile.eff;
+    autonomyDays = dailyKwh > 0 ? batteryUsefulTotal / dailyKwh : 0;
+    cableSuggested = recommendCableSection(inverterNeed, 230);
+    cableFinal = selectedCable === 'auto' ? cableSuggested : Number(selectedCable);
+    batteryLabel = batteryProfile.label;
+  }
+
+  consDayCard.innerText = hasLoads ? `${fmt(dailyKwh,2)} kWh` : '—';
+  consMonthCard.innerText = hasLoads ? `${fmt(monthlyKwh,2)} kWh` : '—';
+  powerInstalledCard.innerText = hasLoads ? `${Math.round(installedPower)} W` : '—';
+  inverterRecCard.innerText = hasLoads ? `${inverterNeed} W` : '—';
+  pvRecCard.innerText = hasLoads ? `${fmt(pvKwRec,2)} kWc` : '—';
+  batteryRecCard.innerText = hasLoads
+    ? isBeginner()
+      ? `${fmt(batteryUsefulTotal,2)} kWh`
+      : `${fmt(batteryUsefulTotal,2)} kWh`
+    : '—';
+  autonomyCard.innerText = hasLoads ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''}` : '—';
+  panelCountCard.innerText = hasLoads ? `${panelCountRec}` : '—';
+  batteryTypeOutEl.innerText = batteryLabel;
+  cableRecCard.innerText = hasLoads ? formatCableChoice(isBeginner() ? 'auto' : selectedCable, cableSuggested) : '—';
+
+  const solar = dailySolarCurve(pvKwRec);
+  const load = loadCurve(loads);
+  const battery = batteryCurve(solar, load, Math.max(1, batteryUsefulTotal || 1), 0.45);
+  const yMax = Math.max(1, ...solar, ...load, ...battery);
+  drawChart(solar, load, battery, yMax, hasLoads ? 'Zone urbaine — profil 24 h' : 'Zone urbaine');
+
+  safetyCard.innerText = getSafetyPoints().join(' · ');
+
+  if(isBeginner()){
+    summaryRooms.innerText = hasLoads ? `Maison simple · ${loads.length} équipement(s)` : 'Maison simple';
+    summaryAutonomy.innerText = hasLoads ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''}` : '—';
+    summaryBatteries.innerText = hasLoads ? `${batteryPackCount} pack(s) de 5 kWh environ` : '—';
+    summaryCable.innerText = hasLoads ? `${fmt(cableSuggested,1)} mm² conseillé` : '—';
+  }else{
+    summaryRooms.innerText = hasLoads
+      ? `${rooms.length} pièce(s) avec ${loads.length} charge(s).`
+      : 'Aucune pièce générée pour le moment.';
+    summaryAutonomy.innerText = hasLoads
+      ? `${fmt(autonomyDays,2)} jour${autonomyDays > 1 ? 's' : ''} avec ${batteryPackCount} pack(s).`
+      : '—';
+    summaryBatteries.innerText = hasLoads
+      ? `${batteryPackCount} pack(s), soit ${fmt(batteryUsefulTotal,2)} kWh utile totale. Durée de vie : ${batteryProfile.lifeLabel}.`
+      : '—';
+    summaryCable.innerText = hasLoads
+      ? `${isBeginner() ? 'Auto' : (cableSectionEl.value === 'auto' ? 'Auto' : `${fmt(Number(cableSectionEl.value),1)} mm²`)} → ${fmt(cableSuggested,1)} mm² conseillé`
+      : '—';
+  }
+
+  lastCalcSnapshot = {
+    timestamp:new Date().toLocaleString('fr-FR'),
+    mode:studyModeEl.value,
+    country:countryEl.value,
+    countryLabel:countryEl.options[countryEl.selectedIndex]?.text || '',
+    city:cityEl.value,
+    cityLabel:cityEl.options[cityEl.selectedIndex]?.text || '',
+    installedPower,
+    peakPower,
+    dailyKwh,
+    monthlyKwh,
+    pvKwRec,
+    panelCountRec,
+    inverterNeed,
+    batteryUsefulTotal,
+    autonomyDays,
+    batteryPackCount,
+    battPackKwh,
+    batteryType:batteryProfile.label,
+    batteryLifeYears:batteryProfile.lifeLabel,
+    batteryCycles:batteryProfile.cycles,
+    cableSelected:isBeginner() ? 'auto' : selectedCable,
+    cableSuggested,
+    cableFinal,
+    loads,
+    roomsCount:isBeginner() ? 1 : rooms.length,
+    safetyPoints:getSafetyPoints(),
+    sunHours
+  };
+
+  return lastCalcSnapshot;
+}
+
+function renderPdfBlock(){
+  const s = lastCalcSnapshot;
+  if(!s) return '';
+  const loadsRows = (s.loads || []).map(l => `
+    <tr>
+      <td style="padding:8px;border:1px solid #e6e6e6">${escapeHtml(l.name)}</td>
+      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.qty}</td>
+      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.powerW} W</td>
+      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${l.hours} h/j</td>
+      <td style="padding:8px;border:1px solid #e6e6e6;text-align:center">${fmt((l.qty*l.powerW*l.hours)/1000,2)} kWh/j</td>
+    </tr>
+  `).join('');
+  const safety = (s.safetyPoints || []).map(item => `<li style="margin-bottom:6px">${item}</li>`).join('');
+  return `
+    <div style="position:relative;width:1120px;padding:22px;background:#fff;color:#222;font-family:Poppins,Arial,sans-serif;">
+      <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">GREENBRIDGE — À TITRE INDICATIF</div>
+      <div style="position:relative;z-index:1;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px 10px;border-radius:8px;border:1px solid #dfeedf">
+              <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
+              <div style="font-size:11px;color:#556b56">Étude zone urbaine</div>
+            </div>
+            <div>
+              <div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone urbaine</div>
+              <div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.roomsCount} élément(s) — ${s.cityLabel}</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:11px;color:#666;margin-top:6px">${s.countryLabel} — ${s.cityLabel}</div>
           </div>
         </div>
 
-        <div class="muted-note" style="margin-top:8px;margin-bottom:8px;color:#6c7d6f">
-          Les pièces restent fermées par défaut pour garder l’écran léger.
-        </div>
-
-        <div id="roomsList" class="room-list"></div>
-
-        <div style="margin-top:14px">
-          <h4 style="margin:0 0 8px 0;color:#04462e">Résumé technique</h4>
-
-          <div class="summary-grid">
-            <div class="summary-card">
-              <div class="label">Puissance installée</div>
-              <div id="powerInstalledCard" class="value">—</div>
-              <div class="small">Somme nominale de toutes les charges.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Consommation / jour</div>
-              <div id="consDayCard" class="value">—</div>
-              <div class="small">Base de calcul du dimensionnement.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Consommation / mois</div>
-              <div id="consMonthCard" class="value">—</div>
-              <div class="small">Référence sur 30 jours.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Onduleur conseillé</div>
-              <div id="inverterRecCard" class="value">—</div>
-              <div class="small">Valeur standard supérieure.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Puissance PV</div>
-              <div id="pvRecCard" class="value">—</div>
-              <div class="small">Puissance solaire recommandée.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Nombre de panneaux</div>
-              <div id="panelCountCard" class="value">—</div>
-              <div class="small">Arrondi au panneau entier.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Batterie utile totale</div>
-              <div id="batteryRecCard" class="value">—</div>
-              <div class="small">Selon le mode et le réglage.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Autonomie estimée</div>
-              <div id="autonomyCard" class="value">—</div>
-              <div class="small">Lecture rapide de l’autonomie.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Section câble conseillée</div>
-              <div id="cableRecCard" class="value">—</div>
-              <div class="small">Basée sur l’intensité et une marge de sécurité.</div>
-            </div>
-
-            <div class="summary-card">
-              <div class="label">Type batterie</div>
-              <div id="batteryTypeOut" class="value">—</div>
-              <div class="small">Recommandation ou sélection.</div>
-            </div>
+        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <div><div style="font-weight:700">Puissance installée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div></div>
+            <div><div style="font-weight:700">Onduleur standard conseillé</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div></div>
+            <div><div style="font-weight:700">Consommation / jour</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div></div>
+            <div><div style="font-weight:700">Consommation / mois</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div></div>
+            <div><div style="font-weight:700">PV requis</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div></div>
+            <div><div style="font-weight:700">Nb panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div></div>
+            <div><div style="font-weight:700">Batterie utile totale</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div></div>
+            <div><div style="font-weight:700">Autonomie estimée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div></div>
+            <div><div style="font-weight:700">Section câble</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.cableFinal,1)} mm²</div></div>
           </div>
         </div>
 
-        <div class="chart-card">
-          <div class="chart-head">
-            <h3>Profil journalier 24 h</h3>
-            <div class="legend">
-              <span class="lg"><span class="dot solar"></span>Production solaire</span>
-              <span class="lg"><span class="dot load"></span>Consommation</span>
-              <span class="lg"><span class="dot batt"></span>Batterie</span>
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas>
-          </div>
-          <div class="muted-note" style="margin-top:8px">
-            Le soleil est pris en compte de 06h à 18h.
-          </div>
+        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+          <div style="font-weight:700;margin-bottom:6px">Points de sécurité</div>
+          <ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">${safety}</ul>
         </div>
 
-        <div class="pdf-actions">
-          <button id="exportPdfBtn" class="btn-export" type="button">
-            <i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF
-          </button>
+        <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
+          <div style="font-weight:700;margin-bottom:8px">Détail des charges</div>
+          <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
+            <thead>
+              <tr>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
+                <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">kWh/j</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${loadsRows || '<tr><td colspan="5" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune donnée</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
+          <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
+          <div>Export : ${s.timestamp}</div>
         </div>
       </div>
     </div>
-  </section>
+  `;
+}
 
-  <section class="section">
-    <h2>Pourquoi cette étude est utile ?</h2>
+async function generatePDF(){
+  try{
+    if(!lastCalcSnapshot) recalc();
+    const wrapper = document.getElementById('printBlock');
+    wrapper.innerHTML = renderPdfBlock();
+    const element = wrapper.firstElementChild;
+    const canvas = await html2canvas(element, { scale: 2, useCORS:true, backgroundColor:'#ffffff' });
+    const imgData = canvas.toDataURL('image/png');
 
-    <div class="two-cols">
-      <div class="panel">
-        <h3>Synthèse principale</h3>
-        <div class="muted-note" style="margin-bottom:12px">
-          La synthèse vous donne l’essentiel pour décider du matériel à installer chez vous.
-        </div>
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p','mm','a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 10;
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfImgWidth = pageWidth - margin*2;
+    const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
 
-        <div class="summary-grid">
-          <div class="summary-card">
-            <div class="label">Pièces / profil</div>
-            <div id="summaryRooms" class="value">—</div>
-            <div class="small">Maison rapide ou pièces détaillées.</div>
-          </div>
+    if(pdfImgHeight <= pageHeight - margin*2){
+      pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight);
+    }else{
+      const sliceHeightPx = Math.floor((pageHeight - margin*2) / pdfImgHeight * canvas.height);
+      let rendered = 0;
+      while(rendered < canvas.height){
+        const sliceH = Math.min(canvas.height - rendered, sliceHeightPx);
+        const sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width = canvas.width;
+        sliceCanvas.height = sliceH;
+        const ctx = sliceCanvas.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0,0,sliceCanvas.width,sliceCanvas.height);
+        ctx.drawImage(canvas,0,rendered,sliceCanvas.width,sliceCanvas.height,0,0,sliceCanvas.width,sliceCanvas.height);
+        const sliceData = sliceCanvas.toDataURL('image/png');
+        const sliceImgProps = pdf.getImageProperties(sliceData);
+        const sliceImgHeight = (sliceImgProps.height * pdfImgWidth) / sliceImgProps.width;
+        if(rendered > 0) pdf.addPage();
+        pdf.addImage(sliceData,'PNG',margin,margin,pdfImgWidth,sliceImgHeight);
+        rendered += sliceH;
+      }
+    }
 
-          <div class="summary-card">
-            <div class="label">Autonomie liée</div>
-            <div id="summaryAutonomy" class="value">—</div>
-            <div class="small">Batterie et consommation.</div>
-          </div>
+    pdf.setFontSize(9);
+    pdf.setTextColor(120);
+    pdf.text('GreenBridge — Synthèse indicative',margin,pageHeight-6);
+    const filename = `GreenBridge_zone_urbaine_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
+    pdf.save(filename);
+  }catch(err){
+    console.error(err);
+    alert('Erreur lors de la génération du PDF. Voir console pour détails.');
+  }
+}
 
-          <div class="summary-card">
-            <div class="label">Batteries</div>
-            <div id="summaryBatteries" class="value">—</div>
-            <div class="small">Pack total et durée de vie.</div>
-          </div>
+function openMenu(){
+  mobileNav.classList.add('open');
+  mobileBackdrop.classList.add('open');
+  burgerBtn.classList.add('open');
+  mobileNav.setAttribute('aria-hidden','false');
+  burgerBtn.setAttribute('aria-expanded','true');
+  document.body.classList.add('menu-open');
 
-          <div class="summary-card">
-            <div class="label">Section câble</div>
-            <div id="summaryCable" class="value">—</div>
-            <div class="small">Choix recommandé / sélectionné.</div>
-          </div>
-        </div>
+  const studySub = document.getElementById('mobileStudySub');
+  const studyToggle = document.getElementById('mobileStudyToggle');
+  if(studySub && studyToggle){
+    studySub.style.display = 'flex';
+    studyToggle.setAttribute('aria-expanded','true');
+    studyToggle.classList.add('active');
+  }
 
-        <div class="muted-note" style="margin-top:12px">
-          Pour une étude plus fine, une validation terrain reste nécessaire : câbles, protections DC/AC, chute de tension, structure, mise à la terre et réserve d’exploitation.
-        </div>
-      </div>
+  const productsSub = document.getElementById('mobileProductsSub');
+  const productsToggle = document.getElementById('mobileProductsToggle');
+  if(productsSub && productsToggle){
+    productsSub.style.display = 'none';
+    productsToggle.setAttribute('aria-expanded','false');
+    productsToggle.classList.remove('active');
+  }
+}
+function closeMenu(){
+  mobileNav.classList.remove('open');
+  mobileBackdrop.classList.remove('open');
+  burgerBtn.classList.remove('open');
+  mobileNav.setAttribute('aria-hidden','true');
+  burgerBtn.setAttribute('aria-expanded','false');
+  document.body.classList.remove('menu-open');
+  document.querySelectorAll('.mobile-nav .submenu').forEach(s => s.style.display = 'none');
+}
+function bindMobileExpandable(toggleEl, subEl){
+  if(!toggleEl || !subEl) return;
+  toggleEl.addEventListener('click', function(e){
+    if(e.target.closest('.caret')){
+      e.preventDefault();
+      e.stopPropagation();
+      const opening = subEl.style.display !== 'flex';
+      document.querySelectorAll('.mobile-nav .submenu').forEach(s => {
+        if(s !== subEl) s.style.display = 'none';
+      });
+      subEl.style.display = opening ? 'flex' : 'none';
+      toggleEl.setAttribute('aria-expanded', String(opening));
+      toggleEl.classList.toggle('active', opening);
+      openMenu();
+    }else{
+      closeMenu();
+    }
+  });
+}
+function setupDesktopDropdowns(){
+  document.querySelectorAll('.dropdown').forEach(drop => {
+    const menu = drop.querySelector('.dropdown-content');
+    const trigger = drop.querySelector('a');
+    if(!menu || !trigger) return;
 
-      <div class="panel">
-        <h3>Points de sécurité</h3>
-        <ul class="safety-list">
-          <li><strong>Protection :</strong> sectionneur, fusibles, parafoudre et mise à la terre.</li>
-          <li><strong>Charges :</strong> ne pas sous-dimensionner l’onduleur et les câbles.</li>
-          <li><strong>Batterie :</strong> ventilation, câbles protégés et bornes sécurisées.</li>
-          <li><strong>Exploitation :</strong> garder une marge d’exploitation raisonnable.</li>
-          <li><strong>Terrain :</strong> vérifier les longueurs, les pertes et les conditions réelles.</li>
-        </ul>
-        <div class="muted-note" style="margin-top:12px" id="summarySafety">—</div>
-      </div>
-    </div>
+    let timer;
+    drop.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      if(window.innerWidth > 1100){
+        menu.style.display = 'block';
+        drop.setAttribute('aria-expanded','true');
+      }
+    });
+    drop.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => {
+        if(window.innerWidth > 1100){
+          menu.style.display = 'none';
+          drop.setAttribute('aria-expanded','false');
+        }
+      }, 180);
+    });
+    trigger.addEventListener('click', (e) => {
+      if(window.innerWidth <= 1100){
+        e.preventDefault();
+        if(menu.style.display === 'block'){
+          menu.style.display = 'none';
+          drop.setAttribute('aria-expanded','false');
+        }else{
+          menu.style.display = 'block';
+          drop.setAttribute('aria-expanded','true');
+        }
+      }
+    });
+  });
+}
+function applyCurrentPageState(){
+  const path = (window.location.pathname.split('/').pop() || 'zone_urbaine.html').toLowerCase();
 
-    <div style="height:24px"></div>
-  </section>
-</div>
+  document.querySelectorAll('.dropdown-content a').forEach(a => {
+    const href = (a.getAttribute('href') || '').toLowerCase();
+    if(href === path){
+      a.classList.add('active-item');
+      a.setAttribute('aria-current','page');
+      const parent = a.closest('.dropdown');
+      if(parent){
+        parent.setAttribute('aria-expanded','true');
+        const parentLink = parent.querySelector('a');
+        if(parentLink) parentLink.classList.add('active');
+      }
+    }
+  });
 
-<footer>
-  <div class="footer-company" aria-hidden="false">GREENBRIDGE TECHNOLOGIES</div>
-  <div class="footer-contact" aria-label="Coordonnées">
-    <div>© 2025 GreenBridge. Tous droits réservés.</div>
-    <div>Abidjan, Côte d’Ivoire</div>
-    <div>Tel: <span id="footerPhoneText">+225 07 07 07 07 07</span></div>
-  </div>
-</footer>
+  document.querySelectorAll('.mobile-nav a').forEach(a => {
+    const href = (a.getAttribute('href') || '').toLowerCase();
+    if(href === path){
+      a.classList.add('active');
+      a.setAttribute('aria-current','page');
+      const parentSub = a.closest('.submenu');
+      if(parentSub){
+        parentSub.style.display = 'flex';
+        const toggle = parentSub.previousElementSibling;
+        if(toggle && toggle.classList.contains('mobile-link')){
+          toggle.classList.add('active');
+          toggle.setAttribute('aria-expanded','true');
+        }
+      }
+    }
+  });
 
-<div class="print-block" id="printBlock"></div>
+  const desktopStudyDropdown = document.getElementById('studyDropdown');
+  if(desktopStudyDropdown) desktopStudyDropdown.setAttribute('aria-expanded','true');
+}
+
+function setupBrilliance(){
+  const electricBand = document.getElementById('electricBand');
+  if(!electricBand) return;
+  const orbA = document.getElementById('orbA');
+  const orbB = document.getElementById('orbB');
+  const orbC = document.getElementById('orbC');
+  const orbs = [orbA, orbB, orbC];
+  const zapBright = document.getElementById('zapBright');
+
+  const params = [
+    {rxRatio:0.50, ry:8, speed:0.22, phase:0},
+    {rxRatio:0.33, ry:6, speed:0.36, phase:Math.PI/2},
+    {rxRatio:0.42, ry:10, speed:0.18, phase:Math.PI}
+  ];
+
+  orbs.forEach((o,i)=>{
+    if(o){
+      o.classList.add('buzz');
+      o.style.animationDelay = (i*120)+'ms';
+    }
+  });
+
+  let t0 = performance.now();
+  function tick(now){
+    const time = (now - t0)/1000;
+    const cont = electricBand.querySelector('.container');
+    if(!cont){ requestAnimationFrame(tick); return; }
+    const rect = cont.getBoundingClientRect();
+    const cx = rect.width/2;
+    const cy = rect.height/2;
+    for(let i=0;i<orbs.length;i++){
+      const orb = orbs[i];
+      if(!orb) continue;
+      const p = params[i];
+      const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
+      const ry = p.ry;
+      const angle = (time * p.speed * Math.PI * 2) + p.phase;
+      const x = cx + Math.cos(angle) * rx;
+      const y = cy + Math.sin(angle) * ry;
+      orb.style.left = x + 'px';
+      orb.style.top = y + 'px';
+      orb.style.transform = 'translate(-50%,-50%)';
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  function sparkSVG(){
+    if(!zapBright) return;
+    try{
+      const len = zapBright.getTotalLength ? zapBright.getTotalLength() : 520;
+      zapBright.style.transition = 'none';
+      zapBright.setAttribute('stroke-dasharray', String(len));
+      zapBright.setAttribute('stroke-dashoffset', String(len));
+      setTimeout(()=>{
+        zapBright.style.transition = 'stroke-dashoffset 380ms ease-out, opacity 160ms';
+        zapBright.setAttribute('stroke-dashoffset','0');
+        setTimeout(()=>{ zapBright.setAttribute('stroke-dashoffset', String(len)); }, 320);
+      }, 60);
+    }catch(e){
+      zapBright.setAttribute('stroke-dasharray','520');
+      zapBright.setAttribute('stroke-dashoffset','520');
+      setTimeout(()=>{
+        zapBright.style.transition = 'stroke-dashoffset 360ms ease-out';
+        zapBright.setAttribute('stroke-dashoffset','0');
+      }, 80);
+    }
+  }
+
+  function spawnSparks(){
+    const cont = electricBand.querySelector('.container');
+    if(!cont) return;
+    for(let i=0;i<10;i++){
+      const s = document.createElement('div');
+      s.style.position = 'absolute';
+      s.style.left = (3 + Math.random()*94) + '%';
+      s.style.top = (20 + Math.random()*50) + '%';
+      s.style.width = '2px';
+      s.style.height = (8 + Math.random()*22) + 'px';
+      s.style.borderRadius = '2px';
+      s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
+      s.style.filter = 'blur(6px)';
+      s.style.opacity = '0';
+      s.style.transform = 'translateY(6px)';
+      s.style.pointerEvents = 'none';
+      s.style.zIndex = '1';
+      cont.appendChild(s);
+      setTimeout(()=>{ s.style.transition = 'all 260ms ease-out'; s.style.opacity='1'; s.style.transform='translateY(-6px)'; }, 20 + i*25);
+      setTimeout(()=>{ s.style.transition = 'all 420ms ease-in'; s.style.opacity='0'; s.style.transform='translateY(-20px)'; }, 280 + i*40);
+      setTimeout(()=>{ if(s.parentNode) s.parentNode.removeChild(s); }, 760 + i*40);
+    }
+  }
+
+  function activate(){
+    electricBand.classList.add('connected');
+    spawnSparks();
+    sparkSVG();
+    setInterval(()=>{
+      spawnSparks();
+      if(Math.random() > 0.45) sparkSVG();
+    }, 900 + Math.random()*900);
+  }
+
+  const title = document.querySelector('.company-name');
+  if(title){
+    title.addEventListener('click', ()=>{
+      const on = electricBand.classList.toggle('connected');
+      if(on){
+        spawnSparks();
+        sparkSVG();
+      }
+    });
+  }
+
+  activate();
+  window.addEventListener('resize', ()=>{ t0 = performance.now(); });
+}
+
+function updateModeUI(){
+  document.body.classList.toggle('mode-beginner', isBeginner());
+  document.body.classList.toggle('mode-expert', !isBeginner());
+
+  modeHint.textContent = isBeginner()
+    ? 'Débutant : vous saisissez seulement les équipements de la maison et les résultats se calculent tout de suite.'
+    : 'Expert : vous pouvez régler les batteries, les panneaux, la section câble et les pièces détaillées.';
+
+  if(isBeginner()){
+    genAdd.checked = false;
+  }
+
+  renderRooms();
+  recalc();
+}
+
+function generateInitialRooms(){
+  if(isBeginner()) return;
+
+  const addExisting = genAdd.checked;
+  if(!addExisting){
+    rooms = [];
+    roomCounter = 0;
+  }
+
+  const push = (type, base, count) => {
+    const n = Math.max(0, Number(count || 0));
+    for(let i=0;i<n;i++){
+      const name = n === 1 ? base : `${base} ${i+1}`;
+      rooms.push(createRoom(type, name, true));
+    }
+  };
+
+  push('Chambre','Chambre', genBedrooms.value);
+  push('Salon','Salon', genLiving.value);
+  push('Cuisine','Cuisine', genKitchens.value);
+  push("Salle d'eau","Salle d'eau", genBaths.value);
+  push('Bureau','Bureau', genOffices.value);
+  push('Toilette','Toilette', genToilets.value);
+
+  renderRooms();
+  recalc();
+}
+
+function resetDefaults(){
+  studyModeEl.value = 'beginner';
+  countryEl.value = 'ci';
+  populateCities('ci');
+  updateContacts('ci');
+  cityEl.value = 'abidjan';
+  batteryTypeEl.value = 'lithium_ion';
+  batteryPackCountEl.value = '4';
+  battPackKwhEl.value = '5000';
+  panelWEl.value = '350';
+  cableSectionEl.value = 'auto';
+  bPhones.value = 4;
+  bTV.value = 1;
+  bTVHours.value = 4;
+  bFans.value = 2;
+  bFanHours.value = 8;
+  bLights.value = 6;
+  bLightHours.value = 5;
+  bFridges.value = 1;
+  bPCs.value = 0;
+  genBedrooms.value = 1;
+  genLiving.value = 1;
+  genKitchens.value = 1;
+  genBaths.value = 1;
+  genOffices.value = 0;
+  genToilets.value = 0;
+  genAdd.checked = false;
+  rooms = [];
+  roomCounter = 0;
+  updateModeUI();
+}
+
+function init(){
+  updateContacts('ci');
+  populateCities('ci');
+  renderRooms();
+  setupDesktopDropdowns();
+  applyCurrentPageState();
+  setupBrilliance();
+  updateModeUI();
+
+  generateBtn.addEventListener('click', generateInitialRooms);
+  resetBtn.addEventListener('click', () => {
+    if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
+    resetDefaults();
+  });
+  exportPdfBtn.addEventListener('click', generatePDF);
+
+  studyModeEl.addEventListener('change', updateModeUI);
+
+  countryEl.addEventListener('change', () => {
+    populateCities(countryEl.value);
+    updateContacts(countryEl.value);
+    recalc();
+  });
+  cityEl.addEventListener('change', recalc);
+
+  [
+    bPhones,bTV,bTVHours,bFans,bFanHours,bLights,bLightHours,bFridges,bPCs,
+    batteryTypeEl,batteryPackCountEl,battPackKwhEl,panelWEl,cableSectionEl
+  ].forEach(el => {
+    if(el) el.addEventListener('input', recalc);
+    if(el) el.addEventListener('change', recalc);
+  });
+
+  roomListEl.addEventListener('input', onLoadChange);
+  roomListEl.addEventListener('change', onLoadChange);
+  roomListEl.addEventListener('click', (e) => {
+    const addLoadBtn = e.target.closest('.btn-add-load');
+    const removeRoomBtn = e.target.closest('.btn-remove-room');
+    const removeLoadBtn = e.target.closest('.btn-remove-load');
+
+    if(addLoadBtn){
+      e.preventDefault();
+      e.stopPropagation();
+      const roomIndex = Number(addLoadBtn.dataset.r);
+      rooms[roomIndex].loads.push({
+        name:'Nouvelle charge',
+        countLabel:'Quantité',
+        icon:'fa-plug',
+        qty:1,
+        powerW:0,
+        hours:0
+      });
+      rooms[roomIndex].open = true;
+      renderRooms();
+      const block = document.getElementById(`room-block-${roomIndex}`);
+      if(block) block.open = true;
+      recalc();
+      return;
+    }
+
+    if(removeRoomBtn){
+      const roomIndex = Number(removeRoomBtn.dataset.r);
+      if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
+      rooms.splice(roomIndex,1);
+      renderRooms();
+      recalc();
+      return;
+    }
+
+    if(removeLoadBtn){
+      const consumer = removeLoadBtn.closest('.consumer');
+      const roomIndex = Number(consumer.dataset.r);
+      const loadIndex = Number(consumer.dataset.l);
+      rooms[roomIndex].loads.splice(loadIndex,1);
+      renderRooms();
+      recalc();
+    }
+  });
+
+  burgerBtn.addEventListener('click', () => {
+    const opened = mobileNav.classList.contains('open');
+    if(opened) closeMenu();
+    else openMenu();
+  });
+  mobileBackdrop.addEventListener('click', closeMenu);
+  mobileCloseBtn.addEventListener('click', closeMenu);
+
+  document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => {
+    if(a.id === 'mobileStudyToggle' || a.id === 'mobileProductsToggle') return;
+    a.addEventListener('click', () => closeMenu());
+  });
+
+  bindMobileExpandable(document.getElementById('mobileStudyToggle'), document.getElementById('mobileStudySub'));
+  bindMobileExpandable(document.getElementById('mobileProductsToggle'), document.getElementById('mobileProductsSub'));
+
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
+
+  recalc();
+  window.addEventListener('resize', recalc);
+}
+init();
+</script>
+</body>
+</html>
