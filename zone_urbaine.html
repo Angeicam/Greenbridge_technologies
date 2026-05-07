@@ -1738,7 +1738,7 @@ footer::before{
             L’étude expert permet d’ajouter des pièces, puis de détailler chaque charge pièce par pièce.
           </div>
         </div>
-                <div class="muted-note" style="margin-top:8px;margin-bottom:8px;color:#6c7d6f">
+        <div class="muted-note" style="margin-top:8px;margin-bottom:8px;color:#6c7d6f">
           Les pièces restent fermées par défaut pour garder l’écran léger.
         </div>
 
@@ -2905,7 +2905,7 @@ function renderPdfBlock(){
     </div>
   `;
 }
-        function generatePDF(){
+  function generatePDF(){
   try{
     if(!lastCalcSnapshot) recalc();
     const wrapper = document.getElementById('printBlock');
