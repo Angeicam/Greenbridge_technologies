@@ -25,7 +25,6 @@
   --gold-2:#e6c95a;
   --text:#fff;
   --muted:#dfffe6;
-  --card-bg:#ffffff;
   --soft:#f5fff5;
   --soft-2:#fbfffb;
   --border:#e6f2e8;
@@ -657,6 +656,37 @@ nav a.active{
 }
 .small-note{font-size:12px;color:#6c7d6f;margin-top:8px}
 
+.mode-switch{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:12px;
+  padding:12px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#f7fff6,#f0fff1);
+  border:1px solid #e6f7ea;
+}
+.mode-switch label{
+  font-size:13px;
+  font-weight:800;
+  color:#072012;
+}
+.mode-switch select,
+.mode-switch input{
+  padding:9px;
+  border-radius:8px;
+  min-width:120px;
+  border:1px solid #e6e6e6;
+  background:#fff;
+  color:#072012;
+}
+.mode-hint{
+  font-size:12px;
+  color:#5f7263;
+  margin-left:auto;
+}
+
 .top-controls{
   display:flex;
   gap:8px;
@@ -964,7 +994,7 @@ nav a.active{
   padding:14px;
   border-radius:14px;
   border:1px solid rgba(3,50,26,0.06);
-  box-shadow:0 14px 36px rgba(2,22,12,0.12);
+  box-shadow:0 14px 36px rgba(2,22,12,.12);
   color:#072012;
   overflow:hidden;
 }
@@ -1153,20 +1183,9 @@ footer::before{
   .hero-bg{object-position:center 34%;transform:scale(1.12)}
   .generator{grid-template-columns:1fr 1fr}
   .consumer-fields{grid-template-columns:1fr 1fr}
-  .consumer summary{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-  .consumer-chip{
-    white-space:normal;
-  }
-  .room-card summary{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-  .room-head-right{
-    white-space:normal;
-  }
+  .consumer summary,.room-card summary{flex-direction:column;align-items:flex-start}
+  .consumer-chip,.room-head-right{white-space:normal}
+  .consumer-leading,.room-main{width:100%}
 }
 @media (max-width:480px){
   :root{--topbar-h:40px;--header-h:76px}
@@ -1330,8 +1349,7 @@ footer::before{
   <div class="hero-content">
     <h1>Étude <span>zone urbaine</span></h1>
     <p>
-      Une étude simple à utiliser, mais structurée comme un vrai pré-dimensionnement :
-      charges, panneaux, batteries, autonomie, onduleur standard et sécurité.
+      Un outil simple pour dimensionner vos panneaux, batteries et onduleur à partir des équipements réels de la maison.
     </p>
     <div class="hero-actions">
       <button class="btn-primary" onclick="document.getElementById('study').scrollIntoView({behavior:'smooth'})">Commencer étude</button>
@@ -1343,18 +1361,24 @@ footer::before{
   <section id="study" class="section" aria-label="Étude de dimensionnement">
     <h2>Étude de dimensionnement</h2>
     <p class="section-intro">
-      Le pays est sélectionné avant la ville pour adapter l’ensoleillement et les hypothèses de calcul.
-      Les pièces générées s’affichent clairement et restent fermées par défaut.
+      Deux parcours sont proposés : le mode <strong>Débutant</strong> pour entrer simplement les pièces et les équipements,
+      et le mode <strong>Expert</strong> pour ajuster la puissance et la durée d’utilisation de chaque charge.
     </p>
 
     <div class="card-soft">
       <div class="calc" id="calcCard">
         <h3><span class="badge">Calculateur</span> Pré-dimensionnement simple et sérieux</h3>
         <div class="small-note">
-          Les pièces sont générées uniquement au clic sur <strong>Générer pièces</strong>.
+          En mode débutant, on parle en nombre d’équipements. En mode expert, on règle aussi les watts et les heures.
         </div>
 
-        <div class="top-controls">
+        <div class="mode-switch">
+          <label for="studyMode">Mode :</label>
+          <select id="studyMode" aria-label="Mode d'étude">
+            <option value="beginner" selected>Débutant</option>
+            <option value="expert">Expert</option>
+          </select>
+
           <label for="country">Pays :</label>
           <select id="country" aria-label="Pays">
             <option value="ci">Côte d’Ivoire</option>
@@ -1429,6 +1453,10 @@ footer::before{
 
           <span class="badge-zone" id="zoneBadge"><i class="fas fa-building"></i> Zone urbaine</span>
           <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
+
+          <div class="mode-hint" id="modeHint">
+            Débutant : entrez des pièces et des quantités d’équipements. Expert : ajustez aussi les paramètres techniques.
+          </div>
         </div>
 
         <div class="generator" role="group" aria-label="Générateur rapide de pièces">
@@ -1464,12 +1492,12 @@ footer::before{
             <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
           </div>
           <div class="hint">
-            Les pièces sont créées au clic. Ensuite, toute modification des charges met la synthèse à jour automatiquement.
+            La maison est créée par pièces. À l’intérieur, vous renseignez le nombre de téléphones, téléviseurs, ventilateurs, lampes, etc.
           </div>
         </div>
 
         <div class="muted-note" style="margin-top:2px;margin-bottom:8px;color:#6c7d6f">
-          Les pièces et leurs charges restent fermées par défaut pour mieux voir le résultat généré.
+          Les pièces et leurs charges restent fermées par défaut pour garder l’écran léger.
         </div>
 
         <div id="roomsList" class="room-list"></div>
@@ -1538,10 +1566,6 @@ footer::before{
               <div class="small">Technologie sélectionnée.</div>
             </div>
           </div>
-
-          <div class="muted-note" style="margin-top:12px;color:#6c7d6f">
-            Les résultats utiles sont la consommation, l’onduleur, la puissance PV, le nombre de panneaux, la batterie utile, l’autonomie et la section de câble.
-          </div>
         </div>
 
         <div class="chart-card">
@@ -1577,7 +1601,7 @@ footer::before{
       <div class="panel">
         <h3>Synthèse principale</h3>
         <div class="muted-note" style="margin-bottom:12px">
-          La synthèse met seulement en avant les indicateurs techniques qui servent vraiment au pré-dimensionnement.
+          La synthèse vous donne l’essentiel pour décider du matériel à installer chez vous.
         </div>
 
         <div class="summary-grid">
@@ -1671,32 +1695,32 @@ const STD_INVERTERS = [300, 500, 1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000
 
 const ROOM_TEMPLATES = {
   "Chambre":[
-    { name:"Éclairage LED", qty:1, powerW:12, hours:5 },
-    { name:"Ventilation", qty:1, powerW:45, hours:8 },
-    { name:"Recharge téléphone", qty:1, powerW:10, hours:2 }
+    { name:"Téléphones", countLabel:"Téléphones", qty:1, powerW:10, hours:2, icon:"fa-mobile-screen-button" },
+    { name:"Ventilation", countLabel:"Ventilateurs", qty:1, powerW:45, hours:8, icon:"fa-fan" },
+    { name:"Éclairage", countLabel:"Lampes", qty:1, powerW:12, hours:5, icon:"fa-lightbulb" }
   ],
   "Salon":[
-    { name:"Éclairage LED", qty:2, powerW:12, hours:6 },
-    { name:"Téléviseur", qty:1, powerW:120, hours:4 },
-    { name:"Décodeur", qty:1, powerW:10, hours:6 },
-    { name:"Ventilation", qty:1, powerW:45, hours:6 }
+    { name:"Éclairage", countLabel:"Lampes", qty:2, powerW:12, hours:6, icon:"fa-lightbulb" },
+    { name:"Téléviseur", countLabel:"Téléviseurs", qty:1, powerW:120, hours:4, icon:"fa-tv" },
+    { name:"Décodeur", countLabel:"Décodeurs", qty:1, powerW:10, hours:6, icon:"fa-satellite-dish" },
+    { name:"Ventilation", countLabel:"Ventilateurs", qty:1, powerW:45, hours:6, icon:"fa-fan" }
   ],
   "Cuisine":[
-    { name:"Éclairage LED", qty:1, powerW:12, hours:5 },
-    { name:"Réfrigérateur", qty:1, powerW:70, hours:24 },
-    { name:"Micro-ondes", qty:1, powerW:900, hours:0.15 },
-    { name:"Blender", qty:1, powerW:300, hours:0.1 }
+    { name:"Éclairage", countLabel:"Lampes", qty:1, powerW:12, hours:5, icon:"fa-lightbulb" },
+    { name:"Réfrigérateur", countLabel:"Réfrigérateurs", qty:1, powerW:70, hours:24, icon:"fa-refrigerator" },
+    { name:"Micro-ondes", countLabel:"Micro-ondes", qty:1, powerW:900, hours:0.15, icon:"fa-microchip" },
+    { name:"Blender", countLabel:"Blenders", qty:1, powerW:300, hours:0.1, icon:"fa-blender" }
   ],
   "Salle d'eau":[
-    { name:"Éclairage LED", qty:1, powerW:12, hours:4 },
-    { name:"Ventilation", qty:1, powerW:50, hours:3 }
+    { name:"Éclairage", countLabel:"Lampes", qty:1, powerW:12, hours:4, icon:"fa-lightbulb" },
+    { name:"Ventilation", countLabel:"Ventilateurs", qty:1, powerW:50, hours:3, icon:"fa-fan" }
   ],
   "Bureau":[
-    { name:"Éclairage LED", qty:2, powerW:12, hours:8 },
-    { name:"Ordinateur", qty:1, powerW:90, hours:6 }
+    { name:"Éclairage", countLabel:"Lampes", qty:2, powerW:12, hours:8, icon:"fa-lightbulb" },
+    { name:"Ordinateur", countLabel:"Ordinateurs", qty:1, powerW:90, hours:6, icon:"fa-laptop" }
   ],
   "Toilette":[
-    { name:"Éclairage LED", qty:1, powerW:12, hours:3 }
+    { name:"Éclairage", countLabel:"Lampes", qty:1, powerW:12, hours:3, icon:"fa-lightbulb" }
   ]
 };
 
@@ -1709,22 +1733,8 @@ const ROOM_ICONS = {
   "Toilette": "fa-toilet"
 };
 
-function getRoomIcon(type){
-  return ROOM_ICONS[type] || "fa-house";
-}
-
-function getLoadIcon(name){
-  const n = String(name || '').toLowerCase();
-  if(n.includes('éclairage') || n.includes('eclairage') || n.includes('lampe')) return 'fa-lightbulb';
-  if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv') || n.includes('décodeur') || n.includes('decodeur')) return 'fa-tv';
-  if(n.includes('ventilation') || n.includes('ventilateur')) return 'fa-fan';
-  if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) return 'fa-refrigerator';
-  if(n.includes('micro')) return 'fa-microchip';
-  if(n.includes('blender')) return 'fa-blender';
-  if(n.includes('ordinateur') || n.includes('pc')) return 'fa-laptop';
-  if(n.includes('recharge') || n.includes('téléphone') || n.includes('telephone')) return 'fa-mobile-screen-button';
-  return 'fa-plug';
-}
+function getRoomIcon(type){ return ROOM_ICONS[type] || "fa-house"; }
+function getLoadIcon(load){ return load.icon || "fa-plug"; }
 
 let rooms = [];
 let roomCounter = 0;
@@ -1740,6 +1750,8 @@ const topPhoneText = document.getElementById('topPhoneText');
 const mobilePhoneLink = document.getElementById('mobilePhoneLink');
 const footerPhoneText = document.getElementById('footerPhoneText');
 
+const studyModeEl = document.getElementById('studyMode');
+const modeHint = document.getElementById('modeHint');
 const countryEl = document.getElementById('country');
 const cityEl = document.getElementById('city');
 const batteryTypeEl = document.getElementById('batteryType');
@@ -1789,11 +1801,13 @@ function pickStandardInverter(targetW){
   return STD_INVERTERS.find(v => v >= value) || STD_INVERTERS[STD_INVERTERS.length - 1];
 }
 function escapeHtml(str){
-  return String(str || '').replace(/[&<>"']/g, s => ({'&':'amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
 }
 function cloneLoads(loads){
   return (loads || []).map(l => ({
     name:l.name || '',
+    countLabel:l.countLabel || '',
+    icon:l.icon || 'fa-plug',
     qty:Number(l.qty ?? 1),
     powerW:Number(l.powerW ?? 0),
     hours:Number(l.hours ?? 0)
@@ -1871,6 +1885,7 @@ function formatCableChoice(value, suggested){
   const v = value === 'auto' ? suggested : Number(value);
   return `${fmt(v,1)} mm²`;
 }
+function isExpert(){ return studyModeEl.value === 'expert'; }
 
 function renderRooms(){
   const openState = captureRoomOpenState();
@@ -1891,14 +1906,19 @@ function renderRooms(){
     box.id = `room-block-${roomIndex}`;
     box.open = openState[room.id] ?? room.open ?? false;
 
-    const loadsHtml = room.loads.map((load, loadIndex) => `
+    const loadsHtml = room.loads.map((load, loadIndex) => {
+      const expert = isExpert();
+      const valueLine = expert
+        ? `${Number(load.qty||0)} × ${Number(load.powerW||0)} W × ${Number(load.hours||0)} h/j`
+        : `${Number(load.qty||0)} ${load.countLabel || load.name}`;
+      return `
       <details class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
         <summary>
           <div class="consumer-leading">
-            <span class="consumer-icon"><i class="fas ${getLoadIcon(load.name)}" aria-hidden="true"></i></span>
+            <span class="consumer-icon"><i class="fas ${getLoadIcon(load)}" aria-hidden="true"></i></span>
             <div class="consumer-summary-main">
               <div class="consumer-title">${escapeHtml(load.name || 'Charge')}</div>
-              <div class="consumer-meta">${Number(load.powerW||0)} W × ${Number(load.hours||0)} h/j</div>
+              <div class="consumer-meta">${escapeHtml(valueLine)}</div>
             </div>
           </div>
           <span class="consumer-chip">${fmt((Number(load.qty||0)*Number(load.powerW||0)*Number(load.hours||0))/1000,2)} kWh/j</span>
@@ -1906,18 +1926,27 @@ function renderRooms(){
 
         <div class="consumer-body">
           <div class="consumer-fields">
-            <label>Nom
-              <input class="load-field" data-field="name" type="text" value="${escapeHtml(load.name)}">
+            <label>${expert ? 'Nom' : (load.countLabel || 'Quantité')}
+              <input class="load-field" data-field="name" type="text" value="${escapeHtml(load.name)}" ${expert ? '' : 'readonly'}>
             </label>
-            <label>Qté
+            <label>${load.countLabel || 'Qté'}
               <input class="load-field" data-field="qty" type="number" min="0" value="${load.qty}">
             </label>
+            ${expert ? `
             <label>W
               <input class="load-field" data-field="powerW" type="number" min="0" value="${load.powerW}">
             </label>
             <label>h/j
               <input class="load-field" data-field="hours" type="number" min="0" step="0.1" value="${load.hours}">
             </label>
+            ` : `
+            <label>Référence
+              <input type="text" value="${load.powerW} W / ${load.hours} h" disabled>
+            </label>
+            <label>Conseil
+              <input type="text" value="Simple à saisir" disabled>
+            </label>
+            `}
           </div>
 
           <div class="consumer-actions">
@@ -1925,7 +1954,7 @@ function renderRooms(){
           </div>
         </div>
       </details>
-    `).join('');
+    `}).join('');
 
     box.innerHTML = `
       <summary>
@@ -2229,6 +2258,7 @@ function recalc(){
 
   lastCalcSnapshot = {
     timestamp:new Date().toLocaleString('fr-FR'),
+    mode:studyModeEl.value,
     country:countryEl.value,
     countryLabel:countryEl.options[countryEl.selectedIndex]?.text || '',
     city:cityEl.value,
@@ -2661,6 +2691,7 @@ function generateInitialRooms(){
 }
 
 function resetDefaults(){
+  studyModeEl.value = 'beginner';
   countryEl.value = 'ci';
   populateCities('ci');
   updateContacts('ci');
@@ -2679,6 +2710,17 @@ function resetDefaults(){
   genAdd.checked = false;
   rooms = [];
   roomCounter = 0;
+  updateModeHint();
+  renderRooms();
+  recalc();
+}
+
+function updateModeHint(){
+  if(studyModeEl.value === 'expert'){
+    modeHint.textContent = 'Mode expert : vous ajustez les watts, les heures d’utilisation et les quantités.';
+  }else{
+    modeHint.textContent = 'Mode débutant : entrez les pièces et le nombre d’équipements. Les réglages techniques sont cachés.';
+  }
   renderRooms();
   recalc();
 }
@@ -2690,6 +2732,7 @@ function init(){
   setupDesktopDropdowns();
   applyCurrentPageState();
   setupBrilliance();
+  updateModeHint();
 
   generateBtn.addEventListener('click', generateInitialRooms);
   resetBtn.addEventListener('click', () => {
@@ -2698,6 +2741,7 @@ function init(){
   });
   exportPdfBtn.addEventListener('click', generatePDF);
 
+  studyModeEl.addEventListener('change', updateModeHint);
   countryEl.addEventListener('change', () => {
     populateCities(countryEl.value);
     updateContacts(countryEl.value);
@@ -2721,7 +2765,14 @@ function init(){
       e.preventDefault();
       e.stopPropagation();
       const roomIndex = Number(addLoadBtn.dataset.r);
-      rooms[roomIndex].loads.push({ name:'Nouvelle charge', qty:1, powerW:0, hours:0 });
+      rooms[roomIndex].loads.push({
+        name:'Nouvelle charge',
+        countLabel:'Quantité',
+        icon:'fa-plug',
+        qty:1,
+        powerW:0,
+        hours:0
+      });
       rooms[roomIndex].open = true;
       renderRooms();
       const block = document.getElementById(`room-block-${roomIndex}`);
