@@ -613,7 +613,7 @@ nav a.active{
 .btn-add{background:var(--gold-base);color:#072012}
 .btn-link:hover,.btn-reset:hover,.btn-add:hover{filter:brightness(.98)}
 .btn-export{
-  background:linear-gradient(135deg,var(--gold-base),var(--gold-hover));
+  background:linear-gradient(135deg,var(--gold-base),#f0d77f);
   color:#072012;
   box-shadow:0 10px 18px rgba(212,175,55,.14);
 }
@@ -1335,13 +1335,13 @@ footer::before{
           </select>
 
           <label for="batteryPackCount">Nb packs :</label>
-          <input id="batteryPackCount" type="number" min="0" step="1" value="4" style="width:92px">
+          <select id="batteryPackCount" aria-label="Nombre de packs"></select>
 
-          <label for="battPackKwh">Capacité pack (kWh) :</label>
-          <input id="battPackKwh" type="number" min="0.1" step="0.01" value="1.28" style="width:104px">
+          <label for="battPackKwh">Capacité pack :</label>
+          <select id="battPackKwh" aria-label="Capacité batterie pack"></select>
 
-          <label for="panelW">Panneau (W) :</label>
-          <input id="panelW" type="number" min="50" value="350" style="width:90px">
+          <label for="panelW">Panneau :</label>
+          <select id="panelW" aria-label="Puissance panneau"></select>
 
           <span class="badge-zone" id="zoneBadge"><i class="fas fa-building"></i> Zone urbaine</span>
 
@@ -1392,8 +1392,8 @@ footer::before{
             <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
               <div style="font-weight:700;margin-bottom:8px">Panneaux</div>
               <div class="solar-row">
-                <label>Puissance d'un panneau (W)</label>
-                <input id="panelWInput" type="number" value="350" style="width:120px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+                <label>Puissance d'un panneau</label>
+                <div id="panelWOut" class="metric">350 W</div>
               </div>
               <div class="solar-row">
                 <label>Puissance PV conseillée</label>
@@ -1408,12 +1408,12 @@ footer::before{
             <div class="solar-block" style="background:#fff;padding:10px;border-radius:10px;border:1px solid #e6f3ea;min-width:0;">
               <div style="font-weight:700;margin-bottom:8px">Batteries</div>
               <div class="solar-row">
-                <label>Capacité utile d'un pack (kWh)</label>
-                <input id="battPackKwhInput" type="number" step="0.01" value="1.28" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+                <label>Capacité utile d'un pack</label>
+                <div id="battPackKwhOut" class="metric">1280 Wh</div>
               </div>
               <div class="solar-row">
                 <label>Nombre de packs batterie</label>
-                <input id="batteryPackCountInput" type="number" min="0" step="1" value="4" style="width:100px;padding:7px;border-radius:8px;border:1px solid #ddd;max-width:100%;">
+                <div id="batteryPackCountOut" class="metric">4</div>
               </div>
               <div class="solar-row">
                 <label>Capacité batterie utile totale</label>
@@ -1480,69 +1480,44 @@ footer::before{
 
         <div class="results" aria-live="polite">
           <div class="result-card" id="r_power">
-            <div class="label">Puissance installée</div>
-            <div id="powerInstalledCard" class="value">0 W</div>
-            <div class="small">Somme nominale des équipements</div>
+            <div class="label">Consommation / jour</div>
+            <div id="consDayCard" class="value">0 kWh</div>
+            <div class="small">Base du calcul solaire</div>
           </div>
 
           <div class="result-card" id="r_inv">
             <div class="label">Onduleur conseillé</div>
             <div id="inverterRecCard" class="value">0 W</div>
-            <div class="small">Puissance standard supérieure</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Consommation (kWh / jour)</div>
-            <div id="consDayCard" class="value">0 kWh</div>
-            <div class="small">Valeur calculée à partir des charges</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Consommation (kWh / mois)</div>
-            <div id="consMonthCard" class="value">0 kWh</div>
-            <div class="small">30 jours de référence</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Puissance PV</div>
-            <div id="pvRecCard" class="value">0 kWc</div>
-            <div class="small">Base de dimensionnement solaire</div>
-          </div>
-
-          <div class="result-card">
-            <div class="label">Nb panneaux</div>
-            <div id="panelCountCard" class="value">0</div>
-            <div class="small">Arrondi au panneau entier</div>
+            <div class="small">Valeur standard supérieure</div>
           </div>
 
           <div class="result-card" id="r_batt">
             <div class="label">Batterie utile totale</div>
             <div id="batteryRecCard" class="value">0 kWh</div>
-            <div class="small">Selon le nombre de packs saisis</div>
+            <div class="small">Selon les packs choisis</div>
           </div>
 
           <div class="result-card" id="r_autonomy">
             <div class="label">Autonomie estimée</div>
             <div id="autonomyCard" class="value">0 jour</div>
-            <div class="small">Liée au nombre de packs batterie</div>
+            <div class="small">Lecture rapide du stockage</div>
           </div>
 
           <div class="result-card" id="r_life">
-            <div class="label">Durée de vie batterie</div>
-            <div id="batteryLifeCard" class="value">—</div>
-            <div class="small">Estimation selon le type choisi</div>
+            <div class="label">Puissance PV</div>
+            <div id="pvRecCard" class="value">0 kWc</div>
+            <div class="small">Dimensionnement des panneaux</div>
           </div>
 
           <div class="result-card" id="r_safety">
-            <div class="label">Points de sécurité</div>
+            <div class="label">Sécurité</div>
             <div id="safetyCard" class="value">—</div>
-            <div class="small">Protections à prévoir pour le projet</div>
+            <div class="small">Points essentiels à prévoir</div>
           </div>
         </div>
 
         <div class="note">
-          Les résultats les plus importants pour un dimensionnement sont : la consommation, l’onduleur standard, la batterie utile,
-          l’autonomie obtenue, la puissance PV et la durée de vie des batteries.
+          Les résultats affichés ont été réduits pour aller à l’essentiel : consommation, onduleur, batterie, autonomie, PV et sécurité.
         </div>
 
         <div class="pdf-zone">
@@ -1558,17 +1533,17 @@ footer::before{
     <h2>Pourquoi cette étude est utile ?</h2>
     <div class="summary">
       <div class="big">
-        <h2>Synthèse principale</h2>
+        <h2>Synthèse rapide</h2>
 
         <div class="kpi" style="margin-top:12px">
           <div style="flex:1;min-width:180px">
-            <div class="muted">Consommation (kWh / mois)</div>
+            <div class="muted">Consommation / mois</div>
             <div id="consMonthKpi" class="num">0 kWh</div>
             <div id="consMonthRange" class="muted">plage: 0 - 0 kWh</div>
           </div>
 
           <div style="flex:1;min-width:180px">
-            <div class="muted">Puissance PV (kWc)</div>
+            <div class="muted">Puissance PV</div>
             <div id="pvReqKwc" class="num">0 kWc</div>
             <div id="pvReqRange" class="muted">incertitude ±15%</div>
           </div>
@@ -1581,14 +1556,14 @@ footer::before{
         </div>
 
         <ul class="summary-list">
-          <li><strong>Étude simple :</strong> le client choisit le pays, la ville, le type de batterie et le nombre de packs.</li>
-          <li><strong>Étude pro :</strong> les paramètres techniques internes restent masqués pour garder une lecture claire.</li>
-          <li><strong>Afrique de l’Ouest :</strong> Côte d’Ivoire et Sénégal sont intégrés avec des hypothèses adaptées par ville.</li>
+          <li><strong>Simple :</strong> le client saisit seulement le pays, la ville, la batterie et les charges.</li>
+          <li><strong>Lisible :</strong> les résultats affichés sont réduits aux valeurs utiles pour décider.</li>
+          <li><strong>Pratique :</strong> les chambres restent fermées par défaut pour éviter un écran trop chargé.</li>
         </ul>
       </div>
 
       <div class="big" style="max-width:420px">
-        <h2>Détails importants</h2>
+        <h2>Détails rapides</h2>
 
         <div style="margin-top:10px">
           <div style="font-weight:800">Pièces générées</div>
@@ -1596,7 +1571,7 @@ footer::before{
         </div>
 
         <div style="margin-top:8px">
-          <div style="font-weight:800">Autonomie liée</div>
+          <div style="font-weight:800">Autonomie</div>
           <div id="summaryAutonomy" class="muted">—</div>
         </div>
 
@@ -1677,6 +1652,9 @@ const BATTERY_TYPES = {
 };
 
 const STD_INVERTERS = [300, 500, 1000, 1200, 1500, 2000, 3000, 5000, 8000, 10000];
+const PACK_COUNT_OPTIONS = Array.from({ length: 10 }, (_, i) => i + 1);
+const PACK_CAPACITY_OPTIONS_WH = [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000];
+const PANEL_POWER_OPTIONS_W = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550];
 
 const ROOM_TEMPLATES = {
   "Chambre":[
@@ -1727,6 +1705,10 @@ const batteryPackCountEl = document.getElementById('batteryPackCount');
 const battPackKwhEl = document.getElementById('battPackKwh');
 const panelWEl = document.getElementById('panelW');
 
+const panelWOutEl = document.getElementById('panelWOut');
+const battPackKwhOutEl = document.getElementById('battPackKwhOut');
+const batteryPackCountOutEl = document.getElementById('batteryPackCountOut');
+
 const roomListEl = document.getElementById('roomsList');
 const genBedrooms = document.getElementById('genBedrooms');
 const genLiving = document.getElementById('genLiving');
@@ -1759,7 +1741,6 @@ const consMonthCard = document.getElementById('consMonthCard');
 const powerInstalledCard = document.getElementById('powerInstalledCard');
 const inverterRecCard = document.getElementById('inverterRecCard');
 const pvRecCard = document.getElementById('pvRecCard');
-const panelCountCard = document.getElementById('panelCountCard');
 const batteryRecCard = document.getElementById('batteryRecCard');
 const autonomyCard = document.getElementById('autonomyCard');
 const batteryLifeCard = document.getElementById('batteryLifeCard');
@@ -1779,12 +1760,8 @@ function fmt(n, dec = 2){
   return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 }
 function getBatteryProfile(type){ return BATTERY_TYPES[type] || BATTERY_TYPES.lithium_ion; }
-function getCityInfo(){
-  return CITY_META[cityEl.value] || CITY_META.abidjan;
-}
-function getSunHours(city){
-  return (CITY_META[city] && CITY_META[city].sun) || 4.5;
-}
+function getCityInfo(){ return CITY_META[cityEl.value] || CITY_META.abidjan; }
+function getSunHours(city){ return (CITY_META[city] && CITY_META[city].sun) || 4.5; }
 function pickStandardInverter(targetW){
   const value = Math.max(300, Number(targetW || 0));
   return STD_INVERTERS.find(v => v >= value) || STD_INVERTERS[STD_INVERTERS.length - 1];
@@ -1868,7 +1845,7 @@ function renderRooms(){
     const box = document.createElement('details');
     box.className = 'room';
     box.id = `room-block-${roomIndex}`;
-    box.open = openState[room.id] ?? (roomIndex === 0);
+    box.open = openState[room.id] ?? false;
 
     const loadsHtml = room.loads.map((load, loadIndex) => `
       <div class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
@@ -2002,9 +1979,9 @@ function compute(){
   const city = cityEl.value;
   const sunHours = getSunHours(city);
   const batteryProfile = getBatteryProfile(batteryTypeEl.value);
-  const panelW = Math.max(1, Number(panelWEl.value || 350));
-  const battPackKwh = Math.max(0.01, Number(battPackKwhEl.value || 1.28));
-  const batteryPackCount = Math.max(0, Number(batteryPackCountEl.value || 0));
+  const panelW = Math.max(50, Number(panelWEl.value || 350));
+  const battPackWh = Math.max(500, Number(battPackKwhEl.value || 1280));
+  const batteryPackCount = Math.max(1, Number(batteryPackCountEl.value || 4));
 
   const dailyKwh = dailyWh / 1000;
   const monthlyKwh = dailyKwh * 30;
@@ -2014,14 +1991,13 @@ function compute(){
 
   const inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
 
+  const battPackKwh = battPackWh / 1000;
   const batteryUsefulTotal = batteryPackCount * battPackKwh * batteryProfile.dod * batteryProfile.eff;
   const autonomyDays = dailyKwh > 0 ? (batteryUsefulTotal / dailyKwh) : 0;
 
   const coverageNote = pvKwRec > 0
-    ? `Base PV : ${fmt(pvKwRec,2)} kWc pour ${fmt(dailyKwh,2)} kWh/j`
+    ? `Base PV : ${fmt(pvKwRec, 2)} kWc pour ${fmt(dailyKwh, 2)} kWh/j`
     : 'Générez des pièces pour obtenir un dimensionnement';
-
-  const safetyPoints = getSafetyPoints();
 
   return {
     loads,
@@ -2040,8 +2016,10 @@ function compute(){
     batteryPackCount,
     battPackKwh,
     batteryProfile,
-    safetyPoints,
-    sunHours
+    safetyPoints: getSafetyPoints(),
+    sunHours,
+    battPackWh,
+    panelW
   };
 }
 function recalc(){
@@ -2063,7 +2041,7 @@ function recalc(){
   summarySafety.innerText = r.safetyPoints.join(' ');
 
   summaryNoteEl.innerText = r.loads.length > 0
-    ? `Dimensionnement calculé à partir de ${r.loads.length} charge(s). Les résultats clés sont la consommation, l’onduleur standard, la batterie utile et l’autonomie.`
+    ? `Calcul basé sur ${r.loads.length} charge(s). Les valeurs utiles sont maintenant mises en avant pour une lecture plus rapide.`
     : 'Clique sur « Générer pièces » pour démarrer l’étude.';
 
   consDayCard.innerText = `${fmt(r.dailyKwh,2)} kWh`;
@@ -2071,7 +2049,6 @@ function recalc(){
   powerInstalledCard.innerText = `${Math.round(r.installedPower)} W`;
   inverterRecCard.innerText = `${r.inverterNeed} W`;
   pvRecCard.innerText = `${fmt(r.pvKwRec,2)} kWc`;
-  panelCountCard.innerText = `${r.panelCountRec}`;
   batteryRecCard.innerText = `${fmt(r.batteryUsefulTotal,2)} kWh`;
   autonomyCard.innerText = `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''}`;
   batteryLifeCard.innerText = r.batteryLifeYears;
@@ -2086,7 +2063,7 @@ function recalc(){
   packsNeedKpi.innerText = `packs saisis: ${r.batteryPackCount}`;
 
   summaryRooms.innerText = r.loads.length > 0
-    ? `${rooms.length} pièce(s) générée(s) avec ${r.loads.length} charge(s) détaillée(s).`
+    ? `${rooms.length} pièce(s) générée(s) avec ${r.loads.length} charge(s).`
     : 'Aucune pièce générée pour le moment.';
 
   summaryAutonomy.innerText = r.loads.length > 0
@@ -2094,8 +2071,12 @@ function recalc(){
     : '—';
 
   summaryBatteries.innerText = r.loads.length > 0
-    ? `${r.batteryPackCount} pack(s) saisis, soit ${fmt(r.batteryUsefulTotal,2)} kWh utile totale. Durée de vie indicative : ${r.batteryLifeYears} (${r.batteryCycles} cycles approx.).`
+    ? `${r.batteryPackCount} pack(s), soit ${fmt(r.batteryUsefulTotal,2)} kWh utile totale. Durée de vie indicative : ${r.batteryLifeYears} (${r.batteryCycles} cycles approx.).`
     : '—';
+
+  panelWOutEl.innerText = `${r.panelW} W`;
+  battPackKwhOutEl.innerText = `${r.battPackWh} Wh`;
+  batteryPackCountOutEl.innerText = `${r.batteryPackCount}`;
 
   document.getElementById('r_power').classList.toggle('highlight', r.installedPower > 0);
   document.getElementById('r_inv').classList.toggle('highlight', r.inverterNeed > 0);
@@ -2127,7 +2108,9 @@ function recalc(){
     loads:r.loads,
     roomsCount:rooms.length,
     safetyPoints:r.safetyPoints,
-    sunHours:r.sunHours
+    sunHours:r.sunHours,
+    battPackWh:r.battPackWh,
+    panelW:r.panelW
   };
 }
 
@@ -2137,6 +2120,29 @@ function populateCities(country){
   list.forEach(c => cityEl.appendChild(new Option(c.label, c.value)));
   cityEl.value = list[0].value;
 }
+
+function fillSelect(selectEl, values, formatter = (v) => v, selectedValue = null) {
+  if (!selectEl) return;
+  selectEl.innerHTML = '';
+  values.forEach((value) => {
+    const option = document.createElement('option');
+    option.value = String(value);
+    option.textContent = formatter(value);
+    selectEl.appendChild(option);
+  });
+  if (selectedValue !== null && values.includes(selectedValue)) {
+    selectEl.value = String(selectedValue);
+  } else {
+    selectEl.value = String(values[0]);
+  }
+}
+
+function setupStudySelects() {
+  fillSelect(batteryPackCountEl, PACK_COUNT_OPTIONS, (v) => `${v}`, 4);
+  fillSelect(battPackKwhEl, PACK_CAPACITY_OPTIONS_WH, (v) => `${v} Wh`, 1280);
+  fillSelect(panelWEl, PANEL_POWER_OPTIONS_W, (v) => `${v} W`, 350);
+}
+
 function openMenu(){
   if(!mobileNav || !burgerBtn) return;
   mobileNav.classList.add('open');
@@ -2648,9 +2654,10 @@ resetBtn.addEventListener('click', () => {
   populateCities('ci');
   cityEl.value = 'abidjan';
   batteryTypeEl.value = 'lithium_ion';
-  batteryPackCountEl.value = 4;
-  battPackKwhEl.value = 1.28;
-  panelWEl.value = 350;
+  setupStudySelects();
+  batteryPackCountEl.value = '4';
+  battPackKwhEl.value = '1280';
+  panelWEl.value = '350';
   genBedrooms.value = 1;
   genLiving.value = 1;
   genKitchens.value = 1;
@@ -2673,9 +2680,9 @@ countryEl.addEventListener('change', () => {
 });
 cityEl.addEventListener('change', recalc);
 batteryTypeEl.addEventListener('change', recalc);
-batteryPackCountEl.addEventListener('input', recalc);
-battPackKwhEl.addEventListener('input', recalc);
-panelWEl.addEventListener('input', recalc);
+batteryPackCountEl.addEventListener('change', recalc);
+battPackKwhEl.addEventListener('change', recalc);
+panelWEl.addEventListener('change', recalc);
 
 roomListEl.addEventListener('input', onLoadChange);
 roomListEl.addEventListener('change', onLoadChange);
@@ -2714,6 +2721,7 @@ roomListEl.addEventListener('click', (e) => {
 function initializePage(){
   updatePhoneNumbers();
   populateCities(countryEl.value);
+  setupStudySelects();
   rooms = [];
   roomCounter = 0;
   renderRooms();
