@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GreenBridge — Étude zone urbaine</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -29,1028 +29,187 @@
   --electric-yellow:#ffd600;
 }
 *{box-sizing:border-box}
-html,body{
-  margin:0;
-  font-family:'Poppins',Arial,sans-serif;
-  background:var(--bg);
-  color:#fff;
-  overflow-x:hidden;
-  scroll-behavior:smooth;
-}
-body{min-height:100vh}
+html,body{margin:0;font-family:'Poppins',Arial,sans-serif;background:var(--bg);color:#fff;overflow-x:hidden;scroll-behavior:smooth}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
 img{max-width:100%;display:block}
 
 .topbar{
-  position:fixed;
-  top:0;left:0;right:0;
-  height:var(--topbar-h);
-  background:var(--green-dark);
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  padding:0 4vw;
-  z-index:5000;
-  font-size:14px;
+  position:fixed;top:0;left:0;right:0;height:var(--topbar-h);
+  background:var(--green-dark);display:flex;align-items:center;justify-content:flex-end;
+  padding:0 4vw;z-index:5000;font-size:14px
 }
 .topbar .right{display:flex;align-items:center;gap:12px}
 .topbar a{color:#fff;white-space:nowrap;font-weight:700}
 
 header{
-  position:fixed;
-  top:var(--topbar-h);
-  left:0;right:0;
-  height:var(--header-h);
+  position:fixed;top:var(--topbar-h);left:0;right:0;height:var(--header-h);
   background:linear-gradient(90deg,var(--green-mid),var(--green-mid-2));
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 4vw;
-  z-index:4900;
-  box-shadow:0 4px 12px rgba(0,0,0,.25);
-  gap:12px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 4vw;
+  z-index:4900;box-shadow:0 4px 12px rgba(0,0,0,.25);gap:12px
 }
 .logo-text{display:flex;align-items:center;gap:12px;min-width:0;flex:1 1 auto}
 .logo-text img{height:56px;display:block}
-.brand-stack{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  line-height:1;
-  text-align:center;
-}
-.company-name{
-  font-size:24px;
-  font-weight:800;
-  color:#04462e;
-  -webkit-text-stroke:.8px var(--gold);
-  padding:6px 10px;
-  border-radius:8px;
-  white-space:nowrap;
-  text-shadow:0 3px 6px rgba(0,0,0,.6);
-}
-.company-tagline{
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  color:#dfffe6;
-  white-space:nowrap;
-  -webkit-text-stroke:.35px rgba(212,175,55,.55);
-}
+.brand-stack{display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;text-align:center}
+.company-name{font-size:24px;font-weight:800;color:#04462e;-webkit-text-stroke:.8px var(--gold);padding:6px 10px;border-radius:8px;white-space:nowrap;text-shadow:0 3px 6px rgba(0,0,0,.6)}
+.company-tagline{font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#dfffe6;white-space:nowrap;-webkit-text-stroke:.35px rgba(212,175,55,.55)}
 
 nav{display:flex;gap:18px;align-items:center}
-nav a{
-  color:#fff;
-  font-size:15px;
-  font-weight:600;
-  padding:8px 10px;
-  border-radius:8px;
-  transition:all .18s;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
+nav a{color:#fff;font-size:15px;font-weight:600;padding:8px 10px;border-radius:8px;transition:all .18s;display:flex;align-items:center;gap:8px}
 nav a:hover{color:var(--accent-2)}
-nav a.active{
-  color:var(--accent-2);
-  background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));
-  border:1px solid rgba(212,175,55,.22);
-  padding:10px 14px;
-  font-weight:800;
-  border-radius:10px;
-}
+nav a.active{color:var(--accent-2);background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));border:1px solid rgba(212,175,55,.22);padding:10px 14px;font-weight:800;border-radius:10px}
 
 .dropdown{position:relative}
-.dropdown > a::after{
-  content:"\25BC";
-  font-size:11px;
-  margin-left:6px;
-  color:var(--accent-2);
-}
-.dropdown[aria-expanded="true"] > a::after{transform:rotate(180deg)}
-.dropdown > a .sub-badge{
-  margin-left:8px;
-  padding:6px 10px;
-  border-radius:10px;
-  background:rgba(255,214,0,.08);
-  color:var(--electric-yellow);
-  font-weight:800;
-  font-size:13px;
-  white-space:nowrap;
-  display:inline-flex;
-  align-items:center;
-  box-shadow:0 6px 18px rgba(0,0,0,.32);
-}
-@media (max-width:1100px){.dropdown > a .sub-badge{display:none}}
-.dropdown-content{
-  display:none;
-  position:absolute;
-  top:calc(100% + 8px);
-  left:0;
-  background:rgba(0,0,0,.85);
-  padding:8px 0;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
-  min-width:230px;
-  z-index:5500;
-}
+.dropdown>a::after{content:"\25BC";font-size:11px;margin-left:6px;color:var(--accent-2)}
+.dropdown[aria-expanded="true"]>a::after{transform:rotate(180deg)}
+.dropdown>a .sub-badge{margin-left:8px;padding:6px 10px;border-radius:10px;background:rgba(255,214,0,.08);color:var(--electric-yellow);font-weight:800;font-size:13px;white-space:nowrap;display:inline-flex;align-items:center;box-shadow:0 6px 18px rgba(0,0,0,.32)}
+@media (max-width:1100px){.dropdown>a .sub-badge{display:none}}
+.dropdown-content{display:none;position:absolute;top:calc(100% + 8px);left:0;background:rgba(0,0,0,.85);padding:8px 0;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.5);min-width:230px;z-index:5500}
 .dropdown-content li{list-style:none}
-.dropdown-content a{
-  display:block;
-  padding:10px 16px;
-  color:#fff;
-  font-weight:600;
-  border-radius:8px;
-}
-.dropdown-content a:hover{
-  background:rgba(168,230,161,.12);
-  color:var(--accent-2);
-  padding-left:24px;
-}
-.dropdown-content .active-item{
-  color:var(--accent-2);
-  background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));
-  border:1px solid rgba(212,175,55,.12);
-  padding:10px 16px;
-  font-weight:800;
-  border-radius:8px;
-  box-shadow:0 8px 20px rgba(0,0,0,.28);
-  margin:4px 8px;
-}
+.dropdown-content a{display:block;padding:10px 16px;color:#fff;font-weight:600;border-radius:8px}
+.dropdown-content a:hover{background:rgba(168,230,161,.12);color:var(--accent-2);padding-left:24px}
+.dropdown-content .active-item{color:var(--accent-2);background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));border:1px solid rgba(212,175,55,.12);padding:10px 16px;font-weight:800;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.28);margin:4px 8px}
 
 .burger{
-  display:none;
-  width:52px;
-  height:52px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.05);
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  box-shadow:0 6px 18px rgba(0,0,0,.18);
-  position:relative;
-  z-index:6000;
-  pointer-events:auto;
-  touch-action:manipulation;
+  display:none;width:52px;height:52px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);position:relative;z-index:6000;pointer-events:auto;touch-action:manipulation
 }
 .burger .icon{display:block;position:relative;width:28px;height:20px}
-.burger .icon span{
-  position:absolute;
-  left:0;right:0;
-  height:3px;
-  background:#fff;
-  border-radius:2px;
-  transition:all .25s;
-}
-.burger .icon span:nth-child(1){top:0}
-.burger .icon span:nth-child(2){top:8.5px}
-.burger .icon span:nth-child(3){top:17px}
+.burger .icon span{position:absolute;left:0;right:0;height:3px;background:#fff;border-radius:2px;transition:all .25s}
+.burger .icon span:nth-child(1){top:0}.burger .icon span:nth-child(2){top:8.5px}.burger .icon span:nth-child(3){top:17px}
 .burger.open .icon span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
 .burger.open .icon span:nth-child(2){opacity:0}
 .burger.open .icon span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
 
-.mobile-backdrop{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(6,31,20,.96);
-  z-index:5800;
-  opacity:0;
-  transition:opacity .2s ease;
-  pointer-events:auto;
-}
-.mobile-backdrop.open{
-  display:block;
-  opacity:1;
-}
-
-.mobile-nav{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:5900;
-  background:linear-gradient(180deg,#0a4d2e 0%,#061f14 100%);
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s ease, transform .2s ease;
-  transform:scale(.985);
-  overflow:auto;
-}
-.mobile-nav.open{
-  display:flex;
-  opacity:1;
-  pointer-events:auto;
-  transform:scale(1);
-}
-.mobile-panel{
-  position:relative;
-  width:100%;
-  min-height:100vh;
-  padding:18px 5vw 22px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-.mobile-close{
-  position:absolute;
-  top:14px;
-  right:14px;
-  width:48px;
-  height:48px;
-  border:none;
-  border-radius:12px;
-  background:rgba(255,255,255,.07);
-  color:#fff;
-  font-size:24px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  box-shadow:0 8px 18px rgba(0,0,0,.22);
-}
-.mobile-brand{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:2px;
-  padding:54px 4px 12px;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  margin-bottom:2px;
-  text-align:center;
-}
-.mobile-brand .company-name{
-  font-size:34px;
-  line-height:1;
-  text-align:center;
-  width:100%;
-}
-.mobile-brand .company-tagline{
-  font-size:14px;
-  letter-spacing:4px;
-  text-align:center;
-  width:100%;
-}
-.menu-links{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  gap:12px;
-  max-width:560px;
-  width:100%;
-  margin:0 auto;
-  padding:10px 0;
-}
-.mobile-nav a.mobile-link{
-  padding:18px 18px;
-  color:#fff;
-  width:100%;
-  text-align:center;
-  border-radius:14px;
-  font-weight:900;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:10px;
-  font-size:clamp(20px, 5vw, 26px);
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.03);
-  min-height:64px;
-  line-height:1.1;
-}
-.mobile-nav .mobile-link:hover{
-  background:rgba(124,179,66,.12);
-  color:var(--accent-2);
-}
-.mobile-nav .mobile-link.active{
-  background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));
-  color:var(--accent-2);
-  border:1px solid rgba(212,175,55,.28);
-}
-.mobile-nav .submenu{
-  display:none;
-  flex-direction:column;
-  gap:8px;
-  padding-left:10px;
-  margin-top:6px;
-  margin-bottom:6px;
-  max-width:560px;
-  width:100%;
-  margin-left:auto;
-  margin-right:auto;
-}
-.mobile-nav .submenu a{
-  font-family:'Trebuchet MS',Arial,sans-serif;
-  font-style:italic;
-  font-size:15px;
-  font-weight:700;
-  min-height:48px;
-  padding:12px 14px;
-  border-radius:10px;
-  white-space:nowrap;
-  justify-content:center;
-  text-align:center;
-  letter-spacing:.2px;
-  display:flex;
-  align-items:center;
-  border:1px solid rgba(255,255,255,.06);
-  background:rgba(255,255,255,.02);
-}
-.mobile-nav .submenu a:hover{
-  background:rgba(168,230,161,.08);
-  padding-left:18px;
-}
-.mobile-nav .submenu a.active-item,
-.mobile-nav .submenu a[aria-current="page"]{
-  background:transparent;
-  color:rgba(255,255,255,.30);
-  border:none;
-  box-shadow:none;
-  font-weight:700;
-  font-style:italic;
-}
-.mobile-contact{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  padding:16px 14px;
-  border-radius:16px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.06);
-  color:var(--muted);
-  max-width:560px;
-  width:100%;
-  margin:0 auto;
-  text-align:center;
-}
+.mobile-backdrop{display:none;position:fixed;inset:0;background:rgba(6,31,20,.96);z-index:5800;opacity:0;transition:opacity .2s ease;pointer-events:auto}
+.mobile-backdrop.open{display:block;opacity:1}
+.mobile-nav{display:none;position:fixed;inset:0;z-index:5900;background:linear-gradient(180deg,#0a4d2e 0%,#061f14 100%);opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;transform:scale(.985);overflow:auto}
+.mobile-nav.open{display:flex;opacity:1;pointer-events:auto;transform:scale(1)}
+.mobile-panel{position:relative;width:100%;min-height:100vh;padding:18px 5vw 22px;display:flex;flex-direction:column;gap:14px}
+.mobile-close{position:absolute;top:14px;right:14px;width:48px;height:48px;border:none;border-radius:12px;background:rgba(255,255,255,.07);color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 18px rgba(0,0,0,.22)}
+.mobile-brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:54px 4px 12px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:2px;text-align:center}
+.mobile-brand .company-name{font-size:34px;line-height:1;text-align:center;width:100%}
+.mobile-brand .company-tagline{font-size:14px;letter-spacing:4px;text-align:center;width:100%}
+.menu-links{flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px;max-width:560px;width:100%;margin:0 auto;padding:10px 0}
+.mobile-nav a.mobile-link{padding:18px 18px;color:#fff;width:100%;text-align:center;border-radius:14px;font-weight:900;display:flex;justify-content:center;align-items:center;gap:10px;font-size:clamp(20px,5vw,26px);border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);min-height:64px;line-height:1.1}
+.mobile-nav .mobile-link:hover{background:rgba(124,179,66,.12);color:var(--accent-2)}
+.mobile-nav .mobile-link.active{background:linear-gradient(90deg,rgba(212,175,55,.06),rgba(212,175,55,.03));color:var(--accent-2);border:1px solid rgba(212,175,55,.28)}
+.mobile-nav .submenu{display:none;flex-direction:column;gap:8px;padding-left:10px;margin-top:6px;margin-bottom:6px;max-width:560px;width:100%;margin-left:auto;margin-right:auto}
+.mobile-nav .submenu a{font-family:'Trebuchet MS',Arial,sans-serif;font-style:italic;font-size:15px;font-weight:700;min-height:48px;padding:12px 14px;border-radius:10px;white-space:nowrap;justify-content:center;text-align:center;letter-spacing:.2px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02)}
+.mobile-nav .submenu a:hover{background:rgba(168,230,161,.08);padding-left:18px}
+.mobile-nav .submenu a.active-item,.mobile-nav .submenu a[aria-current="page"]{background:transparent;color:rgba(255,255,255,.30);border:none;box-shadow:none;font-weight:700;font-style:italic}
+.mobile-contact{display:flex;flex-direction:column;gap:12px;padding:16px 14px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);color:var(--muted);max-width:560px;width:100%;margin:0 auto;text-align:center}
 .mobile-contact strong{color:#fff;font-size:15px;letter-spacing:1px}
-.mobile-contact .phone-line{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  color:#fff;
-  font-weight:800;
-  flex-wrap:wrap;
-  font-size:16px;
-}
-.socials{
-  margin-top:auto;
-  border-top:1px solid rgba(255,255,255,.05);
-  padding-top:14px;
-  display:flex;
-  gap:18px;
-  align-items:center;
-  justify-content:center;
-  flex-wrap:wrap;
-  width:100%;
-}
-.socials a{
-  width:44px;
-  height:44px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:0;
-  font-size:20px;
-  border:none;
-  background:rgba(255,255,255,.04);
-  border-radius:50%;
-  min-height:44px;
-}
+.mobile-contact .phone-line{display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:800;flex-wrap:wrap;font-size:16px}
+.socials{margin-top:auto;border-top:1px solid rgba(255,255,255,.05);padding-top:14px;display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;width:100%}
+.socials a{width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:0;font-size:20px;border:none;background:rgba(255,255,255,.04);border-radius:50%;min-height:44px}
 
-.electric-band{
-  position:fixed;
-  top:calc(var(--topbar-h) + var(--header-h) - 6px);
-  left:0;right:0;
-  height:16px;
-  z-index:1000;
-  pointer-events:none;
-  overflow:visible;
-}
-.electric-band .container{
-  position:absolute;
-  left:0;
-  top:50%;
-  transform:translateY(-50%);
-  width:100vw;
-  max-width:none;
-  height:100%;
-  pointer-events:none;
-}
-.lightning-svg{
-  width:100vw;
-  height:100%;
-  display:block;
-  pointer-events:none;
-  opacity:0;
-  transition:opacity .22s ease;
-  mix-blend-mode:screen;
-}
+.electric-band{position:fixed;top:calc(var(--topbar-h) + var(--header-h) - 6px);left:0;right:0;height:16px;z-index:5300;pointer-events:none;overflow:visible}
+.electric-band .container{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100vw;max-width:none;height:100%;pointer-events:none}
+.lightning-svg{width:100vw;height:100%;display:block;pointer-events:none;opacity:0;transition:opacity .22s ease;mix-blend-mode:screen}
 .electric-band.active .lightning-svg{opacity:1}
-.lightning-svg path.zap{
-  stroke:var(--electric-yellow);
-  stroke-width:2.2;
-  fill:none;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  opacity:.95;
-}
-.orbs{
-  position:absolute;
-  left:0;top:0;
-  width:100vw;
-  height:100%;
-  pointer-events:none;
-}
-.orb{
-  position:absolute;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,#fff8b0,var(--electric-yellow));
-  box-shadow:0 0 12px rgba(255,214,0,.95),0 0 30px rgba(255,214,0,.22);
-  transform:translate(-50%,-50%);
-  opacity:0;
-  transition:opacity .18s linear;
-}
+.lightning-svg path.zap{stroke:var(--electric-yellow);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.95}
+.orbs{position:absolute;left:0;top:0;width:100vw;height:100%;pointer-events:none}
+.orb{position:absolute;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff8b0,var(--electric-yellow));box-shadow:0 0 12px rgba(255,214,0,.95),0 0 30px rgba(255,214,0,.22);transform:translate(-50%,-50%);opacity:0;transition:opacity .18s linear}
 .electric-band.active .orb{opacity:1}
-@keyframes buzz{
-  0%{transform:translate(-50%,-50%) translateX(-2px)}
-  50%{transform:translate(-50%,-50%) translateX(2px)}
-  100%{transform:translate(-50%,-50%) translateX(-2px)}
-}
+@keyframes buzz{0%{transform:translate(-50%,-50%) translateX(-2px)}50%{transform:translate(-50%,-50%) translateX(2px)}100%{transform:translate(-50%,-50%) translateX(-2px)}}
 .orb.buzz{animation:buzz .9s linear infinite}
-.glowline{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  height:3px;
-  width:0;
-  background:linear-gradient(90deg,rgba(255,238,170,0),var(--electric-yellow),rgba(255,238,170,0));
-  border-radius:8px;
-  box-shadow:0 6px 18px rgba(255,214,0,.12);
-  opacity:0;
-  transition:opacity .22s ease;
-}
-.electric-band.active .glowline{
-  width:100vw;
-  opacity:1;
-  animation:pulse 3s ease-in-out infinite;
-}
-@keyframes pulse{
-  0%{transform:translate(-50%,-50%) scaleX(.7);opacity:.6}
-  50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}
-  100%{transform:translate(-50%,-50%) scaleX(.7);opacity:.6}
-}
+.glowline{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:3px;width:0;background:linear-gradient(90deg,rgba(255,238,170,0),var(--electric-yellow),rgba(255,238,170,0));border-radius:8px;box-shadow:0 6px 18px rgba(255,214,0,.12);opacity:0;transition:opacity .22s ease}
+.electric-band.active .glowline{width:100vw;opacity:1;animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%{transform:translate(-50%,-50%) scaleX(.7);opacity:.6}50%{transform:translate(-50%,-50%) scaleX(1);opacity:1}100%{transform:translate(-50%,-50%) scaleX(.7);opacity:.6}}
 
-.hero{
-  position:relative;
-  margin-top:calc(var(--topbar-h) + var(--header-h));
-  min-height:calc(70vh - (var(--topbar-h) + var(--header-h)));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-  background:#07160f;
-}
-.hero-bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center center;
-  z-index:0;
-  filter:brightness(1.03) contrast(1.03) saturate(1.02);
-}
-.hero-overlay{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background:linear-gradient(180deg, rgba(4,10,8,.10) 0%, rgba(4,10,8,.28) 38%, rgba(4,10,8,.48) 100%);
-}
-.hero-content{
-  position:relative;
-  z-index:4;
-  max-width:1120px;
-  padding:0 20px;
-}
-.hero h1{
-  margin:18px 0 14px;
-  font-size:clamp(34px,5vw,68px);
-  line-height:1.02;
-  text-shadow:0 10px 24px rgba(0,0,0,.34);
-}
+.hero{position:relative;margin-top:calc(var(--topbar-h) + var(--header-h));min-height:calc(70vh - (var(--topbar-h) + var(--header-h)));display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#07160f}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;filter:brightness(1.03) contrast(1.03) saturate(1.02)}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg, rgba(4,10,8,.10) 0%, rgba(4,10,8,.28) 38%, rgba(4,10,8,.48) 100%)}
+.hero-content{position:relative;z-index:4;max-width:1120px;padding:0 20px}
+.hero h1{margin:18px 0 14px;font-size:clamp(34px,5vw,68px);line-height:1.02;text-shadow:0 10px 24px rgba(0,0,0,.34)}
 .hero h1 span{color:var(--accent-2)}
-.hero p{
-  max-width:850px;
-  margin:0 auto 26px;
-  font-size:clamp(16px,1.5vw,19px);
-  line-height:1.85;
-  color:#eefaf0;
-  text-shadow:0 2px 8px rgba(0,0,0,.28);
-}
-.hero-actions{
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-.btn-primary,.btn-secondary,.btn-link,.btn-reset,.btn-add,.btn-export{
-  padding:14px 24px;
-  border-radius:12px;
-  border:0;
-  cursor:pointer;
-  font-weight:800;
-  font-size:15px;
-  transition:transform .18s ease, background .18s ease, border-color .18s ease, filter .18s ease;
-}
-.btn-primary{
-  background:linear-gradient(135deg,var(--accent),#9be15f);
-  color:#062113;
-  box-shadow:0 16px 30px rgba(124,179,66,.16);
-}
+.hero p{max-width:850px;margin:0 auto 26px;font-size:clamp(16px,1.5vw,19px);line-height:1.85;color:#eefaf0;text-shadow:0 2px 8px rgba(0,0,0,.28)}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary,.btn-secondary,.btn-link,.btn-reset,.btn-add,.btn-export{padding:14px 24px;border-radius:12px;border:0;cursor:pointer;font-weight:800;font-size:15px;transition:transform .18s ease, background .18s ease, border-color .18s ease, filter .18s ease}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#9be15f);color:#062113;box-shadow:0 16px 30px rgba(124,179,66,.16)}
 .btn-primary:hover{transform:translateY(-2px)}
-.btn-secondary{
-  background:rgba(255,255,255,.04);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.20);
-}
+.btn-secondary{background:rgba(255,255,255,.04);color:#fff;border:1px solid rgba(255,255,255,.20)}
 .btn-secondary:hover{transform:translateY(-2px);background:rgba(255,255,255,.08)}
-.btn-link{
-  background:rgba(124,179,66,.12);
-  color:#04462e;
-  border:1px solid rgba(124,179,66,.18);
-}
+.btn-link{background:rgba(124,179,66,.12);color:#04462e;border:1px solid rgba(124,179,66,.18)}
 .btn-reset{background:#ececec;color:#072012}
 .btn-add{background:var(--gold-base);color:#072012}
 .btn-link:hover,.btn-reset:hover,.btn-add:hover{filter:brightness(.98)}
-.btn-export{
-  background:linear-gradient(135deg,var(--gold-base),var(--gold-hover));
-  color:#072012;
-  box-shadow:0 10px 18px rgba(212,175,55,.14);
-}
+.btn-export{background:linear-gradient(135deg,var(--gold-base),var(--gold-hover));color:#072012;box-shadow:0 10px 18px rgba(212,175,55,.14)}
 .btn-export:hover{transform:translateY(-2px)}
 
-.page-center{
-  max-width:var(--max-width);
-  margin:18px auto 80px;
-  padding:0 18px;
-}
+.page-center{max-width:var(--max-width);margin:18px auto 80px;padding:0 18px}
 .section{padding:46px 0}
-.section h2{
-  margin:0 0 14px;
-  text-align:center;
-  color:var(--accent-2);
-  font-size:clamp(26px,3vw,38px);
-  text-shadow:0 2px 10px rgba(0,0,0,.24);
-}
-.section-intro{
-  max-width:980px;
-  margin:0 auto 28px;
-  text-align:center;
-  color:var(--muted);
-  line-height:1.78;
-  font-size:15px;
-  opacity:.96;
-}
-
-.card-soft{
-  background:rgba(6,31,20,.60);
-  border:1px solid rgba(212,175,55,.12);
-  border-radius:18px;
-  padding:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,.18);
-}
-.calc{
-  background:#fff;
-  color:#072012;
-  border-radius:18px;
-  padding:16px;
-  box-shadow:0 10px 22px rgba(0,0,0,.25);
-  overflow:hidden;
-}
-.calc h3{
-  margin:0;
-  color:#04462e;
-  font-size:18px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.calc h3 .badge{
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-  color:#072012;
-  font-weight:900;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:12px;
-}
+.section h2{margin:0 0 14px;text-align:center;color:var(--accent-2);font-size:clamp(26px,3vw,38px);text-shadow:0 2px 10px rgba(0,0,0,.24)}
+.section-intro{max-width:980px;margin:0 auto 28px;text-align:center;color:var(--muted);line-height:1.78;font-size:15px;opacity:.96}
+.card-soft{background:rgba(6,31,20,.60);border:1px solid rgba(212,175,55,.12);border-radius:18px;padding:18px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.calc{background:#fff;color:#072012;border-radius:18px;padding:16px;box-shadow:0 10px 22px rgba(0,0,0,.25);overflow:hidden}
+.calc h3{margin:0;color:#04462e;font-size:18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.calc h3 .badge{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#072012;font-weight:900;padding:6px 10px;border-radius:999px;font-size:12px}
 .small-note{font-size:12px;color:#6c7d6f;margin-top:8px}
-
-.top-controls{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:10px;
-  margin-top:14px;
-  align-items:end;
-}
+.top-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px;align-items:end}
 .top-controls .field{display:flex;flex-direction:column;gap:6px}
-.top-controls label{
-  font-size:12px;
-  color:#072012;
-  font-weight:700;
-}
-.top-controls select,
-.top-controls input{
-  width:100%;
-  padding:10px 11px;
-  border-radius:10px;
-  border:1px solid #e5e5e5;
-  background:#fff;
-  color:#072012;
-  min-width:0;
-}
-.top-controls .badge-zone{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:10px 12px;
-  border-radius:999px;
-  background:rgba(168,230,161,.10);
-  border:1px solid rgba(168,230,161,.16);
-  color:#04462e;
-  font-size:12px;
-  font-weight:800;
-  text-transform:uppercase;
-  white-space:nowrap;
-}
-
-.studio-grid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:14px;
-  margin-top:14px;
-}
-.panel{
-  background:linear-gradient(180deg,#fdfefe,#f8fff8);
-  border:1px solid #e6f1e6;
-  border-radius:16px;
-  padding:14px;
-  box-shadow:0 10px 24px rgba(0,0,0,.08);
-}
-.panel-title{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  flex-wrap:wrap;
-  margin-bottom:10px;
-}
-.panel-title h4{
-  margin:0;
-  font-size:18px;
-  color:#04462e;
-}
-.panel-title .mini{
-  color:#6b7f6f;
-  font-size:12px;
-  font-weight:600;
-}
-.generator{
-  display:grid;
-  grid-template-columns:repeat(6,minmax(0,1fr));
-  gap:10px;
-  margin-top:12px;
-  padding:12px;
-  border-radius:12px;
-  background:linear-gradient(180deg,#f7fff6,#f0fff1);
-  border:1px solid #e6f7ea;
-}
-.generator .col{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-.generator label{
-  font-size:12px;
-  font-weight:700;
-  color:#072012;
-}
-.generator input[type="number"]{
-  padding:9px 10px;
-  border:1px solid #dfe6df;
-  border-radius:10px;
-  min-width:0;
-}
-.generator .actions{
-  grid-column:1 / -1;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-  align-items:center;
-  margin-top:4px;
-}
-.generator .actions label{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  font-size:13px;
-  color:#072012;
-}
-
+.top-controls label{font-size:12px;color:#072012;font-weight:700}
+.top-controls select,.top-controls input{width:100%;padding:10px 11px;border-radius:10px;border:1px solid #e5e5e5;background:#fff;color:#072012;min-width:0}
+.top-controls .badge-zone{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px;border-radius:999px;background:rgba(168,230,161,.10);border:1px solid rgba(168,230,161,.16);color:#04462e;font-size:12px;font-weight:800;text-transform:uppercase;white-space:nowrap}
+.studio-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:14px}
+.panel{background:linear-gradient(180deg,#fdfefe,#f8fff8);border:1px solid #e6f1e6;border-radius:16px;padding:14px;box-shadow:0 10px 24px rgba(0,0,0,.08)}
+.panel-title{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.panel-title h4{margin:0;font-size:18px;color:#04462e}
+.panel-title .mini{color:#6b7f6f;font-size:12px;font-weight:600}
+.generator{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:12px;padding:12px;border-radius:12px;background:linear-gradient(180deg,#f7fff6,#f0fff1);border:1px solid #e6f7ea}
+.generator .col{display:flex;flex-direction:column;gap:6px}
+.generator label{font-size:12px;font-weight:700;color:#072012}
+.generator input[type="number"]{padding:9px 10px;border:1px solid #dfe6df;border-radius:10px;min-width:0}
+.generator .actions{grid-column:1 / -1;display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center;margin-top:4px}
+.generator .actions label{display:flex;gap:8px;align-items:center;font-size:13px;color:#072012}
 .room-list{margin-top:12px;display:flex;flex-direction:column;gap:10px}
-.room{
-  background:#f7f7f7;
-  border-radius:14px;
-  border:1px solid #ececec;
-  color:#072012;
-  overflow:hidden;
-}
-.room summary{
-  list-style:none;
-  cursor:pointer;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:12px 14px;
-  background:#fff;
-  user-select:none;
-}
+.room{background:#f7f7f7;border-radius:14px;border:1px solid #ececec;color:#072012;overflow:hidden}
+.room summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;background:#fff;user-select:none}
 .room summary::-webkit-details-marker{display:none}
-.room-title{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  align-items:center;
-  font-weight:800;
-}
-.room-title span{
-  font-weight:600;
-  color:#6c7d6f;
-}
-.room-body{
-  padding:12px;
-  border-top:1px solid #ececec;
-}
-.room-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-}
-.room-actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  align-items:center;
-}
-.quick-load-select{
-  padding:10px 11px;
-  border-radius:10px;
-  border:1px solid #dcdcdc;
-  background:#fff;
-  color:#072012;
-  min-width:180px;
-}
-.consumer-list{
-  margin-top:10px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.consumer{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  padding:10px;
-  background:#fff;
-  border-radius:12px;
-  border:1px solid #eee;
-}
+.room-title{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:800}
+.room-title span{font-weight:600;color:#6c7d6f}
+.room-body{padding:12px;border-top:1px solid #ececec}
+.room-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.room-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.quick-load-select{padding:10px 11px;border-radius:10px;border:1px solid #dcdcdc;background:#fff;color:#072012;min-width:180px}
+.consumer-list{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.consumer{display:flex;flex-direction:column;gap:10px;padding:10px;background:#fff;border-radius:12px;border:1px solid #eee}
 .consumer .mini{font-size:12px;color:#666;margin-top:4px}
-.consumer-fields{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:8px;
-}
-.consumer-fields label{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  font-size:12px;
-  font-weight:700;
-  color:#072012;
-}
-.consumer-fields input{
-  width:100%;
-  min-width:0;
-  padding:8px;
-  border-radius:8px;
-  border:1px solid #ddd;
-}
-.consumer-actions{
-  display:flex;
-  justify-content:flex-end;
-  flex-wrap:wrap;
-}
-
-.results{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-  margin-top:14px;
-}
-.result-card{
-  background:linear-gradient(180deg,#fbfffb,#f3fff2);
-  padding:14px;
-  border-radius:14px;
-  border:1px solid rgba(3,50,26,.06);
-  box-shadow:0 14px 36px rgba(2,22,12,.12);
-  overflow:hidden;
-  color:#072012;
-}
-.result-card .label{
-  font-size:12px;
-  color:#6c7d6f;
-  text-transform:uppercase;
-  letter-spacing:.6px;
-}
-.result-card .value{
-  font-weight:900;
-  font-size:20px;
-  color:var(--green-mid-2);
-  margin-top:6px;
-  display:block;
-}
+.consumer-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.consumer-fields label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:#072012}
+.consumer-fields input{width:100%;min-width:0;padding:8px;border-radius:8px;border:1px solid #ddd}
+.consumer-actions{display:flex;justify-content:flex-end;flex-wrap:wrap}
+.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.result-card{background:linear-gradient(180deg,#fbfffb,#f3fff2);padding:14px;border-radius:14px;border:1px solid rgba(3,50,26,.06);box-shadow:0 14px 36px rgba(2,22,12,.12);overflow:hidden;color:#072012}
+.result-card .label{font-size:12px;color:#6c7d6f;text-transform:uppercase;letter-spacing:.6px}
+.result-card .value{font-weight:900;font-size:20px;color:var(--green-mid-2);margin-top:6px;display:block}
 .result-card .small{font-size:13px;color:#6c7d6f;margin-top:6px}
-#r_power .value,#r_inv .value,#r_batt .value,#r_autonomy .value,#r_life .value{
-  color:#04462e;
-  font-size:24px;
-  background:linear-gradient(90deg,rgba(124,179,66,.08),rgba(181,134,0,.04));
-  padding:6px 10px;
-  border-radius:999px;
-}
-#r_safety .value{
-  font-size:14px;
-  line-height:1.5;
-  color:#04462e;
-  background:linear-gradient(90deg,rgba(124,179,66,.08),rgba(181,134,0,.04));
-  padding:10px 12px;
-  border-radius:14px;
-  white-space:pre-line;
-  text-align:left;
-}
-
-.chart-card{
-  margin-top:16px;
-  background:#fff;
-  color:#072012;
-  border-radius:18px;
-  padding:14px;
-  box-shadow:var(--shadow);
-  border:1px solid #e7f1e8;
-}
-.chart-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-  margin-bottom:12px;
-}
-.chart-head h3{
-  margin:0;
-  color:#04462e;
-  font-size:18px;
-}
-.legend{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-  font-size:12px;
-  color:#6c7d6f;
-  font-weight:700;
-}
+#r_power .value,#r_inv .value,#r_batt .value,#r_autonomy .value,#r_life .value{color:#04462e;font-size:24px;background:linear-gradient(90deg,rgba(124,179,66,.08),rgba(181,134,0,.04));padding:6px 10px;border-radius:999px}
+#r_safety .value{font-size:14px;line-height:1.5;color:#04462e;background:linear-gradient(90deg,rgba(124,179,66,.08),rgba(181,134,0,.04));padding:10px 12px;border-radius:14px;white-space:pre-line;text-align:left}
+.chart-card{margin-top:16px;background:#fff;color:#072012;border-radius:18px;padding:14px;box-shadow:var(--shadow);border:1px solid #e7f1e8}
+.chart-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.chart-head h3{margin:0;color:#04462e;font-size:18px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:12px;color:#6c7d6f;font-weight:700}
 .lg{display:inline-flex;align-items:center;gap:6px}
 .dot{width:12px;height:12px;border-radius:50%}
-.dot.solar{background:#7cb342}
-.dot.load{background:#d4af37}
-.dot.batt{background:#0b4d26}
-.chart-wrap{
-  width:100%;
-  border-radius:14px;
-  background:linear-gradient(180deg,#fbfffb,#f5fff5);
-  border:1px solid #e9f2ea;
-  padding:8px 8px 2px;
-  overflow:hidden;
-}
+.dot.solar{background:#7cb342}.dot.load{background:#d4af37}.dot.batt{background:#0b4d26}
+.chart-wrap{width:100%;border-radius:14px;background:linear-gradient(180deg,#fbfffb,#f5fff5);border:1px solid #e9f2ea;padding:8px 8px 2px;overflow:hidden}
 canvas{display:block;width:100%;height:auto}
-
-.summary{
-  display:grid;
-  grid-template-columns:1.3fr .7fr;
-  gap:12px;
-  margin-top:18px;
-}
-.summary .big{
-  padding:16px;
-  border-radius:14px;
-  background:#fff;
-  border:1px solid #e6f3ea;
-  color:#072012;
-  box-shadow:var(--shadow);
-}
+.summary{display:grid;grid-template-columns:1.3fr .7fr;gap:12px;margin-top:18px}
+.summary .big{padding:16px;border-radius:14px;background:#fff;border:1px solid #e6f3ea;color:#072012;box-shadow:var(--shadow)}
 .big h2{margin:0;color:#04462e}
-.summary-list{
-  margin:10px 0 0;
-  padding:0;
-  list-style:none;
-  display:grid;
-  gap:8px;
-}
-.summary-list li{
-  padding:10px 12px;
-  border-radius:12px;
-  background:#f7fff7;
-  border:1px solid #e7f1e4;
-  color:#2b3c2d;
-  line-height:1.45;
-}
-.summary .mini-box{
-  margin-top:10px;
-  padding:12px;
-  border-radius:12px;
-  background:#f9fff9;
-  border:1px solid #e6f1e6;
-  color:#2b3c2d;
-  line-height:1.55;
-  font-size:14px;
-}
-.note{
-  font-size:12px;
-  color:#6b7f6f;
-  margin-top:10px;
-}
-.pdf-zone{
-  margin-top:18px;
-  display:flex;
-  justify-content:center;
-}
-footer{
-  background:var(--green-dark);
-  color:#fff;
-  padding:28px 5vw 36px;
-  position:relative;
-  margin-top:40px;
-  text-align:center;
-  box-shadow:0 -6px 12px rgba(0,0,0,.35);
-}
-footer::before{
-  content:"";
-  position:absolute;
-  left:0;right:0;top:0;
-  height:2px;
-  background:var(--gold-base);
-}
-.footer-company{
-  display:block;
-  margin:0 auto 8px;
-  font-size:18px;
-  font-weight:800;
-  color:#04462e;
-  -webkit-text-stroke:.7px var(--gold);
-  text-shadow:0 3px 6px rgba(0,0,0,.6);
-  padding:4px 8px;
-  border-radius:6px;
-  width:max-content;
-}
+.summary-list{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.summary-list li{padding:10px 12px;border-radius:12px;background:#f7fff7;border:1px solid #e7f1e4;color:#2b3c2d;line-height:1.45}
+.summary .mini-box{margin-top:10px;padding:12px;border-radius:12px;background:#f9fff9;border:1px solid #e6f1e6;color:#2b3c2d;line-height:1.55;font-size:14px}
+.note{font-size:12px;color:#6b7f6f;margin-top:10px}
+.pdf-zone{margin-top:18px;display:flex;justify-content:center}
+footer{background:var(--green-dark);color:#fff;padding:28px 5vw 36px;position:relative;margin-top:40px;text-align:center;box-shadow:0 -6px 12px rgba(0,0,0,.35)}
+footer::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--gold-base)}
+.footer-company{display:block;margin:0 auto 8px;font-size:18px;font-weight:800;color:#04462e;-webkit-text-stroke:.7px var(--gold);text-shadow:0 3px 6px rgba(0,0,0,.6);padding:4px 8px;border-radius:6px;width:max-content}
 .footer-contact{margin-top:6px;color:#e6f7ea;line-height:1.6}
-
-.print-block{
-  position:fixed;
-  left:-99999px;
-  top:0;
-  width:1200px;
-  background:#fff;
-  color:#072012;
-  padding:24px;
-  font-family:'Poppins',Arial,sans-serif;
-}
+.print-block{position:fixed;left:-99999px;top:0;width:1200px;background:#fff;color:#072012;padding:24px;font-family:'Poppins',Arial,sans-serif}
 
 @media (max-width:1100px){
   nav{display:none}
@@ -1072,10 +231,6 @@ footer::before{
   .consumer-fields{grid-template-columns:1fr}
   .panel{padding:12px}
   .calc{padding:12px}
-  .room summary{flex-direction:column;align-items:flex-start}
-  .room-head{flex-direction:column;align-items:stretch}
-  .room-actions{width:100%}
-  .quick-load-select{width:100%}
 }
 @media (max-width:480px){
   :root{--topbar-h:40px;--header-h:76px}
@@ -1085,9 +240,7 @@ footer::before{
   .company-name{font-size:28px}
   .company-tagline{font-size:10px;letter-spacing:2px}
   .burger{width:48px;height:48px}
-  .hero{
-    min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
-  }
+  .hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
   .hero-bg{object-position:center 28%;transform:scale(1.08)}
   .hero-content{max-width:92vw;padding:18px 12px}
   .hero-content h1{font-size:28px}
@@ -1101,8 +254,6 @@ footer::before{
   .panel{padding:12px}
   .section{padding:38px 0}
   .summary .big{padding:14px}
-  .result-card .value{font-size:18px}
-  .summary-list li{font-size:13px}
 }
 </style>
 </head>
@@ -1110,9 +261,7 @@ footer::before{
 <body>
 <div class="topbar" role="banner">
   <div class="right">
-    <a href="tel:+2250707070707" id="topPhoneLink">
-      <i class="fas fa-phone" aria-hidden="true"></i>&nbsp;<span id="topPhoneText">+225 07 07 07 07 07</span>
-    </a>
+    <a href="tel:+2250707070707" id="topPhoneLink"><i class="fas fa-phone" aria-hidden="true"></i>&nbsp;<span id="topPhoneText">+225 07 07 07 07 07</span></a>
   </div>
 </div>
 
@@ -1131,18 +280,13 @@ footer::before{
 
   <nav aria-label="Menu principal">
     <a href="Code1.html">Accueil</a>
-
     <div class="dropdown" aria-haspopup="true" aria-expanded="false" id="studyDropdown">
-      <a href="etude_dimensionnement_2.html" id="studyLink" data-current="🏙️ Zone Urbaine">
-        Étude
-        <span class="sub-badge">🏙️ Zone Urbaine</span>
-      </a>
+      <a href="etude_dimensionnement_2.html" id="studyLink" data-current="🏙️ Zone Urbaine">Étude <span class="sub-badge">🏙️ Zone Urbaine</span></a>
       <ul class="dropdown-content" role="menu" aria-label="Sous-menu étude" id="studyDropdownContent">
         <li><a href="zone_urbaine.html" role="menuitem" class="active-item" aria-current="page">🏙️ Zone Urbaine</a></li>
         <li><a href="zone_agricole.html" role="menuitem">🌾 Zone Agricole</a></li>
       </ul>
     </div>
-
     <div class="dropdown" aria-haspopup="true" aria-expanded="false" id="productsDropdown">
       <a href="produits.html" id="productsLink">Nos Produits</a>
       <ul class="dropdown-content" role="menu" aria-label="Sous-menu produits" id="productsDropdownContent">
@@ -1152,39 +296,27 @@ footer::before{
         <li><a href="groupes.html" role="menuitem">⚙️ Groupes électrogènes</a></li>
       </ul>
     </div>
-
     <a href="Projets.html">Projets futurs</a>
     <a href="maintenance.html">Maintenance</a>
   </nav>
 </header>
 
 <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
-
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
   <div class="mobile-panel">
     <button class="mobile-close" id="mobileCloseBtn" aria-label="Fermer le menu">×</button>
-    <div class="mobile-brand">
-      <div class="company-name">GREENBRIDGE</div>
-      <div class="company-tagline">TECHNOLOGIES</div>
-    </div>
-
+    <div class="mobile-brand"><div class="company-name">GREENBRIDGE</div><div class="company-tagline">TECHNOLOGIES</div></div>
     <div class="menu-links">
       <a href="Code1.html" class="mobile-link">Accueil</a>
-
       <div>
-        <a href="etude_dimensionnement_2.html" id="mobileStudyToggle" class="mobile-link active" data-current="🏙️ Zone Urbaine" aria-expanded="true">
-          Étude <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-        </a>
+        <a href="etude_dimensionnement_2.html" id="mobileStudyToggle" class="mobile-link active" data-current="🏙️ Zone Urbaine" aria-expanded="true">Étude <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span></a>
         <div class="submenu" id="mobileStudySub" style="display:flex;">
           <a href="zone_urbaine.html" class="active-item" aria-current="page">🏙️ Zone Urbaine</a>
           <a href="zone_agricole.html">🌾 Zone Agricole</a>
         </div>
       </div>
-
       <div>
-        <a href="produits.html" id="mobileProductsToggle" class="mobile-link" aria-expanded="false">
-          Nos Produits <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span>
-        </a>
+        <a href="produits.html" id="mobileProductsToggle" class="mobile-link" aria-expanded="false">Nos Produits <span class="caret" aria-hidden="true"><i class="fas fa-chevron-down" style="margin-left:6px"></i></span></a>
         <div class="submenu" id="mobileProductsSub">
           <a href="panneaux.html">⚡ Panneaux solaires</a>
           <a href="batteries.html">🔋 Batteries & stockage</a>
@@ -1192,19 +324,13 @@ footer::before{
           <a href="groupes.html">⚙️ Groupes électrogènes</a>
         </div>
       </div>
-
       <a href="Projets.html" class="mobile-link">Projets futurs</a>
       <a href="maintenance.html" class="mobile-link">Maintenance</a>
     </div>
-
     <div class="mobile-contact">
       <strong>CONTACT</strong>
-      <div class="phone-line">
-        <i class="fas fa-phone" aria-hidden="true"></i>
-        <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
-      </div>
+      <div class="phone-line"><i class="fas fa-phone" aria-hidden="true"></i><a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a></div>
     </div>
-
     <div class="socials">
       <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
       <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
@@ -1221,12 +347,12 @@ footer::before{
       <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.10"/>
       <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
     </svg>
-    <div class="orbs">
+    <div class="orbs" id="energyOrbs">
       <div class="orb" id="eOrbA"></div>
       <div class="orb" id="eOrbB"></div>
       <div class="orb" id="eOrbC"></div>
     </div>
-    <div class="glowline"></div>
+    <div class="glowline" id="eGlowline"></div>
   </div>
 </div>
 
@@ -1236,19 +362,14 @@ footer::before{
   <div class="hero-content">
     <h1>Étude <span>zone urbaine</span></h1>
     <p>Une étude simple à utiliser, mais structurée comme un vrai pré-dimensionnement : charges, panneaux, batteries, autonomie, onduleur standard et sécurité.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" type="button" onclick="document.getElementById('study').scrollIntoView({behavior:'smooth'})">Commencer étude</button>
-    </div>
+    <div class="hero-actions"><button class="btn-primary" type="button" onclick="document.getElementById('study').scrollIntoView({behavior:'smooth'})">Commencer étude</button></div>
   </div>
 </section>
 
 <div class="page-center" role="main">
   <section id="study" class="section" aria-label="Étude de dimensionnement">
     <h2>Étude de dimensionnement</h2>
-    <p class="section-intro">
-      Le pays est sélectionné avant la ville pour adapter l’ensoleillement et les hypothèses de calcul.
-      Les charges sont réalistes, les blocs sont propres et le calcul se lance dès que vous générez les pièces.
-    </p>
+    <p class="section-intro">Le pays est sélectionné avant la ville pour adapter l’ensoleillement et les hypothèses de calcul. Les charges sont réalistes, les blocs sont propres et le calcul se lance dès que vous générez les pièces.</p>
 
     <div class="card-soft">
       <div class="calc">
@@ -1256,68 +377,19 @@ footer::before{
         <div class="small-note">Les pièces sont générées uniquement au clic sur <strong>Générer pièces</strong>.</div>
 
         <div class="top-controls">
-          <div class="field">
-            <label for="country">Pays</label>
-            <select id="country">
-              <option value="ci">Côte d’Ivoire</option>
-              <option value="sn">Sénégal</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="city">Ville</label>
-            <select id="city"></select>
-          </div>
-
-          <div class="field">
-            <label for="batteryType">Batterie</label>
-            <select id="batteryType">
-              <option value="lifepo4">LiFePO4</option>
-              <option value="lithium_ion">Lithium ion</option>
-              <option value="gel">Gel</option>
-              <option value="plomb">Plomb</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="batteryPackCount">Nb packs</label>
-            <select id="batteryPackCount">
-              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-              <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="battPackKwh">Capacité pack (kWh)</label>
-            <select id="battPackKwh">
-              <option>0.64</option>
-              <option selected>1.28</option>
-              <option>2.56</option>
-              <option>5.12</option>
-              <option>7.68</option>
-              <option>10.24</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="panelW">Panneau (W)</label>
-            <select id="panelW">
-              <option>50</option><option>100</option><option>150</option><option>200</option><option>250</option>
-              <option>300</option><option>350</option><option>400</option><option>450</option><option>500</option><option>550</option>
-            </select>
-          </div>
-
+          <div class="field"><label for="country">Pays</label><select id="country"><option value="ci">Côte d’Ivoire</option><option value="sn">Sénégal</option></select></div>
+          <div class="field"><label for="city">Ville</label><select id="city"></select></div>
+          <div class="field"><label for="batteryType">Batterie</label><select id="batteryType"><option value="lifepo4">LiFePO4</option><option value="lithium_ion">Lithium ion</option><option value="gel">Gel</option><option value="plomb">Plomb</option></select></div>
+          <div class="field"><label for="batteryPackCount">Nb packs</label><select id="batteryPackCount"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
+          <div class="field"><label for="battPackKwh">Capacité pack (kWh)</label><select id="battPackKwh"><option>0.64</option><option selected>1.28</option><option>2.56</option><option>5.12</option><option>7.68</option><option>10.24</option></select></div>
+          <div class="field"><label for="panelW">Panneau (W)</label><select id="panelW"><option>50</option><option>100</option><option>150</option><option>200</option><option>250</option><option>300</option><option>350</option><option>400</option><option>450</option><option>500</option><option>550</option></select></div>
           <span class="badge-zone"><i class="fas fa-building"></i> Zone urbaine</span>
           <button id="resetBtn" class="btn-reset" type="button">Réinitialiser</button>
         </div>
 
         <div class="studio-grid">
           <div class="panel">
-            <div class="panel-title">
-              <h4>Générateur de pièces</h4>
-              <div class="mini">Créer, développer et ajouter des charges</div>
-            </div>
-
+            <div class="panel-title"><h4>Générateur de pièces</h4><div class="mini">Créer, développer et ajouter des charges</div></div>
             <div class="generator">
               <div class="col"><label>Chambres</label><input type="number" id="genBedrooms" min="0" value="1"></div>
               <div class="col"><label>Salons</label><input type="number" id="genLiving" min="0" value="1"></div>
@@ -1325,37 +397,22 @@ footer::before{
               <div class="col"><label>Salles d'eau</label><input type="number" id="genBaths" min="0" value="1"></div>
               <div class="col"><label>Bureaux</label><input type="number" id="genOffices" min="0" value="0"></div>
               <div class="col"><label>Toilettes</label><input type="number" id="genToilets" min="0" value="0"></div>
-              <div class="actions">
-                <label><input type="checkbox" id="genAdd"> Ajouter aux pièces existantes</label>
-                <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
-              </div>
+              <div class="actions"><label><input type="checkbox" id="genAdd"> Ajouter aux pièces existantes</label><button id="generateBtn" class="btn-add" type="button">Générer pièces</button></div>
             </div>
-
             <div class="note">Chaque pièce est fermée par défaut. Vous pouvez l’ouvrir, ajouter une charge rapide ou saisir une charge manuelle.</div>
-
             <div id="roomsList" class="room-list"></div>
           </div>
 
           <div class="panel">
-            <div class="panel-title">
-              <h4>Paramètres et lecture rapide</h4>
-              <div class="mini">Calcul automatique après génération</div>
-            </div>
-
-            <div class="note" style="background:#fbfffb;border:1px solid #e9f2df;padding:10px;border-radius:10px;margin-top:0">
-              Les réglages de système sont déjà définis en haut. La lecture ci-contre donne l’essentiel sans répéter les mêmes valeurs.
-            </div>
-
+            <div class="panel-title"><h4>Paramètres et lecture rapide</h4><div class="mini">Calcul automatique après génération</div></div>
+            <div class="note" style="background:#fbfffb;border:1px solid #e9f2df;padding:10px;border-radius:10px;margin-top:0">Les réglages de système sont déjà définis en haut. La lecture ci-contre donne l’essentiel sans répéter les mêmes valeurs.</div>
             <ul class="summary-list" style="margin-top:12px">
               <li><strong>Pays / ville :</strong> influence directe sur l’ensoleillement et les hypothèses de calcul.</li>
               <li><strong>Batterie :</strong> le calcul suit le nombre de packs et la capacité utile choisie.</li>
               <li><strong>Panneaux :</strong> le résultat est donné avec une tranche utile, pas seulement une valeur sèche.</li>
               <li><strong>Étude :</strong> le calcul se met à jour dès qu’une pièce ou une charge change.</li>
             </ul>
-
-            <div class="mini-box">
-              Pour une étude plus fine, la validation terrain reste nécessaire : câbles, protections DC/AC, chute de tension, structure, mise à la terre et réserve d’exploitation.
-            </div>
+            <div class="mini-box">Pour une étude plus fine, la validation terrain reste nécessaire : câbles, protections DC/AC, chute de tension, structure, mise à la terre et réserve d’exploitation.</div>
           </div>
         </div>
 
@@ -1373,23 +430,12 @@ footer::before{
         </div>
 
         <div class="chart-card">
-          <div class="chart-head">
-            <h3>Profil journalier 24 h</h3>
-            <div class="legend">
-              <span class="lg"><span class="dot solar"></span>Production solaire</span>
-              <span class="lg"><span class="dot load"></span>Consommation / charge</span>
-              <span class="lg"><span class="dot batt"></span>Niveau batterie</span>
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas>
-          </div>
+          <div class="chart-head"><h3>Profil journalier 24 h</h3><div class="legend"><span class="lg"><span class="dot solar"></span>Production solaire</span><span class="lg"><span class="dot load"></span>Consommation / charge</span><span class="lg"><span class="dot batt"></span>Niveau batterie</span></div></div>
+          <div class="chart-wrap"><canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas></div>
           <div class="note">Le soleil est pris en compte selon la ville. Le graphique montre la charge, la production solaire et l’état batterie estimé.</div>
         </div>
 
-        <div class="pdf-zone">
-          <button id="exportPdfBtn" class="btn-export" type="button"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF</button>
-        </div>
+        <div class="pdf-zone"><button id="exportPdfBtn" class="btn-export" type="button"><i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF</button></div>
       </div>
     </div>
   </section>
@@ -1405,15 +451,10 @@ footer::before{
           <li><strong>Afrique de l’Ouest :</strong> Côte d’Ivoire et Sénégal sont intégrés avec des villes et un ensoleillement adaptés.</li>
         </ul>
       </div>
-
       <div class="big">
         <h2>Points utiles</h2>
-        <div class="mini-box">
-          Le calcul est indicatif mais exploitable pour une première proposition commerciale. Pour une étude plus fine, la validation terrain reste nécessaire.
-        </div>
-        <div class="mini-box">
-          Les données sont recalculées au clic sur <strong>Générer pièces</strong>, puis à chaque modification d’une charge.
-        </div>
+        <div class="mini-box">Le calcul est indicatif mais exploitable pour une première proposition commerciale. Pour une étude plus fine, la validation terrain reste nécessaire.</div>
+        <div class="mini-box">Les données sont recalculées au clic sur <strong>Générer pièces</strong>, puis à chaque modification d’une charge.</div>
       </div>
     </div>
   </section>
@@ -1524,19 +565,16 @@ const burgerBtn = el('burgerBtn');
 const mobileNav = el('mobileNav');
 const mobileBackdrop = el('mobileBackdrop');
 const mobileCloseBtn = el('mobileCloseBtn');
-
 const topPhoneLink = el('topPhoneLink');
 const topPhoneText = el('topPhoneText');
 const mobilePhoneLink = el('mobilePhoneLink');
 const footerPhoneText = el('footerPhoneText');
-
 const countryEl = el('country');
 const cityEl = el('city');
 const batteryTypeEl = el('batteryType');
 const batteryPackCountEl = el('batteryPackCount');
 const battPackKwhEl = el('battPackKwh');
 const panelWEl = el('panelW');
-
 const roomListEl = el('roomsList');
 const genBedrooms = el('genBedrooms');
 const genLiving = el('genLiving');
@@ -1548,7 +586,6 @@ const genAdd = el('genAdd');
 const generateBtn = el('generateBtn');
 const resetBtn = el('resetBtn');
 const exportPdfBtn = el('exportPdfBtn');
-
 const loadsCountEl = el('loadsCount');
 const consDayEl = el('consDay');
 const consMonthEl = el('consMonth');
@@ -1563,7 +600,6 @@ const batteryTypeOutEl = el('batteryTypeOut');
 const coverageNoteEl = el('coverageNote');
 const summaryNoteEl = el('summaryNote');
 const safetyCardEl = el('safetyCard');
-
 const consDayCard = el('consDayCard');
 const consMonthCard = el('consMonthCard');
 const powerInstalledCard = el('powerInstalledCard');
@@ -1575,112 +611,70 @@ const autonomyCard = el('autonomyCard');
 const batteryLifeCard = el('batteryLifeCard');
 const dailyChart = el('dailyChart');
 
-function fmt(n, dec = 2){
-  return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' ');
-}
+function fmt(n, dec = 2){ return Number(n || 0).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
 function getBatteryProfile(type){ return BATTERY_TYPES[type] || BATTERY_TYPES.lifepo4; }
 function getCityInfo(){ return CITY_META[cityEl.value] || CITY_META.abidjan; }
 function getSunHours(city){ return (CITY_META[city] && CITY_META[city].sun) || 4.5; }
-function pickStandardInverter(targetW){
-  const v = Math.max(300, Number(targetW || 0));
-  return STD_INVERTERS.find(x => x >= v) || STD_INVERTERS[STD_INVERTERS.length - 1];
+function pickStandardInverter(targetW){ const v = Math.max(300, Number(targetW || 0)); return STD_INVERTERS.find(x => x >= v) || STD_INVERTERS[STD_INVERTERS.length - 1]; }
+function cloneLoads(loads){ return (loads || []).map(l => ({ name:l.name||'', qty:Number(l.qty ?? 1), powerW:Number(l.powerW ?? 0), hours:Number(l.hours ?? 0) })); }
+function uniqueRoomName(base){ let name = base, n = 1; while(rooms.some(r => r.name === name)){ n += 1; name = `${base} ${n}`; } return name; }
+function createRoom(type, baseName, withTemplate = true){ roomCounter += 1; return { id: roomCounter, type, name: uniqueRoomName(baseName || `${type} ${roomCounter}`), loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : [] }; }
+
+function populateCities(country){
+  cityEl.innerHTML = '';
+  const list = COUNTRY_CITIES[country] || COUNTRY_CITIES.ci;
+  list.forEach(c => cityEl.appendChild(new Option(c.label, c.value)));
+  cityEl.value = list[0].value;
 }
-function cloneLoads(loads){
-  return (loads || []).map(l => ({ name:l.name||'', qty:Number(l.qty ?? 1), powerW:Number(l.powerW ?? 0), hours:Number(l.hours ?? 0) }));
-}
-function uniqueRoomName(base){
-  let name = base, n = 1;
-  while(rooms.some(r => r.name === name)){ n += 1; name = `${base} ${n}`; }
-  return name;
-}
-function createRoom(type, baseName, withTemplate = true){
-  roomCounter += 1;
-  return {
-    id: roomCounter,
-    type,
-    name: uniqueRoomName(baseName || `${type} ${roomCounter}`),
-    loads: withTemplate ? cloneLoads(ROOM_TEMPLATES[type] || []) : []
-  };
+
+function updatePhoneNumbers(){
+  const cityInfo = getCityInfo();
+  const info = cityInfo.country === 'sn' ? CONTACT_NUMBER.dakar : CONTACT_NUMBER.abidjan;
+  if(topPhoneLink){ topPhoneLink.href = 'tel:' + info.tel; topPhoneText.textContent = info.display; }
+  if(mobilePhoneLink){ mobilePhoneLink.href = 'tel:' + info.tel; mobilePhoneLink.textContent = info.display; }
+  if(footerPhoneText) footerPhoneText.textContent = info.display;
 }
 
 function renderRooms(){
   const openState = {};
-  roomListEl.querySelectorAll('details.room').forEach((d, idx) => {
-    const room = rooms[idx];
-    if(room) openState[room.id] = d.open;
-  });
-
+  roomListEl.querySelectorAll('details.room').forEach((d, idx) => { const room = rooms[idx]; if(room) openState[room.id] = d.open; });
   roomListEl.innerHTML = '';
-  if(rooms.length === 0){
-    roomListEl.innerHTML = '<div class="note">Aucune pièce générée pour le moment. Utilisez les champs ci-dessus puis cliquez sur <strong>Générer pièces</strong>.</div>';
-    return;
-  }
+  if(rooms.length === 0){ roomListEl.innerHTML = '<div class="note">Aucune pièce générée pour le moment. Utilisez les champs ci-dessus puis cliquez sur <strong>Générer pièces</strong>.</div>'; return; }
 
   rooms.forEach((room, roomIndex) => {
     const roomTotalW = room.loads.reduce((s,l)=>s + Math.max(0, Number(l.qty||0)) * Math.max(0, Number(l.powerW||0)), 0);
     const roomTotalKwh = room.loads.reduce((s,l)=>s + Math.max(0, Number(l.qty||0)) * Math.max(0, Number(l.powerW||0)) * Math.max(0, Number(l.hours||0)) / 1000, 0);
-
     const box = document.createElement('details');
     box.className = 'room';
     box.id = `room-block-${roomIndex}`;
     box.open = openState[room.id] ?? false;
-
     const loadsHtml = room.loads.map((load, loadIndex) => `
       <div class="consumer" data-r="${roomIndex}" data-l="${loadIndex}">
-        <div>
-          <strong>${load.name || 'Charge'}</strong>
-          <div class="mini">Nom, puissance et durée réelle d’utilisation.</div>
-        </div>
+        <div><strong>${load.name || 'Charge'}</strong><div class="mini">Nom, puissance et durée réelle d’utilisation.</div></div>
         <div class="consumer-fields">
-          <label>Nom
-            <input class="load-field" data-field="name" type="text" value="${load.name}">
-          </label>
-          <label>Qté
-            <input class="load-field" data-field="qty" type="number" min="0" value="${load.qty}">
-          </label>
-          <label>W
-            <input class="load-field" data-field="powerW" type="number" min="0" value="${load.powerW}">
-          </label>
-          <label>h/j
-            <input class="load-field" data-field="hours" type="number" min="0" step="0.1" value="${load.hours}">
-          </label>
+          <label>Nom<input class="load-field" data-field="name" type="text" value="${load.name}"></label>
+          <label>Qté<input class="load-field" data-field="qty" type="number" min="0" value="${load.qty}"></label>
+          <label>W<input class="load-field" data-field="powerW" type="number" min="0" value="${load.powerW}"></label>
+          <label>h/j<input class="load-field" data-field="hours" type="number" min="0" step="0.1" value="${load.hours}"></label>
         </div>
-        <div class="consumer-actions">
-          <button class="btn-reset btn-remove-load" type="button">Suppr</button>
-        </div>
+        <div class="consumer-actions"><button class="btn-reset btn-remove-load" type="button">Suppr</button></div>
       </div>
     `).join('');
-
     box.innerHTML = `
       <summary>
-        <div class="room-title">
-          ${room.name}
-          <span>(${room.type})</span>
-          <span style="font-weight:800;color:#0b4d26">— ${fmt(roomTotalKwh,2)} kWh/j</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;color:#6c7d6f;font-size:12px;">
-          <i class="fas fa-chevron-down"></i>
-          <span>Développer / réduire</span>
-        </div>
+        <div class="room-title">${room.name}<span>(${room.type})</span><span style="font-weight:800;color:#0b4d26">— ${fmt(roomTotalKwh,2)} kWh/j</span></div>
+        <div style="display:flex;align-items:center;gap:8px;color:#6c7d6f;font-size:12px;"><i class="fas fa-chevron-down"></i><span>Développer / réduire</span></div>
       </summary>
-
       <div class="room-body">
         <div class="room-head">
           <div class="room-actions">
-            <select class="quick-load-select" data-r="${roomIndex}">
-              ${QUICK_LOADS.map(q=>`<option value="${q.key}">${q.label}</option>`).join('')}
-            </select>
+            <select class="quick-load-select" data-r="${roomIndex}">${QUICK_LOADS.map(q=>`<option value="${q.key}">${q.label}</option>`).join('')}</select>
             <button class="btn-link btn-add-load" data-r="${roomIndex}" type="button">Ajouter charge</button>
             <button class="btn-reset btn-remove-room" data-r="${roomIndex}" type="button">Suppr pièce</button>
           </div>
-          <div class="badge-zone" style="color:#04462e;background:rgba(124,179,66,.08);border:1px solid rgba(124,179,66,.12)">
-            <i class="fas fa-bolt"></i> ${fmt(roomTotalW,0)} W — ${fmt(roomTotalKwh,2)} kWh/j
-          </div>
+          <div class="badge-zone" style="color:#04462e;background:rgba(124,179,66,.08);border:1px solid rgba(124,179,66,.12)"><i class="fas fa-bolt"></i> ${fmt(roomTotalW,0)} W — ${fmt(roomTotalKwh,2)} kWh/j</div>
         </div>
-
-        <div class="consumer-list">
-          ${loadsHtml || '<div style="font-size:13px;color:#666">Aucune charge ajoutée</div>'}
-        </div>
+        <div class="consumer-list">${loadsHtml || '<div style="font-size:13px;color:#666">Aucune charge ajoutée</div>'}</div>
       </div>
     `;
     roomListEl.appendChild(box);
@@ -1688,28 +682,9 @@ function renderRooms(){
 }
 
 function generateInitialRooms(){
-  if(!genAdd.checked){
-    rooms = [];
-    roomCounter = 0;
-  }
-
-  const items = [
-    ['Chambre', genBedrooms.value],
-    ['Salon', genLiving.value],
-    ['Cuisine', genKitchens.value],
-    ["Salle d'eau", genBaths.value],
-    ['Bureau', genOffices.value],
-    ['Toilette', genToilets.value]
-  ];
-
-  items.forEach(([type, val]) => {
-    const c = Math.max(0, Number(val || 0));
-    for(let i=0;i<c;i++){
-      const name = c === 1 ? type : `${type} ${i+1}`;
-      rooms.push(createRoom(type, name, true));
-    }
-  });
-
+  if(!genAdd.checked){ rooms = []; roomCounter = 0; }
+  const items = [['Chambre',genBedrooms.value],['Salon',genLiving.value],['Cuisine',genKitchens.value],["Salle d'eau",genBaths.value],['Bureau',genOffices.value],['Toilette',genToilets.value]];
+  items.forEach(([type,val]) => { const c = Math.max(0, Number(val || 0)); for(let i=0;i<c;i++){ const name = c === 1 ? type : `${type} ${i+1}`; rooms.push(createRoom(type,name,true)); } });
   renderRooms();
   recalc();
 }
@@ -1718,8 +693,7 @@ function addQuickLoad(roomIndex, templateKey){
   const tpl = QUICK_LOADS.find(q => q.key === templateKey) || QUICK_LOADS[0];
   rooms[roomIndex].loads.push({ name:tpl.name, qty:tpl.qty, powerW:tpl.powerW, hours:tpl.hours });
   renderRooms();
-  const block = el(`room-block-${roomIndex}`);
-  if(block) block.open = true;
+  const block = el(`room-block-${roomIndex}`); if(block) block.open = true;
   recalc();
 }
 
@@ -1739,22 +713,12 @@ function onLoadChange(e){
 
 function getAllLoads(){
   const list = [];
-  rooms.forEach((room, roomIndex) => {
-    room.loads.forEach((load, loadIndex) => {
-      list.push({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type });
-    });
-  });
+  rooms.forEach((room, roomIndex) => { room.loads.forEach((load, loadIndex) => { list.push({ ...load, roomIndex, loadIndex, roomName:room.name, roomType:room.type }); }); });
   return list;
 }
 
 function getSafetyPoints(){
-  return [
-    '1) Parafoudre DC/AC et protections contre surtension.',
-    '2) Disjoncteurs, fusibles et sectionnement accessibles.',
-    '3) Mise à la terre et câblage dimensionnés correctement.',
-    '4) Ventilation correcte de l’emplacement batteries.',
-    '5) Réserve d’exploitation et marge de sécurité recommandées.'
-  ];
+  return ['1) Parafoudre DC/AC et protections contre surtension.','2) Disjoncteurs, fusibles et sectionnement accessibles.','3) Mise à la terre et câblage dimensionnés correctement.','4) Ventilation correcte de l’emplacement batteries.','5) Réserve d’exploitation et marge de sécurité recommandées.'];
 }
 
 function roomDiversity(name){
@@ -1770,16 +734,12 @@ function roomDiversity(name){
 
 function compute(){
   const loads = getAllLoads();
-  let installedPower = 0;
-  let peakPower = 0;
-  let dailyWh = 0;
-
+  let installedPower = 0, peakPower = 0, dailyWh = 0;
   loads.forEach(load => {
     const qty = Math.max(0, Number(load.qty || 0));
     const powerW = Math.max(0, Number(load.powerW || 0));
     const hours = Math.max(0, Number(load.hours || 0));
     const totalPower = qty * powerW;
-
     installedPower += totalPower;
     peakPower += totalPower * roomDiversity(load.name);
     dailyWh += totalPower * hours;
@@ -1791,46 +751,17 @@ function compute(){
   const panelW = Math.max(1, Number(panelWEl.value || 350));
   const battPackKwh = Math.max(0.01, Number(battPackKwhEl.value || 1.28));
   const batteryPackCount = Math.max(0, Number(batteryPackCountEl.value || 0));
-
   const dailyKwh = dailyWh / 1000;
   const monthlyKwh = dailyKwh * 30;
-
   const pvKwRec = dailyKwh > 0 ? dailyKwh / (sunHours * 0.90) : 0;
   const pvMin = pvKwRec * 0.90;
   const pvMax = pvKwRec * 1.15;
   const panelCountRec = Math.ceil((pvKwRec * 1000) / panelW);
-
   const inverterNeed = pickStandardInverter(Math.max(peakPower * 1.20, installedPower * 0.75, 300));
-
   const batteryUsefulTotal = batteryPackCount * battPackKwh * batteryProfile.dod * batteryProfile.eff;
   const autonomyDays = dailyKwh > 0 ? (batteryUsefulTotal / dailyKwh) : 0;
 
-  const coverageNote = pvKwRec > 0
-    ? `Base PV : ${fmt(pvKwRec,2)} kWc | plage ${fmt(pvMin,2)} - ${fmt(pvMax,2)} kWc`
-    : 'Générez des pièces pour obtenir un dimensionnement';
-
-  return {
-    loads,
-    installedPower,
-    peakPower,
-    dailyKwh,
-    monthlyKwh,
-    pvKwRec,
-    pvMin,
-    pvMax,
-    panelCountRec,
-    inverterNeed,
-    batteryUsefulTotal,
-    autonomyDays,
-    batteryLifeYears: batteryProfile.lifeLabel,
-    batteryCycles: batteryProfile.cycles,
-    coverageNote,
-    batteryPackCount,
-    battPackKwh,
-    batteryProfile,
-    safetyPoints:getSafetyPoints(),
-    sunHours
-  };
+  return { loads, installedPower, peakPower, dailyKwh, monthlyKwh, pvKwRec, pvMin, pvMax, panelCountRec, inverterNeed, batteryUsefulTotal, autonomyDays, batteryLifeYears:batteryProfile.lifeLabel, batteryCycles:batteryProfile.cycles, coverageNote: pvKwRec > 0 ? `Base PV : ${fmt(pvKwRec,2)} kWc | plage ${fmt(pvMin,2)} - ${fmt(pvMax,2)} kWc` : 'Générez des pièces pour obtenir un dimensionnement', batteryPackCount, battPackKwh, batteryProfile, safetyPoints:getSafetyPoints(), sunHours };
 }
 
 function drawChart(solarCurve, loadCurve, batterySoc, yMax, label){
@@ -1845,98 +776,25 @@ function drawChart(solarCurve, loadCurve, batterySoc, yMax, label){
   const ctx = canvas.getContext('2d');
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.clearRect(0,0,cssWidth,cssHeight);
-
   const padL = 56, padR = 20, padT = 18, padB = 44;
   const w = cssWidth, h = cssHeight, chartW = w - padL - padR, chartH = h - padT - padB;
   const maxVal = Math.max(1, yMax || 1);
-
-  ctx.fillStyle = '#fbfffb';
-  ctx.fillRect(0,0,w,h);
-  ctx.strokeStyle = '#e6f1e6';
-  ctx.lineWidth = 1;
-  ctx.font = '12px Poppins, Arial';
-  ctx.fillStyle = '#6b7f6f';
-
-  for(let i=0;i<=5;i++){
-    const y = padT + chartH*i/5;
-    ctx.beginPath();
-    ctx.moveTo(padL,y);
-    ctx.lineTo(w-padR,y);
-    ctx.stroke();
-    ctx.fillText((maxVal*(1-i/5)).toFixed(1),10,y+4);
-  }
-  for(let i=0;i<=6;i++){
-    const x = padL + chartW*i/6;
-    ctx.beginPath();
-    ctx.moveTo(x,padT);
-    ctx.lineTo(x,padT+chartH);
-    ctx.stroke();
-    ctx.fillText(String(i*4).padStart(2,'0')+'h',x-10,h-16);
-  }
-
+  ctx.fillStyle = '#fbfffb'; ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle = '#e6f1e6'; ctx.lineWidth = 1; ctx.font = '12px Poppins, Arial'; ctx.fillStyle = '#6b7f6f';
+  for(let i=0;i<=5;i++){ const y = padT + chartH*i/5; ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(w-padR,y); ctx.stroke(); ctx.fillText((maxVal*(1-i/5)).toFixed(1),10,y+4); }
+  for(let i=0;i<=6;i++){ const x = padL + chartW*i/6; ctx.beginPath(); ctx.moveTo(x,padT); ctx.lineTo(x,padT+chartH); ctx.stroke(); ctx.fillText(String(i*4).padStart(2,'0')+'h',x-10,h-16); }
   const xForHour = hour => padL + (hour/23)*chartW;
   const yForVal = val => padT + chartH - (val/maxVal)*chartH;
-
-  ctx.beginPath();
-  ctx.moveTo(xForHour(0),yForVal(0));
-  for(let h=0;h<24;h++) ctx.lineTo(xForHour(h),yForVal(solarCurve[h] || 0));
-  ctx.lineTo(xForHour(23),yForVal(0));
-  ctx.closePath();
-  ctx.fillStyle='rgba(124,179,66,.18)';
-  ctx.fill();
-
-  ctx.beginPath();
-  ctx.moveTo(xForHour(0),yForVal(0));
-  for(let h=0;h<24;h++) ctx.lineTo(xForHour(h),yForVal(loadCurve[h] || 0));
-  ctx.lineTo(xForHour(23),yForVal(0));
-  ctx.closePath();
-  ctx.fillStyle='rgba(212,175,55,.18)';
-  ctx.fill();
-
-  ctx.beginPath();
-  for(let h=0;h<24;h++){
-    const x = xForHour(h), y = yForVal(solarCurve[h] || 0);
-    if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  }
-  ctx.strokeStyle='#7cb342';
-  ctx.lineWidth=3;
-  ctx.stroke();
-
-  ctx.beginPath();
-  for(let h=0;h<24;h++){
-    const x = xForHour(h), y = yForVal(loadCurve[h] || 0);
-    if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-  }
-  ctx.strokeStyle='#d4af37';
-  ctx.lineWidth=3;
-  ctx.stroke();
-
-  if(batterySoc && batterySoc.length){
-    const maxSoc = Math.max(...batterySoc,1);
-    ctx.beginPath();
-    for(let h=0;h<24;h++){
-      const x = xForHour(h), y = yForVal((batterySoc[h]/maxSoc)*maxVal);
-      if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    }
-    ctx.strokeStyle='#0b4d26';
-    ctx.setLineDash([6,5]);
-    ctx.lineWidth=2;
-    ctx.stroke();
-    ctx.setLineDash([]);
-  }
-
-  ctx.fillStyle='#04462e';
-  ctx.font='700 13px Poppins, Arial';
-  ctx.fillText(label || '', padL, 16);
-  ctx.fillText('06h',xForHour(6)-8,padT+chartH+18);
-  ctx.fillText('12h',xForHour(12)-8,padT+chartH+18);
-  ctx.fillText('18h',xForHour(18)-8,padT+chartH+18);
-  ctx.fillText('24h',xForHour(23)-8,padT+chartH+18);
+  ctx.beginPath(); ctx.moveTo(xForHour(0),yForVal(0)); for(let h=0;h<24;h++) ctx.lineTo(xForHour(h),yForVal(solarCurve[h] || 0)); ctx.lineTo(xForHour(23),yForVal(0)); ctx.closePath(); ctx.fillStyle='rgba(124,179,66,.18)'; ctx.fill();
+  ctx.beginPath(); ctx.moveTo(xForHour(0),yForVal(0)); for(let h=0;h<24;h++) ctx.lineTo(xForHour(h),yForVal(loadCurve[h] || 0)); ctx.lineTo(xForHour(23),yForVal(0)); ctx.closePath(); ctx.fillStyle='rgba(212,175,55,.18)'; ctx.fill();
+  ctx.beginPath(); for(let h=0;h<24;h++){ const x = xForHour(h), y = yForVal(solarCurve[h] || 0); if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); } ctx.strokeStyle='#7cb342'; ctx.lineWidth=3; ctx.stroke();
+  ctx.beginPath(); for(let h=0;h<24;h++){ const x = xForHour(h), y = yForVal(loadCurve[h] || 0); if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); } ctx.strokeStyle='#d4af37'; ctx.lineWidth=3; ctx.stroke();
+  if(batterySoc && batterySoc.length){ const maxSoc = Math.max(...batterySoc,1); ctx.beginPath(); for(let h=0;h<24;h++){ const x = xForHour(h), y = yForVal((batterySoc[h]/maxSoc)*maxVal); if(h===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); } ctx.strokeStyle='#0b4d26'; ctx.setLineDash([6,5]); ctx.lineWidth=2; ctx.stroke(); ctx.setLineDash([]); }
+  ctx.fillStyle='#04462e'; ctx.font='700 13px Poppins, Arial'; ctx.fillText(label || '', padL, 16); ctx.fillText('06h',xForHour(6)-8,padT+chartH+18); ctx.fillText('12h',xForHour(12)-8,padT+chartH+18); ctx.fillText('18h',xForHour(18)-8,padT+chartH+18); ctx.fillText('24h',xForHour(23)-8,padT+chartH+18);
 }
 
 function recalc(){
   const r = compute();
-
   loadsCountEl.innerText = String(r.loads.length);
   consDayEl.innerText = `${fmt(r.dailyKwh,2)} kWh`;
   consMonthEl.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
@@ -1950,11 +808,7 @@ function recalc(){
   batteryTypeOutEl.innerText = r.batteryProfile.label;
   coverageNoteEl.innerText = r.coverageNote;
   safetyCardEl.innerText = r.safetyPoints.join('\n');
-
-  summaryNoteEl.innerText = r.loads.length > 0
-    ? `Dimensionnement calculé à partir de ${r.loads.length} charge(s).`
-    : 'Cliquez sur « Générer pièces » pour démarrer l’étude.';
-
+  summaryNoteEl.innerText = r.loads.length > 0 ? `Dimensionnement calculé à partir de ${r.loads.length} charge(s).` : 'Cliquez sur « Générer pièces » pour démarrer l’étude.';
   consDayCard.innerText = `${fmt(r.dailyKwh,2)} kWh`;
   consMonthCard.innerText = `${fmt(r.monthlyKwh,2)} kWh`;
   powerInstalledCard.innerText = `${Math.round(r.installedPower)} W`;
@@ -1965,31 +819,10 @@ function recalc(){
   autonomyCard.innerText = `${fmt(r.autonomyDays,2)} jour${r.autonomyDays > 1 ? 's' : ''}`;
   batteryLifeCard.innerText = r.batteryLifeYears;
 
-  const solar = new Array(24).fill(0).map((_,h)=>{
-    if(h < 6 || h > 18) return 0;
-    const x = (h - 6) / 12 * Math.PI;
-    return Math.max(0, Math.sin(x)) * r.pvKwRec;
-  });
-
+  const solar = new Array(24).fill(0).map((_,h)=>{ if(h < 6 || h > 18) return 0; const x = (h - 6) / 12 * Math.PI; return Math.max(0, Math.sin(x)) * r.pvKwRec; });
   const load = new Array(24).fill(0);
-  r.loads.forEach(l=>{
-    const qty = Math.max(0, Number(l.qty||0));
-    const pw = Math.max(0, Number(l.powerW||0))/1000;
-    const duration = Math.max(1, Math.min(24, Math.round(Number(l.hours||0) || 1)));
-    let start = 8;
-    const n = String(l.name||'').toLowerCase();
-    if(n.includes('éclairage') || n.includes('eclairage')) start = 18;
-    else if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv')) start = 19;
-    else if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) start = 0;
-    for(let i=0;i<duration;i++) load[(start+i)%24] += qty*pw;
-  });
-
-  const battery = [];
-  let soc = r.batteryUsefulTotal * 0.6;
-  for(let i=0;i<24;i++){
-    soc = Math.max(0, Math.min(r.batteryUsefulTotal || 1, soc + solar[i] - load[i]));
-    battery.push(soc);
-  }
+  r.loads.forEach(l=>{ const qty = Math.max(0, Number(l.qty||0)); const pw = Math.max(0, Number(l.powerW||0))/1000; const duration = Math.max(1, Math.min(24, Math.round(Number(l.hours||0) || 1))); let start = 8; const n = String(l.name||'').toLowerCase(); if(n.includes('éclairage') || n.includes('eclairage')) start = 18; else if(n.includes('téléviseur') || n.includes('televiseur') || n.includes('tv')) start = 19; else if(n.includes('réfrigérateur') || n.includes('refrigerateur') || n.includes('frigo')) start = 0; for(let i=0;i<duration;i++) load[(start+i)%24] += qty*pw; });
+  const battery = []; let soc = r.batteryUsefulTotal * 0.6; for(let i=0;i<24;i++){ soc = Math.max(0, Math.min(r.batteryUsefulTotal || 1, soc + solar[i] - load[i])); battery.push(soc); }
   drawChart(solar, load, battery, Math.max(1, ...solar, ...load, r.batteryUsefulTotal || 1), 'Étude urbaine');
 
   lastCalcSnapshot = {
@@ -2021,13 +854,6 @@ function recalc(){
   };
 }
 
-function populateCities(country){
-  cityEl.innerHTML = '';
-  const list = COUNTRY_CITIES[country] || COUNTRY_CITIES.ci;
-  list.forEach(c => cityEl.appendChild(new Option(c.label, c.value)));
-  cityEl.value = list[0].value;
-}
-
 function openMenu(){
   if(!mobileNav || !burgerBtn) return;
   mobileNav.classList.add('open');
@@ -2036,22 +862,12 @@ function openMenu(){
   mobileNav.setAttribute('aria-hidden','false');
   burgerBtn.setAttribute('aria-expanded','true');
   document.body.style.overflow = 'hidden';
-
   const studySub = el('mobileStudySub');
   const studyToggle = el('mobileStudyToggle');
-  if(studySub && studyToggle){
-    studySub.style.display = 'flex';
-    studyToggle.setAttribute('aria-expanded','true');
-    studyToggle.classList.add('active');
-  }
-
+  if(studySub && studyToggle){ studySub.style.display = 'flex'; studyToggle.setAttribute('aria-expanded','true'); studyToggle.classList.add('active'); }
   const productsSub = el('mobileProductsSub');
   const productsToggle = el('mobileProductsToggle');
-  if(productsSub && productsToggle){
-    productsSub.style.display = 'none';
-    productsToggle.setAttribute('aria-expanded','false');
-    productsToggle.classList.remove('active');
-  }
+  if(productsSub && productsToggle){ productsSub.style.display = 'none'; productsToggle.setAttribute('aria-expanded','false'); productsToggle.classList.remove('active'); }
 }
 function closeMenu(){
   if(!mobileNav || !burgerBtn) return;
@@ -2080,7 +896,6 @@ function bindMobileExpandable(toggleEl, subEl){
     }
   });
 }
-
 function disableActiveLinksInMobile(){
   document.querySelectorAll('.mobile-nav a').forEach(a => {
     if(a.getAttribute('aria-current') === 'page'){
@@ -2090,21 +905,6 @@ function disableActiveLinksInMobile(){
     }
   });
 }
-
-function updatePhoneNumbers(){
-  const cityInfo = getCityInfo();
-  const info = cityInfo.country === 'sn' ? CONTACT_NUMBER.dakar : CONTACT_NUMBER.abidjan;
-  if(topPhoneLink){
-    topPhoneLink.href = 'tel:' + info.tel;
-    topPhoneText.textContent = info.display;
-  }
-  if(mobilePhoneLink){
-    mobilePhoneLink.href = 'tel:' + info.tel;
-    mobilePhoneLink.textContent = info.display;
-  }
-  if(footerPhoneText) footerPhoneText.textContent = info.display;
-}
-
 function applyCurrentPageState(){
   const path = (window.location.pathname.split('/').pop() || 'zone_urbaine.html').toLowerCase();
   document.querySelectorAll('.dropdown-content a').forEach(a => {
@@ -2138,23 +938,16 @@ function applyCurrentPageState(){
   });
   disableActiveLinksInMobile();
 }
-
 function openDesktopDropdowns(){
   const studyDropdown = el('studyDropdown');
   const studyContent = el('studyDropdownContent');
   const studyLink = el('studyLink');
   if(studyDropdown && studyContent && studyLink){
     studyDropdown.addEventListener('mouseenter', () => {
-      if(window.innerWidth > 1100){
-        studyContent.style.display = 'block';
-        studyDropdown.setAttribute('aria-expanded','true');
-      }
+      if(window.innerWidth > 1100){ studyContent.style.display = 'block'; studyDropdown.setAttribute('aria-expanded','true'); }
     });
     studyDropdown.addEventListener('mouseleave', () => {
-      if(window.innerWidth > 1100){
-        studyContent.style.display = 'none';
-        studyDropdown.setAttribute('aria-expanded','false');
-      }
+      if(window.innerWidth > 1100){ studyContent.style.display = 'none'; studyDropdown.setAttribute('aria-expanded','false'); }
     });
     studyLink.addEventListener('click', (e) => {
       if(window.innerWidth <= 1100){
@@ -2164,22 +957,15 @@ function openDesktopDropdowns(){
       }
     });
   }
-
   const productsDropdown = el('productsDropdown');
   const productsContent = el('productsDropdownContent');
   const productsLink = el('productsLink');
   if(productsDropdown && productsContent && productsLink){
     productsDropdown.addEventListener('mouseenter', () => {
-      if(window.innerWidth > 1100){
-        productsContent.style.display = 'block';
-        productsDropdown.setAttribute('aria-expanded','true');
-      }
+      if(window.innerWidth > 1100){ productsContent.style.display = 'block'; productsDropdown.setAttribute('aria-expanded','true'); }
     });
     productsDropdown.addEventListener('mouseleave', () => {
-      if(window.innerWidth > 1100){
-        productsContent.style.display = 'none';
-        productsDropdown.setAttribute('aria-expanded','false');
-      }
+      if(window.innerWidth > 1100){ productsContent.style.display = 'none'; productsDropdown.setAttribute('aria-expanded','false'); }
     });
     productsLink.addEventListener('click', (e) => {
       if(window.innerWidth <= 1100){
@@ -2202,7 +988,6 @@ function buildHourlyProfile(loads, dailyBatteryUsefulKwh){
     if(n.includes('micro') || n.includes('cuisine')) return { start:12, hours:4 };
     return { start:8, hours:12 };
   };
-
   loads.forEach(load => {
     const qty = Math.max(0, Number(load.qty || 0));
     const powerW = Math.max(0, Number(load.powerW || 0));
@@ -2215,14 +1000,12 @@ function buildHourlyProfile(loads, dailyBatteryUsefulKwh){
       profile[h] += activePower;
     }
   });
-
   let cumKwh = 0;
   const batteryLine = profile.map(p => {
     cumKwh += p / 1000;
     if(!dailyBatteryUsefulKwh || dailyBatteryUsefulKwh <= 0) return 0;
     return Math.max(0, 100 - (cumKwh / dailyBatteryUsefulKwh) * 100);
   });
-
   return { profile, batteryLine };
 }
 
@@ -2238,49 +1021,28 @@ function renderPdfChart(profileData){
   const barAreaWidth = width - chartLeft - chartRight;
   const step = barAreaWidth / 24;
   const barW = Math.max(10, step * 0.72);
-
   const bars = profile.map((v, i) => {
     const x = chartLeft + i * step + (step - barW) / 2;
     const barH = maxW > 0 ? (v / maxW) * (chartBottom - chartTop) : 0;
     const y = chartBottom - barH;
     return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" rx="2" fill="#7cb342"></rect>`;
   }).join('');
-
   const batteryPoints = batteryLine.map((v, i) => {
     const x = chartLeft + i * step + step/2;
     const y = chartTop + ((100 - v) / 100) * (chartBottom - chartTop);
     return `${x.toFixed(1)},${y.toFixed(1)}`;
   }).join(' ');
-
   const labels = Array.from({length:24}, (_, i) => {
     if(i % 3 !== 0) return '';
     const x = chartLeft + i * step + step/2;
     return `<text x="${x.toFixed(1)}" y="192" font-size="10" text-anchor="middle" fill="#556b56">${i}h</text>`;
   }).join('');
-
-  return `
-    <div style="margin-top:10px;border:1px solid #e6f3ea;border-radius:10px;background:#fbfffb;padding:10px">
-      <div style="font-weight:700;color:#062d1b;margin-bottom:8px">Profil de charge 24h (indicatif)</div>
-      <svg width="100%" viewBox="0 0 ${width} ${height}" role="img" aria-label="Profil 24h">
-        <rect x="0" y="0" width="${width}" height="${height}" fill="#ffffff"></rect>
-        <line x1="${chartLeft}" y1="${chartTop}" x2="${chartLeft}" y2="${chartBottom}" stroke="#d9e6da" />
-        <line x1="${chartLeft}" y1="${chartBottom}" x2="${width-chartRight}" y2="${chartBottom}" stroke="#d9e6da" />
-        ${bars}
-        <polyline points="${batteryPoints}" fill="none" stroke="#0b4d26" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
-        ${labels}
-        <text x="${chartLeft}" y="16" font-size="10" fill="#6b7f6b">Puissance (W) + niveau batterie (%)</text>
-      </svg>
-    </div>
-  `;
+  return `<div style="margin-top:10px;border:1px solid #e6f3ea;border-radius:10px;background:#fbfffb;padding:10px"><div style="font-weight:700;color:#062d1b;margin-bottom:8px">Profil de charge 24h (indicatif)</div><svg width="100%" viewBox="0 0 ${width} ${height}" role="img" aria-label="Profil 24h"><rect x="0" y="0" width="${width}" height="${height}" fill="#ffffff"></rect><line x1="${chartLeft}" y1="${chartTop}" x2="${chartLeft}" y2="${chartBottom}" stroke="#d9e6da" /><line x1="${chartLeft}" y1="${chartBottom}" x2="${width-chartRight}" y2="${chartBottom}" stroke="#d9e6da" />${bars}<polyline points="${batteryPoints}" fill="none" stroke="#0b4d26" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>${labels}<text x="${chartLeft}" y="16" font-size="10" fill="#6b7f6b">Puissance (W) + niveau batterie (%)</text></svg></div>`;
 }
 
 async function generatePDF(){
   try{
-    if(!lastCalcSnapshot){
-      alert("Veuillez effectuer un calcul avant d'exporter le PDF.");
-      return;
-    }
-
+    if(!lastCalcSnapshot){ alert("Veuillez effectuer un calcul avant d'exporter le PDF."); return; }
     const s = lastCalcSnapshot;
     const safe = s.safetyPoints || [];
     const loadsRows = (s.loads || []).map(l => `
@@ -2291,100 +1053,18 @@ async function generatePDF(){
         <td style="padding:8px;border:1px solid #eee;text-align:center">${l.hours} h/j</td>
       </tr>
     `).join('');
-
     const safetyHtml = safe.map(item => `<li style="margin-bottom:6px">${item}</li>`).join('');
     const chartHtml = renderPdfChart(buildHourlyProfile(s.loads || [], s.batteryUsefulTotal));
-
-    const html = `
-      <div id="pdfWrapper" style="position:relative;width:820px;padding:20px;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;">
-        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">
-          GREENBRIDGE — À TITRE INDICATIF
-        </div>
-
-        <div style="position:relative;z-index:1;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf">
-                <div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div>
-                <div style="font-size:11px;color:#556b56">Étude zone urbaine</div>
-              </div>
-              <div>
-                <div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone urbaine</div>
-                <div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.roomsCount} pièce(s) — ${s.cityLabel}</div>
-              </div>
-            </div>
-            <div style="text-align:right">
-              <div style="font-size:11px;color:#666;margin-top:6px">${s.countryLabel} — ${s.cityLabel}</div>
-            </div>
-          </div>
-
-          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div><div style="font-weight:700">Puissance installée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div></div>
-              <div><div style="font-weight:700">Onduleur standard conseillé</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div></div>
-              <div><div style="font-weight:700">Consommation / jour</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div></div>
-              <div><div style="font-weight:700">Consommation / mois</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div></div>
-              <div><div style="font-weight:700">PV requis</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div></div>
-              <div><div style="font-weight:700">Tranche PV</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvMin,2)} - ${fmt(s.pvMax,2)} kWc</div></div>
-              <div><div style="font-weight:700">Nb panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div></div>
-              <div><div style="font-weight:700">Batterie utile totale</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div></div>
-              <div><div style="font-weight:700">Autonomie estimée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div></div>
-              <div><div style="font-weight:700">Type batterie</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryType}</div></div>
-              <div><div style="font-weight:700">Durée de vie batterie</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryLifeYears}</div></div>
-              <div><div style="font-weight:700">Ville</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.cityLabel}</div></div>
-            </div>
-          </div>
-
-          ${chartHtml}
-
-          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-top:12px;margin-bottom:12px;background:#fbfffb">
-            <div style="font-weight:700;margin-bottom:6px">Points de sécurité</div>
-            <ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">
-              ${safetyHtml}
-            </ul>
-          </div>
-
-          <div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb">
-            <div style="font-weight:700;margin-bottom:8px">Détail des pièces et charges</div>
-            <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
-              <thead>
-                <tr>
-                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th>
-                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th>
-                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th>
-                  <th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${loadsRows || '<tr><td colspan="4" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune pièce générée</td></tr>'}
-              </tbody>
-            </table>
-
-            <div style="font-size:12px;color:#444;line-height:1.6">
-              <strong>Recommandation :</strong> pour une étude plus fine, de sécurité et de mise en œuvre, rapprochez-vous de GreenBridge.
-              Les protections, les câbles, la structure, la ventilation, la mise à la terre et les marges d’exploitation doivent être validés sur site.
-            </div>
-          </div>
-
-          <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666">
-            <div>Synthèse générée par GREENBRIDGE — à titre indicatif</div>
-            <div>Export : ${s.timestamp}</div>
-          </div>
-        </div>
-      </div>
-    `;
-
+    const html = `<div id="pdfWrapper" style="position:relative;width:820px;padding:20px;background:#fff;color:#222;font-family:Arial,Helvetica,sans-serif;"><div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-30deg);z-index:0;pointer-events:none;opacity:0.06;font-size:72px;color:#000;font-weight:900;white-space:nowrap">GREENBRIDGE — À TITRE INDICATIF</div><div style="position:relative;z-index:1;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="display:flex;gap:12px;align-items:center"><div style="background:linear-gradient(180deg,#e9f7ed,#d9f0db);padding:8px;border-radius:8px;border:1px solid #dfeedf"><div style="font-weight:800;color:#04462e;font-size:16px">GREENBRIDGE</div><div style="font-size:11px;color:#556b56">Étude zone urbaine</div></div><div><div style="font-size:16px;font-weight:700;color:#062d1b">Résultats & dimensionnement — Zone urbaine</div><div style="font-size:12px;color:#666;margin-top:4px">${s.timestamp} — ${s.roomsCount} pièce(s) — ${s.cityLabel}</div></div></div><div style="text-align:right"><div style="font-size:11px;color:#666;margin-top:6px">${s.countryLabel} — ${s.cityLabel}</div></div></div><div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><div style="font-weight:700">Puissance installée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.installedPower)} W</div></div><div><div style="font-weight:700">Onduleur standard conseillé</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${Math.round(s.inverterNeed)} W</div></div><div><div style="font-weight:700">Consommation / jour</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.dailyKwh,2)} kWh</div></div><div><div style="font-weight:700">Consommation / mois</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.monthlyKwh,2)} kWh</div></div><div><div style="font-weight:700">PV requis</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div></div><div><div style="font-weight:700">Tranche PV</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvMin,2)} - ${fmt(s.pvMax,2)} kWc</div></div><div><div style="font-weight:700">Nb panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div></div><div><div style="font-weight:700">Batterie utile totale</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div></div><div><div style="font-weight:700">Autonomie estimée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.autonomyDays,2)} jour(s)</div></div><div><div style="font-weight:700">Type batterie</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryType}</div></div><div><div style="font-weight:700">Durée de vie batterie</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.batteryLifeYears}</div></div><div><div style="font-weight:700">Ville</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.cityLabel}</div></div></div></div>${chartHtml}<div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-top:12px;margin-bottom:12px;background:#fbfffb"><div style="font-weight:700;margin-bottom:6px">Points de sécurité</div><ul style="margin:0;padding-left:18px;color:#333;font-size:12px;line-height:1.5">${safetyHtml}</ul></div><div style="border:1px solid #eee;padding:12px;border-radius:8px;margin-bottom:12px;background:#fbfffb"><div style="font-weight:700;margin-bottom:8px">Détail des pièces et charges</div><table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px"><thead><tr><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:left">Équipement</th><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Qté</th><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Puissance</th><th style="border:1px solid #eee;padding:6px;background:#f7f7f7;text-align:center">Heures/j</th></tr></thead><tbody>${loadsRows || '<tr><td colspan="4" style="padding:8px;border:1px solid #eee;text-align:center;color:#666">Aucune pièce générée</td></tr>'}</tbody></table><div style="font-size:12px;color:#444;line-height:1.6"><strong>Recommandation :</strong> pour une étude plus fine, de sécurité et de mise en œuvre, rapprochez-vous de GreenBridge. Les protections, les câbles, la structure, la ventilation, la mise à la terre et les marges d’exploitation doivent être validés sur site.</div></div><div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666"><div>Synthèse générée par GREENBRIDGE — à titre indicatif</div><div>Export : ${s.timestamp}</div></div></div></div>`;
     const wrapper = document.createElement('div');
     wrapper.style.position = 'fixed';
     wrapper.style.left = '-5000px';
     wrapper.style.top = '0';
     wrapper.innerHTML = html;
     document.body.appendChild(wrapper);
-
     const element = wrapper.firstElementChild;
     const canvas = await html2canvas(element, { scale:2, useCORS:true, backgroundColor:'#ffffff' });
     const imgData = canvas.toDataURL('image/png');
-
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF('p','mm','a4');
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -2393,7 +1073,6 @@ async function generatePDF(){
     const imgProps = pdf.getImageProperties(imgData);
     const pdfImgWidth = pageWidth - margin*2;
     const pdfImgHeight = (imgProps.height * pdfImgWidth) / imgProps.width;
-
     if(pdfImgHeight <= pageHeight - margin*2){
       pdf.addImage(imgData,'PNG',margin,margin,pdfImgWidth,pdfImgHeight);
     }else{
@@ -2416,14 +1095,11 @@ async function generatePDF(){
         rendered += sliceH;
       }
     }
-
     pdf.setFontSize(9);
     pdf.setTextColor(120);
     pdf.text('GreenBridge — Synthèse indicative', margin, pageHeight - 6);
-
     const filename = `GreenBridge_zone_urbaine_synthese_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'-')}.pdf`;
     pdf.save(filename);
-
     document.body.removeChild(wrapper);
   }catch(err){
     console.error(err);
@@ -2432,120 +1108,42 @@ async function generatePDF(){
 }
 
 function setupEvents(){
-  countryEl.addEventListener('change', () => {
-    populateCities(countryEl.value);
-    updatePhoneNumbers();
-    recalc();
-  });
-  cityEl.addEventListener('change', () => {
-    updatePhoneNumbers();
-    recalc();
-  });
+  countryEl.addEventListener('change', () => { populateCities(countryEl.value); updatePhoneNumbers(); recalc(); });
+  cityEl.addEventListener('change', () => { updatePhoneNumbers(); recalc(); });
   batteryTypeEl.addEventListener('change', recalc);
   batteryPackCountEl.addEventListener('change', recalc);
   battPackKwhEl.addEventListener('change', recalc);
   panelWEl.addEventListener('change', recalc);
-
   generateBtn.addEventListener('click', generateInitialRooms);
-
   resetBtn.addEventListener('click', () => {
     if(!confirm('Réinitialiser les champs aux valeurs par défaut ?')) return;
-    countryEl.value = 'ci';
-    populateCities('ci');
-    cityEl.value = 'abidjan';
-    batteryTypeEl.value = 'lifepo4';
-    batteryPackCountEl.value = 1;
-    battPackKwhEl.value = 1.28;
-    panelWEl.value = 350;
-    genBedrooms.value = 1;
-    genLiving.value = 1;
-    genKitchens.value = 1;
-    genBaths.value = 1;
-    genOffices.value = 0;
-    genToilets.value = 0;
-    genAdd.checked = false;
-    rooms = [];
-    roomCounter = 0;
-    renderRooms();
-    recalc();
+    countryEl.value = 'ci'; populateCities('ci'); cityEl.value = 'abidjan'; batteryTypeEl.value = 'lifepo4'; batteryPackCountEl.value = 1; battPackKwhEl.value = 1.28; panelWEl.value = 350; genBedrooms.value = 1; genLiving.value = 1; genKitchens.value = 1; genBaths.value = 1; genOffices.value = 0; genToilets.value = 0; genAdd.checked = false; rooms = []; roomCounter = 0; renderRooms(); recalc();
   });
-
   exportPdfBtn.addEventListener('click', generatePDF);
-
   roomListEl.addEventListener('input', onLoadChange);
   roomListEl.addEventListener('change', onLoadChange);
   roomListEl.addEventListener('click', (e) => {
     const addLoadBtn = e.target.closest('.btn-add-load');
     const removeRoomBtn = e.target.closest('.btn-remove-room');
     const removeLoadBtn = e.target.closest('.btn-remove-load');
-
-    if(addLoadBtn){
-      e.preventDefault();
-      e.stopPropagation();
-      const roomIndex = Number(addLoadBtn.dataset.r);
-      const select = roomListEl.querySelector(`.quick-load-select[data-r="${roomIndex}"]`);
-      const templateKey = select ? select.value : 'light';
-      addQuickLoad(roomIndex, templateKey);
-      return;
-    }
-
-    if(removeRoomBtn){
-      const roomIndex = Number(removeRoomBtn.dataset.r);
-      if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return;
-      rooms.splice(roomIndex,1);
-      renderRooms();
-      recalc();
-      return;
-    }
-
-    if(removeLoadBtn){
-      const consumer = removeLoadBtn.closest('.consumer');
-      const roomIndex = Number(consumer.dataset.r);
-      const loadIndex = Number(consumer.dataset.l);
-      rooms[roomIndex].loads.splice(loadIndex,1);
-      renderRooms();
-      recalc();
-    }
+    if(addLoadBtn){ e.preventDefault(); e.stopPropagation(); const roomIndex = Number(addLoadBtn.dataset.r); const select = roomListEl.querySelector(`.quick-load-select[data-r="${roomIndex}"]`); const templateKey = select ? select.value : 'light'; addQuickLoad(roomIndex, templateKey); return; }
+    if(removeRoomBtn){ const roomIndex = Number(removeRoomBtn.dataset.r); if(!confirm(`Supprimer la pièce "${rooms[roomIndex].name}" ?`)) return; rooms.splice(roomIndex,1); renderRooms(); recalc(); return; }
+    if(removeLoadBtn){ const consumer = removeLoadBtn.closest('.consumer'); const roomIndex = Number(consumer.dataset.r); const loadIndex = Number(consumer.dataset.l); rooms[roomIndex].loads.splice(loadIndex,1); renderRooms(); recalc(); }
   });
-
-  window.addEventListener('resize', () => {
-    recalc();
-  });
-
-  document.addEventListener('keydown', e => {
-    if(e.key === 'Escape') closeMenu();
-  });
+  window.addEventListener('resize', () => { recalc(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
 }
 
-function initializePage(){
-  populateCities(countryEl.value);
-  updatePhoneNumbers();
-  rooms = [];
-  roomCounter = 0;
-  renderRooms();
-  openDesktopDropdowns();
-  applyCurrentPageState();
-  recalc();
-}
+function initializePage(){ populateCities(countryEl.value); updatePhoneNumbers(); rooms = []; roomCounter = 0; renderRooms(); openDesktopDropdowns(); applyCurrentPageState(); recalc(); }
 initializePage();
 
-burgerBtn.addEventListener('click', () => {
-  const opened = mobileNav.classList.contains('open');
-  if(opened) closeMenu();
-  else openMenu();
-});
+burgerBtn.addEventListener('click', () => { const opened = mobileNav.classList.contains('open'); if(opened) closeMenu(); else openMenu(); });
 mobileBackdrop.addEventListener('click', closeMenu);
 mobileCloseBtn.addEventListener('click', closeMenu);
-
-document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => {
-  if(a.id === 'mobileStudyToggle' || a.id === 'mobileProductsToggle') return;
-  a.addEventListener('click', () => closeMenu());
-});
-
+document.querySelectorAll('.mobile-nav .mobile-link').forEach(a => { if(a.id === 'mobileStudyToggle' || a.id === 'mobileProductsToggle') return; a.addEventListener('click', () => closeMenu()); });
 bindMobileExpandable(el('mobileStudyToggle'), el('mobileStudySub'));
 bindMobileExpandable(el('mobileProductsToggle'), el('mobileProductsSub'));
 
-/* Energy balls */
 (function(){
   const band = el('energyBand');
   if(!band) return;
@@ -2559,15 +1157,7 @@ bindMobileExpandable(el('mobileProductsToggle'), el('mobileProductsSub'));
     {rxRatio:0.33, ry:6, speed:0.08, phase:Math.PI/2},
     {rxRatio:0.42, ry:10, speed:0.05, phase:Math.PI}
   ];
-
-  orbs.forEach((o,i)=>{
-    if(o){
-      o.classList.add('buzz');
-      o.style.animationDelay = (i*140)+'ms';
-      o.style.opacity='1';
-    }
-  });
-
+  orbs.forEach((o,i)=>{ if(o){ o.classList.add('buzz'); o.style.animationDelay = (i*140)+'ms'; o.style.opacity='1'; } });
   let t0 = performance.now();
   function tick(now){
     const time = (now - t0)/1000;
@@ -2599,58 +1189,24 @@ bindMobileExpandable(el('mobileProductsToggle'), el('mobileProductsSub'));
       bright.style.transition = 'none';
       bright.setAttribute('stroke-dasharray', String(len));
       bright.setAttribute('stroke-dashoffset', String(len));
-      setTimeout(()=>{
-        bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms';
-        bright.setAttribute('stroke-dashoffset','0');
-        setTimeout(()=>{ bright.setAttribute('stroke-dashoffset', String(len)); }, 420);
-      }, 80);
+      setTimeout(()=>{ bright.style.transition = 'stroke-dashoffset 420ms ease-out, opacity 160ms'; bright.setAttribute('stroke-dashoffset','0'); setTimeout(()=>{ bright.setAttribute('stroke-dashoffset', String(len)); }, 420); }, 80);
     }catch(e){
       bright.setAttribute('stroke-dasharray','520');
       bright.setAttribute('stroke-dashoffset','520');
       setTimeout(()=>{ bright.style.transition = 'stroke-dashoffset 420ms ease-out'; bright.setAttribute('stroke-dashoffset','0'); }, 80);
     }
   }
-
   function spawnSparks(){
     const cont = band.querySelector('.container');
     if(!cont) return;
     for(let i=0;i<8;i++){
       const s = document.createElement('div');
-      s.style.position='absolute';
-      s.style.left = (3 + Math.random()*94) + '%';
-      s.style.top = (20 + Math.random()*50) + '%';
-      s.style.width = '2px';
-      s.style.height = (8 + Math.random()*18) + 'px';
-      s.style.borderRadius = '2px';
-      s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))';
-      s.style.filter = 'blur(6px)';
-      s.style.opacity = '0';
-      s.style.transform = 'translateY(6px)';
-      s.style.pointerEvents = 'none';
-      cont.appendChild(s);
-      setTimeout(()=> { s.style.transition = 'all 260ms ease-out'; s.style.opacity='1'; s.style.transform='translateY(-6px)'; }, 20 + i*30);
-      setTimeout(()=> { s.style.transition = 'all 520ms ease-in'; s.style.opacity='0'; s.style.transform='translateY(-20px)'; }, 300 + i*40);
-      setTimeout(()=> { if(s.parentNode) s.parentNode.removeChild(s); }, 820 + i*40);
+      s.style.position='absolute'; s.style.left = (3 + Math.random()*94) + '%'; s.style.top = (20 + Math.random()*50) + '%'; s.style.width = '2px'; s.style.height = (8 + Math.random()*18) + 'px'; s.style.borderRadius = '2px'; s.style.background = 'linear-gradient(180deg, rgba(255,246,180,1), rgba(255,214,0,0.95))'; s.style.filter = 'blur(6px)'; s.style.opacity = '0'; s.style.transform = 'translateY(6px)'; s.style.pointerEvents = 'none'; cont.appendChild(s); setTimeout(()=> { s.style.transition = 'all 260ms ease-out'; s.style.opacity='1'; s.style.transform='translateY(-6px)'; }, 20 + i*30); setTimeout(()=> { s.style.transition = 'all 520ms ease-in'; s.style.opacity='0'; s.style.transform='translateY(-20px)'; }, 300 + i*40); setTimeout(()=> { if(s.parentNode) s.parentNode.removeChild(s); }, 820 + i*40);
     }
   }
-
-  function activate(){
-    band.classList.add('active');
-    spawnSparks(); sparkBright();
-    setInterval(()=>{
-      spawnSparks();
-      if(Math.random() > 0.45) sparkBright();
-    }, 1200 + Math.random()*1200);
-  }
-
+  function activate(){ band.classList.add('active'); spawnSparks(); sparkBright(); setInterval(()=>{ spawnSparks(); if(Math.random() > 0.45) sparkBright(); }, 1200 + Math.random()*1200); }
   const title = document.querySelector('.company-name');
-  if(title){
-    title.addEventListener('click', ()=>{
-      const on = band.classList.toggle('active');
-      if(on){ spawnSparks(); sparkBright(); }
-    });
-  }
-
+  if(title){ title.addEventListener('click', ()=>{ const on = band.classList.toggle('active'); if(on){ spawnSparks(); sparkBright(); } }); }
   activate();
   window.addEventListener('resize', ()=>{ t0 = performance.now(); });
 })();
