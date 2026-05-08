@@ -33,7 +33,8 @@
 }
 *{box-sizing:border-box}
 html,body{
-  margin:0;padding:0;
+  margin:0;
+  padding:0;
   font-family:'Poppins',Arial,sans-serif;
   background:var(--bg);
   color:var(--text);
@@ -49,7 +50,7 @@ body.menu-open{overflow:hidden}
 body.mode-beginner .expert-only{display:none !important}
 body.mode-expert .beginner-only{display:none !important}
 
-/* expert readable */
+/* Expert mode darkened but readable */
 body.mode-expert .card-soft{
   background:linear-gradient(180deg,rgba(6,24,14,.82),rgba(4,18,11,.82));
   border-color:rgba(212,175,55,.14);
@@ -60,14 +61,7 @@ body.mode-expert .beginner-profile,
 body.mode-expert .expert-panel,
 body.mode-expert .generator{
   background:linear-gradient(180deg,rgba(6,27,16,.92),rgba(4,22,13,.92));
-  color:#fff;
-}
-body.mode-expert .section-title,
-body.mode-expert .calc h3,
-body.mode-expert .mode-hint,
-body.mode-expert .small-note,
-body.mode-expert .control-note{
-  color:#e8f6ea;
+  color:#f4fff6;
 }
 body.mode-expert .room-card,
 body.mode-expert .consumer{
@@ -78,10 +72,10 @@ body.mode-expert .consumer{
 body.mode-expert .room-card summary,
 body.mode-expert .consumer summary,
 body.mode-expert .room-name,
-body.mode-expert .room-sub,
-body.mode-expert .room-head-right,
 body.mode-expert .consumer-title,
-body.mode-expert .consumer-meta{
+body.mode-expert .room-sub,
+body.mode-expert .consumer-meta,
+body.mode-expert .room-head-right{
   color:#fff;
 }
 body.mode-expert .room-chip,
@@ -90,7 +84,9 @@ body.mode-expert .consumer-chip{
   border-color:rgba(255,255,255,.14);
   color:#fff;
 }
-body.mode-expert .room-body,
+body.mode-expert .room-body{
+  border-top:1px solid rgba(255,255,255,.10);
+}
 body.mode-expert .consumer-body{
   border-top:1px solid rgba(255,255,255,.10);
 }
@@ -104,12 +100,21 @@ body.mode-expert .room-icon i,
 body.mode-expert .consumer-icon i{
   color:#fff;
 }
-body.mode-expert .consumer-fields label,
-body.mode-expert .quick-field label{
-  color:#fff;
+body.mode-expert .section h2,
+body.mode-expert .calc h3,
+body.mode-expert .section-title,
+body.mode-expert .panel h3,
+body.mode-expert .summary-card .value{
+  color:#dfffe6;
 }
-body.mode-expert .quick-field small{
-  color:#d9e6dc;
+body.mode-expert .control-field label,
+body.mode-expert .quick-field label,
+body.mode-expert .quick-field small,
+body.mode-expert .muted-note,
+body.mode-expert .mode-hint,
+body.mode-expert .small-note,
+body.mode-expert .control-note{
+  color:#ccddcf;
 }
 body.mode-expert .control-field input,
 body.mode-expert .control-field select,
@@ -122,8 +127,10 @@ body.mode-expert .consumer-fields select{
   border-color:#dfe8df;
 }
 
+/* Topbar / header */
 .topbar{
-  position:fixed;top:0;left:0;right:0;
+  position:fixed;
+  top:0;left:0;right:0;
   height:var(--topbar-h);
   background:var(--green-dark);
   display:flex;
@@ -493,6 +500,7 @@ nav a.active{
   min-height:44px;
 }
 
+/* energy band */
 .electric-band{
   position:fixed;
   top:calc(var(--topbar-h) + var(--header-h) - 6px);
@@ -582,6 +590,7 @@ nav a.active{
   100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
 }
 
+/* hero */
 .hero{
   margin-top:calc(var(--topbar-h) + var(--header-h));
   min-height:68vh;
@@ -640,6 +649,7 @@ nav a.active{
   justify-content:center;
 }
 
+/* buttons */
 .btn-primary,.btn-secondary,.btn-reset,.btn-add,.btn-link,.btn-export,.btn-danger,.btn-soft,.adv-toggle{
   padding:14px 22px;
   border-radius:10px;
@@ -694,20 +704,11 @@ nav a.active{
 }
 .section-intro{
   max-width:980px;
-  margin:0 auto 16px;
+  margin:0 auto 24px;
   text-align:center;
   color:var(--muted);
   line-height:1.78;
   font-size:15px;
-}
-
-.study-toggle-bar{
-  display:flex;
-  justify-content:flex-end;
-  margin:0 0 10px;
-}
-.study-toggle-bar .adv-toggle{
-  padding:10px 16px;
 }
 
 .card-soft{
@@ -745,6 +746,7 @@ nav a.active{
 }
 .small-note{font-size:12px;color:#6c7d6f;margin-top:8px}
 
+/* mode switch */
 .mode-switch{
   display:flex;
   gap:8px;
@@ -776,6 +778,7 @@ nav a.active{
   line-height:1.45;
 }
 
+/* controls */
 .controls-section{
   margin-top:12px;
   padding:12px;
@@ -834,11 +837,672 @@ nav a.active{
   .mode-switch{align-items:flex-start}
   .mode-hint{margin-left:0}
 }
-  </style>
+
+/* beginner */
+.beginner-profile{
+  margin-top:12px;
+  padding:14px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#f7fff6,#f0fff1);
+  border:1px solid #e6f7ea;
+}
+.quick-card{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  background:#fff;
+  border:1px solid #e3efe4;
+  border-radius:14px;
+  padding:12px;
+  box-shadow:0 8px 18px rgba(0,0,0,.05);
+  margin-bottom:10px;
+}
+.quick-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:flex-start;
+}
+.quick-left{
+  display:flex;
+  gap:10px;
+  min-width:0;
+  align-items:flex-start;
+}
+.quick-check{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:800;
+  color:#04462e;
+  min-width:0;
+}
+.quick-check input{transform:scale(1.1)}
+.quick-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#f2f7f2;
+  border:1px solid #e2ece2;
+  color:#04462e;
+  font-weight:800;
+  font-size:12px;
+  white-space:nowrap;
+}
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+.quick-field{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.quick-field label{
+  font-size:12px;
+  font-weight:700;
+  color:#6b7f6b;
+}
+.quick-field input,.quick-field select{
+  width:100%;
+  padding:9px 10px;
+  border-radius:10px;
+  border:1px solid #dfe7df;
+  background:#fff;
+  color:#072012;
+}
+.quick-field small{
+  font-size:11px;
+  color:#6b7f6b;
+  line-height:1.35;
+}
+.quick-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.quick-addbar{
+  display:grid;
+  grid-template-columns:1.2fr .8fr .7fr .7fr auto;
+  gap:8px;
+  align-items:end;
+  margin-top:10px;
+}
+.quick-addbar .control-field label{font-size:12px}
+@media (max-width:900px){.quick-addbar{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.quick-addbar{grid-template-columns:1fr}}
+@media (max-width:560px){.quick-grid{grid-template-columns:1fr}}
+
+.field-qty label,.field-qty small{color:#0b4d26}
+.field-hours label,.field-hours small{color:#8a5a00}
+.field-qty input{
+  border-color:rgba(11,77,38,.18);
+  background:#eefaf1;
+}
+.field-hours input{
+  border-color:rgba(212,175,55,.22);
+  background:#fff7e8;
+}
+
+/* expert */
+.expert-panel{
+  margin-top:12px;
+  padding:12px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#f7fff6,#f0fff1);
+  border:1px solid #e6f7ea;
+}
+.expert-toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:end;
+}
+.expert-toolbar .control-field{min-width:180px}
+
+.generator{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin:14px 0;
+  padding:14px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#f7fff6,#f0fff1);
+  border:1px solid #e6f7ea;
+}
+.generator .gfield{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  color:#072012;
+}
+.generator .gfield label{
+  font-size:13px;
+  font-weight:700;
+}
+.generator .gfield input,.generator .gfield select{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid rgba(0,0,0,.08);
+  background:#fff;
+  color:#072012;
+}
+.generator .gwide{
+  grid-column:1 / -1;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.generator .hint{
+  font-size:12px;
+  color:#5f7263;
+  line-height:1.4;
+  grid-column:1 / -1;
+}
+@media (max-width:900px){.generator{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.generator{grid-template-columns:1fr}}
+
+.room-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:10px;
+  min-height:44px;
+}
+.room-card{
+  background:linear-gradient(180deg,#fbfffb,#f4fff5);
+  color:#072012;
+  border:1px solid #e6f3ea;
+  border-radius:16px;
+  box-shadow:var(--shadow-2);
+  overflow:hidden;
+}
+.room-card summary{
+  cursor:pointer;
+  list-style:none;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:14px 14px;
+  font-weight:800;
+}
+.room-card summary::-webkit-details-marker{display:none}
+.room-main{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+  flex:1 1 auto;
+}
+.room-icon{
+  width:42px;height:42px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#ffffff,#eaf7ea);
+  border:1px solid #dfeedd;
+  color:#0b4d26;
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+}
+.room-icon i{font-size:18px}
+.room-title-stack{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.room-name{
+  font-size:16px;
+  font-weight:900;
+  word-break:break-word;
+}
+.room-sub{
+  font-size:12px;
+  color:#6c7d6f;
+  word-break:break-word;
+}
+.room-head-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  color:#6c7d6f;
+  font-size:12px;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+.room-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#f2f7f2;
+  border:1px solid #e2ece2;
+  color:#04462e;
+  font-weight:800;
+  font-size:12px;
+  white-space:normal;
+  word-break:break-word;
+}
+.room-body{
+  border-top:1px solid #eef3ee;
+  padding:14px;
+}
+.room-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+.consumer-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.consumer{
+  background:#fff;
+  color:#072012;
+  border-radius:12px;
+  border:1px solid #e8efe8;
+  padding:10px;
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
+  overflow:hidden;
+}
+.consumer summary{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  cursor:pointer;
+  list-style:none;
+  flex-wrap:wrap;
+}
+.consumer summary::-webkit-details-marker{display:none}
+.consumer-leading{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  min-width:0;
+  flex:1 1 auto;
+}
+.consumer-icon{
+  width:34px;height:34px;
+  border-radius:10px;
+  background:#f2f7f2;
+  border:1px solid #e2ece2;
+  color:#04462e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+}
+.consumer-icon i{font-size:14px}
+.consumer-summary-main{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  min-width:0;
+}
+.consumer-title{
+  font-weight:800;
+  color:#04462e;
+  word-break:break-word;
+  white-space:normal;
+}
+.consumer-meta{
+  color:#6c7d6f;
+  font-size:12px;
+  margin-top:2px;
+  word-break:break-word;
+  white-space:normal;
+}
+.consumer-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#f2f7f2;
+  border:1px solid #e2ece2;
+  color:#04462e;
+  font-weight:800;
+  font-size:12px;
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+.consumer-body{
+  margin-top:10px;
+  border-top:1px solid #eef3ee;
+  padding-top:10px;
+}
+.consumer-fields{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:8px;
+  margin-top:8px;
+}
+.consumer-fields label{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  font-size:12px;
+  font-weight:700;
+  color:#072012;
+  min-width:0;
+}
+.consumer-fields input,.consumer-fields select{
+  width:100%;
+  min-width:0;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  background:#fff;
+  color:#072012;
+}
+.consumer-actions{
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;
+  margin-top:14px;
+}
+.summary-card{
+  background:linear-gradient(180deg,#fbfffb,#f3fff2);
+  padding:14px;
+  border-radius:14px;
+  border:1px solid rgba(3,50,26,0.06);
+  box-shadow:0 14px 36px rgba(2,22,12,.12);
+  color:#072012;
+  overflow:hidden;
+}
+.summary-card .label{
+  font-size:12px;
+  color:#6c7d6f;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  line-height:1.4;
+}
+.summary-card .value{
+  font-weight:900;
+  font-size:24px;
+  color:var(--green-mid-2);
+  margin-top:6px;
+  display:block;
+  overflow-wrap:anywhere;
+}
+.summary-card .small{
+  font-size:13px;
+  color:#6b7f6f;
+  margin-top:6px;
+  line-height:1.45;
+}
+@media (max-width:1100px){.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){
+  .summary-grid{grid-template-columns:1fr !important}
+  .summary-card{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:8px;
+    align-items:flex-start;
+    padding:12px;
+  }
+  .summary-card .label{font-size:11px;line-height:1.25}
+  .summary-card .value{
+    margin-top:0;
+    font-size:17px;
+    line-height:1.25;
+    text-align:left;
+    word-break:break-word;
+  }
+  .summary-card .small{display:none}
+}
+
+.result-banner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:linear-gradient(180deg,#fbfffb,#f4fff5);
+  border:1px solid #e6f3ea;
+  color:#072012;
+}
+.result-banner strong{color:#04462e}
+.advanced-panel{
+  margin-top:12px;
+  padding:14px;
+  border-radius:16px;
+  background:linear-gradient(180deg,#f7fff6,#f0fff1);
+  border:1px solid #e6f7ea;
+}
+.advanced-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+@media (max-width:1100px){.advanced-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.advanced-grid{grid-template-columns:1fr}}
+
+.chart-card{
+  margin-top:16px;
+  background:#fff;
+  color:#072012;
+  border-radius:18px;
+  padding:14px;
+  box-shadow:var(--shadow);
+  border:1px solid #e7f1e8;
+  overflow:hidden;
+}
+.chart-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.chart-head h3{
+  margin:0;
+  color:#04462e;
+  font-size:18px;
+}
+.chart-head .legend{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  font-size:12px;
+  color:#6c7d6f;
+  font-weight:700;
+}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.dot{width:12px;height:12px;border-radius:50%}
+.dot.solar{background:#7cb342}
+.dot.load{background:#d4af37}
+.dot.batt{background:#0b4d26}
+.chart-wrap{
+  width:100%;
+  overflow:hidden;
+  border-radius:14px;
+  background:linear-gradient(180deg,#fbfffb,#f5fff5);
+  border:1px solid #e9f2ea;
+  padding:8px 8px 2px;
+}
+canvas{display:block;width:100%;height:auto}
+.muted-note{
+  color:#6b7f6f;
+  font-size:12px;
+  line-height:1.45;
+  overflow-wrap:anywhere;
+}
+
+.two-cols{
+  display:grid;
+  grid-template-columns:1.6fr .9fr;
+  gap:16px;
+  align-items:start;
+  margin-top:18px;
+}
+.panel{
+  background:#fff;
+  color:#072012;
+  border-radius:16px;
+  border:1px solid #e6f3ea;
+  box-shadow:var(--shadow);
+  padding:16px;
+}
+.panel h3{
+  margin:0 0 12px;
+  color:#04462e;
+  font-size:20px;
+}
+.safety-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.safety-list li{
+  background:#fbfffb;
+  border:1px solid #e8f1e8;
+  border-radius:12px;
+  padding:10px 12px;
+  font-size:13px;
+  line-height:1.45;
+}
+
+.pdf-actions{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:12px;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+footer{
+  background:var(--green-dark);
+  color:#fff;
+  padding:28px 5vw 36px;
+  position:relative;
+  margin-top:40px;
+  text-align:center;
+}
+footer::before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;
+  height:2px;
+  background:var(--gold);
+}
+.footer-company{
+  display:block;
+  margin:0 auto 8px;
+  font-size:18px;
+  font-weight:800;
+  color:#04462e;
+  -webkit-text-stroke:0.7px var(--gold);
+  text-shadow:0 3px 6px rgba(0,0,0,0.6);
+  padding:4px 8px;
+  border-radius:6px;
+  width:max-content;
+  background:linear-gradient(90deg,rgba(212,175,55,0.02),rgba(255,255,255,0) 40%);
+}
+.footer-contact{
+  margin-top:6px;
+  color:#e6f7ea;
+  line-height:1.6;
+}
+
+.print-block{
+  position:fixed;
+  left:-99999px;
+  top:0;
+  width:1200px;
+  background:#fff;
+  color:#072012;
+  padding:24px;
+  font-family:'Poppins',Arial,sans-serif;
+}
+
+@media (max-width:1100px){
+  nav{display:none}
+  .burger{display:flex}
+  .company-name{font-size:30px}
+  .hero{min-height:calc(100vh - (var(--topbar-h) + var(--header-h)))}
+  .section{padding:46px 4vw}
+  .card-soft{padding:14px}
+  .two-cols{grid-template-columns:1fr}
+  .hero-content{padding:24px 14px}
+}
+@media (max-width:768px){
+  .company-name{font-size:26px}
+  .topbar .right{gap:10px;font-size:13px}
+  .hero-content h1{font-size:28px}
+  .hero-content p{font-size:14px}
+  .hero-bg{object-position:center 34%;transform:scale(1.12)}
+  .consumer-fields{grid-template-columns:1fr 1fr}
+  .consumer summary,.room-card summary{flex-direction:column;align-items:flex-start}
+  .consumer-chip,.room-head-right{white-space:normal}
+  .consumer-leading,.room-main{width:100%}
+}
+@media (max-width:480px){
+  :root{--topbar-h:40px;--header-h:76px}
+  .topbar{font-size:11px;padding:0 3.5vw}
+  header{padding:0 3.5vw}
+  .logo-text img{height:46px}
+  .company-name{font-size:30px;letter-spacing:.08px}
+  .company-tagline{font-size:10px;letter-spacing:2px}
+  .burger{width:48px;height:48px}
+  .hero-bg{object-position:center 28%;transform:scale(1.18)}
+  .hero-content{max-width:92vw;padding:18px 12px}
+  .hero-content h1{font-size:24px;line-height:1.2;margin-bottom:8px}
+  .hero-content p{font-size:15px;line-height:1.45}
+  .btn-primary,.btn-secondary{padding:12px 22px;font-size:14px}
+  .mobile-panel{padding:16px 4.5vw 20px}
+  .mobile-brand{padding:22px 4px 10px}
+  .mobile-brand .company-name{font-size:28px}
+  .mobile-brand .company-tagline{font-size:10px;letter-spacing:3px}
+  .mobile-nav a.mobile-link{font-size:20px;min-height:62px;padding:16px 16px}
+  .mobile-contact .phone-line{font-size:15px}
+  .socials{gap:14px}
+  .socials a{width:40px;height:40px;font-size:18px}
+  .section h2{font-size:26px}
+  .chart-head h3{font-size:16px}
+  .summary-card .value{font-size:17px;line-height:1.25}
+  .consumer-fields{grid-template-columns:1fr}
+  .quick-grid{grid-template-columns:1fr}
+  .advanced-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body class="mode-beginner">
-
-<div class="topbar" role="banner">
+  <div class="topbar" role="banner">
   <div class="right">
     <a href="tel:+2250707070707" id="topPhoneLink">
       <i class="fas fa-phone" aria-hidden="true"></i>&nbsp;<span class="phone-label">Tel:</span><span id="topPhoneText">+225 07 07 07 07 07</span>
@@ -961,6 +1625,7 @@ nav a.active{
 <section class="hero" id="top" aria-label="Hero">
   <img class="hero-bg" src="milieu_urbain_1.png" alt="Illustration zone urbaine">
   <div class="hero-overlay"></div>
+
   <div class="hero-content">
     <h1>Étude <span>zone urbaine</span></h1>
     <p>Un outil simple pour dimensionner vos panneaux, batteries et onduleur à partir des équipements réels de la maison.</p>
@@ -978,229 +1643,222 @@ nav a.active{
       Le mode expert garde une étude détaillée pièce par pièce.
     </p>
 
-    <div class="study-toggle-bar">
-      <button id="studyToggleBtn" class="adv-toggle" type="button">Réduire l’étude</button>
-    </div>
+    <div class="card-soft">
+      <div class="calc" id="calcCard">
+        <h3><span class="badge">Calculateur</span> Dimensionnement solaire clair</h3>
+        <div class="small-note">
+          En mode débutant, la puissance moyenne est appliquée automatiquement selon le profil de temps, la taille ou le type d’équipement.
+        </div>
 
-    <div id="studyContent">
-      <div class="card-soft">
-        <div class="calc" id="calcCard">
-          <h3><span class="badge">Calculateur</span> Dimensionnement solaire clair</h3>
-          <div class="small-note">
-            En mode débutant, la puissance moyenne est appliquée automatiquement selon le profil de temps, la taille ou le type d’équipement.
-          </div>
+        <div class="mode-switch">
+          <label for="studyMode">Mode :</label>
+          <select id="studyMode" aria-label="Mode d'étude">
+            <option value="beginner" selected>Débutant</option>
+            <option value="expert">Expert</option>
+          </select>
+          <div class="mode-hint" id="modeHint">Débutant : rapide et facile à prendre en main.</div>
+        </div>
 
-          <div class="mode-switch">
-            <label for="studyMode">Mode :</label>
-            <select id="studyMode" aria-label="Mode d'étude">
-              <option value="beginner" selected>Débutant</option>
-              <option value="expert">Expert</option>
-            </select>
-            <div class="mode-hint" id="modeHint">Débutant : rapide et facile à prendre en main.</div>
-          </div>
-
-          <div class="controls-section">
-            <div class="section-title"><i class="fas fa-location-dot"></i> Localisation</div>
-            <div class="control-grid">
-              <div class="control-field">
-                <label for="country">Pays</label>
-                <select id="country" aria-label="Pays">
-                  <option value="ci">Côte d’Ivoire</option>
-                  <option value="sn">Sénégal</option>
-                </select>
-              </div>
-              <div class="control-field">
-                <label for="city">Ville</label>
-                <select id="city" aria-label="Ville"></select>
-              </div>
+        <div class="controls-section">
+          <div class="section-title"><i class="fas fa-location-dot"></i> Localisation</div>
+          <div class="control-grid">
+            <div class="control-field">
+              <label for="country">Pays</label>
+              <select id="country" aria-label="Pays">
+                <option value="ci">Côte d’Ivoire</option>
+                <option value="sn">Sénégal</option>
+              </select>
+            </div>
+            <div class="control-field">
+              <label for="city">Ville</label>
+              <select id="city" aria-label="Ville"></select>
             </div>
           </div>
+        </div>
 
-          <div class="beginner-only beginner-profile" id="beginnerProfile">
-            <div class="section-title"><i class="fas fa-bolt"></i> Profil rapide de la maison</div>
-            <div id="beginnerList" style="margin-top:12px"></div>
-            <div class="control-note">
-              Le mode débutant utilise des puissances moyennes inspirées de ton fichier, avec des profils de temps : <strong>régulier</strong>, <strong>occasionnel</strong> et <strong>rare</strong>.  
-              Pour les téléphones, le temps est géré automatiquement sans afficher de fréquence.
+        <div class="beginner-only beginner-profile" id="beginnerProfile">
+          <div class="section-title"><i class="fas fa-bolt"></i> Profil rapide de la maison</div>
+          <div id="beginnerList" style="margin-top:12px"></div>
+          <div class="control-note">
+            Le mode débutant utilise des puissances moyennes inspirées de ton fichier, avec des profils de temps : <strong>full</strong>, <strong>régulier</strong>, <strong>occasionnel</strong> et <strong>rare</strong>.
+          </div>
+        </div>
+
+        <div class="expert-only expert-panel" id="expertPanel">
+          <div class="section-title"><i class="fas fa-sliders"></i> Réglages techniques</div>
+          <div class="expert-toolbar">
+            <div class="control-field">
+              <label for="batteryType">Batterie</label>
+              <select id="batteryType" aria-label="Type de batterie">
+                <option value="lithium_ion">Lithium ion</option>
+                <option value="lifepo4">LiFePO4</option>
+                <option value="gel">Gel</option>
+                <option value="plomb">Plomb</option>
+              </select>
+            </div>
+            <div class="control-field">
+              <label for="batteryPackCount">Nb packs</label>
+              <select id="batteryPackCount" aria-label="Nombre de packs">
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                <option value="4" selected>4</option><option value="5">5</option><option value="6">6</option>
+                <option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+              </select>
+            </div>
+            <div class="control-field">
+              <label for="battPackKwh">Capacité pack</label>
+              <select id="battPackKwh" aria-label="Capacité pack">
+                <option value="500">500 Wh</option><option value="1000">1000 Wh</option><option value="1500">1500 Wh</option>
+                <option value="2000">2000 Wh</option><option value="2500">2500 Wh</option><option value="3000">3000 Wh</option>
+                <option value="3500">3500 Wh</option><option value="4000">4000 Wh</option><option value="4500">4500 Wh</option>
+                <option value="5000" selected>5000 Wh</option>
+              </select>
+            </div>
+            <div class="control-field">
+              <label for="panelW">Panneau</label>
+              <select id="panelW" aria-label="Puissance panneau">
+                <option value="50">50 W</option><option value="100">100 W</option><option value="150">150 W</option>
+                <option value="200">200 W</option><option value="250">250 W</option><option value="300">300 W</option>
+                <option value="350" selected>350 W</option><option value="400">400 W</option><option value="450">450 W</option>
+                <option value="500">500 W</option><option value="550">550 W</option>
+              </select>
+            </div>
+            <div class="control-field">
+              <label for="cableSection">Section câble</label>
+              <select id="cableSection" aria-label="Section câble">
+                <option value="auto" selected>Auto</option>
+                <option value="1.5">1.5 mm²</option><option value="2.5">2.5 mm²</option><option value="4">4 mm²</option>
+                <option value="6">6 mm²</option><option value="10">10 mm²</option><option value="16">16 mm²</option><option value="25">25 mm²</option>
+              </select>
             </div>
           </div>
+        </div>
 
-          <div class="expert-only expert-panel" id="expertPanel">
-            <div class="section-title"><i class="fas fa-sliders"></i> Réglages techniques</div>
-            <div class="expert-toolbar">
-              <div class="control-field">
-                <label for="batteryType">Batterie</label>
-                <select id="batteryType" aria-label="Type de batterie">
-                  <option value="lithium_ion">Lithium ion</option>
-                  <option value="lifepo4">LiFePO4</option>
-                  <option value="gel">Gel</option>
-                  <option value="plomb">Plomb</option>
-                </select>
-              </div>
-              <div class="control-field">
-                <label for="batteryPackCount">Nb packs</label>
-                <select id="batteryPackCount" aria-label="Nombre de packs">
-                  <option value="1">1</option><option value="2">2</option><option value="3">3</option>
-                  <option value="4" selected>4</option><option value="5">5</option><option value="6">6</option>
-                  <option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
-                </select>
-              </div>
-              <div class="control-field">
-                <label for="battPackKwh">Capacité pack</label>
-                <select id="battPackKwh" aria-label="Capacité pack">
-                  <option value="500">500 Wh</option><option value="1000">1000 Wh</option><option value="1500">1500 Wh</option>
-                  <option value="2000">2000 Wh</option><option value="2500">2500 Wh</option><option value="3000">3000 Wh</option>
-                  <option value="3500">3500 Wh</option><option value="4000">4000 Wh</option><option value="4500">4500 Wh</option>
-                  <option value="5000" selected>5000 Wh</option>
-                </select>
-              </div>
-              <div class="control-field">
-                <label for="panelW">Panneau</label>
-                <select id="panelW" aria-label="Puissance panneau">
-                  <option value="50">50 W</option><option value="100">100 W</option><option value="150">150 W</option>
-                  <option value="200">200 W</option><option value="250">250 W</option><option value="300">300 W</option>
-                  <option value="350" selected>350 W</option><option value="400">400 W</option><option value="450">450 W</option>
-                  <option value="500">500 W</option><option value="550">550 W</option>
-                </select>
-              </div>
-              <div class="control-field">
-                <label for="cableSection">Section câble</label>
-                <select id="cableSection" aria-label="Section câble">
-                  <option value="auto" selected>Auto</option>
-                  <option value="1.5">1.5 mm²</option><option value="2.5">2.5 mm²</option><option value="4">4 mm²</option>
-                  <option value="6">6 mm²</option><option value="10">10 mm²</option><option value="16">16 mm²</option><option value="25">25 mm²</option>
-                </select>
-              </div>
+        <div class="expert-only generator" id="expertGenerator" role="group" aria-label="Générateur rapide de pièces">
+          <div class="gfield"><label>Chambres</label><input type="number" id="genBedrooms" min="0" value="1"></div>
+          <div class="gfield"><label>Salons</label><input type="number" id="genLiving" min="0" value="1"></div>
+          <div class="gfield"><label>Cuisines</label><input type="number" id="genKitchens" min="0" value="1"></div>
+          <div class="gfield"><label>Salles d'eau</label><input type="number" id="genBaths" min="0" value="1"></div>
+          <div class="gfield"><label>Bureaux</label><input type="number" id="genOffices" min="0" value="0"></div>
+          <div class="gfield"><label>Toilettes</label><input type="number" id="genToilets" min="0" value="0"></div>
+          <div class="gwide">
+            <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:#072012;font-weight:700">
+              <input type="checkbox" id="genAdd">
+              Ajouter aux pièces existantes
+            </label>
+            <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
+          </div>
+          <div class="hint">L’étude expert permet d’ajouter des pièces, puis de détailler chaque charge pièce par pièce.</div>
+        </div>
+
+        <div class="muted-note" style="margin-top:8px;margin-bottom:8px;color:#6c7d6f">
+          Les pièces restent fermées par défaut pour garder l’écran léger.
+        </div>
+
+        <div id="roomsList" class="room-list"></div>
+
+        <div style="margin-top:14px">
+          <h4 style="margin:0 0 8px 0;color:#04462e">Résultats essentiels</h4>
+          <div class="summary-grid">
+            <div class="summary-card">
+              <div class="label">Type de batterie</div>
+              <div id="batteryTypeOut" class="value">—</div>
+              <div class="small">À installer ou conseillé.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Batterie utile totale</div>
+              <div id="batteryRecCard" class="value">—</div>
+              <div class="small">Objectif 1 journée.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Panneaux estimés</div>
+              <div id="panelCountCard" class="value">—</div>
+              <div class="small">Avec la puissance d’un panneau.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Onduleur conseillé</div>
+              <div id="inverterRecCard" class="value">—</div>
+              <div class="small">Valeur standard supérieure.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Puissance d’un panneau</div>
+              <div id="panelUnitCard" class="value">—</div>
+              <div class="small">Réglage choisi.</div>
             </div>
           </div>
+        </div>
 
-          <div class="expert-only generator" id="expertGenerator" role="group" aria-label="Générateur rapide de pièces">
-            <div class="gfield"><label>Chambres</label><input type="number" id="genBedrooms" min="0" value="1"></div>
-            <div class="gfield"><label>Salons</label><input type="number" id="genLiving" min="0" value="1"></div>
-            <div class="gfield"><label>Cuisines</label><input type="number" id="genKitchens" min="0" value="1"></div>
-            <div class="gfield"><label>Salles d'eau</label><input type="number" id="genBaths" min="0" value="1"></div>
-            <div class="gfield"><label>Bureaux</label><input type="number" id="genOffices" min="0" value="0"></div>
-            <div class="gfield"><label>Toilettes</label><input type="number" id="genToilets" min="0" value="0"></div>
-            <div class="gwide">
-              <label style="display:flex;align-items:center;gap:8px;font-size:14px;color:#072012;font-weight:700">
-                <input type="checkbox" id="genAdd">
-                Ajouter aux pièces existantes
-              </label>
-              <button id="generateBtn" class="btn-add" type="button">Générer pièces</button>
+        <div class="result-banner">
+          <div><strong>Résultat rapide :</strong> les éléments essentiels sont affichés ici.</div>
+          <button id="toggleAdvancedBtn" class="adv-toggle" type="button">Résultats avancés</button>
+        </div>
+
+        <div id="advancedResults" class="advanced-panel" hidden>
+          <div class="section-title" style="margin-bottom:10px"><i class="fas fa-chart-line"></i> Résultats avancés</div>
+          <div class="advanced-grid">
+            <div class="summary-card">
+              <div class="label">Consommation / jour</div>
+              <div id="consDayCard" class="value">—</div>
+              <div class="small">Base de calcul.</div>
             </div>
-            <div class="hint">L’étude expert permet d’ajouter des pièces, puis de détailler chaque charge pièce par pièce.</div>
-          </div>
-
-          <div class="muted-note" style="margin-top:8px;margin-bottom:8px;color:#6c7d6f">
-            Les pièces restent fermées par défaut pour garder l’écran léger.
-          </div>
-
-          <div id="roomsList" class="room-list"></div>
-
-          <div style="margin-top:14px">
-            <h4 style="margin:0 0 8px 0;color:#04462e">Résultats essentiels</h4>
-            <div class="summary-grid">
-              <div class="summary-card">
-                <div class="label">Type de batterie</div>
-                <div id="batteryTypeOut" class="value">—</div>
-                <div class="small">À installer ou conseillé.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Batterie utile totale</div>
-                <div id="batteryRecCard" class="value">—</div>
-                <div class="small">Objectif 1 journée.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Panneaux estimés</div>
-                <div id="panelCountCard" class="value">—</div>
-                <div class="small">Avec la puissance d’un panneau.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Onduleur conseillé</div>
-                <div id="inverterRecCard" class="value">—</div>
-                <div class="small">Valeur standard supérieure.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Puissance d’un panneau</div>
-                <div id="panelUnitCard" class="value">—</div>
-                <div class="small">Réglage choisi.</div>
-              </div>
+            <div class="summary-card">
+              <div class="label">Consommation / mois</div>
+              <div id="consMonthCard" class="value">—</div>
+              <div class="small">30 jours de référence.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Puissance PV</div>
+              <div id="pvRecCard" class="value">—</div>
+              <div class="small">Champ solaire associé.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Autonomie estimée</div>
+              <div id="autonomyCard" class="value">—</div>
+              <div class="small">1 journée visée.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Section câble</div>
+              <div id="cableRecCard" class="value">—</div>
+              <div class="small">Auto ou sélectionnée.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Puissance installée</div>
+              <div id="powerInstalledCard" class="value">—</div>
+              <div class="small">Somme nominale de toutes les charges.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Infos batterie</div>
+              <div id="batteryInfoCard" class="value">—</div>
+              <div class="small">Cycles et durée de vie.</div>
+            </div>
+            <div class="summary-card">
+              <div class="label">Infos panneaux</div>
+              <div id="panelInfoCard" class="value">—</div>
+              <div class="small">Nombre estimé de panneaux.</div>
             </div>
           </div>
+        </div>
 
-          <div class="result-banner">
-            <div><strong>Résultat rapide :</strong> les éléments essentiels sont affichés ici.</div>
-            <button id="toggleAdvancedBtn" class="adv-toggle" type="button">Résultats avancés</button>
-          </div>
-
-          <div id="advancedResults" class="advanced-panel" hidden>
-            <div class="section-title" style="margin-bottom:10px"><i class="fas fa-chart-line"></i> Résultats avancés</div>
-            <div class="advanced-grid">
-              <div class="summary-card">
-                <div class="label">Consommation / jour</div>
-                <div id="consDayCard" class="value">—</div>
-                <div class="small">Base de calcul.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Consommation / mois</div>
-                <div id="consMonthCard" class="value">—</div>
-                <div class="small">30 jours de référence.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Puissance PV</div>
-                <div id="pvRecCard" class="value">—</div>
-                <div class="small">Champ solaire associé.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Autonomie optimisée</div>
-                <div id="autonomyCard" class="value">—</div>
-                <div class="small">Ciblée pour limiter le coût batterie.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Section câble</div>
-                <div id="cableRecCard" class="value">—</div>
-                <div class="small">Auto ou sélectionnée.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Puissance installée</div>
-                <div id="powerInstalledCard" class="value">—</div>
-                <div class="small">Somme nominale de toutes les charges.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Infos batterie</div>
-                <div id="batteryInfoCard" class="value">—</div>
-                <div class="small">Cycles et durée de vie.</div>
-              </div>
-              <div class="summary-card">
-                <div class="label">Infos panneaux</div>
-                <div id="panelInfoCard" class="value">—</div>
-                <div class="small">Nombre estimé de panneaux.</div>
-              </div>
+        <div class="chart-card">
+          <div class="chart-head">
+            <h3>Profil journalier 24 h</h3>
+            <div class="legend">
+              <span class="lg"><span class="dot solar"></span>Production solaire</span>
+              <span class="lg"><span class="dot load"></span>Consommation</span>
+              <span class="lg"><span class="dot batt"></span>Batterie</span>
             </div>
           </div>
-
-          <div class="chart-card">
-            <div class="chart-head">
-              <h3>Profil journalier 24 h</h3>
-              <div class="legend">
-                <span class="lg"><span class="dot solar"></span>Production solaire</span>
-                <span class="lg"><span class="dot load"></span>Consommation</span>
-                <span class="lg"><span class="dot batt"></span>Batterie</span>
-              </div>
-            </div>
-            <div class="chart-wrap">
-              <canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas>
-            </div>
-            <div class="muted-note" style="margin-top:8px">
-              Courbe verte = production solaire, courbe jaune = consommation, courbe bleue = niveau de batterie sur 24 h.
-            </div>
+          <div class="chart-wrap">
+            <canvas id="dailyChart" width="1200" height="420" aria-label="Graphique 24 heures"></canvas>
           </div>
-
-          <div class="pdf-actions">
-            <button id="exportPdfBtn" class="btn-export" type="button">
-              <i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF
-            </button>
+          <div class="muted-note" style="margin-top:8px">
+            Courbe verte = production solaire, courbe jaune = consommation, courbe bleue = niveau de batterie sur 24 h.
           </div>
+        </div>
+
+        <div class="pdf-actions">
+          <button id="exportPdfBtn" class="btn-export" type="button">
+            <i class="fas fa-file-pdf" style="margin-right:8px"></i>Exporter PDF
+          </button>
         </div>
       </div>
     </div>
@@ -1335,14 +1993,14 @@ const STANDARD_PANEL_W = 350;
 const STANDARD_PACK_WH = 5000;
 
 const BEGINNER_CATALOG = [
-  { id:'phones', label:'Téléphones', kind:'phone', qty:4, checked:true, note:'Nombre uniquement. Temps géré automatiquement.', icon:LOAD_ICONS.phones, powerW:10 },
+  { id:'phones', label:'Téléphones', kind:'usage_only', qty:4, usage:'regulier', checked:true, note:'Nombre uniquement. Puissance moyenne : 10 W.', icon:LOAD_ICONS.phones, powerW:10 },
   { id:'tv', label:'Téléviseur', kind:'size_usage', qty:1, size:'medium', usage:'regulier', checked:true, note:'Nombre + taille + profil de temps.', icon:LOAD_ICONS.tv },
   { id:'fan', label:'Ventilateur', kind:'size_usage', qty:1, size:'medium', usage:'full', checked:true, note:'Nombre + taille + profil de temps.', icon:LOAD_ICONS.fan },
   { id:'led', label:'LED', kind:'qty_usage_fixed', qty:6, usage:'regulier', checked:true, note:'Nombre de points lumineux.', icon:LOAD_ICONS.led, powerW:12 },
   { id:'fridge', label:'Réfrigérateur', kind:'size_only', qty:1, size:'medium', checked:true, note:'Nombre + taille. Fonctionnement continu.', icon:LOAD_ICONS.fridge },
   { id:'freezer', label:'Congélateur', kind:'size_only', qty:1, size:'medium', checked:true, note:'Nombre + taille. Fonctionnement continu.', icon:LOAD_ICONS.freezer },
-  { id:'decoder', label:'Décodeur', kind:'usage_only', qty:1, usage:'regulier', checked:true, note:'Toujours branché.', icon:LOAD_ICONS.decoder, powerW:8 },
-  { id:'wifi', label:'Wi-Fi / Box', kind:'usage_only', qty:1, usage:'regulier', checked:true, note:'Toujours branché.', icon:LOAD_ICONS.wifi, powerW:10 },
+  { id:'decoder', label:'Décodeur', kind:'usage_only', qty:1, usage:'full', checked:true, note:'Toujours branché.', icon:LOAD_ICONS.decoder, powerW:8 },
+  { id:'wifi', label:'Wi-Fi / Box', kind:'usage_only', qty:1, usage:'full', checked:true, note:'Toujours branché.', icon:LOAD_ICONS.wifi, powerW:10 },
   { id:'laptop', label:'Ordinateur portable', kind:'qty_usage', qty:1, usage:'occasionnel', checked:false, note:'Nombre + profil de temps.', icon:LOAD_ICONS.laptop, powerW:90 },
   { id:'desktop', label:'Ordinateur de bureau', kind:'qty_usage', qty:1, usage:'occasionnel', checked:false, note:'Nombre + profil de temps.', icon:LOAD_ICONS.desktop, powerW:150 },
   { id:'iron', label:'Fer à repasser', kind:'qty_usage', qty:1, usage:'rare', checked:false, note:'Nombre + profil de temps.', icon:LOAD_ICONS.iron, powerW:1000 },
@@ -1361,20 +2019,19 @@ const USAGE_PROFILES = {
 
 const ROOM_TEMPLATES = {
   Chambre:[
-    { name:'Téléphones', qty:1, kind:'phone', usage:'regulier', powerW:10, hours:2, icon:LOAD_ICONS.phones },
+    { name:'Téléphones', qty:1, kind:'usage_only', usage:'regulier', powerW:10, hours:2, icon:LOAD_ICONS.phones },
     { name:'Ventilateur', qty:1, kind:'size_usage', size:'medium', usage:'full', powerW:45, hours:8, icon:LOAD_ICONS.fan },
     { name:'Éclairage', qty:1, kind:'qty_usage_fixed', usage:'regulier', powerW:12, hours:5, icon:LOAD_ICONS.led }
   ],
   Salon:[
     { name:'Éclairage', qty:2, kind:'qty_usage_fixed', usage:'full', powerW:12, hours:6, icon:LOAD_ICONS.led },
     { name:'Téléviseur', qty:1, kind:'size_usage', size:'medium', usage:'regulier', powerW:120, hours:4, icon:LOAD_ICONS.tv },
-    { name:'Décodeur', qty:1, kind:'usage_only', usage:'regulier', powerW:8, hours:24, icon:LOAD_ICONS.decoder },
+    { name:'Décodeur', qty:1, kind:'usage_only', usage:'full', powerW:8, hours:24, icon:LOAD_ICONS.decoder },
     { name:'Ventilateur', qty:1, kind:'size_usage', size:'medium', usage:'regulier', powerW:45, hours:6, icon:LOAD_ICONS.fan }
   ],
   Cuisine:[
     { name:'Éclairage', qty:1, kind:'qty_usage_fixed', usage:'regulier', powerW:12, hours:5, icon:LOAD_ICONS.led },
     { name:'Réfrigérateur', qty:1, kind:'size_only', size:'medium', powerW:80, hours:24, icon:LOAD_ICONS.fridge },
-    { name:'Congélateur', qty:1, kind:'size_only', size:'medium', powerW:95, hours:24, icon:LOAD_ICONS.freezer },
     { name:'Micro-ondes', qty:1, kind:'qty_usage', usage:'rare', powerW:900, hours:0.15, icon:LOAD_ICONS.microwave }
   ],
   "Salle d'eau":[
@@ -1403,9 +2060,6 @@ const topPhoneLink = document.getElementById('topPhoneLink');
 const topPhoneText = document.getElementById('topPhoneText');
 const mobilePhoneLink = document.getElementById('mobilePhoneLink');
 const footerPhoneText = document.getElementById('footerPhoneText');
-const studyToggleBtn = document.getElementById('studyToggleBtn');
-const studyContent = document.getElementById('studyContent');
-
 const studyModeEl = document.getElementById('studyMode');
 const modeHint = document.getElementById('modeHint');
 const countryEl = document.getElementById('country');
@@ -1472,7 +2126,6 @@ function sizePower(kind, size){
   return map[size || 'medium'] ?? map.medium;
 }
 function loadPower(item){
-  if(item.kind === 'phone') return Number(item.powerW || 10);
   if(item.kind === 'usage_only') return Number(item.powerW || 0);
   if(item.kind === 'qty_usage_fixed') return Number(item.powerW || 12);
   if(item.kind === 'qty_only'){
@@ -1495,8 +2148,8 @@ function loadPower(item){
   return Number(item.powerW || 0);
 }
 function itemHours(item){
-  const usageHours = USAGE_PROFILES[item.usage || 'regulier']?.hours ?? 3;
-  if(item.kind === 'phone') return 2;
+  const p = item.usage || 'regulier';
+  const usageHours = USAGE_PROFILES[p]?.hours ?? 3;
   if(item.kind === 'usage_only') return usageHours;
   if(item.kind === 'qty_usage_fixed') return 6;
   if(item.kind === 'qty_only') return 24;
@@ -1771,22 +2424,7 @@ function getCurrentBatteryRecommendation(dailyKwh){
     card.className = 'quick-card';
 
     let fields = '';
-    if(item.kind === 'phone'){
-      fields = `
-        <div class="quick-grid">
-          <div class="quick-field field-qty">
-            <label>Nombre</label>
-            <input type="number" min="0" class="b-qty" data-idx="${idx}" value="${item.qty}">
-            <small>Temps géré automatiquement</small>
-          </div>
-          <div class="quick-field field-hours">
-            <label>Temps</label>
-            <input type="text" value="Automatique" disabled>
-            <small>Aucune fréquence à saisir</small>
-          </div>
-        </div>
-      `;
-    }else if(item.kind === 'usage_only' || item.kind === 'qty_only'){
+    if(item.kind === 'usage_only' || item.kind === 'qty_only'){
       fields = `
         <div class="quick-grid">
           <div class="quick-field field-qty">
@@ -1797,6 +2435,7 @@ function getCurrentBatteryRecommendation(dailyKwh){
           <div class="quick-field field-hours">
             <label>Profil de temps</label>
             <select class="b-usage" data-idx="${idx}">
+              <option value="full" ${item.usage === 'full' ? 'selected' : ''}>full</option>
               <option value="regulier" ${item.usage === 'regulier' || !item.usage ? 'selected' : ''}>régulier</option>
               <option value="occasionnel" ${item.usage === 'occasionnel' ? 'selected' : ''}>occasionnel</option>
               <option value="rare" ${item.usage === 'rare' ? 'selected' : ''}>rare</option>
@@ -1816,6 +2455,7 @@ function getCurrentBatteryRecommendation(dailyKwh){
           <div class="quick-field field-hours">
             <label>Profil de temps</label>
             <select class="b-usage" data-idx="${idx}">
+              <option value="full" ${item.usage === 'full' ? 'selected' : ''}>full</option>
               <option value="regulier" ${item.usage === 'regulier' || !item.usage ? 'selected' : ''}>régulier</option>
               <option value="occasionnel" ${item.usage === 'occasionnel' ? 'selected' : ''}>occasionnel</option>
               <option value="rare" ${item.usage === 'rare' ? 'selected' : ''}>rare</option>
@@ -1863,6 +2503,7 @@ function getCurrentBatteryRecommendation(dailyKwh){
           <div class="quick-field field-hours">
             <label>Profil de temps</label>
             <select class="b-usage" data-idx="${idx}">
+              <option value="full" ${item.usage === 'full' ? 'selected' : ''}>full</option>
               <option value="regulier" ${item.usage === 'regulier' || !item.usage ? 'selected' : ''}>régulier</option>
               <option value="occasionnel" ${item.usage === 'occasionnel' ? 'selected' : ''}>occasionnel</option>
               <option value="rare" ${item.usage === 'rare' ? 'selected' : ''}>rare</option>
@@ -1882,6 +2523,7 @@ function getCurrentBatteryRecommendation(dailyKwh){
           <div class="quick-field field-hours">
             <label>Profil de temps</label>
             <select class="b-usage" data-idx="${idx}">
+              <option value="full" ${item.usage === 'full' ? 'selected' : ''}>full</option>
               <option value="regulier" ${item.usage === 'regulier' || !item.usage ? 'selected' : ''}>régulier</option>
               <option value="occasionnel" ${item.usage === 'occasionnel' ? 'selected' : ''}>occasionnel</option>
               <option value="rare" ${item.usage === 'rare' ? 'selected' : ''}>rare</option>
@@ -1906,6 +2548,7 @@ function getCurrentBatteryRecommendation(dailyKwh){
           <div class="quick-field field-hours">
             <label>Profil de temps</label>
             <select class="b-usage" data-idx="${idx}">
+              <option value="full" ${item.usage === 'full' ? 'selected' : ''}>full</option>
               <option value="regulier" ${item.usage === 'regulier' || !item.usage ? 'selected' : ''}>régulier</option>
               <option value="occasionnel" ${item.usage === 'occasionnel' ? 'selected' : ''}>occasionnel</option>
               <option value="rare" ${item.usage === 'rare' ? 'selected' : ''}>rare</option>
@@ -1962,6 +2605,7 @@ function getCurrentBatteryRecommendation(dailyKwh){
       <div class="control-field field-hours">
         <label for="beginnerItemUsage">Profil de temps</label>
         <select id="beginnerItemUsage">
+          <option value="full">full</option>
           <option value="regulier" selected>régulier</option>
           <option value="occasionnel">occasionnel</option>
           <option value="rare">rare</option>
@@ -2008,26 +2652,16 @@ function getCurrentBatteryRecommendation(dailyKwh){
     }
   }
 
-  function updateUsageForSelected(){
-    const item = BEGINNER_CATALOG.find(x => x.id === select.value);
-    if(!item) return;
-    usage.parentElement.style.display = item.kind === 'phone' ? 'none' : 'flex';
-  }
-
   fillSizeOptions(select.value);
-  updateUsageForSelected();
-
   select.addEventListener('change', () => {
     const item = BEGINNER_CATALOG.find(x => x.id === select.value);
     if(!item) return;
     qty.value = item.qty ?? 1;
     usage.value = item.usage || 'regulier';
     fillSizeOptions(select.value);
-    updateUsageForSelected();
     if(item.size) size.value = item.size;
     recalc();
   });
-
   addBtn.addEventListener('click', () => {
     addBeginnerItemFromCatalog(select.value, qty.value, size.value, usage.value);
   });
@@ -2303,7 +2937,7 @@ function renderPdfBlock(){
             <div><div style="font-weight:700">PV requis</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.pvKwRec,2)} kWc</div></div>
             <div><div style="font-weight:700">Nb panneaux</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${s.panelCountRec}</div></div>
             <div><div style="font-weight:700">Batterie utile totale</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.batteryUsefulTotal,2)} kWh</div></div>
-            <div><div style="font-weight:700">Autonomie optimisée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">1 jour</div></div>
+            <div><div style="font-weight:700">Autonomie estimée</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">1 jour</div></div>
             <div><div style="font-weight:700">Section câble</div><div style="font-size:18px;font-weight:800;color:#0b4d26;margin-top:6px">${fmt(s.cableFinal,1)} mm²</div></div>
           </div>
         </div>
@@ -2805,12 +3439,6 @@ function init(){
   applyCurrentPageState();
   renderView();
   updateModeUI();
-
-  studyToggleBtn.addEventListener('click', () => {
-    const hidden = studyContent.hidden;
-    studyContent.hidden = !hidden;
-    studyToggleBtn.textContent = hidden ? 'Réduire l’étude' : 'Ouvrir l’étude';
-  });
 
   studyModeEl.addEventListener('change', updateModeUI);
   countryEl.addEventListener('change', () => {
