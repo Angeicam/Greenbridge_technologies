@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GreenBridge Énergie</title>
+  <title>GreenBridge Technologies</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -477,8 +477,8 @@
     .mobile-contact{
       display:flex;
       flex-direction:column;
-      gap:12px;
-      padding:16px 14px;
+      gap:10px;
+      padding:14px 14px;
       border-radius:16px;
       background:rgba(255,255,255,0.04);
       border:1px solid rgba(255,255,255,0.06);
@@ -489,21 +489,28 @@
       text-align:center;
     }
 
-    .mobile-contact strong{
-      color:#fff;
-      font-size:15px;
+    .mobile-contact .mail-label{
+      font-size:11px;
       letter-spacing:1px;
+      text-transform:uppercase;
+      color:rgba(255,255,255,0.74);
+      font-weight:700;
     }
 
-    .mobile-contact .phone-line{
-      display:flex;
+    .mobile-contact a.mail-link{
+      display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:8px;
       color:#fff;
       font-weight:800;
       flex-wrap:wrap;
-      font-size:16px;
+      font-size:15px;
+      line-height:1.3;
+    }
+
+    .mobile-contact a.mail-link:hover{
+      color:var(--accent-2);
     }
 
     .socials{
@@ -595,7 +602,7 @@
     }
 
     .section{
-      padding:52px 5vw;
+      padding:48px 5vw;
     }
 
     .section h2{
@@ -607,7 +614,7 @@
 
     .intro{
       max-width:980px;
-      margin:0 auto 24px;
+      margin:0 auto 22px;
       color:var(--muted-text-color);
       text-align:center;
       font-size:14px;
@@ -618,13 +625,13 @@
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
       gap:18px;
-      max-width:1040px;
+      max-width:980px;
       margin:0 auto;
     }
 
     .big-card{
       position:relative;
-      min-height:270px;
+      min-height:220px;
       border-radius:18px;
       overflow:hidden;
       border:1px solid rgba(212,175,55,0.85);
@@ -661,7 +668,7 @@
       position:relative;
       z-index:2;
       width:100%;
-      padding:16px 14px 14px;
+      padding:14px 12px 12px;
       background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
       text-align:center;
     }
@@ -669,15 +676,15 @@
     .big-card h3{
       margin:0;
       color:var(--accent-2);
-      font-size:22px;
+      font-size:21px;
       font-weight:900;
     }
 
     .big-card p{
       margin:8px 0 0;
       color:#e6f7ea;
-      line-height:1.5;
-      font-size:13px;
+      line-height:1.45;
+      font-size:12.5px;
     }
 
     .btn-card{
@@ -1072,7 +1079,7 @@
       .company-tagline{font-size:14px}
       .logo-text img{height:52px}
       .section{padding:46px 4vw}
-      .big-card{min-height:240px}
+      .big-card{min-height:220px}
       .hero{
         min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
       }
@@ -1082,7 +1089,7 @@
       .company-name{font-size:26px}
       .company-tagline{font-size:11px}
       .logo-text img{height:46px}
-      .big-card{min-height:220px}
+      .big-card{min-height:200px}
       .big-card h3{font-size:20px}
       .big-card p{font-size:12px}
       .section h2{font-size:24px}
@@ -1151,7 +1158,7 @@
       }
 
       .big-card{
-        min-height:200px;
+        min-height:190px;
       }
 
       .big-card h3{
@@ -1255,26 +1262,25 @@
       </div>
 
       <div class="mobile-contact" aria-hidden="false">
-        <strong>CONTACT</strong>
-        <div class="phone-line">
-          <i class="fas fa-phone" aria-hidden="true"></i>
-          <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
-        </div>
+        <div class="mail-label">Adresse mail</div>
+        <a class="mail-link" href="mailto:gb-domotique@hotmail.com">
+          <i class="fas fa-envelope" aria-hidden="true"></i>
+          <span>gb-domotique@hotmail.com</span>
+        </a>
       </div>
 
       <div class="socials">
         <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
         <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
         <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>
 
   <section class="hero" id="top" aria-label="Hero">
     <div class="hero-content">
-      <h1>Solutions Énergie sur mesure</h1>
-      <p>Étude du besoin, dimensionnement, installation et maintenance.</p>
+      <h1>Solutions pour suppléer vos besoins énergétiques</h1>
+      <p>Nos produits complètent vos installations et assurent la continuité : powerbank, chargeurs, stabilisateurs WiFi et produits utiles du quotidien.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Découvrir les catégories</button>
       </div>
@@ -1284,7 +1290,7 @@
   <section id="categories" class="section" aria-label="Nos catégories">
     <h2>Nos catégories</h2>
     <p class="intro">
-      Deux univers sont regroupés ici : les <strong>powerbank</strong> et les <strong>produits énergie</strong>.
+      Deux univers sont regroupés ici : les <strong>powerbank</strong> et les <strong>produits de suppléance</strong>.
       Chaque carte est un bouton cliquable pour ouvrir la page correspondante.
     </p>
 
@@ -1296,7 +1302,7 @@
         <div class="overlay"></div>
         <div class="content">
           <h3>Powerbank</h3>
-          <p>Regroupe tous les modèles de powerbank : Mini, Core, Plus, Pro, Wireless.</p>
+          <p>Une gamme pour garder vos appareils alimentés partout, avec ou sans fil.</p>
           <button class="btn-card" onclick="event.stopPropagation();window.location.href='powerbank.html'">Ouvrir la page</button>
         </div>
       </div>
@@ -1308,7 +1314,7 @@
         <div class="overlay"></div>
         <div class="content">
           <h3>Produits</h3>
-          <p>Chargeur WiFi, chargeur PC, chargeur téléphone, onduleurs et autres solutions.</p>
+          <p>Chargeurs WiFi, chargeurs PC, chargeurs téléphone, onduleurs et solutions complémentaires.</p>
           <button class="btn-card" onclick="event.stopPropagation();window.location.href='produits.html'">Ouvrir la page</button>
         </div>
       </div>
@@ -1369,9 +1375,7 @@
   </div>
 
   <script>
-    const CONTACT_EMAIL = 'contact@greenbridge.com';
     const SURVEY_URL = 'https://enquete-powerbank-ci-sn.netlify.app/';
-
     const whatsappNumbers = {
       senegal: '221774015004',
       coteivoire: '22507070707'
