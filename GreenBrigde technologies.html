@@ -22,6 +22,7 @@
       --gold-hover:#e6c95a;
       --muted-text-color:#e6f7ea;
       --electric-yellow:#ffd600;
+      --whatsapp-green:#25D366;
     }
 
     *{box-sizing:border-box}
@@ -36,15 +37,8 @@
     }
 
     body.menu-open{overflow:hidden}
-
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
-
-    button{
-      font-family:inherit;
-    }
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
 
     .topbar{
       position:fixed;
@@ -56,32 +50,156 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
+      gap:10px;
       padding:0 5vw;
       z-index:1500;
       font-size:13px;
+      overflow:hidden;
     }
 
-    .topbar .left,
-    .topbar .right{
+    .promo-wrap{
+      flex:1;
       display:flex;
       align-items:center;
-      gap:12px;
+      justify-content:flex-start;
+      min-width:0;
     }
 
-    .topbar a{
-      color:#fff;
-      font-weight:700;
-      white-space:nowrap;
-      transition:color .18s ease;
-    }
-
-    .topbar a:hover{
-      color:var(--accent-2);
-    }
-
-    .phone-label{
+    .promo-text{
+      display:inline-flex;
+      align-items:center;
+      gap:0;
+      font-size:10px;
       font-weight:800;
-      margin-right:4px;
+      letter-spacing:0.9px;
+      text-transform:uppercase;
+      color:#fff;
+      -webkit-text-stroke:0.35px rgba(255,255,255,0.18);
+      text-shadow:0 2px 6px rgba(0,0,0,0.35);
+      white-space:nowrap;
+    }
+
+    .topbar-actions{
+      flex:0 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      min-width:0;
+      gap:8px;
+    }
+
+    .survey-top-link{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:4px 7px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.14);
+      background:linear-gradient(90deg, rgba(255,255,255,0.14), rgba(255,255,255,0.08));
+      color:#fff;
+      box-shadow:0 8px 18px rgba(0,0,0,0.14);
+      text-decoration:none;
+      cursor:pointer;
+      font-weight:800;
+      letter-spacing:0.05px;
+      white-space:nowrap;
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+      min-height:22px;
+      line-height:1;
+      touch-action:manipulation;
+      -webkit-tap-highlight-color:transparent;
+      position:relative;
+      z-index:2000;
+      pointer-events:auto;
+      max-width:calc(100vw - 170px);
+      overflow:hidden;
+      transform:translateY(-1px);
+      font-size:8.5px;
+    }
+
+    .survey-top-link:hover{
+      transform:translateY(-2px);
+      box-shadow:0 12px 28px rgba(0,0,0,0.22);
+      background:linear-gradient(90deg, rgba(255,255,255,0.20), rgba(255,255,255,0.12));
+    }
+
+    .survey-top-link:active{
+      transform:translateY(0px) scale(0.99);
+    }
+
+    .survey-top-badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:rgba(255,213,74,0.18);
+      color:#ffd54a;
+      font-size:9px;
+      flex:0 0 auto;
+    }
+
+    .survey-heart{
+      width:10px;
+      height:10px;
+      position:relative;
+      display:inline-block;
+      animation:heartbeat 1.25s ease-in-out infinite;
+      transform-origin:center;
+    }
+
+    .survey-heart::before,
+    .survey-heart::after{
+      content:"";
+      position:absolute;
+      width:7px;
+      height:10px;
+      background:#ffd54a;
+      border-radius:7px 7px 0 0;
+    }
+
+    .survey-heart::before{
+      left:3px;
+      transform:rotate(-45deg);
+      transform-origin:0 100%;
+    }
+
+    .survey-heart::after{
+      left:0;
+      transform:rotate(45deg);
+      transform-origin:100% 100%;
+    }
+
+    @keyframes heartbeat{
+      0%, 100%{ transform:scale(1); }
+      14%{ transform:scale(1.08); }
+      28%{ transform:scale(0.98); }
+      42%{ transform:scale(1.12); }
+      60%{ transform:scale(1); }
+    }
+
+    @media (max-width:640px){
+      .promo-text{font-size:9px}
+      .survey-top-link{
+        padding:3px 6px;
+        gap:5px;
+        font-size:8px;
+        max-width:calc(100vw - 120px);
+        min-height:20px;
+      }
+      .survey-top-badge{
+        width:13px;
+        height:13px;
+      }
+    }
+
+    @media (max-width:420px){
+      .survey-top-link{
+        font-size:7.5px;
+        padding:3px 5px;
+        max-width:calc(100vw - 92px);
+      }
     }
 
     header{
@@ -94,20 +212,23 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
+      gap:10px;
       padding:0 5vw;
       z-index:1490;
       box-shadow:0 4px 12px rgba(0,0,0,.25);
+      overflow:hidden;
     }
 
     .logo-text{
       display:flex;
       align-items:center;
       gap:12px;
+      flex:0 0 auto;
       min-width:0;
     }
 
     .logo-text img{
-      height:66px;
+      height:56px;
       display:block;
       flex:0 0 auto;
     }
@@ -116,18 +237,20 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      justify-content:center;
+      justify-content:flex-start;
       line-height:1;
       text-align:center;
       min-width:0;
       margin:0;
       padding:0;
+      position:relative;
+      top:1px;
     }
 
     .company-name{
-      font-size:44px;
+      font-size:34px;
       font-weight:800;
-      letter-spacing:.4px;
+      letter-spacing:1px;
       padding:0;
       margin:0;
       border-radius:8px;
@@ -139,14 +262,14 @@
       white-space:nowrap;
       line-height:1;
       text-align:center;
-      width:100%;
+      width:max-content;
       display:block;
     }
 
     .company-tagline{
-      font-size:18px;
+      font-size:14px;
       font-weight:700;
-      letter-spacing:4px;
+      letter-spacing:5px;
       text-transform:uppercase;
       color:#dfffe6;
       padding:0;
@@ -156,7 +279,7 @@
       white-space:nowrap;
       line-height:1;
       text-align:center;
-      width:100%;
+      width:max-content;
       display:block;
     }
 
@@ -175,9 +298,7 @@
       transition:all .18s;
     }
 
-    nav a:hover{
-      color:var(--accent-2);
-    }
+    nav a:hover{color:var(--accent-2)}
 
     nav a.active{
       color:var(--accent-2);
@@ -474,40 +595,40 @@
     }
 
     .section{
-      padding:62px 5vw;
+      padding:52px 5vw;
     }
 
     .section h2{
-      font-size:32px;
-      margin:0 0 18px;
+      font-size:30px;
+      margin:0 0 16px;
       color:var(--accent-2);
       text-align:center;
     }
 
     .intro{
-      max-width:1000px;
-      margin:0 auto 26px;
+      max-width:980px;
+      margin:0 auto 24px;
       color:var(--muted-text-color);
       text-align:center;
-      font-size:15px;
+      font-size:14px;
       line-height:1.7;
     }
 
     .two-cards{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:22px;
-      max-width:1180px;
+      gap:18px;
+      max-width:1040px;
       margin:0 auto;
     }
 
     .big-card{
       position:relative;
-      min-height:360px;
-      border-radius:22px;
+      min-height:270px;
+      border-radius:18px;
       overflow:hidden;
       border:1px solid rgba(212,175,55,0.85);
-      box-shadow:0 14px 32px rgba(0,0,0,0.35);
+      box-shadow:0 12px 28px rgba(0,0,0,0.30);
       background:#061f14;
       cursor:pointer;
       transition:transform .22s ease, box-shadow .22s ease;
@@ -516,8 +637,8 @@
     }
 
     .big-card:hover{
-      transform:translateY(-6px);
-      box-shadow:0 20px 44px rgba(0,0,0,0.48);
+      transform:translateY(-5px);
+      box-shadow:0 18px 36px rgba(0,0,0,0.42);
     }
 
     .big-card img{
@@ -526,7 +647,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      filter:brightness(.92) contrast(1.02) saturate(.98);
+      filter:brightness(.93) contrast(1.02) saturate(.98);
     }
 
     .big-card .overlay{
@@ -540,7 +661,7 @@
       position:relative;
       z-index:2;
       width:100%;
-      padding:22px 18px 20px;
+      padding:16px 14px 14px;
       background:linear-gradient(to top, rgba(2,8,6,0.92) 0%, rgba(2,8,6,0.35) 100%);
       text-align:center;
     }
@@ -548,27 +669,27 @@
     .big-card h3{
       margin:0;
       color:var(--accent-2);
-      font-size:26px;
+      font-size:22px;
       font-weight:900;
     }
 
     .big-card p{
-      margin:10px 0 0;
+      margin:8px 0 0;
       color:#e6f7ea;
-      line-height:1.6;
-      font-size:15px;
+      line-height:1.5;
+      font-size:13px;
     }
 
     .btn-card{
-      margin-top:14px;
-      padding:11px 18px;
+      margin-top:10px;
+      padding:9px 14px;
       border-radius:10px;
       border:0;
       background:var(--gold-base);
       color:#072012;
       font-weight:900;
       cursor:pointer;
-      font-size:14px;
+      font-size:13px;
     }
 
     .btn-card:hover{
@@ -577,22 +698,22 @@
 
     .advantages{
       display:flex;
-      gap:18px;
+      gap:14px;
       flex-wrap:wrap;
       justify-content:center;
       margin-top:10px;
     }
 
     .advantage{
-      width:260px;
+      width:240px;
       background:#072b1b;
       border-radius:12px;
-      padding:18px;
+      padding:16px;
       text-align:center;
     }
 
     .advantage i{
-      font-size:34px;
+      font-size:30px;
       color:var(--accent);
       margin-bottom:8px;
     }
@@ -600,20 +721,21 @@
     .advantage h3{
       color:#dfffe6;
       margin:6px 0;
+      font-size:16px;
     }
 
     .advantage p{
       color:#e6f7ea;
-      line-height:1.6;
-      font-size:14px;
+      line-height:1.5;
+      font-size:13px;
     }
 
     footer{
       background:var(--green-dark);
       color:#fff;
-      padding:28px 5vw 36px;
+      padding:24px 5vw 32px;
       position:relative;
-      margin-top:40px;
+      margin-top:36px;
       text-align:center;
     }
 
@@ -630,7 +752,7 @@
     .footer-company{
       display:block;
       margin:0 auto 8px;
-      font-size:20px;
+      font-size:18px;
       font-weight:800;
       color:#04462e;
       -webkit-text-stroke:0.7px var(--gold-base);
@@ -640,10 +762,39 @@
       width:max-content;
     }
 
+    .footer-flags{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin:10px 0 8px;
+      flex-wrap:wrap;
+    }
+
+    .footer-flags .flag{
+      width:34px;
+      height:24px;
+      border-radius:4px;
+      overflow:hidden;
+      box-shadow:0 4px 10px rgba(0,0,0,0.24);
+      border:1px solid rgba(255,255,255,0.14);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+    }
+
+    .footer-flags .flag img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
     .footer-contact{
       margin-top:6px;
       color:#e6f7ea;
       line-height:1.6;
+      font-size:14px;
     }
 
     .electric-band{
@@ -756,11 +907,158 @@
       100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
     }
 
+    .fab{
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:fixed;
+      right:14px;
+      bottom:18px;
+      z-index:4000;
+      box-shadow:0 10px 30px rgba(2,50,26,0.25);
+      background:var(--whatsapp-green);
+      border:3px solid rgba(255,255,255,0.06);
+      cursor:pointer;
+    }
+
+    .fab button{
+      width:100%;
+      height:100%;
+      border:0;
+      background:transparent;
+      color:#fff;
+      font-size:22px;
+      cursor:pointer;
+      border-radius:50%;
+    }
+
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.56);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:5000;
+      padding:14px;
+    }
+
+    .modal{
+      width:min(760px,96vw);
+      background:#fff;
+      border-radius:18px;
+      padding:18px;
+      overflow:auto;
+      box-shadow:0 20px 45px rgba(0,0,0,0.42);
+      max-height:calc(100vh - 28px);
+      position:relative;
+    }
+
+    .modal h2{
+      font-size:18px;
+      margin-top:0;
+      margin-right:28px;
+      color:#08110a;
+    }
+
+    .modal .close{
+      position:sticky;
+      top:0;
+      margin-left:auto;
+      width:34px;
+      height:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+      border:1px solid rgba(6,42,32,0.12);
+      border-radius:50%;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(0,0,0,0.10);
+      color:#0b2418;
+      z-index:20;
+      flex:0 0 auto;
+    }
+
+    .modal-body{
+      color:#23403a;
+      line-height:1.5;
+    }
+
+    .whatsapp-choice{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .whatsapp-card{
+      border:1px solid rgba(6,42,32,0.08);
+      background:linear-gradient(180deg, #ffffff 0%, #f7fbf9 100%);
+      border-radius:12px;
+      padding:10px;
+      cursor:pointer;
+      text-align:left;
+      box-shadow:0 8px 18px rgba(6,42,32,0.06);
+    }
+
+    .whatsapp-card .top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .whatsapp-card .flag{
+      width:36px;
+      height:26px;
+      border-radius:6px;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,0.08);
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      flex:0 0 auto;
+      background:#fff;
+    }
+
+    .whatsapp-card .flag img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .whatsapp-card h4{
+      margin:0;
+      font-size:14px;
+      color:#082014;
+    }
+
+    .whatsapp-card p{
+      margin:5px 0 0;
+      color:#315348;
+      font-size:12px;
+      line-height:1.35;
+    }
+
+    .whatsapp-card .go{
+      margin-top:9px;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:7px 10px;
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--green-mid), var(--green-mid-2));
+      color:#fff;
+      font-weight:800;
+      font-size:12px;
+    }
+
     @media (max-width:1100px){
       .two-cards{
         grid-template-columns:1fr;
       }
-
       .advantage{
         width:100%;
         max-width:420px;
@@ -773,8 +1071,46 @@
       .company-name{font-size:36px}
       .company-tagline{font-size:14px}
       .logo-text img{height:52px}
-      .section{padding:52px 4vw}
-      .big-card{min-height:320px}
+      .section{padding:46px 4vw}
+      .big-card{min-height:240px}
+      .hero{
+        min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
+      }
+    }
+
+    @media (max-width:640px){
+      .company-name{font-size:26px}
+      .company-tagline{font-size:11px}
+      .logo-text img{height:46px}
+      .big-card{min-height:220px}
+      .big-card h3{font-size:20px}
+      .big-card p{font-size:12px}
+      .section h2{font-size:24px}
+      .intro{font-size:13px}
+      .footer-company{font-size:16px}
+      .footer-flags .flag{width:30px;height:21px}
+      .survey-top-link{
+        font-size:7.5px;
+        padding:3px 5px;
+        max-width:calc(100vw - 92px);
+      }
+      .survey-top-badge{
+        width:13px;
+        height:13px;
+      }
+      .fab{
+        width:52px;
+        height:52px;
+      }
+      .fab button{
+        font-size:20px;
+      }
+      .modal{
+        width:min(96vw,760px);
+        max-height:calc(100vh - 20px);
+        padding:16px;
+        border-radius:16px;
+      }
     }
 
     @media (max-width:480px){
@@ -788,11 +1124,11 @@
       }
 
       .logo-text img{
-        height:46px;
+        height:44px;
       }
 
       .company-name{
-        font-size:30px;
+        font-size:24px;
       }
 
       .company-tagline{
@@ -811,31 +1147,31 @@
       }
 
       .section h2{
-        font-size:26px;
-      }
-
-      .big-card{
-        min-height:290px;
-      }
-
-      .big-card h3{
         font-size:22px;
       }
 
+      .big-card{
+        min-height:200px;
+      }
+
+      .big-card h3{
+        font-size:19px;
+      }
+
       .big-card p{
-        font-size:13px;
+        font-size:11.5px;
       }
 
       .advantage{
-        padding:16px 14px;
+        padding:14px 12px;
       }
 
       .advantage i{
-        font-size:30px;
+        font-size:28px;
       }
 
       .footer-company{
-        font-size:17px;
+        font-size:15px;
       }
 
       .electric-band{
@@ -846,79 +1182,51 @@
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="left">Assemblé en Afrique de l'Ouest</div>
-    <div class="right">
-      <a href="tel:+2250707070707">
-        <span class="phone-label">Tel:</span>
-        +225 07 07 07 07 07
+  <div class="topbar" role="banner">
+    <div class="promo-wrap" aria-hidden="true">
+      <div class="promo-text"><span>Assemblé en Afrique de l'Ouest</span></div>
+    </div>
+
+    <div class="topbar-actions">
+      <a class="survey-top-link" href="https://enquete-powerbank-ci-sn.netlify.app/" aria-label="Questionnaire" onclick="return openSurveyLink(event);" ontouchstart="">
+        <span class="survey-top-badge">
+          <span class="survey-heart" aria-hidden="true"></span>
+        </span>
+        <span>Questionnaire</span>
       </a>
     </div>
   </div>
 
-  <header>
+  <header role="navigation" aria-label="Main">
     <div class="logo-text">
-      <img src="green bridge domo.png" alt="Logo GreenBridge">
+      <a href="#top" aria-label="Accueil">
+        <img src="green bridge domo.png" alt="Logo GreenBridge">
+      </a>
       <div class="brand-stack">
         <div class="company-name">GREENBRIDGE</div>
         <div class="company-tagline">TECHNOLOGIES</div>
       </div>
     </div>
 
-    <nav>
-      <a href="index.html" class="active">Accueil</a>
+    <nav aria-label="Menu principal">
+      <a href="#top" class="active">Accueil</a>
       <a href="powerbank.html">Powerbank</a>
       <a href="produits.html">Produits</a>
-      <a href="projets.html">Projets futurs</a>
-      <a href="maintenance.html">Maintenance</a>
     </nav>
 
-    <button class="burger" id="burgerBtn" aria-label="Ouvrir le menu mobile" aria-expanded="false">
+    <button class="burger" aria-label="Ouvrir le menu mobile" id="burgerBtn" aria-expanded="false">
       <span class="icon"><span></span><span></span><span></span></span>
     </button>
   </header>
 
-  <div class="mobile-backdrop" id="mobileBackdrop"></div>
-
-  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
-    <div class="mobile-panel">
-      <button class="mobile-close" id="mobileCloseBtn" aria-label="Fermer le menu">×</button>
-
-      <div class="mobile-brand">
-        <div class="company-name">GREENBRIDGE</div>
-        <div class="company-tagline">TECHNOLOGIES</div>
-      </div>
-
-      <div class="menu-links">
-        <a href="index.html" class="mobile-link">Accueil</a>
-        <a href="powerbank.html" class="mobile-link">Powerbank</a>
-        <a href="produits.html" class="mobile-link">Produits</a>
-        <a href="projets.html" class="mobile-link">Projets futurs</a>
-        <a href="maintenance.html" class="mobile-link">Maintenance</a>
-      </div>
-
-      <div class="mobile-contact">
-        <strong>CONTACT</strong>
-        <div class="phone-line">
-          <i class="fas fa-phone"></i>
-          <a href="tel:+2250707070707">+225 07 07 07 07 07</a>
-        </div>
-      </div>
-
-      <div class="socials">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-      </div>
-    </div>
-  </div>
+  <div class="mobile-backdrop" id="mobileBackdrop" aria-hidden="true"></div>
 
   <div class="electric-band connected" id="electricBand" aria-hidden="true">
-    <div class="container">
-      <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none">
+    <div class="container" aria-hidden="true">
+      <svg class="lightning-svg" viewBox="0 0 2000 40" preserveAspectRatio="none" aria-hidden="true">
         <path class="zap" d="M10,22 C260,4 520,36 840,20 C1120,8 1440,34 1760,18 C1880,6 1960,28 1990,22" stroke-opacity="0.18"/>
         <path class="zap" d="M10,24 C280,36 600,6 860,22 C1140,36 1460,6 1800,22 C1880,36 1960,10 1990,22" stroke-opacity="0.12"/>
-        <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22"/>
+        <path class="zap" id="zapBright" d="M20,22 C300,6 600,34 880,16 C1240,0 1520,32 1860,14 C1960,2 1980,30 1990,22" stroke-opacity="1" stroke-dasharray="520" stroke-dashoffset="520"/>
       </svg>
 
       <div class="orbs">
@@ -931,19 +1239,49 @@
     </div>
   </div>
 
-  <section class="hero" id="top">
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <div class="mobile-panel">
+      <button class="mobile-close" id="mobileCloseBtn" aria-label="Fermer le menu">×</button>
+
+      <div class="mobile-brand">
+        <div class="company-name">GREENBRIDGE</div>
+        <div class="company-tagline">TECHNOLOGIES</div>
+      </div>
+
+      <div class="menu-links">
+        <a href="#top" class="mobile-link active">Accueil</a>
+        <a href="powerbank.html" class="mobile-link">Powerbank</a>
+        <a href="produits.html" class="mobile-link">Produits</a>
+      </div>
+
+      <div class="mobile-contact" aria-hidden="false">
+        <strong>CONTACT</strong>
+        <div class="phone-line">
+          <i class="fas fa-phone" aria-hidden="true"></i>
+          <a href="tel:+2250707070707" id="mobilePhoneLink">+225 07 07 07 07 07</a>
+        </div>
+      </div>
+
+      <div class="socials">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero" id="top" aria-label="Hero">
     <div class="hero-content">
       <h1>Solutions Énergie sur mesure</h1>
       <p>Étude du besoin, dimensionnement, installation et maintenance.</p>
       <div class="hero-actions">
-        <button class="btn-primary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">
-          Découvrir les catégories
-        </button>
+        <button class="btn-primary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">Découvrir les catégories</button>
       </div>
     </div>
   </section>
 
-  <section class="section" id="categories">
+  <section id="categories" class="section" aria-label="Nos catégories">
     <h2>Nos catégories</h2>
     <p class="intro">
       Deux univers sont regroupés ici : les <strong>powerbank</strong> et les <strong>produits énergie</strong>.
@@ -959,9 +1297,7 @@
         <div class="content">
           <h3>Powerbank</h3>
           <p>Regroupe tous les modèles de powerbank : Mini, Core, Plus, Pro, Wireless.</p>
-          <button class="btn-card" onclick="event.stopPropagation();window.location.href='powerbank.html'">
-            Ouvrir la page
-          </button>
+          <button class="btn-card" onclick="event.stopPropagation();window.location.href='powerbank.html'">Ouvrir la page</button>
         </div>
       </div>
 
@@ -973,9 +1309,7 @@
         <div class="content">
           <h3>Produits</h3>
           <p>Chargeur WiFi, chargeur PC, chargeur téléphone, onduleurs et autres solutions.</p>
-          <button class="btn-card" onclick="event.stopPropagation();window.location.href='produits.html'">
-            Ouvrir la page
-          </button>
+          <button class="btn-card" onclick="event.stopPropagation();window.location.href='produits.html'">Ouvrir la page</button>
         </div>
       </div>
     </div>
@@ -983,27 +1317,24 @@
 
   <section class="section">
     <h2>Pourquoi nos solutions énergie ?</h2>
-    <div class="advantages">
-      <div class="advantage">
-        <i class="fas fa-bolt"></i>
+    <div class="advantages" role="list">
+      <div class="advantage" role="listitem">
+        <i class="fas fa-bolt" aria-hidden="true"></i>
         <h3>Efficacité</h3>
         <p>Maximisez le rendement et l’économie d’énergie.</p>
       </div>
-
-      <div class="advantage">
-        <i class="fas fa-shield-alt"></i>
+      <div class="advantage" role="listitem">
+        <i class="fas fa-shield-alt" aria-hidden="true"></i>
         <h3>Fiabilité</h3>
         <p>Installation professionnelle et maintenance garantie.</p>
       </div>
-
-      <div class="advantage">
-        <i class="fas fa-globe-africa"></i>
+      <div class="advantage" role="listitem">
+        <i class="fas fa-globe-africa" aria-hidden="true"></i>
         <h3>Local</h3>
         <p>Expertise adaptée au marché ivoirien.</p>
       </div>
-
-      <div class="advantage">
-        <i class="fas fa-award"></i>
+      <div class="advantage" role="listitem">
+        <i class="fas fa-award" aria-hidden="true"></i>
         <h3>Garantie</h3>
         <p>Suivi et accompagnement sur la durée.</p>
       </div>
@@ -1012,17 +1343,63 @@
 
   <footer>
     <div class="footer-company">GREENBRIDGE TECHNOLOGIES</div>
+
+    <div class="footer-flags" aria-label="Drapeaux">
+      <span class="flag"><img src="https://flagcdn.com/w80/ci.png" alt="Drapeau Côte d'Ivoire"></span>
+      <span class="flag"><img src="https://flagcdn.com/w80/sn.png" alt="Drapeau Sénégal"></span>
+    </div>
+
     <div class="footer-contact">
       <div>© 2025 GreenBridge. Tous droits réservés.</div>
       <div>Tel: +225 07 07 07 07 07</div>
     </div>
   </footer>
 
+  <div id="fab" class="fab" role="button" aria-label="Commander via WhatsApp">
+    <button id="fabButton" type="button" aria-label="Commander via WhatsApp">
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div id="modalOverlay" class="modal-overlay" role="dialog" aria-hidden="true">
+    <div class="modal" role="document" aria-modal="true">
+      <button class="close" aria-label="Fermer" onclick="closeModal()">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
   <script>
+    const CONTACT_EMAIL = 'contact@greenbridge.com';
+    const SURVEY_URL = 'https://enquete-powerbank-ci-sn.netlify.app/';
+
+    const whatsappNumbers = {
+      senegal: '221774015004',
+      coteivoire: '22507070707'
+    };
+
     const burgerBtn = document.getElementById('burgerBtn');
     const mobileNav = document.getElementById('mobileNav');
     const mobileBackdrop = document.getElementById('mobileBackdrop');
     const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
+    const fabButton = document.getElementById('fabButton');
+
+    function openSurveyLink(ev){
+      if(ev) ev.preventDefault();
+      try{
+        const a = document.createElement('a');
+        a.href = SURVEY_URL;
+        a.rel = 'noopener noreferrer';
+        a.target = '_blank';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }catch(e){
+        window.open(SURVEY_URL, '_blank', 'noopener,noreferrer');
+      }
+      return false;
+    }
 
     function openMenu(){
       mobileNav.classList.add('open');
@@ -1056,6 +1433,69 @@
       });
     }
 
+    function openModal(html){
+      modalContent.innerHTML = html;
+      modalOverlay.style.display = 'flex';
+      modalOverlay.setAttribute('aria-hidden','false');
+      document.body.classList.add('menu-open');
+    }
+
+    function closeModal(){
+      modalOverlay.style.display = 'none';
+      modalOverlay.setAttribute('aria-hidden','true');
+      document.body.classList.remove('menu-open');
+    }
+
+    modalOverlay.addEventListener('click', ev=>{
+      if(ev.target === modalOverlay) closeModal();
+    });
+
+    function openWhatsAppChoice(){
+      openModal(`
+        <h2 style="margin:0 36px 6px 0;font-size:18px;color:#08110a">Commander via WhatsApp</h2>
+        <p style="margin:0;color:#315348;line-height:1.45;font-size:13px">Choisis le pays. Le message est prêt.</p>
+        <div class="whatsapp-choice">
+          <button class="whatsapp-card" type="button" onclick="sendWhatsApp('coteivoire')">
+            <div class="top">
+              <div class="flag"><img src="https://flagcdn.com/w80/ci.png" alt="Drapeau Côte d'Ivoire"></div>
+              <div>
+                <h4>Côte d'Ivoire</h4>
+                <p>Commander pour la Côte d'Ivoire.</p>
+              </div>
+            </div>
+            <div class="go"><i class="fa-brands fa-whatsapp"></i> Continuer</div>
+          </button>
+
+          <button class="whatsapp-card" type="button" onclick="sendWhatsApp('senegal')">
+            <div class="top">
+              <div class="flag"><img src="https://flagcdn.com/w80/sn.png" alt="Drapeau Sénégal"></div>
+              <div>
+                <h4>Sénégal</h4>
+                <p>Commander pour le Sénégal.</p>
+              </div>
+            </div>
+            <div class="go"><i class="fa-brands fa-whatsapp"></i> Continuer</div>
+          </button>
+        </div>
+        <div style="margin-top:12px;text-align:right">
+          <button type="button" class="btn-card" onclick="closeModal()">Fermer</button>
+        </div>
+      `);
+    }
+
+    function sendWhatsApp(country){
+      const number = whatsappNumbers[country] || whatsappNumbers.senegal;
+      const countryLabel = country === 'coteivoire' ? "la Côte d'Ivoire" : 'le Sénégal';
+      const message = `Bonjour, je souhaite commander un produit GreenBridge pour ${countryLabel}. Merci de me communiquer les modèles disponibles et les prix.`;
+      const url = `https://wa.me/${number}?text=` + encodeURIComponent(message);
+      closeModal();
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    if (fabButton) {
+      fabButton.addEventListener('click', openWhatsAppChoice);
+    }
+
     (function(){
       const electricBand = document.getElementById('electricBand');
       if (!electricBand) return;
@@ -1074,7 +1514,7 @@
       orbs.forEach((o,i)=>{
         if(o){
           o.classList.add('buzz');
-          o.style.animationDelay = (i*120)+'ms';
+          o.style.animationDelay = (i*120) + 'ms';
         }
       });
 
@@ -1083,6 +1523,11 @@
       function tick(now){
         const time = (now - t0) / 1000;
         const cont = electricBand.querySelector('.container');
+        if(!cont){
+          requestAnimationFrame(tick);
+          return;
+        }
+
         const rect = cont.getBoundingClientRect();
         const cx = rect.width / 2;
         const cy = rect.height / 2;
@@ -1094,9 +1539,10 @@
           const rx = Math.max(Math.min(rect.width * p.rxRatio, 4000), 120);
           const ry = p.ry;
           const angle = (time * p.speed * Math.PI * 2) + p.phase;
-
-          orb.style.left = (cx + Math.cos(angle) * rx) + 'px';
-          orb.style.top = (cy + Math.sin(angle) * ry) + 'px';
+          const x = cx + Math.cos(angle) * rx;
+          const y = cy + Math.sin(angle) * ry;
+          orb.style.left = x + 'px';
+          orb.style.top = y + 'px';
           orb.style.transform = 'translate(-50%,-50%)';
         }
 
