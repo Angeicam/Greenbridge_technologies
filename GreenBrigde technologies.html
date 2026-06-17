@@ -474,71 +474,6 @@
       color:var(--accent-2);
     }
 
-    .mobile-contact{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      padding:14px 14px;
-      border-radius:16px;
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.06);
-      color:var(--muted-text-color);
-      max-width:560px;
-      width:100%;
-      margin:0 auto;
-      text-align:center;
-    }
-
-    .mobile-contact .mail-label{
-      font-size:11px;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      color:rgba(255,255,255,0.74);
-      font-weight:700;
-    }
-
-    .mobile-contact a.mail-link{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      color:#fff;
-      font-weight:800;
-      flex-wrap:wrap;
-      font-size:15px;
-      line-height:1.3;
-    }
-
-    .mobile-contact a.mail-link:hover{
-      color:var(--accent-2);
-    }
-
-    .socials{
-      margin-top:auto;
-      border-top:1px solid rgba(255,255,255,0.05);
-      padding-top:14px;
-      display:flex;
-      gap:18px;
-      align-items:center;
-      justify-content:center;
-      flex-wrap:wrap;
-      width:100%;
-    }
-
-    .socials a{
-      width:44px;
-      height:44px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:0;
-      font-size:20px;
-      border:none;
-      background:rgba(255,255,255,0.04);
-      border-radius:50%;
-      min-height:44px;
-    }
-
     .hero{
       margin-top:calc(var(--topbar-h) + var(--header-h));
       min-height:calc(100vh - (var(--topbar-h) + var(--header-h)));
@@ -933,6 +868,154 @@
       100%{transform:translate(-50%,-50%) scaleX(.6);opacity:.6}
     }
 
+    .fab{
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:fixed;
+      right:14px;
+      bottom:18px;
+      z-index:4000;
+      box-shadow:0 10px 30px rgba(2,50,26,0.25);
+      background:var(--whatsapp-green);
+      border:3px solid rgba(255,255,255,0.06);
+      cursor:pointer;
+    }
+
+    .fab button{
+      width:100%;
+      height:100%;
+      border:0;
+      background:transparent;
+      color:#fff;
+      font-size:22px;
+      cursor:pointer;
+      border-radius:50%;
+    }
+
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.56);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:5000;
+      padding:14px;
+    }
+
+    .modal{
+      width:min(760px,96vw);
+      background:#fff;
+      border-radius:18px;
+      padding:18px;
+      overflow:auto;
+      box-shadow:0 20px 45px rgba(0,0,0,0.42);
+      max-height:calc(100vh - 28px);
+      position:relative;
+    }
+
+    .modal h2{
+      font-size:18px;
+      margin-top:0;
+      margin-right:28px;
+      color:#08110a;
+    }
+
+    .modal .close{
+      position:sticky;
+      top:0;
+      margin-left:auto;
+      width:34px;
+      height:34px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+      border:1px solid rgba(6,42,32,0.12);
+      border-radius:50%;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(0,0,0,0.10);
+      color:#0b2418;
+      z-index:20;
+      flex:0 0 auto;
+    }
+
+    .modal-body{
+      color:#23403a;
+      line-height:1.5;
+    }
+
+    .whatsapp-choice{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .whatsapp-card{
+      border:1px solid rgba(6,42,32,0.08);
+      background:linear-gradient(180deg, #ffffff 0%, #f7fbf9 100%);
+      border-radius:12px;
+      padding:10px;
+      cursor:pointer;
+      text-align:left;
+      box-shadow:0 8px 18px rgba(6,42,32,0.06);
+    }
+
+    .whatsapp-card .top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .whatsapp-card .flag{
+      width:36px;
+      height:26px;
+      border-radius:6px;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,0.08);
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+      flex:0 0 auto;
+      background:#fff;
+    }
+
+    .whatsapp-card .flag img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .whatsapp-card h4{
+      margin:0;
+      font-size:14px;
+      color:#082014;
+    }
+
+    .whatsapp-card p{
+      margin:5px 0 0;
+      color:#315348;
+      font-size:12px;
+      line-height:1.35;
+    }
+
+    .whatsapp-card .go{
+      margin-top:9px;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:7px 10px;
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--green-mid), var(--green-mid-2));
+      color:#fff;
+      font-weight:800;
+      font-size:12px;
+    }
+
     @media (max-width:1100px){
       .two-cards{
         grid-template-columns:1fr;
@@ -975,6 +1058,19 @@
       .survey-top-badge{
         width:13px;
         height:13px;
+      }
+      .fab{
+        width:52px;
+        height:52px;
+      }
+      .fab button{
+        font-size:20px;
+      }
+      .modal{
+        width:min(96vw,760px);
+        max-height:calc(100vh - 20px);
+        padding:16px;
+        border-radius:16px;
       }
     }
 
@@ -1118,16 +1214,7 @@
         <a href="powerbank.html" class="mobile-link" onclick="closeMenu()">Powerbank</a>
         <a href="produits.html" class="mobile-link" onclick="closeMenu()">Produits</a>
       </div>
-
-      <div class="mobile-contact" aria-hidden="false">
-        <div class="mail-label">Adresse mail</div>
-        <a class="mail-link" href="mailto:gb-domotique@hotmail.com">
-          <i class="fas fa-envelope" aria-hidden="true"></i>
-          <span>gb-domotique@hotmail.com</span>
-        </a>
-      </div>
-
-      <div class="socials">
+            <div class="socials">
         <a href="#" aria-label="Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
         <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
       </div>
@@ -1218,7 +1305,8 @@
       <div>© 2025 GreenBridge. Tous droits réservés.</div>
     </div>
   </footer>
-    <div id="fab" class="fab" role="button" aria-label="Commander via WhatsApp">
+
+  <div id="fab" class="fab" role="button" aria-label="Commander via WhatsApp">
     <button id="fabButton" type="button" aria-label="Commander via WhatsApp">
       <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
     </button>
