@@ -1431,18 +1431,34 @@
       `);
     }
 
-    function sendWhatsApp(country){
-      const number = whatsappNumbers[country] || whatsappNumbers.senegal;
-      const countryLabel = country === 'coteivoire' ? "la Côte d'Ivoire" : 'le Sénégal';
-      const message = `Bonjour, je souhaite commander un produit GreenBridge pour ${countryLabel}. Merci de me communiquer les modèles disponibles et les prix.`;
-      const url = `https://wa.me/${number}?text=` + encodeURIComponent(message);
-      closeModal();
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
+function sendWhatsApp(country){
+  const number = whatsappNumbers[country] || whatsappNumbers.senegal;
+  const countryLabel = country === 'coteivoire' ? "la Côte d'Ivoire" : "le Sénégal";
 
-    if (fabButton) {
-      fabButton.addEventListener('click', openWhatsAppChoice);
-    }
+  const message = `Bonjour, je souhaite commander un produit GreenBridge pour ${countryLabel}. Merci de me communiquer les modèles disponibles et les prix.`;
+
+  const url = `https://wa.me/${number}?text=` + encodeURIComponent(message);
+
+  // Ferme la modale
+  closeModal();
+
+  // Ouvre WhatsApp (plus fiable sur mobile)
+  window.location.href = url;
+}
+
+if (fabButton) {
+  fabButton.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    openWhatsAppChoice();
+  });
+
+  // Support tactile mobile
+  fabButton.addEventListener('touchstart', function(e){
+    e.preventDefault();
+    openWhatsAppChoice();
+  }, { passive:false });
+}
 
     (function(){
       const electricBand = document.getElementById('electricBand');
