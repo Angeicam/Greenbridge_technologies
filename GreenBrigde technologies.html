@@ -1305,11 +1305,11 @@
     </div>
   </footer>
 
-  <div id="fab" class="fab" role="button" aria-label="Commander via WhatsApp">
+<div id="fab" class="fab" aria-label="Commander via WhatsApp">
     <button id="fabButton" type="button" aria-label="Commander via WhatsApp">
       <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
     </button>
-  </div>
+</div>
 
   <div id="modalOverlay" class="modal-overlay" role="dialog" aria-hidden="true">
     <div class="modal" role="document" aria-modal="true">
@@ -1447,17 +1447,9 @@ function sendWhatsApp(country){
 }
 
 if (fabButton) {
-  fabButton.addEventListener('click', function(e){
-    e.preventDefault();
-    e.stopPropagation();
+  fabButton.onclick = function(){
     openWhatsAppChoice();
-  });
-
-  // Support tactile mobile
-  fabButton.addEventListener('touchstart', function(e){
-    e.preventDefault();
-    openWhatsAppChoice();
-  }, { passive:false });
+  };
 }
 
     (function(){
